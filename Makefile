@@ -7,7 +7,7 @@ INCPATHS=include/
 BINPATH=bin
 
 # Linker flags
-LDFLAGS=-Llib -lGLEW
+LDFLAGS=
 
 # Background colors
 BG_WHITE=$$(tput setab 7)

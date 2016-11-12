@@ -7,7 +7,7 @@
 namespace randar
 {
     /**
-     * A singleton object that bootstraps the Randar program.
+     * A singleton object that initializes the Randar engine.
      */
     class Randar
     {
@@ -16,6 +16,11 @@ namespace randar
     public:
         Randar();
         ~Randar();
+
+        /**
+         * Render the film.
+         */
+        void run();
     };
 }
 

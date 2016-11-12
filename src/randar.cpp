@@ -32,3 +32,15 @@ randar::Randar::~Randar()
 {
     glfwDestroyWindow(this->monitor);
 }
+
+// Render the film.
+void randar::Randar::run()
+{
+    do {
+        glfwSwapBuffers(this->monitor);
+        glfwPollEvents();
+    } while (
+        glfwGetKey(this->monitor, GLFW_KEY_ESCAPE) != GLFW_PRESS
+        && glfwWindowShouldClose(this->monitor) == 0
+    );
+}
