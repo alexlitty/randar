@@ -9,3 +9,6 @@ Randar is compiled into a library, which is then used by individual film project
 Yell "RANDAR" at your computer to start compiling. Novices may find it helpful to cross fingers and click heels together three times.
 
 If you run into issues, shake fists angrily at the computer.
+
+# Demo
+A showcase of the engine is being developed at [randar-demo.](https://www.github.com/alexlitty/randar-demo)
