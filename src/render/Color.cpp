@@ -1,4 +1,4 @@
-#include <randar/render/color.hpp>
+#include <randar/render/Color.hpp>
 
 randar::Color::Color()
 : randar::Color::Color(1.0f, 1.0f, 1.0f)

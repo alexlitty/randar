@@ -55,7 +55,7 @@ $(GOAL): $(SOURCES_FILES) $(EXECUTABLE)
 $(EXECUTABLE): $(OBJECT_FILES)
 	@echo ""
 	@echo "$(BG_WHITE)$(FG_GREEN) Creating Library $(COLOR_RESET)"
-	ar rvs lib/$(EXECUTABLE) $(OBJECT_FILES)
+	ar rvcs lib/$(EXECUTABLE) $(OBJECT_FILES)
 	@echo ""
 
 # Compile source into objects
