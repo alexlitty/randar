@@ -3,7 +3,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <vector>
+#include <queue>
 #include <randar/Scene.hpp>
 
 namespace randar
@@ -22,7 +22,7 @@ namespace randar
         /**
          * List of scenes to render.
          */
-        std::vector<Scene*> scenes;
+        std::queue<Scene*> scenes;
 
         /**
          * Render the film.

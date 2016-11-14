@@ -36,11 +36,29 @@ randar::Randar::~Randar()
 // Render the film.
 void randar::Randar::run()
 {
-    do {
+    Scene *currentScene = nullptr;
+    while (!scenes.empty()) {
         glfwSwapBuffers(this->monitor);
         glfwPollEvents();
-    } while (
-        glfwGetKey(this->monitor, GLFW_KEY_ESCAPE) != GLFW_PRESS
-        && glfwWindowShouldClose(this->monitor) == 0
-    );
+
+        // Received signal to stop.
+        if (glfwGetKey(this->monitor, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->monitor) != 0) {
+            break;
+        }
+
+        // Initialize first or next scene.
+        if (!currentScene) {
+            currentScene = this->scenes.front();
+            currentScene->initialize();
+        }
+
+        // Update scene, and move to the next one if completed.
+        if (!currentScene->update()) {
+            this->scenes.pop();
+            currentScene = nullptr;
+            continue;
+        }
+
+        currentScene->draw();
+    }
 }

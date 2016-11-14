@@ -9,6 +9,11 @@ namespace randar
         virtual ~Scene();
 
         /**
+         * Initializes the scene.
+         */
+        virtual void initialize() = 0;
+
+        /**
          * Updates the scene for the next frame.
          *
          * Returns false if the scene is complete.
