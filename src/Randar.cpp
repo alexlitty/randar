@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <randar/randar.hpp>
+#include <randar/Randar.hpp>
 
 randar::Randar::Randar()
 {

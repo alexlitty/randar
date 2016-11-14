@@ -1,0 +1,47 @@
+#ifndef RANDAR_RENDER_VERTEX_ARRAY_HPP
+#define RANDER_RENDER_VERTEX_ARRAY_HPP
+
+#include <randar/render/Vertex.hpp>
+
+namespace randar
+{
+    /**
+     * A collection of vertices that can be sent to the GPU for drawing.
+     */
+    class Vertices
+    {
+        GLuint vertexArray;
+        GLuint vertexBuffer;
+        std::vector<float> attributeOffsets;
+
+        // @todo: Start relying on GPU-side vertices.
+        std::vector<Vertex> vertices;
+
+    public:
+
+        Vertices();
+        ~Vertices();
+
+        /**
+         * Sends this buffer's data to the GPU.
+         */
+        void send();
+
+        /**
+         * Appends a new vertex to the buffer.
+         */
+        void append(Vertex &vertex);
+
+        /**
+         * Draws the vertices in this buffer.
+         */
+        void draw() const;
+
+        /**
+         * Writeable access to individual vertices.
+         */
+        Vertex& operator[](unsigned int index);
+    };
+}
+
+#endif
