@@ -59,6 +59,6 @@ void randar::Randar::run()
             continue;
         }
 
-        currentScene->draw();
+        currentScene->render();
     }
 }

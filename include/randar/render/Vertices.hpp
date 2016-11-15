@@ -1,5 +1,5 @@
-#ifndef RANDAR_RENDER_VERTEX_ARRAY_HPP
-#define RANDER_RENDER_VERTEX_ARRAY_HPP
+#ifndef RANDAR_RENDER_VERTICES_HPP
+#define RANDAR_RENDER_VERTICES_HPP
 
 #include <randar/render/Vertex.hpp>
 

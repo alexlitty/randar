@@ -1,9 +1,12 @@
 #ifndef RANDAR_SCENE_HPP
 #define RANDAR_SCENE_HPP
 
+#include <randar/render/Canvas.hpp>
+#include <randar/render/Drawable.hpp>
+
 namespace randar
 {
-    class Scene
+    class Scene : virtual public Canvas
     {
     public:
         virtual ~Scene();
@@ -21,9 +24,19 @@ namespace randar
         virtual bool update() = 0;
 
         /**
-         * Draws the scene.
+         * Renders the scene.
          */
-        virtual void draw() const = 0;
+        virtual void render() = 0;
+
+        /**
+         * Draw an object onto the scene.
+         */
+        //virtual void draw(randar::Drawable &drawable) const;
+
+        /**
+         * Draw vertices onto the scene.
+         */
+        virtual void draw(randar::Vertices &vertices) const override;
     };
 }
 

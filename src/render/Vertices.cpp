@@ -48,10 +48,13 @@ void randar::Vertices::append(randar::Vertex &vertex)
 
 void randar::Vertices::draw() const
 {
-    glBindVertexArray(this->vertexArray);
-    if (!this->vertices.size()) {
+    unsigned int vertexCount = this->vertices.size();
+    if (!vertexCount) {
         return;
     }
+
+    glBindVertexArray(this->vertexArray);
+    glDrawArrays(GL_POINTS, 0, vertexCount);
 }
 
 randar::Vertex& randar::Vertices::operator[](unsigned int index)
