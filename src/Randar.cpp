@@ -5,7 +5,7 @@ randar::Randar::Randar()
 {
     // Initialize the monitor window.
     if (!glfwInit()) {
-        throw new std::runtime_error("Failed to initalize glfw");
+        throw std::runtime_error("Failed to initalize glfw");
     }
 
     glfwWindowHint(GLFW_SAMPLES, 0);
@@ -16,7 +16,7 @@ randar::Randar::Randar()
 
     this->monitor = glfwCreateWindow(800, 600, "Randar Monitor", NULL, NULL);
     if (!this->monitor) {
-        throw new std::runtime_error("Failed to create glfw window");
+        throw std::runtime_error("Failed to create glfw window");
     }
 
     glfwMakeContextCurrent(this->monitor);
@@ -24,7 +24,7 @@ randar::Randar::Randar()
     // Initialize GLEW.
     glewExperimental = true;
     if (glewInit() != GLEW_OK) {
-        throw new std::runtime_error("Failed to intialize GLEW");
+        throw std::runtime_error("Failed to intialize GLEW");
     }
 }
 

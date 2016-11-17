@@ -13,14 +13,20 @@ namespace randar
         GLuint vertexArray;
         GLuint vertexBuffer;
         std::vector<float> attributeOffsets;
+        GLenum primitive;
 
         // @todo: Start relying on GPU-side vertices.
         std::vector<Vertex> vertices;
 
     public:
 
-        Vertices();
+        Vertices(GLenum initPrimitive = GL_POINTS);
         ~Vertices();
+
+        /**
+         * Sets how the vertices should be interpreted.
+         */
+        void setPrimitive(GLenum primitive);
 
         /**
          * Sends this buffer's data to the GPU.

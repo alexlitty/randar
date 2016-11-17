@@ -1,6 +1,7 @@
 #include <randar/render/Vertices.hpp>
 
-randar::Vertices::Vertices()
+randar::Vertices::Vertices(GLenum initPrimitive)
+: primitive(initPrimitive)
 {
     glGenVertexArrays(1, &this->vertexArray);
     glBindVertexArray(this->vertexArray);
@@ -27,6 +28,13 @@ randar::Vertices::~Vertices()
     glDeleteVertexArrays(1, &this->vertexArray);
 }
 
+// Sets the interpretation of the vertices.
+void randar::Vertices::setPrimitive(GLenum primitive)
+{
+    this->primitive = primitive;
+}
+
+#include <iostream>
 void randar::Vertices::send()
 {
     unsigned int dataSize = vertices.size() * Vertex::size;
@@ -54,7 +62,7 @@ void randar::Vertices::draw() const
     }
 
     glBindVertexArray(this->vertexArray);
-    glDrawArrays(GL_POINTS, 0, vertexCount);
+    glDrawArrays(this->primitive, 0, vertexCount);
 }
 
 randar::Vertex& randar::Vertices::operator[](unsigned int index)
