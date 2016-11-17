@@ -1,9 +1,10 @@
 #ifndef RANDAR_RANDAR_HPP
 #define RANDAR_RANDAR_HPP
 
+#include <iostream>
+#include <queue>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <queue>
 #include <randar/Scene.hpp>
 
 namespace randar

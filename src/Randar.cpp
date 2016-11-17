@@ -36,29 +36,35 @@ randar::Randar::~Randar()
 // Render the film.
 void randar::Randar::run()
 {
-    Scene *currentScene = nullptr;
-    while (!scenes.empty()) {
-        glfwSwapBuffers(this->monitor);
-        glfwPollEvents();
+    try {
+        Scene *currentScene = nullptr;
+        while (!scenes.empty()) {
+            glfwSwapBuffers(this->monitor);
+            glfwPollEvents();
 
-        // Received signal to stop.
-        if (glfwGetKey(this->monitor, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->monitor) != 0) {
-            break;
+            // Received signal to stop.
+            if (glfwGetKey(this->monitor, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->monitor) != 0) {
+                break;
+            }
+
+            // Initialize first or next scene.
+            if (!currentScene) {
+                currentScene = this->scenes.front();
+                currentScene->initialize();
+            }
+
+            // Update scene, and move to the next one if completed.
+            if (!currentScene->update()) {
+                this->scenes.pop();
+                currentScene = nullptr;
+                continue;
+            }
+
+            currentScene->render();
         }
+    }
 
-        // Initialize first or next scene.
-        if (!currentScene) {
-            currentScene = this->scenes.front();
-            currentScene->initialize();
-        }
-
-        // Update scene, and move to the next one if completed.
-        if (!currentScene->update()) {
-            this->scenes.pop();
-            currentScene = nullptr;
-            continue;
-        }
-
-        currentScene->render();
+    catch (std::runtime_error *error) {
+        std::cout << error->what() << std::endl;
     }
 }

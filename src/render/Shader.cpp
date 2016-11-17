@@ -1,8 +1,22 @@
 #include <randar/render/Shader.hpp>
 
-randar::Shader::Shader(std::string file, GLenum initType)
-: type(initType)
+// Default constructor.
+randar::Shader::Shader()
 {
+
+}
+
+// Construct from file.
+randar::Shader::Shader(std::string file, GLenum initType)
+{
+    this->load(file, initType);
+}
+
+// Loads and compiles from a file.
+void randar::Shader::load(std::string file, GLenum initType)
+{
+    this->type = initType;
+
     std::ifstream stream(file, std::ios::in);
     if (!stream.is_open()) {
         throw new std::runtime_error("Cannot load shader: " + file);
@@ -46,5 +60,8 @@ randar::Shader::~Shader()
 
 randar::Shader::operator GLuint() const
 {
+    if (!this->id) {
+        throw std::runtime_error("Cannot use unloaded shader");
+    }
     return this->id;
 }

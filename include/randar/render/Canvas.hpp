@@ -1,6 +1,7 @@
 #ifndef RANDAR_RENDER_CANVAS_HPP
 #define RANDAR_RENDER_CANVAS_HPP
 
+#include <randar/render/RenderState.hpp>
 #include <randar/render/Vertices.hpp>
 
 namespace randar
@@ -12,7 +13,7 @@ namespace randar
     {
     public:
         virtual ~Canvas();
-        virtual void draw(randar::Vertices &vertices) const = 0;
+        virtual void draw(randar::Vertices &vertices, randar::RenderState state) const = 0;
     };
 }
 

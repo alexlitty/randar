@@ -14,9 +14,31 @@ namespace randar
         GLuint id;
 
     public:
+        /**
+         * Default constructor.
+         *
+         * Provided for convenience. Must be loaded before use.
+         */
+        Shader();
+
+        /**
+         * Constructs a shader from a file.
+         */
         Shader(std::string file, GLenum initType);
+
+        /**
+         * Destructor.
+         */
         ~Shader();
 
+        /**
+         * Loads and compiles a shader from a file.
+         */
+        void load(std::string file, GLenum initType);
+
+        /**
+         * Convert to the underlying OpenGL name.
+         */
         operator GLuint() const;
     };
 }

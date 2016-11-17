@@ -1,6 +1,25 @@
 #include <randar/render/ShaderProgram.hpp>
 
+// Default constructor.
+randar::ShaderProgram::ShaderProgram()
+{
+
+}
+
+// Construct from existing shaders.
 randar::ShaderProgram::ShaderProgram(randar::Shader &vertexShader, randar::Shader &fragmentShader)
+{
+    this->load(vertexShader, fragmentShader);
+}
+
+// Destructor.
+randar::ShaderProgram::~ShaderProgram()
+{
+    ::glDeleteProgram(this->id);
+}
+
+// Links shaders together into a program.
+void randar::ShaderProgram::load(randar::Shader &vertexShader, randar::Shader &fragmentShader)
 {
     GLint linkStatus = GL_FALSE;
     int logLength;
@@ -26,7 +45,8 @@ randar::ShaderProgram::ShaderProgram(randar::Shader &vertexShader, randar::Shade
     ::glDetachShader(this->id, fragmentShader);
 }
 
-randar::ShaderProgram::~ShaderProgram()
+// Convert to underlying OpenGL name.
+randar::ShaderProgram::operator GLuint() const
 {
-    ::glDeleteProgram(this->id);
+    return this->id;
 }

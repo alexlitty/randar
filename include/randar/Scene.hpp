@@ -36,7 +36,7 @@ namespace randar
         /**
          * Draw vertices onto the scene.
          */
-        virtual void draw(randar::Vertices &vertices) const override;
+        virtual void draw(randar::Vertices &vertices, randar::RenderState state) const override;
     };
 }
 
