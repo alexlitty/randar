@@ -3,23 +3,33 @@
 randar::Vertices::Vertices(GLenum initPrimitive)
 : primitive(initPrimitive)
 {
-    glGenVertexArrays(1, &this->vertexArray);
-    glBindVertexArray(this->vertexArray);
+    ::glGenVertexArrays(1, &this->vertexArray);
+    ::glBindVertexArray(this->vertexArray);
 
-    glGenBuffers(1, &this->vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
+    ::glGenBuffers(1, &this->vertexBuffer);
+    ::glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 
-    for (auto attribute : Vertex::attributes) {
-        glEnableVertexAttribArray(attribute.location);
-        glVertexAttribPointer(
-            attribute.location,
-            attribute.size,
-            GL_FLOAT,
-            GL_FALSE,
-            Vertex::stride,
-            static_cast<char*>(0) + attribute.offset
-        );
-    }
+    unsigned int stride = 7 * sizeof(GLfloat);
+
+    ::glEnableVertexAttribArray(0);
+    ::glVertexAttribPointer(
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)0
+    );
+
+    ::glEnableVertexAttribArray(1);
+    ::glVertexAttribPointer(
+        1,
+        4,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(3 * sizeof(GLfloat))
+    );
 }
 
 randar::Vertices::~Vertices()
@@ -34,17 +44,19 @@ void randar::Vertices::setPrimitive(GLenum primitive)
     this->primitive = primitive;
 }
 
-#include <iostream>
 void randar::Vertices::send()
 {
-    unsigned int dataSize = vertices.size() * Vertex::size;
-    GLfloat *data = new float[dataSize];
-    for (auto vertex : this->vertices) {
-        vertex.appendTo(data);
+    unsigned int dataSize = this->vertices.size() * 7;
+    GLfloat *data = new GLfloat[dataSize], *subdata;
+    for (unsigned int i = 0; i < this->vertices.size(); i++) {
+        subdata = &data[i * 7];
+        auto vertex = this->vertices[i];
+        vertex.appendTo(subdata);
     }
 
-    glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
+    ::glBindVertexArray(this->vertexArray);
+    ::glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
+    ::glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * dataSize, data, GL_STATIC_DRAW);
 
     delete[] data;
 }
@@ -61,7 +73,6 @@ void randar::Vertices::draw() const
         return;
     }
 
-    glBindVertexArray(this->vertexArray);
     glDrawArrays(this->primitive, 0, vertexCount);
 }
 

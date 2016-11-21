@@ -26,6 +26,13 @@ randar::Randar::Randar()
     if (glewInit() != GLEW_OK) {
         throw std::runtime_error("Failed to intialize GLEW");
     }
+
+    // A single error seems to occur after initializing, might be a driver issue.
+    // 
+    // Investigate later.
+    if (glGetError() != GL_NO_ERROR) {
+
+    }
 }
 
 randar::Randar::~Randar()
@@ -41,6 +48,11 @@ void randar::Randar::run()
         while (!scenes.empty()) {
             glfwSwapBuffers(this->monitor);
             glfwPollEvents();
+
+            // Listen for errors.
+            for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
+                //throw std::runtime_error("OpenGL error: " + std::to_string(err));
+            }
 
             // Received signal to stop.
             if (glfwGetKey(this->monitor, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->monitor) != 0) {

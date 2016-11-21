@@ -21,7 +21,7 @@ randar::Vertex::Vertex(Vector initPosition, Color initColor)
 
 }
 
-void randar::Vertex::appendTo(float* array) const
+void randar::Vertex::appendTo(GLfloat* array) const
 {
     array[0] = position.x;
     array[1] = position.y;

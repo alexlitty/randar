@@ -13,6 +13,7 @@ namespace randar
     {
     public:
         virtual ~Canvas();
+        virtual void clear(Color color) = 0;
         virtual void draw(randar::Vertices &vertices, randar::RenderState state) const = 0;
     };
 }

@@ -17,6 +17,11 @@ namespace randar
         virtual void initialize() = 0;
 
         /**
+         * Clears the scene with a color.
+         */
+        virtual void clear(Color color) override;
+
+        /**
          * Updates the scene for the next frame.
          *
          * Returns false if the scene is complete.

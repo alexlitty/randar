@@ -19,6 +19,7 @@ randar::ShaderProgram::~ShaderProgram()
 }
 
 // Links shaders together into a program.
+#include <iostream>
 void randar::ShaderProgram::load(randar::Shader &vertexShader, randar::Shader &fragmentShader)
 {
     GLint linkStatus = GL_FALSE;
