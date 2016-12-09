@@ -9,9 +9,10 @@ namespace randar
 
     public:
         Angle(float newRadians = 0.0f);
+        float toRadians() const;
         
         Angle& operator =(float newRadians);
-        operator float();
+        operator float() const;
     };
 }
 

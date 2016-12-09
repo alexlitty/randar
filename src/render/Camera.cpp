@@ -11,9 +11,11 @@ randar::Camera::Camera()
 
 void randar::Camera::updateMatrices()
 {
-    // @todo: don't hardcode size
     this->projection = glm::perspective(
-        glm::radians(45.0f), 800.0f/600.0f, 0.1f, 100.0f
+        this->fieldOfView.toRadians(),
+        this->aspectRatio,
+        this->nearZ,
+        this->farZ
     );
 
     this->view = glm::lookAt(
