@@ -13,10 +13,6 @@ void randar::Scene::clear(randar::Color color)
 
 void randar::Scene::draw(randar::Vertices &vertices, randar::RenderState state) const
 {
-    if (!state.shaderProgram) {
-        throw std::runtime_error("Cannot draw without a shader program");
-    }
-
-    ::glUseProgram(*state.shaderProgram);
-    vertices.draw();
+    state.camera = this->camera;
+    vertices.draw(state);
 }

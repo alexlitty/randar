@@ -66,12 +66,26 @@ void randar::Vertices::append(randar::Vertex &vertex)
     this->vertices.push_back(vertex);
 }
 
-void randar::Vertices::draw() const
+void randar::Vertices::draw(randar::RenderState &state) const
 {
+    if (!state.shaderProgram) {
+        throw std::runtime_error("Cannot draw without a shader program");
+    }
+
     unsigned int vertexCount = this->vertices.size();
     if (!vertexCount) {
         return;
     }
+
+    // Compute the model-view-projection matrix.
+    glm::mat4 mvp = state.camera.getProjectionMatrix()
+        * state.camera.getViewMatrix()
+        * state.transform.getMatrix();
+
+    // Send the MVP matrix for shader use.
+    ::glUseProgram(*state.shaderProgram);
+    GLuint matrixId = ::glGetUniformLocation(*state.shaderProgram, "mvp");
+    glUniformMatrix4fv(matrixId, 1, GL_FALSE, &mvp[0][0]);
 
     glDrawArrays(this->primitive, 0, vertexCount);
 }

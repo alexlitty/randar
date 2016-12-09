@@ -1,6 +1,7 @@
 #ifndef RANDAR_RENDER_VERTICES_HPP
 #define RANDAR_RENDER_VERTICES_HPP
 
+#include <randar/render/RenderState.hpp>
 #include <randar/render/Vertex.hpp>
 
 namespace randar
@@ -41,7 +42,7 @@ namespace randar
         /**
          * Draws the vertices in this buffer.
          */
-        void draw() const;
+        void draw(RenderState &state) const;
 
         /**
          * Writeable access to individual vertices.

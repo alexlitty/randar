@@ -51,7 +51,7 @@ void randar::Randar::run()
 
             // Listen for errors.
             for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
-                //throw std::runtime_error("OpenGL error: " + std::to_string(err));
+                throw std::runtime_error("OpenGL error: " + std::to_string(err));
             }
 
             // Received signal to stop.

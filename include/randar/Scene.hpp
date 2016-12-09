@@ -1,6 +1,7 @@
 #ifndef RANDAR_SCENE_HPP
 #define RANDAR_SCENE_HPP
 
+#include <randar/render/Camera.hpp>
 #include <randar/render/Canvas.hpp>
 #include <randar/render/Drawable.hpp>
 
@@ -8,6 +9,9 @@ namespace randar
 {
     class Scene : virtual public Canvas
     {
+    protected:
+        Camera camera;
+
     public:
         virtual ~Scene();
 

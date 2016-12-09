@@ -13,3 +13,11 @@ randar::Vector::Vector(float xInit, float yInit, float zInit)
 {
 
 }
+
+randar::Vector::operator std::string()
+{
+    return "("
+         + std::to_string(x) + ", "
+         + std::to_string(y) + ", "
+         + std::to_string(z) + ")";
+}
