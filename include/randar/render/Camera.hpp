@@ -20,6 +20,8 @@ namespace randar
         void updateMatrices();
 
     public:
+        Camera();
+
         void setPosition(Vector newPosition);
         Vector getPosition() const;
 

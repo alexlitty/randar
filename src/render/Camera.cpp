@@ -1,5 +1,10 @@
 #include <randar/render/Camera.hpp>
 
+randar::Camera::Camera()
+{
+    this->updateMatrices();
+}
+
 void randar::Camera::updateMatrices()
 {
     // @todo: don't hardcode size
