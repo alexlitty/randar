@@ -31,6 +31,11 @@ namespace randar
         Rotation();
 
         /**
+         * Constructor, given a quaternion.
+         */
+        Rotation(const Quaternion& quaternion);
+
+        /**
          * Constructor, given an origin and angle.
          */
         Rotation(Vector newOrigin, Angle newAngle);
@@ -59,6 +64,11 @@ namespace randar
          */
         Quaternion getQuaternion() const;
         glm::mat4 getMatrix() const;
+
+        /**
+         * Convert to quaternion.
+         */
+        operator Quaternion() const;
     };
 }
 

@@ -31,6 +31,12 @@ randar::Rotation::Rotation()
 
 }
 
+// Constructor, given a quaternion.
+randar::Rotation::Rotation(const randar::Quaternion& newQuaternion)
+{
+    this->quaternion = newQuaternion;
+}
+
 // Constructor, given an origin and angle.
 randar::Rotation::Rotation(randar::Vector newOrigin, randar::Angle newAngle)
 {
@@ -77,4 +83,10 @@ randar::Quaternion randar::Rotation::getQuaternion() const
 glm::mat4 randar::Rotation::getMatrix() const
 {
     return this->quaternion.getMatrix();
+}
+
+// Convert to quaternion.
+randar::Rotation::operator randar::Quaternion() const
+{
+    return this->getQuaternion();
 }
