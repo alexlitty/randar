@@ -25,14 +25,21 @@ namespace randar
         operator float() const;
 
         /**
-         * Mathematical operators.
+         * Mathematical assignment operators.
          */
         Angle& operator +=(const Angle& other);
         Angle& operator -=(const Angle& other);
+        Angle& operator *=(float other);
+        Angle& operator /=(float other);
     };
 
+    /**
+     * Mathematical operators.
+     */
     Angle operator +(Angle lhs, const Angle& rhs);
     Angle operator -(Angle lhs, const Angle& rhs);
+    Angle operator *(Angle lhs, float rhs);
+    Angle operator /(Angle lhs, float rhs);
 }
 
 #endif
