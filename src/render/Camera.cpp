@@ -9,6 +9,11 @@ randar::Camera::Camera()
     this->updateMatrices();
 }
 
+void randar::Camera::onTransform()
+{
+    this->updateMatrices();
+}
+
 void randar::Camera::updateMatrices()
 {
     this->projection = glm::perspective(
@@ -21,19 +26,10 @@ void randar::Camera::updateMatrices()
     this->view = glm::lookAt(
         glm::vec3(this->position.x, this->position.y, this->position.z),
         glm::vec3(this->target.x, this->target.y, this->target.z),
+
+        // @todo - make this based on rotation
         glm::vec3(0, 1, 0)
     );
-}
-
-void randar::Camera::setPosition(randar::Vector newPosition)
-{
-    this->position = newPosition;
-    this->updateMatrices();
-}
-
-randar::Vector randar::Camera::getPosition() const
-{
-    return this->position;
 }
 
 void randar::Camera::setTarget(randar::Vector newTarget)

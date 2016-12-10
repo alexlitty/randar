@@ -15,9 +15,10 @@ namespace randar
         Vector(float xInit, float yInit, float zInit);
 
         /**
-         * Conversion operator.
+         * Convert to string.
          */
-        operator std::string();
+        std::string toString() const;
+        operator std::string() const;
 
         /**
          * Mathematical assignment operators.

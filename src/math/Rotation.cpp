@@ -1,6 +1,24 @@
 #include <cmath>
 #include <randar/math/Rotation.hpp>
 
+// Default constructor.
+randar::Rotation::Rotation()
+{
+
+}
+
+// Constructor, given a quaternion.
+randar::Rotation::Rotation(const randar::Quaternion& newQuaternion)
+{
+    this->quaternion = newQuaternion;
+}
+
+// Constructor, given an origin and angle.
+randar::Rotation::Rotation(randar::Vector newOrigin, randar::Angle newAngle)
+{
+    this->set(newOrigin, newAngle);
+}
+
 // Sets the quaternion based on the origin and angle.
 void randar::Rotation::updateQuaternion()
 {
@@ -23,24 +41,6 @@ void randar::Rotation::readQuaternion()
     this->origin.x = this->quaternion.x / sin;
     this->origin.y = this->quaternion.y / sin;
     this->origin.z = this->quaternion.z / sin;
-}
-
-// Default constructor.
-randar::Rotation::Rotation()
-{
-
-}
-
-// Constructor, given a quaternion.
-randar::Rotation::Rotation(const randar::Quaternion& newQuaternion)
-{
-    this->quaternion = newQuaternion;
-}
-
-// Constructor, given an origin and angle.
-randar::Rotation::Rotation(randar::Vector newOrigin, randar::Angle newAngle)
-{
-    this->set(newOrigin, newAngle);
 }
 
 // Sets the origin and angle.

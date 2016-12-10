@@ -34,7 +34,7 @@ randar::Angle& randar::Angle::operator +=(const randar::Angle& other)
     return *this;
 }
 
-randar::Angle operator +(randar::Angle lhs, randar::Angle rhs)
+randar::Angle randar::operator +(randar::Angle lhs, const randar::Angle& rhs)
 {
     return lhs += rhs;
 }
@@ -46,7 +46,7 @@ randar::Angle& randar::Angle::operator -=(const randar::Angle& other)
     return *this;
 }
 
-randar::Angle operator -(randar::Angle lhs, const randar::Angle& rhs)
+randar::Angle randar::operator -(randar::Angle lhs, const randar::Angle& rhs)
 {
     return lhs -= rhs;
 }
@@ -58,7 +58,7 @@ randar::Angle& randar::Angle::operator *=(float other)
     return *this;
 }
 
-randar::Angle operator *(randar::Angle lhs, float rhs)
+randar::Angle randar::operator *(randar::Angle lhs, float rhs)
 {
     return lhs *= rhs;
 }
@@ -70,7 +70,7 @@ randar::Angle& randar::Angle::operator /=(float other)
     return *this;
 }
 
-randar::Angle operator /(randar::Angle lhs, float rhs)
+randar::Angle randar::operator /(randar::Angle lhs, float rhs)
 {
     return lhs /= rhs;
 }

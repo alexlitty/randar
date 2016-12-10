@@ -14,13 +14,18 @@ randar::Vector::Vector(float xInit, float yInit, float zInit)
 
 }
 
-// Conversion operators.
-randar::Vector::operator std::string()
+// Convert to string.
+std::string randar::Vector::toString() const
 {
     return "("
          + std::to_string(x) + ", "
          + std::to_string(y) + ", "
          + std::to_string(z) + ")";
+}
+
+randar::Vector::operator std::string() const
+{
+    return this->toString();
 }
 
 // Addition operators.
@@ -32,7 +37,7 @@ randar::Vector& randar::Vector::operator +=(const Vector& other)
     return *this;
 }
 
-randar::Vector operator +(randar::Vector lhs, const randar::Vector& rhs)
+randar::Vector randar::operator +(randar::Vector lhs, const randar::Vector& rhs)
 {
     return lhs += rhs;
 }
@@ -46,7 +51,7 @@ randar::Vector& randar::Vector::operator -=(const randar::Vector& other)
     return *this;
 }
 
-randar::Vector operator -(randar::Vector lhs, const randar::Vector& rhs)
+randar::Vector randar::operator -(randar::Vector lhs, const randar::Vector& rhs)
 {
     return lhs -= rhs;
 }
@@ -60,7 +65,7 @@ randar::Vector& randar::Vector::operator *=(float other)
     return *this;
 }
 
-randar::Vector operator *(randar::Vector lhs, float rhs)
+randar::Vector randar::operator *(randar::Vector lhs, float rhs)
 {
     return lhs *= rhs;
 }
@@ -74,7 +79,7 @@ randar::Vector& randar::Vector::operator /=(float other)
     return *this;
 }
 
-randar::Vector operator /(randar::Vector lhs, float rhs)
+randar::Vector randar::operator /(randar::Vector lhs, float rhs)
 {
     return lhs /= rhs;
 }

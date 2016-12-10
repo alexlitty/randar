@@ -7,6 +7,7 @@ namespace randar
 {
     class Transformable
     {
+    protected:
         Vector position;
         Rotation rotation;
 
@@ -66,6 +67,11 @@ namespace randar
          * Retrieves the rotation angle.
          */
         Angle getAngle() const;
+
+        /**
+         * Function called when a transformation occurs.
+         */
+        virtual void onTransform();
     };
 }
 

@@ -6,14 +6,13 @@
 
 namespace randar
 {
-    class Camera
+    class Camera : virtual public Transformable
     {
         Angle fieldOfView;
         float aspectRatio;
         float nearZ;
         float farZ;
 
-        Vector position;
         Vector target;
 
         glm::mat4 view;
@@ -22,13 +21,11 @@ namespace randar
         /**
          * Updates the view and projection matrices.
          */
+        virtual void onTransform() override;
         void updateMatrices();
 
     public:
         Camera();
-
-        void setPosition(Vector newPosition);
-        Vector getPosition() const;
 
         void setTarget(Vector newTarget);
         Vector getTarget() const;
