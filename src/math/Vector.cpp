@@ -21,6 +21,45 @@ void randar::Vector::set(float xNew, float yNew, float zNew)
     this->z = zNew;
 }
 
+// Normalizes this vector.
+void randar::Vector::normalize()
+{
+    float magnitude = this->getMagnitude();
+    if (!magnitude) {
+        this->x = this->y = this->z = 0.0f;
+    }
+    this->x /= magnitude;
+    this->y /= magnitude;
+    this->z /= magnitude;
+}
+
+// Calculates the magnitude of this vector.
+float randar::Vector::getMagnitude() const
+{
+    return std::sqrt(
+          (this->x * this->x)
+        + (this->y * this->y)
+        + (this->z * this->z)
+    );
+}
+
+// Dot and cross products.
+float randar::Vector::dot(randar::Vector other) const
+{
+    return (this->x * other.x) + (this->y * other.y) + (this->z * other.z);
+}
+
+randar::Vector randar::Vector::cross(randar::Vector other) const
+{
+    other.set(
+        (this->y * other.z) - (this->z * other.y),
+        (this->z * other.x) - (this->x * other.z),
+        (this->x * other.y) - (this->y * other.x)
+    );
+
+    return other;
+}
+
 // Transforms this vector.
 void randar::Vector::transform(const glm::mat4& matrix)
 {
@@ -86,6 +125,11 @@ randar::Vector& randar::Vector::operator *=(float other)
 randar::Vector randar::operator *(randar::Vector lhs, float rhs)
 {
     return lhs *= rhs;
+}
+
+randar::Vector randar::operator *(float lhs, randar::Vector rhs)
+{
+    return rhs * lhs;
 }
 
 // Division operators.

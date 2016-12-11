@@ -10,6 +10,9 @@ randar::Quaternion::Quaternion()
 void randar::Quaternion::normalize()
 {
     float magnitude = std::sqrt((w*w) + (x*x) + (y*y) + (z*z));
+    if (!magnitude) {
+        this->w = this->x = this->y = this->z = 0.0f;
+    }
     this->w /= magnitude;
     this->x /= magnitude;
     this->y /= magnitude;
@@ -25,9 +28,10 @@ randar::Vector randar::Quaternion::transform(randar::Vector vector) const
 // Retrieves a matrix for transforming.
 glm::mat4 randar::Quaternion::getMatrix() const
 {
-    float twoXSquared = 2 * (x * x);
-    float twoYSquared = 2 * (y * y);
-    float twoZSquared = 2 * (z * z);
+    float w2 = w * w;
+    float x2 = x * x;
+    float y2 = y * y;
+    float z2 = z * z;
 
     float twoXY = 2 * x * y;
     float twoXZ = 2 * x * z;
@@ -37,10 +41,10 @@ glm::mat4 randar::Quaternion::getMatrix() const
     float twoWY = 2 * w * y;
 
     float values[16] = {
-        1 - twoYSquared - twoZSquared, twoXY - twoWZ                , twoXZ + twoWY                , 0,
-        twoXY + twoWZ                , 1 - twoXSquared - twoZSquared, twoYZ + twoWX                , 0,
-        twoXZ - twoWY                , twoYZ - twoWX                , 1 - twoXSquared - twoYSquared, 0,
-        0                            , 0                            , 0                            , 1
+        w2 + x2 - y2 - z2, twoXY - twoWZ    , twoXZ + twoWY    , 0,
+        twoXY + twoWZ    , w2 - x2 + y2 - z2, twoYZ + twoWX    , 0,
+        twoXZ - twoWY    , twoYZ - twoWX    , w2 - x2 - y2 + z2, 0,
+        0                , 0                , 0                , 1
     };
 
     return glm::make_mat4(values);
@@ -53,7 +57,7 @@ randar::Quaternion& randar::Quaternion::operator *=(const Quaternion& other)
     this->x = (this->w * other.x) + (this->x * other.w) + (this->y * other.z) - (this->z * other.y);
     this->y = (this->w * other.y) - (this->x * other.z) + (this->y * other.w) + (this->z * other.x);
     this->z = (this->w * other.z) + (this->x * other.y) - (this->y * other.x) + (this->z * other.w);
-    normalize();
+    //normalize();
 
     return *this;
 }
@@ -62,5 +66,3 @@ randar::Quaternion randar::operator *(randar::Quaternion lhs, const randar::Quat
 {
     return lhs *= rhs;
 }
-
-// Transformation operators.

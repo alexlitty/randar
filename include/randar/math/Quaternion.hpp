@@ -41,12 +41,6 @@ namespace randar
      * Combination operator.
      */
     Quaternion operator *(Quaternion lhs, const Quaternion& rhs);
-
-    /**
-     * Transformation operators.
-     */
-    Vector operator *(const Quaternion& quaternion, Vector vector);
-    Vector operator *(Vector vector, const Quaternion& quaternion);
 }
 
 #endif

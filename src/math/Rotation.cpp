@@ -13,59 +13,66 @@ randar::Rotation::Rotation(const randar::Quaternion& newQuaternion)
     this->quaternion = newQuaternion;
 }
 
-// Constructor, given an origin and angle.
-randar::Rotation::Rotation(randar::Vector newOrigin, randar::Angle newAngle)
+// Constructor, given an axis and angle.
+randar::Rotation::Rotation(randar::Vector newAxis, randar::Angle newAngle)
 {
-    this->set(newOrigin, newAngle);
+    this->set(newAxis, newAngle);
 }
 
-// Sets the quaternion based on the origin and angle.
+// Sets the quaternion based on the axis and angle.
 void randar::Rotation::updateQuaternion()
 {
     float halfRads = this->angle.toRadians() / 2;
-    Vector transformedOrigin = this->origin * std::sin(halfRads);
+    Vector transformedAxis = this->axis * std::sin(halfRads);
 
     this->quaternion.w = std::cos(halfRads);
-    this->quaternion.x = transformedOrigin.x;
-    this->quaternion.y = transformedOrigin.y;
-    this->quaternion.z = transformedOrigin.z;
+    this->quaternion.x = transformedAxis.x;
+    this->quaternion.y = transformedAxis.y;
+    this->quaternion.z = transformedAxis.z;
+    this->quaternion.normalize();
 }
 
-// Updates the origin and angle described by the quaternion.
+// Updates the axis and angle described by the quaternion.
 void randar::Rotation::readQuaternion()
 {
     float halfRads = std::acos(this->quaternion.w);
     this->angle = halfRads * 2.0f;
 
     float sin = std::sin(halfRads);
-    this->origin.x = this->quaternion.x / sin;
-    this->origin.y = this->quaternion.y / sin;
-    this->origin.z = this->quaternion.z / sin;
+    this->axis.x = this->quaternion.x / sin;
+    this->axis.y = this->quaternion.y / sin;
+    this->axis.z = this->quaternion.z / sin;
 }
 
-// Sets the origin and angle.
-void randar::Rotation::set(randar::Vector newOrigin, randar::Angle newAngle)
+// Sets the axis and angle.
+void randar::Rotation::set(randar::Vector newAxis, randar::Angle newAngle)
 {
-    this->origin = newOrigin;
+    newAxis.normalize();
+    this->axis = newAxis;
     this->angle = newAngle;
     this->updateQuaternion();
 }
 
-// Sets and retrieves origin.
-void randar::Rotation::setOrigin(randar::Vector newOrigin)
+// Sets and retrieves axis.
+void randar::Rotation::setAxis(randar::Vector newAxis)
 {
-    this->set(newOrigin, this->angle);
+    this->set(newAxis, this->angle);
 }
 
-randar::Vector randar::Rotation::getOrigin() const
+randar::Vector randar::Rotation::getAxis() const
 {
-    return this->origin;
+    return this->axis;
 }
 
 // Sets and retrieves angle.
 void randar::Rotation::setAngle(randar::Angle newAngle)
 {
-    this->set(this->origin, newAngle);
+    this->set(this->axis, newAngle);
+}
+
+void randar::Rotation::rotate(randar::Angle deltaAngle)
+{
+    this->setAngle(this->angle + deltaAngle);
 }
 
 randar::Angle randar::Rotation::getAngle() const

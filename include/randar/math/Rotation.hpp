@@ -10,16 +10,16 @@ namespace randar
     {
         Quaternion quaternion;
 
-        Vector origin;
+        Vector axis;
         Angle angle;
 
         /**
-         * Sets the quaternion based on the origin and angle.
+         * Sets the quaternion based on the axis and angle.
          */
         void updateQuaternion();
 
         /**
-         * Updates the origin and angle described by the quaternion.
+         * Updates the axis and angle described by the quaternion.
          */
         void readQuaternion();
 
@@ -35,27 +35,28 @@ namespace randar
         Rotation(const Quaternion& quaternion);
 
         /**
-         * Constructor, given an origin and angle.
+         * Constructor, given an axis and angle.
          */
-        Rotation(Vector newOrigin, Angle newAngle);
+        Rotation(Vector newAxis, Angle newAngle);
         
         /**
-         * Sets the origin and angle.
+         * Sets the axis and angle.
          *
-         * More efficient than setting origin and angle separately.
+         * More efficient than setting axis and angle separately.
          */
-        void set(Vector newOrigin, Angle newAngle);
+        void set(Vector newAxis, Angle newAngle);
 
         /**
-         * Sets and retrieves origin.
+         * Sets and retrieves axis.
          */
-        void setOrigin(Vector newOrigin);
-        Vector getOrigin() const;
+        void setAxis(Vector newAxis);
+        Vector getAxis() const;
 
         /**
          * Sets and retrieves angle.
          */
         void setAngle(Angle newAngle);
+        void rotate(Angle deltaAngle);
         Angle getAngle() const;
 
         /**

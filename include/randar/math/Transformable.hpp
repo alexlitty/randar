@@ -24,9 +24,9 @@ namespace randar
         void move(Vector movement);
 
         /**
-         * Sets the position relatively about an origin.
+         * Sets the position relatively, as an angular movement.
          */
-        void moveAbout(Rotation angularMovement);
+        void move(Rotation angularMovement);
 
         /**
          * Retrieves the position.
@@ -39,9 +39,9 @@ namespace randar
         void setRotation(Rotation newRotation);
 
         /**
-         * Sets the rotation, given an origin and angle.
+         * Sets the rotation, given an axis and angle.
          */
-        void setRotation(Vector origin, Angle angle);
+        void setRotation(Vector axis, Angle angle);
 
         /**
          * Retrieves the rotation.
@@ -49,14 +49,14 @@ namespace randar
         Rotation getRotation() const;
 
         /**
-         * Sets the origin of rotation.
+         * Sets the axis of rotation.
          */
-        void setRotationOrigin(Vector origin);
+        void setRotationAxis(Vector axis);
 
         /**
-         * Retrieves the origin of rotation.
+         * Retrieves the axis of rotation.
          */
-        Vector getRotationOrigin() const;
+        Vector getRotationAxis() const;
 
         /**
          * Sets the rotation angle absolutely.

@@ -14,10 +14,12 @@ void randar::Transformable::move(randar::Vector movement)
     this->onTransform();
 }
 
-// Sets the position relatively about an origin.
-void randar::Transformable::moveAbout(randar::Rotation angularMovement)
+// Sets the position relatively, as an angular movement.
+void randar::Transformable::move(randar::Rotation angularMovement)
 {
-    this->position = angularMovement.transform(this->position);
+    this->setPosition(
+        angularMovement.getQuaternion().transform(this->position)
+    );
 }
 
 // Retrieves the position.
@@ -33,10 +35,10 @@ void randar::Transformable::setRotation(randar::Rotation newRotation)
     this->onTransform();
 }
 
-// Sets the rotation, given an origin and angle.
-void randar::Transformable::setRotation(randar::Vector origin, randar::Angle angle)
+// Sets the rotation, given an axis and angle.
+void randar::Transformable::setRotation(randar::Vector axis, randar::Angle angle)
 {
-    this->rotation = randar::Rotation(origin, angle);
+    this->rotation = randar::Rotation(axis, angle);
     this->onTransform();
 }
 
@@ -46,17 +48,17 @@ randar::Rotation randar::Transformable::getRotation() const
     return this->rotation;
 }
 
-// Sets the origin of rotation.
-void randar::Transformable::setRotationOrigin(randar::Vector origin)
+// Sets the axis of rotation.
+void randar::Transformable::setRotationAxis(randar::Vector axis)
 {
-    this->rotation.setOrigin(origin);
+    this->rotation.setAxis(axis);
     this->onTransform();
 }
 
-// Retrieves the origin of rotation.
-randar::Vector randar::Transformable::getRotationOrigin() const
+// Retrieves the axis of rotation.
+randar::Vector randar::Transformable::getRotationAxis() const
 {
-    return this->rotation.getOrigin();
+    return this->rotation.getAxis();
 }
 
 // Sets the rotation angle absolutely.

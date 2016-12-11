@@ -17,6 +17,22 @@ namespace randar
         void set(float xNew, float yNew, float zNew);
 
         /**
+         * Normalizes this vector.
+         */
+        void normalize();
+
+        /**
+         * Calculates the magnitude of this vector.
+         */
+        float getMagnitude() const;
+
+        /**
+         * Dot and cross products.
+         */
+        float dot(Vector other) const;
+        Vector cross(Vector other) const;
+
+        /**
          * Transforms this vector.
          */
         void transform(const glm::mat4& matrix);
@@ -52,7 +68,8 @@ namespace randar
      */
     Vector operator +(Vector lhs, const Vector& rhs);
     Vector operator -(Vector lhs, const Vector& rhs);
-    Vector operator *(Vector lhs, float other);
+    Vector operator *(Vector lhs, float rhs);
+    Vector operator *(float lhs, Vector rhs);
     Vector operator /(Vector lhs, float other);
 }
 
