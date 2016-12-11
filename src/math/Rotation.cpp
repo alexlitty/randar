@@ -73,6 +73,12 @@ randar::Angle randar::Rotation::getAngle() const
     return this->angle;
 }
 
+// Transforms a vector.
+randar::Vector randar::Rotation::transform(randar::Vector vector) const
+{
+    return vector *= this->getMatrix();
+}
+
 // Retrieves quaternion.
 randar::Quaternion randar::Rotation::getQuaternion() const
 {

@@ -3,7 +3,6 @@
 
 #include <randar/math/Angle.hpp>
 #include <randar/math/Quaternion.hpp>
-#include <randar/math/Vector.hpp>
 
 namespace randar
 {
@@ -58,6 +57,11 @@ namespace randar
          */
         void setAngle(Angle newAngle);
         Angle getAngle() const;
+
+        /**
+         * Transforms a vector.
+         */
+        Vector transform(Vector vector) const;
 
         /**
          * Retrieves quaternion information.

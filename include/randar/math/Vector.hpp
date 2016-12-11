@@ -2,6 +2,7 @@
 #define RANDAR_MATH_VECTOR_HPP
 
 #include <string>
+#include <randar/utility/glm.hpp>
 
 namespace randar
 {
@@ -13,12 +14,17 @@ namespace randar
 
         Vector();
         Vector(float xInit, float yInit, float zInit);
+        void set(float xNew, float yNew, float zNew);
 
         /**
-         * Convert to string.
+         * Transforms this vector.
          */
-        std::string toString() const;
-        operator std::string() const;
+        void transform(const glm::mat4& matrix);
+
+        /**
+         * Transformation assignment operator.
+         */
+        Vector& operator *=(const glm::mat4& matrix);
 
         /**
          * Mathematical assignment operators.
@@ -27,7 +33,19 @@ namespace randar
         Vector& operator -=(const Vector& other);
         Vector& operator *=(float other);
         Vector& operator /=(float other);
+
+        /**
+         * Convert to string.
+         */
+        std::string toString() const;
+        operator std::string() const;
     };
+
+    /**
+     * Transformation operators.
+     */
+    Vector operator *(Vector vector, const glm::mat4& matrix);
+    Vector operator *(const glm::mat4& matrix, Vector vector);
 
     /**
      * Mathematical operators.

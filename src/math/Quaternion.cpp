@@ -6,6 +6,7 @@ randar::Quaternion::Quaternion()
 
 }
 
+// Converts this quaternion to a unit quaternion.
 void randar::Quaternion::normalize()
 {
     float magnitude = std::sqrt((w*w) + (x*x) + (y*y) + (z*z));
@@ -15,6 +16,13 @@ void randar::Quaternion::normalize()
     this->z /= magnitude;
 }
 
+// Transforms a single point.
+randar::Vector randar::Quaternion::transform(randar::Vector vector) const
+{
+    return vector *= this->getMatrix();
+}
+
+// Retrieves a matrix for transforming.
 glm::mat4 randar::Quaternion::getMatrix() const
 {
     float twoXSquared = 2 * (x * x);
@@ -38,6 +46,7 @@ glm::mat4 randar::Quaternion::getMatrix() const
     return glm::make_mat4(values);
 }
 
+// Combination operators.
 randar::Quaternion& randar::Quaternion::operator *=(const Quaternion& other)
 {
     this->w = (this->w * other.w) - (this->x * other.x) - (this->y * other.y) - (this->z * other.z);
@@ -48,3 +57,10 @@ randar::Quaternion& randar::Quaternion::operator *=(const Quaternion& other)
 
     return *this;
 }
+
+randar::Quaternion randar::operator *(randar::Quaternion lhs, const randar::Quaternion& rhs)
+{
+    return lhs *= rhs;
+}
+
+// Transformation operators.
