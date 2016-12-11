@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <randar/Scene.hpp>
+#include <randar/Render.hpp>
 
 namespace randar
 {

@@ -3,7 +3,7 @@
 
 #include <randar/render/Camera.hpp>
 #include <randar/render/ShaderProgram.hpp>
-#include <randar/render/Transform.hpp>
+#include <randar/math/Transform.hpp>
 
 namespace randar
 {

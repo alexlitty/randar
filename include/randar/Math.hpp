@@ -2,6 +2,6 @@
 #define RANDAR_MATH_HPP
 
 #include <randar/math/Constant.hpp>
-#include <randar/math/Transformable.hpp>
+#include <randar/math/Transform.hpp>
 
 #endif

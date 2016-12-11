@@ -14,6 +14,12 @@ void randar::Transformable::move(randar::Vector movement)
     this->onTransform();
 }
 
+// Sets the position relatively about an origin.
+void randar::Transformable::moveAbout(randar::Rotation angularMovement)
+{
+    this->position = angularMovement.transform(this->position);
+}
+
 // Retrieves the position.
 randar::Vector randar::Transformable::getPosition() const
 {
@@ -77,4 +83,11 @@ randar::Angle randar::Transformable::getAngle() const
 void randar::Transformable::onTransform()
 {
 
+}
+
+// Retrieves the current transformation matrix.
+glm::mat4 randar::Transformable::getTransformMatrix() const
+{
+    glm::vec3 glmPosition(this->position.x, this->position.y, this->position.z);
+    return glm::translate(this->rotation.getMatrix(), glmPosition);
 }

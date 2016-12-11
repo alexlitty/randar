@@ -24,6 +24,11 @@ namespace randar
         void move(Vector movement);
 
         /**
+         * Sets the position relatively about an origin.
+         */
+        void moveAbout(Rotation angularMovement);
+
+        /**
          * Retrieves the position.
          */
         Vector getPosition() const;
@@ -72,6 +77,11 @@ namespace randar
          * Function called when a transformation occurs.
          */
         virtual void onTransform();
+
+        /**
+         * Retrieves the current transformation matrix.
+         */
+        glm::mat4 getTransformMatrix() const;
     };
 }
 
