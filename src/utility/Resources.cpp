@@ -27,24 +27,74 @@ void randar::Resources::import(std::string filename)
 
 void randar::Resources::importMtl(std::ifstream& file)
 {
+    std::string line, key, name;
+    float r, g, b;
+    Material *material = nullptr;
 
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+
+        if (!(iss >> key)) {
+            continue;
+        }
+
+        if (key == "newmtl") {
+            if (!(iss >> name)) {
+                continue;
+            }
+
+            material = new Material;
+            this->materials[name] = material;
+            continue;
+        }
+
+        else if (material && (key == "Ka" || key == "Kd")) {
+            if (!(iss >> r >> g >> b)) {
+                continue;
+            }
+
+            randar::Color color(
+                r * 255,
+                g * 255,
+                b * 255
+            );
+
+            if (key == "Ka") {
+                material->ambientColor = color;
+            } else {
+                material->diffuseColor = color;
+            }
+        }
+    }
 }
 
 void randar::Resources::importObj(std::string name, std::ifstream& file)
 {
+    std::string line, key, filename;
+    float x, y, z;
+
     Model *model = new Model;
     model->mesh.setPrimitive(GL_TRIANGLES);
     
-    std::string line;
     while (std::getline(file, line)) {
         std::istringstream iss(line);
 
-        std::string key;
-        float x, y, z;
+        if (!(iss >> key)) {
+            continue;
+        }
 
-        if (!(iss >> key)) { continue; }
-        if (key == "v") {
-            if (!(iss >> x >> y >> z)) { continue; }
+        if (key == "mtllib") {
+            if (!(iss >> filename)) {
+                continue;
+            }
+
+            this->import(filename);
+        }
+
+        else if (key == "v") {
+            if (!(iss >> x >> y >> z)) {
+                continue;
+            }
 
             Vertex vertex;
             vertex.position.set(x, y, z); 
