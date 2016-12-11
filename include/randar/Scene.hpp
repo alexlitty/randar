@@ -4,12 +4,14 @@
 #include <randar/render/Camera.hpp>
 #include <randar/render/Canvas.hpp>
 #include <randar/render/Drawable.hpp>
+#include <randar/utility/Resources.hpp>
 
 namespace randar
 {
     class Scene : virtual public Canvas
     {
     protected:
+        Resources resources;
         Camera camera;
 
     public:

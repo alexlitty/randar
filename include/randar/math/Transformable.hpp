@@ -12,6 +12,7 @@ namespace randar
         Rotation rotation;
 
     public:
+        virtual ~Transformable();
 
         /**
          * Sets the position absolutely.

@@ -3,5 +3,6 @@
 
 #include <iostream>
 #include <randar/utility/glm.hpp>
+#include <randar/utility/Resources.hpp>
 
 #endif

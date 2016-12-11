@@ -1,5 +1,10 @@
 #include <randar/math/Transformable.hpp>
 
+randar::Transformable::~Transformable()
+{
+
+}
+
 // Sets the position absolutely.
 void randar::Transformable::setPosition(randar::Vector newPosition)
 {
