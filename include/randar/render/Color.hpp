@@ -13,6 +13,8 @@ namespace randar
         Color();
         Color(float rInit, float gInit, float bInit, float aInit = 1.0f);
     };
+
+    Color randomColor();
 }
 
 #endif

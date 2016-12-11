@@ -57,7 +57,7 @@ randar::Quaternion& randar::Quaternion::operator *=(const Quaternion& other)
     this->x = (this->w * other.x) + (this->x * other.w) + (this->y * other.z) - (this->z * other.y);
     this->y = (this->w * other.y) - (this->x * other.z) + (this->y * other.w) + (this->z * other.x);
     this->z = (this->w * other.z) + (this->x * other.y) - (this->y * other.x) + (this->z * other.w);
-    //normalize();
+    normalize();
 
     return *this;
 }

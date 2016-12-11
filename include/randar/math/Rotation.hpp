@@ -60,6 +60,11 @@ namespace randar
         Angle getAngle() const;
 
         /**
+         * Combines this rotation with another.
+         */
+        void combine(const Rotation& other);
+
+        /**
          * Transforms a vector.
          */
         Vector transform(Vector vector) const;

@@ -3,14 +3,13 @@
 
 #include <randar/render/Camera.hpp>
 #include <randar/render/ShaderProgram.hpp>
-#include <randar/math/Transform.hpp>
 
 namespace randar
 {
     struct RenderState
     {
         ShaderProgram *shaderProgram = nullptr;
-        Transform transform;
+        glm::mat4 transform;
         Camera camera;
     };
 }

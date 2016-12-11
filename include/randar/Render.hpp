@@ -3,6 +3,7 @@
 
 #include <randar/render/Camera.hpp>
 #include <randar/render/Drawable.hpp>
+#include <randar/render/Model.hpp>
 #include <randar/render/ShaderProgram.hpp>
 
 #endif

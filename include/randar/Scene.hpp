@@ -38,14 +38,10 @@ namespace randar
         virtual void render() = 0;
 
         /**
-         * Draw an object onto the scene.
-         */
-        //virtual void draw(randar::Drawable &drawable) const;
-
-        /**
          * Draw vertices onto the scene.
          */
-        virtual void draw(randar::Vertices &vertices, randar::RenderState state) const override;
+        using Canvas::draw;
+        virtual void draw(const randar::Vertices &vertices, randar::RenderState state) const override;
     };
 }
 

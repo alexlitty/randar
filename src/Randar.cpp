@@ -3,6 +3,8 @@
 
 randar::Randar::Randar()
 {
+    randar::seedRandomWithTime();
+
     // Initialize the monitor window.
     if (!glfwInit()) {
         throw std::runtime_error("Failed to initalize glfw");

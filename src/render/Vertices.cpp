@@ -32,6 +32,12 @@ randar::Vertices::Vertices(GLenum initPrimitive)
     );
 }
 
+randar::Vertices::Vertices(const Vertices& other)
+: Vertices::Vertices(other.primitive)
+{
+    this->vertices = other.vertices;
+}
+
 randar::Vertices::~Vertices()
 {
     glDeleteBuffers(1, &this->vertexBuffer);
@@ -44,6 +50,19 @@ void randar::Vertices::setPrimitive(GLenum primitive)
     this->primitive = primitive;
 }
 
+// Clears all vertices.
+void randar::Vertices::clear()
+{
+    this->vertices.clear();
+}
+
+// Retrieves the number of vertices in this collection.
+unsigned int randar::Vertices::getVertexCount() const
+{
+    return this->vertices.size();
+}
+
+// Sends this buffer's data to the GPU.
 void randar::Vertices::send()
 {
     unsigned int dataSize = this->vertices.size() * 7;
@@ -61,12 +80,12 @@ void randar::Vertices::send()
     delete[] data;
 }
 
-void randar::Vertices::append(randar::Vertex &vertex)
+void randar::Vertices::append(randar::Vertex& vertex)
 {
     this->vertices.push_back(vertex);
 }
 
-void randar::Vertices::draw(randar::RenderState &state) const
+void randar::Vertices::draw(randar::RenderState& state) const
 {
     if (!state.shaderProgram) {
         throw std::runtime_error("Cannot draw without a shader program");
@@ -80,7 +99,7 @@ void randar::Vertices::draw(randar::RenderState &state) const
     // Compute the model-view-projection matrix.
     glm::mat4 mvp = state.camera.getProjectionMatrix()
         * state.camera.getViewMatrix()
-        * state.transform.getMatrix();
+        * state.transform;
 
     // Send the MVP matrix for shader use.
     ::glUseProgram(*state.shaderProgram);

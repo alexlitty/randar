@@ -11,7 +11,7 @@ void randar::Scene::clear(randar::Color color)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void randar::Scene::draw(randar::Vertices &vertices, randar::RenderState state) const
+void randar::Scene::draw(const randar::Vertices &vertices, randar::RenderState state) const
 {
     state.camera = this->camera;
     vertices.draw(state);

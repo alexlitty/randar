@@ -80,6 +80,13 @@ randar::Angle randar::Rotation::getAngle() const
     return this->angle;
 }
 
+// Combines this rotation with another.
+void randar::Rotation::combine(const Rotation& other)
+{
+    this->quaternion *= other.quaternion;
+    this->readQuaternion();
+}
+
 // Transforms a vector.
 randar::Vector randar::Rotation::transform(randar::Vector vector) const
 {
