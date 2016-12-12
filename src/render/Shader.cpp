@@ -19,7 +19,7 @@ void randar::Shader::load(std::string file, GLenum initType)
 
     std::ifstream stream(file, std::ios::in);
     if (!stream.is_open()) {
-        throw new std::runtime_error("Cannot load shader: " + file);
+        throw std::runtime_error("Cannot load shader: " + file);
     }
 
     // Read the code from the file.
