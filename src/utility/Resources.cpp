@@ -14,14 +14,20 @@ randar::Resources::~Resources()
 void randar::Resources::import(std::string filename)
 {
     std::string extension = filename.substr(filename.size() - 3);
-    std::ifstream file(filename);
 
     if (extension == "mtl") {
+        std::ifstream file(filename);
         this->importMtl(file);
     }
 
     else if (extension == "obj") {
+        std::ifstream file(filename);
         this->importObj(filename.substr(0, filename.size() - 4), file);
+    }
+
+    else if (extension == "iqm") {
+        std::ifstream file(filename, std::ios::binary);
+        this->importIqm(file);
     }
 }
 
