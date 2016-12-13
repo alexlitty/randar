@@ -66,6 +66,7 @@ unsigned int randar::Vertices::getVertexCount() const
 void randar::Vertices::bind() const
 {
     ::glBindVertexArray(this->vertexArray);
+    ::glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 }
 
 // Sends this buffer's data to the GPU.

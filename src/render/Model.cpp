@@ -2,5 +2,5 @@
 
 void randar::Model::draw() const
 {
-    this->mesh.vertices.draw();
+    this->mesh.draw();
 }

@@ -106,6 +106,7 @@ void randar::Resources::importIqm(std::ifstream& file)
         iqm::triangle &triangle = triangles[i];
         model->mesh.appendFace(triangle.vertex[0], triangle.vertex[1], triangle.vertex[2]);
     }
+    model->mesh.send();
 
     std::cout << meshes[0].name << std::endl;
     this->models[std::to_string(meshes[0].name)] = model;
