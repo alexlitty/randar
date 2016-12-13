@@ -9,7 +9,7 @@ namespace randar
 {
     struct Model : public Transformable
     {
-        Vertices mesh;
+        Vertices vertices;
     };
 }
 

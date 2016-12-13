@@ -4,6 +4,8 @@
 #define IQM_MAGIC "INTERQUAKEMODEL"
 #define IQM_VERSION 2
 
+#include <GL/glew.h>
+
 enum
 {
     IQM_POSITION     = 0,
@@ -119,6 +121,16 @@ namespace randar
             unsigned int format;
             unsigned int size;
             unsigned int offset;
+        };
+
+        struct vertex
+        {
+            GLfloat position[3];
+            GLfloat normal[3];
+            GLfloat tangent[4];
+            GLfloat texcoord[2];
+            GLubyte blendindex[4];
+            GLubyte blendweight[4];
         };
 
         struct bounds

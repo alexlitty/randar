@@ -80,7 +80,7 @@ void randar::Resources::importObj(std::string name, std::ifstream& file)
     float x, y, z;
 
     Model *model = new Model;
-    model->mesh.setPrimitive(GL_TRIANGLES);
+    model->vertices.setPrimitive(GL_TRIANGLES);
     
     while (std::getline(file, line)) {
         std::istringstream iss(line);
@@ -105,10 +105,10 @@ void randar::Resources::importObj(std::string name, std::ifstream& file)
             Vertex vertex;
             vertex.position.set(x, y, z); 
             vertex.color = randar::randomColor();
-            model->mesh.append(vertex);
+            model->vertices.append(vertex);
         }   
     }   
-    model->mesh.send();
+    model->vertices.send();
 
     if (this->models.find(name) != this->models.end()) {
         delete this->models[name];
