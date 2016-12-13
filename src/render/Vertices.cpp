@@ -62,8 +62,14 @@ unsigned int randar::Vertices::getVertexCount() const
     return this->vertices.size();
 }
 
+// Binds the underlying vertex array object to the GPU.
+void randar::Vertices::bind() const
+{
+    ::glBindVertexArray(this->vertexArray);
+}
+
 // Sends this buffer's data to the GPU.
-void randar::Vertices::send()
+void randar::Vertices::send() const
 {
     unsigned int dataSize = this->vertices.size() * 7;
     GLfloat *data = new GLfloat[dataSize], *subdata;
@@ -87,7 +93,7 @@ void randar::Vertices::append(randar::Vertex& vertex)
 
 void randar::Vertices::draw() const
 {
-    ::glBindVertexArray(this->vertexArray);
+    this->bind();
     ::glDrawArrays(this->primitive, 0, this->vertices.size());
 }
 

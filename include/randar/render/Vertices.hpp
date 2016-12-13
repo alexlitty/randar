@@ -40,9 +40,14 @@ namespace randar
         unsigned int getVertexCount() const;
 
         /**
+         * Binds the underlying vertex array object to the GPU.
+         */
+        void bind() const;
+
+        /**
          * Sends this buffer's data to the GPU.
          */
-        void send();
+        void send() const;
 
         /**
          * Appends a new vertex to the buffer.

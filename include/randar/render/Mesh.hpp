@@ -8,12 +8,16 @@ namespace randar
     class Mesh : virtual public Drawable
     {
         GLuint indexBuffer;
+        std::vector<unsigned int> indices;
 
     public:
         Vertices vertices;
 
         Mesh();
         ~Mesh();
+
+        void bind() const;
+        void send() const;
 
         void draw() const;
     };
