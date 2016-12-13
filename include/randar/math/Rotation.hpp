@@ -70,7 +70,12 @@ namespace randar
         Vector transform(Vector vector) const;
 
         /**
-         * Retrieves quaternion information.
+         * Sets the underlying quaternion.
+         */
+        void setQuaternion(const Quaternion& newQuaternion);
+
+        /**
+         * Retrieves underlying quaternion information.
          */
         Quaternion getQuaternion() const;
         glm::mat4 getMatrix() const;

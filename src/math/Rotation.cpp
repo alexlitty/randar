@@ -93,13 +93,19 @@ randar::Vector randar::Rotation::transform(randar::Vector vector) const
     return vector *= this->getMatrix();
 }
 
-// Retrieves quaternion.
+// Sets the underlying quaternion.
+void randar::Rotation::setQuaternion(const Quaternion& newQuaternion)
+{
+    this->quaternion = newQuaternion;
+}
+
+// Retrieves the underlying quaternion.
 randar::Quaternion randar::Rotation::getQuaternion() const
 {
     return this->quaternion;
 }
 
-// Retrieves quaternion matrix.
+// Retrieves the underlying quaternion matrix.
 glm::mat4 randar::Rotation::getMatrix() const
 {
     return this->quaternion.getMatrix();

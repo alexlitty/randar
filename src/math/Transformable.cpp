@@ -40,6 +40,12 @@ void randar::Transformable::setRotation(randar::Rotation newRotation)
     this->onTransform();
 }
 
+void randar::Transformable::setRotation(const randar::Quaternion& quaternion)
+{
+    this->rotation.setQuaternion(quaternion);
+    this->onTransform();
+}
+
 // Sets the rotation, given an axis and angle.
 void randar::Transformable::setRotation(randar::Vector axis, randar::Angle angle)
 {

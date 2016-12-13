@@ -38,6 +38,7 @@ namespace randar
          * Sets the rotation.
          */
         void setRotation(Rotation newRotation);
+        void setRotation(const Quaternion& quaternion);
 
         /**
          * Sets the rotation, given an axis and angle.

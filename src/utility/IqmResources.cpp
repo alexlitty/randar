@@ -79,7 +79,29 @@ void randar::Resources::importIqm(std::ifstream& file)
     // Read joints.
     iqm::joint *joints = reinterpret_cast<iqm::joint*>(&buffer[header.ofs_joints]);
     for (unsigned int i = 0; i < header.num_joints; i++) {
-        iqm::joint &joint = joints[i];
+        iqm::joint &rawJoint = joints[i];
+
+        Quaternion q;
+        q.w = rawJoint.rotate[0];
+        q.x = rawJoint.rotate[1];
+        q.y = rawJoint.rotate[2];
+        q.z = rawJoint.rotate[3];
+
+        Joint joint;
+        joint.setRotation(q);
+        joint.setPosition(Vector(
+            rawJoint.translate[0],
+            rawJoint.translate[1],
+            rawJoint.translate[2]
+        ));
+
+        if (rawJoint.parent >= 0) {
+            if (rawJoint.parent > static_cast<int>(model->joints.size())) {
+                throw std::runtime_error("Corrupt joints - Bad parent");
+            }
+        }
+
+        model->joints.push_back(joint);
     }
 
     // Read meshes.
@@ -108,6 +130,5 @@ void randar::Resources::importIqm(std::ifstream& file)
     }
     model->mesh.send();
 
-    std::cout << meshes[0].name << std::endl;
     this->models[std::to_string(meshes[0].name)] = model;
 }
