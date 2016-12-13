@@ -88,23 +88,24 @@ void randar::Resources::importIqm(std::ifstream& file)
         iqm::mesh &mesh = meshes[i];
     }
 
-    // Read triangles.
-    iqm::triangle *triangles = reinterpret_cast<iqm::triangle*>(&buffer[header.ofs_triangles]);
-    for (unsigned int i = 0; i < header.num_triangles; i++) {
-        iqm::triangle &triangle = triangles[i];
-    }
-
     // Read vertices.
-    model->vertices.setPrimitive(GL_POINTS);
+    model->mesh.vertices.setPrimitive(GL_POINTS);
     for (unsigned int i = 0; i < header.num_vertexes; i++) {
         iqm::vertex data;
         if (inposition) ::memcpy(data.position, &inposition[i * 3], sizeof(data.position));
 
         Vertex vertex;
         vertex.position = Vector(data.position[0], data.position[1], data.position[2]);
-        model->vertices.append(vertex);
+        model->mesh.vertices.append(vertex);
     }
-    model->vertices.send();
+    model->mesh.vertices.send();
+
+    // Read triangles.
+    iqm::triangle *triangles = reinterpret_cast<iqm::triangle*>(&buffer[header.ofs_triangles]);
+    for (unsigned int i = 0; i < header.num_triangles; i++) {
+        iqm::triangle &triangle = triangles[i];
+        model->mesh.appendFace(triangle.vertex[0], triangle.vertex[1], triangle.vertex[2]);
+    }
 
     std::cout << meshes[0].name << std::endl;
     this->models[std::to_string(meshes[0].name)] = model;

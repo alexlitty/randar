@@ -17,8 +17,6 @@ namespace randar
 
         void import(std::string filename);
         void importMtl(std::ifstream& file);
-        void importObj(std::string name, std::ifstream& file);
-
         void importIqm(std::ifstream& file);
     };
 }

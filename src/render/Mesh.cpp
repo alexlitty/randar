@@ -26,6 +26,13 @@ void randar::Mesh::send() const
     );
 }
 
+void randar::Mesh::appendFace(unsigned int a, unsigned int b, unsigned int c)
+{
+    this->indices.push_back(a);
+    this->indices.push_back(b);
+    this->indices.push_back(c);
+}
+
 void randar::Mesh::draw() const
 {
     this->vertices.bind();

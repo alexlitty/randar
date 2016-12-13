@@ -20,11 +20,6 @@ void randar::Resources::import(std::string filename)
         this->importMtl(file);
     }
 
-    else if (extension == "obj") {
-        std::ifstream file(filename);
-        this->importObj(filename.substr(0, filename.size() - 4), file);
-    }
-
     else if (extension == "iqm") {
         std::ifstream file(filename, std::ios::binary);
         this->importIqm(file);
@@ -72,46 +67,4 @@ void randar::Resources::importMtl(std::ifstream& file)
             }
         }
     }
-}
-
-void randar::Resources::importObj(std::string name, std::ifstream& file)
-{
-    std::string line, key, filename;
-    float x, y, z;
-
-    Model *model = new Model;
-    model->vertices.setPrimitive(GL_TRIANGLES);
-    
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-
-        if (!(iss >> key)) {
-            continue;
-        }
-
-        if (key == "mtllib") {
-            if (!(iss >> filename)) {
-                continue;
-            }
-
-            this->import(filename);
-        }
-
-        else if (key == "v") {
-            if (!(iss >> x >> y >> z)) {
-                continue;
-            }
-
-            Vertex vertex;
-            vertex.position.set(x, y, z); 
-            vertex.color = randar::randomColor();
-            model->vertices.append(vertex);
-        }   
-    }   
-    model->vertices.send();
-
-    if (this->models.find(name) != this->models.end()) {
-        delete this->models[name];
-    }
-    this->models[name] = model;
 }

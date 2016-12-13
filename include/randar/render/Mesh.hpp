@@ -16,6 +16,8 @@ namespace randar
         Mesh();
         ~Mesh();
 
+        void appendFace(unsigned int a, unsigned int b, unsigned int c);
+
         void bind() const;
         void send() const;
 

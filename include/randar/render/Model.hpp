@@ -3,13 +3,13 @@
 
 #include <randar/render/Drawable.hpp>
 #include <randar/render/Material.hpp>
-#include <randar/render/Vertices.hpp>
+#include <randar/render/Mesh.hpp>
 
 namespace randar
 {
     struct Model : virtual public Drawable
     {
-        Vertices vertices;
+        Mesh mesh;
 
         void draw() const;
     };
