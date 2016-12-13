@@ -1,7 +1,7 @@
 #ifndef RANDAR_RENDER_VERTICES_HPP
 #define RANDAR_RENDER_VERTICES_HPP
 
-#include <randar/render/RenderState.hpp>
+#include <randar/render/Drawable.hpp>
 #include <randar/render/Vertex.hpp>
 
 namespace randar
@@ -9,7 +9,7 @@ namespace randar
     /**
      * A collection of vertices that can be sent to the GPU for drawing.
      */
-    class Vertices
+    class Vertices : virtual public Drawable
     {
         GLuint vertexArray;
         GLuint vertexBuffer;
@@ -52,7 +52,7 @@ namespace randar
         /**
          * Draws the vertices in this buffer.
          */
-        void draw(RenderState& state) const;
+        void draw() const;
 
         /**
          * Writeable access to individual vertices.

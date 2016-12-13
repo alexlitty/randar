@@ -12,7 +12,6 @@ namespace randar
     {
     protected:
         Resources resources;
-        Camera camera;
 
     public:
         virtual ~Scene();
@@ -21,11 +20,6 @@ namespace randar
          * Initializes the scene.
          */
         virtual void initialize() = 0;
-
-        /**
-         * Clears the scene with a color.
-         */
-        virtual void clear(Color color) override;
 
         /**
          * Updates the scene for the next frame.
@@ -38,12 +32,6 @@ namespace randar
          * Renders the scene.
          */
         virtual void render() = 0;
-
-        /**
-         * Draw vertices onto the scene.
-         */
-        using Canvas::draw;
-        virtual void draw(const randar::Vertices &vertices, randar::RenderState state) const override;
     };
 }
 

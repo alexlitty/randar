@@ -1,18 +1,22 @@
 #ifndef RANDAR_RENDER_DRAWABLE_HPP
 #define RANDAR_RENDER_DRAWABLE_HPP
 
-#include <randar/render/Canvas.hpp>
+#include <randar/math/Transformable.hpp>
 
 namespace randar
 {
     /**
      * An object that may be drawn to a canvas.
+     *
+     * Drawing should only be invoked by a canvas.
      */
-    class Drawable
+    class Drawable : virtual public Transformable
     {
+    protected:
+
     public:
         virtual ~Drawable();
-        virtual void draw(randar::Canvas &canvas) const = 0;
+        virtual void draw() const = 0;
     };
 }
 

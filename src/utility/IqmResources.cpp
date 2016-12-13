@@ -56,7 +56,7 @@ void randar::Resources::importIqm(std::ifstream& file)
     // Read vertex arrays.
     float *inposition = NULL, *innormal = NULL, *intangent = NULL, *intexcoord = NULL;
     unsigned char *inblendindex = NULL, *inblendweight = NULL;
-    //const char *str = header.ofs_text ? (char *)&buffer[header.ofs_text] : "";
+    const char *str = header.ofs_text ? (char *)&buffer[header.ofs_text] : "";
 
     iqm::vertexarray *vas = reinterpret_cast<iqm::vertexarray*>(&buffer[header.ofs_vertexarrays]);
     for(int i = 0; i < (int)header.num_vertexarrays; i++)
@@ -95,6 +95,7 @@ void randar::Resources::importIqm(std::ifstream& file)
     }
 
     // Read vertices.
+    model->vertices.setPrimitive(GL_POINTS);
     for (unsigned int i = 0; i < header.num_vertexes; i++) {
         iqm::vertex data;
         if (inposition) ::memcpy(data.position, &inposition[i * 3], sizeof(data.position));
@@ -103,4 +104,8 @@ void randar::Resources::importIqm(std::ifstream& file)
         vertex.position = Vector(data.position[0], data.position[1], data.position[2]);
         model->vertices.append(vertex);
     }
+    model->vertices.send();
+
+    std::cout << meshes[0].name << std::endl;
+    this->models[std::to_string(meshes[0].name)] = model;
 }
