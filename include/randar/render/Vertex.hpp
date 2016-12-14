@@ -12,12 +12,10 @@ namespace randar
 {
     struct Vertex
     {
-        static std::vector<VertexAttribute> attributes;
-        static unsigned int stride;
-        static unsigned int size;
-
         Vector position;
         Color color;
+        unsigned char boneIndex[4];
+        unsigned char boneWeight[4];
 
         Vertex();
         Vertex(Vector initPosition, Color initColor);

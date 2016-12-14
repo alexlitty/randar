@@ -9,8 +9,9 @@ randar::Vertices::Vertices(GLenum initPrimitive)
     ::glGenBuffers(1, &this->vertexBuffer);
     ::glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 
-    unsigned int stride = 7 * sizeof(GLfloat);
+    unsigned int stride = 15 * sizeof(GLfloat);
 
+    // Position.
     ::glEnableVertexAttribArray(0);
     ::glVertexAttribPointer(
         0,
@@ -21,6 +22,7 @@ randar::Vertices::Vertices(GLenum initPrimitive)
         (void*)0
     );
 
+    // Color.
     ::glEnableVertexAttribArray(1);
     ::glVertexAttribPointer(
         1,
@@ -29,6 +31,28 @@ randar::Vertices::Vertices(GLenum initPrimitive)
         GL_FALSE,
         stride,
         (void*)(3 * sizeof(GLfloat))
+    );
+
+    // Bone index.
+    ::glEnableVertexAttribArray(2);
+    ::glVertexAttribPointer(
+        2,
+        4,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(7 * sizeof(GLfloat))
+    );
+
+    // Bone weights.
+    ::glEnableVertexAttribArray(3);
+    ::glVertexAttribPointer(
+        3,
+        4,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(11 * sizeof(GLfloat))
     );
 }
 
@@ -72,10 +96,10 @@ void randar::Vertices::bind() const
 // Sends this buffer's data to the GPU.
 void randar::Vertices::send() const
 {
-    unsigned int dataSize = this->vertices.size() * 7;
+    unsigned int dataSize = this->vertices.size() * 15;
     GLfloat *data = new GLfloat[dataSize], *subdata;
     for (unsigned int i = 0; i < this->vertices.size(); i++) {
-        subdata = &data[i * 7];
+        subdata = &data[i * 15];
         auto vertex = this->vertices[i];
         vertex.appendTo(subdata);
     }

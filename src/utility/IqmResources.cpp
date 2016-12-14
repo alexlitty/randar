@@ -1,6 +1,5 @@
 #include <randar/utility/iqm.hpp>
 #include <randar/utility/Resources.hpp>
-#include <iostream>
 #include <stdio.h>
 
 void randar::Resources::importIqm(std::ifstream& file)
@@ -77,9 +76,9 @@ void randar::Resources::importIqm(std::ifstream& file)
     Model *model = new Model;
 
     // Read joints.
-    iqm::joint *joints = reinterpret_cast<iqm::joint*>(&buffer[header.ofs_joints]);
+    iqm::joint *rawJoints = reinterpret_cast<iqm::joint*>(&buffer[header.ofs_joints]);
     for (unsigned int i = 0; i < header.num_joints; i++) {
-        iqm::joint &rawJoint = joints[i];
+        iqm::joint &rawJoint = rawJoints[i];
 
         Quaternion q;
         q.w = rawJoint.rotate[0];
@@ -97,8 +96,10 @@ void randar::Resources::importIqm(std::ifstream& file)
 
         if (rawJoint.parent >= 0) {
             if (rawJoint.parent > static_cast<int>(model->joints.size())) {
-                throw std::runtime_error("Corrupt joints - Bad parent");
+                throw std::runtime_error("Nonexistent joint - Joints may not be ordered");
             }
+
+            joint.parent = &model->joints[rawJoint.parent];
         }
 
         model->joints.push_back(joint);
@@ -115,9 +116,13 @@ void randar::Resources::importIqm(std::ifstream& file)
     for (unsigned int i = 0; i < header.num_vertexes; i++) {
         iqm::vertex data;
         if (inposition) ::memcpy(data.position, &inposition[i * 3], sizeof(data.position));
+        if (inblendindex) ::memcpy(data.blendindex, &inblendindex[i * 3], sizeof(data.blendindex));
+        if (inblendweight) ::memcpy(data.blendweight, &inblendweight[i * 3], sizeof(data.blendweight));
 
         Vertex vertex;
         vertex.position = Vector(data.position[0], data.position[1], data.position[2]);
+        std::copy(data.blendindex, data.blendindex + 4, vertex.boneIndex);
+        std::copy(data.blendweight, data.blendweight + 4, vertex.boneWeight);
         model->mesh.vertices.append(vertex);
     }
     model->mesh.vertices.send();

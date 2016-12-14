@@ -10,6 +10,7 @@
 
 namespace randar
 {
+    glm::mat3x4 toMat3x4(const glm::mat4& matrix);
     std::string toString(glm::mat4 matrix);
 }
 
