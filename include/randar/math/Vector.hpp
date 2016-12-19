@@ -2,6 +2,7 @@
 #define RANDAR_MATH_VECTOR_HPP
 
 #include <string>
+#include <bullet3/btBulletDynamicsCommon.h>
 #include <randar/utility/glm.hpp>
 
 namespace randar
@@ -13,6 +14,7 @@ namespace randar
         float z;
 
         Vector();
+        Vector(btVector3 other);
         Vector(float xInit, float yInit, float zInit);
         void set(float xNew, float yNew, float zNew);
 
@@ -49,6 +51,11 @@ namespace randar
         Vector& operator -=(const Vector& other);
         Vector& operator *=(float other);
         Vector& operator /=(float other);
+
+        /**
+         * Convert to physics vector.
+         */
+        operator btVector3() const;
 
         /**
          * Convert to string.

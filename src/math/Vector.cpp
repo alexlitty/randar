@@ -6,6 +6,14 @@ randar::Vector::Vector()
 
 }
 
+randar::Vector::Vector(btVector3 other)
+: x(other.x()),
+  y(other.y()),
+  z(other.z())
+{
+
+}
+
 randar::Vector::Vector(float xInit, float yInit, float zInit)
 : x(xInit),
   y(yInit),
@@ -144,6 +152,12 @@ randar::Vector& randar::Vector::operator /=(float other)
 randar::Vector randar::operator /(randar::Vector lhs, float rhs)
 {
     return lhs /= rhs;
+}
+
+// Convert to physics vector.
+randar::Vector::operator btVector3() const
+{
+    return btVector3(this->x, this->y, this->z);
 }
 
 // Convert to string.

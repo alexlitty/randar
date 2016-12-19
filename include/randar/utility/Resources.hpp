@@ -5,6 +5,7 @@
 #include <sstream>
 #include <map>
 #include <randar/render/Model.hpp>
+#include <randar/physics/System.hpp>
 
 namespace randar
 {
@@ -12,6 +13,7 @@ namespace randar
     {
         std::map<std::string, Material*> materials;
         std::map<std::string, Model*> models;
+        std::map<std::string, System*> systems;
 
         ~Resources();
 

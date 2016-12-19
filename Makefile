@@ -3,7 +3,7 @@ OBJECTS=$(SOURCES:.cpp=.o)
 
 # Paths
 SRCPATH=src/
-INCPATHS=include/
+INCPATHS=include/ include/bullet3/
 BINPATH=bin
 
 # Linker flags
