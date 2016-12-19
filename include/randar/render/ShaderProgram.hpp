@@ -35,6 +35,7 @@ namespace randar
         /**
          * Convert to underlying OpenGL name.
          */
+        GLuint getGlName() const;
         operator GLuint() const;
     };
 }

@@ -12,6 +12,12 @@ randar::Shader::Shader(std::string file, GLenum initType)
     this->load(file, initType);
 }
 
+// Destructor.
+randar::Shader::~Shader()
+{
+    ::glDeleteShader(this->id);
+}
+
 // Loads and compiles from a file.
 void randar::Shader::load(std::string file, GLenum initType)
 {
@@ -51,11 +57,6 @@ void randar::Shader::load(std::string file, GLenum initType)
             throw std::runtime_error("Cannot compile shader, no log available: " + file);
         }
     }
-}
-
-randar::Shader::~Shader()
-{
-    ::glDeleteShader(this->id);
 }
 
 randar::Shader::operator GLuint() const

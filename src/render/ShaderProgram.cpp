@@ -19,7 +19,6 @@ randar::ShaderProgram::~ShaderProgram()
 }
 
 // Links shaders together into a program.
-#include <iostream>
 void randar::ShaderProgram::load(randar::Shader &vertexShader, randar::Shader &fragmentShader)
 {
     GLint linkStatus = GL_FALSE;
@@ -47,7 +46,12 @@ void randar::ShaderProgram::load(randar::Shader &vertexShader, randar::Shader &f
 }
 
 // Convert to underlying OpenGL name.
-randar::ShaderProgram::operator GLuint() const
+GLuint randar::ShaderProgram::getGlName() const
 {
     return this->id;
+}
+
+randar::ShaderProgram::operator GLuint() const
+{
+    return this->getGlName();
 }

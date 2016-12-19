@@ -10,7 +10,7 @@ randar::Rotation::Rotation()
 // Constructor, given a quaternion.
 randar::Rotation::Rotation(const randar::Quaternion& newQuaternion)
 {
-    this->quaternion = newQuaternion;
+    this->setQuaternion(newQuaternion);
 }
 
 // Constructor, given an axis and angle.
@@ -97,6 +97,8 @@ randar::Vector randar::Rotation::transform(randar::Vector vector) const
 void randar::Rotation::setQuaternion(const Quaternion& newQuaternion)
 {
     this->quaternion = newQuaternion;
+    this->quaternion.normalize();
+    this->readQuaternion();
 }
 
 // Retrieves the underlying quaternion.

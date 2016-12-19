@@ -10,7 +10,7 @@ randar::Quaternion::Quaternion()
 void randar::Quaternion::normalize()
 {
     float magnitude = std::sqrt((w*w) + (x*x) + (y*y) + (z*z));
-    if (!magnitude) {
+    if (magnitude == 0.0f) {
         this->w = this->x = this->y = this->z = 0.0f;
     }
     this->w /= magnitude;

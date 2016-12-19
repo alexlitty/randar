@@ -54,8 +54,7 @@ void randar::Resources::importIqm(std::ifstream& file)
 
     // Read vertex arrays.
     float *inposition = NULL, *innormal = NULL, *intangent = NULL, *intexcoord = NULL;
-    unsigned char *inblendindex = NULL, *inblendweight = NULL;
-    const char *str = header.ofs_text ? (char *)&buffer[header.ofs_text] : "";
+    //const char *str = header.ofs_text ? (char *)&buffer[header.ofs_text] : "";
 
     iqm::vertexarray *vas = reinterpret_cast<iqm::vertexarray*>(&buffer[header.ofs_vertexarrays]);
     for(int i = 0; i < (int)header.num_vertexarrays; i++)
@@ -67,62 +66,26 @@ void randar::Resources::importIqm(std::ifstream& file)
             case IQM_NORMAL: if(va.format != IQM_FLOAT || va.size != 3) throw std::runtime_error("Bad vertex array b"); innormal = (float *)&buffer[va.offset]; iqm::lilswap(innormal, 3*header.num_vertexes); break;
             case IQM_TANGENT: if(va.format != IQM_FLOAT || va.size != 4) throw std::runtime_error("Bad vertex array c"); intangent = (float *)&buffer[va.offset]; iqm::lilswap(intangent, 4*header.num_vertexes); break;
             case IQM_TEXCOORD: if(va.format != IQM_FLOAT || va.size != 2) throw std::runtime_error("Bad vertex array d"); intexcoord = (float *)&buffer[va.offset]; iqm::lilswap(intexcoord, 2*header.num_vertexes); break;
-            case IQM_BLENDINDEXES: if(va.format != IQM_UBYTE || va.size != 4) throw std::runtime_error("Bad vertex array e"); inblendindex = (unsigned char *)&buffer[va.offset]; break;
-            case IQM_BLENDWEIGHTS: if(va.format != IQM_UBYTE || va.size != 4) throw std::runtime_error("Bad vertex array f"); inblendweight = (unsigned char *)&buffer[va.offset]; break;
         }
     }
 
     // Create model.
     Model *model = new Model;
 
-    // Read joints.
-    iqm::joint *rawJoints = reinterpret_cast<iqm::joint*>(&buffer[header.ofs_joints]);
-    for (unsigned int i = 0; i < header.num_joints; i++) {
-        iqm::joint &rawJoint = rawJoints[i];
-
-        Quaternion q;
-        q.w = rawJoint.rotate[0];
-        q.x = rawJoint.rotate[1];
-        q.y = rawJoint.rotate[2];
-        q.z = rawJoint.rotate[3];
-
-        Joint joint;
-        joint.setRotation(q);
-        joint.setPosition(Vector(
-            rawJoint.translate[0],
-            rawJoint.translate[1],
-            rawJoint.translate[2]
-        ));
-
-        if (rawJoint.parent >= 0) {
-            if (rawJoint.parent > static_cast<int>(model->joints.size())) {
-                throw std::runtime_error("Nonexistent joint - Joints may not be ordered");
-            }
-
-            joint.parent = &model->joints[rawJoint.parent];
-        }
-
-        model->joints.push_back(joint);
-    }
-
     // Read meshes.
     iqm::mesh *meshes = reinterpret_cast<iqm::mesh*>(&buffer[header.ofs_meshes]);
-    for (unsigned int i = 0; i < header.num_meshes; i++) {
+    /*for (unsigned int i = 0; i < header.num_meshes; i++) {
         iqm::mesh &mesh = meshes[i];
-    }
+    }*/
 
     // Read vertices.
     model->mesh.vertices.setPrimitive(GL_POINTS);
     for (unsigned int i = 0; i < header.num_vertexes; i++) {
         iqm::vertex data;
         if (inposition) ::memcpy(data.position, &inposition[i * 3], sizeof(data.position));
-        if (inblendindex) ::memcpy(data.blendindex, &inblendindex[i * 3], sizeof(data.blendindex));
-        if (inblendweight) ::memcpy(data.blendweight, &inblendweight[i * 3], sizeof(data.blendweight));
 
         Vertex vertex;
         vertex.position = Vector(data.position[0], data.position[1], data.position[2]);
-        std::copy(data.blendindex, data.blendindex + 4, vertex.boneIndex);
-        std::copy(data.blendweight, data.blendweight + 4, vertex.boneWeight);
         model->mesh.vertices.append(vertex);
     }
     model->mesh.vertices.send();
