@@ -13,6 +13,12 @@ randar::Quaternion::Quaternion(float ix, float iy, float iz, float iw)
     this->set(ix, iy, iz, iw);
 }
 
+// Construction from axis and angle.
+randar::Quaternion::Quaternion(const Vector& axis, const Angle& angle)
+{
+    this->set(axis, angle);
+}
+
 // Construction from physics quaternion.
 randar::Quaternion::Quaternion(const btQuaternion& other)
 {

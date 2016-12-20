@@ -27,6 +27,11 @@ namespace randar
         Quaternion(float ix, float iy, float iz, float iw);
 
         /**
+         * Construction from axis and angle.
+         */
+        Quaternion(const Vector& axis, const Angle& angle);
+
+        /**
          * Construction from physics quaternion.
          */
         Quaternion(const btQuaternion& other);
