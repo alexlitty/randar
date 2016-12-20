@@ -117,7 +117,6 @@ randar::Vector randar::Quaternion::transform(randar::Vector vector) const
 }
 
 // Retrieves a matrix for transforming.
-#include <iostream>
 glm::mat4 randar::Quaternion::getMatrix() const
 {
     float values[16] = {
@@ -127,7 +126,6 @@ glm::mat4 randar::Quaternion::getMatrix() const
         0, 0, 0, 1
     };
 
-    std::cout << randar::toString(glm::make_mat4(values)) << std::endl;
     return glm::make_mat4(values);
 }
 
