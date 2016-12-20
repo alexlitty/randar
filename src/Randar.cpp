@@ -35,6 +35,9 @@ randar::Randar::Randar()
     if (glGetError() != GL_NO_ERROR) {
 
     }
+
+    ::glEnable(GL_DEPTH_TEST);
+    ::glDepthFunc(GL_LESS);
 }
 
 randar::Randar::~Randar()

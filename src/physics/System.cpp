@@ -5,7 +5,7 @@ randar::System::System()
   overlappingPairCache(new btDbvtBroadphase()),
   world(&dispatcher, overlappingPairCache, &solver, &collisionConfiguration)
 {
-    this->world.setGravity(Vector(0, -10, 0));
+    this->world.setGravity(Vector(0, -0.5f, 0));
 }
 
 randar::System::~System()
@@ -15,6 +15,10 @@ randar::System::~System()
 
 void randar::System::add(randar::Physical* object)
 {
+    if (!object->getBody()) {
+        std::runtime_error("Cannot add bodyless object to system");
+    }
+
     this->objects.push_back(object);
     this->world.addRigidBody(object->getBody());
 }
