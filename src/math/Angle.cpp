@@ -2,11 +2,16 @@
 
 randar::Angle::Angle(float newRadians)
 {
-    (*this) = newRadians;
+    this->setRadians(newRadians);
 }
 
 void randar::Angle::setRadians(float newRadians)
 {
+    // Reduce redundant values.
+    if (newRadians < 0.0f || newRadians >= TWO_PI) {
+         newRadians = std::fmod((newRadians + TWO_PI), TWO_PI);
+    }
+
     this->radians = newRadians;
 }
 

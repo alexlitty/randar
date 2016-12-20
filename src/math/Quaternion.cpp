@@ -14,9 +14,9 @@ randar::Quaternion::Quaternion(float ix, float iy, float iz, float iw)
 }
 
 // Construction from axis and angle.
-randar::Quaternion::Quaternion(const Vector& axis, const Angle& angle)
+randar::Quaternion::Quaternion(const Vector& newAxis, const Angle& newAngle)
 {
-    this->set(axis, angle);
+    this->set(newAxis, newAngle);
 }
 
 // Construction from physics quaternion.
@@ -26,41 +26,48 @@ randar::Quaternion::Quaternion(const btQuaternion& other)
 }
 
 // Absolutely sets the rotation represented by this quaternion.
-void randar::Quaternion::set(float ix, float iy, float iz, float iw)
+void randar::Quaternion::set(float ix, float iy, float iz, float iw, bool updateAxis)
 {
     this->x = ix;
     this->y = iy;
     this->z = iz;
     this->w = iw;
     this->normalize();
+
+    if (updateAxis) {
+        this->axis = this->getAxis();
+    }
 }
 
-void randar::Quaternion::set(const Vector& axis, const Angle& angle)
+void randar::Quaternion::set(const Vector& newAxis, const Angle& newAngle)
 {
-    float halfRads = angle.toRadians() / 2.0f;
-    Vector transformedAxis = axis * std::sin(halfRads);
+    float halfRads = newAngle.toRadians() / 2.0f;
+    Vector transformedAxis = newAxis.normalized() * std::sin(halfRads);
     this->set(
         transformedAxis.x,
         transformedAxis.y,
         transformedAxis.z,
-        std::cos(halfRads)
+        std::cos(halfRads),
+        false
     );
+
+    this->axis = newAxis;
 }
 
-void randar::Quaternion::setAxis(const Vector& axis)
+void randar::Quaternion::setAxis(const Vector& newAxis)
 {
-    this->set(axis, this->getAngle());
+    this->set(newAxis, this->getAngle());
 }
 
-void randar::Quaternion::setAngle(const Angle& angle)
+void randar::Quaternion::setAngle(const Angle& newAngle)
 {
-    this->set(this->getAxis(), angle);
+    this->set(this->axis, newAngle);
 }
 
 // Relatively sets the rotation represented by this quaternion.
-void randar::Quaternion::rotate(const Angle& angle)
+void randar::Quaternion::rotate(const Angle& deltaAngle)
 {
-    this->setAngle(this->getAngle() + angle);
+    this->setAngle(this->getAngle() + deltaAngle);
 }
 
 // Gets information about the represented rotation.
@@ -70,7 +77,7 @@ randar::Vector randar::Quaternion::getAxis() const
 
     // Arbitrary axis. Any axis produces the same result.
     if (d == 0.0f) {
-        return Vector(0.0f, 0.0f, 0.0f);
+        return Vector(1.0f, 0.0f, 0.0f);
     }
 
     return Vector(
@@ -88,14 +95,19 @@ randar::Angle randar::Quaternion::getAngle() const
 // Converts this quaternion to a unit quaternion.
 void randar::Quaternion::normalize()
 {
-    float magnitude = std::sqrt((w*w) + (x*x) + (y*y) + (z*z));
+    float magnitude = std::sqrt((x*x) + (y*y) + (z*z) + (w*w));
+
     if (magnitude == 0.0f) {
-        this->w = this->x = this->y = this->z = 0.0f;
+        this->x = this->y = this->z = 0.0f;
+        this->w = 1.0f;
     }
-    this->w /= magnitude;
-    this->x /= magnitude;
-    this->y /= magnitude;
-    this->z /= magnitude;
+
+    else {
+        this->x /= magnitude;
+        this->y /= magnitude;
+        this->z /= magnitude;
+        this->w /= magnitude;
+    }
 }
 
 // Transforms a single point.
@@ -105,38 +117,29 @@ randar::Vector randar::Quaternion::transform(randar::Vector vector) const
 }
 
 // Retrieves a matrix for transforming.
+#include <iostream>
 glm::mat4 randar::Quaternion::getMatrix() const
 {
-    float w2 = w * w;
-    float x2 = x * x;
-    float y2 = y * y;
-    float z2 = z * z;
-
-    float twoXY = 2 * x * y;
-    float twoXZ = 2 * x * z;
-    float twoYZ = 2 * y * z;
-    float twoWZ = 2 * w * z;
-    float twoWX = 2 * w * x;
-    float twoWY = 2 * w * y;
-
     float values[16] = {
-        w2 + x2 - y2 - z2, twoXY - twoWZ    , twoXZ + twoWY    , 0,
-        twoXY + twoWZ    , w2 - x2 + y2 - z2, twoYZ + twoWX    , 0,
-        twoXZ - twoWY    , twoYZ - twoWX    , w2 - x2 - y2 + z2, 0,
-        0                , 0                , 0                , 1
+        1-2*y*y-2*z*z, 2*x*y - 2*z*w, 2*x*z + 2*y*w, 0,
+        2*x*y + 2*z*w, 1-2*x*x-2*z*z, 2*y*z - 2*x*w, 0,
+        2*x*z - 2*y*w, 2*y*z + 2*x*w, 1-2*x*x-2*y*y, 0,
+        0, 0, 0, 1
     };
 
+    std::cout << randar::toString(glm::make_mat4(values)) << std::endl;
     return glm::make_mat4(values);
 }
 
 // Combination operators.
 randar::Quaternion& randar::Quaternion::operator *=(const Quaternion& other)
 {
-    this->w = (this->w * other.w) - (this->x * other.x) - (this->y * other.y) - (this->z * other.z);
-    this->x = (this->w * other.x) + (this->x * other.w) + (this->y * other.z) - (this->z * other.y);
-    this->y = (this->w * other.y) - (this->x * other.z) + (this->y * other.w) + (this->z * other.x);
-    this->z = (this->w * other.z) + (this->x * other.y) - (this->y * other.x) + (this->z * other.w);
-    normalize();
+    this->set(
+        (this->w * other.x) + (this->x * other.w) + (this->y * other.z) - (this->z * other.y),
+        (this->w * other.y) - (this->x * other.z) + (this->y * other.w) + (this->z * other.x),
+        (this->w * other.z) + (this->x * other.y) - (this->y * other.x) + (this->z * other.w),
+        (this->w * other.w) - (this->x * other.x) - (this->y * other.y) - (this->z * other.z)
+    );
 
     return *this;
 }

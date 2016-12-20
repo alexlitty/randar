@@ -1,6 +1,9 @@
 #ifndef RANDAR_MATH_ANGLE_HPP
 #define RANDAR_MATH_ANGLE_HPP
 
+#include <cmath>
+#include <randar/math/Constant.hpp>
+
 namespace randar
 {
     class Angle

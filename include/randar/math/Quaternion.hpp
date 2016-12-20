@@ -1,7 +1,6 @@
 #ifndef RANDAR_MATH_QUATERNION_HPP
 #define RANDAR_MATH_QUATERNION_HPP
 
-#include <cmath>
 #include <bullet3/btBulletDynamicsCommon.h>
 #include <randar/math/Angle.hpp>
 #include <randar/math/Vector.hpp>
@@ -9,13 +8,16 @@
 
 namespace randar
 {
-    struct Quaternion
+    class Quaternion
     {
         float x;
         float y;
         float z;
         float w;
 
+        Vector axis;
+
+    public:
         /**
          * Default construction.
          */
@@ -29,7 +31,7 @@ namespace randar
         /**
          * Construction from axis and angle.
          */
-        Quaternion(const Vector& axis, const Angle& angle);
+        Quaternion(const Vector& newAxis, const Angle& newAngle);
 
         /**
          * Construction from physics quaternion.
@@ -39,15 +41,15 @@ namespace randar
         /**
          * Absolutely sets the rotation represented by this quaternion.
          */
-        void set(float ix, float iy, float iz, float iw);
-        void set(const Vector& axis, const Angle& angle);
-        void setAxis(const Vector& axis);
-        void setAngle(const Angle& angle);
+        void set(float ix, float iy, float iz, float iw, bool updateAxis = true);
+        void set(const Vector& newAxis, const Angle& newAngle);
+        void setAxis(const Vector& newAxis);
+        void setAngle(const Angle& newAngle);
 
         /**
          * Relatively sets the rotation represented by this quaternion.
          */
-        void rotate(const Angle& angle);
+        void rotate(const Angle& newAngle);
 
         /**
          * Gets information about the represented rotation.
