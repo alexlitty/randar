@@ -2,7 +2,7 @@
 
 randar::Physical::Physical()
 : body(nullptr),
-  motionState(new btDefaultMotionState()),
+  motionState(nullptr),
   collisionShape(nullptr)
 {
 
@@ -11,17 +11,18 @@ randar::Physical::Physical()
 randar::Physical::~Physical()
 {
     this->destroyBody();
-    delete this->motionState;
-    delete this->collisionShape;
 }
 
-void randar::Physical::createBody(float mass)
+void randar::Physical::createBody(float mass, btCollisionShape *newCollisionShape)
 {
+    this->destroyBody();
+
+    this->collisionShape = newCollisionShape;
     if (!this->collisionShape) {
         std::runtime_error("Cannot create physical body without collision shape");
     }
 
-    this->destroyBody();
+    this->motionState = new btDefaultMotionState();
     this->body = new btRigidBody(btRigidBody::btRigidBodyConstructionInfo(
         mass,
         this->motionState,
@@ -32,7 +33,11 @@ void randar::Physical::createBody(float mass)
 void randar::Physical::destroyBody()
 {
     delete this->body;
+    delete this->motionState;
+    delete this->collisionShape;
     this->body = nullptr;
+    this->motionState = nullptr;
+    this->collisionShape = nullptr;
 }
 
 btRigidBody* randar::Physical::getBody()

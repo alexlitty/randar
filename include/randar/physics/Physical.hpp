@@ -18,7 +18,7 @@ namespace randar
         Physical();
         virtual ~Physical();
 
-        void createBody(float mass);
+        void createBody(float mass, btCollisionShape *newCollisionShape);
         void destroyBody();
         btRigidBody* getBody();
 
