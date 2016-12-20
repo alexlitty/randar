@@ -22,6 +22,7 @@ namespace randar
          * Normalizes this vector.
          */
         void normalize();
+        Vector normalized() const;
 
         /**
          * Calculates the magnitude of this vector.

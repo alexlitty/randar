@@ -1,9 +1,82 @@
 #include <randar/math/Quaternion.hpp>
 
+// Default construction.
 randar::Quaternion::Quaternion()
 : w(1.0f)
 {
 
+}
+
+// Construction from raw values.
+randar::Quaternion::Quaternion(float ix, float iy, float iz, float iw)
+{
+    this->set(ix, iy, iz, iw);
+}
+
+// Construction from physics quaternion.
+randar::Quaternion::Quaternion(const btQuaternion& other)
+{
+    this->set(other.getAxis(), other.getAngle());
+}
+
+// Absolutely sets the rotation represented by this quaternion.
+void randar::Quaternion::set(float ix, float iy, float iz, float iw)
+{
+    this->x = ix;
+    this->y = iy;
+    this->z = iz;
+    this->w = iw;
+    this->normalize();
+}
+
+void randar::Quaternion::set(const Vector& axis, const Angle& angle)
+{
+    float halfRads = angle.toRadians() / 2.0f;
+    Vector transformedAxis = axis * std::sin(halfRads);
+    this->set(
+        transformedAxis.x,
+        transformedAxis.y,
+        transformedAxis.z,
+        std::cos(halfRads)
+    );
+}
+
+void randar::Quaternion::setAxis(const Vector& axis)
+{
+    this->set(axis, this->getAngle());
+}
+
+void randar::Quaternion::setAngle(const Angle& angle)
+{
+    this->set(this->getAxis(), angle);
+}
+
+// Relatively sets the rotation represented by this quaternion.
+void randar::Quaternion::rotate(const Angle& angle)
+{
+    this->setAngle(this->getAngle() + angle);
+}
+
+// Gets information about the represented rotation.
+randar::Vector randar::Quaternion::getAxis() const
+{
+    float d = std::sqrt(1 - (this->w * this->w));
+
+    // Arbitrary axis. Any axis produces the same result.
+    if (d == 0.0f) {
+        return Vector(0.0f, 0.0f, 0.0f);
+    }
+
+    return Vector(
+        this->x / d,
+        this->y / d,
+        this->z / d
+    ).normalized();
+}
+
+randar::Angle randar::Quaternion::getAngle() const
+{
+    return 2.0f * std::acos(this->w);
 }
 
 // Converts this quaternion to a unit quaternion.
@@ -65,4 +138,10 @@ randar::Quaternion& randar::Quaternion::operator *=(const Quaternion& other)
 randar::Quaternion randar::operator *(randar::Quaternion lhs, const randar::Quaternion& rhs)
 {
     return lhs *= rhs;
+}
+
+// Converts to physics quaternion.
+randar::Quaternion::operator btQuaternion() const
+{
+    return btQuaternion(this->x, this->y, this->z, this->w);
 }

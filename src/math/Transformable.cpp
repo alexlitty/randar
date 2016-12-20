@@ -5,25 +5,25 @@ randar::Transformable::~Transformable()
 
 }
 
-// Sets the position absolutely.
-void randar::Transformable::setPosition(randar::Vector newPosition)
+// Absolutely sets the position.
+void randar::Transformable::setPosition(const randar::Vector& newPosition)
 {
     this->position = newPosition;
     this->onTransform();
 }
 
-// Sets the position relatively.
-void randar::Transformable::move(randar::Vector movement)
-{
-    this->position += movement;
-    this->onTransform();
-}
-
-// Sets the position relatively, as an angular movement.
-void randar::Transformable::move(randar::Rotation angularMovement)
+// Relatively sets the position.
+void randar::Transformable::move(const randar::Vector& movement)
 {
     this->setPosition(
-        angularMovement.getQuaternion().transform(this->position)
+        this->getPosition() + movement
+    );
+}
+
+void randar::Transformable::move(const randar::Quaternion& angularMovement)
+{
+    this->setPosition(
+        angularMovement.transform(this->getPosition())
     );
 }
 
@@ -34,59 +34,51 @@ randar::Vector randar::Transformable::getPosition() const
 }
 
 // Sets the rotation.
-void randar::Transformable::setRotation(randar::Rotation newRotation)
-{
-    this->rotation = newRotation;
-    this->onTransform();
-}
-
 void randar::Transformable::setRotation(const randar::Quaternion& quaternion)
 {
-    this->rotation.setQuaternion(quaternion);
+    this->rotation = quaternion;
     this->onTransform();
 }
 
-// Sets the rotation, given an axis and angle.
-void randar::Transformable::setRotation(randar::Vector axis, randar::Angle angle)
+void randar::Transformable::setRotation(const randar::Vector& axis, const randar::Angle& angle)
 {
-    this->rotation = randar::Rotation(axis, angle);
+    this->rotation.set(axis, angle);
     this->onTransform();
 }
 
 // Retrieves the rotation.
-randar::Rotation randar::Transformable::getRotation() const
+randar::Quaternion randar::Transformable::getRotation() const
 {
     return this->rotation;
 }
 
-// Sets the axis of rotation.
-void randar::Transformable::setRotationAxis(randar::Vector axis)
+// Sets and retrieves the axis of rotation.
+void randar::Transformable::setRotationAxis(const randar::Vector& axis)
 {
     this->rotation.setAxis(axis);
     this->onTransform();
 }
 
-// Retrieves the axis of rotation.
 randar::Vector randar::Transformable::getRotationAxis() const
 {
     return this->rotation.getAxis();
 }
 
-// Sets the rotation angle absolutely.
-void randar::Transformable::setAngle(randar::Angle angle)
+// Absolutely sets the angle of rotation.
+void randar::Transformable::setAngle(const randar::Angle& angle)
 {
     this->rotation.setAngle(angle);
     this->onTransform();
 }
 
-// Sets the rotation angle relatively.
-void randar::Transformable::rotate(randar::Angle angle)
+// Relatively sets the angle of rotation.
+void randar::Transformable::rotate(const randar::Angle& angle)
 {
     this->rotation.setAngle(this->rotation.getAngle() + angle);
     this->onTransform();
 }
 
-// Retrieves the rotation angle.
+// Retrieves the angle of rotation.
 randar::Angle randar::Transformable::getAngle() const
 {
     return this->rotation.getAngle();
@@ -103,4 +95,10 @@ glm::mat4 randar::Transformable::getTransformMatrix() const
 {
     glm::vec3 glmPosition(this->position.x, this->position.y, this->position.z);
     return glm::translate(this->rotation.getMatrix(), glmPosition);
+}
+
+// Converts to physics transformation.
+randar::Transformable::operator btTransform() const
+{
+    return btTransform(this->getRotation(), this->getPosition());
 }

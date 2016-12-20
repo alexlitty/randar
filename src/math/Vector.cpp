@@ -41,6 +41,13 @@ void randar::Vector::normalize()
     this->z /= magnitude;
 }
 
+randar::Vector randar::Vector::normalized() const
+{
+    Vector result(*this);
+    result.normalize();
+    return result;
+}
+
 // Calculates the magnitude of this vector.
 float randar::Vector::getMagnitude() const
 {

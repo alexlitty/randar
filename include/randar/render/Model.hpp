@@ -1,7 +1,7 @@
 #ifndef RANDAR_RENDER_MODEL_HPP
 #define RANDAR_RENDER_MODEL_HPP
 
-#include <randar/render/Drawable.hpp>
+#include <randar/physics/Physical.hpp>
 #include <randar/render/Joint.hpp>
 #include <randar/render/Material.hpp>
 #include <randar/render/Mesh.hpp>
@@ -9,7 +9,7 @@
 
 namespace randar
 {
-    struct Model : virtual public Drawable
+    struct Model : virtual public Physical
     {
         ShaderProgram *shaderProgram = nullptr;
         std::vector<Joint*> joints;

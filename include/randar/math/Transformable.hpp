@@ -1,7 +1,7 @@
 #ifndef RANDAR_MATH_TRANSFORMABLE_HPP
 #define RANDAR_MATH_TRANSFORMABLE_HPP
 
-#include <randar/math/Rotation.hpp>
+#include <randar/math/Quaternion.hpp>
 
 namespace randar
 {
@@ -9,25 +9,21 @@ namespace randar
     {
     protected:
         Vector position;
-        Rotation rotation;
+        Quaternion rotation;
 
     public:
         virtual ~Transformable();
 
         /**
-         * Sets the position absolutely.
+         * Absolutely sets the position.
          */
-        void setPosition(Vector newPosition);
+        void setPosition(const Vector& newPosition);
 
         /**
-         * Sets the position relatively.
+         * Relatively sets the position.
          */
-        void move(Vector movement);
-
-        /**
-         * Sets the position relatively, as an angular movement.
-         */
-        void move(Rotation angularMovement);
+        void move(const Vector& movement);
+        void move(const Quaternion& angularMovement);
 
         /**
          * Retrieves the position.
@@ -37,41 +33,32 @@ namespace randar
         /**
          * Sets the rotation.
          */
-        void setRotation(Rotation newRotation);
         void setRotation(const Quaternion& quaternion);
-
-        /**
-         * Sets the rotation, given an axis and angle.
-         */
-        void setRotation(Vector axis, Angle angle);
+        void setRotation(const Vector& axis, const Angle& angle);
 
         /**
          * Retrieves the rotation.
          */
-        Rotation getRotation() const;
+        Quaternion getRotation() const;
 
         /**
-         * Sets the axis of rotation.
+         * Sets and retrieves the axis of rotation.
          */
-        void setRotationAxis(Vector axis);
-
-        /**
-         * Retrieves the axis of rotation.
-         */
+        void setRotationAxis(const Vector& axis);
         Vector getRotationAxis() const;
 
         /**
-         * Sets the rotation angle absolutely.
+         * Absolutely sets the angle of rotation.
          */
-        void setAngle(Angle angle);
+        void setAngle(const Angle& angle);
 
         /**
-         * Sets the rotation angle relatively.
+         * Relatively sets the angle of rotation.
          */
-        void rotate(Angle angle);
+        void rotate(const Angle& angle);
 
         /**
-         * Retrieves the rotation angle.
+         * Retrieves the angle of rotation.
          */
         Angle getAngle() const;
 
@@ -84,6 +71,11 @@ namespace randar
          * Retrieves the current transformation matrix.
          */
         glm::mat4 getTransformMatrix() const;
+
+        /**
+         * Converts to physics transformation.
+         */
+        operator btTransform() const;
     };
 }
 
