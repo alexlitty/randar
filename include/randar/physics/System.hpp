@@ -1,8 +1,10 @@
 #ifndef RANDAR_PHYSICS_SYSTEM_HPP
 #define RANDAR_PHYSICS_SYSTEM_HPP
 
+#include <vector>
 #include <bullet3/btBulletDynamicsCommon.h>
 #include <randar/Math.hpp>
+#include <randar/physics/Physical.hpp>
 
 namespace randar
 {
@@ -14,9 +16,15 @@ namespace randar
         btSequentialImpulseConstraintSolver solver;
         btDiscreteDynamicsWorld world;
 
+        std::vector<Physical*> objects;
+
     public:
         System();
         ~System();
+
+        void add(Physical* object);
+
+        void step();
     };
 }
 
