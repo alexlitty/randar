@@ -1,6 +1,7 @@
 #ifndef RANDAR_PHYSICS_PHYSICAL_HPP
 #define RANDAR_PHYSICS_PHYSICAL_HPP
 
+#include <stdexcept>
 #include <bullet3/btBulletDynamicsCommon.h>
 #include <randar/render/Drawable.hpp>
 
@@ -10,25 +11,22 @@ namespace randar
     {
     protected:
         btRigidBody *body;
-
-        /**
-         * Sync the rendering transform to the physical transform.
-         */
-        void writeMotionState();
-
-        /**
-         * Sync the physical transform to the rendering transform.
-         */
-        void readMotionState();
+        btMotionState *motionState;
+        btCollisionShape *collisionShape;
 
     public:
         Physical();
         virtual ~Physical();
 
-        void createBody(const btRigidBody::btRigidBodyConstructionInfo& info);
+        void createBody(float mass);
         void destroyBody();
         btRigidBody* getBody();
 
+        /**
+         * Sync the physical and rendering transforms.
+         */
+        void readMotionState();
+        void writeMotionState();
         virtual void onTransform() override;
     };
 }

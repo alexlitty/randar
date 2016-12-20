@@ -5,6 +5,13 @@ randar::Transformable::~Transformable()
 
 }
 
+// Sets this transformation from a physical transformation.
+void randar::Transformable::set(const btTransform& transform)
+{
+    this->setPosition(transform.getOrigin());
+    this->setRotation(transform.getRotation());
+}
+
 // Absolutely sets the position.
 void randar::Transformable::setPosition(const randar::Vector& newPosition)
 {

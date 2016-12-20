@@ -15,6 +15,11 @@ namespace randar
         virtual ~Transformable();
 
         /**
+         * Sets this transformation from a physical transformation.
+         */
+        void set(const btTransform& transform);
+
+        /**
          * Absolutely sets the position.
          */
         void setPosition(const Vector& newPosition);

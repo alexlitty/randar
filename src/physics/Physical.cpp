@@ -1,7 +1,9 @@
 #include <randar/physics/Physical.hpp>
 
 randar::Physical::Physical()
-: body(nullptr)
+: body(nullptr),
+  motionState(new btDefaultMotionState()),
+  collisionShape(nullptr)
 {
 
 }
@@ -9,38 +11,22 @@ randar::Physical::Physical()
 randar::Physical::~Physical()
 {
     this->destroyBody();
+    delete this->motionState;
+    delete this->collisionShape;
 }
 
-// Sync the rendering transform to the physical transform.
-void randar::Physical::writeMotionState()
+void randar::Physical::createBody(float mass)
 {
-    if (!this->body) {
-        return;
+    if (!this->collisionShape) {
+        std::runtime_error("Cannot create physical body without collision shape");
     }
 
-    btTransform transform;
-    transform.setOrigin(this->getPosition());
-    transform.setRotation(this->getRotation());
-    this->body->getMotionState()->setWorldTransform(transform);
-}
-
-// Sync the physical transform to the rendering transform.
-void randar::Physical::readMotionState()
-{
-    if (!this->body) {
-        return;
-    }
-
-    btTransform transform;
-    this->body->getMotionState()->getWorldTransform(transform);
-    this->setPosition(transform.getOrigin());
-    this->setRotation(transform.getRotation());
-}
-
-void randar::Physical::createBody(const btRigidBody::btRigidBodyConstructionInfo& info)
-{
     this->destroyBody();
-    this->body = new btRigidBody(info);
+    this->body = new btRigidBody(btRigidBody::btRigidBodyConstructionInfo(
+        mass,
+        this->motionState,
+        this->collisionShape
+    ));
 }
 
 void randar::Physical::destroyBody()
@@ -52,6 +38,27 @@ void randar::Physical::destroyBody()
 btRigidBody* randar::Physical::getBody()
 {
     return this->body;
+}
+
+// Sync the rendering and physical transforms.
+void randar::Physical::readMotionState()
+{
+    if (!this->body) {
+        return;
+    }
+
+    btTransform transform;
+    this->motionState->getWorldTransform(transform);
+    this->set(transform);
+}
+
+void randar::Physical::writeMotionState()
+{
+    if (!this->body) {
+        return;
+    }
+
+    this->motionState->setWorldTransform(*this);
 }
 
 void randar::Physical::onTransform()
