@@ -1,4 +1,6 @@
-#include <randar/physics/Physical.hpp>
+#include <randar/render/Model.hpp>
+
+#include <iostream>
 
 randar::Physical::Physical()
 : body(nullptr),
@@ -28,6 +30,13 @@ void randar::Physical::createBody(float mass, btCollisionShape *newCollisionShap
         this->motionState,
         this->collisionShape
     ));
+
+    std::string name = this->collisionShape->getName();
+    if (name == "STATICPLANE") {
+        btVector3 min, max;
+        this->collisionShape->getAabb(btTransform::getIdentity(), min, max);
+        //this->collisionMesh = Plane(min, max);
+    }
 }
 
 void randar::Physical::destroyBody()
@@ -35,6 +44,7 @@ void randar::Physical::destroyBody()
     delete this->body;
     delete this->motionState;
     delete this->collisionShape;
+
     this->body = nullptr;
     this->motionState = nullptr;
     this->collisionShape = nullptr;

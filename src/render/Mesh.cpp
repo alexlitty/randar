@@ -5,6 +5,14 @@ randar::Mesh::Mesh()
     ::glGenBuffers(1, &this->indexBuffer);
 }
 
+randar::Mesh::Mesh(const randar::Mesh& other)
+: randar::Mesh::Mesh()
+{
+    this->vertices = other.vertices;
+    this->indices = other.indices;
+    this->send();
+}
+
 randar::Mesh::~Mesh()
 {
     ::glDeleteBuffers(1, &this->indexBuffer);
@@ -24,6 +32,16 @@ void randar::Mesh::send() const
         &indices[0],
         GL_STATIC_DRAW
     );
+}
+
+void randar::Mesh::appendVertex(const randar::Vector& position, const randar::Color& color)
+{
+    this->appendVertex(Vertex(position, color));
+}
+
+void randar::Mesh::appendVertex(const randar::Vertex& vertex)
+{
+    this->vertices.append(vertex);
 }
 
 void randar::Mesh::appendFace(unsigned int a, unsigned int b, unsigned int c)

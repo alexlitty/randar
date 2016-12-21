@@ -52,7 +52,7 @@ namespace randar
         /**
          * Appends a new vertex to the buffer.
          */
-        void append(Vertex& vertex);
+        void append(const Vertex& vertex);
 
         /**
          * Draws the vertices in this buffer.

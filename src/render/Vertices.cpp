@@ -60,6 +60,7 @@ randar::Vertices::Vertices(const Vertices& other)
 : Vertices::Vertices(other.primitive)
 {
     this->vertices = other.vertices;
+    this->send();
 }
 
 randar::Vertices::~Vertices()
@@ -111,7 +112,7 @@ void randar::Vertices::send() const
     delete[] data;
 }
 
-void randar::Vertices::append(randar::Vertex& vertex)
+void randar::Vertices::append(const randar::Vertex& vertex)
 {
     this->vertices.push_back(vertex);
 }

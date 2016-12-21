@@ -26,4 +26,5 @@ void randar::Model::draw() const
         &jointMatrices[0][0][0]
     );
     this->mesh.draw();
+    this->collisionMesh.draw();
 }
