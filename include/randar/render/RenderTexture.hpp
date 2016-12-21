@@ -9,7 +9,6 @@ namespace randar
     {
         GLuint framebuffer;
         GLuint texture;
-        GLuint renderBuffer;
 
     public:
         RenderTexture();

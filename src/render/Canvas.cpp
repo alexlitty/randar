@@ -7,6 +7,7 @@ randar::Canvas::~Canvas()
 
 void randar::Canvas::clear(randar::Color color)
 {
+    this->bind();
     ::glClearColor(color.r, color.g, color.b, color.a);
     ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

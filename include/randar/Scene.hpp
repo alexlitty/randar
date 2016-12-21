@@ -12,6 +12,7 @@ namespace randar
     {
     protected:
         Resources resources;
+        Color backgroundColor;
 
     public:
         virtual ~Scene();
@@ -29,9 +30,14 @@ namespace randar
         virtual bool update() = 0;
 
         /**
-         * Renders the scene.
+         * Draws all objects in the scene.
          */
-        virtual void render() = 0;
+        virtual void draw(const Canvas& canvas) = 0;
+
+        /**
+         * Renders the entire scene frame.
+         */
+        void render();
     };
 }
 

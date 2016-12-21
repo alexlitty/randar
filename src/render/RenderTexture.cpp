@@ -13,15 +13,9 @@ randar::RenderTexture::RenderTexture()
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    ::glGenRenderbuffers(1, &this->renderBuffer);
-    ::glBindRenderbuffer(GL_RENDERBUFFER, this->renderBuffer);
-    ::glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
-    ::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->renderBuffer);
+    ::glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, this->texture, 0);
 
-    ::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, this->texture, 0);
-
-    GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-    ::glDrawBuffers(1, drawBuffers);
+    ::glDrawBuffer(GL_NONE);
 
     if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         throw std::runtime_error("Error while creating render texture");
