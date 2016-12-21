@@ -20,6 +20,7 @@ namespace randar
         virtual ~Canvas();
         void clear(Color color);
 
+        virtual void bind() const;
         void draw(const randar::Drawable& drawable) const;
     };
 }
