@@ -4,6 +4,7 @@
 #include <randar/render/Camera.hpp>
 #include <randar/render/Canvas.hpp>
 #include <randar/render/Drawable.hpp>
+#include <randar/render/Light.hpp>
 #include <randar/utility/Resources.hpp>
 
 namespace randar
@@ -11,8 +12,9 @@ namespace randar
     class Scene : virtual public Canvas
     {
     protected:
-        Resources resources;
         Color backgroundColor;
+        Resources resources;
+        Light light;
 
     public:
         virtual ~Scene();
