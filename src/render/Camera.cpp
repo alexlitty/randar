@@ -1,7 +1,8 @@
 #include <randar/render/Camera.hpp>
 
 randar::Camera::Camera()
-: fieldOfView(45.0f),
+: isOrtho(false),
+  fieldOfView(45.0f),
   aspectRatio(4.0f / 3.0f),
   nearZ(0.1f),
   farZ(100.0f)
@@ -16,12 +17,23 @@ void randar::Camera::onTransform()
 
 void randar::Camera::updateMatrices()
 {
-    this->projection = glm::perspective(
-        this->fieldOfView.toRadians(),
-        this->aspectRatio,
-        this->nearZ,
-        this->farZ
-    );
+    if (this->isOrtho) {
+        this->projection = glm::ortho(
+            -25.0f,
+            25.0f,
+            -25.0f,
+            25.0f,
+            -25.0f,
+            25.0f
+        );
+    } else {
+        this->projection = glm::perspective(
+            this->fieldOfView.toRadians(),
+            this->aspectRatio,
+            this->nearZ,
+            this->farZ
+        );
+    }
 
     this->view = glm::lookAt(
         glm::vec3(this->position.x, this->position.y, this->position.z),
@@ -30,6 +42,11 @@ void randar::Camera::updateMatrices()
         // @todo - make this based on rotation
         glm::vec3(0, 1, 0)
     );
+}
+
+void randar::Camera::setOrtho(bool ortho)
+{
+    this->isOrtho = ortho;
 }
 
 void randar::Camera::setTarget(randar::Vector newTarget)

@@ -7,6 +7,7 @@ namespace randar
 {
     class Camera : virtual public Transformable
     {
+        bool isOrtho;
         Angle fieldOfView;
         float aspectRatio;
         float nearZ;
@@ -25,6 +26,8 @@ namespace randar
 
     public:
         Camera();
+
+        void setOrtho(bool ortho);
 
         void setTarget(Vector newTarget);
         Vector getTarget() const;

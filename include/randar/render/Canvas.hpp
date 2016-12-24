@@ -13,10 +13,10 @@ namespace randar
     class Canvas
     {
     protected:
-        Camera camera;
 
     public:
         ShaderProgram *shaderProgram;
+        Camera camera;
 
         virtual ~Canvas();
         void clear(Color color);
