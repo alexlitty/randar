@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <randar/render/Canvas.hpp>
 #include <randar/render/ShaderProgram.hpp>
+#include <randar/render/Shader.hpp>
 #include <randar/render/Texture.hpp>
 
 namespace randar
@@ -51,7 +52,11 @@ namespace randar
         /**
          * Shader program construction and destruction.
          */
-        ShaderProgram* createShaderProgram();
+        ShaderProgram* createShaderProgram(
+            const Shader& vertexShader,
+            const Shader& fragmentShader
+        );
+        void destroyShaderProgram(ShaderProgram* shaderProgram);
 
         /**
          * Drawing.

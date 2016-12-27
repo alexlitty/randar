@@ -138,6 +138,7 @@ randar::Shader* randar::Gpu::createShader(const std::string code, GLenum type)
             ::glGetShaderInfoLog(*shader, logLength, nullptr, log);
 
             std::string safeLog(log);
+            delete[] log;
             throw std::runtime_error(safeLog);
         } else {
             throw std::runtime_error("Cannot compile shader, no log available");
@@ -151,6 +152,41 @@ void randar::Gpu::destroyShader(randar::Shader* shader)
 {
     ::glDeleteShader(shader->glName);
     delete shader;
+}
+
+// Shader program creation and destruction.
+randar::ShaderProgram* randar::Gpu::createShaderProgram(
+    const randar::Shader& vertexShader,
+    const randar::Shader& fragmentShader)
+{
+    GLint linkStatus, logLength;
+    ShaderProgram *program = new ShaderProgram(
+        ::glCreateProgram()
+    );
+
+    ::glAttachShader(*program, vertexShader);
+    ::glAttachShader(*program, fragmentShader);
+    ::glLinkProgram(*program);
+
+    ::glGetProgramiv(*program, GL_LINK_STATUS, &linkStatus);
+    ::glGetProgramiv(*program, GL_INFO_LOG_LENGTH, &logLength);
+    if (linkStatus == GL_FALSE) {
+        if (logLength > 0) {
+            GLchar *log = new char[logLength + 1];
+            ::glGetProgramInfoLog(*program, logLength, nullptr, log);
+
+            std::string safeLog(log);
+            delete[] log;
+            throw std::runtime_error(safeLog);
+        } else {
+            throw std::runtime_error("Cannot link shader, no log available");
+        }
+    }
+
+    ::glDetachShader(*program, vertexShader);
+    ::glDetachShader(*program, fragmentShader);
+
+    return program;
 }
 
 // Drawing.
