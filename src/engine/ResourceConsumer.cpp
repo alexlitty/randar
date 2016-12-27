@@ -47,12 +47,6 @@ randar::ShaderProgram& randar::ResourceConsumer::getShaderProgram(const std::str
     return this->repository.getShaderProgram(this->shaderPrograms[name]);
 }
 
-// @@
-/*const randar::ShaderProgram& randar::ResourceConsumer::getShaderProgram(const std::string& name) const
-{
-    return this->repository.getShaderProgram(this->shaderPrograms[name]);
-}*/
-
 randar::ShaderProgram& randar::ResourceConsumer::requireShaderProgram(
     const std::string& name,
     const Shader& vertexShader,
