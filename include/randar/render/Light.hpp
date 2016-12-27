@@ -2,15 +2,13 @@
 #define RANDAR_RENDER_LIGHT_HPP
 
 #include <randar/render/RenderTexture.hpp>
+#include <randar/engine/ResourceConsumer.hpp>
+#include <randar/utility/File.hpp>
 
 namespace randar
 {
-    class Light
+    class Light : virtual public ResourceConsumer
     {
-        randar::Shader shadowVertexShader;
-        randar::Shader shadowFragmentShader;
-        randar::ShaderProgram shadowProgram;
-
     public:
         RenderTexture renderTexture;
 

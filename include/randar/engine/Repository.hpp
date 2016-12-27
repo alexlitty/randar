@@ -1,6 +1,7 @@
 #ifndef RANDAR_ENGINE_REPOSITORY_HPP
 #define RANDAR_ENGINE_REPOSITORY_HPP
 
+#include <iostream>
 #include <randar/render/Gpu.hpp>
 #include <randar/utility/Map.hpp>
 
@@ -22,13 +23,30 @@ namespace randar
      */
     class Repository
     {
-        //std::map<unsigned int, RenderTexture*> renderTextures;
+        Gpu& gpu;
+
+        std::map<unsigned int, Shader*> shaders;
+        std::map<unsigned int, ShaderProgram*> shaderPrograms;
 
     public:
+        Repository(Gpu& initGpu = randar::getDefaultGpu());
+        ~Repository();
+
         /**
-         * Retrieves an existing render texture.
+         * Shaders.
          */
-        //RenderTexture* getRenderTexture(unsigned int id);
+        Shader& getShader(unsigned int id);
+        unsigned int requireShader(const std::string& code, ::GLenum type);
+        void disownShader(unsigned int id);
+
+        /**
+         * Shader programs.
+         */
+        ShaderProgram& getShaderProgram(unsigned int id);
+        unsigned int requireShaderProgram(
+            const Shader& vertexShader,
+            const Shader& fragmentShader);
+        void disownShaderProgram(unsigned int id);
     };
 
     /**

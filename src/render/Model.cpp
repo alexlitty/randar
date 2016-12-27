@@ -20,7 +20,7 @@ void randar::Model::draw() const
 
     // @todo - Modernize
     ::glUniformMatrix4fv(
-        ::glGetUniformLocation(this->shaderProgram->getGlName(), "joints"),
+        ::glGetUniformLocation(this->shaderProgram->glName, "joints"),
         this->joints.size(),
         GL_FALSE,
         &jointMatrices[0][0][0]

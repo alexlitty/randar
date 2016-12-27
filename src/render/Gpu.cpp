@@ -117,7 +117,7 @@ void randar::Gpu::clearTexture(const randar::Texture& texture)
 }
 
 // Shader creation and destruction.
-randar::Shader* randar::Gpu::createShader(const std::string code, GLenum type)
+randar::Shader* randar::Gpu::createShader(const std::string& code, GLenum type)
 {
     GLint compileStatus, logLength;
     Shader *shader = new Shader(

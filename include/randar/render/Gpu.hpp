@@ -46,7 +46,7 @@ namespace randar
         /**
          * Shader construction and destruction.
          */
-        Shader* createShader(const std::string code, GLenum type);
+        Shader* createShader(const std::string& code, GLenum type);
         void destroyShader(Shader* shader);
 
         /**

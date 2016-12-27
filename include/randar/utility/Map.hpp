@@ -29,6 +29,19 @@ namespace randar
     }
 
     /**
+     * Asserts the non-existence of a key in a map.
+     *
+     * If assertion fails, a runtime error is thrown.
+     */
+    template <typename T, typename U>
+    void assertNoKey(const std::map<T, U>& map, const T& key)
+    {
+        if (randar::hasKey(map, key)) {
+            throw std::runtime_error("Map key already exists");
+        }
+    }
+
+    /**
      * Find the next available integer key in a map.
      *
      * @todo - Quite inefficient. Consider a different data structure for this
@@ -45,6 +58,19 @@ namespace randar
             }
         }
         return size;
+    }
+
+    /**
+     * Insert an item at the next available integer key in a map.
+     *
+     * Returns the key at which insertion occurred.
+     */
+    template <typename T>
+    unsigned int insertAtAvailableKey(std::map<unsigned int, T>& map, const T& item)
+    {
+        unsigned int key = randar::getAvailableKey(map);
+        map[key] = item;
+        return key;
     }
 }
 

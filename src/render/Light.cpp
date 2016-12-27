@@ -2,10 +2,19 @@
 
 randar::Light::Light()
 {
-    this->shadowVertexShader.load("./shaders/shadow.vert", GL_VERTEX_SHADER);
-    this->shadowFragmentShader.load("./shaders/shadow.frag", GL_FRAGMENT_SHADER);
-    this->shadowProgram.load(this->shadowVertexShader, this->shadowFragmentShader);
-    this->renderTexture.shaderProgram = &this->shadowProgram;
+    this->renderTexture.shaderProgram = &this->requireShaderProgram(
+        "shadow",
+        this->requireShader(
+            "shadow.vert",
+            randar::readAsciiFile("./shaders/shadow.vert"),
+            GL_VERTEX_SHADER
+        ),
+        this->requireShader(
+            "shadow.frag",
+            randar::readAsciiFile("./shaders/shadow.frag"),
+            GL_FRAGMENT_SHADER
+        )
+    );
 }
 
 void randar::Light::bind() const
