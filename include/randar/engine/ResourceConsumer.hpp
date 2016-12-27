@@ -13,7 +13,7 @@ namespace randar
         std::map<std::string, unsigned int> textureIds;
 
     public:
-        ResourceConsumer(Repository& initRepository = randar::primaryRepository);
+        ResourceConsumer(Repository& initRepository = randar::getDefaultRepository());
     };
 }
 

@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <randar/render/Canvas.hpp>
+#include <randar/render/ShaderProgram.hpp>
 #include <randar/render/Texture.hpp>
 
 namespace randar
@@ -29,19 +30,39 @@ namespace randar
 
         ::GLFWwindow& getWindow();
 
+        /**
+         * Texture construction and destruction.
+         */
         Texture* createTexture(unsigned int width, unsigned int height);
         void destroyTexture(Texture* texture);
 
-        void setTexture(const Texture& texture, const GLvoid* data);
+        /**
+         * Texture manipulation.
+         */
+        void setTextureData(const Texture& texture, const GLvoid* data);
         void clearTexture(const Texture& texture);
 
+        /**
+         * Shader construction and destruction.
+         */
+        Shader* createShader(const std::string code, GLenum type);
+        void destroyShader(Shader* shader);
+
+        /**
+         * Shader program construction and destruction.
+         */
+        ShaderProgram* createShaderProgram();
+
+        /**
+         * Drawing.
+         */
         void draw(const Canvas& canvas, const Model& model);
         void draw(const Canvas& canvas, const Mesh& mesh);
         void draw(const Canvas& canvas, const Vertices& vertices);
     };
 
     /**
-     * Retrieve a default GPU context.
+     * Retrieves the default GPU context.
      */
     Gpu& getDefaultGpu();
 }

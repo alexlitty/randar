@@ -1,6 +1,6 @@
 #include <randar/render/Gpu.hpp>
 
-#include <iostream>
+// Construction.
 randar::Gpu::Gpu()
 {
     // Initialize GLFW.
@@ -47,6 +47,7 @@ randar::Gpu::~Gpu()
     return *this->window;
 }
 
+// Texture construction and destruction.
 randar::Texture* randar::Gpu::createTexture(unsigned int width, unsigned int height)
 {
     GLuint glName;
@@ -71,6 +72,13 @@ randar::Texture* randar::Gpu::createTexture(unsigned int width, unsigned int hei
     return texture;
 }
 
+void randar::Gpu::destroyTexture(Texture* texture)
+{
+    ::glDeleteTextures(1, &texture->glName);
+    delete texture;
+}
+
+// Texture binding.
 void randar::Gpu::bindTexture(const randar::Texture& texture)
 {
     if (texture.glName != boundTexture) {
@@ -78,7 +86,8 @@ void randar::Gpu::bindTexture(const randar::Texture& texture)
     }
 }
 
-void randar::Gpu::setTexture(const randar::Texture& texture, const GLvoid* data)
+// Texture manipulation.
+void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* data)
 {
     this->bindTexture(texture);
 
@@ -104,9 +113,56 @@ void randar::Gpu::setTexture(const randar::Texture& texture, const GLvoid* data)
 
 void randar::Gpu::clearTexture(const randar::Texture& texture)
 {
-    this->setTexture(texture, nullptr);
+    this->setTextureData(texture, nullptr);
 }
 
+// Shader creation and destruction.
+randar::Shader* randar::Gpu::createShader(const std::string code, GLenum type)
+{
+    GLint compileStatus, logLength;
+    Shader *shader = new Shader(
+        ::glCreateShader(type),
+        type,
+        code
+    );
+
+    const char *rawCode = shader->code.c_str();
+    ::glShaderSource(*shader, 1, &rawCode, nullptr);
+    ::glCompileShader(*shader);
+
+    ::glGetShaderiv(*shader, GL_COMPILE_STATUS, &compileStatus);
+    ::glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &logLength);
+    if (compileStatus == GL_FALSE) {
+        if (logLength > 0) {
+            GLchar *log = new char[logLength + 1];
+            ::glGetShaderInfoLog(*shader, logLength, nullptr, log);
+
+            std::string safeLog(log);
+            throw std::runtime_error(safeLog);
+        } else {
+            throw std::runtime_error("Cannot compile shader, no log available");
+        }
+    }
+
+    return shader;
+}
+
+void randar::Gpu::destroyShader(randar::Shader* shader)
+{
+    ::glDeleteShader(shader->glName);
+    delete shader;
+}
+
+// Drawing.
+//void randar::Gpu::draw(const randar::Canvas& canvas, const randar::Model& model)
+//{
+    //this->draw(canvas, model.mesh);
+//}
+
+//void randar::Gpu::draw(const randar::Canvas& canvas, const Mesh& mesh);
+//void randar::Gpu::draw(const randar::Canvas& canvas, const Vertices& vertices);
+
+// Retrieves the default GPU context.
 randar::Gpu& randar::getDefaultGpu()
 {
     static Gpu defaultGpu;

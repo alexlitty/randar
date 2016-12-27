@@ -1,6 +1,7 @@
 #ifndef RANDAR_RENDER_SHADER_PROGRAM_HPP
 #define RANDAR_RENDER_SHADER_PROGRAM_HPP
 
+#include <stdexcept>
 #include <randar/render/Shader.hpp>
 
 namespace randar

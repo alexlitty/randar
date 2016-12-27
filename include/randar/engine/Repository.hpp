@@ -1,7 +1,7 @@
 #ifndef RANDAR_ENGINE_REPOSITORY_HPP
 #define RANDAR_ENGINE_REPOSITORY_HPP
 
-#include <randar/render/RenderTexture.hpp>
+#include <randar/render/Gpu.hpp>
 #include <randar/utility/Map.hpp>
 
 namespace randar
@@ -22,22 +22,22 @@ namespace randar
      */
     class Repository
     {
-        std::map<unsigned int, RenderTexture*> renderTextures;
+        //std::map<unsigned int, RenderTexture*> renderTextures;
 
     public:
         /**
          * Retrieves an existing render texture.
          */
-        RenderTexture* getRenderTexture(unsigned int id);
+        //RenderTexture* getRenderTexture(unsigned int id);
     };
 
     /**
-     * Primary repository instance.
+     * Default repository instance.
      *
      * Using this repository is all the engine should ever require, but you're
      * welcome to create further instances for whatever evil plan you have.
      */
-    extern Repository primaryRepository;
+    Repository& getDefaultRepository();
 }
 
 #endif

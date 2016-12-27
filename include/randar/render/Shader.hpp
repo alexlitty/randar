@@ -1,45 +1,21 @@
 #ifndef RANDAR_RENDER_SHADER_HPP
 #define RANDAR_RENDER_SHADER_HPP
 
-#include <fstream>
-#include <stdexcept>
 #include <string>
-#include <GL/glew.h>
+#include <randar/engine/GpuResource.hpp>
 
 namespace randar
 {
-    class Shader
+    struct Shader : virtual public GpuResource
     {
-        GLenum type;
-        GLuint id;
+        const GLenum type;
+        const std::string code;
 
-    public:
-        /**
-         * Default constructor.
-         *
-         * Provided for convenience. Must be loaded before use.
-         */
-        Shader();
-
-        /**
-         * Constructs a shader from a file.
-         */
-        Shader(std::string file, GLenum initType);
-
-        /**
-         * Destructor.
-         */
-        ~Shader();
-
-        /**
-         * Loads and compiles a shader from a file.
-         */
-        void load(std::string file, GLenum initType);
-
-        /**
-         * Convert to the underlying OpenGL name.
-         */
-        operator GLuint() const;
+        Shader(
+            ::GLuint initGlName,
+            ::GLenum initType,
+            std::string initCode
+        );
     };
 }
 
