@@ -3,46 +3,8 @@
 
 randar::Randar::Randar()
 {
+    Gpu& gpu = randar::getDefaultGpu();
     randar::seedRandomWithTime();
-
-    // Initialize the monitor window.
-    if (!glfwInit()) {
-        throw std::runtime_error("Failed to initalize glfw");
-    }
-
-    glfwWindowHint(GLFW_SAMPLES, 0);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    this->monitor = glfwCreateWindow(800, 600, "Randar Monitor", NULL, NULL);
-    if (!this->monitor) {
-        throw std::runtime_error("Failed to create glfw window");
-    }
-
-    glfwMakeContextCurrent(this->monitor);
-
-    // Initialize GLEW.
-    glewExperimental = true;
-    if (glewInit() != GLEW_OK) {
-        throw std::runtime_error("Failed to intialize GLEW");
-    }
-
-    // A single error seems to occur after initializing, might be a driver issue.
-    // 
-    // Investigate later.
-    if (glGetError() != GL_NO_ERROR) {
-
-    }
-
-    ::glEnable(GL_DEPTH_TEST);
-    ::glDepthFunc(GL_LESS);
-}
-
-randar::Randar::~Randar()
-{
-    glfwDestroyWindow(this->monitor);
 }
 
 // Render the film.
@@ -51,8 +13,8 @@ void randar::Randar::run()
     try {
         Scene *currentScene = nullptr;
         while (!scenes.empty()) {
-            glfwSwapBuffers(this->monitor);
-            glfwPollEvents();
+            ::glfwSwapBuffers(&randar::getDefaultWindow());
+            ::glfwPollEvents();
 
             // Listen for errors.
             for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
@@ -60,7 +22,7 @@ void randar::Randar::run()
             }
 
             // Received signal to stop.
-            if (glfwGetKey(this->monitor, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->monitor) != 0) {
+            if (glfwGetKey(&randar::getDefaultWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS || ::glfwWindowShouldClose(&randar::getDefaultWindow()) != 0) {
                 break;
             }
 

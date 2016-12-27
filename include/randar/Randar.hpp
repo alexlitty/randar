@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include <queue>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <randar/engine/Window.hpp>
 #include <randar/Scene.hpp>
 #include <randar/Render.hpp>
 
@@ -15,11 +14,8 @@ namespace randar
      */
     class Randar
     {
-        GLFWwindow *monitor;
-
     public:
         Randar();
-        ~Randar();
 
         /**
          * List of scenes to render.
