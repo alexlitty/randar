@@ -2,7 +2,7 @@
 
 randar::Light::Light()
 {
-    this->renderTexture.shaderProgram = &this->requireShaderProgram(
+    this->requireShaderProgram(
         "shadow",
         this->requireShader(
             "shadow.vert",
@@ -15,6 +15,8 @@ randar::Light::Light()
             GL_FRAGMENT_SHADER
         )
     );
+
+    this->renderTexture.useShaderProgram("shadow");
 }
 
 void randar::Light::bind() const

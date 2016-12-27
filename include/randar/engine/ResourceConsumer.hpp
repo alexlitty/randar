@@ -35,6 +35,9 @@ namespace randar
             const Shader& vertexShader,
             const Shader& fragmentShader);
         void disownShaderProgram(const std::string& name);
+
+        // @@
+        const ShaderProgram& getShaderProgram(const std::string& name) const;
     };
 }
 

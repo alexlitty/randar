@@ -1,28 +1,28 @@
 #ifndef RANDAR_RENDER_CANVAS_HPP
 #define RANDAR_RENDER_CANVAS_HPP
 
+#include <randar/engine/ResourceConsumer.hpp>
 #include <randar/render/Camera.hpp>
-#include <randar/render/Model.hpp>
-#include <randar/render/ShaderProgram.hpp>
 
 namespace randar
 {
     /**
      * An object that may be drawn on.
      */
-    class Canvas
+    class Canvas : virtual public ResourceConsumer
     {
-    protected:
+        std::string activeShaderProgramName;
 
     public:
-        ShaderProgram *shaderProgram;
         Camera camera;
 
         virtual ~Canvas();
-        void clear(Color color);
 
+        void useShaderProgram(const std::string& name);
+
+        void clear(Color color);
         virtual void bind() const;
-        void draw(const randar::Drawable& drawable) const;
+        //void draw(const randar::Drawable& drawable) const;
     };
 }
 

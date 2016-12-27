@@ -1,15 +1,12 @@
-#ifndef RANDAR_RENDER_GPU_HPP
-#define RANDAR_RENDER_GPU_HPP
+#ifndef RANDAR_ENGINE_GPU_HPP
+#define RANDAR_ENGINE_GPU_HPP
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <randar/render/Canvas.hpp>
-#include <randar/render/ShaderProgram.hpp>
-#include <randar/render/Shader.hpp>
-#include <randar/render/Texture.hpp>
+#include <randar/Render.hpp>
 
 namespace randar
 {
+    class Canvas;
+
     /**
      * An interface with a GPU driver.
      *

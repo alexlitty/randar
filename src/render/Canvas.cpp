@@ -5,6 +5,11 @@ randar::Canvas::~Canvas()
 
 }
 
+void randar::Canvas::useShaderProgram(const std::string& name)
+{
+    this->activeShaderProgramName = name;
+}
+
 void randar::Canvas::clear(randar::Color color)
 {
     this->bind();
@@ -18,9 +23,9 @@ void randar::Canvas::bind() const
     ::glViewport(0, 0, 800, 600);
 }
 
-void randar::Canvas::draw(const randar::Drawable& drawable) const
+/*void randar::Canvas::draw(const randar::Drawable& drawable) const
 {
-    if (!this->shaderProgram) {
+    if (this->activeShaderProgramName == "") {
         throw std::runtime_error("Cannot draw without a shader program");
     }
     this->bind();
@@ -29,9 +34,10 @@ void randar::Canvas::draw(const randar::Drawable& drawable) const
         * this->camera.getViewMatrix()
         * drawable.getTransformMatrix();
 
-    ::glUseProgram(*this->shaderProgram);
-    GLuint matrixId = ::glGetUniformLocation(*this->shaderProgram, "mvp");
+    const ShaderProgram& shaderProgram = this->getShaderProgram(this->activeShaderProgramName);
+    ::glUseProgram(shaderProgram);
+    GLuint matrixId = ::glGetUniformLocation(shaderProgram, "mvp");
     glUniformMatrix4fv(matrixId, 1, GL_FALSE, &mvp[0][0]);
 
     drawable.draw();
-}
+}*/

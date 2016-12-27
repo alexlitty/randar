@@ -1,8 +1,7 @@
 #ifndef RANDAR_ENGINE_REPOSITORY_HPP
 #define RANDAR_ENGINE_REPOSITORY_HPP
 
-#include <iostream>
-#include <randar/render/Gpu.hpp>
+#include <randar/engine/Gpu.hpp>
 #include <randar/utility/Map.hpp>
 
 namespace randar
