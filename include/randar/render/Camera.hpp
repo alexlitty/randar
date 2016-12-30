@@ -2,6 +2,7 @@
 #define RANDAR_RENDER_CAMERA_HPP
 
 #include <randar/Math.hpp>
+#include <randar/render/Viewport.hpp>
 
 namespace randar
 {
@@ -25,6 +26,7 @@ namespace randar
         void updateMatrices();
 
     public:
+        Viewport viewport;
         Camera();
 
         void setOrtho(bool ortho);
