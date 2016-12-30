@@ -2,7 +2,6 @@
 #define RANDAR_ENGINE_RESOURCE_CONSUMER_HPP
 
 #include <randar/Engine/Repository.hpp>
-#include <randar/Utility/Vector.hpp>
 
 namespace randar
 {
@@ -10,33 +9,32 @@ namespace randar
     {
         Repository& repository;
 
-        RepositoryResource<Texture> textures;
-        RepositoryResource<Shader> shaders;
-        RepositoryResource<ShaderProgram> shaderPrograms;
+        std::map<std::string, unsigned int> shaders;
+        std::map<std::string, unsigned int> shaderPrograms;
 
     public:
         ResourceConsumer(Repository& initRepository = randar::getDefaultRepository());
         virtual ~ResourceConsumer();
 
         /**
-         * Textures.
-         */
-        Texture& requireTexture(unsigned int width, unsigned int height);
-        void disownTexture(Texture& texture);
-
-        /**
          * Shaders.
          */
-        Shader& requireShader(const std::string& code, ::GLenum type);
-        void disownShader(Shader& shader);
+        Shader& getShader(const std::string& name);
+        Shader& requireShader(
+            const std::string& name,
+            const std::string& code,
+            ::GLenum type);
+        void disownShader(const std::string& name);
 
         /**
          * Shader programs.
          */
+        ShaderProgram& getShaderProgram(const std::string& name);
         ShaderProgram& requireShaderProgram(
+            const std::string& name,
             const Shader& vertexShader,
             const Shader& fragmentShader);
-        void disownShaderProgram(ShaderProgram& shader);
+        void disownShaderProgram(const std::string& name);
     };
 }
 
