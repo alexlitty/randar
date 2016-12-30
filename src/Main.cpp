@@ -1,12 +1,18 @@
 #include <randar/Randar.hpp>
+#include <randar/Ui/Ui.hpp>
 
 int main()
 {
     randar::seedRandomWithTime();
+    randar::Ui ui;
 
-    auto window = &randar::getDefaultGpu().getWindow();
+    auto gpu = randar::getDefaultGpu();
+    auto window = &gpu.getWindow();
+    auto framebuffer = &gpu.getDefaultFramebuffer();
+
     while (true) {
         ::glfwPollEvents();
+        ui.update(randar::getDefaultGpu());
 
         for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
             throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));

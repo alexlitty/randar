@@ -49,25 +49,22 @@ randar::Gpu::~Gpu()
 }
 
 // Texture construction and destruction.
-randar::Texture* randar::Gpu::createTexture(unsigned int width, unsigned int height)
+randar::Texture* randar::Gpu::createTexture(randar::Texture::Type type, unsigned int width, unsigned int height)
 {
     GLuint glName;
     ::glGenTextures(1, &glName);
 
-    Texture *texture = new Texture(glName, Texture::DEPTH, width, height);
+    Texture *texture = new Texture(glName, type, width, height);
     this->bindTexture(*texture);
     this->clearTexture(*texture);
 
     switch (texture->type) {
-        case Texture::DEPTH:
+        default:
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             break;
-
-        default:
-            throw std::runtime_error("Creating invalid texture type");
     }
 
     return texture;
@@ -93,6 +90,20 @@ void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* d
     this->bindTexture(texture);
 
     switch (texture.type) {
+        case Texture::RGBA:
+            ::glTexImage2D(
+                GL_TEXTURE_2D,
+                0,
+                GL_RGBA,
+                texture.width,
+                texture.height,
+                0,
+                GL_RGBA,
+                GL_UNSIGNED_BYTE,
+                data
+            );
+            break;
+
         case Texture::DEPTH:
             ::glTexImage2D(
                 GL_TEXTURE_2D,

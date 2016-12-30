@@ -22,6 +22,7 @@ namespace randar
          */
         Texture& getTexture(const std::string& name = "");
         Texture& requireTexture(
+            Texture::Type type,
             unsigned int width,
             unsigned int height,
             const std::string& name = "");

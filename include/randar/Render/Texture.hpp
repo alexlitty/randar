@@ -9,6 +9,7 @@ namespace randar
     {
         enum Type
         {
+            RGBA,
             DEPTH
         };
 

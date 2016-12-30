@@ -42,7 +42,7 @@ namespace randar
         /**
          * Texture construction and destruction.
          */
-        Texture* createTexture(unsigned int width, unsigned int height);
+        Texture* createTexture(randar::Texture::Type type, unsigned int width, unsigned int height);
         void destroyTexture(Texture* texture);
 
         /**

@@ -20,11 +20,14 @@ randar::Texture& randar::Repository::getTexture(unsigned int id)
     return *this->textures[id];
 }
 
-unsigned int randar::Repository::requireTexture(unsigned int width, unsigned int height)
+unsigned int randar::Repository::requireTexture(
+    randar::Texture::Type type,
+    unsigned int width,
+    unsigned int height)
 {
     return randar::insertAtAvailableKey(
         this->textures,
-        this->gpu.createTexture(width, height)
+        this->gpu.createTexture(type, width, height)
     );
 }
 

@@ -29,12 +29,13 @@ randar::Texture& randar::ResourceConsumer::getTexture(const std::string& name)
 }
 
 randar::Texture& randar::ResourceConsumer::requireTexture(
+    randar::Texture::Type type,
     unsigned int width,
     unsigned int height,
     const std::string& name)
 {
     randar::assertNoKey(this->textures, name);
-    this->textures[name] = this->repository.requireTexture(width, height);
+    this->textures[name] = this->repository.requireTexture(type, width, height);
     return this->getTexture(name);
 }
 

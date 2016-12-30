@@ -6,7 +6,7 @@ LIBPATH=lib
 BINPATH=bin
 
 # Linker flags
-LDFLAGS=-L$(LIBPATH) -lX11 -lXxf86vm -pthread -lXi -lXrandr -lGL -lGLEW -lglfw3 -lBulletDynamics -lBulletCollision -lLinearMath
+LDFLAGS=-L$(LIBPATH) -lX11 -lXxf86vm -pthread -lXi -lXrandr -lGL -lGLEW -lglfw3 -lBulletDynamics -lBulletCollision -lLinearMath -lawesomium-1-7
 
 # Background colors
 BG_WHITE=$$(tput setab 7)
