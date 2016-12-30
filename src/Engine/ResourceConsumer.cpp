@@ -8,60 +8,66 @@ randar::ResourceConsumer::ResourceConsumer(randar::Repository& initRepository)
 
 randar::ResourceConsumer::~ResourceConsumer()
 {
-    for (auto item : this->shaders) {
-        this->repository.disownShader(item.second);
+    while (this->textures.begin() != this->textures.end()) {
+        this->disownTexture(**this->textures.begin());
     }
 
-    for (auto item : this->shaderPrograms) {
-        this->repository.disownShaderProgram(item.second);
+    while (this->shaders.begin() != this->shaders.end()) {
+        this->disownShader(**this->shaders.begin());
     }
+
+    while (this->shaderPrograms.begin() != this->shaderPrograms.end()) {
+        this->disownShaderProgram(**this->shaderPrograms.begin());
+    }
+}
+
+// Textures.
+randar::Texture& randar::ResourceConsumer::requireTexture(
+    unsigned int width,
+    unsigned int height)
+{
+    Texture *texture = this->repository.gpu.createTexture(width, height);
+    this->textures.insert(texture);
+    return *texture;
+}
+
+void randar::ResourceConsumer::disownTexture(randar::Texture& texture)
+{
+    this->textures.erase(&texture);
+    delete &texture;
 }
 
 // Shaders.
-randar::Shader& randar::ResourceConsumer::getShader(const std::string& name)
-{
-    randar::assertKey(this->shaders, name);
-    return this->repository.getShader(this->shaders[name]);
-}
-
 randar::Shader& randar::ResourceConsumer::requireShader(
-    const std::string& name,
     const std::string& code,
     ::GLenum type)
 {
-    randar::assertNoKey(this->shaders, name);
-    this->shaders[name] = this->repository.requireShader(code, type);
-    return this->getShader(name);
+    Shader *shader = this->repository.gpu.createShader(code, type);
+    this->shaders.insert(shader);
+    return *shader;
 }
 
-void randar::ResourceConsumer::disownShader(const std::string& name)
+void randar::ResourceConsumer::disownShader(randar::Shader& shader)
 {
-    randar::assertKey(this->shaders, name);
-    this->repository.disownShader(this->shaders[name]);
+    this->shaders.erase(&shader);
+    delete &shader;
 }
 
 // Shader programs.
-randar::ShaderProgram& randar::ResourceConsumer::getShaderProgram(const std::string& name)
-{
-    randar::assertKey(this->shaderPrograms, name);
-    return this->repository.getShaderProgram(this->shaderPrograms[name]);
-}
-
 randar::ShaderProgram& randar::ResourceConsumer::requireShaderProgram(
-    const std::string& name,
     const Shader& vertexShader,
     const Shader& fragmentShader)
 {
-    randar::assertNoKey(this->shaderPrograms, name);
-    this->shaderPrograms[name] = this->repository.requireShaderProgram(
+    ShaderProgram *shaderProgram = this->repository.gpu.createShaderProgram(
         vertexShader,
         fragmentShader
     );
-    return this->getShaderProgram(name);
+    this->shaderPrograms.insert(shaderProgram);
+    return *shaderProgram;
 }
 
-void randar::ResourceConsumer::disownShaderProgram(const std::string& name)
+void randar::ResourceConsumer::disownShaderProgram(ShaderProgram& shaderProgram)
 {
-    randar::assertKey(this->shaderPrograms, name);
-    this->repository.disownShaderProgram(this->shaderPrograms[name]);
+    this->shaderPrograms.erase(&shaderProgram);
+    delete &shaderProgram;
 }
