@@ -8,6 +8,10 @@ randar::ResourceConsumer::ResourceConsumer(randar::Repository& initRepository)
 
 randar::ResourceConsumer::~ResourceConsumer()
 {
+    for (auto item : this->textures) {
+        this->repository.disownTexture(item.second);
+    }
+
     for (auto item : this->shaders) {
         this->repository.disownShader(item.second);
     }
@@ -15,6 +19,29 @@ randar::ResourceConsumer::~ResourceConsumer()
     for (auto item : this->shaderPrograms) {
         this->repository.disownShaderProgram(item.second);
     }
+}
+
+// Textures.
+randar::Texture& randar::ResourceConsumer::getTexture(const std::string& name)
+{
+    randar::assertKey(this->textures, name);
+    return this->repository.getTexture(this->textures[name]);
+}
+
+randar::Texture& randar::ResourceConsumer::requireTexture(
+    unsigned int width,
+    unsigned int height,
+    const std::string& name)
+{
+    randar::assertNoKey(this->textures, name);
+    this->textures[name] = this->repository.requireTexture(width, height);
+    return this->getTexture(name);
+}
+
+void randar::ResourceConsumer::disownTexture(const std::string& name)
+{
+    randar::assertKey(this->textures, name);
+    this->repository.disownTexture(this->textures[name]);
 }
 
 // Shaders.
@@ -25,9 +52,9 @@ randar::Shader& randar::ResourceConsumer::getShader(const std::string& name)
 }
 
 randar::Shader& randar::ResourceConsumer::requireShader(
-    const std::string& name,
     const std::string& code,
-    ::GLenum type)
+    ::GLenum type,
+    const std::string& name)
 {
     randar::assertNoKey(this->shaders, name);
     this->shaders[name] = this->repository.requireShader(code, type);
@@ -48,9 +75,9 @@ randar::ShaderProgram& randar::ResourceConsumer::getShaderProgram(const std::str
 }
 
 randar::ShaderProgram& randar::ResourceConsumer::requireShaderProgram(
-    const std::string& name,
     const Shader& vertexShader,
-    const Shader& fragmentShader)
+    const Shader& fragmentShader,
+    const std::string& name)
 {
     randar::assertNoKey(this->shaderPrograms, name);
     this->shaderPrograms[name] = this->repository.requireShaderProgram(

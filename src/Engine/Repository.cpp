@@ -14,6 +14,28 @@ randar::Repository::~Repository()
     }
 }
 
+// Textures.
+randar::Texture& randar::Repository::getTexture(unsigned int id)
+{
+    return *this->textures[id];
+}
+
+unsigned int randar::Repository::requireTexture(unsigned int width, unsigned int height)
+{
+    return randar::insertAtAvailableKey(
+        this->textures,
+        this->gpu.createTexture(width, height)
+    );
+}
+
+void randar::Repository::disownTexture(unsigned int id)
+{
+    randar::assertKey(this->textures, id);
+    this->gpu.destroyTexture(this->textures[id]);
+    delete this->textures[id];
+    this->textures.erase(id);
+}
+
 // Shaders.
 randar::Shader& randar::Repository::getShader(unsigned int id)
 {
@@ -32,6 +54,7 @@ unsigned int randar::Repository::requireShader(const std::string& code, ::GLenum
 void randar::Repository::disownShader(unsigned int id)
 {
     randar::assertKey(this->shaders, id);
+    this->gpu.destroyShader(this->shaders[id]);
     delete this->shaders[id];
     this->shaders.erase(id);
 }
@@ -56,6 +79,7 @@ unsigned int randar::Repository::requireShaderProgram(
 void randar::Repository::disownShaderProgram(unsigned int id)
 {
     randar::assertKey(this->shaderPrograms, id);
+    this->gpu.destroyShaderProgram(this->shaderPrograms[id]);
     delete this->shaderPrograms[id];
     this->shaderPrograms.erase(id);
 }

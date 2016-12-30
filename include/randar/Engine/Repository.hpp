@@ -24,12 +24,20 @@ namespace randar
     {
         Gpu& gpu;
 
+        std::map<unsigned int, Texture*> textures;
         std::map<unsigned int, Shader*> shaders;
         std::map<unsigned int, ShaderProgram*> shaderPrograms;
 
     public:
         Repository(Gpu& initGpu = randar::getDefaultGpu());
         ~Repository();
+
+        /**
+         * Textures.
+         */
+        Texture& getTexture(unsigned int id);
+        unsigned int requireTexture(unsigned int widht, unsigned int height);
+        void disownTexture(unsigned int id);
 
         /**
          * Shaders.
