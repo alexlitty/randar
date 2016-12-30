@@ -16,8 +16,6 @@ namespace randar
         Mesh mesh;
 
         ~Model();
-
-        void draw() const;
     };
 }
 

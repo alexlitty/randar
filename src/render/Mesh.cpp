@@ -50,10 +50,3 @@ void randar::Mesh::appendFace(unsigned int a, unsigned int b, unsigned int c)
     this->indices.push_back(b);
     this->indices.push_back(c);
 }
-
-void randar::Mesh::draw() const
-{
-    this->vertices.bind();
-    this->bind();
-    ::glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, (void*)0);
-}

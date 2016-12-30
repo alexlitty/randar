@@ -2,6 +2,7 @@
 
 // Construction.
 randar::Gpu::Gpu()
+: defaultFramebuffer(0, randar::Viewport(0, 0, 800, 600))
 {
     // Initialize GLFW.
     if (!::glfwInit()) {
@@ -189,14 +190,88 @@ randar::ShaderProgram* randar::Gpu::createShaderProgram(
     return program;
 }
 
-// Drawing.
-//void randar::Gpu::draw(const randar::Canvas& canvas, const randar::Model& model)
-//{
-    //this->draw(canvas, model.mesh);
-//}
+// Vertices.
+void randar::Gpu::bindVertices(const randar::Vertices& vertices)
+{
+    ::glBindBuffer(GL_ARRAY_BUFFER, vertices.vertexBuffer);
+}
 
-//void randar::Gpu::draw(const randar::Canvas& canvas, const Mesh& mesh);
-//void randar::Gpu::draw(const randar::Canvas& canvas, const Vertices& vertices);
+// Mesh.
+void randar::Gpu::bindMesh(const randar::Mesh& mesh)
+{
+    this->bindVertices(mesh.vertices);
+    ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
+}
+
+// Framebuffers.
+const randar::Framebuffer& randar::Gpu::getDefaultFramebuffer() const
+{
+    return this->defaultFramebuffer;
+}
+
+randar::Framebuffer& randar::Gpu::getDefaultFramebuffer()
+{
+    return this->defaultFramebuffer;
+}
+
+// Framebuffer binding.
+void randar::Gpu::bindFramebuffer(const randar::Framebuffer& framebuffer)
+{
+    ::glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    const Viewport &viewport = framebuffer.camera.viewport;
+    ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
+}
+
+// Framebuffer manipulation.
+void randar::Gpu::clear(const randar::Framebuffer& framebuffer, const randar::Color& color)
+{
+    ::glClearColor(color.r, color.g, color.b, color.a);
+    ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+// Drawing.
+void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Model& model)
+{
+    if (!model.shaderProgram) {
+        throw std::runtime_error("Cannot draw without shader program");
+    }
+    this->bindFramebuffer(framebuffer);
+
+    // Set MVP uniform.
+    glm::mat4 mvp = framebuffer.camera.getProjectionMatrix()
+        * framebuffer.camera.getViewMatrix()
+        * model.getTransformMatrix();
+
+    const ShaderProgram& shaderProgram = *model.shaderProgram;
+    ::glUseProgram(shaderProgram);
+    ::GLuint mvpId = ::glGetUniformLocation(shaderProgram, "mvp");
+    ::glUniformMatrix4fv(mvpId, 1, GL_FALSE, &mvp[0][0]);
+
+    // Set joints uniform.
+    if (model.joints.size()) {
+        glm::mat4 jointMatrices[model.joints.size()];
+        for (unsigned int i = 0; i < model.joints.size(); i++) {
+            jointMatrices[i] = model.joints[i]->getPoseMatrix();
+        }
+
+        ::glUniformMatrix4fv(
+            ::glGetUniformLocation(shaderProgram, "joints"),
+            model.joints.size(),
+            GL_FALSE,
+            &jointMatrices[0][0][0]
+        );
+    }
+
+    // Draw model.
+    this->bindMesh(model.mesh);
+    ::glDrawElements(
+        GL_TRIANGLES,
+        model.mesh.indices.size(),
+        GL_UNSIGNED_INT,
+        (void*)0
+    );
+}
 
 // Retrieves the default GPU context.
 randar::Gpu& randar::getDefaultGpu()

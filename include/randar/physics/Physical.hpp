@@ -3,12 +3,12 @@
 
 #include <stdexcept>
 #include <bullet3/btBulletDynamicsCommon.h>
-#include <randar/render/Drawable.hpp>
+#include <randar/math/Transformable.hpp>
 #include <randar/Shape.hpp>
 
 namespace randar
 {
-    class Physical : virtual public Drawable
+    class Physical : virtual public Transformable
     {
     protected:
         btRigidBody *body;

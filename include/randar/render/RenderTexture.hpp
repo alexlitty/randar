@@ -1,11 +1,12 @@
 #ifndef RANDAR_RENDER_RENDER_TEXTURE_HPP
 #define RANDAR_RENDER_RENDER_TEXTURE_HPP
 
-#include <randar/render/Canvas.hpp>
+#include <stdexcept>
+#include <randar/engine/GpuResource.hpp>
 
 namespace randar
 {
-    class RenderTexture : virtual public Canvas
+    struct RenderTexture : virtual public GpuResource
     {
         GLuint framebuffer;
         GLuint texture;
@@ -14,7 +15,7 @@ namespace randar
         RenderTexture();
         ~RenderTexture();
 
-        virtual void bind() const override;
+        virtual void bind() const;
     };
 }
 

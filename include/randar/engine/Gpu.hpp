@@ -5,8 +5,6 @@
 
 namespace randar
 {
-    class Canvas;
-
     /**
      * An interface with a GPU driver.
      *
@@ -15,7 +13,12 @@ namespace randar
     class Gpu
     {
     protected:
-        void bindFramebuffer();
+        Framebuffer defaultFramebuffer;
+        void bindFramebuffer(const Framebuffer& framebuffer);
+        ::GLuint boundFramebuffer;
+
+        void bindVertices(const Vertices& vertices);
+        void bindMesh(const Mesh& mesh);
 
         void bindTexture(const Texture& texture);
         ::GLuint boundTexture;
@@ -27,6 +30,14 @@ namespace randar
         ~Gpu();
 
         ::GLFWwindow& getWindow();
+
+        /**
+         * Framebuffers.
+         */
+        const Framebuffer& getDefaultFramebuffer() const;
+        Framebuffer& getDefaultFramebuffer();
+
+        void clear(const Framebuffer& framebuffer, const Color& color);
 
         /**
          * Texture construction and destruction.
@@ -41,13 +52,13 @@ namespace randar
         void clearTexture(const Texture& texture);
 
         /**
-         * Shader construction and destruction.
+         * Shaders.
          */
         Shader* createShader(const std::string& code, GLenum type);
         void destroyShader(Shader* shader);
 
         /**
-         * Shader program construction and destruction.
+         * Shader programs.
          */
         ShaderProgram* createShaderProgram(
             const Shader& vertexShader,
@@ -58,9 +69,7 @@ namespace randar
         /**
          * Drawing.
          */
-        void draw(const Canvas& canvas, const Model& model);
-        void draw(const Canvas& canvas, const Mesh& mesh);
-        void draw(const Canvas& canvas, const Vertices& vertices);
+        void draw(const Framebuffer& framebuffer, const Model& model);
     };
 
     /**

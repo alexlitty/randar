@@ -2,14 +2,12 @@
 #define RANDAR_SCENE_HPP
 
 #include <randar/render/Camera.hpp>
-#include <randar/render/Canvas.hpp>
-#include <randar/render/Drawable.hpp>
 #include <randar/render/Light.hpp>
 #include <randar/utility/Resources.hpp>
 
 namespace randar
 {
-    class Scene : virtual public Canvas
+    class Scene
     {
     protected:
         Color backgroundColor;
@@ -34,7 +32,7 @@ namespace randar
         /**
          * Draws all objects in the scene.
          */
-        virtual void draw(const Canvas& canvas) = 0;
+        //virtual void draw(const Canvas& canvas) = 0;
 
         /**
          * Renders the entire scene frame.

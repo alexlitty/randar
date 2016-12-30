@@ -5,7 +5,7 @@ randar::Viewport::Viewport(int ix1, int iy1, int ix2, int iy2)
     this->set(ix1, iy1, ix2, iy2);
 }
 
-void randar::Viewport::Viewport(int ix1, int iy1, int ix2, int iy2)
+void randar::Viewport::set(int ix1, int iy1, int ix2, int iy2)
 {
     this->x1 = ix1;
     this->y1 = iy1;

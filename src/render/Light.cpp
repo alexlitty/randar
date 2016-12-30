@@ -16,7 +16,7 @@ randar::Light::Light()
         )
     );
 
-    this->renderTexture.useShaderProgram("shadow");
+    //this->renderTexture.useShaderProgram("shadow");
 }
 
 void randar::Light::bind() const

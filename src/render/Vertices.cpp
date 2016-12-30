@@ -117,12 +117,6 @@ void randar::Vertices::append(const randar::Vertex& vertex)
     this->vertices.push_back(vertex);
 }
 
-void randar::Vertices::draw() const
-{
-    this->bind();
-    ::glDrawArrays(this->primitive, 0, this->vertices.size());
-}
-
 randar::Vertex& randar::Vertices::operator[](unsigned int index)
 {
     return this->vertices[index];
