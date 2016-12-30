@@ -1,9 +1,7 @@
-SOURCES=$(shell find src/ -type f -name '*.cpp')
-OBJECTS=$(SOURCES:.cpp=.o)
-
 # Paths
-SRCPATH=src/
-INCPATHS=include/ include/bullet3/
+SRCPATH=src
+INCPATHS=include include/bullet3
+OBJPATH=obj
 LIBPATH=lib
 BINPATH=bin
 
@@ -31,9 +29,9 @@ ifeq ($(GOAL), clean)
 	SOURCE_FILES =
 endif
 
-OBJECTS=$(SOURCES:%.cpp=%.o)
-#SOURCE_FILES=$(SOURCES:%=$(SRCPATH)%)
-#OBJECT_FILES=$(OBJECTS:%=$(SRCPATH)%)
+# Files
+SOURCES=$(shell find $(SRCPATH) -type f -name '*.cpp')
+OBJECTS=$(SOURCES:src/%.cpp=$(OBJPATH)/%.o)
 SOURCE_FILES =$(SOURCES)
 OBJECT_FILES=$(OBJECTS)
 
@@ -51,6 +49,7 @@ EXECUTABLE=$(EXECUTABLE_$(GOAL))
 
 # Initial Target
 $(GOAL): $(SOURCES_FILES) $(EXECUTABLE)
+	@echo "$(BG_WHITE)$(FG_MAGENTA) Executing $(COLOR_RESET)"
 
 # Link into executable
 $(EXECUTABLE): $(OBJECT_FILES)
@@ -60,7 +59,8 @@ $(EXECUTABLE): $(OBJECT_FILES)
 	@echo ""
 
 # Compile source into objects
-.cpp.o:
+$(OBJPATH)/%.o: $(SRCPATH)/%.cpp
+	@mkdir -p $(@D)
 	$(CC) $(INCFLAGS) $(CFLAGS) -c $< -o $@
 
 # Used to find all source files
