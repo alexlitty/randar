@@ -1,9 +1,9 @@
 #ifndef RANDAR_SCENE_HPP
 #define RANDAR_SCENE_HPP
 
-#include <randar/render/Camera.hpp>
-#include <randar/render/Light.hpp>
-#include <randar/utility/Resources.hpp>
+#include <randar/Render/Camera.hpp>
+#include <randar/Render/Light.hpp>
+#include <randar/Utility/Resources.hpp>
 
 namespace randar
 {

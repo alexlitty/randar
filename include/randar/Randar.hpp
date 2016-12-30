@@ -2,7 +2,6 @@
 #define RANDAR_HPP
 
 #include <iostream>
-
-#include <randar/engine/Window.hpp>
+#include <randar/Engine/Window.hpp>
 
 #endif
