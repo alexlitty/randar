@@ -1,4 +1,5 @@
 #include <randar/Engine/Gpu.hpp>
+#include <randar/Render/Model.hpp>
 
 // Construction.
 randar::Gpu::Gpu()

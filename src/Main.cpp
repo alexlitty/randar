@@ -23,8 +23,6 @@ int main()
             break;
         }
 
-        gpu.bindTexture(ui.getTexture());
-
         ::glfwSwapBuffers(window);
     }
     return 0;

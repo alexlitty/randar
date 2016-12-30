@@ -1,10 +1,13 @@
 #ifndef RANDAR_ENGINE_GPU_HPP
 #define RANDAR_ENGINE_GPU_HPP
 
+#include <stdexcept>
 #include <randar/Render.hpp>
 
 namespace randar
 {
+    class Model;
+
     /**
      * An interface with a GPU driver.
      *
