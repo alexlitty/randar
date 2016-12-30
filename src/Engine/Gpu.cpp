@@ -190,6 +190,12 @@ randar::ShaderProgram* randar::Gpu::createShaderProgram(
     return program;
 }
 
+void randar::Gpu::destroyShaderProgram(randar::ShaderProgram* shaderProgram)
+{
+    ::glDeleteProgram(shaderProgram->glName);
+    delete shaderProgram;
+}
+
 // Vertices.
 void randar::Gpu::bindVertices(const randar::Vertices& vertices)
 {

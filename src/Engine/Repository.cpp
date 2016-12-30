@@ -32,7 +32,6 @@ void randar::Repository::disownTexture(unsigned int id)
 {
     randar::assertKey(this->textures, id);
     this->gpu.destroyTexture(this->textures[id]);
-    delete this->textures[id];
     this->textures.erase(id);
 }
 
@@ -55,7 +54,6 @@ void randar::Repository::disownShader(unsigned int id)
 {
     randar::assertKey(this->shaders, id);
     this->gpu.destroyShader(this->shaders[id]);
-    delete this->shaders[id];
     this->shaders.erase(id);
 }
 
@@ -80,7 +78,6 @@ void randar::Repository::disownShaderProgram(unsigned int id)
 {
     randar::assertKey(this->shaderPrograms, id);
     this->gpu.destroyShaderProgram(this->shaderPrograms[id]);
-    delete this->shaderPrograms[id];
     this->shaderPrograms.erase(id);
 }
 
