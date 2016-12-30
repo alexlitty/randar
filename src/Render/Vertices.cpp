@@ -9,7 +9,7 @@ randar::Vertices::Vertices(GLenum initPrimitive)
     ::glGenBuffers(1, &this->vertexBuffer);
     ::glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 
-    unsigned int stride = 15 * sizeof(GLfloat);
+    unsigned int stride = 17 * sizeof(GLfloat);
 
     // Position.
     ::glEnableVertexAttribArray(0);
@@ -54,6 +54,17 @@ randar::Vertices::Vertices(GLenum initPrimitive)
         stride,
         (void*)(11 * sizeof(GLfloat))
     );
+
+    // Texture coordinates.
+    ::glEnableVertexAttribArray(4);
+    ::glVertexAttribPointer(
+        4,
+        2,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(15 * sizeof(GLfloat))
+    );
 }
 
 randar::Vertices::Vertices(const Vertices& other)
@@ -97,10 +108,10 @@ void randar::Vertices::bind() const
 // Sends this buffer's data to the GPU.
 void randar::Vertices::send() const
 {
-    unsigned int dataSize = this->vertices.size() * 15;
+    unsigned int dataSize = this->vertices.size() * 17;
     GLfloat *data = new GLfloat[dataSize], *subdata;
     for (unsigned int i = 0; i < this->vertices.size(); i++) {
-        subdata = &data[i * 15];
+        subdata = &data[i * 17];
         auto vertex = this->vertices[i];
         vertex.appendTo(subdata);
     }

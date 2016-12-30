@@ -30,4 +30,6 @@ void randar::Vertex::appendTo(GLfloat* array) const
     array[12] = boneWeight[1];
     array[13] = boneWeight[2];
     array[14] = boneWeight[3];
+    array[15] = textureCoordinate.u;
+    array[16] = textureCoordinate.v;
 }

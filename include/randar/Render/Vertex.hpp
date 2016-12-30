@@ -10,12 +10,19 @@
 
 namespace randar
 {
+    struct TextureCoordinate
+    {
+        float u;
+        float v;
+    };
+
     struct Vertex
     {
         Vector position;
         Color color;
         unsigned char boneIndex[4];
         unsigned char boneWeight[4];
+        TextureCoordinate textureCoordinate;
 
         Vertex();
         Vertex(Vector initPosition, Color initColor);

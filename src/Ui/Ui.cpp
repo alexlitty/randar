@@ -22,7 +22,6 @@ randar::Ui::~Ui()
     Awesomium::WebCore::Shutdown();
 }
 
-#include <iostream>
 void randar::Ui::update(randar::Gpu& gpu)
 {
     this->webCore->Update();

@@ -19,10 +19,10 @@ void randar::Camera::updateMatrices()
 {
     if (this->isOrtho) {
         this->projection = glm::ortho(
-            -25.0f,
-            25.0f,
-            -25.0f,
-            25.0f,
+            (float)this->viewport.x1,
+            (float)this->viewport.x2,
+            (float)this->viewport.y1,
+            (float)this->viewport.y2,
             -25.0f,
             25.0f
         );
@@ -47,6 +47,7 @@ void randar::Camera::updateMatrices()
 void randar::Camera::setOrtho(bool ortho)
 {
     this->isOrtho = ortho;
+    this->updateMatrices();
 }
 
 void randar::Camera::setTarget(randar::Vector newTarget)

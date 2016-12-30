@@ -8,7 +8,8 @@ int main()
 
     auto gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
-    auto framebuffer = &gpu.getDefaultFramebuffer();
+    auto framebuffer = gpu.getDefaultFramebuffer();
+    framebuffer.camera.setOrtho(true);
 
     while (true) {
         ::glfwPollEvents();
@@ -21,6 +22,8 @@ int main()
         if (::glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || ::glfwWindowShouldClose(window) != 0) {
             break;
         }
+
+        gpu.bindTexture(ui.getTexture());
 
         ::glfwSwapBuffers(window);
     }
