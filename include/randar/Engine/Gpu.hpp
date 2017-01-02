@@ -48,6 +48,7 @@ namespace randar
          * Specializations for resource initializing.
          */
         void initialize(Framebuffer& framebuffer);
+        void initialize(IndexBuffer& buffer);
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
         void initialize(Texture& texture);
@@ -73,8 +74,9 @@ namespace randar
         /**
          * Writes the underlying data of a GPU resource.
          */
+        void write(const IndexBuffer& indexBuffer, const std::vector<unsigned int>& indices);
         void write(const Texture& texture, const GLvoid* data);
-        void write(const VertexBuffer& buffer, const std::vector<Vertex>& data);
+        void write(const VertexBuffer& buffer, const std::vector<Vertex>& vertices);
 
         /**
          * Binds a GPU resource.
@@ -83,6 +85,7 @@ namespace randar
          * debugging.
          */
         void bind(const Framebuffer& framebuffer);
+        void bind(const IndexBuffer& buffer);
         void bind(const Mesh& mesh);
         void bind(const Texture& texture);
         void bind(const VertexBuffer& buffer);

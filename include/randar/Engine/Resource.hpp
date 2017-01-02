@@ -10,8 +10,8 @@ namespace randar
         enum Type
         {
             INVALID,
-            ELEMENTBUFFER,
             FRAMEBUFFER,
+            INDEXBUFFER,
             RENDERBUFFER,
             SHADER,
             SHADER_PROGRAM,

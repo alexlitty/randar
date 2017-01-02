@@ -2,7 +2,7 @@
 
 randar::Cuboid::Cuboid(const randar::Vector& min, const randar::Vector& max)
 {
-    this->appendVertex(min);
+    /*this->appendVertex(min);
     this->appendVertex(Vector(min.x, min.y, max.z));
     this->appendVertex(Vector(min.x, max.y, min.z));
     this->appendVertex(Vector(min.x, max.y, max.z));
@@ -16,5 +16,5 @@ randar::Cuboid::Cuboid(const randar::Vector& min, const randar::Vector& max)
     this->appendFace(3, 1, 2);
 
     this->vertices.send();
-    this->send();
+    this->send();*/
 }

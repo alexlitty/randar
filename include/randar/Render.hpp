@@ -9,7 +9,6 @@
 #include <randar/Render/Shader.hpp>
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/Render/Texture.hpp>
-#include <randar/Render/Vertices.hpp>
 #include <randar/Render/Mesh.hpp>
 
 #endif

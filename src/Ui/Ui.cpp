@@ -37,7 +37,7 @@ void randar::Ui::update(randar::Gpu& gpu)
 
         unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
         this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
-        gpu.setTextureData(this->get<Texture>(), buffer);
+        gpu.write(this->get<Texture>(), buffer);
 
         delete[] buffer;
     }

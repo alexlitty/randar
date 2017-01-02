@@ -17,7 +17,7 @@ namespace randar
 
     struct Vertex
     {
-        const static stride;
+        const static unsigned int stride;
 
         Vector position;
         Color color;

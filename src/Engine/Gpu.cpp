@@ -74,6 +74,10 @@ void randar::Gpu::initialize(randar::GpuResource* resource)
             this->initialize(*dynamic_cast<Framebuffer*>(resource));
             break;
 
+        case Resource::INDEXBUFFER:
+            this->initialize(*dynamic_cast<IndexBuffer*>(resource));
+            break;
+
         case Resource::SHADER:
             this->initialize(*dynamic_cast<Shader*>(resource));
             break;
@@ -84,6 +88,10 @@ void randar::Gpu::initialize(randar::GpuResource* resource)
 
         case Resource::TEXTURE:
             this->initialize(*dynamic_cast<Texture*>(resource));
+            break;
+
+        case Resource::VERTEXBUFFER:
+            this->initialize(*dynamic_cast<VertexBuffer*>(resource));
             break;
 
         default:
@@ -130,6 +138,17 @@ void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
         throw std::runtime_error("Incomplete framebuffer");
     }
     framebuffer.initialized = true;
+}
+
+// Initializes an index buffer.
+void randar::Gpu::initialize(randar::IndexBuffer& buffer)
+{
+    if (buffer.initialized) {
+        return;
+    }
+
+    ::glGenBuffers(1, buffer);
+    buffer.initialized = true;
 }
 
 // Initializes a shader.
@@ -307,9 +326,14 @@ void randar::Gpu::destroy(randar::GpuResource* resource)
         return;
     }
 
+    VertexBuffer *buffer;
     switch (resource->getType()) {
         case Resource::FRAMEBUFFER:
             ::glDeleteFramebuffers(1, *resource);
+            break;
+
+        case Resource::INDEXBUFFER:
+            ::glDeleteBuffers(1, *resource);
             break;
 
         case Resource::SHADER:
@@ -325,9 +349,9 @@ void randar::Gpu::destroy(randar::GpuResource* resource)
             break;
 
         case Resource::VERTEXBUFFER:
-            VertexBuffer *buffer = dynamic_cast<VertexBuffer*>(resource);
-            ::glDeleteBuffers(1, *resource);
-            ::glDeleteVertexArrays(1, *resource);
+            buffer = dynamic_cast<VertexBuffer*>(resource);
+            ::glDeleteBuffers(1, *buffer);
+            ::glDeleteVertexArrays(1, buffer->vertexArray);
             break;
 
         default:
@@ -347,7 +371,20 @@ void randar::Gpu::clear(const randar::Framebuffer& framebuffer, const randar::Co
 // Clears a texture.
 void randar::Gpu::clear(const randar::Texture& texture)
 {
-    this->setTextureData(texture, nullptr);
+    this->write(texture, nullptr);
+}
+
+// Writes indices to an index buffer.
+void randar::Gpu::write(const randar::IndexBuffer& indexBuffer, const std::vector<unsigned int>& indices)
+{
+    this->bind(indexBuffer);
+
+    ::glBufferData(
+        GL_ELEMENT_ARRAY_BUFFER,
+        indices.size() * sizeof(unsigned int),
+        &indices.data()[0],
+        GL_STATIC_DRAW
+    );
 }
 
 // Writes an image to a texture.
@@ -390,12 +427,12 @@ void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data)
 }
 
 // Writes vertices to a vertex buffer.
-void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Vertex>& data)
+void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Vertex>& vertices)
 {
-    unsigned int count = data.size();
+    unsigned int count = vertices.size();
     GLfloat *data = new GLfloat[count * Vertex::stride];
     for (unsigned int i = 0; i < count; i++) {
-        data[i].appendTo(&data[i * Vertex::stride]);
+        vertices[i].appendTo(&data[i * Vertex::stride]);
     }
 
     ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
@@ -412,11 +449,17 @@ void randar::Gpu::bind(const randar::Framebuffer& framebuffer)
     ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
 }
 
-// Binds the vertices and faces of a mesh.
+// Binds an index buffer.
+void randar::Gpu::bind(const randar::IndexBuffer& buffer)
+{
+    ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer);
+}
+
+// Binds the vertex and index buffers of a mesh.
 void randar::Gpu::bind(const randar::Mesh& mesh)
 {
-    this->bind(mesh.vertices);
-    ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
+    this->bind(mesh.vertexBuffer);
+    this->bind(mesh.indexBuffer);
 }
 
 // Binds a texture.

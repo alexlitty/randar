@@ -18,5 +18,5 @@ randar::Resource::Type randar::Resource::getType() const
 
 bool randar::Resource::isGpuResource() const
 {
-    return this->getType() >= Resource::ELEMENTBUFFER;
+    return this->getType() >= Resource::INDEXBUFFER;
 }
