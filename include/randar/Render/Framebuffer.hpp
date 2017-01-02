@@ -13,6 +13,9 @@ namespace randar
         Texture* texture;
 
     public:
+        const static Resource::Type type;
+        Resource::Type getType() const;
+
         Camera camera;
 
         /**

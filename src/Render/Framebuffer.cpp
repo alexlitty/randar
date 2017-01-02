@@ -1,5 +1,11 @@
 #include <randar/Render/Framebuffer.hpp>
 
+const Resource::Type randar::Framebuffer::type = randar::Resource::FRAMEBUFFER;
+Resource::Type randar::Framebuffer::getType() const
+{
+    return this->type;
+}
+
 // Constructs a framebuffer with no attachments.
 randar::Framebuffer::Framebuffer(const Viewport& initViewport)
 : texture(nullptr)
