@@ -62,7 +62,7 @@ void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* d
 {
     this->bind(texture);
 
-    switch (texture.type) {
+    switch (texture.textureType) {
         case Texture::RGBA:
             ::glTexImage2D(
                 GL_TEXTURE_2D,
