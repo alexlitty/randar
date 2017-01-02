@@ -129,6 +129,7 @@ void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
     if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         throw std::runtime_error("Incomplete framebuffer");
     }
+    framebuffer.initialized = true;
 }
 
 // Initializes a shader.
@@ -159,6 +160,8 @@ void randar::Gpu::initialize(randar::Shader& shader)
             throw std::runtime_error("Cannot compile shader. No log available");
         }
     }
+
+    shader.initialized = true;
 }
 
 // Initializes a shader program.
@@ -196,6 +199,8 @@ void randar::Gpu::initialize(randar::ShaderProgram& program)
 
     ::glDetachShader(program, program.vertexShader);
     ::glDetachShader(program, program.fragmentShader);
+
+    program.initialized = true;
 }
 
 // Initializes a texture.
@@ -217,6 +222,81 @@ void randar::Gpu::initialize(randar::Texture& texture)
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             break;
     }
+
+    texture.initialized = true;
+}
+
+// Initializes a vertex buffer.
+void randar::Gpu::initialize(randar::VertexBuffer& buffer)
+{
+    if (buffer.initialized) {
+        return;
+    }
+
+    ::glGenVertexArrays(1, buffer.vertexArray);
+    ::glBindVertexArray(buffer.vertexArray);
+
+    ::glGenBuffers(1, buffer);
+    ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+    unsigned int stride = Vertex::stride * sizeof(GLfloat);
+
+    // Position.
+    ::glEnableVertexAttribArray(0);
+    ::glVertexAttribPointer(
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)0
+    );  
+
+    // Color.
+    ::glEnableVertexAttribArray(1);
+    ::glVertexAttribPointer(
+        1,
+        4,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(3 * sizeof(GLfloat))
+    );  
+
+    // Bone index.
+    ::glEnableVertexAttribArray(2);
+    ::glVertexAttribPointer(
+        2,
+        4,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(7 * sizeof(GLfloat))
+    );  
+
+    // Bone weights.
+    ::glEnableVertexAttribArray(3);
+    ::glVertexAttribPointer(
+        3,
+        4,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(11 * sizeof(GLfloat))
+    );
+
+    // Texture coordinates.
+    ::glEnableVertexAttribArray(4);
+    ::glVertexAttribPointer(
+        4,
+        2,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        (void*)(15 * sizeof(GLfloat))
+    );
+
+    buffer.initialized = true;
 }
 
 // Destroys a GPU resource.
@@ -238,9 +318,16 @@ void randar::Gpu::destroy(randar::GpuResource* resource)
 
         case Resource::SHADER_PROGRAM:
             ::glDeleteProgram(*resource);
+            break;
 
         case Resource::TEXTURE:
             ::glDeleteTextures(1, *resource);
+            break;
+
+        case Resource::VERTEXBUFFER:
+            VertexBuffer *buffer = dynamic_cast<VertexBuffer*>(resource);
+            ::glDeleteBuffers(1, *resource);
+            ::glDeleteVertexArrays(1, *resource);
             break;
 
         default:
@@ -263,8 +350,8 @@ void randar::Gpu::clear(const randar::Texture& texture)
     this->setTextureData(texture, nullptr);
 }
 
-// Sets the underlying data of a texture.
-void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* data)
+// Writes an image to a texture.
+void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data)
 {
     this->bind(texture);
 
@@ -302,6 +389,20 @@ void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* d
     }
 }
 
+// Writes vertices to a vertex buffer.
+void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Vertex>& data)
+{
+    unsigned int count = data.size();
+    GLfloat *data = new GLfloat[count * Vertex::stride];
+    for (unsigned int i = 0; i < count; i++) {
+        data[i].appendTo(&data[i * Vertex::stride]);
+    }
+
+    ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    ::glBufferData(GL_ARRAY_BUFFER, count * sizeof(GLfloat), data, GL_STATIC_DRAW);
+    delete[] data;
+}
+
 // Binds a framebuffer.
 void randar::Gpu::bind(const randar::Framebuffer& framebuffer)
 {
@@ -326,10 +427,10 @@ void randar::Gpu::bind(const randar::Texture& texture)
     }
 }
 
-// Binds a collection of vertices.
-void randar::Gpu::bind(const randar::Vertices& vertices)
+// Binds a vertex buffer.
+void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 {
-    ::glBindBuffer(GL_ARRAY_BUFFER, vertices.vertexBuffer);
+    ::glBindVertexArray(buffer.vertexArray);
 }
 
 // Drawing.

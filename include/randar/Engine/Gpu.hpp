@@ -51,6 +51,7 @@ namespace randar
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
         void initialize(Texture& texture);
+        void initialize(VertexBuffer& buffer);
 
         /**
          * Destroys a GPU resource.
@@ -70,9 +71,10 @@ namespace randar
         void clear(const Texture& texture);
 
         /**
-         * Sets the underlying data of a GPU resource.
+         * Writes the underlying data of a GPU resource.
          */
-        void setTextureData(const Texture& texture, const GLvoid* data);
+        void write(const Texture& texture, const GLvoid* data);
+        void write(const VertexBuffer& buffer, const std::vector<Vertex>& data);
 
         /**
          * Binds a GPU resource.
@@ -83,7 +85,7 @@ namespace randar
         void bind(const Framebuffer& framebuffer);
         void bind(const Mesh& mesh);
         void bind(const Texture& texture);
-        void bind(const Vertices& vertices);
+        void bind(const VertexBuffer& buffer);
 
         /**
          * Drawing.

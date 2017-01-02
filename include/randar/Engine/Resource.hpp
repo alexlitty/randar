@@ -10,13 +10,13 @@ namespace randar
         enum Type
         {
             INVALID,
-            FACES,
+            ELEMENTBUFFER,
             FRAMEBUFFER,
             RENDERBUFFER,
             SHADER,
             SHADER_PROGRAM,
             TEXTURE,
-            VERTICES
+            VERTEXBUFFER
         };
 
         /**

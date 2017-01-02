@@ -6,7 +6,6 @@
 #include <vector>
 #include <randar/Math/Vector.hpp>
 #include <randar/Render/Color.hpp>
-#include <randar/Render/VertexAttribute.hpp>
 
 namespace randar
 {
@@ -18,6 +17,8 @@ namespace randar
 
     struct Vertex
     {
+        const static stride;
+
         Vector position;
         Color color;
         unsigned char boneIndex[4];
