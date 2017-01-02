@@ -12,6 +12,7 @@ namespace randar
             INVALID,
             FACES,
             FRAMEBUFFER,
+            RENDERBUFFER,
             SHADER,
             SHADER_PROGRAM,
             TEXTURE,

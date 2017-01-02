@@ -193,8 +193,12 @@ void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
                 ::glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, *texture, 0);
                 break;
 
+            case Texture::RGBA:
+                ::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, *texture, 0);
+                break;
+
             default:
-                throw std::runtime_error("No definition for adding texture type to framebuffer");
+                throw std::runtime_error("Adding invalid texture to framebuffer");
                 break;
         }
     }

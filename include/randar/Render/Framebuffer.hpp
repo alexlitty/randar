@@ -1,8 +1,8 @@
 #ifndef RANDAR_RENDER_FRAMEBUFFER_HPP
 #define RANDAR_RENDER_FRAMEBUFFER_HPP
 
-#include <randar/Engine/GpuResource.hpp>
 #include <randar/Render/Camera.hpp>
+#include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
 
 namespace randar

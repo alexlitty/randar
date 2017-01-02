@@ -1,7 +1,7 @@
 #include <randar/Render/Framebuffer.hpp>
 
-const Resource::Type randar::Framebuffer::type = randar::Resource::FRAMEBUFFER;
-Resource::Type randar::Framebuffer::getType() const
+const randar::Resource::Type randar::Framebuffer::type = randar::Resource::FRAMEBUFFER;
+randar::Resource::Type randar::Framebuffer::getType() const
 {
     return this->type;
 }
@@ -18,4 +18,10 @@ randar::Framebuffer::Framebuffer(randar::Texture* initTexture)
 : texture(initTexture)
 {
     this->camera.viewport = Viewport(0, 0, initTexture->width, initTexture->height);
+}
+
+// Retrieves the texture attachment.
+randar::Texture* randar::Framebuffer::getTexture()
+{
+    return this->texture;
 }
