@@ -53,14 +53,15 @@ namespace randar
          *
          * If the GPU resource is already initialized, nothing happens.
          */
-        void initialize(GpuResource *resource);
+        void initialize(GpuResource* resource);
 
         /**
          * Specializations for resource initializing.
          */
-        void initialize(Shader &shader);
-        void initialize(ShaderProgram &program);
-        void initialize(Texture &texture);
+        void initialize(Framebuffer& framebuffer);
+        void initialize(Shader& shader);
+        void initialize(ShaderProgram& program);
+        void initialize(Texture& texture);
 
         /**
          * Destroys a GPU resource.

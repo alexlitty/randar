@@ -149,6 +149,10 @@ void randar::Gpu::initialize(randar::GpuResource* resource)
     }
 
     switch (resource->getType()) {
+        case Resource::FRAMEBUFFER:
+            this->initialize(*dynamic_cast<Framebuffer*>(resource));
+            break;
+
         case Resource::SHADER:
             this->initialize(*dynamic_cast<Shader*>(resource));
             break;
@@ -164,6 +168,41 @@ void randar::Gpu::initialize(randar::GpuResource* resource)
         default:
             throw std::runtime_error("Initializing invalid GPU resource");
             break;
+    }
+}
+
+// Initializes a framebuffer.
+void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
+{
+    if (framebuffer.initialized) {
+        return;
+    }
+
+    // Initialize framebuffer.
+    ::glGenFramebuffers(1, framebuffer);
+    this->bind(framebuffer);
+
+    // Initialize attachments, add them to the framebuffer.
+    Texture *texture = framebuffer.getTexture();
+    if (texture) {
+        this->initialize(*texture);
+        this->bind(*texture);
+
+        switch (texture->textureType) {
+            case Texture::DEPTH:
+                ::glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, *texture, 0);
+                break;
+
+            default:
+                throw std::runtime_error("No definition for adding texture type to framebuffer");
+                break;
+        }
+    }
+
+    ::glDrawBuffer(GL_NONE);
+
+    if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        throw std::runtime_error("Incomplete framebuffer");
     }
 }
 
@@ -282,6 +321,8 @@ void randar::Gpu::destroy(randar::GpuResource* resource)
         default:
             throw std::runtime_error("Destroying invalid GPU resource");
     }
+
+    resource->initialized = false;
 }
 
 // Drawing.
