@@ -22,38 +22,11 @@ namespace randar
      */
     class Repository
     {
-        std::map<unsigned int, Texture*> textures;
-        std::map<unsigned int, Shader*> shaders;
-        std::map<unsigned int, ShaderProgram*> shaderPrograms;
-
     public:
         Gpu& gpu;
 
         Repository(Gpu& initGpu = randar::getDefaultGpu());
         ~Repository();
-
-        /**
-         * Textures.
-         */
-        Texture& getTexture(unsigned int id);
-        unsigned int requireTexture(Texture::Type type, unsigned int width, unsigned int height);
-        void disownTexture(unsigned int id);
-
-        /**
-         * Shaders.
-         */
-        Shader& getShader(unsigned int id);
-        unsigned int requireShader(const std::string& code, ::GLenum type);
-        void disownShader(unsigned int id);
-
-        /**
-         * Shader programs.
-         */
-        ShaderProgram& getShaderProgram(unsigned int id);
-        unsigned int requireShaderProgram(
-            const Shader& vertexShader,
-            const Shader& fragmentShader);
-        void disownShaderProgram(unsigned int id);
     };
 
     /**

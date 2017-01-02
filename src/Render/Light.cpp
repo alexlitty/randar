@@ -2,14 +2,17 @@
 
 randar::Light::Light()
 {
-    this->requireShaderProgram(
-        this->requireShader(
-            randar::readAsciiFile("./shaders/shadow.vert"),
-            GL_VERTEX_SHADER
-        ),
-        this->requireShader(
-            randar::readAsciiFile("./shaders/shadow.frag"),
-            GL_FRAGMENT_SHADER
+    this->attach(
+        new ShaderProgram(
+            *new Shader(
+                GL_VERTEX_SHADER,
+                randar::readAsciiFile("./shaders/shadow.vert")
+            ),
+
+            *new Shader(
+                GL_FRAGMENT_SHADER,
+                randar::readAsciiFile("./shaders/shadow.frag")
+            )
         )
     );
 

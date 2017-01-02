@@ -8,13 +8,16 @@ namespace randar
 {
     struct Shader : virtual public GpuResource
     {
-        const GLenum type;
+        const static Resource::Type type;
+        virtual Resource::Type getType() const override;
+
+        const GLenum shaderType;
         const std::string code;
 
         Shader(
-            ::GLuint initGlName,
-            ::GLenum initType,
-            std::string initCode
+            ::GLenum initShaderType,
+            const std::string& initCode,
+            const std::string& initName = ""
         );
     };
 }

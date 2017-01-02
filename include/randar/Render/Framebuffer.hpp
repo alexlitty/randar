@@ -10,7 +10,7 @@ namespace randar
     {
     public:
         Camera camera;
-        Framebuffer(::GLuint initGlName, const Viewport& initViewport = Viewport(0, 0, 1, 1));
+        Framebuffer(const Viewport& initViewport = Viewport(0, 0, 1, 1));
     };
 }
 

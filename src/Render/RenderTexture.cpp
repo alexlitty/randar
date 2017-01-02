@@ -1,7 +1,6 @@
 #include <randar/Render/RenderTexture.hpp>
 
 randar::RenderTexture::RenderTexture()
-: randar::GpuResource(0)
 {
     ::glGenFramebuffers(1, &this->framebuffer);
     this->bind();

@@ -1,12 +1,18 @@
 #include <randar/Render/Shader.hpp>
 
+const randar::Resource::Type randar::Shader::type = randar::Resource::SHADER;
+randar::Resource::Type randar::Shader::getType() const
+{
+    return this->type;
+}
+
 randar::Shader::Shader(
-    ::GLuint initGlName,
-    ::GLenum initType,
-    std::string initCode
+    ::GLenum initShaderType,
+    const std::string& initCode,
+    const std::string& initName
 ) :
-  randar::GpuResource(initGlName),
-  type(initType),
+  randar::Resource(initName),
+  shaderType(initShaderType),
   code(initCode)
 {
 

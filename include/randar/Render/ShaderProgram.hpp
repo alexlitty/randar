@@ -1,13 +1,23 @@
 #ifndef RANDAR_RENDER_SHADER_PROGRAM_HPP
 #define RANDAR_RENDER_SHADER_PROGRAM_HPP
 
-#include <randar/Engine/GpuResource.hpp>
+#include <randar/Render/Shader.hpp>
 
 namespace randar
 {
     struct ShaderProgram : virtual public GpuResource
     {
-        ShaderProgram(::GLuint initGlName);
+        const static Resource::Type type;
+        virtual Resource::Type getType() const override;
+
+        Shader& vertexShader;
+        Shader& fragmentShader;
+
+        ShaderProgram(
+            Shader& initVertexShader,
+            Shader& initFragmentShader,
+            const std::string& initName = "");
+
     };
 }
 

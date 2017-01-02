@@ -7,22 +7,24 @@ namespace randar
 {
     struct Texture : virtual public GpuResource
     {
+        const static Resource::Type type;
+        virtual Resource::Type getType() const override;
+
         enum Type
         {
             RGBA,
             DEPTH
         };
 
-        const Texture::Type type;
+        const Texture::Type textureType;
         const unsigned int width;
         const unsigned int height;
 
         Texture(
-            ::GLuint initGlName,
-            Texture::Type initType,
+            Texture::Type initTextureType,
             unsigned int initWidth,
-            unsigned int initHeight
-        );
+            unsigned int initHeight,
+            const std::string& initName = "");
     };
 }
 

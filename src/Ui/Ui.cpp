@@ -3,7 +3,13 @@
 randar::Ui::Ui()
 : webCore(Awesomium::WebCore::Initialize(Awesomium::WebConfig()))
 {
-    this->requireTexture(Texture::RGBA, 800, 600);
+    this->attach(
+        new Texture(
+            Texture::RGBA,
+            800,
+            600
+        )
+    );
 
     this->webView = this->webCore->CreateWebView(
         800,
@@ -31,7 +37,7 @@ void randar::Ui::update(randar::Gpu& gpu)
 
         unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
         this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
-        gpu.setTextureData(this->getTexture(), buffer);
+        gpu.setTextureData(this->get<Texture>(), buffer);
 
         delete[] buffer;
     }

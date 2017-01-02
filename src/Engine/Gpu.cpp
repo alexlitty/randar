@@ -3,7 +3,7 @@
 
 // Construction.
 randar::Gpu::Gpu()
-: defaultFramebuffer(0, randar::Viewport(0, 0, 800, 600))
+: defaultFramebuffer(randar::Viewport(0, 0, 800, 600))
 {
     // Initialize GLFW.
     if (!::glfwInit()) {
@@ -49,38 +49,10 @@ randar::Gpu::~Gpu()
     return *this->window;
 }
 
-// Texture construction and destruction.
-randar::Texture* randar::Gpu::createTexture(randar::Texture::Type type, unsigned int width, unsigned int height)
-{
-    GLuint glName;
-    ::glGenTextures(1, &glName);
-
-    Texture *texture = new Texture(glName, type, width, height);
-    this->bindTexture(*texture);
-    this->clearTexture(*texture);
-
-    switch (texture->type) {
-        default:
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            break;
-    }
-
-    return texture;
-}
-
-void randar::Gpu::destroyTexture(Texture* texture)
-{
-    ::glDeleteTextures(1, &texture->glName);
-    delete texture;
-}
-
 // Texture binding.
-void randar::Gpu::bindTexture(const randar::Texture& texture)
+void randar::Gpu::bind(const randar::Texture& texture)
 {
-    if (texture.glName != boundTexture) {
+    if (texture.getGlName() != boundTexture) {
         ::glBindTexture(GL_TEXTURE_2D, texture);
     }
 }
@@ -88,7 +60,7 @@ void randar::Gpu::bindTexture(const randar::Texture& texture)
 // Texture manipulation.
 void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* data)
 {
-    this->bindTexture(texture);
+    this->bind(texture);
 
     switch (texture.type) {
         case Texture::RGBA:
@@ -124,100 +96,21 @@ void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* d
     }
 }
 
-void randar::Gpu::clearTexture(const randar::Texture& texture)
+void randar::Gpu::clear(const randar::Texture& texture)
 {
     this->setTextureData(texture, nullptr);
 }
 
-// Shader creation and destruction.
-randar::Shader* randar::Gpu::createShader(const std::string& code, GLenum type)
-{
-    GLint compileStatus, logLength;
-    Shader *shader = new Shader(
-        ::glCreateShader(type),
-        type,
-        code
-    );
-
-    const char *rawCode = shader->code.c_str();
-    ::glShaderSource(*shader, 1, &rawCode, nullptr);
-    ::glCompileShader(*shader);
-
-    ::glGetShaderiv(*shader, GL_COMPILE_STATUS, &compileStatus);
-    ::glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &logLength);
-    if (compileStatus == GL_FALSE) {
-        if (logLength > 0) {
-            GLchar *log = new char[logLength + 1];
-            ::glGetShaderInfoLog(*shader, logLength, nullptr, log);
-
-            std::string safeLog(log);
-            delete[] log;
-            throw std::runtime_error(safeLog);
-        } else {
-            throw std::runtime_error("Cannot compile shader, no log available");
-        }
-    }
-
-    return shader;
-}
-
-void randar::Gpu::destroyShader(randar::Shader* shader)
-{
-    ::glDeleteShader(shader->glName);
-    delete shader;
-}
-
-// Shader program creation and destruction.
-randar::ShaderProgram* randar::Gpu::createShaderProgram(
-    const randar::Shader& vertexShader,
-    const randar::Shader& fragmentShader)
-{
-    GLint linkStatus, logLength;
-    ShaderProgram *program = new ShaderProgram(
-        ::glCreateProgram()
-    );
-
-    ::glAttachShader(*program, vertexShader);
-    ::glAttachShader(*program, fragmentShader);
-    ::glLinkProgram(*program);
-
-    ::glGetProgramiv(*program, GL_LINK_STATUS, &linkStatus);
-    ::glGetProgramiv(*program, GL_INFO_LOG_LENGTH, &logLength);
-    if (linkStatus == GL_FALSE) {
-        if (logLength > 0) {
-            GLchar *log = new char[logLength + 1];
-            ::glGetProgramInfoLog(*program, logLength, nullptr, log);
-
-            std::string safeLog(log);
-            delete[] log;
-            throw std::runtime_error(safeLog);
-        } else {
-            throw std::runtime_error("Cannot link shader, no log available");
-        }
-    }
-
-    ::glDetachShader(*program, vertexShader);
-    ::glDetachShader(*program, fragmentShader);
-
-    return program;
-}
-
-void randar::Gpu::destroyShaderProgram(randar::ShaderProgram* shaderProgram)
-{
-    ::glDeleteProgram(shaderProgram->glName);
-    delete shaderProgram;
-}
-
 // Vertices.
-void randar::Gpu::bindVertices(const randar::Vertices& vertices)
+void randar::Gpu::bind(const randar::Vertices& vertices)
 {
     ::glBindBuffer(GL_ARRAY_BUFFER, vertices.vertexBuffer);
 }
 
 // Mesh.
-void randar::Gpu::bindMesh(const randar::Mesh& mesh)
+void randar::Gpu::bind(const randar::Mesh& mesh)
 {
-    this->bindVertices(mesh.vertices);
+    this->bind(mesh.vertices);
     ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
 }
 
@@ -233,7 +126,7 @@ randar::Framebuffer& randar::Gpu::getDefaultFramebuffer()
 }
 
 // Framebuffer binding.
-void randar::Gpu::bindFramebuffer(const randar::Framebuffer& framebuffer)
+void randar::Gpu::bind(const randar::Framebuffer& framebuffer)
 {
     ::glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 
@@ -248,20 +141,160 @@ void randar::Gpu::clear(const randar::Framebuffer& framebuffer, const randar::Co
     ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+// Initializes a GPU resource.
+void randar::Gpu::initialize(randar::GpuResource* resource)
+{
+    if (resource->initialized) {
+        return;
+    }
+
+    switch (resource->getType()) {
+        case Resource::SHADER:
+            this->initialize(*dynamic_cast<Shader*>(resource));
+            break;
+
+        case Resource::SHADER_PROGRAM:
+            this->initialize(*dynamic_cast<ShaderProgram*>(resource));
+            break;
+
+        case Resource::TEXTURE:
+            this->initialize(*dynamic_cast<Texture*>(resource));
+            break;
+
+        default:
+            throw std::runtime_error("Initializing invalid GPU resource");
+            break;
+    }
+}
+
+// Initializes a shader.
+void randar::Gpu::initialize(randar::Shader& shader)
+{
+    if (shader.initialized) {
+        return;
+    }
+
+    GLint compileStatus, logLength;
+    shader.setGlName(::glCreateShader(shader.shaderType));
+
+    const char *rawCode = shader.code.c_str();
+    ::glShaderSource(shader, 1, &rawCode, nullptr);
+    ::glCompileShader(shader);
+
+    ::glGetShaderiv(shader, GL_COMPILE_STATUS, &compileStatus);
+    ::glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
+    if (compileStatus == GL_FALSE) {
+        if (logLength > 0) {
+            GLchar *log = new char[logLength + 1];
+            ::glGetShaderInfoLog(shader, logLength, nullptr, log);
+
+            std::string safeLog(log);
+            delete[] log;
+            throw std::runtime_error(safeLog);
+        } else {
+            throw std::runtime_error("Cannot compile shader. No log available");
+        }
+    }
+}
+
+// Initializes a shader program.
+void randar::Gpu::initialize(randar::ShaderProgram& program)
+{
+    if (program.initialized) {
+        return;
+    }
+
+    // Initialize dependencies.
+    this->initialize(program.vertexShader);
+    this->initialize(program.fragmentShader);
+
+    GLint linkStatus, logLength;
+    program.setGlName(::glCreateProgram());
+
+    ::glAttachShader(program, program.vertexShader);
+    ::glAttachShader(program, program.fragmentShader);
+    ::glLinkProgram(program);
+
+    ::glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+    ::glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
+    if (linkStatus == GL_FALSE) {
+        if (logLength > 0) {
+            GLchar *log = new char[logLength + 1];
+            ::glGetProgramInfoLog(program, logLength, nullptr, log);
+
+            std::string safeLog(log);
+            delete[] log;
+            throw std::runtime_error(safeLog);
+        } else {
+            throw std::runtime_error("Cannot link shader, no log available");
+        }
+    }
+
+    ::glDetachShader(program, program.vertexShader);
+    ::glDetachShader(program, program.fragmentShader);
+}
+
+// Initializes a texture.
+void randar::Gpu::initialize(randar::Texture& texture)
+{
+    if (texture.initialized) {
+        return;
+    }
+
+    ::glGenTextures(1, texture);
+    this->bind(texture);
+    this->clear(texture);
+
+    switch (texture.textureType) {
+        default:
+            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            break;
+    }
+}
+
+// Destroys a GPU resource.
+void randar::Gpu::destroy(randar::GpuResource* resource)
+{
+    // Resource is not initialized on the GPU. Nothing to destroy.
+    if (!resource->initialized) {
+        return;
+    }
+
+    switch (resource->getType()) {
+        case Resource::FRAMEBUFFER:
+            ::glDeleteFramebuffers(1, *resource);
+            break;
+
+        case Resource::SHADER:
+            ::glDeleteShader(*resource);
+            break;
+
+        case Resource::SHADER_PROGRAM:
+            ::glDeleteProgram(*resource);
+
+        case Resource::TEXTURE:
+            ::glDeleteTextures(1, *resource);
+            break;
+
+        default:
+            throw std::runtime_error("Destroying invalid GPU resource");
+    }
+}
+
 // Drawing.
 void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Model& model)
 {
-    if (!model.shaderProgram) {
-        throw std::runtime_error("Cannot draw without shader program");
-    }
-    this->bindFramebuffer(framebuffer);
+    const ShaderProgram& shaderProgram = model.get<ShaderProgram>();
+    this->bind(framebuffer);
 
     // Set MVP uniform.
     glm::mat4 mvp = framebuffer.camera.getProjectionMatrix()
         * framebuffer.camera.getViewMatrix()
         * model.getTransformMatrix();
 
-    const ShaderProgram& shaderProgram = *model.shaderProgram;
     ::glUseProgram(shaderProgram);
     ::GLuint mvpId = ::glGetUniformLocation(shaderProgram, "mvp");
     ::glUniformMatrix4fv(mvpId, 1, GL_FALSE, &mvp[0][0]);
@@ -282,13 +315,13 @@ void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Mod
     }
 
     // Draw model.
-    this->bindMesh(model.mesh);
-    ::glDrawElements(
+    //this->bind(model.mesh);
+    /*::glDrawElements(
         GL_TRIANGLES,
         model.mesh.indices.size(),
         GL_UNSIGNED_INT,
         (void*)0
-    );
+    );*/
 }
 
 // Retrieves the default GPU context.

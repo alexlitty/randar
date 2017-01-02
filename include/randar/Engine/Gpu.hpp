@@ -17,13 +17,13 @@ namespace randar
     {
     protected:
         Framebuffer defaultFramebuffer;
-        void bindFramebuffer(const Framebuffer& framebuffer);
+        void bind(const Framebuffer& framebuffer);
         ::GLuint boundFramebuffer;
 
-        void bindVertices(const Vertices& vertices);
-        void bindMesh(const Mesh& mesh);
+        void bind(const Vertices& vertices);
+        void bind(const Mesh& mesh);
 
-        void bindTexture(const Texture& texture);
+        void bind(const Texture& texture);
         ::GLuint boundTexture;
 
         GLFWwindow *window;
@@ -43,31 +43,29 @@ namespace randar
         void clear(const Framebuffer& framebuffer, const Color& color);
 
         /**
-         * Texture construction and destruction.
-         */
-        Texture* createTexture(randar::Texture::Type type, unsigned int width, unsigned int height);
-        void destroyTexture(Texture* texture);
-
-        /**
          * Texture manipulation.
          */
         void setTextureData(const Texture& texture, const GLvoid* data);
-        void clearTexture(const Texture& texture);
+        void clear(const Texture& texture);
 
         /**
-         * Shaders.
+         * Initializes a GPU resource.
+         *
+         * If the GPU resource is already initialized, nothing happens.
          */
-        Shader* createShader(const std::string& code, GLenum type);
-        void destroyShader(Shader* shader);
+        void initialize(GpuResource *resource);
 
         /**
-         * Shader programs.
+         * Specializations for resource initializing.
          */
-        ShaderProgram* createShaderProgram(
-            const Shader& vertexShader,
-            const Shader& fragmentShader
-        );
-        void destroyShaderProgram(ShaderProgram* shaderProgram);
+        void initialize(Shader &shader);
+        void initialize(ShaderProgram &program);
+        void initialize(Texture &texture);
+
+        /**
+         * Destroys a GPU resource.
+         */
+        void destroy(GpuResource* resource);
 
         /**
          * Drawing.

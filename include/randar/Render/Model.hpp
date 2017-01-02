@@ -8,9 +8,7 @@ namespace randar
 {
     struct Model : virtual public Physical, virtual public ResourceConsumer
     {
-        ShaderProgram *shaderProgram = nullptr;
         std::vector<Joint*> joints;
-        Mesh mesh;
 
         ~Model();
     };

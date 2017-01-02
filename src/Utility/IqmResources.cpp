@@ -70,16 +70,17 @@ void randar::Resources::importIqm(std::ifstream& file)
     }
 
     // Create model.
-    Model *model = new Model;
+    //Model *model = new Model;
 
     // Read meshes.
-    iqm::mesh *meshes = reinterpret_cast<iqm::mesh*>(&buffer[header.ofs_meshes]);
+    //iqm::mesh *meshes = reinterpret_cast<iqm::mesh*>(&buffer[header.ofs_meshes]);
     /*for (unsigned int i = 0; i < header.num_meshes; i++) {
         iqm::mesh &mesh = meshes[i];
     }*/
 
     // Read vertices.
-    model->mesh.vertices.setPrimitive(GL_POINTS);
+    /*Mesh& mesh = model->get<Mesh>();
+    model->get<Mesh>().vertices.setPrimitive(GL_POINTS);
     for (unsigned int i = 0; i < header.num_vertexes; i++) {
         iqm::vertex data;
         if (inposition) ::memcpy(data.position, &inposition[i * 3], sizeof(data.position));
@@ -98,5 +99,5 @@ void randar::Resources::importIqm(std::ifstream& file)
     }
     model->mesh.send();
 
-    this->models[std::to_string(meshes[0].name)] = model;
+    this->models[std::to_string(meshes[0].name)] = model;*/
 }
