@@ -18,8 +18,3 @@ randar::Light::Light()
 
     //this->renderTexture.useShaderProgram("shadow");
 }
-
-void randar::Light::bind() const
-{
-    this->renderTexture.bind();
-}
