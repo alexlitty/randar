@@ -39,82 +39,19 @@ randar::Gpu::Gpu()
     ::glDepthFunc(GL_LESS);
 }
 
+// Destruction.
 randar::Gpu::~Gpu()
 {
     ::glfwDestroyWindow(this->window);
 }
 
+// Retrieves the default window.
 ::GLFWwindow& randar::Gpu::getWindow()
 {
     return *this->window;
 }
 
-// Texture binding.
-void randar::Gpu::bind(const randar::Texture& texture)
-{
-    if (texture.getGlName() != boundTexture) {
-        ::glBindTexture(GL_TEXTURE_2D, texture);
-    }
-}
-
-// Texture manipulation.
-void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* data)
-{
-    this->bind(texture);
-
-    switch (texture.textureType) {
-        case Texture::RGBA:
-            ::glTexImage2D(
-                GL_TEXTURE_2D,
-                0,
-                GL_RGBA,
-                texture.width,
-                texture.height,
-                0,
-                GL_RGBA,
-                GL_UNSIGNED_BYTE,
-                data
-            );
-            break;
-
-        case Texture::DEPTH:
-            ::glTexImage2D(
-                GL_TEXTURE_2D,
-                0,
-                GL_DEPTH_COMPONENT,
-                texture.width,
-                texture.height,
-                0,
-                GL_DEPTH_COMPONENT,
-                GL_FLOAT,
-                data
-            );
-            break;
-
-        default:
-            throw std::runtime_error("Setting data on invalid texture type");
-    }
-}
-
-void randar::Gpu::clear(const randar::Texture& texture)
-{
-    this->setTextureData(texture, nullptr);
-}
-
-// Vertices.
-void randar::Gpu::bind(const randar::Vertices& vertices)
-{
-    ::glBindBuffer(GL_ARRAY_BUFFER, vertices.vertexBuffer);
-}
-
-// Mesh.
-void randar::Gpu::bind(const randar::Mesh& mesh)
-{
-    this->bind(mesh.vertices);
-    ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
-}
-
-// Framebuffers.
+// Retrieves the default framebuffer.
 const randar::Framebuffer& randar::Gpu::getDefaultFramebuffer() const
 {
     return this->defaultFramebuffer;
@@ -123,22 +60,6 @@ const randar::Framebuffer& randar::Gpu::getDefaultFramebuffer() const
 randar::Framebuffer& randar::Gpu::getDefaultFramebuffer()
 {
     return this->defaultFramebuffer;
-}
-
-// Framebuffer binding.
-void randar::Gpu::bind(const randar::Framebuffer& framebuffer)
-{
-    ::glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-
-    const Viewport &viewport = framebuffer.camera.viewport;
-    ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
-}
-
-// Framebuffer manipulation.
-void randar::Gpu::clear(const randar::Framebuffer& framebuffer, const randar::Color& color)
-{
-    ::glClearColor(color.r, color.g, color.b, color.a);
-    ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 // Initializes a GPU resource.
@@ -327,6 +248,88 @@ void randar::Gpu::destroy(randar::GpuResource* resource)
     }
 
     resource->initialized = false;
+}
+
+// Clears a framebuffer.
+void randar::Gpu::clear(const randar::Framebuffer& framebuffer, const randar::Color& color)
+{
+    ::glClearColor(color.r, color.g, color.b, color.a);
+    ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+// Clears a texture.
+void randar::Gpu::clear(const randar::Texture& texture)
+{
+    this->setTextureData(texture, nullptr);
+}
+
+// Sets the underlying data of a texture.
+void randar::Gpu::setTextureData(const randar::Texture& texture, const GLvoid* data)
+{
+    this->bind(texture);
+
+    switch (texture.textureType) {
+        case Texture::RGBA:
+            ::glTexImage2D(
+                GL_TEXTURE_2D,
+                0,
+                GL_RGBA,
+                texture.width,
+                texture.height,
+                0,
+                GL_RGBA,
+                GL_UNSIGNED_BYTE,
+                data
+            );
+            break;
+
+        case Texture::DEPTH:
+            ::glTexImage2D(
+                GL_TEXTURE_2D,
+                0,
+                GL_DEPTH_COMPONENT,
+                texture.width,
+                texture.height,
+                0,
+                GL_DEPTH_COMPONENT,
+                GL_FLOAT,
+                data
+            );
+            break;
+
+        default:
+            throw std::runtime_error("Setting data on invalid texture type");
+    }
+}
+
+// Binds a framebuffer.
+void randar::Gpu::bind(const randar::Framebuffer& framebuffer)
+{
+    ::glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    const Viewport &viewport = framebuffer.camera.viewport;
+    ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
+}
+
+// Binds the vertices and faces of a mesh.
+void randar::Gpu::bind(const randar::Mesh& mesh)
+{
+    this->bind(mesh.vertices);
+    ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
+}
+
+// Binds a texture.
+void randar::Gpu::bind(const randar::Texture& texture)
+{
+    if (texture.getGlName() != boundTexture) {
+        ::glBindTexture(GL_TEXTURE_2D, texture);
+    }
+}
+
+// Binds a collection of vertices.
+void randar::Gpu::bind(const randar::Vertices& vertices)
+{
+    ::glBindBuffer(GL_ARRAY_BUFFER, vertices.vertexBuffer);
 }
 
 // Drawing.

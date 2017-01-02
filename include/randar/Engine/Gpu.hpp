@@ -17,13 +17,7 @@ namespace randar
     {
     protected:
         Framebuffer defaultFramebuffer;
-        void bind(const Framebuffer& framebuffer);
         ::GLuint boundFramebuffer;
-
-        void bind(const Vertices& vertices);
-        void bind(const Mesh& mesh);
-
-        void bind(const Texture& texture);
         ::GLuint boundTexture;
 
         GLFWwindow *window;
@@ -32,26 +26,21 @@ namespace randar
         Gpu();
         ~Gpu();
 
+        /**
+         * Retrieves the default window.
+         */
         ::GLFWwindow& getWindow();
 
         /**
-         * Framebuffers.
+         * Retrieves the default framebuffer.
          */
         const Framebuffer& getDefaultFramebuffer() const;
         Framebuffer& getDefaultFramebuffer();
 
-        void clear(const Framebuffer& framebuffer, const Color& color);
-
-        /**
-         * Texture manipulation.
-         */
-        void setTextureData(const Texture& texture, const GLvoid* data);
-        void clear(const Texture& texture);
-
         /**
          * Initializes a GPU resource.
          *
-         * If the GPU resource is already initialized, nothing happens.
+         * Nothing happens if the resource is already initialized.
          */
         void initialize(GpuResource* resource);
 
@@ -65,8 +54,36 @@ namespace randar
 
         /**
          * Destroys a GPU resource.
+         *
+         * More accurately, the resource is destroyed on the GPU. The provided
+         * object is not destroyed, and may be used to re-initialize the
+         * resource later.
+         *
+         * Nothing happens if the resource is not initialized.
          */
         void destroy(GpuResource* resource);
+
+        /**
+         * Clears a GPU resource.
+         */
+        void clear(const Framebuffer& framebuffer, const Color& color);
+        void clear(const Texture& texture);
+
+        /**
+         * Sets the underlying data of a GPU resource.
+         */
+        void setTextureData(const Texture& texture, const GLvoid* data);
+
+        /**
+         * Binds a GPU resource.
+         *
+         * These should only be called internally. Made public for easier
+         * debugging.
+         */
+        void bind(const Framebuffer& framebuffer);
+        void bind(const Mesh& mesh);
+        void bind(const Texture& texture);
+        void bind(const Vertices& vertices);
 
         /**
          * Drawing.
