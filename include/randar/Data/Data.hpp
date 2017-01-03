@@ -1,10 +1,10 @@
-#ifndef RANDAR_ENGINE_DATA_HPP
-#define RANDAR_ENGINE_DATA_HPP
+#ifndef RANDAR_DATA_DATA_HPP
+#define RANDAR_DATA_DATA_HPP
 
 namespace randar
 {
     /**
-     * A representation of data.
+     * A representation of data with a configurable source.
      *
      * The data is only brought into memory when needed.
      */
@@ -12,9 +12,20 @@ namespace randar
     class Data
     {
         T *data;
+        std::function<T*()> source;
 
     public:
         Data() : data(nullptr) { }
+        Data(Data& other) : data(nullptr), source(other.source) { }
+        ~Data() { this->destroy(); }
+
+        /**
+         * Sets the data source.
+         */
+        void setSource(std::function<T*()>& newSource)
+        {
+            this->source = newSource;
+        }
 
         /**
          * Initializes the real data.
@@ -24,14 +35,9 @@ namespace randar
         void initialize()
         {
             if (!this->isInitialized()) {
-                this->retrieve();
+                this->data = this->source.get();
             }
         }
-
-        /**
-         * Retrieves the real data.
-         */
-        virtual void retrieve() = 0;
 
         /**
          * Frees the real data from memory.
@@ -50,7 +56,7 @@ namespace randar
         /**
          * Retrieves a reference to the real data.
          */
-        T& data() {
+        T& get() {
             this->initialize();
             return *this->data;
         }
