@@ -84,12 +84,8 @@ namespace randar
                 }
 
                 // More than a simple GPU resource.
-                else {
-                    if (resource->getType() == Resource::MESH) {
-                        Mesh *mesh = dynamic_cast<Mesh*>(resource);
-                        this->repository.gpu.initialize(mesh->vertexBuffer);
-                        this->repository.gpu.initialize(mesh->indexBuffer);
-                    }
+                else if (resource->isAggregateResource()) {
+                    dynamic_cast<AggregateResource*>(resource)->initialize(this->repository.gpu);
                 }
 
             }
@@ -127,12 +123,8 @@ namespace randar
                 );
             }
 
-            else {
-                if (resource->getType() == Resource::MESH) {
-                    Mesh *mesh = dynamic_cast<Mesh*>(resource);
-                    this->repository.gpu.destroy(&mesh->vertexBuffer);
-                    this->repository.gpu.destroy(&mesh->vertexBuffer);
-                }
+            else if (resource->isAggregateResource()) {
+                dynamic_cast<AggregateResource*>(resource)->destroy(this->repository.gpu);
             }
 
             // Detach.
