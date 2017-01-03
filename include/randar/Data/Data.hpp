@@ -11,8 +11,7 @@ namespace randar
     template <typename T>
     class Data
     {
-        T *data;
-        std::function<T*()> source;
+        Datasource& source;
 
     public:
         Data() : data(nullptr) { }
@@ -22,41 +21,15 @@ namespace randar
         /**
          * Sets the data source.
          */
-        void setSource(std::function<T*()>& newSource)
+        void setSource(Datasource& newSource)
         {
             this->source = newSource;
         }
 
         /**
-         * Initializes the real data.
-         *
-         * Nothing happens if the data is already initialized.
-         */
-        void initialize()
-        {
-            if (!this->isInitialized()) {
-                this->data = this->source.get();
-            }
-        }
-
-        /**
-         * Frees the real data from memory.
-         */
-        void destroy()
-        {
-            delete this->data;
-            this->data = nullptr;
-        }
-
-        /**
-         * Checks whether the real data is initialized.
-         */
-        bool isInitialized() { return this->data != nullptr; }
-
-        /**
          * Retrieves a reference to the real data.
          */
-        T& get() {
+        T& get() { return this->source.
             this->initialize();
             return *this->data;
         }

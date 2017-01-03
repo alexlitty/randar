@@ -77,7 +77,7 @@ void randar::Gpu::initialize(randar::GpuResource* resource)
         case Resource::INDEXBUFFER:
             this->initialize(*dynamic_cast<IndexBuffer*>(resource));
             break;
-
+        
         case Resource::SHADER:
             this->initialize(*dynamic_cast<Shader*>(resource));
             break;
@@ -456,10 +456,10 @@ void randar::Gpu::bind(const randar::IndexBuffer& buffer)
 }
 
 // Binds the vertex and index buffers of a mesh.
-void randar::Gpu::bind(const randar::Mesh& mesh)
+void randar::Gpu::bind(const randar::Model& model)
 {
-    this->bind(mesh.vertexBuffer);
-    this->bind(mesh.indexBuffer);
+    this->bind(model.mesh.vertexBuffer);
+    this->bind(model.mesh.indexBuffer);
 }
 
 // Binds a texture.
@@ -479,7 +479,11 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 // Drawing.
 void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Model& model)
 {
-    const ShaderProgram& shaderProgram = model.get<ShaderProgram>();
+    const ShaderProgram& shaderProgram = model.getShaderProgram();
+    if (!shaderProgram.initialized) {
+        throw std::runtime_error("Drawing model without shader program");
+    }
+
     this->bind(framebuffer);
 
     // Set MVP uniform.

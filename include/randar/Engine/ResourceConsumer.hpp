@@ -75,11 +75,23 @@ namespace randar
 
             // Initialize.
             if (!resource->initialized) {
+
+                // Simple GPU resource.
                 if (resource->isGpuResource()) {
                     this->repository.gpu.initialize(
                         dynamic_cast<GpuResource*>(resource)
                     );
                 }
+
+                // More than a simple GPU resource.
+                else {
+                    if (resource->getType() == Resource::MESH) {
+                        Mesh *mesh = dynamic_cast<Mesh*>(resource);
+                        this->repository.gpu.initialize(mesh->vertexBuffer);
+                        this->repository.gpu.initialize(mesh->indexBuffer);
+                    }
+                }
+
             }
 
             // Associate resource.
@@ -113,6 +125,14 @@ namespace randar
                 this->repository.gpu.destroy(
                     dynamic_cast<GpuResource*>(resource)
                 );
+            }
+
+            else {
+                if (resource->getType() == Resource::MESH) {
+                    Mesh *mesh = dynamic_cast<Mesh*>(resource);
+                    this->repository.gpu.destroy(&mesh->vertexBuffer);
+                    this->repository.gpu.destroy(&mesh->vertexBuffer);
+                }
             }
 
             // Detach.

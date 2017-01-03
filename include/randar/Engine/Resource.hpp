@@ -10,6 +10,12 @@ namespace randar
         enum Type
         {
             INVALID,
+
+            // Aggregate resources.
+            MESH,
+            MODEL,
+
+            // GPU resources.
             FRAMEBUFFER,
             INDEXBUFFER,
             RENDERBUFFER,
@@ -35,11 +41,22 @@ namespace randar
          */
         bool initialized;
 
+        /**
+         * Constructor.
+         */
         Resource(const std::string& initName = "");
+
+        /**
+         * Destructor.
+         */
         virtual ~Resource();
 
+        /**
+         * Retrieves resource information.
+         */
         virtual Resource::Type getType() const;
-        bool isGpuResource() const;
+        virtual bool isAggregateResource() const;
+        virtual bool isGpuResource() const;
     };
 }
 

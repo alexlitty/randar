@@ -16,7 +16,12 @@ randar::Resource::Type randar::Resource::getType() const
     return randar::Resource::INVALID;
 }
 
+bool randar::Resource::isAggregateResource() const
+{
+    return false;
+}
+
 bool randar::Resource::isGpuResource() const
 {
-    return this->getType() >= Resource::INDEXBUFFER;
+    return false;
 }

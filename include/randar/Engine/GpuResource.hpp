@@ -12,16 +12,25 @@ namespace randar
         ::GLuint glName;
 
     public:
-        // Constructor and destructor.
+        /**
+         * Constructor and destructor.
+         */
         GpuResource();
         ~GpuResource();
 
-        // OpenGL name assignment and retrieval.
+        /**
+         * OpenGL name assignment and retrieval.
+         */
         void setGlName(::GLuint newGlName);
         ::GLuint getGlName() const;
         operator ::GLuint() const;
         operator ::GLuint*();
         operator ::GLuint&();
+
+        /**
+         * Retrieves resource information.
+         */
+        virtual bool isGpuResource() const override;
     };
 }
 

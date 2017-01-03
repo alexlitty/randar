@@ -6,3 +6,8 @@ randar::Model::~Model()
         delete joint;
     }
 }
+
+const randar::ShaderProgram& randar::Model::getShaderProgram() const
+{
+    return this->shaderProgram;
+}

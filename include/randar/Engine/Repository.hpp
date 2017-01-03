@@ -2,6 +2,7 @@
 #define RANDAR_ENGINE_REPOSITORY_HPP
 
 #include <randar/Engine/Gpu.hpp>
+#include <randar/Render/Model.hpp>
 #include <randar/Utility/Map.hpp>
 
 namespace randar

@@ -86,7 +86,7 @@ namespace randar
          */
         void bind(const Framebuffer& framebuffer);
         void bind(const IndexBuffer& buffer);
-        void bind(const Mesh& mesh);
+        void bind(const Model& model);
         void bind(const Texture& texture);
         void bind(const VertexBuffer& buffer);
 
