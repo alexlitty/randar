@@ -13,7 +13,6 @@ int main()
 
     while (true) {
         ::glfwPollEvents();
-        ui.update(randar::getDefaultGpu());
 
         for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
             throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
@@ -23,6 +22,7 @@ int main()
             break;
         }
 
+        ui.draw(randar::getDefaultGpu());
         ::glfwSwapBuffers(window);
     }
     return 0;

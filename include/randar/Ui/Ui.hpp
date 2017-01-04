@@ -5,6 +5,7 @@
 #include <Awesomium/BitmapSurface.h>
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
+#include <randar/Utility/File.hpp>
 
 namespace randar
 {
@@ -16,13 +17,14 @@ namespace randar
         Awesomium::BitmapSurface* surface;
 
     public:
+        ShaderProgram program;
         Model model;
         Texture texture;
 
         Ui();
         ~Ui();
 
-        void update(randar::Gpu& gpu);
+        void draw(randar::Gpu& gpu);
 
         /**
          * Resource initialization and destruction.

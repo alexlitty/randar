@@ -15,8 +15,8 @@ namespace randar
 
         Vector();
         Vector(btVector3 other);
-        Vector(float xInit, float yInit, float zInit);
-        void set(float xNew, float yNew, float zNew);
+        Vector(float xInit, float yInit, float zInit = 0.0f);
+        void set(float xNew, float yNew, float zNew = 0.0f);
 
         /**
          * Normalizes this vector.

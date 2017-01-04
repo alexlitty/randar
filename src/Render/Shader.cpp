@@ -1,6 +1,12 @@
 #include <randar/Render/Shader.hpp>
 #include <randar/Engine/Gpu.hpp>
 
+randar::Shader::Shader(const std::string& initName)
+: randar::Resource(initName)
+{
+
+}
+
 randar::Shader::Shader(
     ::GLenum initShaderType,
     const std::string& initCode,
@@ -13,6 +19,14 @@ randar::Shader::Shader(
 
 }
 
+randar::Shader::Shader(const randar::Shader& other)
+: randar::Resource(other.name),
+  shaderType(other.shaderType),
+  code(other.code)
+{
+
+}
+
 void randar::Shader::initialize(randar::Gpu& gpu)
 {
     gpu.initialize(*this);
@@ -21,4 +35,16 @@ void randar::Shader::initialize(randar::Gpu& gpu)
 void randar::Shader::destroy(randar::Gpu& gpu)
 {
     gpu.destroy(*this);
+}
+
+randar::Shader& randar::Shader::operator =(const randar::Shader& other)
+{
+    this->initialized = false;
+    this->setGlName(0);
+
+    this->name = other.name;
+    this->shaderType = other.shaderType;
+    this->code = other.code;
+
+    return *this;
 }

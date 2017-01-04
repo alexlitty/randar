@@ -4,6 +4,7 @@ randar::Resource::Resource(const std::string& initName)
 : initialized(false),
   name(initName)
 {
+
 }
 
 randar::Resource::~Resource()

@@ -7,9 +7,10 @@ namespace randar
 {
     struct ShaderProgram : virtual public GpuResource
     {
-        Shader& vertexShader;
-        Shader& fragmentShader;
+        Shader vertexShader;
+        Shader fragmentShader;
 
+        ShaderProgram(const std::string& initName = "");
         ShaderProgram(
             Shader& initVertexShader,
             Shader& initFragmentShader,

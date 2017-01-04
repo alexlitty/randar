@@ -1,6 +1,12 @@
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/Engine/Gpu.hpp>
 
+randar::ShaderProgram::ShaderProgram(const std::string& initName)
+: randar::Resource(initName)
+{
+
+}
+
 randar::ShaderProgram::ShaderProgram(
     randar::Shader& initVertexShader,
     randar::Shader& initFragmentShader,
