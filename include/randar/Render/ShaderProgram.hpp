@@ -7,9 +7,6 @@ namespace randar
 {
     struct ShaderProgram : virtual public GpuResource
     {
-        const static Resource::Type type;
-        virtual Resource::Type getType() const override;
-
         Shader& vertexShader;
         Shader& fragmentShader;
 
@@ -18,6 +15,8 @@ namespace randar
             Shader& initFragmentShader,
             const std::string& initName = "");
 
+        virtual void initialize(Gpu& gpu) override;
+        virtual void destroy(Gpu& gpu) override;
     };
 }
 

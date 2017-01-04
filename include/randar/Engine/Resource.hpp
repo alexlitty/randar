@@ -5,41 +5,28 @@
 
 namespace randar
 {
+    /**
+     * Resolve circular dependencies with the GPU.
+     */
+    class Gpu;
+
+    /**
+     * A resource, which may or may not be fully loaded into memory.
+     *
+     * Resource objects begin as a self-description. They can initialized into
+     * memory and freed as necessary, as many times as needed, using this same
+     * object.
+     */
     struct Resource
     {
-        enum Type
-        {
-            INVALID,
+    protected:
+        bool initialized;
 
-            // Aggregate resources.
-            MESH,
-            MODEL,
-
-            // GPU resources.
-            FRAMEBUFFER,
-            INDEXBUFFER,
-            RENDERBUFFER,
-            SHADER,
-            SHADER_PROGRAM,
-            TEXTURE,
-            VERTEXBUFFER
-        };
-
+    public:
         /**
          * A user-defined name for this resource.
          */
         std::string name;
-
-        /**
-         * Whether this resource is initialized.
-         *
-         * If uninitialized, this object is a "meta" reference to a resource
-         * that simply isn't loaded yet. It represents a resource that *could*
-         * exist.
-         *
-         * An initialized object could be uninitialized later.
-         */
-        bool initialized;
 
         /**
          * Constructor.
@@ -52,11 +39,19 @@ namespace randar
         virtual ~Resource();
 
         /**
-         * Retrieves resource information.
+         * Initialize this resource and bring it into memory.
          */
-        virtual Resource::Type getType() const;
-        virtual bool isAggregateResource() const;
-        virtual bool isGpuResource() const;
+        virtual void initialize(Gpu& gpu) = 0;
+
+        /**
+         * Whether this resource is initialized.
+         */
+        bool isInitialized() const;
+
+        /**
+         * Destroys this resource and frees it from memory.
+         */
+        virtual void destroy(Gpu& gpu) = 0;
     };
 }
 

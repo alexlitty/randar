@@ -1,10 +1,5 @@
 #include <randar/Render/Framebuffer.hpp>
-
-const randar::Resource::Type randar::Framebuffer::type = randar::Resource::FRAMEBUFFER;
-randar::Resource::Type randar::Framebuffer::getType() const
-{
-    return this->type;
-}
+#include <randar/Engine/Gpu.hpp>
 
 // Constructs a framebuffer with no attachments.
 randar::Framebuffer::Framebuffer(const Viewport& initViewport)
@@ -24,4 +19,16 @@ randar::Framebuffer::Framebuffer(randar::Texture* initTexture)
 randar::Texture* randar::Framebuffer::getTexture()
 {
     return this->texture;
+}
+
+// Initialize this framebuffer.
+void randar::Framebuffer::initialize(randar::Gpu& gpu)
+{
+    gpu.initialize(*this);
+}
+
+// Destroys this framebuffer.
+void randar::Framebuffer::destroy(randar::Gpu& gpu)
+{
+    gpu.destroy(*this);
 }

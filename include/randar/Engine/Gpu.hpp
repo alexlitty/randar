@@ -38,32 +38,30 @@ namespace randar
         Framebuffer& getDefaultFramebuffer();
 
         /**
-         * Initializes a GPU resource.
+         * Initializes a resource on the GPU.
          *
          * Nothing happens if the resource is already initialized.
-         */
-        void initialize(GpuResource* resource);
-
-        /**
-         * Specializations for resource initializing.
          */
         void initialize(Framebuffer& framebuffer);
         void initialize(IndexBuffer& buffer);
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
         void initialize(Texture& texture);
+        void initialize(VertexArray& vertexArray);
         void initialize(VertexBuffer& buffer);
 
         /**
-         * Destroys a GPU resource.
+         * Destroys a resource on the GPU.
          *
-         * More accurately, the resource is destroyed on the GPU. The provided
-         * object is not destroyed, and may be used to re-initialize the
-         * resource later.
-         *
-         * Nothing happens if the resource is not initialized.
+         * Throws an error if the resource is not initialized yet.
          */
-        void destroy(GpuResource* resource);
+        void destroy(Framebuffer& framebuffer);
+        void destroy(IndexBuffer& buffer);
+        void destroy(Shader& shader);
+        void destroy(ShaderProgram& program);
+        void destroy(Texture& texture);
+        void destroy(VertexArray& vertexArray);
+        void destroy(VertexBuffer& buffer);
 
         /**
          * Clears a GPU resource.

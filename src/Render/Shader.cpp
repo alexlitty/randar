@@ -1,10 +1,5 @@
 #include <randar/Render/Shader.hpp>
-
-const randar::Resource::Type randar::Shader::type = randar::Resource::SHADER;
-randar::Resource::Type randar::Shader::getType() const
-{
-    return this->type;
-}
+#include <randar/Engine/Gpu.hpp>
 
 randar::Shader::Shader(
     ::GLenum initShaderType,
@@ -16,4 +11,14 @@ randar::Shader::Shader(
   code(initCode)
 {
 
+}
+
+void randar::Shader::initialize(randar::Gpu& gpu)
+{
+    gpu.initialize(*this);
+}
+
+void randar::Shader::destroy(randar::Gpu& gpu)
+{
+    gpu.destroy(*this);
 }

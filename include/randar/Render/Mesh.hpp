@@ -1,18 +1,13 @@
 #ifndef RANDAR_RENDER_MESH_HPP
 #define RANDAR_RENDER_MESH_HPP
 
-#include <randar/Engine/AggregateResource.hpp>
+#include <randar/Render/VertexBuffer.hpp>
+#include <randar/Render/IndexBuffer.hpp>
 
 namespace randar
 {
-    struct Mesh : virtual public AggregateResource
+    struct Mesh : virtual public Resource
     {
-        /**
-         * Resource information.
-         */
-        const static Resource::Type type;
-        Resource::Type getType() const;
-
         /**
          * Mesh information.
          */

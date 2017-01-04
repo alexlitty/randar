@@ -1,7 +1,22 @@
 #include <randar/Render/VertexBuffer.hpp>
+#include <randar/Engine/Gpu.hpp>
 
-const randar::Resource::Type randar::VertexBuffer::type = randar::Resource::VERTEXBUFFER;
-randar::Resource::Type randar::VertexBuffer::getType() const
+void randar::VertexArray::initialize(randar::Gpu& gpu)
 {
-    return this->type;
+    gpu.initialize(*this);
+}
+
+void randar::VertexArray::destroy(randar::Gpu& gpu)
+{
+    gpu.destroy(*this);
+}
+
+void randar::VertexBuffer::initialize(randar::Gpu& gpu)
+{
+    gpu.initialize(*this);
+}
+
+void randar::VertexBuffer::destroy(randar::Gpu& gpu)
+{
+    gpu.destroy(*this);
 }

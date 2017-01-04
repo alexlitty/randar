@@ -7,8 +7,8 @@ namespace randar
 {
     struct IndexBuffer : virtual public GpuResource
     {
-        const static Resource::Type type;
-        Resource::Type getType() const;
+        virtual void initialize(Gpu& gpu) override;
+        virtual void destroy(Gpu& gpu) override;
     };
 }
 

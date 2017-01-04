@@ -36,9 +36,3 @@ randar::GpuResource::operator ::GLuint&()
 {
     return this->glName;
 }
-
-// Retrieves resource information.
-bool randar::GpuResource::isGpuResource() const
-{
-    return true;
-}

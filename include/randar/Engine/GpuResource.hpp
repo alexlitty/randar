@@ -26,11 +26,6 @@ namespace randar
         operator ::GLuint() const;
         operator ::GLuint*();
         operator ::GLuint&();
-
-        /**
-         * Retrieves resource information.
-         */
-        virtual bool isGpuResource() const override;
     };
 }
 

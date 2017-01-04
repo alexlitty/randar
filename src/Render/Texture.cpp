@@ -1,10 +1,5 @@
 #include <randar/Render/Texture.hpp>
-
-const randar::Resource::Type randar::Texture::type = randar::Resource::TEXTURE;
-randar::Resource::Type randar::Texture::getType() const
-{
-    return this->type;
-}
+#include <randar/Engine/Gpu.hpp>
 
 randar::Texture::Texture(
     randar::Texture::Type initTextureType,
@@ -18,4 +13,14 @@ randar::Texture::Texture(
   height(initHeight)
 {
 
+}
+
+void randar::Texture::initialize(randar::Gpu& gpu)
+{
+    gpu.initialize(*this);
+}
+
+void randar::Texture::destroy(randar::Gpu& gpu)
+{
+    gpu.destroy(*this);
 }

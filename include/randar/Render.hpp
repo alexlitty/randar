@@ -1,7 +1,6 @@
 #ifndef RANDAR_RENDER_HPP
 #define RANDAR_RENDER_HPP
 
-#include <randar/Engine/GpuResource.hpp>
 #include <randar/Render/Camera.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/IndexBuffer.hpp>

@@ -70,24 +70,12 @@ namespace randar
             // Ensure resource name is unique.
             std::map<std::string, Resource*>& tResources = this->resources[resource->getType()];
             if (randar::hasKey(tResources, resource->name)) {
-                throw std::runtime_error("Attaching resource to consumer, but resource already exists");
+                throw std::runtime_error("Attaching resource to consumer, but resource with same name already exists");
             }
 
-            // Initialize.
-            if (!resource->initialized) {
-
-                // Simple GPU resource.
-                if (resource->isGpuResource()) {
-                    this->repository.gpu.initialize(
-                        dynamic_cast<GpuResource*>(resource)
-                    );
-                }
-
-                // More than a simple GPU resource.
-                else if (resource->isAggregateResource()) {
-                    dynamic_cast<AggregateResource*>(resource)->initialize(this->repository.gpu);
-                }
-
+            // Initialize resource.
+            if (!resource->isInitialized()) {
+                resource->initialize(this->repository.gpu);
             }
 
             // Associate resource.
@@ -114,17 +102,11 @@ namespace randar
             if (!randar::hasKey(tResources, name)) {
                 throw std::runtime_error("Detaching resource from consumer, but resource is not associated");
             }
+            Resource* resource = tResources[name];
 
             // Destroy.
-            Resource* resource = tResources[name];
-            if (resource->isGpuResource()) {
-                this->repository.gpu.destroy(
-                    dynamic_cast<GpuResource*>(resource)
-                );
-            }
-
-            else if (resource->isAggregateResource()) {
-                dynamic_cast<AggregateResource*>(resource)->destroy(this->repository.gpu);
+            if (resource->isInitialized()) {
+                resource->destroy(this->repository.gpu);
             }
 
             // Detach.

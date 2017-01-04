@@ -14,7 +14,8 @@ namespace randar
      */
     struct VertexArray : virtual public GpuResource
     {
-
+        virtual void initialize(Gpu& gpu) override;
+        virtual void destroy(Gpu& gpu) override;
     };
 
     /**
@@ -26,10 +27,10 @@ namespace randar
      */
     struct VertexBuffer : virtual public GpuResource
     {
-        const static Resource::Type type;
-        Resource::Type getType() const;
-
         VertexArray vertexArray;
+
+        virtual void initialize(Gpu& gpu) override;
+        virtual void destroy(Gpu& gpu) override;
     };
 }
 

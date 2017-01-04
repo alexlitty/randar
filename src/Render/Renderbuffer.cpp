@@ -1,9 +1,12 @@
 #include <randar/Render/Renderbuffer.hpp>
+#include <randar/Engine/Gpu.hpp>
 
-const randar::Resource::Type randar::Renderbuffer::type = randar::Resource::RENDERBUFFER;
-randar::Resource::Type randar::Renderbuffer::getType() const
+void randar::Renderbuffer::initialize(randar::Gpu& gpu)
 {
-    return this->type;
+    //gpu.initialize(*this);
 }
 
-
+void randar::Renderbuffer::destroy(randar::Gpu& gpu)
+{
+    //gpu.destroy(*this);
+}

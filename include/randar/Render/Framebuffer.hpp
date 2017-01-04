@@ -13,9 +13,6 @@ namespace randar
         Texture* texture;
 
     public:
-        const static Resource::Type type;
-        Resource::Type getType() const;
-
         Camera camera;
 
         /**
@@ -32,6 +29,12 @@ namespace randar
          * Retrieves the texture attachment.
          */
         Texture* getTexture();
+
+        /**
+         * Resource initialization and destruction.
+         */
+        virtual void initialize(Gpu& gpu) override;
+        virtual void destroy(Gpu& gpu) override;
     };
 }
 

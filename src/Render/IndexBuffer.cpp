@@ -1,7 +1,12 @@
 #include <randar/Render/IndexBuffer.hpp>
+#include <randar/Engine/Gpu.hpp>
 
-const randar::Resource::Type randar::IndexBuffer::type = randar::Resource::INDEXBUFFER;
-randar::Resource::Type randar::IndexBuffer::getType() const
+void randar::IndexBuffer::initialize(randar::Gpu& gpu)
 {
-    return this->type;
+    gpu.initialize(*this);
+}
+
+void randar::IndexBuffer::destroy(randar::Gpu& gpu)
+{
+    gpu.destroy(*this);
 }

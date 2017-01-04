@@ -62,48 +62,10 @@ randar::Framebuffer& randar::Gpu::getDefaultFramebuffer()
     return this->defaultFramebuffer;
 }
 
-// Initializes a GPU resource.
-void randar::Gpu::initialize(randar::GpuResource* resource)
-{
-    if (resource->initialized) {
-        return;
-    }
-
-    switch (resource->getType()) {
-        case Resource::FRAMEBUFFER:
-            this->initialize(*dynamic_cast<Framebuffer*>(resource));
-            break;
-
-        case Resource::INDEXBUFFER:
-            this->initialize(*dynamic_cast<IndexBuffer*>(resource));
-            break;
-        
-        case Resource::SHADER:
-            this->initialize(*dynamic_cast<Shader*>(resource));
-            break;
-
-        case Resource::SHADER_PROGRAM:
-            this->initialize(*dynamic_cast<ShaderProgram*>(resource));
-            break;
-
-        case Resource::TEXTURE:
-            this->initialize(*dynamic_cast<Texture*>(resource));
-            break;
-
-        case Resource::VERTEXBUFFER:
-            this->initialize(*dynamic_cast<VertexBuffer*>(resource));
-            break;
-
-        default:
-            throw std::runtime_error("Initializing invalid GPU resource");
-            break;
-    }
-}
-
 // Initializes a framebuffer.
 void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
 {
-    if (framebuffer.initialized) {
+    if (framebuffer.isInitialized()) {
         return;
     }
 
@@ -137,24 +99,22 @@ void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
     if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         throw std::runtime_error("Incomplete framebuffer");
     }
-    framebuffer.initialized = true;
 }
 
 // Initializes an index buffer.
 void randar::Gpu::initialize(randar::IndexBuffer& buffer)
 {
-    if (buffer.initialized) {
+    if (buffer.isInitialized()) {
         return;
     }
 
     ::glGenBuffers(1, buffer);
-    buffer.initialized = true;
 }
 
 // Initializes a shader.
 void randar::Gpu::initialize(randar::Shader& shader)
 {
-    if (shader.initialized) {
+    if (shader.isInitialized()) {
         return;
     }
 
@@ -179,14 +139,12 @@ void randar::Gpu::initialize(randar::Shader& shader)
             throw std::runtime_error("Cannot compile shader. No log available");
         }
     }
-
-    shader.initialized = true;
 }
 
 // Initializes a shader program.
 void randar::Gpu::initialize(randar::ShaderProgram& program)
 {
-    if (program.initialized) {
+    if (program.isInitialized()) {
         return;
     }
 
@@ -218,14 +176,12 @@ void randar::Gpu::initialize(randar::ShaderProgram& program)
 
     ::glDetachShader(program, program.vertexShader);
     ::glDetachShader(program, program.fragmentShader);
-
-    program.initialized = true;
 }
 
 // Initializes a texture.
 void randar::Gpu::initialize(randar::Texture& texture)
 {
-    if (texture.initialized) {
+    if (texture.isInitialized()) {
         return;
     }
 
@@ -241,14 +197,23 @@ void randar::Gpu::initialize(randar::Texture& texture)
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             break;
     }
+}
 
-    texture.initialized = true;
+// Initializes a vertex array.
+// @todo - Make this into a useful function, out of vertex buffer initialization.
+void randar::Gpu::initialize(randar::VertexArray& vertexArray)
+{
+    if (vertexArray.isInitialized()) {
+        return;
+    }
+
+    ::glGenVertexArrays(1, vertexArray);
 }
 
 // Initializes a vertex buffer.
 void randar::Gpu::initialize(randar::VertexBuffer& buffer)
 {
-    if (buffer.initialized) {
+    if (buffer.isInitialized()) {
         return;
     }
 
@@ -314,51 +279,69 @@ void randar::Gpu::initialize(randar::VertexBuffer& buffer)
         stride,
         (void*)(15 * sizeof(GLfloat))
     );
-
-    buffer.initialized = true;
 }
 
-// Destroys a GPU resource.
-void randar::Gpu::destroy(randar::GpuResource* resource)
+// Destroys a framebuffer.
+void randar::Gpu::destroy(randar::Framebuffer& framebuffer)
 {
-    // Resource is not initialized on the GPU. Nothing to destroy.
-    if (!resource->initialized) {
-        return;
+    if (!framebuffer.isInitialized()) {
+        throw std::runtime_error("Destroying framebuffer that is not initialized");
     }
+    ::glDeleteFramebuffers(1, framebuffer);
+}
 
-    VertexBuffer *buffer;
-    switch (resource->getType()) {
-        case Resource::FRAMEBUFFER:
-            ::glDeleteFramebuffers(1, *resource);
-            break;
-
-        case Resource::INDEXBUFFER:
-            ::glDeleteBuffers(1, *resource);
-            break;
-
-        case Resource::SHADER:
-            ::glDeleteShader(*resource);
-            break;
-
-        case Resource::SHADER_PROGRAM:
-            ::glDeleteProgram(*resource);
-            break;
-
-        case Resource::TEXTURE:
-            ::glDeleteTextures(1, *resource);
-            break;
-
-        case Resource::VERTEXBUFFER:
-            buffer = dynamic_cast<VertexBuffer*>(resource);
-            ::glDeleteBuffers(1, *buffer);
-            ::glDeleteVertexArrays(1, buffer->vertexArray);
-            break;
-
-        default:
-            throw std::runtime_error("Destroying invalid GPU resource");
+// Destroys an index buffer.
+void randar::Gpu::destroy(randar::IndexBuffer& buffer)
+{
+    if (!buffer.isInitialized()) {
+        throw std::runtime_error("Destroying index buffer that is not initialized");
     }
+    ::glDeleteBuffers(1, buffer);
+}
 
-    resource->initialized = false;
+// Destroys a shader.
+void randar::Gpu::destroy(randar::Shader& shader)
+{
+    if (!shader.isInitialized()) {
+        throw std::runtime_error("Destroying shader that is not initialized");
+    }
+    ::glDeleteShader(shader);
+}
+
+// Destroys a shader program.
+void randar::Gpu::destroy(randar::ShaderProgram& program)
+{
+    if (!program.isInitialized()) {
+        throw std::runtime_error("Destroying shader program that is not initialized");
+    }
+    ::glDeleteProgram(program);
+}
+
+// Destroys a texture.
+void randar::Gpu::destroy(randar::Texture& texture)
+{
+    if (!texture.isInitialized()) {
+        throw std::runtime_error("Destroying texture that is not initialized");
+    }
+    ::glDeleteTextures(1, texture);
+}
+
+// Destroys a vertex array.
+// @todo - Separate logic from vertex buffers.
+void randar::Gpu::destroy(randar::VertexArray& vertexArray)
+{
+    if (!vertexArray.isInitialized()) {
+        throw std::runtime_error("Destroying vertex array that is not initialized");
+    }
+}
+
+// Destroys a vertex buffer.
+void randar::Gpu::destroy(randar::VertexBuffer& buffer)
+{
+    if (!buffer.isInitialized()) {
+        throw std::runtime_error("Destroying vertex buffer that is not initialized");
+    }
+    ::glDeleteBuffers(1, buffer);
 }
 
 // Clears a framebuffer.
@@ -480,7 +463,7 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Model& model)
 {
     const ShaderProgram& shaderProgram = model.getShaderProgram();
-    if (!shaderProgram.initialized) {
+    if (!shaderProgram.isInitialized()) {
         throw std::runtime_error("Drawing model without shader program");
     }
 
