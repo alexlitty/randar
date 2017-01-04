@@ -460,10 +460,12 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 }
 
 // Drawing.
-void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Model& model)
+void randar::Gpu::draw(
+    const ShaderProgram& program,
+    const randar::Framebuffer& framebuffer,
+    const randar::Model& model)
 {
-    const ShaderProgram& shaderProgram = model.getShaderProgram();
-    if (!shaderProgram.isInitialized()) {
+    if (!program.isInitialized()) {
         throw std::runtime_error("Drawing model without shader program");
     }
 
@@ -474,8 +476,8 @@ void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Mod
         * framebuffer.camera.getViewMatrix()
         * model.getTransformMatrix();
 
-    ::glUseProgram(shaderProgram);
-    ::GLuint mvpId = ::glGetUniformLocation(shaderProgram, "mvp");
+    ::glUseProgram(program);
+    ::GLuint mvpId = ::glGetUniformLocation(program, "mvp");
     ::glUniformMatrix4fv(mvpId, 1, GL_FALSE, &mvp[0][0]);
 
     // Set joints uniform.
@@ -486,7 +488,7 @@ void randar::Gpu::draw(const randar::Framebuffer& framebuffer, const randar::Mod
         }
 
         ::glUniformMatrix4fv(
-            ::glGetUniformLocation(shaderProgram, "joints"),
+            ::glGetUniformLocation(program, "joints"),
             model.joints.size(),
             GL_FALSE,
             &jointMatrices[0][0][0]

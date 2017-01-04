@@ -11,19 +11,12 @@ namespace randar
 {
     struct Model : virtual public Physical
     {
-    protected:
-        ShaderProgram shaderProgram;
-
-    public:
-        Shader vertexShader;
-        Shader fragmentShader;
         Mesh mesh;
 
         std::vector<Joint*> joints;
 
+        Model();
         ~Model();
-
-        const ShaderProgram& getShaderProgram() const;
     };
 }
 

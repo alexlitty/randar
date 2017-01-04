@@ -1,8 +1,8 @@
 #include <randar/Engine/Resource.hpp>
 
 randar::Resource::Resource(const std::string& initName)
-: name(initName),
-  initialized(false)
+: initialized(false),
+  name(initName)
 {
 }
 

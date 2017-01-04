@@ -5,6 +5,7 @@ randar::Ui::Ui()
 : webCore(Awesomium::WebCore::Initialize(Awesomium::WebConfig())),
   texture(randar::Texture::RGBA, 800, 600)
 {
+    // Initialize Awesomium.
     this->webView = this->webCore->CreateWebView(
         800,
         600,
@@ -16,6 +17,7 @@ randar::Ui::Ui()
     Awesomium::WebURL url(str);
     this->webView->LoadURL(url);
 
+    // Initialize resources on the GPU.
     this->initialize(randar::getDefaultGpu());
 }
 
@@ -43,11 +45,13 @@ void randar::Ui::update(randar::Gpu& gpu)
 // Resource initialization.
 void randar::Ui::initialize(randar::Gpu& gpu)
 {
-    gpu.initialize(this->texture);
+    this->model.mesh.initialize(gpu);
+    this->texture.initialize(gpu);
 }
 
 // Resource destruction.
 void randar::Ui::destroy(randar::Gpu& gpu)
 {
-    gpu.destroy(this->texture);
+    this->model.mesh.destroy(gpu);
+    this->texture.destroy(gpu);
 }

@@ -3,6 +3,7 @@
 
 #include <Awesomium/WebCore.h>
 #include <Awesomium/BitmapSurface.h>
+#include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
 
 namespace randar
@@ -15,6 +16,7 @@ namespace randar
         Awesomium::BitmapSurface* surface;
 
     public:
+        Model model;
         Texture texture;
 
         Ui();

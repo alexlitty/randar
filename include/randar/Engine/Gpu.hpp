@@ -91,7 +91,10 @@ namespace randar
         /**
          * Drawing.
          */
-        void draw(const Framebuffer& framebuffer, const Model& model);
+        void draw(
+            const ShaderProgram &program,
+            const Framebuffer& framebuffer,
+            const Model& model);
     };
 
     /**
