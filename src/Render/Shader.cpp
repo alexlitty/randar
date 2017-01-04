@@ -30,11 +30,13 @@ randar::Shader::Shader(const randar::Shader& other)
 void randar::Shader::initialize(randar::Gpu& gpu)
 {
     gpu.initialize(*this);
+    this->initialized = true;
 }
 
 void randar::Shader::destroy(randar::Gpu& gpu)
 {
     gpu.destroy(*this);
+    this->initialized = false;
 }
 
 randar::Shader& randar::Shader::operator =(const randar::Shader& other)

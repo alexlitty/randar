@@ -22,9 +22,11 @@ randar::ShaderProgram::ShaderProgram(
 void randar::ShaderProgram::initialize(randar::Gpu& gpu)
 {
     gpu.initialize(*this);
+    this->initialized = true;
 }
 
 void randar::ShaderProgram::destroy(randar::Gpu& gpu)
 {
     gpu.destroy(*this);
+    this->initialized = false;
 }

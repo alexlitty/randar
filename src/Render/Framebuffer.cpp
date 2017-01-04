@@ -25,10 +25,12 @@ randar::Texture* randar::Framebuffer::getTexture()
 void randar::Framebuffer::initialize(randar::Gpu& gpu)
 {
     gpu.initialize(*this);
+    this->initialized = true;
 }
 
 // Destroys this framebuffer.
 void randar::Framebuffer::destroy(randar::Gpu& gpu)
 {
     gpu.destroy(*this);
+    this->initialized = false;
 }
