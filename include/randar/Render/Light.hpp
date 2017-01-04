@@ -1,15 +1,21 @@
 #ifndef RANDAR_RENDER_LIGHT_HPP
 #define RANDAR_RENDER_LIGHT_HPP
 
-#include <randar/Engine/ResourceConsumer.hpp>
+#include <randar/Render/ShaderProgram.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
 {
-    class Light : virtual public ResourceConsumer
+    struct Light : virtual public Resource
     {
-    public:
+        Shader vertexShader;
+        Shader fragmentShader;
+        ShaderProgram shaderProgram;
+
         Light();
+
+        virtual void initialize(Gpu& gpu) override;
+        virtual void destroy(Gpu& gpu) override;
     };
 }
 

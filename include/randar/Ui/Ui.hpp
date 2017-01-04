@@ -3,11 +3,11 @@
 
 #include <Awesomium/WebCore.h>
 #include <Awesomium/BitmapSurface.h>
-#include <randar/Engine/ResourceConsumer.hpp>
+#include <randar/Render/Texture.hpp>
 
 namespace randar
 {
-    class Ui : virtual public ResourceConsumer
+    class Ui : virtual public Resource
     {
         Awesomium::WebCore* webCore;
         Awesomium::WebView* webView;
@@ -15,10 +15,18 @@ namespace randar
         Awesomium::BitmapSurface* surface;
 
     public:
+        Texture texture;
+
         Ui();
         ~Ui();
 
         void update(randar::Gpu& gpu);
+
+        /**
+         * Resource initialization and destruction.
+         */
+        virtual void initialize(randar::Gpu& gpu) override;
+        virtual void destroy(randar::Gpu& gpu) override;
     };
 }
 
