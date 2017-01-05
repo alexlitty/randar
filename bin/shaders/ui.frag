@@ -11,5 +11,6 @@ void main() {
         visibility = 0.5f;
     }
 
-    color = visibility * fragmentColor;
+    color = fragmentColor;
+    //color = visibility * fragmentColor;
 }

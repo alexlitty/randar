@@ -7,6 +7,8 @@ namespace randar
 {
     struct IndexBuffer : virtual public GpuResource
     {
+        unsigned int count;
+
         virtual void initialize(Gpu& gpu) override;
         virtual void destroy(Gpu& gpu) override;
     };

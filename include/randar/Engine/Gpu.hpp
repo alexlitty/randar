@@ -72,7 +72,7 @@ namespace randar
         /**
          * Writes the underlying data of a GPU resource.
          */
-        void write(const IndexBuffer& indexBuffer, const std::vector<unsigned int>& indices);
+        void write(IndexBuffer& indexBuffer, const std::vector<unsigned int>& indices);
         void write(const Texture& texture, const GLvoid* data);
         void write(const VertexBuffer& buffer, const std::vector<Vertex>& vertices);
 
@@ -95,6 +95,13 @@ namespace randar
             const ShaderProgram &program,
             const Framebuffer& framebuffer,
             const Model& model);
+
+        /**
+         * Performs a sanity check.
+         *
+         * If the GPU is in a bad state, throws an error.
+         */
+        void check();
     };
 
     /**

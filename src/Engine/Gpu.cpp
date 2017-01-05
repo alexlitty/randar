@@ -35,6 +35,7 @@ randar::Gpu::Gpu()
     }
 
     // Configure OpenGL.
+    ::glEnable(GL_VERTEX_ARRAY);
     ::glEnable(GL_DEPTH_TEST);
     ::glDepthFunc(GL_LESS);
 }
@@ -358,13 +359,14 @@ void randar::Gpu::clear(const randar::Texture& texture)
 }
 
 // Writes indices to an index buffer.
-void randar::Gpu::write(const randar::IndexBuffer& indexBuffer, const std::vector<unsigned int>& indices)
+void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<unsigned int>& indices)
 {
     this->bind(indexBuffer);
 
+    indexBuffer.count = indices.size();
     ::glBufferData(
         GL_ELEMENT_ARRAY_BUFFER,
-        indices.size() * sizeof(unsigned int),
+        indexBuffer.count * sizeof(unsigned int),
         &indices.data()[0],
         GL_STATIC_DRAW
     );
@@ -415,11 +417,12 @@ void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Ve
     unsigned int count = vertices.size();
     GLfloat *data = new GLfloat[count * Vertex::stride];
     for (unsigned int i = 0; i < count; i++) {
-        vertices[i].appendTo(&data[i * Vertex::stride]);
+        GLfloat *subdata = &data[i * Vertex::stride];
+        vertices[i].appendTo(subdata);
     }
 
     ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    ::glBufferData(GL_ARRAY_BUFFER, count * sizeof(GLfloat), data, GL_STATIC_DRAW);
+    ::glBufferData(GL_ARRAY_BUFFER, count * Vertex::stride * sizeof(GLfloat), data, GL_STATIC_DRAW);
     delete[] data;
 }
 
@@ -460,6 +463,7 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 }
 
 // Drawing.
+#include <randar/Utility/glm.hpp>
 void randar::Gpu::draw(
     const ShaderProgram& program,
     const randar::Framebuffer& framebuffer,
@@ -496,13 +500,23 @@ void randar::Gpu::draw(
     }
 
     // Draw model.
-    //this->bind(model.mesh);
-    /*::glDrawElements(
+    this->bind(model.mesh.vertexBuffer);
+    this->bind(model.mesh.indexBuffer);
+    ::glDrawElements(
         GL_TRIANGLES,
-        model.mesh.indices.size(),
+        model.mesh.indexBuffer.count,
         GL_UNSIGNED_INT,
         (void*)0
-    );*/
+    );
+}
+
+// Performs a sanity check.
+void randar::Gpu::check()
+{
+    ::GLenum error = ::glGetError();
+    if (error != GL_NO_ERROR) {
+        throw std::runtime_error("OpenGL error: " + std::to_string(error));
+    }
 }
 
 // Retrieves the default GPU context.

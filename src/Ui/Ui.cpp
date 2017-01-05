@@ -13,7 +13,7 @@ randar::Ui::Ui()
         Awesomium::kWebViewType_Offscreen
     );
 
-    Awesomium::WebString str = Awesomium::WebString::CreateFromUTF8("http://www.google.com", strlen("http://www.google.com"));
+    Awesomium::WebString str = Awesomium::WebString::CreateFromUTF8("http://www.google.com", strlen("file:///g/randar/bin/ui.html"));
     Awesomium::WebURL url(str);
     this->webView->LoadURL(url);
 
@@ -27,14 +27,14 @@ randar::Ui::Ui()
     // Overlay vertices.
     std::vector<Vertex> vertices;
     Vertex vertex;
-    vertex.color = Color(75, 0, 150);
+    vertex.color = Color(1.0f, 1.0f, 1.0f);
 
     vertex.position.set(0.0f, 0.0f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(0.0f, 1.0f);
+    vertex.position.set(0.0f, 0.5f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
     vertices.push_back(vertex);

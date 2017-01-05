@@ -19,8 +19,8 @@ randar::Color::Color(float rInit, float gInit, float bInit, float aInit)
 randar::Color randar::randomColor()
 {
     return Color(
-        randar::random(0, 255),
-        randar::random(0, 255),
-        randar::random(0, 255)
+        randar::random(0, 255) / 255.0f,
+        randar::random(0, 255) / 255.0f,
+        randar::random(0, 255) / 255.0f
     );
 }

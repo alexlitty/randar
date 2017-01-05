@@ -6,12 +6,15 @@ int main()
     randar::seedRandomWithTime();
     randar::Ui ui;
 
-    auto gpu = randar::getDefaultGpu();
+    randar::Gpu& gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
-    auto framebuffer = gpu.getDefaultFramebuffer();
-    framebuffer.camera.setOrtho(true);
+    randar::Framebuffer& framebuffer = gpu.getDefaultFramebuffer();
+    //framebuffer.camera.setOrtho(true);
+    framebuffer.camera.setPosition(randar::Vector(-5.0f, -5.0f, -2.0f));
+    framebuffer.camera.setTarget(randar::Vector(0.0f, 0.0f, 0.0f));
 
     while (true) {
+        gpu.check();
         ::glfwPollEvents();
 
         for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
@@ -22,6 +25,7 @@ int main()
             break;
         }
 
+        gpu.clear(framebuffer, randar::Color(0.1f, 0.2f, 0.3f));
         ui.draw(randar::getDefaultGpu());
         ::glfwSwapBuffers(window);
     }
