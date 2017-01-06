@@ -1,0 +1,9 @@
+body {
+    background-color: #0F0;
+}
+
+div {
+    float: right;
+    height: 300px;
+    background-color: #F00;
+}

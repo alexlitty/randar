@@ -30,23 +30,23 @@ randar::Ui::Ui()
     vertex.color = Color(1.0f, 1.0f, 1.0f);
 
     vertex.position.set(-1.0f, -1.0f);
-    vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 0.0f;
+    vertex.textureCoordinate.u = 1.0f;
+    vertex.textureCoordinate.v = 1.0f;
     vertices.push_back(vertex);
 
     vertex.position.set(-1.0f, 1.0f);
-    vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 1.0f;
-    vertices.push_back(vertex);
-
-    vertex.position.set(1.0f, -1.0f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(1.0f, 1.0f);
-    vertex.textureCoordinate.u = 1.0f;
+    vertex.position.set(1.0f, -1.0f);
+    vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
+    vertices.push_back(vertex);
+
+    vertex.position.set(1.0f, 1.0f);
+    vertex.textureCoordinate.u = 0.0f;
+    vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
 
     // Overlay face indices.
@@ -72,11 +72,10 @@ void randar::Ui::draw(randar::Gpu& gpu)
 
     if (!this->webView->IsLoading()) {
         this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
-        this->surface->SaveToJPEG(Awesomium::WebString::CreateFromUTF8("./result.jpg", strlen("./result.jpg")));
 
         unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
         this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
-        gpu.write(this->texture, buffer);
+        gpu.write(this->texture, buffer, GL_BGRA);
 
         delete[] buffer;
 

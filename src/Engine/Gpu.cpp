@@ -355,7 +355,7 @@ void randar::Gpu::clear(const randar::Framebuffer& framebuffer, const randar::Co
 // Clears a texture.
 void randar::Gpu::clear(const randar::Texture& texture)
 {
-    this->write(texture, nullptr);
+    this->write(texture, nullptr, GL_RGBA);
 }
 
 // Writes indices to an index buffer.
@@ -373,7 +373,7 @@ void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<unsi
 }
 
 // Writes an image to a texture.
-void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data)
+void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data, GLenum dataFormat)
 {
     this->bind(texture);
 
@@ -386,7 +386,7 @@ void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data)
                 texture.width,
                 texture.height,
                 0,
-                GL_RGBA,
+                dataFormat,
                 GL_UNSIGNED_BYTE,
                 data
             );
