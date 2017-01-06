@@ -14,8 +14,8 @@ namespace randar
         };
 
         const Texture::Type textureType;
-        const unsigned int width;
-        const unsigned int height;
+        unsigned int width;
+        unsigned int height;
 
         Texture(
             Texture::Type initTextureType,

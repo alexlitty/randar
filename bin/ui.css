@@ -1,9 +1,55 @@
-body {
-    background-color: #0F0;
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-div {
-    float: right;
-    height: 300px;
-    background-color: #F00;
+html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+
+    background-color: #490a5e;
+    color: #efefef;
+}
+
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 255);
+
+    -webkit-transition: visibility 0.5s, opacity 0.5s ease-in, background 0.5s ease-in;
+}
+
+section#debug {
+    background-color: #490a5e;
+}
+
+section#splash div {
+    display: inline;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+
+    padding: 38px 7px;
+    background-color: #111;
+    border: 1px dashed #ccc;
+}
+
+section#splash header {
+    display: inline;
+
+    padding: 32px;
+    background-color: #FFD561;
+    color: #111;
+
+    font-size: 32px;
+    font-family: Helvetica;
 }

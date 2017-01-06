@@ -1,17 +1,19 @@
 #include <randar/Randar.hpp>
 #include <randar/Ui/Ui.hpp>
 
+randar::Ui ui;
+
 int main()
 {
     randar::seedRandomWithTime();
-    randar::Ui ui;
 
     randar::Gpu& gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
     randar::Framebuffer& framebuffer = gpu.getDefaultFramebuffer();
-    //framebuffer.camera.setOrtho(true);
-    framebuffer.camera.setPosition(randar::Vector(0.0f, 0.0f, -2.0f));
-    framebuffer.camera.setTarget(randar::Vector(0.0f, 0.0f, 0.0f));
+
+    ::glfwSetWindowSizeCallback(window, [](::GLFWwindow *window, int width, int height) {
+        ui.resize();
+    });
 
     while (true) {
         gpu.check();
@@ -25,7 +27,7 @@ int main()
             break;
         }
 
-        gpu.clear(framebuffer, randar::Color(0.1f, 0.2f, 0.3f));
+        gpu.clear(framebuffer, randar::Color(0.03f, 0.03f, 0.03f, 0.0f));
         ui.draw(randar::getDefaultGpu());
         ::glfwSwapBuffers(window);
     }

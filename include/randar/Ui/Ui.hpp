@@ -25,6 +25,7 @@ namespace randar
         Ui();
         ~Ui();
 
+        void resize();
         void draw(randar::Gpu& gpu);
 
         /**

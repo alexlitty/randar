@@ -16,10 +16,21 @@ randar::Gpu::Gpu()
     ::glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     ::glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    this->window = ::glfwCreateWindow(800, 600, "Randar", NULL, NULL);
+    auto monitor = ::glfwGetPrimaryMonitor();
+    const ::GLFWvidmode* mode = ::glfwGetVideoMode(monitor);
+    ::glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+    ::glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+    ::glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+    ::glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+    ::glfwWindowHint(GLFW_DECORATED, 0);
+
+    this->window = ::glfwCreateWindow(mode->width, mode->height, "Randar", NULL, NULL);
     if (!this->window) {
         throw std::runtime_error("Failed to create GLFW window");
     }
+
+    this->defaultFramebuffer.camera.viewport = Viewport(0, 0, mode->width, mode->height);
 
     ::glfwMakeContextCurrent(this->window);
 
@@ -38,6 +49,9 @@ randar::Gpu::Gpu()
     ::glEnable(GL_VERTEX_ARRAY);
     ::glEnable(GL_DEPTH_TEST);
     ::glDepthFunc(GL_LESS);
+
+    ::glEnable(GL_BLEND);
+    ::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 // Destruction.
