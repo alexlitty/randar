@@ -13,7 +13,7 @@ randar::Ui::Ui()
         Awesomium::kWebViewType_Offscreen
     );
 
-    Awesomium::WebString str = Awesomium::WebString::CreateFromUTF8("http://www.google.com", strlen("file:///g/randar/bin/ui.html"));
+    Awesomium::WebString str = Awesomium::WebString::CreateFromUTF8("file:///g/randar/bin/ui.html", strlen("file:///g/randar/bin/ui.html"));
     Awesomium::WebURL url(str);
     this->webView->LoadURL(url);
 
@@ -29,17 +29,17 @@ randar::Ui::Ui()
     Vertex vertex;
     vertex.color = Color(1.0f, 1.0f, 1.0f);
 
-    vertex.position.set(0.0f, 0.0f);
+    vertex.position.set(-1.0f, -1.0f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(0.0f, 0.5f);
+    vertex.position.set(-1.0f, 1.0f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(1.0f, 0.0f);
+    vertex.position.set(1.0f, -1.0f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
@@ -72,6 +72,7 @@ void randar::Ui::draw(randar::Gpu& gpu)
 
     if (!this->webView->IsLoading()) {
         this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
+        this->surface->SaveToJPEG(Awesomium::WebString::CreateFromUTF8("./result.jpg", strlen("./result.jpg")));
 
         unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
         this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);

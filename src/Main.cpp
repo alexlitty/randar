@@ -10,7 +10,7 @@ int main()
     auto window = &gpu.getWindow();
     randar::Framebuffer& framebuffer = gpu.getDefaultFramebuffer();
     //framebuffer.camera.setOrtho(true);
-    framebuffer.camera.setPosition(randar::Vector(-5.0f, -5.0f, -2.0f));
+    framebuffer.camera.setPosition(randar::Vector(0.0f, 0.0f, -2.0f));
     framebuffer.camera.setTarget(randar::Vector(0.0f, 0.0f, 0.0f));
 
     while (true) {

@@ -3,6 +3,7 @@
 
 #include <Awesomium/WebCore.h>
 #include <Awesomium/BitmapSurface.h>
+#include <Awesomium/STLHelpers.h>
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Utility/File.hpp>
