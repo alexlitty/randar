@@ -26,10 +26,6 @@ section {
     -webkit-transition: visibility 0.5s, opacity 0.5s ease-in, background 0.5s ease-in;
 }
 
-section#debug {
-    background-color: #490a5e;
-}
-
 section#splash div {
     display: inline;
 
@@ -52,4 +48,16 @@ section#splash header {
 
     font-size: 32px;
     font-family: Helvetica;
+}
+
+section#debug {
+    background-color: #490a5e;
+}
+
+section#debug div {
+    background-color: #F00;
+}
+
+section#debug div:hover {
+    background-color: #00F;
 }

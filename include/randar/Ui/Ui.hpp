@@ -26,6 +26,17 @@ namespace randar
         ~Ui();
 
         void resize();
+        
+        /**
+         * Handles mouse events.
+         */
+        void setMousePosition(int x, int y);
+        void mousePress();
+        void mouseRelease();
+
+        /**
+         * Draws the UI.
+         */
         void draw(randar::Gpu& gpu);
 
         /**
@@ -34,6 +45,11 @@ namespace randar
         virtual void initialize(randar::Gpu& gpu) override;
         virtual void destroy(randar::Gpu& gpu) override;
     };
+
+    /**
+     * Retrieves the primary UI instance.
+     */
+    Ui& getUi();
 }
 
 #endif

@@ -1,8 +1,6 @@
 #include <randar/Randar.hpp>
 #include <randar/Ui/Ui.hpp>
 
-randar::Ui ui;
-
 int main()
 {
     randar::seedRandomWithTime();
@@ -10,9 +8,17 @@ int main()
     randar::Gpu& gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
     randar::Framebuffer& framebuffer = gpu.getDefaultFramebuffer();
+    randar::Ui& ui = randar::getUi();
 
     ::glfwSetWindowSizeCallback(window, [](::GLFWwindow *window, int width, int height) {
-        ui.resize();
+        randar::getUi().resize();
+    });
+
+    ::glfwSetCursorPosCallback(window, [](::GLFWwindow *window, double x, double y) {
+        randar::getUi().setMousePosition(
+            static_cast<int>(x),
+            static_cast<int>(y)
+        );
     });
 
     while (true) {

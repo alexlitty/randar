@@ -81,13 +81,23 @@ void randar::Ui::resize()
     this->texture.height = height;
 }
 
+// Handles mouse movement.
+void randar::Ui::setMousePosition(int x, int y)
+{
+    this->webView->InjectMouseMove(x, y);
+}
+
+// Draws the UI.
 void randar::Ui::draw(randar::Gpu& gpu)
 {
     this->webCore->Update();
 
     if (!this->webView->IsLoading()) {
         this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
-        if (this->surface->width() != texture.width || this->surface->height() != texture.height) {
+
+        if (this->surface->width() != static_cast<int>(texture.width)
+            || this->surface->height() != static_cast<int>(texture.height))
+        {
             return;
         }
 
@@ -116,4 +126,11 @@ void randar::Ui::destroy(randar::Gpu& gpu)
     this->program.destroy(gpu);
     this->model.mesh.destroy(gpu);
     this->texture.destroy(gpu);
+}
+
+// Retrieves the primary UI instance.
+randar::Ui& randar::getUi()
+{
+    static Ui ui;
+    return ui;
 }
