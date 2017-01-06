@@ -87,6 +87,18 @@ void randar::Ui::setMousePosition(int x, int y)
     this->webView->InjectMouseMove(x, y);
 }
 
+// Handles mouse pressing.
+void randar::Ui::pressMouse(randar::MouseButton button)
+{
+    this->webView->InjectMouseDown(randar::toAwesomium(button));
+}
+
+// Handles mouse releasing.
+void randar::Ui::releaseMouse(randar::MouseButton button)
+{
+    this->webView->InjectMouseUp(randar::toAwesomium(button));
+}
+
 // Draws the UI.
 void randar::Ui::draw(randar::Gpu& gpu)
 {

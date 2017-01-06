@@ -6,6 +6,7 @@
 #include <Awesomium/STLHelpers.h>
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
+#include <randar/Ui/Mouse.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
@@ -31,8 +32,8 @@ namespace randar
          * Handles mouse events.
          */
         void setMousePosition(int x, int y);
-        void mousePress();
-        void mouseRelease();
+        void pressMouse(MouseButton button);
+        void releaseMouse(MouseButton button);
 
         /**
          * Draws the UI.

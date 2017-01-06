@@ -61,3 +61,7 @@ section#debug div {
 section#debug div:hover {
     background-color: #00F;
 }
+
+section#debug div:active {
+    background-color: #0F0;
+}
