@@ -3,10 +3,10 @@
 
 // Constructor.
 randar::Framebuffer::Framebuffer(
-    unsigned int width,
-    unsigned int height,
     randar::Texture::Type textureType,
-    bool enableDepthBuffer)
+    bool enableDepthBuffer,
+    unsigned int width,
+    unsigned int height)
 : depthBufferEnabled(enableDepthBuffer),
   texture(textureType, width, height),
   depthBuffer(randar::Renderbuffer::DEPTH, width, height)

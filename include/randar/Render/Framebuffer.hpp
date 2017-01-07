@@ -29,10 +29,10 @@ namespace randar
          * Constructor.
          */
         Framebuffer(
-            unsigned int width = 1,
-            unsigned int height = 1,
             Texture::Type textureType = Texture::INVALID,
-            bool enableDepthBuffer = false);
+            bool enableDepthBuffer = false,
+            unsigned int width = 1,
+            unsigned int height = 1);
 
         /**
          * Checks whether a depth buffer is enabled.

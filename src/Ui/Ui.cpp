@@ -3,7 +3,8 @@
 
 randar::Ui::Ui()
 : webCore(Awesomium::WebCore::Initialize(Awesomium::WebConfig())),
-  texture(randar::Texture::RGBA, 1, 1)
+  interfaceTexture(randar::Texture::RGBA),
+  monitorFramebuffer(randar::Texture::RGBA, true)
 {
     // Initialize Awesomium.
     this->webView = this->webCore->CreateWebView(
@@ -55,9 +56,37 @@ randar::Ui::Ui()
     indices.push_back(0); indices.push_back(1); indices.push_back(2);
     indices.push_back(3); indices.push_back(1); indices.push_back(2);
 
-    // Send overlay model to GPU.
-    this->gpu.write(this->model.mesh.vertexBuffer, vertices);
-    this->gpu.write(this->model.mesh.indexBuffer, indices);
+    // Send overlay interface to GPU.
+    this->gpu.write(this->interface.mesh.vertexBuffer, vertices);
+    this->gpu.write(this->interface.mesh.indexBuffer, indices);
+
+    // Monitor vertices.
+    vertices.clear();
+    vertex.position.set(0, 0, -0.001f);
+    vertex.textureCoordinate.u = 0.0f;
+    vertex.textureCoordinate.v = 1.0f;
+    vertices.push_back(vertex);
+
+    vertex.position.set(0, 1.0f, -0.001f);
+    vertex.textureCoordinate.u = 0.0f;
+    vertex.textureCoordinate.v = 0.0f;
+    vertices.push_back(vertex);
+
+    vertex.position.set(1.0f, 0, -0.001f);
+    vertex.textureCoordinate.u = 1.0f;
+    vertex.textureCoordinate.v = 1.0f;
+    vertices.push_back(vertex);
+
+    vertex.position.set(1.0f, 1.0f, -0.001f);
+    vertex.textureCoordinate.u = 1.0f;
+    vertex.textureCoordinate.v = 0.0f;
+    vertices.push_back(vertex);
+
+    // Send monitor model to the GPU.
+    this->gpu.write(this->monitor.mesh.vertexBuffer, vertices);
+    this->gpu.write(this->monitor.mesh.indexBuffer, indices);
+
+    // Initialize the UI size.
     this->resize();
 }
 
@@ -75,8 +104,9 @@ void randar::Ui::resize()
 
     this->defaultFramebuffer.camera.viewport = randar::Viewport(0, 0, width, height);
     this->webView->Resize(width, height);
-    this->texture.width  = width;
-    this->texture.height = height;
+    this->interfaceTexture.resize(width, height);
+
+    this->monitorFramebuffer.resize(800, 600);
 }
 
 // Handles mouse movement.
@@ -106,20 +136,35 @@ void randar::Ui::draw()
     if (!this->webView->IsLoading()) {
         this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
 
-        if (this->surface->width() != static_cast<int>(texture.width)
-            || this->surface->height() != static_cast<int>(texture.height))
+        // View resizing is asynchronous. Wait for it to catch up.
+        if (this->surface->width() != static_cast<int>(interfaceTexture.width)
+            || this->surface->height() != static_cast<int>(interfaceTexture.height))
         {
             return;
         }
 
         unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
         this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
-        this->gpu.write(this->texture, buffer, GL_BGRA);
+        this->gpu.write(this->interfaceTexture, buffer, GL_BGRA);
 
         delete[] buffer;
 
-        this->gpu.bind(this->texture);
-        this->gpu.draw(this->program, this->defaultFramebuffer, this->model);
+        /**
+         * Draw the current focus to monitor framebuffer.
+         */
+        this->gpu.clear(this->monitorFramebuffer, Color(0.5f, 0.5f, 0.0f));
+
+        /**
+         * Render interface.
+         */
+        this->gpu.bind(this->interfaceTexture);
+        this->gpu.draw(this->program, this->defaultFramebuffer, this->interface);
+
+        /**
+         * Render monitor onto interface.
+         */
+        this->gpu.bind(this->monitorFramebuffer.texture);
+        this->gpu.draw(this->program, this->defaultFramebuffer, this->monitor);
     }
 }
 
@@ -127,16 +172,19 @@ void randar::Ui::draw()
 void randar::Ui::initialize()
 {
     this->program.initialize();
-    this->model.mesh.initialize();
-    this->texture.initialize();
+    this->interface.mesh.initialize();
+    this->interfaceTexture.initialize();
+
+    this->monitorFramebuffer.initialize();
+    this->monitor.mesh.initialize();
 }
 
 // Resource destruction.
 void randar::Ui::destroy()
 {
     this->program.destroy();
-    this->model.mesh.destroy();
-    this->texture.destroy();
+    this->interface.mesh.destroy();
+    this->interfaceTexture.destroy();
 }
 
 // Retrieves the primary UI instance.

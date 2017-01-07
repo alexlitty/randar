@@ -6,7 +6,6 @@
 #include <Awesomium/STLHelpers.h>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
-#include <randar/Render/Texture.hpp>
 #include <randar/Ui/Mouse.hpp>
 #include <randar/Utility/File.hpp>
 
@@ -22,8 +21,11 @@ namespace randar
 
     public:
         ShaderProgram program;
-        Model model;
-        Texture texture;
+        Model interface;
+        Texture interfaceTexture;
+
+        Framebuffer monitorFramebuffer;
+        Model monitor;
 
         Ui();
         ~Ui();
