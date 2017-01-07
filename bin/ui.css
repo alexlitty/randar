@@ -1,5 +1,5 @@
 * {
-    user-select: none;
+    -webkit-user-select: none;
 }
 
 .hidden {
@@ -16,13 +16,20 @@ html, body {
     margin: 0;
     padding: 0;
 
-    background-color: #490a5e;
+    background-color: #000;
     font-family: Helvetica;
     color: #efefef;
 }
 
 nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+
     width: 25%;
+    height: 100%;
+    
+    background-color: #777;
 }
 
 nav ul {
@@ -36,10 +43,10 @@ nav li {
     -webkit-box-align: center;
     text-align: center;
 
-    height: 14.28%;
     padding: 0 25px;
 
-    font-size: 18px;
+    background-color: #bbb;
+    font-size: 26px;
     color: #121212;
 }
 
@@ -49,15 +56,17 @@ nav li:hover, nav li:active {
 }
 
 nav li:hover {
-    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1), 0 0 7px rgba(0,0,0,0.5);
+    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3), 0 0 7px rgba(0,0,0,0.5);
 }
 
 nav li:active {
-    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.08), 0 0 7px rgba(0,0,0,0.5);
+    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.25), 0 0 7px rgba(0,0,0,0.5);
 }
 
 nav#main li {
+    height: 14.28%;
     font-size: 32px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 nav#main li.randar {
@@ -80,10 +89,23 @@ nav#main li.meshes {
     background-color: #e5d8b5;
 }
 
-nav#main li.textures {
+nav#main li.textures, nav#objects ul.textures li {
     background-color: #4bf45f;
 }
 
 nav#main li.shaders {
     background-color: #f4f44b;
+}
+
+nav#objects ul.back {
+    margin-bottom: 32px;
+}
+
+nav#objects ul.list li {
+    padding: 12px 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+nav#objects ul.list li:last-child {
+    border-bottom: 0px;
 }
