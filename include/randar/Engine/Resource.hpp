@@ -20,6 +20,7 @@ namespace randar
     struct Resource
     {
     protected:
+        Gpu& gpu;
         bool initialized;
 
     public:
@@ -41,7 +42,7 @@ namespace randar
         /**
          * Initialize this resource and bring it into memory.
          */
-        virtual void initialize(Gpu& gpu) = 0;
+        virtual void initialize() = 0;
 
         /**
          * Whether this resource is initialized.
@@ -51,7 +52,7 @@ namespace randar
         /**
          * Destroys this resource and frees it from memory.
          */
-        virtual void destroy(Gpu& gpu) = 0;
+        virtual void destroy() = 0;
     };
 }
 

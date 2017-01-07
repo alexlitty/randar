@@ -10,16 +10,22 @@ randar::Renderbuffer::Renderbuffer(randar::Renderbuffer::Type initType, unsigned
 
 }
 
-// Resource initialization.
-void randar::Renderbuffer::initialize(randar::Gpu& gpu)
+// Resizes this framebuffer.
+void randar::Renderbuffer::resize(unsigned int width, unsigned int height)
 {
-    gpu.initialize(*this);
+
+}
+
+// Resource initialization.
+void randar::Renderbuffer::initialize()
+{
+    this->gpu.initialize(*this);
     this->initialized = true;
 }
 
 // Resource destruction.
-void randar::Renderbuffer::destroy(randar::Gpu& gpu)
+void randar::Renderbuffer::destroy()
 {
-    gpu.destroy(*this);
+    this->gpu.destroy(*this);
     this->initialized = false;
 }

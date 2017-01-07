@@ -27,15 +27,15 @@ randar::Shader::Shader(const randar::Shader& other)
 
 }
 
-void randar::Shader::initialize(randar::Gpu& gpu)
+void randar::Shader::initialize()
 {
-    gpu.initialize(*this);
+    this->gpu.initialize(*this);
     this->initialized = true;
 }
 
-void randar::Shader::destroy(randar::Gpu& gpu)
+void randar::Shader::destroy()
 {
-    gpu.destroy(*this);
+    this->gpu.destroy(*this);
     this->initialized = false;
 }
 

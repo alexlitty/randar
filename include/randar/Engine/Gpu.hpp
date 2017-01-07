@@ -16,7 +16,6 @@ namespace randar
     class Gpu
     {
     protected:
-        Framebuffer defaultFramebuffer;
         ::GLuint boundFramebuffer;
         ::GLuint boundTexture;
 
@@ -30,12 +29,6 @@ namespace randar
          * Retrieves the default window.
          */
         ::GLFWwindow& getWindow();
-
-        /**
-         * Retrieves the default framebuffer.
-         */
-        const Framebuffer& getDefaultFramebuffer() const;
-        Framebuffer& getDefaultFramebuffer();
 
         /**
          * Initializes a resource on the GPU.

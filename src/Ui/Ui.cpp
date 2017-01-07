@@ -23,7 +23,7 @@ randar::Ui::Ui()
     this->program.fragmentShader = Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./shaders/ui.frag"));
 
     // Initialize resources on the GPU.
-    this->initialize(randar::getDefaultGpu());
+    this->initialize();
 
     // Overlay vertices.
     std::vector<Vertex> vertices;
@@ -56,26 +56,24 @@ randar::Ui::Ui()
     indices.push_back(3); indices.push_back(1); indices.push_back(2);
 
     // Send overlay model to GPU.
-    Gpu& gpu = randar::getDefaultGpu();
-    gpu.write(this->model.mesh.vertexBuffer, vertices);
-    gpu.write(this->model.mesh.indexBuffer, indices);
+    this->gpu.write(this->model.mesh.vertexBuffer, vertices);
+    this->gpu.write(this->model.mesh.indexBuffer, indices);
     this->resize();
 }
 
 randar::Ui::~Ui()
 {
     Awesomium::WebCore::Shutdown();
-    this->destroy(randar::getDefaultGpu());
+    this->destroy();
 }
 
 void randar::Ui::resize()
 {
     int width, height;
-    Gpu& gpu = randar::getDefaultGpu();
 
-    ::glfwGetWindowSize(&gpu.getWindow(), &width, &height);
+    ::glfwGetWindowSize(&this->gpu.getWindow(), &width, &height);
 
-    gpu.getDefaultFramebuffer().camera.viewport = randar::Viewport(0, 0, width, height);
+    this->defaultFramebuffer.camera.viewport = randar::Viewport(0, 0, width, height);
     this->webView->Resize(width, height);
     this->texture.width  = width;
     this->texture.height = height;
@@ -100,8 +98,9 @@ void randar::Ui::releaseMouse(randar::MouseButton button)
 }
 
 // Draws the UI.
-void randar::Ui::draw(randar::Gpu& gpu)
+void randar::Ui::draw()
 {
+    this->gpu.clear(this->defaultFramebuffer, Color(0.03f, 0.03f, 0.03f, 0.0f));
     this->webCore->Update();
 
     if (!this->webView->IsLoading()) {
@@ -115,29 +114,29 @@ void randar::Ui::draw(randar::Gpu& gpu)
 
         unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
         this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
-        gpu.write(this->texture, buffer, GL_BGRA);
+        this->gpu.write(this->texture, buffer, GL_BGRA);
 
         delete[] buffer;
 
-        gpu.bind(this->texture);
-        gpu.draw(this->program, gpu.getDefaultFramebuffer(), this->model);
+        this->gpu.bind(this->texture);
+        this->gpu.draw(this->program, this->defaultFramebuffer, this->model);
     }
 }
 
 // Resource initialization.
-void randar::Ui::initialize(randar::Gpu& gpu)
+void randar::Ui::initialize()
 {
-    this->program.initialize(gpu);
-    this->model.mesh.initialize(gpu);
-    this->texture.initialize(gpu);
+    this->program.initialize();
+    this->model.mesh.initialize();
+    this->texture.initialize();
 }
 
 // Resource destruction.
-void randar::Ui::destroy(randar::Gpu& gpu)
+void randar::Ui::destroy()
 {
-    this->program.destroy(gpu);
-    this->model.mesh.destroy(gpu);
-    this->texture.destroy(gpu);
+    this->program.destroy();
+    this->model.mesh.destroy();
+    this->texture.destroy();
 }
 
 // Retrieves the primary UI instance.

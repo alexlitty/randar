@@ -15,14 +15,20 @@ randar::Texture::Texture(
 
 }
 
-void randar::Texture::initialize(randar::Gpu& gpu)
+// Resizes this texture.
+void randar::Texture::resize(unsigned int width, unsigned int height)
 {
-    gpu.initialize(*this);
+
+}
+
+void randar::Texture::initialize()
+{
+    this->gpu.initialize(*this);
     this->initialized = true;
 }
 
-void randar::Texture::destroy(randar::Gpu& gpu)
+void randar::Texture::destroy()
 {
-    gpu.destroy(*this);
+    this->gpu.destroy(*this);
     this->initialized = false;
 }

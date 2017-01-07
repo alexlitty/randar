@@ -1,14 +1,14 @@
 #include <randar/Render/IndexBuffer.hpp>
 #include <randar/Engine/Gpu.hpp>
 
-void randar::IndexBuffer::initialize(randar::Gpu& gpu)
+void randar::IndexBuffer::initialize()
 {
-    gpu.initialize(*this);
+    this->gpu.initialize(*this);
     this->initialized = true;
 }
 
-void randar::IndexBuffer::destroy(randar::Gpu& gpu)
+void randar::IndexBuffer::destroy()
 {
-    gpu.destroy(*this);
+    this->gpu.destroy(*this);
     this->initialized = false;
 }

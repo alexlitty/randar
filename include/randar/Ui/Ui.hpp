@@ -4,6 +4,7 @@
 #include <Awesomium/WebCore.h>
 #include <Awesomium/BitmapSurface.h>
 #include <Awesomium/STLHelpers.h>
+#include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Ui/Mouse.hpp>
@@ -13,6 +14,7 @@ namespace randar
 {
     class Ui : virtual public Resource
     {
+        Framebuffer defaultFramebuffer;
         Awesomium::WebCore* webCore;
         Awesomium::WebView* webView;
 
@@ -38,13 +40,13 @@ namespace randar
         /**
          * Draws the UI.
          */
-        void draw(randar::Gpu& gpu);
+        void draw();
 
         /**
          * Resource initialization and destruction.
          */
-        virtual void initialize(randar::Gpu& gpu) override;
-        virtual void destroy(randar::Gpu& gpu) override;
+        virtual void initialize() override;
+        virtual void destroy() override;
     };
 
     /**

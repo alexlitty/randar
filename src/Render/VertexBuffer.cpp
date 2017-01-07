@@ -1,26 +1,26 @@
 #include <randar/Render/VertexBuffer.hpp>
 #include <randar/Engine/Gpu.hpp>
 
-void randar::VertexArray::initialize(randar::Gpu& gpu)
+void randar::VertexArray::initialize()
 {
-    gpu.initialize(*this);
+    this->gpu.initialize(*this);
     this->initialized = true;
 }
 
-void randar::VertexArray::destroy(randar::Gpu& gpu)
+void randar::VertexArray::destroy()
 {
-    gpu.destroy(*this);
+    this->gpu.destroy(*this);
     this->initialized = false;
 }
 
-void randar::VertexBuffer::initialize(randar::Gpu& gpu)
+void randar::VertexBuffer::initialize()
 {
-    gpu.initialize(*this);
+    this->gpu.initialize(*this);
     this->initialized = true;
 }
 
-void randar::VertexBuffer::destroy(randar::Gpu& gpu)
+void randar::VertexBuffer::destroy()
 {
-    gpu.destroy(*this);
+    this->gpu.destroy(*this);
     this->initialized = false;
 }

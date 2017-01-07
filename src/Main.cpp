@@ -1,13 +1,13 @@
 #include <randar/Randar.hpp>
 #include <randar/Ui/Ui.hpp>
 
+#include <iostream>
 int main()
 {
     randar::seedRandomWithTime();
 
     randar::Gpu& gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
-    randar::Framebuffer& framebuffer = gpu.getDefaultFramebuffer();
     randar::Ui& ui = randar::getUi();
 
     ::glfwSetWindowSizeCallback(window, [](::GLFWwindow *window, int width, int height) {
@@ -60,8 +60,7 @@ int main()
             break;
         }
 
-        gpu.clear(framebuffer, randar::Color(0.03f, 0.03f, 0.03f, 0.0f));
-        ui.draw(randar::getDefaultGpu());
+        ui.draw();
         ::glfwSwapBuffers(window);
     }
     return 0;

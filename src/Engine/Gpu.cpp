@@ -29,8 +29,6 @@ randar::Gpu::Gpu()
         throw std::runtime_error("Failed to create GLFW window");
     }
 
-    this->defaultFramebuffer.camera.viewport = Viewport(0, 0, mode->width, mode->height);
-
     ::glfwMakeContextCurrent(this->window);
 
     // Initialize GLEW.
@@ -63,17 +61,6 @@ randar::Gpu::~Gpu()
 ::GLFWwindow& randar::Gpu::getWindow()
 {
     return *this->window;
-}
-
-// Retrieves the default framebuffer.
-const randar::Framebuffer& randar::Gpu::getDefaultFramebuffer() const
-{
-    return this->defaultFramebuffer;
-}
-
-randar::Framebuffer& randar::Gpu::getDefaultFramebuffer()
-{
-    return this->defaultFramebuffer;
 }
 
 // Initializes a framebuffer.

@@ -24,8 +24,13 @@ namespace randar
             unsigned int initHeight = 1,
             const std::string& initName = "");
 
-        virtual void initialize(Gpu& gpu) override;
-        virtual void destroy(Gpu& gpu) override;
+        /**
+         * Resizes this texture.
+         */
+        void resize(unsigned int width, unsigned int height);
+
+        virtual void initialize() override;
+        virtual void destroy() override;
     };
 }
 
