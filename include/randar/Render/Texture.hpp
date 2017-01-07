@@ -9,18 +9,19 @@ namespace randar
     {
         enum Type
         {
+            INVALID,
             RGBA,
             DEPTH
         };
 
-        const Texture::Type textureType;
+        const Texture::Type type;
         unsigned int width;
         unsigned int height;
 
         Texture(
-            Texture::Type initTextureType,
-            unsigned int initWidth,
-            unsigned int initHeight,
+            Texture::Type initType = Texture::Type::INVALID,
+            unsigned int initWidth = 1,
+            unsigned int initHeight = 1,
             const std::string& initName = "");
 
         virtual void initialize(Gpu& gpu) override;

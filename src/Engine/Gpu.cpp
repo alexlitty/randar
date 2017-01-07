@@ -3,7 +3,6 @@
 
 // Construction.
 randar::Gpu::Gpu()
-: defaultFramebuffer(randar::Viewport(0, 0, 800, 600))
 {
     // Initialize GLFW.
     if (!::glfwInit()) {
@@ -88,31 +87,36 @@ void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
     ::glGenFramebuffers(1, framebuffer);
     this->bind(framebuffer);
 
-    // Initialize attachments, add them to the framebuffer.
-    Texture *texture = framebuffer.getTexture();
-    if (texture) {
-        this->initialize(*texture);
-        this->bind(*texture);
+    // Initialize dependencies.
+    this->initialize(framebuffer.texture);
+    this->bind(framebuffer.texture);
 
-        switch (texture->textureType) {
-            case Texture::DEPTH:
-                ::glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, *texture, 0);
-                break;
-
-            case Texture::RGBA:
-                ::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, *texture, 0);
-                break;
-
-            default:
-                throw std::runtime_error("Adding invalid texture to framebuffer");
-                break;
-        }
+    if (framebuffer.hasDepthBuffer()) {
+        this->initialize(framebuffer.depthBuffer);
+        this->bind(framebuffer.depthBuffer);
     }
 
-    ::glDrawBuffer(GL_NONE);
 
+    // Configure framebuffer.
+    if (framebuffer.texture.type == Texture::RGBA) {
+        ::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, framebuffer.texture, 0);
+
+        ::GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+        ::glDrawBuffers(1, drawBuffers);
+    }
+
+    else if (framebuffer.texture.type == Texture::DEPTH) {
+        ::glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, framebuffer.texture, 0);
+        ::glDrawBuffer(GL_NONE);
+    }
+
+    else {
+        throw std::runtime_error("Configuring invalid framebuffer");
+    }
+
+    // Check for errors.
     if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        throw std::runtime_error("Incomplete framebuffer");
+        throw std::runtime_error("Error while initializing framebuffer");
     }
 }
 
@@ -124,6 +128,24 @@ void randar::Gpu::initialize(randar::IndexBuffer& buffer)
     }
 
     ::glGenBuffers(1, buffer);
+}
+
+// Initializes a renderbuffer.
+void randar::Gpu::initialize(randar::Renderbuffer& renderbuffer)
+{
+    if (renderbuffer.isInitialized()) {
+        return;
+    }
+
+    ::glGenRenderbuffers(1, renderbuffer);
+    this->bind(renderbuffer);
+
+    ::glRenderbufferStorage(
+        GL_RENDERBUFFER,
+        GL_DEPTH_COMPONENT,
+        renderbuffer.width,
+        renderbuffer.height
+    );
 }
 
 // Initializes a shader.
@@ -204,7 +226,7 @@ void randar::Gpu::initialize(randar::Texture& texture)
     this->bind(texture);
     this->clear(texture);
 
-    switch (texture.textureType) {
+    switch (texture.type) {
         default:
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -314,6 +336,15 @@ void randar::Gpu::destroy(randar::IndexBuffer& buffer)
     ::glDeleteBuffers(1, buffer);
 }
 
+// Destroys a renderbuffer.
+void randar::Gpu::destroy(randar::Renderbuffer& renderbuffer)
+{
+    if (!renderbuffer.isInitialized()) {
+        throw std::runtime_error("Destroying renderbuffer that is not initialized");
+    }
+    ::glDeleteRenderbuffers(1, renderbuffer);
+}
+
 // Destroys a shader.
 void randar::Gpu::destroy(randar::Shader& shader)
 {
@@ -391,7 +422,7 @@ void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data, GLen
 {
     this->bind(texture);
 
-    switch (texture.textureType) {
+    switch (texture.type) {
         case Texture::RGBA:
             ::glTexImage2D(
                 GL_TEXTURE_2D,
@@ -455,11 +486,17 @@ void randar::Gpu::bind(const randar::IndexBuffer& buffer)
     ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer);
 }
 
-// Binds the vertex and index buffers of a mesh.
+// Binds the vertex and index buffers of a model's mesh.
 void randar::Gpu::bind(const randar::Model& model)
 {
     this->bind(model.mesh.vertexBuffer);
     this->bind(model.mesh.indexBuffer);
+}
+
+// Binds a renderbuffer.
+void randar::Gpu::bind(const randar::Renderbuffer& renderbuffer)
+{
+    ::glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
 }
 
 // Binds a texture.

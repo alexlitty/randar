@@ -2,13 +2,13 @@
 #include <randar/Engine/Gpu.hpp>
 
 randar::Texture::Texture(
-    randar::Texture::Type initTextureType,
+    randar::Texture::Type initType,
     unsigned int initWidth,
     unsigned int initHeight,
     const std::string& initName
 ) :
   randar::Resource(initName),
-  textureType(initTextureType),
+  type(initType),
   width(initWidth),
   height(initHeight)
 {

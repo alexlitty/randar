@@ -1,24 +1,23 @@
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Engine/Gpu.hpp>
 
-// Constructs a framebuffer with no attachments.
-randar::Framebuffer::Framebuffer(const Viewport& initViewport)
-: texture(nullptr)
+// Constructor.
+randar::Framebuffer::Framebuffer(
+    unsigned int width,
+    unsigned int height,
+    randar::Texture::Type textureType,
+    bool enableDepthBuffer)
+: depthBufferEnabled(enableDepthBuffer),
+  texture(textureType, width, height),
+  depthBuffer(randar::Renderbuffer::DEPTH, width, height)
 {
-    this->camera.viewport = initViewport;
+    this->camera.viewport = Viewport(0, 0, width, height);
 }
 
-// Constructs a framebuffer with a single texture attachment.
-randar::Framebuffer::Framebuffer(randar::Texture* initTexture)
-: texture(initTexture)
+// Checks whether a depth buffer is enabled.
+bool randar::Framebuffer::hasDepthBuffer() const
 {
-    this->camera.viewport = Viewport(0, 0, initTexture->width, initTexture->height);
-}
-
-// Retrieves the texture attachment.
-randar::Texture* randar::Framebuffer::getTexture()
-{
-    return this->texture;
+    return this->depthBufferEnabled;
 }
 
 // Initialize this framebuffer.

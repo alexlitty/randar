@@ -44,6 +44,7 @@ namespace randar
          */
         void initialize(Framebuffer& framebuffer);
         void initialize(IndexBuffer& buffer);
+        void initialize(Renderbuffer& renderbuffer);
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
         void initialize(Texture& texture);
@@ -57,6 +58,7 @@ namespace randar
          */
         void destroy(Framebuffer& framebuffer);
         void destroy(IndexBuffer& buffer);
+        void destroy(Renderbuffer& renderbuffer);
         void destroy(Shader& shader);
         void destroy(ShaderProgram& program);
         void destroy(Texture& texture);
@@ -85,6 +87,7 @@ namespace randar
         void bind(const Framebuffer& framebuffer);
         void bind(const IndexBuffer& buffer);
         void bind(const Model& model);
+        void bind(const Renderbuffer& renderbuffer);
         void bind(const Texture& texture);
         void bind(const VertexBuffer& buffer);
 

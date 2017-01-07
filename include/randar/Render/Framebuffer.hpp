@@ -7,28 +7,37 @@
 
 namespace randar
 {
+    /**
+     * A framebuffer.
+     *
+     * Hard-coded to always use a texture. May be changed if it causes a huge
+     * performance drop.
+     *
+     * May optionally include a depth buffer.
+     */
     class Framebuffer : virtual public GpuResource
     {
     protected:
-        Texture* texture;
+        bool depthBufferEnabled;
 
     public:
+        Texture texture;
+        Renderbuffer depthBuffer;
         Camera camera;
 
         /**
-         * Constructs a framebuffer with no attachments.
+         * Constructor.
          */
-        Framebuffer(const Viewport& initViewport = Viewport());
+        Framebuffer(
+            unsigned int width = 1,
+            unsigned int height = 1,
+            Texture::Type textureType = Texture::INVALID,
+            bool enableDepthBuffer = false);
 
         /**
-         * Constructs a framebuffer with a single texture attachment.
+         * Checks whether a depth buffer is enabled.
          */
-        Framebuffer(Texture *initTexture);
-
-        /**
-         * Retrieves the texture attachment.
-         */
-        Texture* getTexture();
+        bool hasDepthBuffer() const;
 
         /**
          * Resource initialization and destruction.
