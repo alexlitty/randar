@@ -13,7 +13,7 @@ randar::Renderbuffer::Renderbuffer(randar::Renderbuffer::Type initType, unsigned
 // Resizes this framebuffer.
 void randar::Renderbuffer::resize(unsigned int width, unsigned int height)
 {
-
+    this->gpu.resize(*this, width, height);
 }
 
 // Resource initialization.

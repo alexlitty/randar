@@ -305,6 +305,40 @@ void randar::Gpu::initialize(randar::VertexBuffer& buffer)
     );
 }
 
+// Resizes a framebuffer.
+void randar::Gpu::resize(randar::Framebuffer& framebuffer, unsigned int width, unsigned int height)
+{
+    framebuffer.camera.viewport = Viewport(0, 0, width, height);
+
+    this->resize(framebuffer.texture, width, height);
+    if (framebuffer.hasDepthBuffer()) {
+        this->resize(framebuffer.depthBuffer, width, height);
+    }
+}
+
+// Resizes a renderbuffer.
+void randar::Gpu::resize(randar::Renderbuffer& renderbuffer, unsigned int width, unsigned int height)
+{
+    renderbuffer.width  = width;
+    renderbuffer.height = height;
+
+    this->bind(renderbuffer);
+    ::glRenderbufferStorage(
+        GL_RENDERBUFFER,
+        GL_DEPTH_COMPONENT,
+        renderbuffer.width,
+        renderbuffer.height
+    );
+}
+
+// Resizes a texture.
+void randar::Gpu::resize(randar::Texture& texture, unsigned int width, unsigned int height)
+{
+    texture.width  = width;
+    texture.height = height;
+    this->clear(texture);
+}
+
 // Destroys a framebuffer.
 void randar::Gpu::destroy(randar::Framebuffer& framebuffer)
 {

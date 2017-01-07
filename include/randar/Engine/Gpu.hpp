@@ -59,6 +59,13 @@ namespace randar
         void destroy(VertexBuffer& buffer);
 
         /**
+         * Resizes a GPU resource.
+         */
+        void resize(Framebuffer& framebuffer, unsigned int width, unsigned int height);
+        void resize(Renderbuffer& renderbuffer, unsigned int width, unsigned int height);
+        void resize(Texture& texture, unsigned int width, unsigned int height);
+
+        /**
          * Clears a GPU resource.
          */
         void clear(const Framebuffer& framebuffer, const Color& color);

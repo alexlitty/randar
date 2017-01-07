@@ -23,12 +23,7 @@ bool randar::Framebuffer::hasDepthBuffer() const
 // Resizes this framebuffer and its dependencies.
 void randar::Framebuffer::resize(unsigned int width, unsigned int height)
 {
-    this->camera.viewport = Viewport(0, 0, width, height);
-    this->texture.resize(width, height);
-
-    if (this->hasDepthBuffer()) {
-        this->depthBuffer.resize(width, height);
-    }
+    this->gpu.resize(*this, width, height);
 }
 
 // Initialize this framebuffer.

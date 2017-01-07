@@ -18,7 +18,7 @@ randar::Texture::Texture(
 // Resizes this texture.
 void randar::Texture::resize(unsigned int width, unsigned int height)
 {
-
+    this->gpu.resize(*this, width, height);
 }
 
 void randar::Texture::initialize()
