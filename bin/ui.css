@@ -1,3 +1,7 @@
+* {
+    user-select: none;
+}
+
 .hidden {
     visibility: hidden;
     opacity: 0;
@@ -5,63 +9,81 @@
 }
 
 html, body {
+    width: 100%;
+    height: 100%;
+
     overflow: hidden;
     margin: 0;
     padding: 0;
 
     background-color: #490a5e;
+    font-family: Helvetica;
     color: #efefef;
 }
 
-section {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background-color: rgba(0, 0, 0, 255);
-
-    -webkit-transition: visibility 0.5s, opacity 0.5s ease-in, background 0.5s ease-in;
+nav {
+    width: 25%;
 }
 
-section#splash div {
-    display: inline;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-
-    padding: 38px 7px;
-    background-color: #111;
-    border: 1px dashed #ccc;
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
-section#splash header {
-    display: inline;
+nav li {
+    display: -webkit-box;
+    -webkit-box-align: center;
+    text-align: center;
 
-    padding: 32px;
-    background-color: #FFD561;
-    color: #111;
+    height: 14.28%;
+    padding: 0 25px;
 
+    font-size: 18px;
+    color: #121212;
+}
+
+nav li:hover, nav li:active {
+    position: relative;
+    z-index: 1;
+}
+
+nav li:hover {
+    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1), 0 0 7px rgba(0,0,0,0.5);
+}
+
+nav li:active {
+    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.08), 0 0 7px rgba(0,0,0,0.5);
+}
+
+nav#main li {
     font-size: 32px;
-    font-family: Helvetica;
 }
 
-section#debug {
-    background-color: #490a5e;
+nav#main li.randar {
+    background-color: #b7b7b7;
 }
 
-section#debug div {
-    background-color: #F00;
+nav#main li.scenes {
+    background-color: #d161f9;
 }
 
-section#debug div:hover {
-    background-color: #00F;
+nav#main li.animations {
+    background-color: #f96175;
 }
 
-section#debug div:active {
-    background-color: #0F0;
+nav#main li.models {
+    background-color: #4beff4;
+}
+
+nav#main li.meshes {
+    background-color: #e5d8b5;
+}
+
+nav#main li.textures {
+    background-color: #4bf45f;
+}
+
+nav#main li.shaders {
+    background-color: #f4f44b;
 }

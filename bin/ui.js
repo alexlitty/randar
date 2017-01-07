@@ -1,3 +1,6 @@
+/**
+ * Helper functions.
+ */
 function getElement(query) {
     return document.querySelector(query);
 }
@@ -14,35 +17,9 @@ function showElement(element) {
     element.classList.remove('hidden');
 }
 
-/** Program **/
-var modes = {
-    splash: function() {
-        setTimeout(function() {
-            switchMode('debug');
-        }, 1000);
-    },
-
-    debug: function() {
-
-    }
-};
-
-function switchMode(newMode) {
-    var e;
-
-    for (mode in modes) {
-        e = getElement('section#' + mode);
-
-        if (mode === newMode) {
-            showElement(e);
-        } else {
-            hideElement(e);
-        }
-    }
-
-    modes[newMode]();
-};
-
+/**
+ * Main program.
+ */
 window.addEventListener('load', function() {
-    switchMode('splash');
+    showElement(getElement("#main"));
 });

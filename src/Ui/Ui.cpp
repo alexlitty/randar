@@ -14,7 +14,6 @@ randar::Ui::Ui()
         Awesomium::kWebViewType_Offscreen
     );
 
-
     Awesomium::WebString str = Awesomium::WebString::CreateFromUTF8("file:///g/randar/bin/ui.html", strlen("file:///g/randar/bin/ui.html"));
     Awesomium::WebURL url(str);
     this->webView->LoadURL(url);
@@ -62,17 +61,17 @@ randar::Ui::Ui()
 
     // Monitor vertices.
     vertices.clear();
-    vertex.position.set(0, 0, -0.001f);
+    vertex.position.set(-0.5f, -1.0f, -0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(0, 1.0f, -0.001f);
+    vertex.position.set(-0.5f, 1.0f, -0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(1.0f, 0, -0.001f);
+    vertex.position.set(1.0f, -1.0f, -0.001f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 1.0f;
     vertices.push_back(vertex);
@@ -152,7 +151,7 @@ void randar::Ui::draw()
         /**
          * Draw the current focus to monitor framebuffer.
          */
-        this->gpu.clear(this->monitorFramebuffer, Color(0.5f, 0.5f, 0.0f));
+        this->gpu.clear(this->monitorFramebuffer, Color(0.0f, 0.0f, 0.0f));
 
         /**
          * Render interface.
