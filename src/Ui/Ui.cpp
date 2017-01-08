@@ -3,6 +3,7 @@
 
 randar::Ui::Ui()
 : webCore(Awesomium::WebCore::Initialize(Awesomium::WebConfig())),
+  isReady(false),
   interfaceTexture(randar::Texture::RGBA),
   monitorFramebuffer(randar::Texture::RGBA, true)
 {
@@ -108,6 +109,73 @@ void randar::Ui::resize()
     this->monitorFramebuffer.resize(800, 600);
 }
 
+// Performs a sanity check on Awesomium's web view.
+void randar::Ui::check()
+{
+    if (!this->webView) {
+        throw std::runtime_error("Awesomium web view does not exist");
+    }
+
+    Awesomium::Error error = this->webView->last_error();
+    std::string friendlyError;
+    switch (error) {
+        case Awesomium::kError_BadParameters:
+            friendlyError = "Bad parameters supplied";
+            break;
+
+        case Awesomium::kError_ObjectGone:
+            friendlyError = "Object no longer exists";
+            break;
+
+        case Awesomium::kError_ConnectionGone:
+            friendlyError = "Awesomium IPC connection no longer exists";
+            break;
+
+        case Awesomium::kError_TimedOut:
+            friendlyError = "Operation timed out";
+            break;
+
+        case Awesomium::kError_WebViewGone:
+            friendlyError = "Awesomium web view no longer exists";
+            break;
+
+        case Awesomium::kError_Generic:
+            friendlyError = "Awesomium threw a generic error";
+            break;
+
+        default:
+            return;
+    }
+
+    throw std::runtime_error("Awesomium: " + friendlyError);
+}
+
+// Executes a Javascript method on the top-level "randar" object.
+Awesomium::JSValue randar::Ui::jsExecute(const std::string& methodName, bool ignoreResult)
+{
+    const char *code = ("randar." + methodName + "();").c_str();
+
+    // Execute async.
+    if (ignoreResult) {
+        this->webView->ExecuteJavascript(
+            Awesomium::WSLit(code),
+            Awesomium::WSLit("")
+        );
+        return Awesomium::JSValue::Undefined();
+    }
+
+    // Execute sync.
+    Awesomium::JSValue result = this->webView->ExecuteJavascriptWithResult(
+        Awesomium::WSLit(code),
+        Awesomium::WSLit("")
+    );
+
+    // Sync results require a sanity check.
+    this->check();
+    return result;
+}
+
+
 // Handles mouse movement.
 void randar::Ui::setMousePosition(int x, int y)
 {
@@ -132,39 +200,48 @@ void randar::Ui::draw()
     this->gpu.clear(this->defaultFramebuffer, Color(0.03f, 0.03f, 0.03f, 0.0f));
     this->webCore->Update();
 
-    if (!this->webView->IsLoading()) {
-        this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
-
-        // View resizing is asynchronous. Wait for it to catch up.
-        if (this->surface->width() != static_cast<int>(interfaceTexture.width)
-            || this->surface->height() != static_cast<int>(interfaceTexture.height))
-        {
+    // Page is still loading.
+    if (!this->isReady) {
+        if (this->webView->IsLoading()) {
             return;
         }
 
-        unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
-        this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
-        this->gpu.write(this->interfaceTexture, buffer, GL_BGRA);
+        this->jsExecute("test");
 
-        delete[] buffer;
-
-        /**
-         * Draw the current focus to monitor framebuffer.
-         */
-        this->gpu.clear(this->monitorFramebuffer, Color(0.0f, 0.0f, 0.0f));
-
-        /**
-         * Render interface.
-         */
-        this->gpu.bind(this->interfaceTexture);
-        this->gpu.draw(this->program, this->defaultFramebuffer, this->interface);
-
-        /**
-         * Render monitor onto interface.
-         */
-        this->gpu.bind(this->monitorFramebuffer.texture);
-        this->gpu.draw(this->program, this->defaultFramebuffer, this->monitor);
+        this->isReady = true;
     }
+
+    this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
+
+    // View resizing is asynchronous. Wait for it to catch up.
+    if (this->surface->width() != static_cast<int>(interfaceTexture.width)
+        || this->surface->height() != static_cast<int>(interfaceTexture.height))
+    {
+        return;
+    }
+
+    unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
+    this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
+    this->gpu.write(this->interfaceTexture, buffer, GL_BGRA);
+
+    delete[] buffer;
+
+    /**
+     * Draw the current focus to monitor framebuffer.
+     */
+    this->gpu.clear(this->monitorFramebuffer, Color(0.0f, 0.0f, 0.0f));
+
+    /**
+     * Render interface.
+     */
+    this->gpu.bind(this->interfaceTexture);
+    this->gpu.draw(this->program, this->defaultFramebuffer, this->interface);
+
+    /**
+     * Render monitor onto interface.
+     */
+    this->gpu.bind(this->monitorFramebuffer.texture);
+    this->gpu.draw(this->program, this->defaultFramebuffer, this->monitor);
 }
 
 // Resource initialization.

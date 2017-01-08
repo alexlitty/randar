@@ -18,6 +18,7 @@ namespace randar
         Awesomium::WebView* webView;
 
         Awesomium::BitmapSurface* surface;
+        bool isReady;
 
     public:
         ShaderProgram program;
@@ -30,6 +31,23 @@ namespace randar
         Ui();
         ~Ui();
 
+    protected:
+        /**
+         * Performs a sanity check on Awesomium's web view.
+         *
+         * A runtime error is thrown if the check fails.
+         */
+        void check();
+
+        /**
+         * Executes a Javascript method on the top-level "randar" object.
+         */
+        Awesomium::JSValue jsExecute(const std::string& methodName, bool ignoreResult = false);
+
+    public:
+        /**
+         * Resizes the UI to fit the default window.
+         */
         void resize();
         
         /**
@@ -38,6 +56,11 @@ namespace randar
         void setMousePosition(int x, int y);
         void pressMouse(MouseButton button);
         void releaseMouse(MouseButton button);
+
+        /**
+         * Retrieves a list of film objects.
+         */
+        void getObjects(std::string type);
 
         /**
          * Draws the UI.

@@ -1,4 +1,16 @@
 /**
+ * Bridges interactions between the interface and the engine.
+ *
+ * Initialized by Randar.
+ */
+var randar = {
+    test: function() {
+        getElement("#main .randar").innerHTML = 'Test works!';
+    }
+};
+
+
+/**
  * Helper functions.
  */
 function getElement(query) {
@@ -16,6 +28,7 @@ function hideElement(element) {
 function showElement(element) {
     element.classList.remove('hidden');
 }
+
 
 /**
  * Main program.
