@@ -1,14 +1,26 @@
-/**
- * Bridges interactions between the interface and the engine.
- *
- * Initialized by Randar.
- */
 var randar = {
-    test: function() {
-        getElement("#main .randar").innerHTML = 'Test works!';
-    }
-};
+    /**
+     * Engine sync requests.
+     *
+     * The engine looks at this array every frame and initiates a sync if
+     * information is required.
+     */
+    syncs: [ ],
 
+    /**
+     * Retrieves and clears the engine sync requests.
+     */
+    consumeSyncs: function() {
+        var syncs = randar.syncs.slice();
+        randar.syncs = [ ];
+        return syncs;
+    },
+
+    /**
+     * Project resources.
+     */
+    textures: { }
+};
 
 /**
  * Helper functions.

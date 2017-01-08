@@ -206,8 +206,6 @@ void randar::Ui::draw()
             return;
         }
 
-        this->jsExecute("test");
-
         this->isReady = true;
     }
 
