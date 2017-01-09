@@ -63,6 +63,11 @@ namespace randar
         void getObjects(std::string type);
 
         /**
+         * Synchronizes the engine with the interface.
+         */
+        void sync();
+
+        /**
          * Draws the UI.
          */
         void draw();

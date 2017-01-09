@@ -46,6 +46,7 @@ function showElement(element) {
  * Main program.
  */
 window.addEventListener('load', function() {
+    randar.syncs.push("textures");
     showElement(getElement('#main'));
 
     getElement('#objects ul.back').addEventListener('click', function() {

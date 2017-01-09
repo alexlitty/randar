@@ -194,6 +194,17 @@ void randar::Ui::releaseMouse(randar::MouseButton button)
     this->webView->InjectMouseUp(randar::toAwesomium(button));
 }
 
+// Synchronizes the engine with the interface.
+#include <iostream>
+void randar::Ui::sync()
+{
+    Awesomium::JSArray requests = this->jsExecute("consumeSyncs").ToArray();
+    
+    for (unsigned int i = 0; i < requests.size(); i++) {
+        std::cout << requests[i].ToString() << std::endl;
+    }
+}
+
 // Draws the UI.
 void randar::Ui::draw()
 {
@@ -205,38 +216,36 @@ void randar::Ui::draw()
         if (this->webView->IsLoading()) {
             return;
         }
-
         this->isReady = true;
     }
 
-    this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
+    // Keep the interface synchronized with the engine.
+    this->sync();
 
     // View resizing is asynchronous. Wait for it to catch up.
+    this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
     if (this->surface->width() != static_cast<int>(interfaceTexture.width)
         || this->surface->height() != static_cast<int>(interfaceTexture.height))
     {
         return;
     }
 
+    // Write the interface to a texture.
     unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
     this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
     this->gpu.write(this->interfaceTexture, buffer, GL_BGRA);
 
     delete[] buffer;
 
-    /**
-     * Draw the current focus to monitor framebuffer.
-     */
+    // Draw the current focus to the monitor framebuffer.
     this->gpu.clear(this->monitorFramebuffer, Color(0.0f, 0.0f, 0.0f));
 
-    /**
-     * Render interface.
-     */
+    // Render the interface.
     this->gpu.bind(this->interfaceTexture);
     this->gpu.draw(this->program, this->defaultFramebuffer, this->interface);
 
     /**
-     * Render monitor onto interface.
+     * Render the monitor on top of the interface.
      */
     this->gpu.bind(this->monitorFramebuffer.texture);
     this->gpu.draw(this->program, this->defaultFramebuffer, this->monitor);
