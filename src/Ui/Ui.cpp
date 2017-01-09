@@ -151,14 +151,14 @@ void randar::Ui::check()
 }
 
 // Executes a Javascript method on the top-level "randar" object.
-Awesomium::JSValue randar::Ui::jsExecute(const std::string& methodName, bool ignoreResult)
+Awesomium::JSValue randar::Ui::jsExecute(const std::string& code, bool ignoreResult)
 {
-    const char *code = ("randar." + methodName + "();").c_str();
+    const char *str = code.c_str();
 
     // Execute async.
     if (ignoreResult) {
         this->webView->ExecuteJavascript(
-            Awesomium::WSLit(code),
+            Awesomium::WSLit(str),
             Awesomium::WSLit("")
         );
         return Awesomium::JSValue::Undefined();
@@ -166,7 +166,7 @@ Awesomium::JSValue randar::Ui::jsExecute(const std::string& methodName, bool ign
 
     // Execute sync.
     Awesomium::JSValue result = this->webView->ExecuteJavascriptWithResult(
-        Awesomium::WSLit(code),
+        Awesomium::WSLit(str),
         Awesomium::WSLit("")
     );
 
@@ -198,7 +198,10 @@ void randar::Ui::releaseMouse(randar::MouseButton button)
 #include <iostream>
 void randar::Ui::sync()
 {
-    Awesomium::JSArray requests = this->jsExecute("consumeSyncs").ToArray();
+    Awesomium::JSArray requests = this->jsExecute("randar.consumeSyncs();").ToArray();
+
+    std::string code = "randar.updateResources";
+    this->jsExecute("randar.updateResources();");
     
     for (unsigned int i = 0; i < requests.size(); i++) {
         std::cout << requests[i].ToString() << std::endl;

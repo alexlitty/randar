@@ -53,6 +53,10 @@ namespace randar
          * Destroys this resource and frees it from memory.
          */
         virtual void destroy() = 0;
+
+        /**
+         * Serializes this resource to JSON.
+         */
     };
 }
 

@@ -17,6 +17,17 @@ var randar = {
     },
 
     /**
+     * Updates one or more resources.
+     */
+    updateResources: function(data) {
+        for (type in data) {
+            for (item in data[type]) {
+                textures[item] = data[type][item];
+            }
+        }
+    },
+
+    /**
      * Project resources.
      */
     textures: { }
