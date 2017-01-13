@@ -21,7 +21,15 @@ randar::Project::~Project()
 // Loads a project into memory.
 bool randar::Project::load(const std::string& directory)
 {
+    this->clear();
+    
     this->directory = directory;
+    Json project = Json::parse(
+        randar::readAsciiFile(directory + "project.json")
+    );
+
+    this->name = project["name"];
+
     return true;
 }
 

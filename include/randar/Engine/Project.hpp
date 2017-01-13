@@ -3,6 +3,7 @@
 
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/Render/Texture.hpp>
+#include <randar/Utility/File.hpp>
 #include <randar/Utility/Json.hpp>
 #include <randar/Utility/Map.hpp>
 

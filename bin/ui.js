@@ -23,9 +23,23 @@ var randar = {
      */
     updateResources: function(data) {
         for (type in data) {
-            for (item in data[type]) {
-                randar.resources.textures[item] = data[type][item];
+            if (isString(data[type])) {
+                randar.resources[type] = data[type];
             }
+
+            else {
+                for (item in data[type]) {
+                    randar.resources.textures[item] = data[type][item];
+                }
+            }
+        }
+
+        // Update project name.
+        var projectInfo = getElement('#main .randar');
+        if (randar.resources.name) {
+            projectInfo.innerHTML = randar.resources.name;
+        } else {
+            projectInfo.innerHTML = 'Untitled Project';
         }
 
         // Update list elements.
@@ -64,6 +78,10 @@ function hideElement(element) {
 
 function showElement(element) {
     element.classList.remove('hidden');
+}
+
+function isString(value) {
+    return typeof value === 'string' || value instanceof String;
 }
 
 
