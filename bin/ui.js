@@ -7,6 +7,7 @@ var randar = {
      */
     syncs: [ ],
 
+
     /**
      * Retrieves and clears the engine sync requests.
      */
@@ -15,6 +16,7 @@ var randar = {
         randar.syncs = [ ];
         return syncs;
     },
+
 
     /**
      * Updates one or more resources.
@@ -40,7 +42,8 @@ var randar = {
      * Project resources.
      */
     resources: {
-        textures: { }
+        textures: { },
+        shaders: { }
     }
 };
 

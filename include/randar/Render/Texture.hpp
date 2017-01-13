@@ -36,9 +36,9 @@ namespace randar
         virtual void destroy() override;
 
         /**
-         * Converts this texture to a JavaScript value.
+         * Converts this texture to a JSON representation.
          */
-        virtual Awesomium::JSValue toJs() const override;
+        virtual Json toJson() const override;
     };
 }
 

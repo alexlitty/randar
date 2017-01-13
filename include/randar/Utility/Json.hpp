@@ -1,12 +1,20 @@
 #ifndef RANDAR_UTILITY_JSON_HPP
 #define RANDAR_UTILITY_JSON_HPP
 
-#include <string>
-#include <randar/Utility/Awesomium.hpp>
+#include <nlohmann/json.hpp>
+using Json = nlohmann::json;
 
 namespace randar
 {
-    std::string toJson(const Awesomium::JSValue& value);
+    template <typename T>
+    Json toJson(const std::map<std::string, T*>& items)
+    {
+        Json result;
+        for (auto item : items) {
+            result[item.first] = item.second->toJson();
+        }
+        return result;
+    }
 }
 
 #endif

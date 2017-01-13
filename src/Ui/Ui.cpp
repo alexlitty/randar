@@ -207,7 +207,7 @@ void randar::Ui::sync()
 
     // Just sync everything for now.
     this->jsExecute(std::string("randar.updateResources(")
-                  + this->project.toJson()
+                  + this->project.toJson().dump()
                   + std::string(");"));
 }
 

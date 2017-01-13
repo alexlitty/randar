@@ -20,14 +20,8 @@ bool randar::Resource::isInitialized() const
     return this->initialized;
 }
 
-// Converts to a JavaScript value.
-Awesomium::JSValue randar::Resource::toJs() const
+// Converts this resource to a JSON representation.
+Json randar::Resource::toJson() const
 {
-    throw std::runtime_error("No conversion defined: Resource to JavaScript value");
-}
-
-// Converts to JSON.
-std::string randar::Resource::toJson() const
-{
-    return randar::toJson(this->toJs());
+    throw std::runtime_error("No serialization defined for resource");
 }

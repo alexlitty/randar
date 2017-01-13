@@ -1,33 +1,74 @@
 #ifndef RANDAR_ENGINE_PROJECT_HPP
 #define RANDAR_ENGINE_PROJECT_HPP
 
+#include <randar/Render/ShaderProgram.hpp>
 #include <randar/Render/Texture.hpp>
-#include <randar/Utility/Awesomium.hpp>
+#include <randar/Utility/Json.hpp>
 #include <randar/Utility/Map.hpp>
 
 namespace randar
 {
-    template <typename T>
-    Awesomium::JSObject toJs(const std::map<std::string, T*>& objects)
+    class Project
     {
-        Awesomium::JSObject result;
+        std::string directory;
 
-        for (auto item : objects) {
-            result.SetProperty(Awesomium::ToWebString(item.first), item.second->toJs());
-        }
-
-        return result;
-    }
-
-    struct Project
-    {
+    public:
         std::string name;
+        std::map<std::string, ShaderProgram*> shaderPrograms;
         std::map<std::string, Texture*> textures;
 
         /**
-         * Generates a JSON representation of the project.
+         * Default constructor.
          */
-        std::string toJson() const;
+        Project();
+
+        /**
+         * Copy constructor.
+         */
+        Project(const Project& other);
+
+        /**
+         * Destructor.
+         */
+        ~Project();
+
+        /**
+         * Loads a project into memory, given a project directory.
+         *
+         * Returns true if the project was loaded successfully, false otherwise.
+         */
+        bool load(const std::string& directory);
+
+        /**
+         * Saves this project to disk.
+         *
+         * Returns true if the project was saved successfully, false otherwise.
+         */
+        bool save() const;
+
+    protected:
+        /**
+         * Clears a category of resources from memory.
+         */
+        template <typename T>
+        void clear(std::map<std::string, T*>& resources)
+        {
+            for (auto item : resources) {
+                delete item.second;
+            }
+            resources.clear();
+        }
+
+    public:
+        /**
+         * Clears this entire project from memory.
+         */
+        void clear();
+
+        /**
+         * Generates a complete JSON representation of the project.
+         */
+        Json toJson() const;
     };
 }
 

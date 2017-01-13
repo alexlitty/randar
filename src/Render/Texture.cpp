@@ -35,10 +35,10 @@ void randar::Texture::destroy()
     this->initialized = false;
 }
 
-// Converts this texture to a JavaScript value.
-Awesomium::JSValue randar::Texture::toJs() const
+// Converts this texture to a JSON representation.
+Json randar::Texture::toJson() const
 {
-    Awesomium::JSObject object;
-    object.SetProperty(Awesomium::WSLit("test"), Awesomium::JSValue(4));
-    return Awesomium::JSValue(object);
+    Json result;
+    result["test"] = 4;
+    return result;
 }
