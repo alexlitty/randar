@@ -27,7 +27,7 @@ Awesomium::JSValue randar::Resource::toJs() const
 }
 
 // Converts to JSON.
-std::wstring randar::Resource::toJson() const
+std::string randar::Resource::toJson() const
 {
     return randar::toJson(this->toJs());
 }

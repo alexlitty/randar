@@ -64,7 +64,7 @@ namespace randar
         /**
          * Converts to JSON.
          */
-        std::wstring toJson() const;
+        std::string toJson() const;
     };
 }
 

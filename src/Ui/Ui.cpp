@@ -88,6 +88,9 @@ randar::Ui::Ui()
 
     // Initialize the UI size.
     this->resize();
+
+    // Test texture.
+    project.textures["Test Texture"] = new Texture();
 }
 
 randar::Ui::~Ui()

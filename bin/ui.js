@@ -22,8 +22,16 @@ var randar = {
     updateResources: function(data) {
         for (type in data) {
             for (item in data[type]) {
-                textures[item] = data[type][item];
+                randar.resources.textures[item] = data[type][item];
             }
+        }
+
+        // Update list elements.
+        var texturesList = getElement('#objects .textures');
+        for (textureName in randar.resources.textures) {
+            var element = document.createElement('li');
+            element.innerHTML = textureName;
+            texturesList.appendChild(element);
         }
     },
 
@@ -31,7 +39,9 @@ var randar = {
     /**
      * Project resources.
      */
-    textures: { }
+    resources: {
+        textures: { }
+    }
 };
 
 /**
