@@ -85,20 +85,31 @@ void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
 
 
     // Configure framebuffer.
-    if (framebuffer.texture.type == Texture::RGBA) {
-        ::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, framebuffer.texture, 0);
+    if (framebuffer.texture.isRgba()) {
+        ::glFramebufferTexture(
+            GL_FRAMEBUFFER,
+            GL_COLOR_ATTACHMENT0,
+            framebuffer.texture,
+            0
+        );
 
         ::GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
         ::glDrawBuffers(1, drawBuffers);
     }
 
-    else if (framebuffer.texture.type == Texture::DEPTH) {
-        ::glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, framebuffer.texture, 0);
+    else if (framebuffer.texture.isDepth()) {
+        ::glFramebufferTexture(
+            GL_FRAMEBUFFER,
+            GL_DEPTH_ATTACHMENT,
+            framebuffer.texture,
+            0
+        );
+
         ::glDrawBuffer(GL_NONE);
     }
 
     else {
-        throw std::runtime_error("Configuring invalid framebuffer");
+        throw std::runtime_error("Configuring framebuffer with invalid texture");
     }
 
     // Check for errors.
@@ -213,14 +224,10 @@ void randar::Gpu::initialize(randar::Texture& texture)
     this->bind(texture);
     this->clear(texture);
 
-    switch (texture.type) {
-        default:
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            break;
-    }
+    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 // Initializes a vertex array.
@@ -310,7 +317,7 @@ void randar::Gpu::resize(randar::Framebuffer& framebuffer, unsigned int width, u
 {
     framebuffer.camera.viewport = Viewport(0, 0, width, height);
 
-    this->resize(framebuffer.texture, width, height);
+    framebuffer.texture.resize(width, height);
     if (framebuffer.hasDepthBuffer()) {
         this->resize(framebuffer.depthBuffer, width, height);
     }
@@ -332,10 +339,9 @@ void randar::Gpu::resize(randar::Renderbuffer& renderbuffer, unsigned int width,
 }
 
 // Resizes a texture.
-void randar::Gpu::resize(randar::Texture& texture, unsigned int width, unsigned int height)
+void randar::Gpu::resize(randar::Texture& texture)
 {
-    texture.width  = width;
-    texture.height = height;
+    // Since we send the dimensions with texture data, just clear the texture.
     this->clear(texture);
 }
 
@@ -443,37 +449,36 @@ void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data, GLen
 {
     this->bind(texture);
 
-    switch (texture.type) {
-        case Texture::RGBA:
-            ::glTexImage2D(
-                GL_TEXTURE_2D,
-                0,
-                GL_RGBA,
-                texture.width,
-                texture.height,
-                0,
-                dataFormat,
-                GL_UNSIGNED_BYTE,
-                data
-            );
-            break;
+    if (texture.isRgba()) {
+        ::glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_RGBA,
+            texture.getWidth(),
+            texture.getHeight(),
+            0,
+            dataFormat,
+            GL_UNSIGNED_BYTE,
+            data
+        );
+    }
 
-        case Texture::DEPTH:
-            ::glTexImage2D(
-                GL_TEXTURE_2D,
-                0,
-                GL_DEPTH_COMPONENT,
-                texture.width,
-                texture.height,
-                0,
-                GL_DEPTH_COMPONENT,
-                GL_FLOAT,
-                data
-            );
-            break;
+    else if (texture.isDepth()) {
+        ::glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_DEPTH_COMPONENT,
+            texture.getWidth(),
+            texture.getHeight(),
+            0,
+            GL_DEPTH_COMPONENT,
+            GL_FLOAT,
+            data
+        );
+    }
 
-        default:
-            throw std::runtime_error("Setting data on invalid texture type");
+    else {
+        throw std::runtime_error("Writing data to invalid texture type");
     }
 }
 

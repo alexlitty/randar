@@ -5,35 +5,68 @@
 
 namespace randar
 {
-    struct Texture : virtual public GpuResource
+    class Texture : virtual public GpuResource
     {
-        enum Type
-        {
-            INVALID,
-            RGBA,
-            DEPTH
-        };
-
-        const Texture::Type type;
-        unsigned int width;
-        unsigned int height;
-
-        Texture(
-            Texture::Type initType = Texture::Type::INVALID,
-            unsigned int initWidth = 1,
-            unsigned int initHeight = 1,
-            const std::string& initName = "");
+    protected:
+        /**
+         * Type of texture.
+         *
+         * Valid values are "rgba" and "depth".
+         */
+        const std::string type;
 
         /**
-         * Resizes this texture.
+         * Texture dimensions.
          */
-        void resize(unsigned int width, unsigned int height);
-        
+        unsigned int width;
+        unsigned int height;
+    
+    public:
+        /**
+         * Primary constructor.
+         */
+        Texture(
+            std::string initType,
+            unsigned int initWidth,
+            unsigned int initHeight);
+
+        /**
+         * Construct from JSON.
+         */
+        Texture(const Json& json);
+
         /**
          * Resource initialization and destruction.
          */
         virtual void initialize() override;
         virtual void destroy() override;
+
+        /**
+         * Checks the validity of this texture's information.
+         *
+         * Does not check GPU validity.
+         *
+         * If the texture is invalid, the error argument is filled with a
+         * description of the problem. Otherwise the argument remains unchanged.
+         */
+        bool isValid(std::string& error) const;
+
+        /**
+         * Checks which kind of texture this is.
+         */
+        bool isRgba() const;
+        bool isDepth() const;
+ 
+        /**
+         * Resizes this texture.
+         */
+        void resize(unsigned int width, unsigned int height);
+
+        /**
+         * Retrieves the width and height of this texture.
+         */
+        unsigned int getWidth() const;
+        unsigned int getHeight() const;
 
         /**
          * Converts this texture to a JSON representation.

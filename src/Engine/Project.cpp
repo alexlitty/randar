@@ -36,6 +36,18 @@ bool randar::Project::load(const std::string& directory)
 
     this->name = project["name"];
 
+    if (project["shaders"].is_object()) {
+        for (auto shaderProgram : project["shaders"]) {
+
+        }
+    }
+
+    if (project["textures"].is_object()) {
+        for (Json::iterator it = project["textures"].begin(); it != project["textures"].end(); it++) {
+            std::cout << it.key() << std::endl;
+        }
+    }
+
     return true;
 }
 

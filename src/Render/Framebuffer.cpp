@@ -3,7 +3,7 @@
 
 // Constructor.
 randar::Framebuffer::Framebuffer(
-    randar::Texture::Type textureType,
+    std::string textureType,
     bool enableDepthBuffer,
     unsigned int width,
     unsigned int height)

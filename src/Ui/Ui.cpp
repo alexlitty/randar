@@ -4,8 +4,8 @@
 randar::Ui::Ui()
 : webCore(Awesomium::WebCore::Initialize(Awesomium::WebConfig())),
   isReady(false),
-  interfaceTexture(randar::Texture::RGBA),
-  monitorFramebuffer(randar::Texture::RGBA, true)
+  interfaceTexture("rgba", 1, 1),
+  monitorFramebuffer("rgba", true)
 {
     // Initialize Awesomium.
     this->webView = this->webCore->CreateWebView(
@@ -90,9 +90,6 @@ randar::Ui::Ui()
     this->resize();
 
     this->project.load("./test-project/");
-
-    // Test texture.
-    project.textures["Test Texture"] = new Texture();
 }
 
 randar::Ui::~Ui()
@@ -260,8 +257,8 @@ void randar::Ui::draw()
 
     // View resizing is asynchronous. Wait for it to catch up.
     this->surface = static_cast<Awesomium::BitmapSurface*>(this->webView->surface());
-    if (this->surface->width() != static_cast<int>(interfaceTexture.width)
-        || this->surface->height() != static_cast<int>(interfaceTexture.height))
+    if (this->surface->width() != static_cast<int>(interfaceTexture.getWidth())
+        || this->surface->height() != static_cast<int>(interfaceTexture.getHeight()))
     {
         return;
     }
