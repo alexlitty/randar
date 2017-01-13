@@ -1,7 +1,7 @@
 #ifndef RANDAR_UTILITY_AWESOMIUM_HPP
 #define RANDAR_UTILITY_AWESOMIUM_HPP
 
-#include <Awesomium/WebView.h>
+#include <Awesomium/WebCore.h>
 #include <Awesomium/STLHelpers.h>
 
 namespace randar

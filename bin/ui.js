@@ -114,7 +114,9 @@ function showObjects(category) {
  * Main program.
  */
 window.addEventListener('load', function() {
-    randar.syncs.push("everything");
+    randar.syncs.push({
+        command: 'read'
+    });
     showMain();
 
     getElement('#objects ul.back').addEventListener('click', function() {

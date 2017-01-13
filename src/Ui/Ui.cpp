@@ -206,14 +206,38 @@ void randar::Ui::sync()
         return;
     }
 
-    // Just sync everything for now.
-    this->jsExecute(std::string("randar.updateResources(")
-                  + this->project.toJson().dump()
-                  + std::string(");"));
+    for (unsigned int i = 0; i < requests.size(); i++) {
+        Awesomium::JSValue value = requests[i];
 
-    // Save after every interaction, temporarily for testing.
-    if (!this->project.save()) {
-        std::cout << "Project failed to save" << std::endl;
+        // Validate sync request.
+        if (!value.IsObject()) {
+            std::cout << "Ignoring non-object sync request" << std::endl;
+            continue;
+        }
+
+        // Parse sync command.
+        Awesomium::JSObject request = value.ToObject();
+        std::string command = Awesomium::ToString(
+            request.GetProperty(Awesomium::WSLit("command")).ToString()
+        );
+
+        // Feeds all resource information to the UI.
+        if (command == "read") {
+            this->jsExecute(std::string("randar.updateResources(")
+                          + this->project.toJson().dump()
+                          + std::string(");")
+            );
+        }
+
+        // Unknown command.
+        else {
+            std::cout << "Ignoring unknown sync command '" << command << "'" << std::endl;
+        }
+
+        // Save after every interaction, temporarily for testing.
+        if (!this->project.save()) {
+            std::cout << "Project failed to save" << std::endl;
+        }
     }
 }
 

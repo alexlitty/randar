@@ -1,13 +1,12 @@
 #ifndef RANDAR_UI_UI_HPP
 #define RANDAR_UI_UI_HPP
 
-#include <Awesomium/WebCore.h>
 #include <Awesomium/BitmapSurface.h>
-#include <Awesomium/STLHelpers.h>
 #include <randar/Engine/Project.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Ui/Mouse.hpp>
+#include <randar/Utility/Awesomium.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
