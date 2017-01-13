@@ -33,6 +33,13 @@ namespace randar
          */
         ~Project();
 
+    protected:
+        /**
+         * Retrieves the filename of the primary project file.
+         */
+        std::string getProjectFilename() const;
+
+    public:
         /**
          * Loads a project into memory, given a project directory.
          *

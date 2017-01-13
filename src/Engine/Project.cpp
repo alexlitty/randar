@@ -18,6 +18,12 @@ randar::Project::~Project()
     this->clear();
 }
 
+// Retrieves the filename of the primary project file.
+std::string randar::Project::getProjectFilename() const
+{
+    return this->directory + "project.json";
+}
+
 // Loads a project into memory.
 bool randar::Project::load(const std::string& directory)
 {
@@ -25,7 +31,7 @@ bool randar::Project::load(const std::string& directory)
     
     this->directory = directory;
     Json project = Json::parse(
-        randar::readAsciiFile(directory + "project.json")
+        randar::readAsciiFile(this->getProjectFilename())
     );
 
     this->name = project["name"];
@@ -39,7 +45,11 @@ bool randar::Project::save() const
     if (this->directory == "") {
         return false;
     }
-    return true;
+
+    return randar::writeAsciiFile(
+        this->getProjectFilename(),
+        this->toJson().dump()
+    );
 }
 
 // Clears this entire project from memory.

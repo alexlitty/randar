@@ -93,6 +93,7 @@ randar::Ui::Ui()
 
     // Test texture.
     project.textures["Test Texture"] = new Texture();
+    this->project.save();
 }
 
 randar::Ui::~Ui()
@@ -179,7 +180,6 @@ Awesomium::JSValue randar::Ui::jsExecute(const std::string& code, bool ignoreRes
     this->check();
     return result;
 }
-
 
 // Handles mouse movement.
 void randar::Ui::setMousePosition(int x, int y)
