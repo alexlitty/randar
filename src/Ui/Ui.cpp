@@ -93,7 +93,6 @@ randar::Ui::Ui()
 
     // Test texture.
     project.textures["Test Texture"] = new Texture();
-    this->project.save();
 }
 
 randar::Ui::~Ui()
@@ -211,6 +210,11 @@ void randar::Ui::sync()
     this->jsExecute(std::string("randar.updateResources(")
                   + this->project.toJson().dump()
                   + std::string(");"));
+
+    // Save after every interaction, temporarily for testing.
+    if (!this->project.save()) {
+        std::cout << "Project failed to save" << std::endl;
+    }
 }
 
 // Draws the UI.

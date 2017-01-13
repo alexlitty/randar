@@ -93,7 +93,7 @@ nav#main li.textures, nav#objects ul.textures li {
     background-color: #4bf45f;
 }
 
-nav#main li.shaders {
+nav#main li.shaders, nav#objects ul.shaders li {
     background-color: #f4f44b;
 }
 

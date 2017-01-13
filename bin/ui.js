@@ -115,13 +115,22 @@ function showObjects(category) {
  */
 window.addEventListener('load', function() {
     randar.syncs.push("everything");
-    showElement(getElement('#main'));
+    showMain();
 
     getElement('#objects ul.back').addEventListener('click', function() {
         showMain();
     });
 
-    getElement('#main .textures').addEventListener('click', function() {
-        showObjects('textures');
-    });
+    var resourceItems = getElements('#main li');
+    for (var i = 0; i < resourceItems.length; i++) {
+        var item = resourceItems[i];
+        var category = item.className;
+
+        if (category != 'randar') {
+            item.addEventListener('click', function(category) {
+                console.log(category);
+                showObjects(category);
+            }.bind(this, category));
+        }
+    }
 });
