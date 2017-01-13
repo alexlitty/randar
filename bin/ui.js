@@ -27,6 +27,7 @@ var randar = {
         }
     },
 
+
     /**
      * Project resources.
      */
@@ -34,7 +35,7 @@ var randar = {
 };
 
 /**
- * Helper functions.
+ * Generic helpers.
  */
 function getElement(query) {
     return document.querySelector(query);
@@ -54,23 +55,42 @@ function showElement(element) {
 
 
 /**
+ * Program-specific helpers.
+ */
+function showMain() {
+    var objectLists = getElements('#objects ul');
+    for (var i = 0; i < objectLists.length; i++) {
+        var element = objectLists[i];
+
+        if (element.className != 'back') {
+            hideElement(element);
+        }
+    }
+
+    hideElement(getElement('#objects'));
+    showElement(getElement('#main'));
+}
+
+function showObjects(category) {
+    hideElement(getElement('#main'));
+    showElement(getElement('#objects'));
+
+    showElement(getElement('#objects ul.' + category));
+}
+
+
+/**
  * Main program.
  */
 window.addEventListener('load', function() {
-    randar.syncs.push("textures");
+    randar.syncs.push("everything");
     showElement(getElement('#main'));
 
     getElement('#objects ul.back').addEventListener('click', function() {
-        hideElement(getElement('#objects'));
-        showElement(getElement('#main'));
-
-        getElement('#objects ul.list').className = 'list';
+        showMain();
     });
 
     getElement('#main .textures').addEventListener('click', function() {
-        hideElement(getElement('#main'));
-        showElement(getElement('#objects'));
-
-        getElement('#objects ul.list').classList.add(this.className);
+        showObjects('textures');
     });
 });

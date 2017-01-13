@@ -4,6 +4,7 @@
 #include <Awesomium/WebCore.h>
 #include <Awesomium/BitmapSurface.h>
 #include <Awesomium/STLHelpers.h>
+#include <randar/Engine/Project.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Ui/Mouse.hpp>
@@ -19,6 +20,8 @@ namespace randar
 
         Awesomium::BitmapSurface* surface;
         bool isReady;
+
+        Project project;
 
     public:
         ShaderProgram program;

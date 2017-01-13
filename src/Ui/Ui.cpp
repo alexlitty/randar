@@ -195,7 +195,6 @@ void randar::Ui::releaseMouse(randar::MouseButton button)
 }
 
 // Synchronizes the engine with the interface.
-#include <iostream>
 void randar::Ui::sync()
 {
     Awesomium::JSArray requests = this->jsExecute("randar.consumeSyncs();").ToArray();
@@ -203,18 +202,10 @@ void randar::Ui::sync()
         return;
     }
 
-    Awesomium::JSObject resources;
-    resources.SetProperty(Awesomium::WSLit("testing123"), Awesomium::JSValue(4));
-    std::cout << randar::toJson(resources) << std::endl;
-
     // Just sync everything for now.
-    //std::string code = "randar.updateResources" + randar::toString(resources)
-    this->jsExecute("randar.updateResources();");
-    //std::wcout << this->interfaceTexture.toJson();
-    
-    for (unsigned int i = 0; i < requests.size(); i++) {
-        std::cout << requests[i].ToString() << std::endl;
-    }
+    this->jsExecute(std::string("randar.updateResources(")
+                  + this->project.toJson()
+                  + std::string(");"));
 }
 
 // Draws the UI.
