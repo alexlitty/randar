@@ -44,7 +44,7 @@ bool randar::Project::load(const std::string& directory)
 
     if (project["textures"].is_object()) {
         for (Json::iterator it = project["textures"].begin(); it != project["textures"].end(); it++) {
-            std::cout << it.key() << std::endl;
+            this->textures[it.key()] = new Texture(it.value());
         }
     }
 

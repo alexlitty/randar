@@ -16,9 +16,9 @@ randar::Texture::Texture(
 
 // Construct from JSON.
 randar::Texture::Texture(const Json& json)
-: type(json["type"].get<std::string>()),
-  width(json["width"]),
-  height(json["height"])
+: type(json.value("type", "invalid")),
+  width(json.value("width", 0)),
+  height(json.value("height", 0))
 {
 
 }
@@ -90,7 +90,9 @@ unsigned int randar::Texture::getHeight() const
 // Converts this texture to a JSON representation.
 Json randar::Texture::toJson() const
 {
-    Json result;
-    result["test"] = 4;
-    return result;
+    return {
+        { "type",   this->type   },
+        { "width",  this->width  },
+        { "height", this->height }
+    };
 }

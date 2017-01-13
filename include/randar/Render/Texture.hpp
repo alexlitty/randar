@@ -13,7 +13,7 @@ namespace randar
          *
          * Valid values are "rgba" and "depth".
          */
-        const std::string type;
+        std::string type;
 
         /**
          * Texture dimensions.
