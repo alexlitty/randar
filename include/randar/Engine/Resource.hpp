@@ -2,6 +2,8 @@
 #define RANDAR_ENGINE_RESOURCE_HPP
 
 #include <string>
+#include <randar/Utility/Awesomium.hpp>
+#include <randar/Utility/Json.hpp>
 
 namespace randar
 {
@@ -55,8 +57,14 @@ namespace randar
         virtual void destroy() = 0;
 
         /**
-         * Serializes this resource to JSON.
+         * Converts to a JavaScript value.
          */
+        virtual Awesomium::JSValue toJs() const;
+
+        /**
+         * Converts to JSON.
+         */
+        std::wstring toJson() const;
     };
 }
 

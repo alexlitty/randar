@@ -1,6 +1,6 @@
 #include <randar/Utility/Json.hpp>
 
-std::string randar::toJson(Awesomium::JSValue value)
+std::string randar::toJson(const Awesomium::JSValue& value)
 {
     std::string result;
 
@@ -13,17 +13,28 @@ std::string randar::toJson(Awesomium::JSValue value)
     else if (value.IsObject()) {
         Awesomium::JSObject object = value.ToObject();
         Awesomium::JSArray propertyNames = object.GetPropertyNames();
+        unsigned int propertyCount = propertyNames.size();
+
+        result = "{";
+        for (unsigned int i = 0; i < propertyCount; i++) {
+            result += randar::toJson(propertyNames[i])
+                    + ":"
+                    + randar::toJson(object.GetProperty(propertyNames[i].ToString()));
+
+            if (i != (propertyCount - 1)) {
+                result += ",";
+            }
+        }
+        result += "}";
     }
 
     // Use Awesomium stringifying.
     else {
-        char *str = nullptr;
-        value.ToString().ToUTF8(str, 0);
-        result = std::string(str);
+        result = randar::toString(value.ToString());
 
         // Strings need to be wrapped in quotes.
         if (value.IsString()) {
-            result = std::string("\"") + result + std::string("\"");
+            result = "\"" + result + "\"";
         }
     }
 

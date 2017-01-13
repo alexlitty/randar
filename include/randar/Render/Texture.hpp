@@ -28,9 +28,17 @@ namespace randar
          * Resizes this texture.
          */
         void resize(unsigned int width, unsigned int height);
-
+        
+        /**
+         * Resource initialization and destruction.
+         */
         virtual void initialize() override;
         virtual void destroy() override;
+
+        /**
+         * Converts this texture to a JavaScript value.
+         */
+        virtual Awesomium::JSValue toJs() const override;
     };
 }
 

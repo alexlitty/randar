@@ -2,11 +2,11 @@
 #define RANDAR_UTILITY_JSON_HPP
 
 #include <string>
-#include <Awesomium/WebCore.h>
+#include <randar/Utility/Awesomium.hpp>
 
 namespace randar
 {
-    std::string toJson(Awesomium::JSValue value);
+    std::string toJson(const Awesomium::JSValue& value);
 }
 
 #endif

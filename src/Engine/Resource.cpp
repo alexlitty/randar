@@ -19,3 +19,15 @@ bool randar::Resource::isInitialized() const
 {
     return this->initialized;
 }
+
+// Converts to a JavaScript value.
+Awesomium::JSValue randar::Resource::toJs() const
+{
+    throw std::runtime_error("No conversion defined: Resource to JavaScript value");
+}
+
+// Converts to JSON.
+std::wstring randar::Resource::toJson() const
+{
+    return randar::toJson(this->toJs());
+}

@@ -199,9 +199,18 @@ void randar::Ui::releaseMouse(randar::MouseButton button)
 void randar::Ui::sync()
 {
     Awesomium::JSArray requests = this->jsExecute("randar.consumeSyncs();").ToArray();
+    if (!requests.size()) {
+        return;
+    }
 
-    std::string code = "randar.updateResources";
+    Awesomium::JSObject resources;
+    resources.SetProperty(Awesomium::WSLit("testing123"), Awesomium::JSValue(4));
+    std::cout << randar::toJson(resources) << std::endl;
+
+    // Just sync everything for now.
+    //std::string code = "randar.updateResources" + randar::toString(resources)
     this->jsExecute("randar.updateResources();");
+    //std::wcout << this->interfaceTexture.toJson();
     
     for (unsigned int i = 0; i < requests.size(); i++) {
         std::cout << requests[i].ToString() << std::endl;
