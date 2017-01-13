@@ -38,7 +38,7 @@ Use a Linux machine with a GPU supporting OpenGL 3.3. Tested with Debian, probab
 
 Install glfw3.
 
-Download, compile, and install [Awesomium 1.7.5|http://www.awesomium.com/].
+Download, compile, and install [Awesomium 1.7.5](http://www.awesomium.com/).
 
 Execute go.sh.
 
