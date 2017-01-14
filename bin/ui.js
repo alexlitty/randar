@@ -99,7 +99,13 @@ function showMain() {
     }
 
     hideElement(getElement('#objects'));
+    hideElement(getElement('#settings'));
     showElement(getElement('#main'));
+}
+
+function showSettings() {
+    hideElement(getElement('#main'));
+    showElement(getElement('#settings'));
 }
 
 function showObjects(category) {
@@ -119,18 +125,26 @@ window.addEventListener('load', function() {
     });
     showMain();
 
-    getElement('#objects ul.back').addEventListener('click', function() {
-        showMain();
-    });
+    var backButtons = getElements('nav ul.back');
+    for (var i = 0; i < backButtons.length; i++) {
+        backButtons[i].addEventListener('click', function() {
+            showMain();
+        });
+    }
 
     var resourceItems = getElements('#main li');
     for (var i = 0; i < resourceItems.length; i++) {
         var item = resourceItems[i];
         var category = item.className;
 
-        if (category != 'randar') {
+        if (category == 'randar') {
+            item.addEventListener('click', function() {
+                showSettings();
+            });
+        }
+
+        else {
             item.addEventListener('click', function(category) {
-                console.log(category);
                 showObjects(category);
             }.bind(this, category));
         }
