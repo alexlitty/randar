@@ -195,6 +195,17 @@ void randar::Ui::releaseMouse(randar::MouseButton button)
     this->webView->InjectMouseUp(randar::toAwesomium(button));
 }
 
+// Handles keyboard input.
+void randar::Ui::sendKey(int key)
+{
+    Awesomium::WebKeyboardEvent event;
+    event.type = Awesomium::WebKeyboardEvent::kTypeChar;
+    event.native_key_code = key;
+    std::cout << key << std::endl;
+
+    this->webView->InjectKeyboardEvent(event);
+}
+
 // Synchronizes the engine with the interface.
 void randar::Ui::sync()
 {
@@ -250,6 +261,8 @@ void randar::Ui::draw()
             return;
         }
         this->isReady = true;
+        this->webView->Focus();
+        this->webView->ActivateIME(true);
     }
 
     // Keep the interface synchronized with the engine.

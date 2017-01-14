@@ -60,6 +60,11 @@ namespace randar
         void releaseMouse(MouseButton button);
 
         /**
+         * Handles keyboard input.
+         */
+        void sendKey(int key);
+
+        /**
          * Retrieves a list of film objects.
          */
         void getObjects(std::string type);

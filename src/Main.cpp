@@ -48,6 +48,10 @@ int main()
         }
     });
 
+    ::glfwSetKeyCallback(window, [](::GLFWwindow *window, int key, int scancode, int action, int mods) {
+        randar::getUi().sendKey(key);
+    });
+
     while (true) {
         gpu.check();
         ::glfwPollEvents();

@@ -1,3 +1,8 @@
+bin/*.bin
+bin/*.dat
+bin/*.pak
+bin/lib*
+bin/chrome-sandbox
 bin/randar
 lib/
 obj/

@@ -1,0 +1,74 @@
+#ifndef RANDAR_UI_CEF_HANDLER_HPP
+#define RANDAR_UI_CEF_HANDLER_HPP
+#define NDEBUG
+
+#include <cef/include/base/cef_lock.h>
+#include <cef/include/cef_client.h>
+#include <cef/include/wrapper/cef_helpers.h>
+
+namespace randar
+{
+    class CefHandler
+    : public ::CefClient,
+      public ::CefContextMenuHandler,
+      public ::CefDisplayHandler,
+      public ::CefDownloadHandler,
+      public ::CefDragHandler,
+      public ::CefGeolocationHandler,
+      public ::CefKeyboardHandler,
+      public ::CefLifeSpanHandler,
+      public ::CefLoadHandler,
+      public ::CefRequestHandler
+    {
+        ::CefRefPtr<::CefBrowser> browser;
+
+    public:
+        /**
+         * Constructor.
+         */
+        CefHandler();
+
+        /**
+         * Destructor.
+         */
+        ~CefHandler();
+
+        /**
+         * Retrieves the browser associated with this handler.
+         */
+        virtual ::CefRefPtr<::CefBrowser> GetBrowser();
+
+        /**
+         * CefClient implementations.
+         */
+        virtual ::CefRefPtr<::CefContextMenuHandler> GetContextMenuHandler() override;
+        virtual ::CefRefPtr<::CefDisplayHandler> GetDisplayHandler() override;
+        virtual ::CefRefPtr<::CefDownloadHandler> GetDownloadHandler() override;
+        virtual ::CefRefPtr<::CefDragHandler> GetDragHandler() override;
+        virtual ::CefRefPtr<::CefGeolocationHandler> GetGeolocationHandler() override;
+        virtual ::CefRefPtr<::CefKeyboardHandler> GetKeyboardHandler() override;
+        virtual ::CefRefPtr<::CefLifeSpanHandler> GetLifeSpanHandler() override;
+        virtual ::CefRefPtr<::CefLoadHandler> GetLoadHandler() override;
+        virtual ::CefRefPtr<::CefRequestHandler> GetRequestHandler() override;
+
+        /**
+         * CefDownload implementations.
+         */
+        virtual void OnBeforeDownload(
+            ::CefRefPtr<::CefBrowser> browser,
+            ::CefRefPtr<::CefDownloadItem> item,
+            const ::CefString& name,
+            ::CefRefPtr<::CefBeforeDownloadCallback> callback) override;
+
+        /**
+         * CefLifeSpan implementations.
+         */
+        virtual void OnAfterCreated(::CefRefPtr<::CefBrowser> browser) override;
+        virtual void OnBeforeClose(::CefRefPtr<::CefBrowser> browser) override;
+
+        IMPLEMENT_REFCOUNTING(CefHandler);
+        IMPLEMENT_LOCKING(CefHandler);
+    };
+}
+
+#endif

@@ -1,12 +1,12 @@
 # Paths
 SRCPATH=src
-INCPATHS=include include/bullet3
+INCPATHS=include include/bullet3 include/cef
 OBJPATH=obj
 LIBPATH=lib
 BINPATH=bin
 
 # Linker flags
-LDFLAGS=-L$(LIBPATH) -lawesomium-1-7 -lX11 -lXxf86vm -pthread -lXi -lXrandr -lGL -lGLEW -lglfw3 -lBulletDynamics -lBulletCollision -lLinearMath
+LDFLAGS=-L$(LIBPATH) -lcef_dll_wrapper -lawesomium-1-7 -lX11 -lXxf86vm -pthread -lXi -lXrandr -lGL -lGLEW -lglfw3 -lBulletDynamics -lBulletCollision -lLinearMath
 
 # Background colors
 BG_WHITE=$$(tput setab 7)
@@ -63,7 +63,6 @@ $(OBJPATH)/%.o: $(SRCPATH)/%.cpp
 	@mkdir -p $(@D)
 	$(CC) $(INCFLAGS) $(CFLAGS) -c $< -o $@
 
-# Used to find all source files
 # Cleaning Target
 .PHONY: clean
 clean:
