@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     while (true) {
         //gpu.check();
         ::glfwPollEvents();
+        ::CefDoMessageLoopWork();
 
         //for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
             //throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
