@@ -1,10 +1,13 @@
 #ifndef RANDAR_UI_UI_HPP
 #define RANDAR_UI_UI_HPP
 
+#include <randar/Engine/Native.hpp>
 #include <randar/Engine/Project.hpp>
+#include <randar/Engine/Window.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Ui/Cef.hpp>
+#include <randar/Ui/Browser.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
@@ -12,6 +15,7 @@ namespace randar
     class Ui : virtual public Resource
     {
         ::CefRefPtr<randar::Cef> cef;
+        ::CefRefPtr<randar::CefHandler> cefHandler;
 
         Framebuffer defaultFramebuffer;
         Project project;

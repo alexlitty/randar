@@ -3,12 +3,24 @@
 
 randar::Ui::Ui()
 : cef(new randar::Cef),
+  cefHandler(new randar::CefHandler),
   interfaceTexture("rgba", 1, 1),
   monitorFramebuffer("rgba", true)
 {
-    if (::CefExecuteProcess(::CefMainArgs(), this->cef.get(), nullptr) != -1) {
-        throw std::runtime_error("Failed to execute browser process");
-    }
+    // Initialize browser.
+    ::CefWindowInfo browserInfo;
+    browserInfo.SetAsChild(
+        randar::getNativeWindow(randar::getDefaultWindow()),
+        ::CefRect(0, 0, 800, 600)
+    );
+
+    ::CefBrowserHost::CreateBrowser(
+        browserInfo,
+        this->cefHandler.get(),
+        ::CefString("http://www.google.com"),
+        ::CefBrowserSettings(),
+        nullptr
+    );
 
     // Define shader program.
     this->program.vertexShader   = Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./shaders/ui.vert"));
@@ -85,6 +97,7 @@ randar::Ui::Ui()
 
 randar::Ui::~Ui()
 {
+    ::CefShutdown();
     this->destroy();
 }
 

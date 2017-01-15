@@ -1,7 +1,9 @@
 bin/*.bin
 bin/*.dat
 bin/*.pak
+bin/*.log
 bin/lib*
+bin/locales
 bin/chrome-sandbox
 bin/randar
 lib/

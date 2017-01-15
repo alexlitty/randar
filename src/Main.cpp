@@ -2,8 +2,16 @@
 #include <randar/Ui/Ui.hpp>
 
 #include <iostream>
-int main()
+int main(int argc, char *argv[])
 {
+    ::CefMainArgs mainArgs(argc, argv);
+    int exitCode = ::CefExecuteProcess(mainArgs, ::CefRefPtr<::CefApp>(), nullptr);
+    if (exitCode != -1) {
+        return exitCode;
+    }
+
+    ::CefInitialize(mainArgs, ::CefSettings(), ::CefRefPtr<::CefApp>(), nullptr);
+
     randar::seedRandomWithTime();
 
     randar::Gpu& gpu = randar::getDefaultGpu();
@@ -11,7 +19,7 @@ int main()
     randar::Ui& ui = randar::getUi();
 
     ::glfwSetWindowSizeCallback(window, [](::GLFWwindow *window, int width, int height) {
-        randar::getUi().resize();
+        //randar::getUi().resize();
     });
 
     ::glfwSetCursorPosCallback(window, [](::GLFWwindow *window, double x, double y) {
@@ -31,16 +39,16 @@ int main()
     });
 
     ::glfwSetKeyCallback(window, [](::GLFWwindow *window, int key, int scancode, int action, int mods) {
-        randar::getUi().sendKey(key);
+        //randar::getUi().sendKey(key);
     });
 
     while (true) {
-        gpu.check();
+        //gpu.check();
         ::glfwPollEvents();
 
-        for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
-            throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
-        }
+        //for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
+            //throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
+        //}
 
         if (::glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || ::glfwWindowShouldClose(window) != 0) {
             break;

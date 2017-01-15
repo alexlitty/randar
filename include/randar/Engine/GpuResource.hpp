@@ -2,7 +2,7 @@
 #define RANDAR_ENGINE_GPU_RESOURCE_HPP
 
 #include <randar/Engine/Resource.hpp>
-#include <randar/Utility/OpenGL.hpp>
+#include <randar/Engine/Glfw.hpp>
 
 namespace randar
 {
