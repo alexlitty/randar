@@ -1,10 +1,13 @@
 #ifndef RANDAR_UI_CEF_HANDLER_HPP
 #define RANDAR_UI_CEF_HANDLER_HPP
+
+// Required by CEF.
 #define NDEBUG
 
 #include <cef/include/base/cef_lock.h>
 #include <cef/include/cef_client.h>
 #include <cef/include/wrapper/cef_helpers.h>
+#include <cef/include/capi/cef_base_capi.h>
 
 namespace randar
 {

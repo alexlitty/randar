@@ -91,7 +91,7 @@ void randar::CefHandler::OnBeforeClose(::CefRefPtr<::CefBrowser> browser)
     AutoLock lock_scope(this);
 
     browser = nullptr;
-    //randar::StopBrowser();
+    //randar::StopBrowser(); @@@
 
     CefLifeSpanHandler::OnBeforeClose(browser);
 }

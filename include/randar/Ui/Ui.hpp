@@ -1,25 +1,19 @@
 #ifndef RANDAR_UI_UI_HPP
 #define RANDAR_UI_UI_HPP
 
-#include <Awesomium/BitmapSurface.h>
 #include <randar/Engine/Project.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
-#include <randar/Ui/Mouse.hpp>
-#include <randar/Utility/Awesomium.hpp>
+#include <randar/Ui/Cef.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
 {
     class Ui : virtual public Resource
     {
+        ::CefRefPtr<randar::Cef> cef;
+
         Framebuffer defaultFramebuffer;
-        Awesomium::WebCore* webCore;
-        Awesomium::WebView* webView;
-
-        Awesomium::BitmapSurface* surface;
-        bool isReady;
-
         Project project;
 
     public:
@@ -33,18 +27,10 @@ namespace randar
         Ui();
         ~Ui();
 
-    protected:
         /**
-         * Performs a sanity check on Awesomium's web view.
-         *
-         * A runtime error is thrown if the check fails.
+         * Runs Randar as a GUI program.
          */
-        void check();
-
-        /**
-         * Executes a Javascript method on the top-level "randar" object.
-         */
-        Awesomium::JSValue jsExecute(const std::string& methodName, bool ignoreResult = false);
+        void run();
 
     public:
         /**
@@ -55,9 +41,9 @@ namespace randar
         /**
          * Handles mouse events.
          */
-        void setMousePosition(int x, int y);
-        void pressMouse(MouseButton button);
-        void releaseMouse(MouseButton button);
+        //void setMousePosition(int x, int y);
+        //void pressMouse(MouseButton button);
+        //void releaseMouse(MouseButton button);
 
         /**
          * Handles keyboard input.

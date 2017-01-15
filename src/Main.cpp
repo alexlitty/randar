@@ -15,37 +15,19 @@ int main()
     });
 
     ::glfwSetCursorPosCallback(window, [](::GLFWwindow *window, double x, double y) {
-        randar::getUi().setMousePosition(
+        /*randar::getUi().setMousePosition(
             static_cast<int>(x),
             static_cast<int>(y)
-        );
+        );*/
     });
 
     ::glfwSetMouseButtonCallback(window, [](::GLFWwindow *window, int button, int action, int mods) {
-        randar::MouseButton internalButton;
-        switch (button) {
-            case GLFW_MOUSE_BUTTON_LEFT:
-                internalButton = randar::MouseButton::LEFT;
-                break;
-
-            case GLFW_MOUSE_BUTTON_MIDDLE:
-                internalButton = randar::MouseButton::MIDDLE;
-                break;
-
-            case GLFW_MOUSE_BUTTON_RIGHT:
-                internalButton = randar::MouseButton::RIGHT;
-                break;
-
-            default:
-                return;
-        }
-
-        randar::Ui& ui = randar::getUi();
+        /*randar::Ui& ui = randar::getUi();
         if (action == GLFW_PRESS) {
             ui.pressMouse(internalButton);
         } else if (action == GLFW_RELEASE) {
             ui.releaseMouse(internalButton);
-        }
+        }*/
     });
 
     ::glfwSetKeyCallback(window, [](::GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -64,7 +46,6 @@ int main()
             break;
         }
 
-        ui.draw();
         ::glfwSwapBuffers(window);
     }
     return 0;
