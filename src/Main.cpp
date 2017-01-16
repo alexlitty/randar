@@ -4,49 +4,32 @@
 #include <iostream>
 int main(int argc, char *argv[])
 {
+    // CEF re-executes this process to perform its own needs. If this process
+    // has been called by CEF, ::CefExecuteProcess() will handle what it needs.
+    // Otherwise ::CefExecuteProcess() returns -1, indicating this is the main
+    // Randar process.
     ::CefMainArgs mainArgs(argc, argv);
     int exitCode = ::CefExecuteProcess(mainArgs, ::CefRefPtr<::CefApp>(), nullptr);
     if (exitCode != -1) {
         return exitCode;
     }
 
-    ::CefInitialize(::CefMainArgs(), ::CefSettings(), ::CefRefPtr<::CefApp>(), nullptr);
-
     randar::seedRandomWithTime();
-
     randar::Gpu& gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
     randar::Ui& ui = randar::getUi();
 
+    // Handle window resizing.
     ::glfwSetWindowSizeCallback(window, [](::GLFWwindow *window, int width, int height) {
         //randar::getUi().resize();
     });
 
-    ::glfwSetCursorPosCallback(window, [](::GLFWwindow *window, double x, double y) {
-        /*randar::getUi().setMousePosition(
-            static_cast<int>(x),
-            static_cast<int>(y)
-        );*/
-    });
-
-    ::glfwSetMouseButtonCallback(window, [](::GLFWwindow *window, int button, int action, int mods) {
-        /*randar::Ui& ui = randar::getUi();
-        if (action == GLFW_PRESS) {
-            ui.pressMouse(internalButton);
-        } else if (action == GLFW_RELEASE) {
-            ui.releaseMouse(internalButton);
-        }*/
-    });
-
-    ::glfwSetKeyCallback(window, [](::GLFWwindow *window, int key, int scancode, int action, int mods) {
-        //randar::getUi().sendKey(key);
-    });
-
+    // Run Randar with an interface.
     while (true) {
         gpu.check();
         ::glfwPollEvents();
-        ui.draw();
         ::CefDoMessageLoopWork();
+        ui.draw();
 
         for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
             throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
