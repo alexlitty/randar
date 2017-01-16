@@ -6,7 +6,6 @@
 #include <randar/Engine/Window.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
-#include <randar/Ui/Cef.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Utility/File.hpp>
 
@@ -14,16 +13,12 @@ namespace randar
 {
     class Ui : virtual public Resource
     {
-        ::CefRefPtr<randar::Cef> cef;
-        ::CefRefPtr<randar::CefHandler> cefHandler;
-
-        Framebuffer defaultFramebuffer;
+        Browser browser;
         Project project;
 
     public:
+        Framebuffer defaultFramebuffer;
         ShaderProgram program;
-        Model interface;
-        Texture interfaceTexture;
 
         Framebuffer monitorFramebuffer;
         Model monitor;

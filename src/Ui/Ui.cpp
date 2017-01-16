@@ -2,26 +2,8 @@
 #include <randar/Engine/Gpu.hpp>
 
 randar::Ui::Ui()
-: cef(new randar::Cef),
-  cefHandler(new randar::CefHandler),
-  interfaceTexture("rgba", 1, 1),
-  monitorFramebuffer("rgba", true)
+: monitorFramebuffer("rgba", true)
 {
-    // Initialize browser.
-    ::CefWindowInfo browserInfo;
-    browserInfo.SetAsChild(
-        randar::getNativeWindow(randar::getDefaultWindow()),
-        ::CefRect(0, 0, 800, 600)
-    );
-
-    ::CefBrowserHost::CreateBrowser(
-        browserInfo,
-        this->cefHandler.get(),
-        ::CefString("http://www.google.com"),
-        ::CefBrowserSettings(),
-        nullptr
-    );
-
     // Define shader program.
     this->program.vertexShader   = Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./shaders/ui.vert"));
     this->program.fragmentShader = Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./shaders/ui.frag"));
@@ -34,56 +16,32 @@ randar::Ui::Ui()
     Vertex vertex;
     vertex.color = Color(1.0f, 1.0f, 1.0f);
 
-    vertex.position.set(-1.0f, -1.0f);
+    // Monitor vertices.
+    vertices.clear();
+    vertex.position.set(-0.5f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(-1.0f, 1.0f);
+    vertex.position.set(-0.5f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(1.0f, -1.0f);
+    vertex.position.set(1.0f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 1.0f;
     vertices.push_back(vertex);
 
-    vertex.position.set(1.0f, 1.0f);
+    vertex.position.set(1.0f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 0.0f;
     vertices.push_back(vertex);
 
-    // Overlay face indices.
+    // Monitor face indices.
     std::vector<unsigned int> indices;
     indices.push_back(0); indices.push_back(1); indices.push_back(2);
     indices.push_back(3); indices.push_back(1); indices.push_back(2);
-
-    // Send overlay interface to GPU.
-    this->gpu.write(this->interface.mesh.vertexBuffer, vertices);
-    this->gpu.write(this->interface.mesh.indexBuffer, indices);
-
-    // Monitor vertices.
-    vertices.clear();
-    vertex.position.set(-0.5f, -1.0f, -0.001f);
-    vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 1.0f;
-    vertices.push_back(vertex);
-
-    vertex.position.set(-0.5f, 1.0f, -0.001f);
-    vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 0.0f;
-    vertices.push_back(vertex);
-
-    vertex.position.set(1.0f, -1.0f, -0.001f);
-    vertex.textureCoordinate.u = 1.0f;
-    vertex.textureCoordinate.v = 1.0f;
-    vertices.push_back(vertex);
-
-    vertex.position.set(1.0f, 1.0f, -0.001f);
-    vertex.textureCoordinate.u = 1.0f;
-    vertex.textureCoordinate.v = 0.0f;
-    vertices.push_back(vertex);
 
     // Send monitor model to the GPU.
     this->gpu.write(this->monitor.mesh.vertexBuffer, vertices);
@@ -97,7 +55,6 @@ randar::Ui::Ui()
 
 randar::Ui::~Ui()
 {
-    ::CefShutdown();
     this->destroy();
 }
 
@@ -105,11 +62,9 @@ randar::Ui::~Ui()
 void randar::Ui::resize()
 {
     int width, height;
-
     ::glfwGetWindowSize(&this->gpu.getWindow(), &width, &height);
 
     this->defaultFramebuffer.camera.viewport = randar::Viewport(0, 0, width, height);
-    this->interfaceTexture.resize(width, height);
 
     this->monitorFramebuffer.resize(800, 600);
 }
@@ -206,35 +161,16 @@ void randar::Ui::sync()
 // Draws the UI.
 void randar::Ui::draw()
 {
-    /*this->gpu.clear(this->defaultFramebuffer, Color(0.03f, 0.03f, 0.03f, 0.0f));
-
-    // Keep the interface synchronized with the engine.
-    this->sync();
-
-    // Write the interface to a texture.
-    unsigned char *buffer = new unsigned char[surface->width() * surface->height() * 4];
-    this->surface->CopyTo(buffer, this->surface->width() * 4, 4, false, false);
-    this->gpu.write(this->interfaceTexture, buffer, GL_BGRA);
-
-    delete[] buffer;
-
-    // Draw the current focus to the monitor framebuffer.
-    this->gpu.clear(this->monitorFramebuffer, Color(0.0f, 0.0f, 0.0f));
-
-    // Render the interface.
-    this->gpu.bind(this->interfaceTexture);
-    this->gpu.draw(this->program, this->defaultFramebuffer, this->interface);
+    this->gpu.clear(this->defaultFramebuffer, Color(0.03f, 0.03f, 0.25f, 0.0f));
 
     this->gpu.bind(this->monitorFramebuffer.texture);
-    this->gpu.draw(this->program, this->defaultFramebuffer, this->monitor);*/
+    this->gpu.draw(this->program, this->defaultFramebuffer, this->monitor);
 }
 
 // Resource initialization.
 void randar::Ui::initialize()
 {
     this->program.initialize();
-    this->interface.mesh.initialize();
-    this->interfaceTexture.initialize();
 
     this->monitorFramebuffer.initialize();
     this->monitor.mesh.initialize();
@@ -244,8 +180,7 @@ void randar::Ui::initialize()
 void randar::Ui::destroy()
 {
     this->program.destroy();
-    this->interface.mesh.destroy();
-    this->interfaceTexture.destroy();
+    this->monitor.mesh.destroy();
 }
 
 // Retrieves the primary UI instance.

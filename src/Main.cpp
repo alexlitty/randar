@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
         return exitCode;
     }
 
-    ::CefInitialize(mainArgs, ::CefSettings(), ::CefRefPtr<::CefApp>(), nullptr);
+    ::CefInitialize(::CefMainArgs(), ::CefSettings(), ::CefRefPtr<::CefApp>(), nullptr);
 
     randar::seedRandomWithTime();
 
@@ -43,13 +43,14 @@ int main(int argc, char *argv[])
     });
 
     while (true) {
-        //gpu.check();
+        gpu.check();
         ::glfwPollEvents();
+        ui.draw();
         ::CefDoMessageLoopWork();
 
-        //for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
-            //throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
-        //}
+        for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
+            throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
+        }
 
         if (::glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || ::glfwWindowShouldClose(window) != 0) {
             break;

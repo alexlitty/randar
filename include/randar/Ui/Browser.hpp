@@ -5,13 +5,16 @@
 #define NDEBUG
 
 #include <cef/include/base/cef_lock.h>
+#include <cef/include/cef_app.h>
 #include <cef/include/cef_client.h>
 #include <cef/include/wrapper/cef_helpers.h>
 #include <cef/include/capi/cef_base_capi.h>
+#include <randar/Engine/Native.hpp>
+#include <randar/Engine/Window.hpp>
 
 namespace randar
 {
-    class CefHandler
+    class Browser
     : public ::CefClient,
       public ::CefContextMenuHandler,
       public ::CefDisplayHandler,
@@ -29,12 +32,12 @@ namespace randar
         /**
          * Constructor.
          */
-        CefHandler();
+        Browser();
 
         /**
          * Destructor.
          */
-        ~CefHandler();
+        ~Browser();
 
         /**
          * Retrieves the browser associated with this handler.
@@ -69,8 +72,8 @@ namespace randar
         virtual void OnAfterCreated(::CefRefPtr<::CefBrowser> browser) override;
         virtual void OnBeforeClose(::CefRefPtr<::CefBrowser> browser) override;
 
-        IMPLEMENT_REFCOUNTING(CefHandler);
-        IMPLEMENT_LOCKING(CefHandler);
+        IMPLEMENT_REFCOUNTING(Browser);
+        IMPLEMENT_LOCKING(Browser);
     };
 }
 
