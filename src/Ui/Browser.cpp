@@ -1,13 +1,13 @@
 #include <randar/Ui/Browser.hpp>
 
 // Constructor.
-randar::Browser::Browser(randar::EngineMonitor& initMonitor)
+randar::Browser::Browser(randar::EngineMonitor& initMonitor, ::CefRefPtr<randar::BrowserBridge> bridge)
 : monitor(initMonitor)
 {
     ::CefInitialize(
         ::CefMainArgs(),
         ::CefSettings(),
-        ::CefRefPtr<::CefApp>(),
+        bridge.get(),
         nullptr
     );
 
@@ -33,8 +33,15 @@ randar::Browser::~Browser()
     ::CefShutdown();
 }
 
+// Performs browser work and draws the engine monitor.
+void randar::Browser::update()
+{
+    ::CefDoMessageLoopWork();
+    this->monitor.draw();
+}
+
 // Retrieves the browser associated with this handler.
-::CefRefPtr<::CefBrowser> randar::Browser::GetBrowser()
+::CefRefPtr<::CefBrowser> randar::Browser::GetRawBrowser()
 {
     return this->browser;
 }
@@ -85,6 +92,11 @@ randar::Browser::~Browser()
     return this;
 }
 
+::CefRefPtr<::CefRenderProcessHandler> randar::BrowserBridge::GetRenderProcessHandler()
+{
+    return this;
+}
+
 // CefDownload implementations.
 void randar::Browser::OnBeforeDownload(
     ::CefRefPtr<::CefBrowser> browser,
@@ -117,11 +129,37 @@ void randar::Browser::OnBeforeClose(::CefRefPtr<::CefBrowser> browser)
     CefLifeSpanHandler::OnBeforeClose(browser);
 }
 
-// CefRenderProcessHandler implementations.
-void randar::Browser::OnContextCreated(
+// @@ CefClient
+bool randar::Browser::OnProcessMessageReceived(
+    ::CefRefPtr<::CefBrowser> browser,
+    ::CefProcessId source,
+    ::CefRefPtr<::CefProcessMessage> message)
+{
+    std::cout << "received!!!" << std::endl;
+    return false;
+}
+
+// Browser bridge.
+bool randar::BrowserBridge::OnProcessMessageReceived(
+    ::CefRefPtr<::CefBrowser> browser,
+    ::CefProcessId source,
+    ::CefRefPtr<::CefProcessMessage> message)
+{
+    //std::cout << "received!" << std::endl;
+    return false;
+}
+
+void randar::BrowserBridge::OnContextCreated(
     ::CefRefPtr<::CefBrowser> browser,
     ::CefRefPtr<::CefFrame> frame,
     ::CefRefPtr<::CefV8Context> context)
 {
+    // Test.
+    ::CefRefPtr<::CefProcessMessage> message = ::CefProcessMessage::Create("test_message");
+    browser->SendProcessMessage(PID_BROWSER, message);
 
+    //
+    ::CefRefPtr<::CefV8Value> window = context->GetGlobal();
+    ::CefRefPtr<::CefV8Value> test = ::CefV8Value::CreateString("Testing!");
+    window->SetValue("test", test, ::V8_PROPERTY_ATTRIBUTE_NONE);
 }

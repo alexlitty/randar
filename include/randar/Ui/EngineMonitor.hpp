@@ -6,51 +6,32 @@
 #include <randar/Engine/Window.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
-#include <randar/Ui/Browser.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
 {
-    class Ui : virtual public Resource
+    class EngineMonitor : virtual public Resource
     {
-        Browser browser;
-        Project project;
-
     public:
+        Project project;
         Framebuffer defaultFramebuffer;
         ShaderProgram program;
 
         Framebuffer monitorFramebuffer;
         Model monitor;
 
-        Ui();
-        ~Ui();
+        EngineMonitor();
+        ~EngineMonitor();
 
         /**
-         * Runs Randar as a GUI program.
-         */
-        void run();
-
-    public:
-        /**
-         * Resizes the UI to fit the default window.
+         * Resizes the monitor to fit the window.
          */
         void resize();
         
         /**
-         * Retrieves a list of film objects.
-         */
-        void getObjects(std::string type);
-
-        /**
-         * Synchronizes the engine with the interface.
-         */
-        void sync();
-
-        /**
          * Draws the currently selected item onto a region of the interface.
          */
-        void drawMonitor();
+        void draw();
 
         /**
          * Resource initialization and destruction.
@@ -58,11 +39,6 @@ namespace randar
         virtual void initialize() override;
         virtual void destroy() override;
     };
-
-    /**
-     * Retrieves the primary UI instance.
-     */
-    Ui& getUi();
 }
 
 #endif

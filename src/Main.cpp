@@ -9,7 +9,8 @@ int main(int argc, char *argv[])
     // Otherwise ::CefExecuteProcess() returns -1, indicating this is the main
     // Randar process.
     ::CefMainArgs mainArgs(argc, argv);
-    int exitCode = ::CefExecuteProcess(mainArgs, ::CefRefPtr<::CefApp>(), nullptr);
+    ::CefRefPtr<randar::BrowserBridge> bridge = new randar::BrowserBridge();
+    int exitCode = ::CefExecuteProcess(mainArgs, bridge, nullptr);
     if (exitCode != -1) {
         return exitCode;
     }
@@ -19,19 +20,20 @@ int main(int argc, char *argv[])
     auto window = &gpu.getWindow();
 
     randar::EngineMonitor monitor;
-    randar::Browser browser(monitor);
+    randar::Browser browser(monitor, bridge);
 
     // Run Randar with an interface.
     while (true) {
-        gpu.check();
         ::glfwPollEvents();
-        ::CefDoMessageLoopWork();
-        monitor.draw();
+        browser.update();
 
+        // GPU sanity check.
+        gpu.check();
         for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
             throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
         }
 
+        // Check for program exit.
         if (::glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || ::glfwWindowShouldClose(window) != 0) {
             break;
         }

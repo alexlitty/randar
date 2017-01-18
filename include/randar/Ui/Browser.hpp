@@ -11,9 +11,12 @@
 #include <cef/include/capi/cef_base_capi.h>
 #include <randar/Engine/Native.hpp>
 #include <randar/Engine/Window.hpp>
+#include <randar/Ui/EngineMonitor.hpp>
 
 namespace randar
 {
+    class BrowserBridge;
+
     /**
      * @todo - Handle resizing
      * @todo - Handle engine-monitor painting over browser
@@ -31,12 +34,13 @@ namespace randar
       public ::CefRequestHandler
     {
         ::CefRefPtr<::CefBrowser> browser;
+        EngineMonitor& monitor;
 
     public:
         /**
          * Constructor.
          */
-        Browser();
+        Browser(EngineMonitor& initMonitor, ::CefRefPtr<BrowserBridge> bridge);
 
         /**
          * Destructor.
@@ -44,9 +48,14 @@ namespace randar
         ~Browser();
 
         /**
+         * Performs browser work and draws the engine monitor.
+         */
+        void update();
+
+        /**
          * Retrieves the browser associated with this handler.
          */
-        virtual ::CefRefPtr<::CefBrowser> GetBrowser();
+        virtual ::CefRefPtr<::CefBrowser> GetRawBrowser();
 
         /**
          * CefClient implementations.
@@ -76,8 +85,38 @@ namespace randar
         virtual void OnAfterCreated(::CefRefPtr<::CefBrowser> browser) override;
         virtual void OnBeforeClose(::CefRefPtr<::CefBrowser> browser) override;
 
+        /**
+         * @@ CefClient
+         */
+        virtual bool OnProcessMessageReceived(
+            ::CefRefPtr<::CefBrowser> browser,
+            ::CefProcessId source,
+            ::CefRefPtr<::CefProcessMessage> message) override;
+
         IMPLEMENT_REFCOUNTING(Browser);
         IMPLEMENT_LOCKING(Browser);
+    };
+
+    /**
+     * 
+     */
+    struct BrowserBridge
+    : public ::CefApp,
+      public ::CefRenderProcessHandler
+    {
+        virtual ::CefRefPtr<::CefRenderProcessHandler> GetRenderProcessHandler() override;
+
+        virtual bool OnProcessMessageReceived(
+            ::CefRefPtr<::CefBrowser> browser,
+            ::CefProcessId source,
+            ::CefRefPtr<::CefProcessMessage> message) override;
+
+        virtual void OnContextCreated(
+            ::CefRefPtr<::CefBrowser> browser,
+            ::CefRefPtr<::CefFrame> frame,
+            ::CefRefPtr<::CefV8Context> context) override;
+
+        IMPLEMENT_REFCOUNTING(BrowserBridge);
     };
 }
 
