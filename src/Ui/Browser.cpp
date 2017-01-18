@@ -14,7 +14,7 @@ randar::Browser::Browser()
     browserInfo.transparent_painting_enabled = true;
     browserInfo.SetAsChild(
         randar::getNativeWindow(randar::getDefaultWindow()),
-        ::CefRect(0, 0, 800, 600)
+        ::CefRect(0, 0, 480, 1080)
     );  
 
     ::CefBrowserHost::CreateBrowser(

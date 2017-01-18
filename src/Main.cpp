@@ -19,17 +19,12 @@ int main(int argc, char *argv[])
     auto window = &gpu.getWindow();
     randar::Ui& ui = randar::getUi();
 
-    // Handle window resizing.
-    ::glfwSetWindowSizeCallback(window, [](::GLFWwindow *window, int width, int height) {
-        //randar::getUi().resize();
-    });
-
     // Run Randar with an interface.
     while (true) {
         gpu.check();
         ::glfwPollEvents();
         ::CefDoMessageLoopWork();
-        ui.draw();
+        ui.drawMonitor();
 
         for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
             throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));

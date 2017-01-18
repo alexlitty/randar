@@ -38,18 +38,6 @@ namespace randar
         void resize();
         
         /**
-         * Handles mouse events.
-         */
-        //void setMousePosition(int x, int y);
-        //void pressMouse(MouseButton button);
-        //void releaseMouse(MouseButton button);
-
-        /**
-         * Handles keyboard input.
-         */
-        void sendKey(int key);
-
-        /**
          * Retrieves a list of film objects.
          */
         void getObjects(std::string type);
@@ -60,9 +48,9 @@ namespace randar
         void sync();
 
         /**
-         * Draws the UI.
+         * Draws the currently selected item onto a region of the interface.
          */
-        void draw();
+        void drawMonitor();
 
         /**
          * Resource initialization and destruction.

@@ -14,6 +14,10 @@
 
 namespace randar
 {
+    /**
+     * @todo - Handle resizing
+     * @todo - Handle engine-monitor painting over browser
+     */
     class Browser
     : public ::CefClient,
       public ::CefContextMenuHandler,

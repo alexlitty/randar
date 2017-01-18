@@ -94,27 +94,6 @@ void randar::Ui::resize()
     return result;
 }*/
 
-// Handles mouse movement.
-/*void randar::Ui::setMousePosition(int x, int y)
-{
-    this->webView->InjectMouseMove(x, y);
-}
-
-// Handles mouse pressing.
-void randar::Ui::pressMouse(randar::MouseButton button)
-{
-}
-
-// Handles mouse releasing.
-void randar::Ui::releaseMouse(randar::MouseButton button)
-{
-}*/
-
-// Handles keyboard input.
-void randar::Ui::sendKey(int key)
-{
-}
-
 // Synchronizes the engine with the interface.
 void randar::Ui::sync()
 {
@@ -159,7 +138,7 @@ void randar::Ui::sync()
 }
 
 // Draws the UI.
-void randar::Ui::draw()
+void randar::Ui::drawMonitor()
 {
     this->gpu.clear(this->defaultFramebuffer, Color(0.03f, 0.03f, 0.25f, 0.0f));
 
