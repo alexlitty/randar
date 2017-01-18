@@ -4,23 +4,23 @@
 #include <iostream>
 int main(int argc, char *argv[])
 {
-    // CEF re-executes this process to perform its own needs. If this process
-    // has been called by CEF, ::CefExecuteProcess() will handle what it needs.
-    // Otherwise ::CefExecuteProcess() returns -1, indicating this is the main
-    // Randar process.
-    ::CefMainArgs mainArgs(argc, argv);
-    ::CefRefPtr<randar::BrowserBridge> bridge = new randar::BrowserBridge();
-    int exitCode = ::CefExecuteProcess(mainArgs, bridge, nullptr);
+    randar::Browser browser;
+
+    // This process may be spawned by CEF for special browser processing. If
+    // that is the case, this function will handle whatever CEF needs. Otherwise
+    // the program continues.
+    int exitCode = browser.executeProcess(::CefMainArgs(argc, argv));
     if (exitCode != -1) {
         return exitCode;
     }
 
+    // Start Randar.
     randar::seedRandomWithTime();
     randar::Gpu& gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
 
     randar::EngineMonitor monitor;
-    randar::Browser browser(monitor, bridge);
+    browser.setEngineMonitor(&monitor);
 
     // Run Randar with an interface.
     while (true) {

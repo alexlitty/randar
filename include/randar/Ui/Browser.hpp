@@ -15,14 +15,13 @@
 
 namespace randar
 {
-    class BrowserBridge;
-
     /**
      * @todo - Handle resizing
      * @todo - Handle engine-monitor painting over browser
      */
     class Browser
-    : public ::CefClient,
+    : public ::CefApp,
+      public ::CefClient,
       public ::CefContextMenuHandler,
       public ::CefDisplayHandler,
       public ::CefDownloadHandler,
@@ -31,31 +30,40 @@ namespace randar
       public ::CefKeyboardHandler,
       public ::CefLifeSpanHandler,
       public ::CefLoadHandler,
-      public ::CefRequestHandler
+      public ::CefRequestHandler,
+      public ::CefRenderProcessHandler
     {
         ::CefRefPtr<::CefBrowser> browser;
-        EngineMonitor& monitor;
+        EngineMonitor* monitor;
 
     public:
         /**
          * Constructor.
          */
-        Browser(EngineMonitor& initMonitor, ::CefRefPtr<BrowserBridge> bridge);
+        Browser();
 
         /**
          * Destructor.
          */
-        ~Browser();
+        virtual ~Browser();
+
+        /**
+         * Tries to execute a CEF sub-process.
+         *
+         * Returns -1 if no sub-process was required by this instance.
+         */
+
+        int executeProcess(const ::CefMainArgs& mainArgs);
+
+        /**
+         * Sets Randar engine information.
+         */
+        void setEngineMonitor(EngineMonitor* newMonitor);
 
         /**
          * Performs browser work and draws the engine monitor.
          */
         void update();
-
-        /**
-         * Retrieves the browser associated with this handler.
-         */
-        virtual ::CefRefPtr<::CefBrowser> GetRawBrowser();
 
         /**
          * CefClient implementations.
@@ -69,6 +77,7 @@ namespace randar
         virtual ::CefRefPtr<::CefLifeSpanHandler> GetLifeSpanHandler() override;
         virtual ::CefRefPtr<::CefLoadHandler> GetLoadHandler() override;
         virtual ::CefRefPtr<::CefRequestHandler> GetRequestHandler() override;
+        virtual ::CefRefPtr<::CefRenderProcessHandler> GetRenderProcessHandler() override;
 
         /**
          * CefDownload implementations.
@@ -86,7 +95,15 @@ namespace randar
         virtual void OnBeforeClose(::CefRefPtr<::CefBrowser> browser) override;
 
         /**
-         * @@ CefClient
+         * CefRenderProcessHandler implementations.
+         */
+        virtual void OnContextCreated(
+            ::CefRefPtr<::CefBrowser> browser,
+            ::CefRefPtr<::CefFrame> frame,
+            ::CefRefPtr<::CefV8Context> context) override;
+
+        /**
+         * Handles messages between our main program and the CEF render process.
          */
         virtual bool OnProcessMessageReceived(
             ::CefRefPtr<::CefBrowser> browser,
@@ -95,28 +112,6 @@ namespace randar
 
         IMPLEMENT_REFCOUNTING(Browser);
         IMPLEMENT_LOCKING(Browser);
-    };
-
-    /**
-     * 
-     */
-    struct BrowserBridge
-    : public ::CefApp,
-      public ::CefRenderProcessHandler
-    {
-        virtual ::CefRefPtr<::CefRenderProcessHandler> GetRenderProcessHandler() override;
-
-        virtual bool OnProcessMessageReceived(
-            ::CefRefPtr<::CefBrowser> browser,
-            ::CefProcessId source,
-            ::CefRefPtr<::CefProcessMessage> message) override;
-
-        virtual void OnContextCreated(
-            ::CefRefPtr<::CefBrowser> browser,
-            ::CefRefPtr<::CefFrame> frame,
-            ::CefRefPtr<::CefV8Context> context) override;
-
-        IMPLEMENT_REFCOUNTING(BrowserBridge);
     };
 }
 
