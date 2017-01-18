@@ -1,5 +1,5 @@
 #include <randar/Randar.hpp>
-#include <randar/Ui/Ui.hpp>
+#include <randar/Ui/Browser.hpp>
 
 #include <iostream>
 int main(int argc, char *argv[])
@@ -17,14 +17,16 @@ int main(int argc, char *argv[])
     randar::seedRandomWithTime();
     randar::Gpu& gpu = randar::getDefaultGpu();
     auto window = &gpu.getWindow();
-    randar::Ui& ui = randar::getUi();
+
+    randar::EngineMonitor monitor;
+    randar::Browser browser(monitor);
 
     // Run Randar with an interface.
     while (true) {
         gpu.check();
         ::glfwPollEvents();
         ::CefDoMessageLoopWork();
-        ui.drawMonitor();
+        monitor.draw();
 
         for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
             throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));

@@ -1,7 +1,7 @@
-#include <randar/Ui/Ui.hpp>
+#include <randar/Ui/EngineMonitor.hpp>
 #include <randar/Engine/Gpu.hpp>
 
-randar::Ui::Ui()
+randar::EngineMonitor::EngineMonitor()
 : monitorFramebuffer("rgba", true)
 {
     // Define shader program.
@@ -53,13 +53,13 @@ randar::Ui::Ui()
     this->project.load("./test-project/");
 }
 
-randar::Ui::~Ui()
+randar::EngineMonitor::~EngineMonitor()
 {
     this->destroy();
 }
 
 // Resizes the UI to fit the default window.
-void randar::Ui::resize()
+void randar::EngineMonitor::resize()
 {
     int width, height;
     ::glfwGetWindowSize(&this->gpu.getWindow(), &width, &height);
@@ -70,7 +70,7 @@ void randar::Ui::resize()
 }
 
 // Executes a Javascript method on the top-level "randar" object.
-/*Awesomium::JSValue randar::Ui::jsExecute(const std::string& code, bool ignoreResult)
+/*Awesomium::JSValue randar::EngineMonitor::jsExecute(const std::string& code, bool ignoreResult)
 {
     const char *str = code.c_str();
 
@@ -95,8 +95,8 @@ void randar::Ui::resize()
 }*/
 
 // Synchronizes the engine with the interface.
-void randar::Ui::sync()
-{
+//void randar::EngineMonitor::sync()
+//{
     /*Awesomium::JSArray requests = this->jsExecute("randar.consumeSyncs();").ToArray();
     if (!requests.size()) {
         return;
@@ -135,10 +135,10 @@ void randar::Ui::sync()
             std::cout << "Project failed to save" << std::endl;
         }
     }*/
-}
+//}
 
-// Draws the UI.
-void randar::Ui::drawMonitor()
+// Draws the monitor.
+void randar::EngineMonitor::draw()
 {
     this->gpu.clear(this->defaultFramebuffer, Color(0.03f, 0.03f, 0.25f, 0.0f));
 
@@ -147,7 +147,7 @@ void randar::Ui::drawMonitor()
 }
 
 // Resource initialization.
-void randar::Ui::initialize()
+void randar::EngineMonitor::initialize()
 {
     this->program.initialize();
 
@@ -156,15 +156,8 @@ void randar::Ui::initialize()
 }
 
 // Resource destruction.
-void randar::Ui::destroy()
+void randar::EngineMonitor::destroy()
 {
     this->program.destroy();
     this->monitor.mesh.destroy();
-}
-
-// Retrieves the primary UI instance.
-randar::Ui& randar::getUi()
-{
-    static Ui ui;
-    return ui;
 }

@@ -1,7 +1,8 @@
 #include <randar/Ui/Browser.hpp>
 
 // Constructor.
-randar::Browser::Browser()
+randar::Browser::Browser(randar::EngineMonitor& initMonitor)
+: monitor(initMonitor)
 {
     ::CefInitialize(
         ::CefMainArgs(),
@@ -114,4 +115,13 @@ void randar::Browser::OnBeforeClose(::CefRefPtr<::CefBrowser> browser)
     //randar::StopBrowser(); @@@
 
     CefLifeSpanHandler::OnBeforeClose(browser);
+}
+
+// CefRenderProcessHandler implementations.
+void randar::Browser::OnContextCreated(
+    ::CefRefPtr<::CefBrowser> browser,
+    ::CefRefPtr<::CefFrame> frame,
+    ::CefRefPtr<::CefV8Context> context)
+{
+
 }
