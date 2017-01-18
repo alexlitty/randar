@@ -2,6 +2,7 @@
 
 // Constructor and destructor.
 randar::GpuResource::GpuResource()
+: glName(0)
 {
 
 }
