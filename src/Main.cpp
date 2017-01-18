@@ -38,6 +38,11 @@ int main(int argc, char *argv[])
             break;
         }
 
+        // Execute main program.
+        if (!browser.isLoading()) {
+            browser.executeJs("getElement('#main .randar').innerHTML = 'super test!';");
+        }
+
         ::glfwSwapBuffers(window);
     }
     return 0;

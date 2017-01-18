@@ -9,6 +9,7 @@
 #include <cef/include/cef_client.h>
 #include <cef/include/wrapper/cef_helpers.h>
 #include <cef/include/capi/cef_base_capi.h>
+#include <randar/Engine/Project.hpp>
 #include <randar/Engine/Native.hpp>
 #include <randar/Engine/Window.hpp>
 #include <randar/Ui/EngineMonitor.hpp>
@@ -34,7 +35,12 @@ namespace randar
       public ::CefRenderProcessHandler
     {
         ::CefRefPtr<::CefBrowser> browser;
+        ::CefRefPtr<::CefFrame> frame;
         EngineMonitor* monitor;
+        Project* project;
+
+        // JavaScript window object.
+        ::CefRefPtr<::CefV8Value> jsWindow;
 
     public:
         /**
@@ -54,6 +60,11 @@ namespace randar
          */
 
         int executeProcess(const ::CefMainArgs& mainArgs);
+
+        /**
+         * Checks whether the current page is loaded.
+         */
+        bool isLoading();
 
         /**
          * Sets Randar engine information.
@@ -109,6 +120,11 @@ namespace randar
             ::CefRefPtr<::CefBrowser> browser,
             ::CefProcessId source,
             ::CefRefPtr<::CefProcessMessage> message) override;
+
+        /**
+         * Executes some JavaScript.
+         */
+        void executeJs(const std::string& code);
 
         IMPLEMENT_REFCOUNTING(Browser);
         IMPLEMENT_LOCKING(Browser);

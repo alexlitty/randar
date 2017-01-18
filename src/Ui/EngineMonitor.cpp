@@ -49,8 +49,6 @@ randar::EngineMonitor::EngineMonitor()
 
     // Initialize the UI size.
     this->resize();
-
-    this->project.load("./test-project/");
 }
 
 randar::EngineMonitor::~EngineMonitor()

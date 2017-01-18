@@ -44,6 +44,15 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
     return exitCode;
 }
 
+// Checks whether the current page is loaded.
+bool randar::Browser::isLoading()
+{
+    if (!this->browser) {
+        return true;
+    }
+    return this->browser->IsLoading();
+}
+
 // Sets Randar engine information.
 void randar::Browser::setEngineMonitor(randar::EngineMonitor* newMonitor)
 {
@@ -125,6 +134,7 @@ void randar::Browser::OnAfterCreated(::CefRefPtr<::CefBrowser> browser)
     AutoLock lock_scope(this);
 
     this->browser = browser;
+    this->frame = this->browser->GetMainFrame();
 
     CefLifeSpanHandler::OnAfterCreated(browser);
 }
@@ -146,9 +156,7 @@ void randar::Browser::OnContextCreated(
     ::CefRefPtr<::CefFrame> frame,
     ::CefRefPtr<::CefV8Context> context)
 {
-    ::CefRefPtr<::CefV8Value> window = context->GetGlobal();
-    ::CefRefPtr<::CefV8Value> test = ::CefV8Value::CreateString("Testing!");
-    window->SetValue("test", test, ::V8_PROPERTY_ATTRIBUTE_NONE);
+    this->jsWindow = context->GetGlobal();
 }
 
 // Handles messages between our main program and the CEF render process.
@@ -158,4 +166,10 @@ bool randar::Browser::OnProcessMessageReceived(
     ::CefRefPtr<::CefProcessMessage> message)
 {
     return false;
+}
+
+// Executes some JavaScript.
+void randar::Browser::executeJs(const std::string& code)
+{
+    this->frame->ExecuteJavaScript(code, this->frame->GetURL(), 0);
 }

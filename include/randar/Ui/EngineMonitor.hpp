@@ -1,9 +1,6 @@
 #ifndef RANDAR_UI_UI_HPP
 #define RANDAR_UI_UI_HPP
 
-#include <randar/Engine/Native.hpp>
-#include <randar/Engine/Project.hpp>
-#include <randar/Engine/Window.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Utility/File.hpp>
@@ -13,7 +10,6 @@ namespace randar
     class EngineMonitor : virtual public Resource
     {
     public:
-        Project project;
         Framebuffer defaultFramebuffer;
         ShaderProgram program;
 

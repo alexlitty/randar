@@ -120,10 +120,6 @@ function showObjects(category) {
  * Main program.
  */
 window.addEventListener('load', function() {
-    setTimeout(function() {
-        getElement('#main .randar').innerHTML = window.test;
-    }, 1000);
-
     randar.syncs.push({
         command: 'read'
     });
