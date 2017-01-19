@@ -22,15 +22,9 @@ namespace randar
     class Browser
     : public ::CefApp,
       public ::CefClient,
-      public ::CefContextMenuHandler,
-      public ::CefDisplayHandler,
       public ::CefDownloadHandler,
-      public ::CefDragHandler,
-      public ::CefGeolocationHandler,
-      public ::CefKeyboardHandler,
       public ::CefLifeSpanHandler,
       public ::CefLoadHandler,
-      public ::CefRequestHandler,
       public ::CefRenderProcessHandler,
       public ::CefV8Handler
     {
@@ -70,15 +64,9 @@ namespace randar
         /**
          * CefClient implementations.
          */
-        virtual ::CefRefPtr<::CefContextMenuHandler> GetContextMenuHandler() override;
-        virtual ::CefRefPtr<::CefDisplayHandler> GetDisplayHandler() override;
         virtual ::CefRefPtr<::CefDownloadHandler> GetDownloadHandler() override;
-        virtual ::CefRefPtr<::CefDragHandler> GetDragHandler() override;
-        virtual ::CefRefPtr<::CefGeolocationHandler> GetGeolocationHandler() override;
-        virtual ::CefRefPtr<::CefKeyboardHandler> GetKeyboardHandler() override;
         virtual ::CefRefPtr<::CefLifeSpanHandler> GetLifeSpanHandler() override;
         virtual ::CefRefPtr<::CefLoadHandler> GetLoadHandler() override;
-        virtual ::CefRefPtr<::CefRequestHandler> GetRequestHandler() override;
         virtual ::CefRefPtr<::CefRenderProcessHandler> GetRenderProcessHandler() override;
 
         /**

@@ -38,7 +38,7 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
         browserInfo.SetAsChild(
             randar::getNativeWindow(randar::getDefaultWindow()),
             ::CefRect(0, 0, 480, 1080)
-        );  
+        );
 
         ::CefBrowserHost::CreateBrowser(
             browserInfo,
@@ -65,35 +65,11 @@ bool randar::Browser::isLoading()
 void randar::Browser::update()
 {
     ::CefDoMessageLoopWork();
+    ::CefRefPtr<::CefRunFileDialogCallback> cb;
 }
 
 // CefClient implementations.
-::CefRefPtr<::CefContextMenuHandler> randar::Browser::GetContextMenuHandler()
-{
-    return this;
-}
-
-::CefRefPtr<::CefDisplayHandler> randar::Browser::GetDisplayHandler()
-{
-    return this;
-}
-
 ::CefRefPtr<::CefDownloadHandler> randar::Browser::GetDownloadHandler()
-{
-    return this;
-}
-
-::CefRefPtr<::CefDragHandler> randar::Browser::GetDragHandler()
-{
-    return this;
-}
-
-::CefRefPtr<::CefGeolocationHandler> randar::Browser::GetGeolocationHandler()
-{
-    return this;
-}
-
-::CefRefPtr<::CefKeyboardHandler> randar::Browser::GetKeyboardHandler()
 {
     return this;
 }
@@ -104,11 +80,6 @@ void randar::Browser::update()
 }
 
 ::CefRefPtr<::CefLoadHandler> randar::Browser::GetLoadHandler()
-{
-    return this;
-}
-
-::CefRefPtr<::CefRequestHandler> randar::Browser::GetRequestHandler()
 {
     return this;
 }
