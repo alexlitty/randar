@@ -65,7 +65,6 @@ bool randar::Browser::isLoading()
 void randar::Browser::update()
 {
     ::CefDoMessageLoopWork();
-    ::CefRefPtr<::CefRunFileDialogCallback> cb;
 }
 
 // CefClient implementations.
