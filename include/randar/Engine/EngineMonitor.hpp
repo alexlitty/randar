@@ -1,5 +1,5 @@
-#ifndef RANDAR_UI_UI_HPP
-#define RANDAR_UI_UI_HPP
+#ifndef RANDAR_UI_ENGINE_MONITOR_HPP
+#define RANDAR_UI_ENGINE_MONITOR_HPP
 
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>

@@ -9,10 +9,8 @@
 #include <cef/include/cef_client.h>
 #include <cef/include/wrapper/cef_helpers.h>
 #include <cef/include/capi/cef_base_capi.h>
-#include <randar/Engine/Project.hpp>
 #include <randar/Engine/Native.hpp>
 #include <randar/Engine/Window.hpp>
-#include <randar/Ui/EngineMonitor.hpp>
 
 namespace randar
 {
@@ -36,8 +34,6 @@ namespace randar
     {
         ::CefRefPtr<::CefBrowser> browser;
         ::CefRefPtr<::CefFrame> frame;
-        EngineMonitor* monitor;
-        Project* project;
 
         // JavaScript window object.
         ::CefRefPtr<::CefV8Value> jsWindow;
@@ -65,11 +61,6 @@ namespace randar
          * Checks whether the current page is loaded.
          */
         bool isLoading();
-
-        /**
-         * Sets Randar engine information.
-         */
-        void setEngineMonitor(EngineMonitor* newMonitor);
 
         /**
          * Performs browser work and draws the engine monitor.

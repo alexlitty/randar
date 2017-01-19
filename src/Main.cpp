@@ -1,7 +1,5 @@
-#include <randar/Randar.hpp>
-#include <randar/Ui/Browser.hpp>
+#include <randar/Ui/Ui.hpp>
 
-#include <iostream>
 int main(int argc, char *argv[])
 {
     randar::Browser browser;
@@ -14,36 +12,11 @@ int main(int argc, char *argv[])
         return exitCode;
     }
 
-    // Start Randar.
+    // Prepare Randar.
     randar::seedRandomWithTime();
-    randar::Gpu& gpu = randar::getDefaultGpu();
-    auto window = &gpu.getWindow();
-
-    randar::EngineMonitor monitor;
-    browser.setEngineMonitor(&monitor);
 
     // Run Randar with an interface.
-    while (true) {
-        ::glfwPollEvents();
-        browser.update();
-
-        // GPU sanity check.
-        gpu.check();
-        for (GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
-            throw std::runtime_error("Uncaught OpenGL error: " + std::to_string(err));
-        }
-
-        // Check for program exit.
-        if (::glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || ::glfwWindowShouldClose(window) != 0) {
-            break;
-        }
-
-        // Execute main program.
-        if (!browser.isLoading()) {
-            browser.executeJs("getElement('#main .randar').innerHTML = 'super test!';");
-        }
-
-        ::glfwSwapBuffers(window);
-    }
+    randar::Ui ui(browser);
+    ui.execute();
     return 0;
 }

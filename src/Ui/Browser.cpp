@@ -53,17 +53,10 @@ bool randar::Browser::isLoading()
     return this->browser->IsLoading();
 }
 
-// Sets Randar engine information.
-void randar::Browser::setEngineMonitor(randar::EngineMonitor* newMonitor)
-{
-    this->monitor = newMonitor;
-}
-
 // Performs browser work and draws the engine monitor.
 void randar::Browser::update()
 {
     ::CefDoMessageLoopWork();
-    this->monitor->draw();
 }
 
 // CefClient implementations.
