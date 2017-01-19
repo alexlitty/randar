@@ -2,7 +2,9 @@
 
 // Constructor.
 randar::Browser::Browser()
+: nativeCodeHandler(nullptr)
 {
+
 }
 
 // Destructor.
@@ -18,9 +20,15 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
     int exitCode = ::CefExecuteProcess(mainArgs, app, nullptr);
 
     if (exitCode == -1) {
+
+        // Run in single process mode for now. This is apparently meant for
+        // debugging only, but it makes our application easier to set up.
+        ::CefSettings settings;
+        settings.single_process = true;
+
         ::CefInitialize(
             ::CefMainArgs(),
-            ::CefSettings(),
+            settings,
             app,
             nullptr
         );
@@ -149,7 +157,35 @@ void randar::Browser::OnContextCreated(
     ::CefRefPtr<::CefFrame> frame,
     ::CefRefPtr<::CefV8Context> context)
 {
-    this->jsWindow = context->GetGlobal();
+    ::CefRefPtr<::CefV8Handler> handler = this;
+    ::CefRefPtr<::CefV8Value> jsWindow = context->GetGlobal();
+
+    jsWindow->SetValue(
+        "monitorResource",
+        ::CefV8Value::CreateFunction("monitorResource", handler),
+        ::V8_PROPERTY_ATTRIBUTE_NONE
+    );
+}
+
+// CefV8Handler implementations.
+bool randar::Browser::Execute(
+    const ::CefString& name,
+    ::CefRefPtr<::CefV8Value> object,
+    const ::CefV8ValueList& arguments,
+    ::CefRefPtr<::CefV8Value>& returnValue,
+    ::CefString& exception)
+{
+    if (this->nativeCodeHandler) {
+        this->nativeCodeHandler->execute(name, arguments, returnValue);
+        return true;
+    }
+    return false;
+}
+
+// Sets the handler for native code requests.
+void randar::Browser::setNativeCodeHandler(randar::NativeCodeHandler* handler)
+{
+    this->nativeCodeHandler = handler;
 }
 
 // Handles messages between our main program and the CEF render process.

@@ -17,6 +17,6 @@ int main(int argc, char *argv[])
 
     // Run Randar with an interface.
     randar::Ui ui(browser);
-    ui.execute();
+    ui.run();
     return 0;
 }

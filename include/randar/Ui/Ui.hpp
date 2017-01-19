@@ -11,7 +11,7 @@ namespace randar
      * A bridge between an embedded browser, the Randar engine, and a Randar
      * project.
      */
-    class Ui
+    class Ui : public NativeCodeHandler
     {
         /**
          * GPU to use.
@@ -45,6 +45,14 @@ namespace randar
         Ui(Browser& initBrowser);
 
         /**
+         * Handles interface function calls for engine interaction.
+         */
+        virtual void execute(
+            const std::string& name,
+            const ::CefV8ValueList& arguments,
+            ::CefRefPtr<::CefV8Value>& returnValue) override;
+
+        /**
          * Runs Randar as an editor with a user-interface.
          *
          * Updates the embedded browser and draws the engine monitor beside the
@@ -56,7 +64,7 @@ namespace randar
          *
          * When this method returns, the program should end.
          */
-        void execute();
+        void run();
 
     protected:
         /**
@@ -70,8 +78,9 @@ namespace randar
         void sendResources();
 
         /**
-         * Handles requests made to the engine through the interface.
+         * Handles requests made from the interface to the engine.
          */
+        void handleRequests();
     };
 }
 

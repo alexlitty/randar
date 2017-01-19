@@ -11,6 +11,7 @@
 #include <cef/include/capi/cef_base_capi.h>
 #include <randar/Engine/Native.hpp>
 #include <randar/Engine/Window.hpp>
+#include <randar/Ui/NativeCodeHandler.hpp>
 
 namespace randar
 {
@@ -30,19 +31,14 @@ namespace randar
       public ::CefLifeSpanHandler,
       public ::CefLoadHandler,
       public ::CefRequestHandler,
-      public ::CefRenderProcessHandler
+      public ::CefRenderProcessHandler,
+      public ::CefV8Handler
     {
         ::CefRefPtr<::CefBrowser> browser;
         ::CefRefPtr<::CefFrame> frame;
-
-        // JavaScript window object.
-        ::CefRefPtr<::CefV8Value> jsWindow;
+        randar::NativeCodeHandler* nativeCodeHandler;
 
     public:
-        /**
-         * Messages between Randar and the interface.
-         */
-
         /**
          * Constructor.
          */
@@ -109,7 +105,24 @@ namespace randar
             ::CefRefPtr<::CefV8Context> context) override;
 
         /**
+         * CefV8Handler implementations.
+         */
+        virtual bool Execute(
+            const ::CefString& name,
+            ::CefRefPtr<::CefV8Value> object,
+            const ::CefV8ValueList& arguments,
+            ::CefRefPtr<::CefV8Value>& returnValue,
+            ::CefString& exception) override;
+
+        /**
+         * Sets the handler for native code requests.
+         */
+        void setNativeCodeHandler(randar::NativeCodeHandler* handler);
+
+        /**
          * Handles messages between our main program and the CEF render process.
+         *
+         * @todo - Not used now. Remove if we continue not using it.
          */
         virtual bool OnProcessMessageReceived(
             ::CefRefPtr<::CefBrowser> browser,
