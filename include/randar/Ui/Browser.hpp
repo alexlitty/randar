@@ -40,6 +40,10 @@ namespace randar
 
     public:
         /**
+         * Messages between Randar and the interface.
+         */
+
+        /**
          * Constructor.
          */
         Browser();
@@ -63,7 +67,7 @@ namespace randar
         bool isLoading();
 
         /**
-         * Performs browser work and draws the engine monitor.
+         * Performs browser work and processes message queues.
          */
         void update();
 

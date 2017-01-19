@@ -39,7 +39,6 @@ namespace randar
         Project project;
 
     public:
-
         /**
          * Constructor.
          */
@@ -58,6 +57,21 @@ namespace randar
          * When this method returns, the program should end.
          */
         void execute();
+
+    protected:
+        /**
+         * Runs through the browser and GLFW message loops.
+         */
+        void runMessageLoops();
+
+        /**
+         * Updates the resources available through the interface.
+         */
+        void sendResources();
+
+        /**
+         * Handles requests made to the engine through the interface.
+         */
     };
 }
 
