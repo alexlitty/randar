@@ -119,7 +119,12 @@ function showObjects(category) {
 /**
  * Main program.
  */
-window.addEventListener('load', function() {
+randar.ready = function() {
+    randar.updateResources(
+        JSON.parse(window.getResources())
+    );
+    //window.getResources();
+
     randar.syncs.push({
         command: 'read'
     });
@@ -149,4 +154,4 @@ window.addEventListener('load', function() {
             }.bind(this, category));
         }
     }
-});
+}

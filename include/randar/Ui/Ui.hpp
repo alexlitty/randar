@@ -71,16 +71,6 @@ namespace randar
          * Runs through the browser and GLFW message loops.
          */
         void runMessageLoops();
-
-        /**
-         * Updates the resources available through the interface.
-         */
-        void sendResources();
-
-        /**
-         * Handles requests made from the interface to the engine.
-         */
-        void handleRequests();
     };
 }
 

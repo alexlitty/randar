@@ -15,8 +15,15 @@ void randar::Ui::execute(
     const ::CefV8ValueList& arguments,
     ::CefRefPtr<::CefV8Value>& returnValue)
 {
+    // Get all project resources.
+    if (name == "getResources") {
+        returnValue = ::CefV8Value::CreateString(
+            this->project.toJson().dump()
+        );
+    }
+
     // Switch the resource on the engine monitor.
-    if (name == "monitorResource" && arguments.size() >= 2) {
+    else if (name == "monitorResource" && arguments.size() >= 2) {
         ::CefRefPtr<::CefV8Value> category = arguments[0];
         ::CefRefPtr<::CefV8Value> name = arguments[1];
 
@@ -36,7 +43,7 @@ void randar::Ui::run()
 
     // Initialize the interface.
     this->browser.setNativeCodeHandler(this);
-    this->sendResources();
+    this->browser.executeJs("randar.ready();");
 
     // Run the interface program.
     while (true) {
@@ -54,19 +61,4 @@ void randar::Ui::runMessageLoops()
 {
     ::glfwPollEvents();
     this->browser.update();
-}
-
-// Updates the resources available through the interface.
-void randar::Ui::sendResources()
-{
-    this->browser.executeJs(
-          std::string("randar.updateResources(")
-        + this->project.toJson().dump()
-        + std::string(");")
-    );
-}
-
-// Handles requests made from the interface to the engine.
-void randar::Ui::handleRequests()
-{
 }

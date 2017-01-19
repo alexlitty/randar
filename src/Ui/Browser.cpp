@@ -165,6 +165,12 @@ void randar::Browser::OnContextCreated(
         ::CefV8Value::CreateFunction("monitorResource", handler),
         ::V8_PROPERTY_ATTRIBUTE_NONE
     );
+
+    jsWindow->SetValue(
+        "getResources",
+        ::CefV8Value::CreateFunction("getResources", handler),
+        ::V8_PROPERTY_ATTRIBUTE_NONE
+    );
 }
 
 // CefV8Handler implementations.
