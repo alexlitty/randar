@@ -131,14 +131,20 @@ void randar::Browser::OnContextCreated(
     ::CefRefPtr<::CefV8Value> jsWindow = context->GetGlobal();
 
     jsWindow->SetValue(
+        "getResources",
+        ::CefV8Value::CreateFunction("getResources", handler),
+        ::V8_PROPERTY_ATTRIBUTE_NONE
+    );
+
+    jsWindow->SetValue(
         "monitorResource",
         ::CefV8Value::CreateFunction("monitorResource", handler),
         ::V8_PROPERTY_ATTRIBUTE_NONE
     );
 
     jsWindow->SetValue(
-        "getResources",
-        ::CefV8Value::CreateFunction("getResources", handler),
+        "importResource",
+        ::CefV8Value::CreateFunction("importResource", handler),
         ::V8_PROPERTY_ATTRIBUTE_NONE
     );
 }

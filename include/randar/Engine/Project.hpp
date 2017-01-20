@@ -54,6 +54,11 @@ namespace randar
          */
         bool save() const;
 
+        /**
+         * Retrieves the root project directory.
+         */
+        std::string getDirectory() const;
+
     protected:
         /**
          * Clears a category of resources from memory.

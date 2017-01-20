@@ -64,6 +64,12 @@ bool randar::Project::save() const
     );
 }
 
+// Retrieves the root project directory.
+std::string randar::Project::getDirectory() const
+{
+    return this->directory;
+}
+
 // Clears this entire project from memory.
 void randar::Project::clear()
 {

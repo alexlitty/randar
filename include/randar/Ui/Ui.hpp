@@ -4,6 +4,7 @@
 #include <randar/Engine/EngineMonitor.hpp>
 #include <randar/Engine/Project.hpp>
 #include <randar/Ui/Browser.hpp>
+#include <randar/Utility/tinyfiledialogs.h>
 
 namespace randar
 {

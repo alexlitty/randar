@@ -31,6 +31,18 @@ void randar::Ui::execute(
             std::string realName = name->GetStringValue();
         }
     }
+
+    // Import a new resource from a file.
+    else if (name == "importResource") {
+        ::tinyfd_openFileDialog(
+            "Import Resource",
+            this->project.getDirectory().c_str(),
+            0,
+            nullptr,
+            nullptr,
+            0
+        );
+    }
 }
 
 // Runs a single tick on the interface program.
