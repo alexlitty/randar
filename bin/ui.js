@@ -123,12 +123,15 @@ randar.ready = function() {
     randar.updateResources(
         JSON.parse(window.getResources())
     );
-    //window.getResources();
 
     randar.syncs.push({
         command: 'read'
     });
     showMain();
+
+    getElement('#import-resource').addEventListener('click', function() {
+        window.importResource();
+    });
 
     var backButtons = getElements('nav ul.back');
     for (var i = 0; i < backButtons.length; i++) {
