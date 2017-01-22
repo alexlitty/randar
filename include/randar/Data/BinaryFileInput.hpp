@@ -1,9 +1,7 @@
 #ifndef RANDAR_DATA_BINARY_FILE_INPUT_HPP
 #define RANDAR_DATA_BINARY_FILE_INPUT_HPP
 
-#include <cstdint>
 #include <fstream>
-#include <stdexcept>
 #include <randar/Data/Endian.hpp>
 
 namespace randar
@@ -18,18 +16,15 @@ namespace randar
          */
         BinaryFileInput(const std::string& file)
         {
-            this->stream.open(file, std::ios_base::in);
+            this->stream.open(file, std::ios::binary);
         }
 
         /**
-         * Reads a variable type of data from the stream.
+         * Reads a variable type of data from the file.
          */
         template <typename T>
         void read(T& value)
         {
-            if (!this->stream.is_open()) {
-                throw std::runtime_error("Reading from closed binary file");
-            }
             this->stream.read(reinterpret_cast<char*>(&value), sizeof value);
         }
 
@@ -42,7 +37,7 @@ namespace randar
         }
 
         /**
-         * Reads a null-terminated string from the stream.
+         * Reads a null-terminated string from the file.
          */
         void read(std::string& value)
         {
@@ -52,6 +47,14 @@ namespace randar
             while ((character = this->read<char>()) != '\0') {
                 value += character;
             }
+        }
+
+        /**
+         * Closes the file from further reading.
+         */
+        void close()
+        {
+            this->stream.close();
         }
     };
 }

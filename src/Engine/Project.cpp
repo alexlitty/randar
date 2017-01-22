@@ -44,7 +44,9 @@ bool randar::Project::load(const std::string& directory)
 
     if (project["textures"].is_object()) {
         for (Json::iterator it = project["textures"].begin(); it != project["textures"].end(); it++) {
-            this->textures[it.key()] = new Texture("rgba", 1, 1);
+            this->textures[it.key()] = new Texture(
+                it.value().get<std::string>()
+            );
         }
     }
 
@@ -85,6 +87,9 @@ Json randar::Project::toJson() const
 {
     Json result;
     result["name"] = this->name;
-    result["textures"] = randar::toJson(this->textures);
+
+    for (auto item : this->textures) {
+        result["textures"][item.first] = item.second->getFile();
+    }
     return result;
 }

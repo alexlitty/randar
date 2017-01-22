@@ -1,6 +1,5 @@
 #include <randar/Render/Texture.hpp>
 #include <randar/Engine/Gpu.hpp>
-#include <randar/Data/BinaryFileInput.hpp>
 
 // New texture constructor.
 randar::Texture::Texture(
@@ -19,7 +18,11 @@ randar::Texture::Texture(
 randar::Texture::Texture(const std::string& file)
 : randar::FileResource(file)
 {
-    BinaryFileInput stream(file);
+    BinaryFileInput stream(this->file);
+
+    stream.read(this->type);
+    stream.read(this->width);
+    stream.read(this->height);
 }
 
 // Destructor.
@@ -31,7 +34,13 @@ randar::Texture::~Texture()
 // Saves this texture to its file.
 bool randar::Texture::save()
 {
+    BinaryFileOutput stream(this->file);
 
+    stream.write(this->type);
+    stream.write(this->width);
+    stream.write(this->height);
+
+    return true;
 }
 
 // Checks the validity of this texture.

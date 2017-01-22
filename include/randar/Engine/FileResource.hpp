@@ -2,6 +2,7 @@
 #define RANDAR_ENGINE_FILE_RESOURCE_HPP
 
 #include <string>
+#include <randar/Data/BinaryFile.hpp>
 
 namespace randar
 {
@@ -10,13 +11,12 @@ namespace randar
      */
     class FileResource
     {
-    private:
+    protected:
         /**
          * Path to the file, relative to the root project directory.
          */
         std::string file;
 
-    protected:
         /**
          * Writes this resource to a file.
          */
@@ -32,6 +32,11 @@ namespace randar
          * Sets the file for this resource.
          */
         void setFile(const std::string& newFile);
+
+        /**
+         * Gets the file for this resource.
+         */
+        const std::string& getFile() const;
     };
 }
 

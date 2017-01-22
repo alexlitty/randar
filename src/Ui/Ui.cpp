@@ -7,6 +7,7 @@ randar::Ui::Ui(randar::Browser& initBrowser)
   browser(initBrowser)
 {
     this->project.load("./test-project/");
+    this->project.save();
 }
 
 // Handles interface function calls for engine interaction.

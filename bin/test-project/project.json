@@ -1,1 +1,1 @@
-{"name":"Test Film","textures":{"Test Texture":{"height":128,"type":"rgba","width":128}}}
+{"name":"Test Film","textures":{"Test Texture":"./test-project/textures/0.texture"}}
