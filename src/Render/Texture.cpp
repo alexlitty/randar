@@ -1,7 +1,8 @@
 #include <randar/Render/Texture.hpp>
 #include <randar/Engine/Gpu.hpp>
+#include <randar/Data/BinaryFileInput.hpp>
 
-// Primary constructor.
+// New texture constructor.
 randar::Texture::Texture(
     std::string initType,
     unsigned int initWidth,
@@ -11,30 +12,26 @@ randar::Texture::Texture(
   width(initWidth),
   height(initHeight)
 {
-
-}
-
-// Construct from JSON.
-randar::Texture::Texture(const Json& json)
-: type(json.value("type", "invalid")),
-  width(json.value("width", 0)),
-  height(json.value("height", 0))
-{
-
-}
-
-// Initializes this texture.
-void randar::Texture::initialize()
-{
     this->gpu.initialize(*this);
-    this->initialized = true;
 }
 
-// Destroys this texture.
-void randar::Texture::destroy()
+// Construct from a file.
+randar::Texture::Texture(const std::string& file)
+: randar::FileResource(file)
+{
+    BinaryFileInput stream(file);
+}
+
+// Destructor.
+randar::Texture::~Texture()
 {
     this->gpu.destroy(*this);
-    this->initialized = false;
+}
+
+// Saves this texture to its file.
+bool randar::Texture::save()
+{
+
 }
 
 // Checks the validity of this texture.

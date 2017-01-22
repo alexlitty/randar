@@ -10,22 +10,24 @@ namespace randar
      */
     class FileResource
     {
+    private:
         /**
          * Path to the file, relative to the root project directory.
          */
         std::string file;
 
+    protected:
         /**
-         * Reads and processes file data for this resource.
+         * Writes this resource to a file.
          */
-        virtual bool read() = 0;
-
-        /**
-         * Writes the file data for this resource.
-         */
-        virtual bool write() = 0;
+        virtual bool save() = 0;
 
     public:
+        /**
+         * Constructor.
+         */
+        FileResource(const std::string& initFile = "");
+
         /**
          * Sets the file for this resource.
          */

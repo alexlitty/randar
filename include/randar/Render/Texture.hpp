@@ -2,10 +2,11 @@
 #define RANDAR_RENDER_TEXTURE_HPP
 
 #include <randar/Engine/GpuResource.hpp>
+#include <randar/Engine/FileResource.hpp>
 
 namespace randar
 {
-    class Texture : virtual public GpuResource
+    class Texture : virtual public GpuResource, virtual public FileResource
     {
     protected:
         /**
@@ -20,10 +21,10 @@ namespace randar
          */
         unsigned int width;
         unsigned int height;
-    
+
     public:
         /**
-         * Primary constructor.
+         * New texture constructor.
          */
         Texture(
             std::string initType,
@@ -31,15 +32,19 @@ namespace randar
             unsigned int initHeight);
 
         /**
-         * Construct from JSON.
+         * Construct from a file.
          */
-        Texture(const Json& json);
+        Texture(const std::string& file);
 
         /**
-         * Resource initialization and destruction.
+         * Destructor.
          */
-        virtual void initialize() override;
-        virtual void destroy() override;
+        ~Texture();
+
+        /**
+         * Saves this texture to its file.
+         */
+        virtual bool save() override;
 
         /**
          * Checks the validity of this texture's information.

@@ -29,7 +29,7 @@ namespace randar
          * Constructor.
          */
         Framebuffer(
-            std::string textureType = "invalid",
+            std::string textureType = "rgba",
             bool enableDepthBuffer = false,
             unsigned int width = 1,
             unsigned int height = 1);

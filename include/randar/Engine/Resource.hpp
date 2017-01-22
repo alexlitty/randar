@@ -42,7 +42,7 @@ namespace randar
         /**
          * Initialize this resource and bring it into memory.
          */
-        virtual void initialize() = 0;
+        virtual void initialize() { }
 
         /**
          * Whether this resource is initialized.
@@ -52,7 +52,7 @@ namespace randar
         /**
          * Destroys this resource and frees it from memory.
          */
-        virtual void destroy() = 0;
+        virtual void destroy() { }
 
         /**
          * Converts this resource to a JSON representation.
