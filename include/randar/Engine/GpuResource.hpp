@@ -6,8 +6,6 @@
 
 namespace randar
 {
-    class Gpu;
-
     class GpuResource : virtual public Resource
     {
         ::GLuint glName;
@@ -18,10 +16,6 @@ namespace randar
          */
         GpuResource();
         ~GpuResource();
-
-        /**
-         * Assigns and clears the GPU handling this resource.
-         */
 
         /**
          * OpenGL name assignment and retrieval.

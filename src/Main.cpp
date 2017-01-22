@@ -1,5 +1,4 @@
 #include <randar/Ui/Ui.hpp>
-#include <randar/Data/Byte.hpp>
 
 int main(int argc, char *argv[])
 {

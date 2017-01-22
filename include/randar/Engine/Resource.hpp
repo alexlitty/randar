@@ -17,7 +17,7 @@ namespace randar
      * memory and freed as necessary, as many times as needed, using this same
      * object.
      */
-    struct Resource
+    class Resource
     {
     protected:
         Gpu& gpu;
