@@ -132,8 +132,6 @@ randar.ready = function() {
         JSON.parse(window.getResources())
     );
 
-    getElement('#main .randar').innerHTML = randar.resources.models['test'];
-
     randar.syncs.push({
         command: 'read'
     });
