@@ -2,7 +2,7 @@
 #define RANDAR_UI_UI_HPP
 
 #include <randar/Engine/EngineMonitor.hpp>
-#include <randar/Engine/Project.hpp>
+#include <randar/Project/Project.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
