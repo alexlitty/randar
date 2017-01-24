@@ -1,6 +1,7 @@
 #ifndef RANDAR_ENGINE_PROJECT_HPP
 #define RANDAR_ENGINE_PROJECT_HPP
 
+#include <randar/Project/Importer.hpp>
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Utility/File.hpp>
@@ -12,6 +13,7 @@ namespace randar
     class Project
     {
         std::string directory;
+        Importer importer;
 
     public:
         std::string name;
@@ -83,11 +85,6 @@ namespace randar
          * Generates a complete JSON representation of the project.
          */
         Json toJson() const;
-
-        /**
-         * Imports an IQM model.
-         */
-        void importIqm(const std::string& file);
     };
 }
 

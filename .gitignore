@@ -1,3 +1,4 @@
+*.iqm
 bin/*.bin
 bin/*.dat
 bin/*.pak

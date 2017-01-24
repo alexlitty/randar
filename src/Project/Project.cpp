@@ -59,6 +59,8 @@ bool randar::Project::load(const std::string& directory)
         }
     }
 
+    this->importer.importIqm("test.iqm");
+
     return true;
 }
 
