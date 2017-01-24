@@ -17,6 +17,9 @@ namespace randar
         BinaryFileInput(const std::string& file)
         {
             this->stream.open(file, std::ios::binary);
+            if (!this->stream) {
+                throw std::runtime_error("Cannot open binary file for reading");
+            }
         }
 
         /**
@@ -25,6 +28,9 @@ namespace randar
         template <typename T>
         void read(T& value)
         {
+            if (!this->stream) {
+                throw std::runtime_error("Binary file input stream unexpectedly closed");
+            }
             this->stream.read(reinterpret_cast<char*>(&value), sizeof value);
         }
 

@@ -76,7 +76,7 @@ void randar::Importer::importIqm(const std::string& file)
     // Read meshes.
     iqm::mesh *meshes = reinterpret_cast<iqm::mesh*>(&buffer[header.ofs_meshes]);
     for (unsigned int i = 0; i < header.num_meshes; i++) {
-        iqm::mesh &mesh = meshes[i];
+        //iqm::mesh &mesh = meshes[i];
     }
 
     // Read vertices.
@@ -99,5 +99,5 @@ void randar::Importer::importIqm(const std::string& file)
         }
     }
 
-    std::cout << model->faceIndices.size() << std::endl;
+    this->models[std::to_string(meshes[0].name)] = model;
 }

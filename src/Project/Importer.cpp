@@ -3,7 +3,7 @@
 randar::Importer::~Importer()
 {
     for (auto model : this->models) {
-        delete model;
+        delete model.second;
     }
 
     this->clear();

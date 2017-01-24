@@ -53,13 +53,29 @@ bool randar::Project::load(const std::string& directory)
 
     if (project["models"].is_object()) {
         for (Json::iterator it = project["models"].begin(); it != project["models"].end(); it++) {
-            this->models[it.key()] = new Model(
-                it.value().get<std::string>()
-            );
+            Model *model;
+
+            try {
+                model = new Model(
+                    it.value().get<std::string>()
+                );
+
+                this->models[it.key()] = model;
+            }
+
+            catch (std::runtime_error error) {
+                std::cout << "Ignoring bad model: " << it.key() << std::endl;
+            }
         }
     }
 
     this->importer.importIqm("test.iqm");
+
+    for (auto item : this->importer.models) {
+        this->models[item.first] = item.second;
+        this->models[item.first]->setFile("./test-project/models/iqm.model");
+        this->models[item.first]->save();
+    }
 
     return true;
 }

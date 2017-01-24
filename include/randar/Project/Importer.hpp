@@ -1,14 +1,13 @@
 #ifndef RANDAR_PROJECT_IMPORTER_HPP
 #define RANDAR_PROJECT_IMPORTER_HPP
 
-#include <vector>
 #include <randar/Render/Model.hpp>
 
 namespace randar
 {
     struct Importer
     {
-        std::vector<Model*> models;
+        std::map<std::string, Model*> models;
 
         ~Importer();
         void clear();
