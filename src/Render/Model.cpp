@@ -104,6 +104,10 @@ randar::Model::~Model()
 // Saves this model to its file.
 bool randar::Model::save()
 {
+    if (this->getFile() == "") {
+        throw std::runtime_error("Cannot save model without assigned file");
+    }
+
     // Update serialization helpers.
     uint8_t version = 0;
     this->vertexCount = this->vertices.size();

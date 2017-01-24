@@ -42,9 +42,18 @@ bool randar::Project::load(const std::string& directory)
         }
     }
 
+
     if (project["textures"].is_object()) {
         for (Json::iterator it = project["textures"].begin(); it != project["textures"].end(); it++) {
             this->textures[it.key()] = new Texture(
+                it.value().get<std::string>()
+            );
+        }
+    }
+
+    if (project["models"].is_object()) {
+        for (Json::iterator it = project["models"].begin(); it != project["models"].end(); it++) {
+            this->models[it.key()] = new Model(
                 it.value().get<std::string>()
             );
         }
@@ -91,5 +100,10 @@ Json randar::Project::toJson() const
     for (auto item : this->textures) {
         result["textures"][item.first] = item.second->getFile();
     }
+
+    for (auto item : this->models) {
+        result["models"][item.first] = item.second->getFile();
+    }
+
     return result;
 }

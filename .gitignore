@@ -6,5 +6,6 @@ bin/lib*
 bin/locales
 bin/chrome-sandbox
 bin/randar
+bin/test-project
 lib/
 obj/

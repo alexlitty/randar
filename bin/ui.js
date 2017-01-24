@@ -29,7 +29,7 @@ var randar = {
 
             else {
                 for (item in data[type]) {
-                    randar.resources.textures[item] = data[type][item];
+                    randar.resources[type][item] = data[type][item];
                 }
             }
         }
@@ -49,6 +49,13 @@ var randar = {
             element.innerHTML = textureName;
             texturesList.appendChild(element);
         }
+
+        var modelsList = getElement('#objects .models');
+        for (modelName in randar.resources.models) {
+            var element = document.createElement('li');
+            element.innerHTML = modelName;
+            modelsList.appendChild(element);
+        }
     },
 
 
@@ -56,6 +63,7 @@ var randar = {
      * Project resources.
      */
     resources: {
+        models: { },
         textures: { },
         shaders: { }
     }
@@ -123,6 +131,8 @@ randar.ready = function() {
     randar.updateResources(
         JSON.parse(window.getResources())
     );
+
+    getElement('#main .randar').innerHTML = randar.resources.models['test'];
 
     randar.syncs.push({
         command: 'read'

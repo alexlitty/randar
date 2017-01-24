@@ -2,7 +2,7 @@
 #define RANDAR_ENGINE_PROJECT_HPP
 
 #include <randar/Render/ShaderProgram.hpp>
-#include <randar/Render/Texture.hpp>
+#include <randar/Render/Model.hpp>
 #include <randar/Utility/File.hpp>
 #include <randar/Utility/Json.hpp>
 #include <randar/Utility/Map.hpp>
@@ -17,6 +17,7 @@ namespace randar
         std::string name;
         std::map<std::string, ShaderProgram*> shaderPrograms;
         std::map<std::string, Texture*> textures;
+        std::map<std::string, Model*> models;
 
         /**
          * Default constructor.
@@ -82,6 +83,11 @@ namespace randar
          * Generates a complete JSON representation of the project.
          */
         Json toJson() const;
+
+        /**
+         * Imports an IQM model.
+         */
+        void importIqm(const std::string& file);
     };
 }
 

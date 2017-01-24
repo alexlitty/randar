@@ -64,7 +64,7 @@ nav li:active {
 }
 
 nav#main li {
-    height: 14.28%;
+    height: 20%;
     font-size: 32px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
