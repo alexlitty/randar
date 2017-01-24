@@ -4,7 +4,7 @@
 glm::mat4 randar::Joint::getPoseMatrix() const
 {
     if (!this->parent) {
-        return this->basePose.getTransformMatrix();
+        return this->getTransformMatrix();
     }
-    return this->basePose.getTransformMatrix() * this->parent->getPoseMatrix();
+    return this->getTransformMatrix() * this->parent->getPoseMatrix();
 }

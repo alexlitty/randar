@@ -4,7 +4,6 @@
 #include <stdexcept>
 #include <bullet3/btBulletDynamicsCommon.h>
 #include <randar/Math/Transformable.hpp>
-#include <randar/Shape.hpp>
 
 namespace randar
 {
@@ -14,7 +13,6 @@ namespace randar
         btRigidBody *body;
         btMotionState *motionState;
         btCollisionShape *collisionShape;
-        Mesh collisionMesh;
 
     public:
         Physical();

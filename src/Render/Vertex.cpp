@@ -24,14 +24,19 @@ void randar::Vertex::appendTo(GLfloat* array) const
     array[4]  = color.g;
     array[5]  = color.b;
     array[6]  = color.a;
-    array[7]  = boneIndex[0];
-    array[8]  = boneIndex[1];
-    array[9]  = boneIndex[2];
-    array[10] = boneIndex[3];
-    array[11] = boneWeight[0];
-    array[12] = boneWeight[1];
-    array[13] = boneWeight[2];
-    array[14] = boneWeight[3];
+
+    // Joints.
+    array[7]  = 0;
+    array[8]  = 0;
+    array[9]  = 0;
+    array[10] = 0;
+
+    // Joint weights.
+    array[11] = 0;
+    array[12] = 0;
+    array[13] = 0;
+    array[14] = 0;
+
     array[15] = textureCoordinate.u;
     array[16] = textureCoordinate.v;
 }

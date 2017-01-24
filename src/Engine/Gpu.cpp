@@ -1,5 +1,4 @@
 #include <randar/Engine/Gpu.hpp>
-#include <randar/Render/Model.hpp>
 
 // Construction.
 randar::Gpu::Gpu()
@@ -497,6 +496,16 @@ void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Ve
     delete[] data;
 }
 
+// Writes model data to the GPU.
+void randar::Gpu::write(randar::Model& model)
+{
+    this->initialize(model.vertexBuffer);
+    this->write(model.vertexBuffer, model.vertices);
+
+    this->initialize(model.faceBuffer);
+    this->write(model.faceBuffer, model.faceIndices);
+}
+
 // Binds a framebuffer.
 void randar::Gpu::bind(const randar::Framebuffer& framebuffer)
 {
@@ -513,9 +522,12 @@ void randar::Gpu::bind(const randar::IndexBuffer& buffer)
 }
 
 // Binds the vertex and index buffers of a model's mesh.
-void randar::Gpu::bind(const randar::Mesh& mesh)
+void randar::Gpu::bind(const randar::Model& model)
 {
-    // @@@
+    this->bind(model.vertexBuffer);
+    this->bind(model.faceBuffer);
+
+    // @todo - bind joints, textures and whatnot.
 }
 
 // Binds a renderbuffer.
@@ -539,7 +551,6 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 }
 
 // Drawing.
-#include <randar/Utility/glm.hpp>
 void randar::Gpu::draw(
     const ShaderProgram& program,
     const randar::Framebuffer& framebuffer,
@@ -576,11 +587,10 @@ void randar::Gpu::draw(
     }
 
     // Draw model.
-    this->bind(model.mesh.vertexBuffer);
-    this->bind(model.mesh.indexBuffer);
+    this->bind(model);
     ::glDrawElements(
         GL_TRIANGLES,
-        model.mesh.indexBuffer.count,
+        model.faceBuffer.count,
         GL_UNSIGNED_INT,
         (void*)0
     );

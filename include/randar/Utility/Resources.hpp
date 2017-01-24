@@ -5,6 +5,7 @@
 #include <sstream>
 #include <map>
 #include <randar/Render/Model.hpp>
+#include <randar/Render/Material.hpp>
 #include <randar/Physics/System.hpp>
 
 namespace randar

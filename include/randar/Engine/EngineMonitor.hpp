@@ -3,6 +3,7 @@
 
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
+#include <randar/Render/ShaderProgram.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
@@ -28,12 +29,6 @@ namespace randar
          * Draws the currently selected item onto a region of the interface.
          */
         void draw();
-
-        /**
-         * Resource initialization and destruction.
-         */
-        virtual void initialize() override;
-        virtual void destroy() override;
     };
 }
 

@@ -1,22 +1,56 @@
 #ifndef RANDAR_RENDER_MODEL_HPP
 #define RANDAR_RENDER_MODEL_HPP
 
-#include <randar/Physics/Physical.hpp>
-#include <randar/Render/Joint.hpp>
-#include <randar/Render/Material.hpp>
-#include <randar/Render/Mesh.hpp>
-#include <randar/Render/ShaderProgram.hpp>
+#include <randar/Math/Transformable.hpp>
+#include <randar/Engine/FileResource.hpp>
+#include <randar/Render/VertexBuffer.hpp>
+#include <randar/Render/IndexBuffer.hpp>
 
 namespace randar
 {
-    struct Model : virtual public Physical
+    class Model : virtual public FileResource, virtual public Transformable
     {
-        Mesh mesh;
+        /**
+         * Serialization helpers.
+         */
+        uint32_t vertexCount;
+        uint32_t faceCount;
+        uint8_t textureCount;
+        uint32_t jointCount;
+        uint32_t jointWeightCount;
 
+    public:
+        /**
+         * Model data.
+         */
+        std::vector<Vertex> vertices;
+        VertexBuffer vertexBuffer;
+
+        std::vector<uint32_t> faceIndices;
+        IndexBuffer faceBuffer;
+
+        std::vector<Texture*> textures;
         std::vector<Joint*> joints;
 
+        /**
+         * Constructs a new model.
+         */
         Model();
+
+        /**
+         * Constructs an existing model from a file.
+         */
+        Model(const std::string& file);
+
+        /**
+         * Destructor.
+         */
         ~Model();
+
+        /**
+         * Saves this model to its file.
+         */
+        virtual bool save() override;
     };
 }
 

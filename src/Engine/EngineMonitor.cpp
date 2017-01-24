@@ -4,48 +4,46 @@
 randar::EngineMonitor::EngineMonitor()
 : monitorFramebuffer("rgba", true)
 {
+    this->monitorFramebuffer.initialize();
+
     // Define shader program.
     this->program.vertexShader   = Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./shaders/ui.vert"));
     this->program.fragmentShader = Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./shaders/ui.frag"));
-
-    // Initialize resources on the GPU.
-    this->initialize();
-
-    // Overlay vertices.
-    std::vector<Vertex> vertices;
-    Vertex vertex;
-    vertex.color = Color(1.0f, 1.0f, 1.0f);
+    this->program.initialize();
 
     // Monitor vertices.
-    vertices.clear();
+    Vertex vertex;
     vertex.position.set(-0.5f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
-    vertices.push_back(vertex);
+    this->monitor.vertices.push_back(vertex);
 
     vertex.position.set(-0.5f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 0.0f;
-    vertices.push_back(vertex);
+    this->monitor.vertices.push_back(vertex);
 
     vertex.position.set(1.0f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 1.0f;
-    vertices.push_back(vertex);
+    this->monitor.vertices.push_back(vertex);
 
     vertex.position.set(1.0f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 0.0f;
-    vertices.push_back(vertex);
+    this->monitor.vertices.push_back(vertex);
 
     // Monitor face indices.
-    std::vector<unsigned int> indices;
-    indices.push_back(0); indices.push_back(1); indices.push_back(2);
-    indices.push_back(3); indices.push_back(1); indices.push_back(2);
+    this->monitor.faceIndices.push_back(0);
+    this->monitor.faceIndices.push_back(1);
+    this->monitor.faceIndices.push_back(2);
+
+    this->monitor.faceIndices.push_back(3);
+    this->monitor.faceIndices.push_back(1);
+    this->monitor.faceIndices.push_back(2);
 
     // Send monitor model to the GPU.
-    this->gpu.write(this->monitor.mesh.vertexBuffer, vertices);
-    this->gpu.write(this->monitor.mesh.indexBuffer, indices);
+    this->gpu.write(this->monitor);
 
     // Initialize the UI size.
     this->resize();
@@ -53,7 +51,7 @@ randar::EngineMonitor::EngineMonitor()
 
 randar::EngineMonitor::~EngineMonitor()
 {
-    this->destroy();
+
 }
 
 // Resizes the UI to fit the default window.
@@ -142,20 +140,4 @@ void randar::EngineMonitor::draw()
 
     this->gpu.bind(this->monitorFramebuffer.texture);
     this->gpu.draw(this->program, this->defaultFramebuffer, this->monitor);
-}
-
-// Resource initialization.
-void randar::EngineMonitor::initialize()
-{
-    this->program.initialize();
-
-    this->monitorFramebuffer.initialize();
-    this->monitor.mesh.initialize();
-}
-
-// Resource destruction.
-void randar::EngineMonitor::destroy()
-{
-    this->program.destroy();
-    this->monitor.mesh.destroy();
 }

@@ -1,4 +1,4 @@
-#include <randar/Render/Model.hpp>
+#include <randar/Physics/Physical.hpp>
 
 randar::Physical::Physical()
 : body(nullptr),
