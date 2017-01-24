@@ -2,6 +2,7 @@
 #define RANDAR_ENGINE_FILE_RESOURCE_HPP
 
 #include <string>
+#include <randar/Engine/Resource.hpp>
 #include <randar/Data/BinaryFile.hpp>
 
 namespace randar
@@ -9,7 +10,7 @@ namespace randar
     /**
      * A resource which may be partially or completely stored in a file.
      */
-    class FileResource
+    class FileResource : virtual public Resource
     {
     protected:
         /**

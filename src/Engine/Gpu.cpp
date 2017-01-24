@@ -431,14 +431,14 @@ void randar::Gpu::clear(const randar::Texture& texture)
 }
 
 // Writes indices to an index buffer.
-void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<unsigned int>& indices)
+void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<uint32_t>& indices)
 {
     this->bind(indexBuffer);
 
     indexBuffer.count = indices.size();
     ::glBufferData(
         GL_ELEMENT_ARRAY_BUFFER,
-        indexBuffer.count * sizeof(unsigned int),
+        indexBuffer.count * sizeof(uint32_t),
         &indices.data()[0],
         GL_STATIC_DRAW
     );
@@ -513,10 +513,9 @@ void randar::Gpu::bind(const randar::IndexBuffer& buffer)
 }
 
 // Binds the vertex and index buffers of a model's mesh.
-void randar::Gpu::bind(const randar::Model& model)
+void randar::Gpu::bind(const randar::Mesh& mesh)
 {
-    this->bind(model.mesh.vertexBuffer);
-    this->bind(model.mesh.indexBuffer);
+    // @@@
 }
 
 // Binds a renderbuffer.

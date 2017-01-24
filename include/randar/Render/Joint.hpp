@@ -7,10 +7,16 @@ namespace randar
 {
     struct Joint : virtual public JointPose
     {
+        /**
+         * User-friendly name for this joint.
+         */
         std::string name;
 
+        /**
+         * This joint's parent, in id and pointer forms.
+         */
+        int32_t parentId = -1;
         Joint *parent = nullptr;
-        JointPose basePose;
 
         glm::mat4 getPoseMatrix() const;
     };

@@ -11,4 +11,6 @@
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/VertexBuffer.hpp>
 
+#include <randar/Render/Mesh.hpp>
+
 #endif
