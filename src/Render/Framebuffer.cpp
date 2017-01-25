@@ -19,7 +19,7 @@ randar::Framebuffer::Framebuffer(
 randar::Framebuffer::~Framebuffer()
 {
     // Don't destroy the default framebuffer.
-    if (this->glName != 0) {
+    if (this->getGlName() != 0) {
         this->gpu.destroy(*this);
     }
 }
