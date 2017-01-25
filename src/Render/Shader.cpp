@@ -1,52 +1,42 @@
 #include <randar/Render/Shader.hpp>
 #include <randar/Engine/Gpu.hpp>
 
-randar::Shader::Shader(const std::string& initName)
-: randar::Resource(initName)
+// Constructs a new uninitialized shader.
+randar::Shader::Shader()
 {
 
 }
 
+// Constructs a new shader as a copy of an existing one.
+randar::Shader::Shader(const randar::Shader& other)
+{
+    *this = other;
+}
+
+// Constructs an initialized shader from in-memory code.
 randar::Shader::Shader(
     ::GLenum initShaderType,
-    const std::string& initCode,
-    const std::string& initName
-) :
-  randar::Resource(initName),
-  shaderType(initShaderType),
+    const std::string& initCode)
+: shaderType(initShaderType),
   code(initCode)
 {
-
-}
-
-randar::Shader::Shader(const randar::Shader& other)
-: randar::Resource(other.name),
-  shaderType(other.shaderType),
-  code(other.code)
-{
-
-}
-
-void randar::Shader::initialize()
-{
     this->gpu.initialize(*this);
-    this->initialized = true;
 }
 
-void randar::Shader::destroy()
-{
+// Destructor.
+randar::Shader::~Shader() {
     this->gpu.destroy(*this);
-    this->initialized = false;
 }
 
+// Assignment operator.
 randar::Shader& randar::Shader::operator =(const randar::Shader& other)
 {
-    this->initialized = false;
-    this->setGlName(0);
-
-    this->name = other.name;
     this->shaderType = other.shaderType;
     this->code = other.code;
+
+    if (other.isInitialized()) {
+        this->gpu.initialize(*this);
+    }
 
     return *this;
 }

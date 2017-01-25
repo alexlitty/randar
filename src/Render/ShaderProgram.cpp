@@ -21,11 +21,8 @@ randar::ShaderProgram::ShaderProgram(const randar::ShaderProgram& other)
 // Constructs a shader program from existing shaders.
 randar::ShaderProgram::ShaderProgram(
     randar::Shader& initVertexShader,
-    randar::Shader& initFragmentShader,
-    const std::string& initName
-) :
-  randar::Resource(initName),
-  vertexShader(initVertexShader),
+    randar::Shader& initFragmentShader)
+: vertexShader(initVertexShader),
   fragmentShader(initFragmentShader)
 {
     this->gpu.initialize(*this);
