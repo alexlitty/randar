@@ -12,6 +12,22 @@ randar::Framebuffer::Framebuffer(
   depthBuffer(randar::Renderbuffer::DEPTH, width, height)
 {
     this->camera.viewport = Viewport(0, 0, width, height);
+    this->gpu.initialize(*this);
+}
+
+// Destructor.
+randar::Framebuffer::~Framebuffer()
+{
+    // Don't destroy the default framebuffer.
+    if (this->glName != 0) {
+        this->gpu.destroy(*this);
+    }
+}
+
+// Whether this framebuffer is initialized on the GPU.
+bool randar::Framebuffer::isInitialized() const
+{
+    return true;
 }
 
 // Checks whether a depth buffer is enabled.
@@ -24,18 +40,4 @@ bool randar::Framebuffer::hasDepthBuffer() const
 void randar::Framebuffer::resize(unsigned int width, unsigned int height)
 {
     this->gpu.resize(*this, width, height);
-}
-
-// Initialize this framebuffer.
-void randar::Framebuffer::initialize()
-{
-    this->gpu.initialize(*this);
-    this->initialized = true;
-}
-
-// Destroys this framebuffer.
-void randar::Framebuffer::destroy()
-{
-    this->gpu.destroy(*this);
-    this->initialized = false;
 }

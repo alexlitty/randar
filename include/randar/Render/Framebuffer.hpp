@@ -27,12 +27,30 @@ namespace randar
 
         /**
          * Constructor.
+         *
+         * @todo - Stop redundant texture and depth buffer for default
+         *         framebuffers.
+         * @todo - Throw exception if not initialized.
          */
         Framebuffer(
             std::string textureType = "rgba",
             bool enableDepthBuffer = false,
             unsigned int width = 1,
             unsigned int height = 1);
+
+        /**
+         * Destructor.
+         */
+        ~Framebuffer();
+
+        /**
+         * Whether this framebuffer is initialized on the GPU.
+         *
+         * There's no scenario where it wouldn't be initialized, so this always
+         * returns true. If it isn't initialized during construction, an
+         * exception is thrown and the framebuffer should be discarded.
+         */
+        virtual bool isInitialized() const override;
 
         /**
          * Checks whether a depth buffer is enabled.
@@ -43,12 +61,6 @@ namespace randar
          * Resizes this framebuffer and its dependencies.
          */
         void resize(unsigned int width, unsigned int height);
-
-        /**
-         * Resource initialization and destruction.
-         */
-        virtual void initialize() override;
-        virtual void destroy() override;
     };
 }
 
