@@ -7,25 +7,26 @@ randar::Renderbuffer::Renderbuffer(randar::Renderbuffer::Type initType, unsigned
   width(initWidth),
   height(initHeight)
 {
+    this->gpu.initialize(*this);
+}
 
+// Constructs a new renderbuffer from an existing one.
+randar::Renderbuffer::Renderbuffer(const randar::Renderbuffer& other)
+: type(other.type),
+  width(other.width),
+  height(other.height)
+{
+    this->gpu.initialize(*this);
+}
+
+// Destructor.
+randar::Renderbuffer::~Renderbuffer()
+{
+    this->gpu.destroy(*this);
 }
 
 // Resizes this framebuffer.
 void randar::Renderbuffer::resize(unsigned int width, unsigned int height)
 {
     this->gpu.resize(*this, width, height);
-}
-
-// Resource initialization.
-void randar::Renderbuffer::initialize()
-{
-    this->gpu.initialize(*this);
-    this->initialized = true;
-}
-
-// Resource destruction.
-void randar::Renderbuffer::destroy()
-{
-    this->gpu.destroy(*this);
-    this->initialized = false;
 }

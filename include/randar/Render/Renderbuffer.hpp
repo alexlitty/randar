@@ -25,15 +25,19 @@ namespace randar
             unsigned int initHeight = 1);
 
         /**
+         * Constructs a new renderbuffer from an existing one.
+         */
+        Renderbuffer(const Renderbuffer& other);
+
+        /**
+         * Destructor.
+         */
+        ~Renderbuffer();
+
+        /**
          * Resizes this framebuffer.
          */
         void resize(unsigned int width, unsigned int height);
-
-        /**
-         * Resource initialization and destruction.
-         */
-        virtual void initialize() override;
-        virtual void destroy() override;
     };
 }
 
