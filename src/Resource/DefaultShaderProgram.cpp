@@ -1,4 +1,5 @@
 #include <randar/Resource/DefaultShaderProgram.hpp>
+#include <randar/Utility/File.hpp>
 
 randar::Shader& randar::getDefaultVertexShader()
 {

@@ -4,6 +4,7 @@
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Render/ShaderProgram.hpp>
+#include <randar/Resource/DefaultShaderProgram.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar

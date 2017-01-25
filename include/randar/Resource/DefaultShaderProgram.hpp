@@ -5,9 +5,9 @@
 
 namespace randar
 {
-    extern Shader& getDefaultVertexShader();
-    extern Shader& getDefaultFragmentShader();
-    extern ShaderProgram& getDefaultShaderProgram();
+    Shader& getDefaultVertexShader();
+    Shader& getDefaultFragmentShader();
+    ShaderProgram& getDefaultShaderProgram();
 }
 
 #endif

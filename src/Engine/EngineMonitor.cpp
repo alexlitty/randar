@@ -2,15 +2,9 @@
 #include <randar/Engine/Gpu.hpp>
 
 randar::EngineMonitor::EngineMonitor()
-: monitorFramebuffer("rgba", true)
+: program(randar::getDefaultShaderProgram()),
+  monitorFramebuffer("rgba", true)
 {
-    this->monitorFramebuffer.initialize();
-
-    // Define shader program.
-    this->program.vertexShader = Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./shaders/ui.vert"));
-    this->program.fragmentShader = Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./shaders/ui.frag"));
-    this->program.initialize();
-
     // Monitor vertices.
     Vertex vertex;
     vertex.position.set(-0.5f, -1.0f, 0.001f);
