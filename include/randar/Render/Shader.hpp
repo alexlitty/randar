@@ -10,17 +10,37 @@ namespace randar
         GLenum shaderType;
         std::string code;
 
-        Shader(const std::string& initName = "");
-        Shader(
-            ::GLenum initShaderType,
-            const std::string& initCode,
-            const std::string& initName = ""
-        );
+        /**
+         * Constructs a new uninitialized shader.
+         */
+        Shader();
+
+        /**
+         * Constructs a new shader as a copy of an existing one.
+         *
+         * See assignment operator.
+         */
         Shader(const Shader& other);
 
-        virtual void initialize() override;
-        virtual void destroy() override;
+        /**
+         * Constructs an initialized shader from in-memory code.
+         */
+        Shader(
+            ::GLenum initShaderType,
+            const std::string& initCode
+        );
 
+        /**
+         * Destructor.
+         */
+        ~Shader();
+
+        /**
+         * Assignment operator.
+         *
+         * If the other shader is initialized, this shader will also be
+         * initialized.
+         */
         Shader& operator =(const Shader& other);
     };
 }
