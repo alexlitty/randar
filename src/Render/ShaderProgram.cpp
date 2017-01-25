@@ -1,12 +1,24 @@
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/Engine/Gpu.hpp>
 
-randar::ShaderProgram::ShaderProgram(const std::string& initName)
-: randar::Resource(initName)
+// Constructs a new shader program.
+randar::ShaderProgram::ShaderProgram()
 {
 
 }
 
+// Constructs a new shader program as a copy of an existing one.
+randar::ShaderProgram::ShaderProgram(const randar::ShaderProgram& other)
+{
+    this->vertexShader = other.vertexShader;
+    this->fragmentShader = other.fragmentShader;
+
+    if (other.isInitialized()) {
+        this->gpu.initialize(*this);
+    }
+}
+
+// Constructs a shader program from existing shaders.
 randar::ShaderProgram::ShaderProgram(
     randar::Shader& initVertexShader,
     randar::Shader& initFragmentShader,
@@ -16,17 +28,11 @@ randar::ShaderProgram::ShaderProgram(
   vertexShader(initVertexShader),
   fragmentShader(initFragmentShader)
 {
-
-}
-
-void randar::ShaderProgram::initialize()
-{
     this->gpu.initialize(*this);
-    this->initialized = true;
 }
 
-void randar::ShaderProgram::destroy()
+// Destructor.
+randar::ShaderProgram::~ShaderProgram()
 {
     this->gpu.destroy(*this);
-    this->initialized = false;
 }

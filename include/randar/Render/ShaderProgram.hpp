@@ -10,14 +10,30 @@ namespace randar
         Shader vertexShader;
         Shader fragmentShader;
 
-        ShaderProgram(const std::string& initName = "");
+        /**
+         * Constructs a new shader program.
+         */
+        ShaderProgram();
+
+        /**
+         * Constructs a new shader program as a copy of an existing one.
+         *
+         * If the existing program is initialized, this program will also be
+         * initialized.
+         */
+        ShaderProgram(const ShaderProgram& other);
+
+        /**
+         * Constructs a shader program from existing shaders.
+         */
         ShaderProgram(
             Shader& initVertexShader,
-            Shader& initFragmentShader,
-            const std::string& initName = "");
+            Shader& initFragmentShader);
 
-        virtual void initialize() override;
-        virtual void destroy() override;
+        /**
+         * Destructor.
+         */
+        ~ShaderProgram();
     };
 }
 
