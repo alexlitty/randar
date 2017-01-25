@@ -4,11 +4,9 @@
 void randar::IndexBuffer::initialize()
 {
     this->gpu.initialize(*this);
-    this->initialized = true;
 }
 
 void randar::IndexBuffer::destroy()
 {
     this->gpu.destroy(*this);
-    this->initialized = false;
 }

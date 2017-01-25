@@ -21,7 +21,6 @@ namespace randar
     {
     protected:
         Gpu& gpu;
-        bool initialized;
 
     public:
         /**
@@ -43,11 +42,6 @@ namespace randar
          * Initialize this resource and bring it into memory.
          */
         virtual void initialize() { }
-
-        /**
-         * Whether this resource is initialized.
-         */
-        bool isInitialized() const;
 
         /**
          * Destroys this resource and frees it from memory.
