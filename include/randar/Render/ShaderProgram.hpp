@@ -34,6 +34,15 @@ namespace randar
          * Destructor.
          */
         ~ShaderProgram();
+
+        /**
+         * Sets the program shaders and initializes the program.
+         *
+         * If the program was already initialized, it it destroyed first.
+         */
+        void set(
+            const Shader& initVertexShader,
+            const Shader& initFragmentShader);
     };
 }
 

@@ -7,9 +7,6 @@ randar::Ui::Ui(randar::Browser& initBrowser)
   browser(initBrowser)
 {
     this->project.load("./test-project/");
-    this->project.models["test"] = &this->monitor.monitor;
-    this->project.models["test"]->setFile("./test-project/models/0.model");
-    this->project.models["test"]->save();
     this->project.save();
 }
 

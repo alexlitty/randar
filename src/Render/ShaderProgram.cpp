@@ -33,3 +33,17 @@ randar::ShaderProgram::~ShaderProgram()
 {
     this->gpu.destroy(*this);
 }
+
+// Sets the program shaders and initializes the program.
+void randar::ShaderProgram::set(
+    const randar::Shader& initVertexShader,
+    const randar::Shader& initFragmentShader)
+{
+    if (this->isInitialized()) {
+        this->gpu.destroy(*this);
+    }
+
+    this->vertexShader = initVertexShader;
+    this->fragmentShader = initFragmentShader;
+    this->gpu.initialize(*this);
+}

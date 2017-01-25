@@ -11,12 +11,15 @@ namespace randar
 {
     class EngineMonitor : virtual public Resource
     {
+        ShaderProgram screenProgram;
+        Model screen;
+
     public:
         Framebuffer defaultFramebuffer;
-        ShaderProgram program;
 
         Framebuffer monitorFramebuffer;
-        Model monitor;
+
+        Model *targetModel;
 
         EngineMonitor();
         ~EngineMonitor();
@@ -25,9 +28,21 @@ namespace randar
          * Resizes the monitor to fit the window.
          */
         void resize();
+
+        /**
+         * Clears the monitoring target.
+         */
+        void clearTarget();
+
+        /**
+         * Sets the monitoring target.
+         */
+        void setTarget(Model &model);
         
         /**
-         * Draws the currently selected item onto a region of the interface.
+         * Draws the monitor target.
+         *
+         * If no target is set, nothing is drawn.
          */
         void draw();
     };
