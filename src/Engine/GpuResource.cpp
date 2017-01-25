@@ -12,6 +12,12 @@ randar::GpuResource::~GpuResource()
 
 }
 
+// Whether this resource is initialized on the GPU.
+bool randar::GpuResource::isInitialized() const
+{
+    return this->glName != 0;
+}
+
 // OpenGL name assignment and retrieval.
 void randar::GpuResource::setGlName(::GLuint newGlName)
 {

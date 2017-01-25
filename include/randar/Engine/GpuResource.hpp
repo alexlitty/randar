@@ -18,6 +18,11 @@ namespace randar
         ~GpuResource();
 
         /**
+         * Whether this resource is initialized on the GPU.
+         */
+        virtual bool isInitialized() const;
+
+        /**
          * OpenGL name assignment and retrieval.
          */
         void setGlName(::GLuint newGlName);
