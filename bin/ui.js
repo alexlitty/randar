@@ -1,27 +1,10 @@
 var randar = {
     /**
-     * Engine sync requests.
-     *
-     * The engine looks at this array every frame and initiates a sync if
-     * information is required.
+     * Retrieves all resources from the engine and shows them on the interface.
      */
-    syncs: [ ],
+    updateResources: function() {
+        var data = JSON.parse(window.getResources());
 
-
-    /**
-     * Retrieves and clears the engine sync requests.
-     */
-    consumeSyncs: function() {
-        var syncs = randar.syncs.slice();
-        randar.syncs = [ ];
-        return syncs;
-    },
-
-
-    /**
-     * Updates one or more resources.
-     */
-    updateResources: function(data) {
         for (type in data) {
             if (isString(data[type])) {
                 randar.resources[type] = data[type];
@@ -44,6 +27,7 @@ var randar = {
 
         // Update list elements.
         var texturesList = getElement('#objects .textures');
+        clearElement(texturesList);
         for (textureName in randar.resources.textures) {
             var element = document.createElement('li');
             element.innerHTML = textureName;
@@ -51,13 +35,13 @@ var randar = {
         }
 
         var modelsList = getElement('#objects .models');
+        clearElement(modelsList);
         for (modelName in randar.resources.models) {
             var element = document.createElement('li');
             element.innerHTML = modelName;
             modelsList.appendChild(element);
         }
     },
-
 
     /**
      * Project resources.
@@ -68,6 +52,7 @@ var randar = {
         shaders: { }
     }
 };
+
 
 /**
  * Generic helpers.
@@ -90,6 +75,10 @@ function showElement(element) {
 
 function isString(value) {
     return typeof value === 'string' || value instanceof String;
+}
+
+function clearElement(element) {
+    element.innerHTML = '';
 }
 
 
@@ -125,27 +114,17 @@ function showObjects(category) {
 
 
 /**
- * Main program.
+ * Initialize the interface.
  */
 randar.ready = function() {
-    randar.updateResources(
-        JSON.parse(window.getResources())
-    );
-
-    randar.syncs.push({
-        command: 'read'
-    });
     showMain();
 
     getElement('#import-resource').addEventListener('click', function() {
         var results = window.importResource();
+        randar.updateResources();
 
-        var messageElement = getElement('#import-message');
-        if (results) {
-            messageElement.innerHTML = results.message;
-        } else {
-            messageElement.innerHTML = '';
-        }
+        var message = results ? results.message : 'No file selected.';
+        getElement('#import-message').innerHTML = message;
     });
 
     var backButtons = getElements('nav ul.back');
@@ -172,4 +151,6 @@ randar.ready = function() {
             }.bind(this, category));
         }
     }
+
+    randar.updateResources();
 }
