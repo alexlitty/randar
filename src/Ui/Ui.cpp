@@ -38,13 +38,20 @@ void randar::Ui::execute(
     }
 
     // Switch the resource on the engine monitor.
-    else if (name == "monitorResource" && arguments.size() >= 2) {
-        ::CefRefPtr<::CefV8Value> category = arguments[0];
-        ::CefRefPtr<::CefV8Value> name = arguments[1];
+    else if (name == "setMonitorTarget") {
+        if (arguments.size() >= 2 && arguments[0]->IsString() && arguments[1]->IsString()) {
+            std::string category = arguments[0]->GetStringValue();
+            std::string name = arguments[1]->GetStringValue();
 
-        if (category->IsString() && name->IsString()) {
-            std::string realName = name->GetStringValue();
+            if (category == "models") {
+                if (this->project.models.count(name)) {
+                    this->monitor.setTarget(*this->project.models[name]);
+                    return;
+                }
+            }
         }
+
+        this->monitor.clearTarget();
     }
 
     // Import a new resource from a file.

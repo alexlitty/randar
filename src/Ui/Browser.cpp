@@ -137,8 +137,8 @@ void randar::Browser::OnContextCreated(
     );
 
     jsWindow->SetValue(
-        "monitorResource",
-        ::CefV8Value::CreateFunction("monitorResource", handler),
+        "setMonitorTarget",
+        ::CefV8Value::CreateFunction("setMonitorTarget", handler),
         ::V8_PROPERTY_ATTRIBUTE_NONE
     );
 

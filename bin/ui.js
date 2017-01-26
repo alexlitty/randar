@@ -51,7 +51,18 @@ var randar = {
             var element = document.createElement('li');
             element.innerHTML = modelName;
             modelsList.appendChild(element);
+
+            element.addEventListener('click', function() {
+                randar.setMonitorTarget('models', modelName);
+            });
         }
+    },
+
+    /**
+     * Sets a new monitor target.
+     */
+    setMonitorTarget: function(category, name) {
+        window.setMonitorTarget(category, name);
     },
 
     /**
