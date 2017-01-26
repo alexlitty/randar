@@ -50,30 +50,63 @@ void randar::Ui::execute(
             return;
         }
 
+        std::string file(fileResult);
+        std::string extension = randar::getFileExtension(file);
+        std::string message;
+
+        // Import file.
+        try {
+            if (extension == "iqm") {
+                this->importer.importIqm(file);
+            }
+            
+            else {
+                message = "File not compatible.";
+            }
+        }
+
+        // Import failed.
+        catch (std::runtime_error error) {
+            message = error.what();
+        }
+
+        // Move new resources into project.
+        for (auto item : this->importer.models) {
+            std::string modelName = randar::insertUniqueKey(
+                this->project.models,
+                item.first,
+                item.second
+            );
+
+            // Save to project directory.
+            item.second->setFile(
+                this->project.getDirectory()
+                + "models/" + modelName + ".model"
+            );
+            item.second->save();
+        }
+        this->project.save();
+
+        // Generate success message, unless the import failed.
+        if (message == "") {
+            message = "Imported "
+                    + std::to_string(this->importer.models.size())
+                    + " models";
+        }
+        this->importer.clear();
+
+        // Return results.
         returnValue = ::CefV8Value::CreateObject(
             ::CefRefPtr<::CefV8Accessor>(),
             ::CefRefPtr<::CefV8Interceptor>()
         );
 
-        std::string file(fileResult);
-        std::string extension = randar::getFileExtension(file);
-        if (extension == "iqm") {
-            this->importer.importIqm(file);
+        returnValue->SetValue(
+            "message",
+            ::CefV8Value::CreateString(message),
+            ::V8_PROPERTY_ATTRIBUTE_NONE
+        );
 
-            returnValue->SetValue(
-                "message",
-                ::CefV8Value::CreateString("Success!"),
-                ::V8_PROPERTY_ATTRIBUTE_NONE
-            );
-        }
-        
-        else {
-            returnValue->SetValue(
-                "message",
-                ::CefV8Value::CreateString("File not compatible."),
-                ::V8_PROPERTY_ATTRIBUTE_NONE
-            );
-        }
     }
 }
 
