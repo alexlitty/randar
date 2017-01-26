@@ -1,3 +1,4 @@
+#include <randar/Log/DefaultLog.hpp>
 #include <randar/Project/Project.hpp>
 
 // Default constructor.
@@ -42,7 +43,6 @@ bool randar::Project::load(const std::string& directory)
         }
     }
 
-
     if (project["textures"].is_object()) {
         for (Json::iterator it = project["textures"].begin(); it != project["textures"].end(); it++) {
             this->textures[it.key()] = new Texture(
@@ -64,7 +64,7 @@ bool randar::Project::load(const std::string& directory)
             }
 
             catch (std::runtime_error error) {
-                std::cout << "Ignoring bad model: " << it.key() << std::endl;
+                randar::logError("Removing bad model from project: " + it.key());
             }
         }
     }

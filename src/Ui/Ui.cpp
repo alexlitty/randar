@@ -7,8 +7,7 @@ randar::Ui::Ui(randar::Browser& initBrowser)
   window(&gpu.getWindow()),
   browser(initBrowser)
 {
-    this->project.load("./test-project/");
-    this->project.save();
+
 }
 
 // Handles program log messages.
@@ -134,7 +133,11 @@ void randar::Ui::run()
 
     // Initialize the interface.
     this->browser.setNativeCodeHandler(this);
+    this->project.load("./test-project/");
     this->browser.executeJs("randar.ready();");
+    
+    // @todo - Test saving.
+    this->project.save();
 
     // Run the interface program.
     while (true) {
