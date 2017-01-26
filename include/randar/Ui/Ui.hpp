@@ -3,6 +3,7 @@
 
 #include <randar/Engine/EngineMonitor.hpp>
 #include <randar/Project/Project.hpp>
+#include <randar/Project/Importer.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
@@ -35,9 +36,14 @@ namespace randar
         EngineMonitor monitor;
 
         /**
-         * The active project shown in the interface.
+         * The active project loaded into Randar.
          */
         Project project;
+
+        /**
+         * Utility class for importing resources.
+         */
+        Importer importer;
 
     public:
         /**

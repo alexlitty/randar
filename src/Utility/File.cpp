@@ -1,4 +1,18 @@
+#include <regex>
 #include <randar/Utility/File.hpp>
+
+// Retrieves a file's extension.
+std::string randar::getFileExtension(const std::string& file)
+{
+    std::smatch matches;
+
+    std::regex regex(".+[.](.+)$");
+    if (!std::regex_search(file, matches, regex) || matches.size() != 2) {
+        return "";
+    }
+
+    return matches[1];
+}
 
 // Loads an ASCII file into memory.
 std::string randar::readAsciiFile(std::string filename)

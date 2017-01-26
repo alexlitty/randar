@@ -69,14 +69,6 @@ bool randar::Project::load(const std::string& directory)
         }
     }
 
-    this->importer.importIqm("test.iqm");
-
-    for (auto item : this->importer.models) {
-        this->models[item.first] = item.second;
-        this->models[item.first]->setFile("./test-project/models/iqm.model");
-        this->models[item.first]->save();
-    }
-
     return true;
 }
 

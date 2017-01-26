@@ -7,6 +7,11 @@
 namespace randar
 {
     /**
+     * Retrieves a file's extension.
+     */
+    std::string getFileExtension(const std::string& file);
+
+    /**
      * Loads an ASCII file into memory.
      */
     std::string readAsciiFile(std::string filename);

@@ -138,7 +138,14 @@ randar.ready = function() {
     showMain();
 
     getElement('#import-resource').addEventListener('click', function() {
-        window.importResource();
+        var results = window.importResource();
+
+        var messageElement = getElement('#import-message');
+        if (results) {
+            messageElement.innerHTML = results.message;
+        } else {
+            messageElement.innerHTML = '';
+        }
     });
 
     var backButtons = getElements('nav ul.back');

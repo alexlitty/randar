@@ -1,7 +1,6 @@
 #ifndef RANDAR_ENGINE_PROJECT_HPP
 #define RANDAR_ENGINE_PROJECT_HPP
 
-#include <randar/Project/Importer.hpp>
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Utility/File.hpp>
@@ -13,7 +12,6 @@ namespace randar
     class Project
     {
         std::string directory;
-        Importer importer;
 
     public:
         std::string name;

@@ -81,6 +81,7 @@ void randar::EngineMonitor::setTarget(randar::Model& model)
 void randar::EngineMonitor::draw()
 {
     this->gpu.clear(this->defaultFramebuffer, Color(0.03f, 0.03f, 0.25f, 0.0f));
+    this->gpu.clear(this->monitorFramebuffer, Color(0.03f, 0.03f, 0.25f, 0.0f));
 
     // Target is a model.
     if (this->targetModel) {
@@ -89,6 +90,11 @@ void randar::EngineMonitor::draw()
             this->monitorFramebuffer,
             *this->targetModel
         );
+    }
+
+    // No target to draw.
+    else {
+
     }
 
     // Draw monitor framebuffer onto screen model.

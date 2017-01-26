@@ -1,3 +1,4 @@
+#include <regex>
 #include <randar/Ui/Ui.hpp>
 
 // Constructor.
@@ -35,7 +36,7 @@ void randar::Ui::execute(
 
     // Import a new resource from a file.
     else if (name == "importResource") {
-        ::tinyfd_openFileDialog(
+        const char* fileResult = ::tinyfd_openFileDialog(
             "Import Resource",
             this->project.getDirectory().c_str(),
             0,
@@ -43,6 +44,36 @@ void randar::Ui::execute(
             nullptr,
             0
         );
+
+        // No file was selected.
+        if (!fileResult) {
+            return;
+        }
+
+        returnValue = ::CefV8Value::CreateObject(
+            ::CefRefPtr<::CefV8Accessor>(),
+            ::CefRefPtr<::CefV8Interceptor>()
+        );
+
+        std::string file(fileResult);
+        std::string extension = randar::getFileExtension(file);
+        if (extension == "iqm") {
+            //this->importer
+
+            returnValue->SetValue(
+                "message",
+                ::CefV8Value::CreateString("Success!"),
+                ::V8_PROPERTY_ATTRIBUTE_NONE
+            );
+        }
+        
+        else {
+            returnValue->SetValue(
+                "message",
+                ::CefV8Value::CreateString("File not compatible."),
+                ::V8_PROPERTY_ATTRIBUTE_NONE
+            );
+        }
     }
 }
 
