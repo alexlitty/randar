@@ -1,5 +1,16 @@
 var randar = {
     /**
+     * Handles an engine log message.
+     */
+    onEngineLog: function(message) {
+        var div = document.createElement('div');
+        div.innerHTML = '[' + message.level + '] ' + message.contents;
+
+        var logElement = getElement('#engine-log');
+        logElement.insertBefore(div, logElement.firstChild);
+    },
+
+    /**
      * Retrieves all resources from the engine and shows them on the interface.
      */
     updateResources: function() {

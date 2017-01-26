@@ -14,6 +14,14 @@ randar::Ui::Ui(randar::Browser& initBrowser)
 // Handles program log messages.
 void randar::Ui::onLog(const randar::LogMessage& message)
 {
+    if (this->browser.isLoading()) {
+        return;
+    }
+
+    this->browser.executeJs(
+        "randar.onEngineLog(" + message.toJson().dump() + ")"
+    );
+
     std::cout << message.toString() << std::endl;
 }
 
