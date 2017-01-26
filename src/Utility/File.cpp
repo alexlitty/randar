@@ -1,5 +1,6 @@
 #include <regex>
 #include <randar/Utility/File.hpp>
+#include <randar/Utility/String.hpp>
 
 // Retrieves a file's extension.
 std::string randar::getFileExtension(const std::string& file)
@@ -11,7 +12,7 @@ std::string randar::getFileExtension(const std::string& file)
         return "";
     }
 
-    return matches[1];
+    return randar::toLowercase(matches[1]);
 }
 
 // Loads an ASCII file into memory.

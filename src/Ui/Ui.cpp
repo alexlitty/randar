@@ -58,7 +58,7 @@ void randar::Ui::execute(
         std::string file(fileResult);
         std::string extension = randar::getFileExtension(file);
         if (extension == "iqm") {
-            //this->importer
+            this->importer.importIqm(file);
 
             returnValue->SetValue(
                 "message",
