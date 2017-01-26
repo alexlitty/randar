@@ -17,6 +17,7 @@ randar::Model::Model(const std::string& file)
 {
     uint8_t version;
 
+    this->setFile(file);
     BinaryFileInput stream(file);
 
     // Check model file version.

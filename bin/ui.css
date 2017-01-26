@@ -65,7 +65,7 @@ nav li:active {
 
 nav#settings #engine-log {
     border-top: 1px solid #333;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 nav#main li {
