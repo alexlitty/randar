@@ -72,6 +72,44 @@ namespace randar
         map[key] = item;
         return key;
     }
+
+    /**
+     * Generates a unique key based on a desired key.
+     *
+     * Returns the final key chosen.
+     */
+    template <typename T>
+    std::string generateUniqueKey(
+        std::map<std::string, T>& map,
+        const std::string& suggestedKey)
+    {
+        std::string key(suggestedKey);
+        unsigned int suffix = 0;
+
+        while (map.count(key)) {
+            key = suggestedKey + "_" + std::to_string(suffix);
+            suffix++;
+        }
+
+        return key;
+    }
+
+    /**
+     * Inserts an item into a map with a unique key, based on a desired key.
+     *
+     * Returns the final key chosen.
+     */
+    template <typename T, typename U>
+    std::string insertUniqueKey(
+        std::map<std::string, T>& map,
+        const std::string& suggestedKey,
+        U& item)
+    {
+        std::string key = randar::generateUniqueKey(map, suggestedKey);
+
+        map[key] = item;
+        return key;
+    }
 }
 
 #endif

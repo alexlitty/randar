@@ -8,6 +8,8 @@ namespace randar
 {
     /**
      * Retrieves a file's extension.
+     *
+     * Always returned in lowercase.
      */
     std::string getFileExtension(const std::string& file);
 
