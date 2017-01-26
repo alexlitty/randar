@@ -2,6 +2,7 @@
 #define RANDAR_UI_UI_HPP
 
 #include <randar/Engine/EngineMonitor.hpp>
+#include <randar/Log/LogListener.hpp>
 #include <randar/Project/Project.hpp>
 #include <randar/Project/Importer.hpp>
 #include <randar/Ui/Browser.hpp>
@@ -13,7 +14,9 @@ namespace randar
      * A bridge between an embedded browser, the Randar engine, and a Randar
      * project.
      */
-    class Ui : public NativeCodeHandler
+    class Ui
+    : virtual public LogListener,
+      public NativeCodeHandler
     {
         /**
          * GPU to use.
@@ -50,6 +53,11 @@ namespace randar
          * Constructor.
          */
         Ui(Browser& initBrowser);
+
+        /**
+         * Handles program log messages.
+         */
+        virtual void onLog(const LogMessage& message) override;
 
         /**
          * Handles interface function calls for engine interaction.

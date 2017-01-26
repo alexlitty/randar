@@ -11,6 +11,12 @@ randar::Ui::Ui(randar::Browser& initBrowser)
     this->project.save();
 }
 
+// Handles program log messages.
+void randar::Ui::onLog(const randar::LogMessage& message)
+{
+    std::cout << message.toString() << std::endl;
+}
+
 // Handles interface function calls for engine interaction.
 void randar::Ui::execute(
     const std::string& name,
