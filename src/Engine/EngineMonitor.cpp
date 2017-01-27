@@ -3,6 +3,7 @@
 
 randar::EngineMonitor::EngineMonitor()
 : monitorFramebuffer("rgba", true),
+  camera(monitorFramebuffer.camera),
   targetModel(nullptr)
 {
     screenProgram.set(

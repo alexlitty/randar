@@ -18,6 +18,7 @@ namespace randar
         Framebuffer defaultFramebuffer;
 
         Framebuffer monitorFramebuffer;
+        Camera& camera;
 
         Model *targetModel;
 
