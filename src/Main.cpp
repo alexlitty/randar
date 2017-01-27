@@ -24,11 +24,13 @@ int main(int argc, char *argv[])
         return exitCode;
     }
 
-    // Prepare Randar.
+    // Prepare Randar as an interface.
     randar::seedRandomWithTime();
-
-    // Run Randar with an interface.
     randar::Ui ui(browser);
+
+    // Register click handlers.
+
+    // Run Randar.
     ui.run();
     return 0;
 }
