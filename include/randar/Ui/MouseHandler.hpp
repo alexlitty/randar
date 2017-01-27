@@ -27,9 +27,9 @@ namespace randar
         /**
          * Mouse events that may be handled by children classes.
          */
-        virtual void onMouseLeftClick(const MousePosition& position);
-        virtual void onMouseLeftDrag(const Vector& movement);
-        virtual void onScroll(double x, double y);
+        virtual void onLeftClick(const MousePosition& position);
+        virtual void onLeftDrag(const Vector& drag);
+        virtual void onScroll(const Vector& scroll);
     };
 }
 

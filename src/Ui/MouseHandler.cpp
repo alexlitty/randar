@@ -6,12 +6,12 @@ void randar::MouseHandler::onNativeMousePosition(double x, double y)
     if (this->leftButtonPressed) {
         this->leftButtonDragging = true;
 
-        Vector movement(
-            x - this->mousePosition.x,
-            y - this->mousePosition.y
+        this->onLeftDrag(
+            Vector(
+                x - this->mousePosition.x,
+                y - this->mousePosition.y
+            )
         );
-
-        this->onMouseLeftDrag(movement);
     }
 }
 
@@ -25,7 +25,7 @@ void randar::MouseHandler::onNativeMouseButton(int button, int action, int mods)
 
         else if (action == GLFW_RELEASE) {
             if (!this->leftButtonDragging) {
-                this->onMouseLeftClick(this->mousePosition);
+                this->onLeftClick(this->mousePosition);
             }
 
             this->leftButtonPressed = false;
@@ -37,23 +37,23 @@ void randar::MouseHandler::onNativeMouseButton(int button, int action, int mods)
 // Handles a native mouse scroll event.
 void randar::MouseHandler::onNativeScroll(double x, double y)
 {
-    this->onScroll(x, y);
+    this->onScroll(Vector(x, y));
 }
 
 // Handles a left click from the mouse.
-void randar::MouseHandler::onMouseLeftClick(const randar::MousePosition& position)
+void randar::MouseHandler::onLeftClick(const randar::MousePosition& position)
 {
 
 }
 
 // Handles dragging with the left mouse button.
-void randar::MouseHandler::onMouseLeftDrag(const randar::Vector& movement)
+void randar::MouseHandler::onLeftDrag(const randar::Vector& drag)
 {
 
 }
 
 // Handles mouse scrolling.
-void randar::MouseHandler::onScroll(double x, double y)
+void randar::MouseHandler::onScroll(const randar::Vector& scroll)
 {
 
 }

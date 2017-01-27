@@ -24,6 +24,24 @@ void randar::Ui::onLog(const randar::LogMessage& message)
     std::cout << message.toString() << std::endl;
 }
 
+// Handles left clicking.
+void randar::Ui::onLeftClick(const randar::MousePosition& position)
+{
+    std::cout << "click" << std::endl;
+}
+
+// Handles dragging with the left mouse button.
+void randar::Ui::onLeftDrag(const randar::Vector& drag)
+{
+    std::cout << "drag" << std::endl;
+}
+
+// Handles mouse scrolling.
+void randar::Ui::onScroll(const randar::Vector& scroll)
+{
+    std::cout << "scroll" << std::endl;
+}
+
 // Handles interface function calls for engine interaction.
 void randar::Ui::execute(
     const std::string& name,

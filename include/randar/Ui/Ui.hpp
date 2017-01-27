@@ -6,6 +6,7 @@
 #include <randar/Project/Project.hpp>
 #include <randar/Project/Importer.hpp>
 #include <randar/Ui/Browser.hpp>
+#include <randar/Ui/MouseHandler.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
 namespace randar
@@ -16,7 +17,8 @@ namespace randar
      */
     class Ui
     : virtual public LogListener,
-      public NativeCodeHandler
+      virtual public MouseHandler,
+      virtual public NativeCodeHandler
     {
         /**
          * GPU to use.
@@ -58,6 +60,13 @@ namespace randar
          * Handles program log messages.
          */
         virtual void onLog(const LogMessage& message) override;
+
+        /**
+         * Handles mouse events.
+         */
+        virtual void onLeftClick(const MousePosition& position) override;
+        virtual void onLeftDrag(const Vector& drag) override;
+        virtual void onScroll(const Vector& scroll) override;
 
         /**
          * Handles interface function calls for engine interaction.
