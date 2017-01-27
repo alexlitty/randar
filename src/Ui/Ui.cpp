@@ -27,32 +27,36 @@ void randar::Ui::onLog(const randar::LogMessage& message)
 // Handles left clicking.
 void randar::Ui::onLeftClick(const randar::MousePosition& position)
 {
+
 }
 
 // Handles dragging with the left mouse button.
 void randar::Ui::onLeftDrag(const randar::Vector& drag, const randar::MouseModifiers& modifiers)
 {
-    if (modifiers.control) {
-        glm::mat4 inverse = glm::inverse(this->monitor.camera.getViewMatrix());
-        Vector movement = (drag / 100) * inverse;
+    if (this->monitor.targetModel) {
+        if (modifiers.control) {
+            glm::mat4 inverse = glm::inverse(this->monitor.camera.getViewMatrix());
+            Vector movement = (drag / 100) * inverse;
 
-        Quaternion quat(
-            movement,
-            movement.getMagnitude()
-        );
+            Quaternion quat(
+                movement,
+                movement.getMagnitude()
+            );
 
-        this->monitor.camera.move(quat);
-    }
-    
-    else {
-        Vector finalDrag = drag / 100;
-        this->monitor.camera.pan(finalDrag.x, finalDrag.y);
+            this->monitor.camera.move(quat);
+        }
+        
+        else {
+            Vector finalDrag = drag / 100;
+            this->monitor.camera.pan(finalDrag.x, finalDrag.y);
+        }
     }
 }
 
 // Handles mouse scrolling.
 void randar::Ui::onScroll(const randar::Vector& scroll)
 {
+
 }
 
 // Handles interface function calls for engine interaction.
