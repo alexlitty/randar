@@ -10,7 +10,9 @@ void randar::MouseHandler::onNativeMousePosition(double x, double y)
             Vector(
                 x - this->mousePosition.x,
                 y - this->mousePosition.y
-            )
+            ),
+
+            this->mouseModifiers
         );
     }
 
@@ -21,6 +23,8 @@ void randar::MouseHandler::onNativeMousePosition(double x, double y)
 // Handles a native mouse button event.
 void randar::MouseHandler::onNativeMouseButton(int button, int action, int mods)
 {
+    this->mouseModifiers.set(mods);
+
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
         if (action == GLFW_PRESS) {
             this->leftButtonPressed = true;
@@ -50,7 +54,7 @@ void randar::MouseHandler::onLeftClick(const randar::MousePosition& position)
 }
 
 // Handles dragging with the left mouse button.
-void randar::MouseHandler::onLeftDrag(const randar::Vector& drag)
+void randar::MouseHandler::onLeftDrag(const randar::Vector& drag, const randar::MouseModifiers& modifiers)
 {
 
 }

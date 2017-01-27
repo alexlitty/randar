@@ -3,12 +3,14 @@
 
 #include <randar/Engine/Glfw.hpp>
 #include <randar/Math/Vector.hpp>
+#include <randar/Ui/MouseModifiers.hpp>
 #include <randar/Ui/MousePosition.hpp>
 
 namespace randar
 {
     class MouseHandler
     {
+        MouseModifiers mouseModifiers;
         MousePosition mousePosition;
         bool leftButtonPressed = false;
         bool leftButtonDragging = false;
@@ -28,7 +30,7 @@ namespace randar
          * Mouse events that may be handled by children classes.
          */
         virtual void onLeftClick(const MousePosition& position);
-        virtual void onLeftDrag(const Vector& drag);
+        virtual void onLeftDrag(const Vector& drag, const MouseModifiers& modifiers);
         virtual void onScroll(const Vector& scroll);
     };
 }
