@@ -31,10 +31,18 @@ namespace randar
 
         void setOrtho(bool ortho);
 
+        /**
+         * Sets and retrieves the position that the camera is pointed at.
+         */
         void setTarget(Vector newTarget);
         Vector getTarget() const;
 
         void setFieldOfView(float newFieldOfView);
+
+        /**
+         * Moves the camera perpendicularly.
+         */
+        void pan(float x, float y);
 
         glm::mat4 getViewMatrix() const;
         glm::mat4 getProjectionMatrix() const;

@@ -61,6 +61,16 @@ randar::Vector randar::Camera::getTarget() const
     return this->target;
 }
 
+void randar::Camera::pan(float x, float y)
+{
+    Vector movement(x, y);
+
+    this->move(movement);
+    this->target += movement;
+
+    this->updateMatrices();
+}
+
 glm::mat4 randar::Camera::getViewMatrix() const
 {
     return this->view;

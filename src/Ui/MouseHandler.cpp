@@ -13,6 +13,9 @@ void randar::MouseHandler::onNativeMousePosition(double x, double y)
             )
         );
     }
+
+    this->mousePosition.x = x;
+    this->mousePosition.y = y;
 }
 
 // Handles a native mouse button event.

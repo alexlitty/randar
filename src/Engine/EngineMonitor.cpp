@@ -82,8 +82,8 @@ void randar::EngineMonitor::setTarget(randar::Model& model)
     this->clearTarget();
     this->targetModel = &model;
 
-    this->monitorFramebuffer.camera.setPosition(randar::Vector(0.0f, 8.0f, -30.0f));
-    this->monitorFramebuffer.camera.setTarget(randar::Vector(0.1f, 0.1f, 0.1f));
+    this->monitorFramebuffer.camera.setPosition(randar::Vector(0.0f, 0.0f, -15.0f));
+    this->monitorFramebuffer.camera.setTarget(randar::Vector(0.0f, 0.0f, 0.0f));
 }
 
 // Draws the monitoring target.
