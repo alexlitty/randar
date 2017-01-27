@@ -32,8 +32,17 @@ void randar::Ui::onLeftClick(const randar::MousePosition& position)
 // Handles dragging with the left mouse button.
 void randar::Ui::onLeftDrag(const randar::Vector& drag)
 {
-    Vector finalDrag = drag / 100;
-    this->monitor.camera.pan(finalDrag.x, finalDrag.y);
+    //Vector finalDrag = drag / 100;
+    //this->monitor.camera.pan(finalDrag.x, finalDrag.y);
+    glm::mat4 inverse = glm::inverse(this->monitor.camera.getViewMatrix());
+    Vector movement = (drag / 100) * inverse;
+
+    Quaternion quat(
+        movement,
+        movement.getMagnitude()
+    );
+
+    this->monitor.camera.move(quat);
 }
 
 // Handles mouse scrolling.
