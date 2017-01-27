@@ -24,6 +24,11 @@ namespace randar
 
     public:
         /**
+         * Raw RGBA data.
+         */
+        std::vector<unsigned char> data;
+
+        /**
          * New texture constructor.
          */
         Texture(

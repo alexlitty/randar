@@ -6,10 +6,13 @@ randar::Importer::~Importer()
         delete model.second;
     }
 
-    this->clear();
+    for (auto texture : this->textures) {
+        delete texture.second;
+    }
 }
 
 void randar::Importer::clear()
 {
     this->models.clear();
+    this->textures.clear();
 }

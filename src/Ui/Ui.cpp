@@ -114,6 +114,10 @@ void randar::Ui::execute(
             if (extension == "iqm") {
                 this->importer.importIqm(file);
             }
+
+            else if (extension == "png") {
+                this->importer.importPng(file);
+            }
             
             else {
                 message = "File not compatible.";
@@ -161,7 +165,6 @@ void randar::Ui::execute(
             ::CefV8Value::CreateString(message),
             ::V8_PROPERTY_ATTRIBUTE_NONE
         );
-
     }
 }
 
