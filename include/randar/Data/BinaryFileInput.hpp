@@ -26,6 +26,15 @@ namespace randar
          * Reads a variable type of data from the file.
          */
         template <typename T>
+        void read(T* values, uint32_t count)
+        {
+            if (!this->stream) {
+                throw std::runtime_error("Binary file input stream unexpectedly closed");
+            }
+            this->stream.read(reinterpret_cast<char*>(values), sizeof(values) * count);
+        }
+
+        template <typename T>
         void read(T& value)
         {
             if (!this->stream) {
