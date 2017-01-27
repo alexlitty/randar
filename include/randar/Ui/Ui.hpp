@@ -20,6 +20,7 @@ namespace randar
       virtual public MouseHandler,
       virtual public NativeCodeHandler
     {
+    public:
         /**
          * GPU to use.
          */
@@ -30,6 +31,7 @@ namespace randar
          */
         ::GLFWwindow* window;
 
+    protected:
         /**
          * Embedded browser that generates an HTML interface.
          */

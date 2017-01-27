@@ -28,7 +28,26 @@ int main(int argc, char *argv[])
     randar::seedRandomWithTime();
     randar::Ui ui(browser);
 
-    // Register click handlers.
+    // Register mouse movement handler.
+    ::glfwSetCursorPosCallback(ui.window, [](::GLFWwindow* window, double x, double y) {
+        reinterpret_cast<randar::Ui*>(
+            ::glfwGetWindowUserPointer(window)
+        )->onNativeMousePosition(x, y);
+    });
+
+    // Register mouse button handler.
+    ::glfwSetMouseButtonCallback(ui.window, [](::GLFWwindow* window, int button, int action, int mods) {
+        reinterpret_cast<randar::Ui*>(
+            ::glfwGetWindowUserPointer(window)
+        )->onNativeMouseButton(button, action, mods);
+    });
+
+    // Register mouse scroll handler.
+    ::glfwSetScrollCallback(ui.window, [](::GLFWwindow* window, double x, double y) {
+        reinterpret_cast<randar::Ui*>(
+            ::glfwGetWindowUserPointer(window)
+        )->onNativeScroll(x, y);
+    });
 
     // Run Randar.
     ui.run();
