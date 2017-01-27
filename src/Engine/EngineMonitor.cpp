@@ -10,6 +10,11 @@ randar::EngineMonitor::EngineMonitor()
         randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/screen.frag"))
     );
 
+    modelProgram.set(
+        randar::Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model.vert")),
+        randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model.frag"))
+    );
+
     // Screen vertices.
     Vertex vertex;
     vertex.position.set(-0.5f, -1.0f, 0.001f);
@@ -61,7 +66,7 @@ void randar::EngineMonitor::resize()
 
     this->defaultFramebuffer.camera.viewport = randar::Viewport(0, 0, width, height);
 
-    this->monitorFramebuffer.resize(800, 600);
+    this->monitorFramebuffer.resize(width, height);
 }
 
 // Clears the current target.
@@ -75,6 +80,9 @@ void randar::EngineMonitor::setTarget(randar::Model& model)
 {
     this->clearTarget();
     this->targetModel = &model;
+
+    this->monitorFramebuffer.camera.setPosition(randar::Vector(0.0f, 8.0f, -30.0f));
+    this->monitorFramebuffer.camera.setTarget(randar::Vector(0.1f, 0.1f, 0.1f));
 }
 
 // Draws the monitoring target.
@@ -86,7 +94,7 @@ void randar::EngineMonitor::draw()
     // Target is a model.
     if (this->targetModel) {
         this->gpu.draw(
-            randar::getDefaultShaderProgram(),
+            this->modelProgram,
             this->monitorFramebuffer,
             *this->targetModel
         );
