@@ -3,9 +3,10 @@
 
 randar::EngineMonitor::EngineMonitor()
 : monitorFramebuffer("rgba", true),
-  camera(monitorFramebuffer.camera),
-  targetModel(nullptr)
+  camera(monitorFramebuffer.camera)
 {
+    this->clearTarget();
+
     screenProgram.set(
         randar::Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./resources/shaders/screen.vert")),
         randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/screen.frag"))
@@ -47,8 +48,30 @@ randar::EngineMonitor::EngineMonitor()
     this->screen.faceIndices.push_back(1);
     this->screen.faceIndices.push_back(2);
 
-    // Send screen model to the GPU.
+    // Texture model vertices.
+    vertex.position.set(-1.0f, -1.0f, 0.001f);
+    vertex.textureCoordinate.u = 0.0f;
+    vertex.textureCoordinate.v = 1.0f;
+    this->targetTextureModel.vertices.push_back(vertex);
+
+    vertex.position.set(-1.0f, 1.0f, 0.001f);
+    vertex.textureCoordinate.u = 0.0f;
+    vertex.textureCoordinate.v = 0.0f;
+    this->targetTextureModel.vertices.push_back(vertex);
+
+    vertex.position.set(1.0f, -1.0f, 0.001f);
+    vertex.textureCoordinate.u = 1.0f;
+    vertex.textureCoordinate.v = 1.0f;
+    this->targetTextureModel.vertices.push_back(vertex);
+
+    vertex.position.set(1.0f, 1.0f, 0.001f);
+    vertex.textureCoordinate.u = 1.0f;
+    vertex.textureCoordinate.v = 0.0f;
+    this->targetTextureModel.vertices.push_back(vertex);
+
+    // Send models to the GPU.
     this->gpu.write(this->screen);
+    this->gpu.write(this->targetTextureModel);
 
     // Initialize the UI size.
     this->resize();
@@ -74,6 +97,7 @@ void randar::EngineMonitor::resize()
 void randar::EngineMonitor::clearTarget()
 {
     this->targetModel = nullptr;
+    this->targetTexture = nullptr;
 }
 
 // Sets a model as the monitoring target.
@@ -84,6 +108,12 @@ void randar::EngineMonitor::setTarget(randar::Model& model)
 
     this->monitorFramebuffer.camera.setPosition(randar::Vector(0.0f, 0.0f, -15.0f));
     this->monitorFramebuffer.camera.setTarget(randar::Vector(0.0f, 0.0f, 0.0f));
+}
+
+void randar::EngineMonitor::setTarget(randar::Texture& texture)
+{
+    this->clearTarget();
+    this->targetTexture = &texture;
 }
 
 // Draws the monitoring target.
@@ -98,6 +128,17 @@ void randar::EngineMonitor::draw()
             this->modelProgram,
             this->monitorFramebuffer,
             *this->targetModel
+        );
+    }
+
+    // Target is a texture.
+    else if (this->targetTexture) {
+        this->gpu.bind(*this->targetTexture);
+
+        this->gpu.draw(
+            this->textureProgram,
+            this->monitorFramebuffer,
+            this->targetTextureModel
         );
     }
 

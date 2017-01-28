@@ -12,6 +12,7 @@ namespace randar
     {
         ShaderProgram screenProgram;
         ShaderProgram modelProgram;
+        ShaderProgram textureProgram;
         Model screen;
 
     public:
@@ -20,7 +21,16 @@ namespace randar
         Framebuffer monitorFramebuffer;
         Camera& camera;
 
+        /**
+         * Model to monitor.
+         */
         Model *targetModel;
+
+        /**
+         * Texture to monitor, and a model to help show the texture.
+         */
+        Texture *targetTexture;
+        Model targetTextureModel;
 
         EngineMonitor();
         ~EngineMonitor();
@@ -39,6 +49,7 @@ namespace randar
          * Sets the monitoring target.
          */
         void setTarget(Model &model);
+        void setTarget(Texture &texture);
         
         /**
          * Draws the monitor target.
