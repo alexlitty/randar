@@ -46,6 +46,18 @@ void randar::Importer::importPng(const std::string& file)
     ::png_byte colorType = ::png_get_color_type(png, info);
     ::png_byte bitDepth = ::png_get_bit_depth(png, info);
 
+    // Validate dimensions.
+    if (width <= 0 || height <= 0) {
+        throw std::runtime_error("PNG has zero or corrupt dimensions");
+    }
+
+    if (width > 4096 || height > 4096) {
+        throw std::runtime_error(
+            "Max image size is 4096x4096, this PNG is "
+            + std::to_string(width) + "x" + std::to_string(height)
+        );
+    }
+
     int passes = ::png_set_interlace_handling(png);
     ::png_read_update_info(png, info);
 
@@ -53,9 +65,9 @@ void randar::Importer::importPng(const std::string& file)
         throw std::runtime_error("Error while reading PNG data");
     }
 
-    ::png_bytep *rows = new ::png_bytep[sizeof(::png_bytep) * height];
+    uint8_t **rows = new uint8_t*[sizeof(uint8_t) * height];
     for (int y = 0; y < height; y++) {
-        rows[y] = new ::png_byte[::png_get_rowbytes(png, info)];
+        rows[y] = new uint8_t[::png_get_rowbytes(png, info)];
     }
 
     ::png_read_image(png, rows);
@@ -64,11 +76,22 @@ void randar::Importer::importPng(const std::string& file)
     // Read into a Randar texture.
     Texture *texture = new Texture("rgba", width, height);
 
-    for (int y = 0; y < height; y++) {
-        unsigned char *row = rows[y];
+    for (int y = height - 1; y <= 0; y--) {
+        uint8_t *row = rows[y];
 
         for (int x = 0; x < width; x++) {
-            unsigned char *pixel = &row[x*4];
+            uint8_t *pixel = &row[x*4];
+            texture->data.push_back(pixel[0]);
+            texture->data.push_back(pixel[1]);
+            texture->data.push_back(pixel[2]);
+
+            if (::png_get_color_type(png, info) == PNG_COLOR_TYPE_RGBA) {
+                texture->data.push_back(pixel[3]);
+            }
+
+            else {
+                texture->data.push_back(255);
+            }
         }
     }
 }
