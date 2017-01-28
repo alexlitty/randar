@@ -221,12 +221,20 @@ void randar::Gpu::initialize(randar::Texture& texture)
 
     ::glGenTextures(1, texture);
     this->bind(texture);
-    this->clear(texture);
 
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    if (texture.data.size()) {
+        this->write(texture, texture.data.data(), GL_RGBA);
+    }
+
+    // No data provided. Initialize the texture with arbitrary content.
+    else {
+        this->clear(texture);
+    }
 }
 
 // Initializes a vertex array.
