@@ -6,7 +6,8 @@
 randar::Texture::Texture(
     std::string initType,
     unsigned int initWidth,
-    unsigned int initHeight
+    unsigned int initHeight,
+    bool initialize
 ) :
   type(initType),
   width(initWidth),
@@ -16,7 +17,9 @@ randar::Texture::Texture(
         throw std::runtime_error("Invalid texture dimensions");
     }
 
-    this->gpu.initialize(*this);
+    if (initialize) {
+        this->gpu.initialize(*this);
+    }
 }
 
 // Construct from a file.
@@ -35,25 +38,18 @@ randar::Texture::Texture(const std::string& file)
         throw std::runtime_error("Invalid texture dimensions");
     }
 
+    unsigned int requiredSize = this->width * this->height * 4;
     try {
-        Color pixel;
+        uint8_t value;
 
-        for (unsigned int row = 0; row < this->height; row++) {
-            for (unsigned int col = 0; col < this->width; col++) {
-                stream.read(pixel);
-
-                this->data.push_back(pixel.r);
-                this->data.push_back(pixel.g);
-                this->data.push_back(pixel.b);
-                this->data.push_back(pixel.a);
-            }
+        for (unsigned int i = 0; i < requiredSize; i++) {
+            stream.read(value);
+            this->data.push_back(value);
         }
     }
 
     // Fill missing data with opaque white.
     catch (std::runtime_error error) {
-        unsigned int requiredSize = this->width * this->height * 4;
-
         for (unsigned int i = data.size(); i < requiredSize; i++) {
             this->data.push_back(255);
         }
@@ -90,7 +86,7 @@ bool randar::Texture::save()
             stream.write(255);
         }
 
-        randar::logError("Texture data missing while saving");
+        randar::logError("Texture data missing while saving (" + std::to_string(this->data.size()) + " != " + std::to_string(requiredSize) + ")");
     }
 
     return true;
