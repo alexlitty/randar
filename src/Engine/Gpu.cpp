@@ -220,6 +220,8 @@ void randar::Gpu::initialize(randar::Texture& texture)
     }
 
     ::glGenTextures(1, texture);
+    std::cout << "initializing: " << texture.getGlName() << std::endl;
+
     this->bind(texture);
 
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -228,7 +230,7 @@ void randar::Gpu::initialize(randar::Texture& texture)
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
     if (texture.data.size()) {
-        this->write(texture, texture.data.data(), GL_RGBA);
+        this->write(texture);
     }
 
     // No data provided. Initialize the texture with arbitrary content.
@@ -452,6 +454,11 @@ void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<uint
 }
 
 // Writes an image to a texture.
+void randar::Gpu::write(const randar::Texture& texture)
+{
+    this->write(texture, texture.data.data(), GL_RGBA);
+}
+
 void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data, GLenum dataFormat)
 {
     this->bind(texture);
@@ -487,6 +494,8 @@ void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data, GLen
     else {
         throw std::runtime_error("Writing data to invalid texture type");
     }
+
+    this->check();
 }
 
 // Writes vertices to a vertex buffer.
@@ -547,9 +556,7 @@ void randar::Gpu::bind(const randar::Renderbuffer& renderbuffer)
 // Binds a texture.
 void randar::Gpu::bind(const randar::Texture& texture)
 {
-    if (texture.getGlName() != boundTexture) {
-        ::glBindTexture(GL_TEXTURE_2D, texture);
-    }
+    ::glBindTexture(GL_TEXTURE_2D, texture);
 }
 
 // Binds a vertex buffer.

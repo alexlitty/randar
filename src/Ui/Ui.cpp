@@ -136,40 +136,6 @@ void randar::Ui::execute(
             message = error.what();
         }
 
-        // Move new resources into project.
-        for (auto item : this->importer.models) {
-            std::string modelName = randar::insertUniqueKey(
-                this->project.models,
-                item.first,
-                item.second
-            );
-
-            // Save to project directory.
-            item.second->setFile(
-                this->project.getDirectory()
-                + "models/" + modelName + ".model"
-            );
-            item.second->save();
-        }
-
-        for (auto item : this->importer.textures) {
-            std::string textureName = randar::insertUniqueKey(
-                this->project.textures,
-                item.first,
-                item.second
-            );
-
-            // Save to project directory.
-            item.second->setFile(
-                this->project.getDirectory()
-                + "textures/" + textureName + ".texture"
-            );
-            item.second->save();
-            this->gpu.initialize(*item.second);
-        }
-
-        this->project.save();
-
         // Generate success message, unless the import failed.
         if (message == "") {
             message = "Imported ";
@@ -182,7 +148,6 @@ void randar::Ui::execute(
                 message += std::to_string(this->importer.textures.size()) + " textures";
             }
         }
-        this->importer.clear();
 
         // Return results.
         returnValue = ::CefV8Value::CreateObject(
@@ -196,6 +161,44 @@ void randar::Ui::execute(
             ::V8_PROPERTY_ATTRIBUTE_NONE
         );
     }
+}
+
+// Moves imported resources into the project. resources available in the importer
+void randar::Ui::import()
+{
+    for (auto item : this->importer.models) {
+        std::string modelName = randar::insertUniqueKey(
+            this->project.models,
+            item.first,
+            item.second
+        );
+
+        // Save to project directory.
+        item.second->setFile(
+            this->project.getDirectory()
+            + "models/" + modelName + ".model"
+        );
+        item.second->save();
+    }
+
+    for (auto item : this->importer.textures) {
+        std::string textureName = randar::insertUniqueKey(
+            this->project.textures,
+            item.first,
+            item.second
+        );
+
+        // Save to project directory.
+        item.second->setFile(
+            this->project.getDirectory()
+            + "textures/" + textureName + ".texture"
+        );
+        item.second->save();
+    }
+
+    this->importer.clear();
+    this->project.save();
+    this->browser.executeJs("randar.updateResources();");
 }
 
 // Runs a single tick on the interface program.
@@ -218,6 +221,7 @@ void randar::Ui::run()
     while (true) {
         gpu.check();
         this->runMessageLoops();
+        this->import();
 
         // Draw and display the interface.
         this->monitor.draw();

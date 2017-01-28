@@ -79,6 +79,12 @@ namespace randar
             ::CefRefPtr<::CefV8Value>& returnValue) override;
 
         /**
+         * Takes any resources available in the importer and brings them into
+         * the project.
+         */
+        void import();
+
+        /**
          * Runs Randar as an editor with a user-interface.
          *
          * Updates the embedded browser and draws the engine monitor beside the

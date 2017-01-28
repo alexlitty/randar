@@ -1,12 +1,15 @@
 #ifndef RANDAR_PROJECT_IMPORTER_HPP
 #define RANDAR_PROJECT_IMPORTER_HPP
 
+#include <randar/Engine/Gpu.hpp>
 #include <randar/Render/Model.hpp>
 
 namespace randar
 {
     struct Importer
     {
+        Gpu& gpu = randar::getDefaultGpu();
+
         std::map<std::string, Model*> models;
         std::map<std::string, Texture*> textures;
 

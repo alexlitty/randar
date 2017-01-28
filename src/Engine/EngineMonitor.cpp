@@ -24,24 +24,24 @@ randar::EngineMonitor::EngineMonitor()
 
     // Screen vertices.
     Vertex vertex;
-    vertex.position.set(-0.5f, -1.0f, 0.001f);
+    vertex.position.set(0.0f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
     this->screen.vertices.push_back(vertex);
 
-    vertex.position.set(-0.5f, 1.0f, 0.001f);
+    vertex.position.set(0.0f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 0.0f;
+    vertex.textureCoordinate.v = 1.0f;
     this->screen.vertices.push_back(vertex);
 
     vertex.position.set(1.0f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
-    vertex.textureCoordinate.v = 1.0f;
+    vertex.textureCoordinate.v = 0.0f;
     this->screen.vertices.push_back(vertex);
 
     vertex.position.set(1.0f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
-    vertex.textureCoordinate.v = 0.0f;
+    vertex.textureCoordinate.v = 1.0f;
     this->screen.vertices.push_back(vertex);
 
     // Screen face indices.
@@ -56,23 +56,32 @@ randar::EngineMonitor::EngineMonitor()
     // Texture model vertices.
     vertex.position.set(-1.0f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 1.0f;
+    vertex.textureCoordinate.v = 0.0f;
     this->targetTextureModel.vertices.push_back(vertex);
 
     vertex.position.set(-1.0f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 0.0f;
+    vertex.textureCoordinate.v = 1.0f;
     this->targetTextureModel.vertices.push_back(vertex);
 
     vertex.position.set(1.0f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
-    vertex.textureCoordinate.v = 1.0f;
+    vertex.textureCoordinate.v = 0.0f;
     this->targetTextureModel.vertices.push_back(vertex);
 
     vertex.position.set(1.0f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
-    vertex.textureCoordinate.v = 0.0f;
+    vertex.textureCoordinate.v = 1.0f;
     this->targetTextureModel.vertices.push_back(vertex);
+
+    // Texture model face indices.
+    this->targetTextureModel.faceIndices.push_back(0);
+    this->targetTextureModel.faceIndices.push_back(1);
+    this->targetTextureModel.faceIndices.push_back(2);
+
+    this->targetTextureModel.faceIndices.push_back(3);
+    this->targetTextureModel.faceIndices.push_back(1);
+    this->targetTextureModel.faceIndices.push_back(2);
 
     // Send models to the GPU.
     this->gpu.write(this->screen);

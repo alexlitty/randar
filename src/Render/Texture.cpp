@@ -6,8 +6,7 @@
 randar::Texture::Texture(
     std::string initType,
     unsigned int initWidth,
-    unsigned int initHeight,
-    bool initialize
+    unsigned int initHeight
 ) :
   type(initType),
   width(initWidth),
@@ -15,10 +14,6 @@ randar::Texture::Texture(
 {
     if (this->width == 0 || this->height == 0 || this->width > 4096 || this->height > 4096) {
         throw std::runtime_error("Invalid texture dimensions");
-    }
-
-    if (initialize) {
-        this->gpu.initialize(*this);
     }
 }
 
