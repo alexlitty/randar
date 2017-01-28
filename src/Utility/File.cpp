@@ -15,6 +15,19 @@ std::string randar::getFileExtension(const std::string& file)
     return randar::toLowercase(matches[1]);
 }
 
+// Retrieves a file's base name.
+std::string randar::getFileBaseName(const std::string& file)
+{
+    std::smatch matches;
+
+    std::regex regex(".*\\/(.+)[.].+$");
+    if (!std::regex_search(file, matches, regex) || matches.size() != 2) {
+        return "";
+    }
+
+    return matches[1];
+}
+
 // Loads an ASCII file into memory.
 std::string randar::readAsciiFile(std::string filename)
 {

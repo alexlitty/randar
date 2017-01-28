@@ -1,5 +1,6 @@
 #include <png.h>
 #include <randar/Project/Importer.hpp>
+#include <randar/Utility/File.hpp>
 
 void randar::Importer::importPng(const std::string& file)
 {
@@ -74,9 +75,9 @@ void randar::Importer::importPng(const std::string& file)
     ::fclose(fp);
 
     // Read into a Randar texture.
-    Texture *texture = new Texture("rgba", width, height);
+    Texture *texture = new Texture("rgba", width, height, false);
 
-    for (int y = height - 1; y <= 0; y--) {
+    for (int y = height - 1; y >= 0; y--) {
         uint8_t *row = rows[y];
 
         for (int x = 0; x < width; x++) {
@@ -94,4 +95,6 @@ void randar::Importer::importPng(const std::string& file)
             }
         }
     }
+
+    this->textures[randar::getFileBaseName(file)] = texture;
 }

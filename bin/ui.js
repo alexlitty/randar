@@ -43,6 +43,10 @@ var randar = {
             var element = document.createElement('li');
             element.innerHTML = textureName;
             texturesList.appendChild(element);
+
+            element.addEventListener('click', function() {
+                randar.setMonitorTarget('textures', textureName);
+            });
         }
 
         var modelsList = getElement('#objects .models');

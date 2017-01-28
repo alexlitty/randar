@@ -84,6 +84,13 @@ void randar::Ui::execute(
                     return;
                 }
             }
+
+            else if (category == "textures") {
+                if (this->project.textures.count(name)) {
+                    this->monitor.setTarget(*this->project.textures[name]);
+                    return;
+                }
+            }
         }
 
         this->monitor.clearTarget();
@@ -144,13 +151,36 @@ void randar::Ui::execute(
             );
             item.second->save();
         }
+
+        for (auto item : this->importer.textures) {
+            std::string textureName = randar::insertUniqueKey(
+                this->project.textures,
+                item.first,
+                item.second
+            );
+
+            // Save to project directory.
+            item.second->setFile(
+                this->project.getDirectory()
+                + "textures/" + textureName + ".texture"
+            );
+            item.second->save();
+            this->gpu.initialize(*item.second);
+        }
+
         this->project.save();
 
         // Generate success message, unless the import failed.
         if (message == "") {
-            message = "Imported "
-                    + std::to_string(this->importer.models.size())
-                    + " models";
+            message = "Imported ";
+
+            if (this->importer.models.size()) {
+                message += std::to_string(this->importer.models.size()) + " models";
+            }
+
+            if (this->importer.textures.size()) {
+                message += std::to_string(this->importer.textures.size()) + " textures";
+            }
         }
         this->importer.clear();
 

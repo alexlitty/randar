@@ -17,6 +17,11 @@ randar::EngineMonitor::EngineMonitor()
         randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model.frag"))
     );
 
+    textureProgram.set(
+        randar::Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./resources/shaders/monitor-texture.vert")),
+        randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-texture.frag"))
+    );
+
     // Screen vertices.
     Vertex vertex;
     vertex.position.set(-0.5f, -1.0f, 0.001f);

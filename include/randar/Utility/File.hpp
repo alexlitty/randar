@@ -14,6 +14,11 @@ namespace randar
     std::string getFileExtension(const std::string& file);
 
     /**
+     * Retrieves a file's base name.
+     */
+    std::string getFileBaseName(const std::string& file);
+
+    /**
      * Loads an ASCII file into memory.
      */
     std::string readAsciiFile(std::string filename);
