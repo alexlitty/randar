@@ -3,10 +3,11 @@
 
 #include <randar/Engine/Gpu.hpp>
 #include <randar/Render/Model.hpp>
+#include <randar/Thread/Lockable.hpp>
 
 namespace randar
 {
-    struct Importer
+    struct Importer : public Lockable
     {
         Gpu& gpu = randar::getDefaultGpu();
 

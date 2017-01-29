@@ -5,6 +5,7 @@
 #include <randar/Log/LogListener.hpp>
 #include <randar/Project/Project.hpp>
 #include <randar/Project/Importer.hpp>
+#include <randar/Thread/ScopeLock.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Ui/MouseHandler.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
@@ -51,6 +52,7 @@ namespace randar
          * Utility class for importing resources.
          */
         Importer importer;
+        Lock importerUseLock;
 
     public:
         /**
@@ -81,6 +83,8 @@ namespace randar
         /**
          * Takes any resources available in the importer and brings them into
          * the project.
+         *
+         * Nothing happens if the importer is busy importing resources.
          */
         void import();
 

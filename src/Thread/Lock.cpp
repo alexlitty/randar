@@ -39,3 +39,14 @@ void randar::Lock::unlock()
         this->rawLock.unlock();
     }
 }
+
+// Checks if the lock is the owner of the object.
+bool randar::Lock::isOwner() const
+{
+    return static_cast<bool>(this->rawLock);
+}
+
+randar::Lock::operator bool() const
+{
+    return this->isOwner();
+}

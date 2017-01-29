@@ -66,6 +66,12 @@ namespace randar
          * Nothing happens if this lock does not own the object.
          */
         void unlock();
+
+        /**
+         * Checks if the lock is the owner of the object.
+         */
+        bool isOwner() const;
+        operator bool() const;
     };
 }
 
