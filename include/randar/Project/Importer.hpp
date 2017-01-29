@@ -14,6 +14,7 @@ namespace randar
         std::map<std::string, Texture*> textures;
 
         ~Importer();
+        bool isEmpty();
         void clear();
 
         void importIqm(const std::string& file);
