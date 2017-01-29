@@ -6,6 +6,7 @@
 #include <randar/Project/Project.hpp>
 #include <randar/Project/Importer.hpp>
 #include <randar/Thread/ScopeLock.hpp>
+#include <randar/Thread/TryLock.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Ui/MouseHandler.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
@@ -52,7 +53,6 @@ namespace randar
          * Utility class for importing resources.
          */
         Importer importer;
-        Lock importerUseLock;
 
     public:
         /**

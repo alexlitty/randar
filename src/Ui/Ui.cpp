@@ -5,8 +5,7 @@
 randar::Ui::Ui(randar::Browser& initBrowser)
 : gpu(randar::getDefaultGpu()),
   window(&gpu.getWindow()),
-  browser(initBrowser),
-  importerUseLock(importer)
+  browser(initBrowser)
 {
     ::glfwSetWindowUserPointer(this->window, this);
 }
@@ -99,7 +98,7 @@ void randar::Ui::execute(
 
     // Import a new resource from a file.
     else if (name == "importResource") {
-        //ScopeLock importerReadLock(this->importer);
+        ScopeLock lock(this->importer);
 
         const char* fileResult = ::tinyfd_openFileDialog(
             "Import Resource",
@@ -169,7 +168,9 @@ void randar::Ui::execute(
 // Moves imported resources into the project.
 void randar::Ui::import()
 {
-    if (this->importerUseLock.tryLock()) {
+    TryLock lock(this->importer);
+
+    if (lock) {
         for (auto item : this->importer.models) {
             std::string modelName = randar::insertUniqueKey(
                 this->project.models,
