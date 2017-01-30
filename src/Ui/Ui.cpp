@@ -33,6 +33,8 @@ void randar::Ui::onLeftClick(const randar::MousePosition& position)
 // Handles dragging with the left mouse button.
 void randar::Ui::onLeftDrag(const randar::Vector& drag, const randar::MouseModifiers& modifiers)
 {
+    ScopeLock monitorLock(this->monitor);
+
     if (this->monitor.targetModel) {
         if (modifiers.control) {
             glm::mat4 inverse = glm::inverse(this->monitor.camera.getViewMatrix());
@@ -74,6 +76,8 @@ void randar::Ui::execute(
 
     // Switch the resource on the engine monitor.
     else if (name == "setMonitorTarget") {
+        ScopeLock monitorLock(this->monitor);
+
         if (arguments.size() >= 2 && arguments[0]->IsString() && arguments[1]->IsString()) {
             std::string category = arguments[0]->GetStringValue();
             std::string name = arguments[1]->GetStringValue();
@@ -237,6 +241,8 @@ void randar::Ui::run()
         this->import();
 
         // Draw and display the interface.
+        ScopeLock monitorLock(this->monitor);
+
         defaultFramebuffer.clear(Color(0.15f, 0.15, 0.0f));
         this->monitor.draw();
         ::glfwSwapBuffers(this->window);

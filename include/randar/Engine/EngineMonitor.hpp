@@ -4,16 +4,21 @@
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Render/ShaderProgram.hpp>
+#include <randar/Thread/Lockable.hpp>
 #include <randar/Utility/File.hpp>
 
 namespace randar
 {
-    class EngineMonitor : virtual public Resource
+    class EngineMonitor
+    : virtual public Resource,
+              public Lockable
     {
         ShaderProgram screenProgram;
         ShaderProgram modelProgram;
         ShaderProgram textureProgram;
         Model screen;
+
+        bool newTarget;
 
     public:
         Framebuffer defaultFramebuffer;
@@ -36,7 +41,7 @@ namespace randar
         ~EngineMonitor();
 
         /**
-         * Resizes the monitor to fit the window.
+         * Resizes the monitor.
          */
         void resize();
 
@@ -47,9 +52,24 @@ namespace randar
 
         /**
          * Sets the monitoring target.
+         *
+         * The target must be initialized onto the monitor later.
          */
         void setTarget(Model &model);
         void setTarget(Texture &texture);
+
+        /**
+         * Whether the monitoring target has been changed.
+         *
+         * If this returns true, the new target should be initialized onto the
+         * monitor.
+         */
+        bool hasNewTarget() const;
+
+        /**
+         * Initializes the current target onto the monitor.
+         */
+        void initializeTarget();
         
         /**
          * Draws the monitor target.
