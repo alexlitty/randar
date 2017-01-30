@@ -23,6 +23,9 @@ namespace randar
         Texture* texture;
         Renderbuffer* depthBuffer;
 
+        uint32_t width;
+        uint32_t height;
+
     public:
         Camera camera;
 
@@ -42,8 +45,8 @@ namespace randar
         Framebuffer(
             std::string textureType,
             bool enableDepthBuffer = false,
-            unsigned int width = 1,
-            unsigned int height = 1);
+            unsigned int initWidth = 1,
+            unsigned int initHeight = 1);
 
         /**
          * Destructor.
@@ -68,7 +71,13 @@ namespace randar
         /**
          * Resizes this framebuffer and its dependencies.
          */
-        void resize(unsigned int width, unsigned int height);
+        void resize(uint32_t newWidth, uint32_t newHeight);
+
+        /**
+         * Gets the width and height of this framebuffer.
+         */
+        uint32_t getWidth() const;
+        uint32_t getHeight() const;
 
         /**
          * Checks whether this framebuffer has a texture and depth buffer.

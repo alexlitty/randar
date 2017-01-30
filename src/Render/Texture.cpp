@@ -5,8 +5,8 @@
 // New texture constructor.
 randar::Texture::Texture(
     std::string initType,
-    unsigned int initWidth,
-    unsigned int initHeight,
+    uint32_t initWidth,
+    uint32_t initHeight,
     bool initialize
 ) :
   type(initType),
@@ -14,7 +14,11 @@ randar::Texture::Texture(
   height(initHeight)
 {
     if (this->width == 0 || this->height == 0 || this->width > 4096 || this->height > 4096) {
-        throw std::runtime_error("Invalid texture dimensions");
+        throw std::runtime_error(
+            "Invalid texture dimensions ("
+            + std::to_string(this->width) + "x"
+            + std::to_string(this->height) + ")"
+        );
     }
 
     if (initialize) {

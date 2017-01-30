@@ -116,6 +116,8 @@ void randar::EngineMonitor::initializeTarget()
     }
 
     else if (this->targetTexture) {
+        //int maxWidth = this->monitorFramebuffer.getWidth();
+
         // Texture model vertices.
         Vertex vertex;
         vertex.position.set(-1.0f, -1.0f, 0.001f);

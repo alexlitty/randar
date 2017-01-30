@@ -10,20 +10,29 @@ randar::Framebuffer::Framebuffer()
     int width, height;
     ::glfwGetFramebufferSize(&this->gpu.getWindow(), &width, &height);
 
-    this->camera.viewport = Viewport(0, 0, width, height);
+    if (width <= 0 || height <= 0) {
+        throw std::runtime_error(
+            "Invalid default framebuffer dimensions ("
+            + std::to_string(width) + "x"
+            + std::to_string(height) + ")"
+        );
+    }
+
+    this->resize(width, height);
 }
 
 // Constructs and initializes a new framebuffer.
 randar::Framebuffer::Framebuffer(
     std::string textureType,
     bool enableDepthBuffer,
-    unsigned int width,
-    unsigned int height)
+    uint32_t initWidth,
+    uint32_t initHeight)
 : isDefaultFramebuffer(false),
-  texture(new randar::Texture(textureType, width, height)),
-  depthBuffer(new randar::Renderbuffer(randar::Renderbuffer::DEPTH, width, height))
+  texture(new randar::Texture(textureType, initWidth, initHeight)),
+  depthBuffer(new randar::Renderbuffer(randar::Renderbuffer::DEPTH, initWidth, initHeight)),
+  width(initWidth),
+  height(initHeight)
 {
-    this->camera.viewport = Viewport(0, 0, width, height);
     this->gpu.initialize(*this);
 }
 
@@ -64,9 +73,23 @@ void randar::Framebuffer::clear(const randar::Color& color)
 }
 
 // Resizes this framebuffer and its dependencies.
-void randar::Framebuffer::resize(unsigned int width, unsigned int height)
+void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    this->gpu.resize(*this, width, height);
+    this->width = newWidth;
+    this->height = newHeight;
+    this->gpu.resize(*this);
+}
+
+// Gets the width of this framebuffer.
+uint32_t randar::Framebuffer::getWidth() const
+{
+    return this->width;
+}
+
+// Gets the height of this framebuffer.
+uint32_t randar::Framebuffer::getHeight() const
+{
+    return this->height;
 }
 
 // Checks whether this framebuffer has a texture.
