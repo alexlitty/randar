@@ -24,17 +24,17 @@ randar::EngineMonitor::EngineMonitor()
 
     // Screen vertices.
     Vertex vertex;
-    vertex.position.set(.0f, 0.0f, 0.001f);
+    vertex.position.set(-1.0f, -1.0f, 0.001f);
+    vertex.textureCoordinate.u = 0.0f;
+    vertex.textureCoordinate.v = 0.0f;
+    this->screen.vertices.push_back(vertex);
+
+    vertex.position.set(-1.0f, 1.0f, 0.001f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 1.0f;
     this->screen.vertices.push_back(vertex);
 
-    vertex.position.set(0.25f, 1.0f, 0.001f);
-    vertex.textureCoordinate.u = 0.0f;
-    vertex.textureCoordinate.v = 1.0f;
-    this->screen.vertices.push_back(vertex);
-
-    vertex.position.set(1.0f, 0.0f, 0.001f);
+    vertex.position.set(1.0f, -1.0f, 0.001f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 0.0f;
     this->screen.vertices.push_back(vertex);

@@ -439,6 +439,7 @@ void randar::Gpu::destroy(randar::VertexBuffer& buffer)
 // Clears a framebuffer.
 void randar::Gpu::clear(const randar::Framebuffer& framebuffer, const randar::Color& color)
 {
+    this->bind(framebuffer);
     ::glClearColor(color.r, color.g, color.b, color.a);
     ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
