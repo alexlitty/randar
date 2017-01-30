@@ -237,7 +237,7 @@ void randar::Ui::run()
         this->import();
 
         // Draw and display the interface.
-        this->gpu.clear(Color(0.15f, 0.15, 0.0f, 1.0f));
+        defaultFramebuffer.clear(Color(0.15f, 0.15, 0.0f));
         this->monitor.draw();
         ::glfwSwapBuffers(this->window);
     }

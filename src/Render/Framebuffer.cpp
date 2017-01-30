@@ -57,6 +57,12 @@ bool randar::Framebuffer::isInitialized() const
     return this->isDefault() || randar::GpuResource::isInitialized();
 }
 
+// Clears the framebuffer with an optional color.
+void randar::Framebuffer::clear(const randar::Color& color)
+{
+    this->gpu.clear(*this, color);
+}
+
 // Resizes this framebuffer and its dependencies.
 void randar::Framebuffer::resize(unsigned int width, unsigned int height)
 {

@@ -133,7 +133,7 @@ void randar::EngineMonitor::setTarget(randar::Texture& texture)
 // Draws the monitoring target.
 void randar::EngineMonitor::draw()
 {
-    this->gpu.clear(this->monitorFramebuffer, Color(0.03f, 0.03f, 0.25f, 1.0f));
+    this->monitorFramebuffer.clear(Color(0.03f, 0.03f, 0.25f));
 
     // Target is a model.
     if (this->targetModel) {

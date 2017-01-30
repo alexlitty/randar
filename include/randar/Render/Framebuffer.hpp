@@ -2,6 +2,7 @@
 #define RANDAR_RENDER_FRAMEBUFFER_HPP
 
 #include <randar/Render/Camera.hpp>
+#include <randar/Render/Color.hpp>
 #include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
 
@@ -58,6 +59,11 @@ namespace randar
          * Whether this framebuffer is initialized on the GPU.
          */
         virtual bool isInitialized() const override;
+
+        /**
+         * Clears the framebuffer with an optional color.
+         */
+        void clear(const Color& color = Color());
 
         /**
          * Resizes this framebuffer and its dependencies.
