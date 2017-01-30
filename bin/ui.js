@@ -3,8 +3,15 @@ var randar = {
      * Handles an engine log message.
      */
     onEngineLog: function(message) {
+        randar.log('[' + message.level + '] ' + message.contents);
+    },
+
+    /**
+     * Submits a new log message to be shown on the interface.
+     */
+    log: function(message) {
         var div = document.createElement('div');
-        div.innerHTML = '[' + message.level + '] ' + message.contents;
+        div.innerHTML = message;
 
         var logElement = getElement('#engine-log');
         logElement.insertBefore(div, logElement.firstChild);
@@ -42,11 +49,13 @@ var randar = {
         for (textureName in randar.resources.textures) {
             var element = document.createElement('li');
             element.innerHTML = textureName;
-            texturesList.appendChild(element);
+            //randar.log('creating texture element');
 
             element.addEventListener('click', function() {
+                //randar.log('clicked texture');
                 randar.setMonitorTarget('textures', textureName);
             });
+            texturesList.appendChild(element);
         }
 
         var modelsList = getElement('#objects .models');
@@ -54,11 +63,13 @@ var randar = {
         for (modelName in randar.resources.models) {
             var element = document.createElement('li');
             element.innerHTML = modelName;
-            modelsList.appendChild(element);
+            //randar.log('creating model element');
 
             element.addEventListener('click', function() {
+                //randar.log('clicked model');
                 randar.setMonitorTarget('models', modelName);
             });
+            modelsList.appendChild(element);
         }
     },
 
