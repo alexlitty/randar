@@ -44,9 +44,9 @@ namespace randar
         /**
          * Loads a project into memory, given a project directory.
          *
-         * Returns true if the project was loaded successfully, false otherwise.
+         * Throws a runtime error if the project could not be loaded at all.
          */
-        bool load(const std::string& directory);
+        void load(const std::string& directory);
 
         /**
          * Saves this project to disk.

@@ -26,16 +26,29 @@ std::string randar::Project::getProjectFilename() const
 }
 
 // Loads a project into memory.
-bool randar::Project::load(const std::string& directory)
+void randar::Project::load(const std::string& directory)
 {
     this->clear();
     
     this->directory = directory;
-    Json project = Json::parse(
-        randar::readAsciiFile(this->getProjectFilename())
-    );
 
-    this->name = project["name"];
+    // Parse the main project file.
+    Json project;
+    try {
+        project = Json::parse(
+            randar::readAsciiFile(this->getProjectFilename())
+        );
+    }
+
+    catch (const std::invalid_argument& ex) {
+        throw std::runtime_error(
+            std::string("Corrupt project file: ") + ex.what()
+        );
+    }
+
+    if (project["name"].is_string()) {
+        this->name = project["name"];
+    }
 
     if (project["shaders"].is_object()) {
         for (auto shaderProgram : project["shaders"]) {
@@ -68,8 +81,6 @@ bool randar::Project::load(const std::string& directory)
             }
         }
     }
-
-    return true;
 }
 
 // Saves this project to disk.

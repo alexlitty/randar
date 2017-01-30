@@ -78,8 +78,11 @@ void randar::Ui::execute(
             std::string category = arguments[0]->GetStringValue();
             std::string name = arguments[1]->GetStringValue();
 
+            std::cout << category << ", " << name << std::endl;
+
             if (category == "models") {
                 if (this->project.models.count(name)) {
+                    std::cout << "Showing model" << std::endl;
                     this->monitor.setTarget(*this->project.models[name]);
                     return;
                 }
@@ -87,6 +90,7 @@ void randar::Ui::execute(
 
             else if (category == "textures") {
                 if (this->project.textures.count(name)) {
+                    std::cout << "Showing texture" << std::endl;
                     this->monitor.setTarget(*this->project.textures[name]);
                     return;
                 }
@@ -170,7 +174,7 @@ void randar::Ui::import()
 {
     TryLock lock(this->importer);
 
-    if (lock) {
+    if (lock && !this->importer.isEmpty()) {
         for (auto item : this->importer.models) {
             std::string modelName = randar::insertUniqueKey(
                 this->project.models,
@@ -217,12 +221,16 @@ void randar::Ui::run()
 
     // Initialize the interface.
     this->browser.setNativeCodeHandler(this);
-    this->project.load("./test-project/");
+    try {
+        this->project.load("./test-project/");
+        this->project.save();
+    }
+
+    catch (const std::runtime_error& ex) {
+        randar::logError(ex.what());
+    }
     this->browser.executeJs("randar.ready();");
     
-    // @todo - Test saving.
-    this->project.save();
-
     // Run the interface program.
     while (true) {
         gpu.check();
