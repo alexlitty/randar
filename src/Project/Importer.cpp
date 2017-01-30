@@ -13,7 +13,7 @@ randar::Importer::~Importer()
 
 bool randar::Importer::isEmpty()
 {
-    return this->models.size() > 0 || this->textures.size() > 0;
+    return this->models.size() == 0 && this->textures.size() == 0;
 }
 
 void randar::Importer::clear()
