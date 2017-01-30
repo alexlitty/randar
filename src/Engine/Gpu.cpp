@@ -220,7 +220,6 @@ void randar::Gpu::initialize(randar::Texture& texture)
     }
 
     ::glGenTextures(1, texture);
-    std::cout << "initializing: " << texture.getGlName() << std::endl;
 
     this->bind(texture);
 

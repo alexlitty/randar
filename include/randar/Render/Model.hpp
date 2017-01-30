@@ -34,11 +34,15 @@ namespace randar
 
         /**
          * Constructs a new model.
+         *
+         * Must be manually initialized on the GPU.
          */
         Model();
 
         /**
          * Constructs an existing model from a file.
+         *
+         * Automatically initialized on the GPU.
          */
         Model(const std::string& file);
 

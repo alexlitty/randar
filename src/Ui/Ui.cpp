@@ -78,11 +78,8 @@ void randar::Ui::execute(
             std::string category = arguments[0]->GetStringValue();
             std::string name = arguments[1]->GetStringValue();
 
-            std::cout << category << ", " << name << std::endl;
-
             if (category == "models") {
                 if (this->project.models.count(name)) {
-                    std::cout << "Showing model" << std::endl;
                     this->monitor.setTarget(*this->project.models[name]);
                     return;
                 }
@@ -90,7 +87,6 @@ void randar::Ui::execute(
 
             else if (category == "textures") {
                 if (this->project.textures.count(name)) {
-                    std::cout << "Showing texture" << std::endl;
                     this->monitor.setTarget(*this->project.textures[name]);
                     return;
                 }
@@ -188,6 +184,7 @@ void randar::Ui::import()
                 + "models/" + modelName + ".model"
             );
             item.second->save();
+            this->gpu.write(*item.second);
         }
 
         for (auto item : this->importer.textures) {
