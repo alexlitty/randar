@@ -6,7 +6,8 @@
 randar::Texture::Texture(
     std::string initType,
     unsigned int initWidth,
-    unsigned int initHeight
+    unsigned int initHeight,
+    bool initialize
 ) :
   type(initType),
   width(initWidth),
@@ -14,6 +15,10 @@ randar::Texture::Texture(
 {
     if (this->width == 0 || this->height == 0 || this->width > 4096 || this->height > 4096) {
         throw std::runtime_error("Invalid texture dimensions");
+    }
+
+    if (initialize) {
+        this->gpu.initialize(*this);
     }
 }
 
@@ -81,7 +86,7 @@ bool randar::Texture::save()
             stream.write(255);
         }
 
-        randar::logError("Texture data missing while saving (" + std::to_string(this->data.size()) + " != " + std::to_string(requiredSize) + ")");
+        randar::logError("Texture data missing while saving");
     }
 
     return true;

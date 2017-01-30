@@ -75,7 +75,7 @@ void randar::Importer::importPng(const std::string& file)
     ::fclose(fp);
 
     // Read into a Randar texture.
-    Texture *texture = new Texture("rgba", width, height);
+    Texture *texture = new Texture("rgba", width, height, false);
 
     for (int y = height - 1; y >= 0; y--) {
         uint8_t *row = rows[y];
@@ -97,5 +97,4 @@ void randar::Importer::importPng(const std::string& file)
     }
 
     this->textures[randar::getFileBaseName(file)] = texture;
-    this->gpu.write(*texture);
 }

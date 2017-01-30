@@ -203,6 +203,7 @@ void randar::Ui::import()
                 + "textures/" + textureName + ".texture"
             );
             item.second->save();
+            this->gpu.initialize(*item.second);
         }
 
         this->importer.clear();

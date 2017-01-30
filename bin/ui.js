@@ -49,12 +49,10 @@ var randar = {
         for (textureName in randar.resources.textures) {
             var element = document.createElement('li');
             element.innerHTML = textureName;
-            //randar.log('creating texture element');
 
-            element.addEventListener('click', function() {
-                //randar.log('clicked texture');
+            element.addEventListener('click', function(textureName) {
                 randar.setMonitorTarget('textures', textureName);
-            });
+            }.bind(this, textureName));
             texturesList.appendChild(element);
         }
 
@@ -63,12 +61,10 @@ var randar = {
         for (modelName in randar.resources.models) {
             var element = document.createElement('li');
             element.innerHTML = modelName;
-            //randar.log('creating model element');
 
-            element.addEventListener('click', function() {
-                //randar.log('clicked model');
+            element.addEventListener('click', function(modelName) {
                 randar.setMonitorTarget('models', modelName);
-            });
+            }.bind(this, modelName));
             modelsList.appendChild(element);
         }
     },
