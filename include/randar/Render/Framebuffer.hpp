@@ -18,22 +18,28 @@ namespace randar
     class Framebuffer : virtual public GpuResource
     {
     protected:
-        bool depthBufferEnabled;
+        bool isDefaultFramebuffer;
+        Texture* texture;
+        Renderbuffer* depthBuffer;
 
     public:
-        Texture texture;
-        Renderbuffer depthBuffer;
         Camera camera;
 
         /**
-         * Constructor.
+         * Constructs a default framebuffer.
          *
-         * @todo - Stop redundant texture and depth buffer for default
-         *         framebuffers.
+         * The default framebuffer is created outside of Randar. This is simply
+         * a representation of it.
+         */
+        Framebuffer();
+
+        /**
+         * Constructs and initializes new framebuffer.
+         *
          * @todo - Throw exception if not initialized.
          */
         Framebuffer(
-            std::string textureType = "rgba",
+            std::string textureType,
             bool enableDepthBuffer = false,
             unsigned int width = 1,
             unsigned int height = 1);
@@ -44,23 +50,31 @@ namespace randar
         ~Framebuffer();
 
         /**
-         * Whether this framebuffer is initialized on the GPU.
-         *
-         * There's no scenario where it wouldn't be initialized, so this always
-         * returns true. If it isn't initialized during construction, an
-         * exception is thrown and the framebuffer should be discarded.
+         * Whether this is the default framebuffer.
          */
-        virtual bool isInitialized() const override;
+        bool isDefault() const;
 
         /**
-         * Checks whether a depth buffer is enabled.
+         * Whether this framebuffer is initialized on the GPU.
          */
-        bool hasDepthBuffer() const;
+        virtual bool isInitialized() const override;
 
         /**
          * Resizes this framebuffer and its dependencies.
          */
         void resize(unsigned int width, unsigned int height);
+
+        /**
+         * Checks whether this framebuffer has a texture and depth buffer.
+         */
+        bool hasTexture() const;
+        bool hasDepthBuffer() const;
+
+        /**
+         * Gets the texture and depth buffer.
+         */
+        Texture& getTexture();
+        Renderbuffer& getDepthBuffer();
     };
 }
 

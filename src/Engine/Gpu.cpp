@@ -73,42 +73,48 @@ void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
     ::glGenFramebuffers(1, framebuffer);
     this->bind(framebuffer);
 
-    // Initialize dependencies.
-    this->initialize(framebuffer.texture);
-    this->bind(framebuffer.texture);
+    // Initialize framebuffer texture.
+    if (framebuffer.hasTexture()) {
+        Texture& texture = framebuffer.getTexture();
 
+        this->initialize(texture);
+        this->bind(texture);
+
+        // Attach RGBA texture.
+        if (texture.isRgba()) {
+            ::glFramebufferTexture(
+                GL_FRAMEBUFFER,
+                GL_COLOR_ATTACHMENT0,
+                texture,
+                0
+            );
+
+            ::GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+            ::glDrawBuffers(1, drawBuffers);
+        }
+
+        // Attach depth texture.
+        else if (texture.isDepth()) {
+            ::glFramebufferTexture(
+                GL_FRAMEBUFFER,
+                GL_DEPTH_ATTACHMENT,
+                texture,
+                0
+            );
+
+            ::glDrawBuffer(GL_NONE);
+        }
+
+        // Invalid texture.
+        else {
+            throw std::runtime_error("Configuring framebuffer with invalid texture type");
+        }
+    }
+
+    // Initialize framebuffer depth buffer.
     if (framebuffer.hasDepthBuffer()) {
-        this->initialize(framebuffer.depthBuffer);
-        this->bind(framebuffer.depthBuffer);
-    }
-
-
-    // Configure framebuffer.
-    if (framebuffer.texture.isRgba()) {
-        ::glFramebufferTexture(
-            GL_FRAMEBUFFER,
-            GL_COLOR_ATTACHMENT0,
-            framebuffer.texture,
-            0
-        );
-
-        ::GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-        ::glDrawBuffers(1, drawBuffers);
-    }
-
-    else if (framebuffer.texture.isDepth()) {
-        ::glFramebufferTexture(
-            GL_FRAMEBUFFER,
-            GL_DEPTH_ATTACHMENT,
-            framebuffer.texture,
-            0
-        );
-
-        ::glDrawBuffer(GL_NONE);
-    }
-
-    else {
-        throw std::runtime_error("Configuring framebuffer with invalid texture");
+        this->initialize(framebuffer.getDepthBuffer());
+        this->bind(framebuffer.getDepthBuffer());
     }
 
     // Check for errors.
@@ -325,9 +331,12 @@ void randar::Gpu::resize(randar::Framebuffer& framebuffer, unsigned int width, u
 {
     framebuffer.camera.viewport = Viewport(0, 0, width, height);
 
-    framebuffer.texture.resize(width, height);
+    if (framebuffer.hasTexture()) {
+        framebuffer.getTexture().resize(width, height);
+    }
+
     if (framebuffer.hasDepthBuffer()) {
-        this->resize(framebuffer.depthBuffer, width, height);
+        this->resize(framebuffer.getDepthBuffer(), width, height);
     }
 }
 
@@ -356,10 +365,12 @@ void randar::Gpu::resize(randar::Texture& texture)
 // Destroys a framebuffer.
 void randar::Gpu::destroy(randar::Framebuffer& framebuffer)
 {
-    if (!framebuffer.isInitialized()) {
-        throw std::runtime_error("Destroying framebuffer that is not initialized");
+    if (!framebuffer.isDefault()) {
+        if (!framebuffer.isInitialized()) {
+            throw std::runtime_error("Destroying framebuffer that is not initialized");
+        }
+        ::glDeleteFramebuffers(1, framebuffer);
     }
-    ::glDeleteFramebuffers(1, framebuffer);
 }
 
 // Destroys an index buffer.
