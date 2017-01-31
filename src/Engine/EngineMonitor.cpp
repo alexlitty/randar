@@ -125,7 +125,7 @@ void randar::EngineMonitor::initializeTarget()
         float aspect = static_cast<float>(texWidth) / static_cast<float>(texHeight);
 
         float width, height;
-        if (aspect < 0) {
+        if (aspect > 0) {
             height = std::min(texHeight, maxHeight);
             width  = aspect * height;
         } else {
@@ -136,7 +136,9 @@ void randar::EngineMonitor::initializeTarget()
         this->monitorFramebuffer.camera.setOrtho(0, maxWidth, maxHeight, 0);
 
         // Texture model vertices.
+        this->targetTextureModel.vertices.clear();
         Vertex vertex;
+
         vertex.position.set(0, 0);
         vertex.textureCoordinate.u = 0.0f;
         vertex.textureCoordinate.v = 1.0f;
@@ -158,6 +160,7 @@ void randar::EngineMonitor::initializeTarget()
         this->targetTextureModel.vertices.push_back(vertex);
 
         // Texture model face indices.
+        this->targetTextureModel.faceIndices.clear();
         this->targetTextureModel.faceIndices.push_back(0);
         this->targetTextureModel.faceIndices.push_back(1);
         this->targetTextureModel.faceIndices.push_back(2);
