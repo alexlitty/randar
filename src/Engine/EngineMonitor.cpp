@@ -112,6 +112,7 @@ bool randar::EngineMonitor::hasNewTarget() const
 void randar::EngineMonitor::initializeTarget()
 {
     if (this->targetModel) {
+        this->monitorFramebuffer.camera.disableOrtho();
         this->monitorFramebuffer.camera.setPosition(randar::Vector(0.0f, 0.0f, -15.0f));
         this->monitorFramebuffer.camera.setTarget(randar::Vector(0.0f, 0.0f, 0.0f));
     }
