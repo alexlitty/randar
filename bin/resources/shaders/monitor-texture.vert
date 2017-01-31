@@ -14,7 +14,6 @@ void main()
     vec4 position = vec4(vertexPosition, 1);
 
     gl_Position = mvp * position;
-    //gl_Position = position;
     fragmentColor = fragmentColor;
     textureCoords = vertexTextureCoords;
 }
