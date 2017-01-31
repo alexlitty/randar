@@ -1,10 +1,11 @@
+#include <algorithm>
 #include <randar/Engine/EngineMonitor.hpp>
 #include <randar/Engine/Gpu.hpp>
 
 randar::EngineMonitor::EngineMonitor()
-: monitorFramebuffer("rgba", true),
-  camera(monitorFramebuffer.camera),
-  newTarget(false)
+: newTarget(false),
+  monitorFramebuffer("rgba", true),
+  camera(monitorFramebuffer.camera)
 {
     this->clearTarget();
 
@@ -116,7 +117,34 @@ void randar::EngineMonitor::initializeTarget()
     }
 
     else if (this->targetTexture) {
-        //int maxWidth = this->monitorFramebuffer.getWidth();
+        int maxWidth = this->monitorFramebuffer.getWidth();
+        int maxHeight = this->monitorFramebuffer.getHeight();
+
+        int texWidth = this->targetTexture->getWidth();
+        int texHeight = this->targetTexture->getHeight();
+        float aspect = static_cast<float>(texWidth) / static_cast<float>(texHeight);
+
+        float width, height;
+        if (aspect > 0) {
+            height = std::min(texHeight, maxHeight);
+            width  = aspect * height;
+        } else {
+            width  = std::min(texWidth, maxWidth);
+            height = aspect * width;
+        }
+
+        uint8_t i = 0;
+        for (i = 0; width > 1.0f; i++) {
+            width /= 10.0f;
+            i++;
+        }
+
+        for (uint8_t j = 0; j < i; j++) {
+            height /= 10.0f;
+        }
+
+        width = (1.0f - (width * 2));
+        height = (1.0f - (height * 2));
 
         // Texture model vertices.
         Vertex vertex;
@@ -125,17 +153,17 @@ void randar::EngineMonitor::initializeTarget()
         vertex.textureCoordinate.v = 0.0f;
         this->targetTextureModel.vertices.push_back(vertex);
 
-        vertex.position.set(-1.0f, 1.0f, 0.001f);
+        vertex.position.set(-1.0f, height, 0.001f);
         vertex.textureCoordinate.u = 0.0f;
         vertex.textureCoordinate.v = 1.0f;
         this->targetTextureModel.vertices.push_back(vertex);
 
-        vertex.position.set(1.0f, -1.0f, 0.001f);
+        vertex.position.set(width, -1.0f, 0.001f);
         vertex.textureCoordinate.u = 1.0f;
         vertex.textureCoordinate.v = 0.0f;
         this->targetTextureModel.vertices.push_back(vertex);
 
-        vertex.position.set(1.0f, 1.0f, 0.001f);
+        vertex.position.set(width, height, 0.001f);
         vertex.textureCoordinate.u = 1.0f;
         vertex.textureCoordinate.v = 1.0f;
         this->targetTextureModel.vertices.push_back(vertex);
