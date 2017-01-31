@@ -9,6 +9,11 @@ namespace randar
     class Camera : virtual public Transformable
     {
         bool isOrtho;
+        float orthoLeft;
+        float orthoRight;
+        float orthoTop;
+        float orthoBottom;
+
         Angle fieldOfView;
         float aspectRatio;
         float nearZ;
@@ -29,7 +34,8 @@ namespace randar
         Viewport viewport;
         Camera();
 
-        void setOrtho(bool ortho);
+        void setOrtho(float left, float right, float top, float bottom);
+        void disableOrtho();
 
         /**
          * Sets and retrieves the position that the camera is pointed at.

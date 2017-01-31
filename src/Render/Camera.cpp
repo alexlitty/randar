@@ -22,9 +22,7 @@ void randar::Camera::updateMatrices()
             (float)this->viewport.x1,
             (float)this->viewport.x2,
             (float)this->viewport.y1,
-            (float)this->viewport.y2,
-            -25.0f,
-            25.0f
+            (float)this->viewport.y2
         );
     } else {
         this->projection = glm::perspective(
@@ -44,10 +42,20 @@ void randar::Camera::updateMatrices()
     );
 }
 
-void randar::Camera::setOrtho(bool ortho)
+void randar::Camera::setOrtho(float left, float right, float top, float bottom)
 {
-    this->isOrtho = ortho;
+    this->isOrtho = true;
+    this->orthoLeft = left;
+    this->orthoRight = right;
+    this->orthoTop = top;
+    this->orthoBottom = bottom;
+
     this->updateMatrices();
+}
+
+void randar::Camera::disableOrtho()
+{
+    this->isOrtho = false;
 }
 
 void randar::Camera::setTarget(randar::Vector newTarget)

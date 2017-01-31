@@ -125,26 +125,23 @@ void randar::EngineMonitor::initializeTarget()
         float aspect = static_cast<float>(texWidth) / static_cast<float>(texHeight);
 
         float width, height;
-        if (aspect > 0) {
+        if (aspect < 0) {
             height = std::min(texHeight, maxHeight);
             width  = aspect * height;
         } else {
             width  = std::min(texWidth, maxWidth);
-            height = aspect * width;
+            height = width / aspect;
         }
 
-        uint8_t i = 0;
-        for (i = 0; width > 1.0f; i++) {
-            width /= 10.0f;
-            i++;
-        }
-
-        for (uint8_t j = 0; j < i; j++) {
+        while (width > 1.0f && height > 1.0f) {
+            width  /= 10.0f;
             height /= 10.0f;
         }
 
-        width = (1.0f - (width * 2));
-        height = (1.0f - (height * 2));
+        Vector norm = Vector(width, height).normalized();
+
+        width = norm.x;
+        height = norm.y;
 
         // Texture model vertices.
         Vertex vertex;
