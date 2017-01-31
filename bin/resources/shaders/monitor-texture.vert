@@ -4,6 +4,7 @@ layout(location = 1) in vec4 vertexColor;
 layout(location = 4) in vec2 vertexTextureCoords;
 
 uniform sampler2D textureSampler;
+uniform mat4 mvp;
 
 out vec4 fragmentColor;
 out vec2 textureCoords;
@@ -12,7 +13,8 @@ void main()
 {
     vec4 position = vec4(vertexPosition, 1);
 
-    gl_Position = position;
+    gl_Position = mvp * position;
+    //gl_Position = position;
     fragmentColor = fragmentColor;
     textureCoords = vertexTextureCoords;
 }

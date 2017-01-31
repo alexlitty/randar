@@ -11,8 +11,8 @@ namespace randar
         bool isOrtho;
         float orthoLeft;
         float orthoRight;
-        float orthoTop;
         float orthoBottom;
+        float orthoTop;
 
         Angle fieldOfView;
         float aspectRatio;
@@ -34,7 +34,8 @@ namespace randar
         Viewport viewport;
         Camera();
 
-        void setOrtho(float left, float right, float top, float bottom);
+        void setOrtho();
+        void setOrtho(float left, float right, float bottom, float top);
         void disableOrtho();
 
         /**
