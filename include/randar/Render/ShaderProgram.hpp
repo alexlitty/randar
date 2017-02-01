@@ -2,7 +2,6 @@
 #define RANDAR_RENDER_SHADER_PROGRAM_HPP
 
 #include <randar/Render/Shader.hpp>
-#include <randar/Render/Uniform.hpp>
 #include <randar/Utility/glm.hpp>
 
 namespace randar
