@@ -10,17 +10,11 @@ namespace randar
     {
         /**
          * The uniforms used by this program mapped against their locations.
+         *
+         * If a location is -1, the uniform has been requested somewhere but is
+         * not used by the program.
          */
         std::map<std::string, ::GLint> uniformLocations;
-
-        /**
-         * Sets the location of a uniform.
-         *
-         * Nothing happens if the provided location is less than 0.
-         *
-         * Called by the GPU class during initialization.
-         */
-        void setUniformLocation(const std::string& name, ::GLint location);
 
     public:
         Shader vertexShader;
@@ -59,11 +53,6 @@ namespace randar
         void set(
             const Shader& initVertexShader,
             const Shader& initFragmentShader);
-
-        /**
-         * Checks if this program uses a uniform.
-         */
-        bool hasUniform(const std::string& name) const;
 
         /**
          * Writes a value to a uniform.

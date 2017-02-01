@@ -82,7 +82,17 @@ namespace randar
         void write(Model& model);
 
         /**
-         * Sets the value of a shader uniform.
+         * Gets the location of a shader program uniform.
+         *
+         * Returns -1 if the uniform is not used by the program.
+         */
+        ::GLint getUniformLocation(
+            const ShaderProgram& program,
+            const std::string& name
+        );
+
+        /**
+         * Sets the value of a shader program uniform.
          *
          * Nothing happens if the uniform location is -1.
          */

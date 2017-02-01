@@ -216,18 +216,6 @@ void randar::Gpu::initialize(randar::ShaderProgram& program)
 
     ::glDetachShader(program, program.vertexShader);
     ::glDetachShader(program, program.fragmentShader);
-
-    // Get uniform information.
-    static std::vector<std::string> possibleUniformNames = {
-        "mvp"
-    };
-
-    for (auto uniformName : possibleUniformNames) {
-        program.setUniformLocation(
-            uniformName,
-            ::glGetUniformLocation(program, uniformName.c_str())
-        );
-    }
 }
 
 // Initializes a texture.
@@ -549,7 +537,15 @@ void randar::Gpu::write(randar::Model& model)
     this->write(model.faceBuffer, model.faceIndices);
 }
 
-// Writes a 4x4 matrix to a shader uniform.
+// Gets the location of a shader program uniform.
+::GLint randar::Gpu::getUniformLocation(
+    const randar::ShaderProgram& program,
+    const std::string& name)
+{
+    return ::glGetUniformLocation(program, name.c_str());
+}
+
+// Writes a 4x4 matrix to a shader program uniform.
 void randar::Gpu::setUniform(
     const randar::ShaderProgram& program,
     ::GLint location,
@@ -632,6 +628,15 @@ void randar::Gpu::draw(
             GL_FALSE,
             &jointMatrices[0][0][0]
         );*/
+    }
+
+    // Set textures.
+    for (unsigned int i = 0; i < model.textures.size(); i++) {
+        Texture *texture = model.textures[i];
+        
+        if (texture) {
+            //program.setUniform("meshTexture"
+        }
     }
 
     // Draw model.

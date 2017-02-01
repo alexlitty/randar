@@ -47,30 +47,14 @@ void randar::ShaderProgram::set(
     this->gpu.initialize(*this);
 }
 
-void randar::ShaderProgram::setUniformLocation(const std::string& name, ::GLint location)
-{
-    if (this->uniformLocations.count(name)) {
-        throw std::runtime_error(
-            "Setting " + name + " uniform location of "
-            + std::to_string(location)
-            + ", but already set as "
-            + std::to_string(this->uniformLocations[name])
-        );
-    }
-
-    this->uniformLocations[name] = location;
-}
-
-// Checks if this program uses a uniform.
-bool randar::ShaderProgram::hasUniform(const std::string& name) const
-{
-    return this->uniformLocations.count(name) == 1;
-}
-
 // Writes a value to a uniform.
 void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4& matrix)
 {
-    if (this->hasUniform(name)) {
+    if (!this->uniformLocations.count(name)) {
+        this->uniformLocations[name] = this->gpu.getUniformLocation(*this, name);
+    }
+
+    if (this->uniformLocations[name] >= 0) {
         this->gpu.setUniform(*this, this->uniformLocations[name], matrix);
     }
 }
