@@ -1,4 +1,5 @@
 #include <randar/Engine/Gpu.hpp>
+#include <randar/Render/DefaultTexture.hpp>
 
 // Construction.
 randar::Gpu::Gpu()
@@ -643,16 +644,17 @@ void randar::Gpu::draw(
     // Set textures.
     for (unsigned int i = 0; i < model.textures.size(); i++) {
         Texture *texture = model.textures[i];
-        
-        if (texture) {
-            ::glActiveTexture(GL_TEXTURE0 + i);
-            this->bind(*texture);
-
-            program.setUniform(
-                "meshTexture" + std::to_string(i),
-                static_cast<int>(i)
-            );
+        if (!texture) {
+            texture = &randar::getDefaultTexture("rgba", 1, 1);
         }
+        
+        ::glActiveTexture(GL_TEXTURE0 + i);
+        this->bind(*texture);
+
+        program.setUniform(
+            "meshTexture" + std::to_string(i),
+            static_cast<int>(i)
+        );
     }
 
     // Draw model.
