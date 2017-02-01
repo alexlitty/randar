@@ -15,7 +15,7 @@ namespace randar
         /**
          * The uniforms required by this program.
          */
-        std::map<std::string, Uniform> uniforms;
+        mutable std::map<std::string, Uniform> uniforms;
 
         /**
          * Constructs a new shader program.

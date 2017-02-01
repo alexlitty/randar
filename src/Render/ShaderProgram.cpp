@@ -33,8 +33,6 @@ randar::ShaderProgram::~ShaderProgram()
     this->gpu.destroy(*this);
 }
 
-// Initializes the map with all possible uniforms.
-
 // Sets the program shaders and initializes the program.
 void randar::ShaderProgram::set(
     const randar::Shader& initVertexShader,

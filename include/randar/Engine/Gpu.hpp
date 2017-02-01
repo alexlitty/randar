@@ -83,6 +83,8 @@ namespace randar
 
         /**
          * Writes a value to a shader uniform.
+         *
+         * Nothing happens if the uniform has a location of -1.
          */
         void write(
             const ShaderProgram& program,

@@ -619,10 +619,7 @@ void randar::Gpu::draw(
     glm::mat4 mvp = framebuffer.camera.getProjectionMatrix()
         * framebuffer.camera.getViewMatrix()
         * model.getTransformMatrix();
-
-    ::glUseProgram(program);
-    ::GLuint mvpId = ::glGetUniformLocation(program, "mvp");
-    ::glUniformMatrix4fv(mvpId, 1, GL_FALSE, &mvp[0][0]);
+    this->write(program, program.uniforms["mvp"], mvp);
 
     // Set joints uniform.
     if (model.joints.size()) {
@@ -631,12 +628,12 @@ void randar::Gpu::draw(
             jointMatrices[i] = model.joints[i]->getPoseMatrix();
         }
 
-        ::glUniformMatrix4fv(
+        /*::glUniformMatrix4fv(
             ::glGetUniformLocation(program, "joints"),
             model.joints.size(),
             GL_FALSE,
             &jointMatrices[0][0][0]
-        );
+        );*/
     }
 
     // Draw model.
