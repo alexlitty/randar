@@ -4,7 +4,6 @@
 // Constructs a new shader program.
 randar::ShaderProgram::ShaderProgram()
 {
-
 }
 
 // Constructs a new shader program as a copy of an existing one.
@@ -33,6 +32,8 @@ randar::ShaderProgram::~ShaderProgram()
 {
     this->gpu.destroy(*this);
 }
+
+// Initializes the map with all possible uniforms.
 
 // Sets the program shaders and initializes the program.
 void randar::ShaderProgram::set(

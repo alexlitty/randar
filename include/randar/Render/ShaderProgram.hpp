@@ -2,13 +2,20 @@
 #define RANDAR_RENDER_SHADER_PROGRAM_HPP
 
 #include <randar/Render/Shader.hpp>
+#include <randar/Render/Uniform.hpp>
 
 namespace randar
 {
-    struct ShaderProgram : virtual public GpuResource
+    class ShaderProgram : virtual public GpuResource
     {
+    public:
         Shader vertexShader;
         Shader fragmentShader;
+
+        /**
+         * The uniforms required by this program.
+         */
+        std::map<std::string, Uniform> uniforms;
 
         /**
          * Constructs a new shader program.
@@ -35,6 +42,7 @@ namespace randar
          */
         ~ShaderProgram();
 
+    public:
         /**
          * Sets the program shaders and initializes the program.
          *
@@ -43,6 +51,10 @@ namespace randar
         void set(
             const Shader& initVertexShader,
             const Shader& initFragmentShader);
+
+        /**
+         * Writes a value to a uniform.
+         */
     };
 }
 
