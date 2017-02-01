@@ -7,5 +7,5 @@ out vec4 color;
 uniform sampler2D meshTexture0;
 
 void main() {
-    color = texture(meshTexture0, textureCoords).rgba;
+    color = vec4(texture(meshTexture0, textureCoords).rgb, 1);
 }

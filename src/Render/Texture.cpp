@@ -127,6 +127,22 @@ bool randar::Texture::isDepth() const
     return this->type == "depth";
 }
 
+// Clears this texture with a color.
+void randar::Texture::clear(const Color& color)
+{
+    std::vector<uint8_t> values;
+
+    uint32_t pixelCount = this->width * this->height;
+    for (unsigned int i = 0; i < pixelCount; i++) {
+        values.push_back(0);
+        values.push_back(0);
+        values.push_back(0);
+        values.push_back(1);
+    }
+
+    this->gpu.write(*this, values.data(), GL_RGBA);
+}
+
 // Resizes this texture.
 void randar::Texture::resize(unsigned int width, unsigned int height)
 {

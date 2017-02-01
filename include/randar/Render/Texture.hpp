@@ -3,6 +3,7 @@
 
 #include <randar/Engine/GpuResource.hpp>
 #include <randar/Engine/FileResource.hpp>
+#include <randar/Render/Color.hpp>
 
 namespace randar
 {
@@ -75,6 +76,13 @@ namespace randar
          */
         bool isRgba() const;
         bool isDepth() const;
+
+        /**
+         * Clears this texture with a color.
+         *
+         * @todo - Inefficient.
+         */
+        void clear(const Color& color = Color(0.0f, 0.0f, 0.0f));
  
         /**
          * Resizes this texture.

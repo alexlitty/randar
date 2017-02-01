@@ -2,7 +2,6 @@
 #define RANDAR_RENDER_FRAMEBUFFER_HPP
 
 #include <randar/Render/Camera.hpp>
-#include <randar/Render/Color.hpp>
 #include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
 
