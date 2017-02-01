@@ -222,13 +222,11 @@ void randar::Gpu::initialize(randar::ShaderProgram& program)
         "mvp"
     };
 
-    program.uniforms.clear();
-    ::glUseProgram(program);
     for (auto uniformName : possibleUniformNames) {
-        ::GLint id = ::glGetUniformLocation(program, "mvp");
-        if (id >= 0) {
-            program.uniforms[uniformName] = Uniform(uniformName, id);
-        }
+        program.setUniformLocation(
+            uniformName,
+            ::glGetUniformLocation(program, uniformName.c_str())
+        );
     }
 }
 
@@ -552,13 +550,13 @@ void randar::Gpu::write(randar::Model& model)
 }
 
 // Writes a 4x4 matrix to a shader uniform.
-void randar::Gpu::write(
+void randar::Gpu::setUniform(
     const randar::ShaderProgram& program,
-    const randar::Uniform& uniform,
+    ::GLint location,
     const glm::mat4& matrix)
 {
     ::glUseProgram(program);
-    ::glUniformMatrix4fv(uniform.getLocation(), 1, GL_FALSE, &matrix[0][0]);
+    ::glUniformMatrix4fv(location, 1, GL_FALSE, &matrix[0][0]);
 }
 
 // Binds a framebuffer.
@@ -605,7 +603,7 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 
 // Drawing.
 void randar::Gpu::draw(
-    const ShaderProgram& program,
+    ShaderProgram& program,
     const randar::Framebuffer& framebuffer,
     const randar::Model& model)
 {
@@ -619,7 +617,7 @@ void randar::Gpu::draw(
     glm::mat4 mvp = framebuffer.camera.getProjectionMatrix()
         * framebuffer.camera.getViewMatrix()
         * model.getTransformMatrix();
-    this->write(program, program.uniforms["mvp"], mvp);
+    program.setUniform("mvp", mvp);
 
     // Set joints uniform.
     if (model.joints.size()) {
@@ -637,6 +635,8 @@ void randar::Gpu::draw(
     }
 
     // Draw model.
+    ::glUseProgram(program);
+
     this->bind(model);
     ::glDrawElements(
         GL_TRIANGLES,

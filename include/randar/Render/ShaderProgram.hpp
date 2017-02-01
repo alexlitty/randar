@@ -3,19 +3,29 @@
 
 #include <randar/Render/Shader.hpp>
 #include <randar/Render/Uniform.hpp>
+#include <randar/Utility/glm.hpp>
 
 namespace randar
 {
     class ShaderProgram : virtual public GpuResource
     {
+        /**
+         * The uniforms used by this program mapped against their locations.
+         */
+        std::map<std::string, ::GLint> uniformLocations;
+
+        /**
+         * Sets the location of a uniform.
+         *
+         * Nothing happens if the provided location is less than 0.
+         *
+         * Called by the GPU class during initialization.
+         */
+        void setUniformLocation(const std::string& name, ::GLint location);
+
     public:
         Shader vertexShader;
         Shader fragmentShader;
-
-        /**
-         * The uniforms required by this program.
-         */
-        mutable std::map<std::string, Uniform> uniforms;
 
         /**
          * Constructs a new shader program.
@@ -42,7 +52,6 @@ namespace randar
          */
         ~ShaderProgram();
 
-    public:
         /**
          * Sets the program shaders and initializes the program.
          *
@@ -53,8 +62,21 @@ namespace randar
             const Shader& initFragmentShader);
 
         /**
-         * Writes a value to a uniform.
+         * Checks if this program uses a uniform.
          */
+        bool hasUniform(const std::string& name) const;
+
+        /**
+         * Writes a value to a uniform.
+         *
+         * Nothing happens if the uniform is not used by this program.
+         */
+        void setUniform(const std::string& name, const glm::mat4& matrix);
+
+        /**
+         * Allow the GPU class to set uniform locations.
+         */
+        friend class Gpu;
     };
 }
 

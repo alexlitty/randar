@@ -82,13 +82,13 @@ namespace randar
         void write(Model& model);
 
         /**
-         * Writes a value to a shader uniform.
+         * Sets the value of a shader uniform.
          *
-         * Nothing happens if the uniform has a location of -1.
+         * Nothing happens if the uniform location is -1.
          */
-        void write(
+        void setUniform(
             const ShaderProgram& program,
-            const Uniform& uniform,
+            ::GLint location,
             const glm::mat4& matrix
         );
 
@@ -109,7 +109,7 @@ namespace randar
          * Drawing.
          */
         void draw(
-            const ShaderProgram &program,
+            ShaderProgram &program,
             const Framebuffer& framebuffer,
             const Model& model);
 
