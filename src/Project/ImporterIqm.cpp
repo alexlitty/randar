@@ -83,9 +83,12 @@ void randar::Importer::importIqm(const std::string& file)
     for (unsigned int i = 0; i < header.num_vertexes; i++) {
         iqm::vertex data;
         if (inposition) ::memcpy(data.position, &inposition[i * 3], sizeof(data.position));
+        if (intexcoord) ::memcpy(data.texcoord, &intexcoord[i * 2], sizeof(data.texcoord));
 
         Vertex vertex;
         vertex.position = Vector(data.position[0], data.position[1], data.position[2]);
+        vertex.textureCoordinate.u = data.texcoord[0];
+        vertex.textureCoordinate.v = data.texcoord[1];
         model->vertices.push_back(vertex);
     }
 
@@ -98,6 +101,9 @@ void randar::Importer::importIqm(const std::string& file)
             model->faceIndices.push_back(triangle.vertex[i]);
         }
     }
+
+    // Create vector space for textures, assigned to the model elsewhere.
+    model->textures.push_back(nullptr);
 
     this->models[std::to_string(meshes[0].name)] = model;
 }
