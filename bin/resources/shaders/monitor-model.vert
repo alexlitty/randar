@@ -4,7 +4,7 @@ layout(location = 1) in vec4 vertexColor;
 layout(location = 4) in vec2 vertexTextureCoords;
 
 uniform mat4 mvp;
-uniform sampler2D textureSampler;
+uniform sampler2D meshTexture0;
 
 out vec4 fragmentColor;
 out vec2 textureCoords;
