@@ -12,7 +12,10 @@ randar::Texture& randar::getDefaultTexture(
 
     auto dimensions = std::make_pair(width, height);
     if (defaultTextures[type][dimensions] == nullptr) {
-        defaultTextures[type][dimensions] = new Texture(type, width, height);
+        Texture *texture = new Texture(type, width, height);
+        texture->clear();
+
+        defaultTextures[type][dimensions] = texture;
     }
 
     return *defaultTextures[type][dimensions];

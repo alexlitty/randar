@@ -88,6 +88,11 @@ randar::Model::Model(const std::string& file)
         }
     }
 
+    // Read textures.
+    for (unsigned int i = 0; i < this->textureCount; i++) {
+        this->textures.push_back(nullptr);
+    }
+
     this->gpu.write(*this);
 }
 
