@@ -54,12 +54,20 @@ namespace randar
             const Shader& initVertexShader,
             const Shader& initFragmentShader);
 
+    protected:
         /**
-         * Writes a value to a uniform.
+         * Checks if a uniform is used by the program.
+         */
+        bool hasUniform(const std::string& name);
+
+    public:
+        /**
+         * Sets the value of a uniform.
          *
          * Nothing happens if the uniform is not used by this program.
          */
         void setUniform(const std::string& name, const glm::mat4& matrix);
+        void setUniform(const std::string& name, int integer);
 
         /**
          * Allow the GPU class to set uniform locations.

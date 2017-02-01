@@ -47,14 +47,28 @@ void randar::ShaderProgram::set(
     this->gpu.initialize(*this);
 }
 
-// Writes a value to a uniform.
-void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4& matrix)
+// Checks if a uniform is used by the program.
+bool randar::ShaderProgram::hasUniform(const std::string& name)
 {
     if (!this->uniformLocations.count(name)) {
         this->uniformLocations[name] = this->gpu.getUniformLocation(*this, name);
     }
 
-    if (this->uniformLocations[name] >= 0) {
+    return this->uniformLocations[name] >= 0;
+}
+
+// Sets a uniform to a 4x4 matrix.
+void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4& matrix)
+{
+    if (this->hasUniform(name)) {
         this->gpu.setUniform(*this, this->uniformLocations[name], matrix);
+    }
+}
+
+// Sets a uniform to an integer.
+void randar::ShaderProgram::setUniform(const std::string& name, int integer)
+{
+    if (this->hasUniform(name)) {
+        this->gpu.setUniform(*this, this->uniformLocations[name], integer);
     }
 }

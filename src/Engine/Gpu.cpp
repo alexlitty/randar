@@ -545,7 +545,7 @@ void randar::Gpu::write(randar::Model& model)
     return ::glGetUniformLocation(program, name.c_str());
 }
 
-// Writes a 4x4 matrix to a shader program uniform.
+// Sets a uniform to a 4x4 matrix.
 void randar::Gpu::setUniform(
     const randar::ShaderProgram& program,
     ::GLint location,
@@ -553,6 +553,16 @@ void randar::Gpu::setUniform(
 {
     ::glUseProgram(program);
     ::glUniformMatrix4fv(location, 1, GL_FALSE, &matrix[0][0]);
+}
+
+// Sets a uniform to an integer.
+void randar::Gpu::setUniform(
+    const randar::ShaderProgram& program,
+    ::GLint location,
+    int integer)
+{
+    ::glUseProgram(program);
+    ::glUniform1i(location, integer);
 }
 
 // Binds a framebuffer.
@@ -635,7 +645,13 @@ void randar::Gpu::draw(
         Texture *texture = model.textures[i];
         
         if (texture) {
-            //program.setUniform("meshTexture"
+            ::glActiveTexture(GL_TEXTURE0 + i);
+            this->bind(*texture);
+
+            program.setUniform(
+                "meshTexture" + std::to_string(i),
+                static_cast<int>(i)
+            );
         }
     }
 

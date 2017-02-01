@@ -88,8 +88,7 @@ namespace randar
          */
         ::GLint getUniformLocation(
             const ShaderProgram& program,
-            const std::string& name
-        );
+            const std::string& name);
 
         /**
          * Sets the value of a shader program uniform.
@@ -99,8 +98,12 @@ namespace randar
         void setUniform(
             const ShaderProgram& program,
             ::GLint location,
-            const glm::mat4& matrix
-        );
+            const glm::mat4& matrix);
+
+        void setUniform(
+            const ShaderProgram& program,
+            ::GLint location,
+            int integer);
 
         /**
          * Binds a GPU resource.
