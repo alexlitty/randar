@@ -82,6 +82,15 @@ namespace randar
         void write(Model& model);
 
         /**
+         * Writes a value to a shader uniform.
+         */
+        void write(
+            const ShaderProgram& program,
+            const Uniform& uniform,
+            const glm::mat4& matrix
+        );
+
+        /**
          * Binds a GPU resource.
          *
          * These should only be called internally. Made public for easier
