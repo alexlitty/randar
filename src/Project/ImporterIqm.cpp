@@ -103,7 +103,7 @@ void randar::Importer::importIqm(const std::string& file)
     }
 
     // Create vector space for textures, assigned to the model elsewhere.
-    model->textures.push_back(nullptr);
+    model->textures["default"] = nullptr;
 
     this->models[std::to_string(meshes[0].name)] = model;
 }

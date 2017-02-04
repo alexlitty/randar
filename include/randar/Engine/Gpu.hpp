@@ -124,7 +124,7 @@ namespace randar
         void draw(
             ShaderProgram &program,
             const Framebuffer& framebuffer,
-            const Model& model);
+            Model& model);
 
         /**
          * Performs a sanity check.

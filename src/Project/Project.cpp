@@ -70,7 +70,8 @@ void randar::Project::load(const std::string& directory)
 
             try {
                 model = new Model(
-                    it.value().get<std::string>()
+                    it.value().get<std::string>(),
+                    this->textures
                 );
 
                 this->models[it.key()] = model;

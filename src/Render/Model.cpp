@@ -13,7 +13,9 @@ randar::Model::Model()
 }
 
 // Constructs an existing model from a file.
-randar::Model::Model(const std::string& file)
+randar::Model::Model(
+    const std::string& file,
+    std::map<std::string, randar::Texture*>& availableTextures)
 {
     uint8_t version;
 
@@ -90,7 +92,14 @@ randar::Model::Model(const std::string& file)
 
     // Read textures.
     for (unsigned int i = 0; i < this->textureCount; i++) {
-        this->textures.push_back(nullptr);
+        std::string textureName;
+        stream.read(textureName);
+
+        if (availableTextures.count(textureName)) {
+            this->textures[textureName] = availableTextures[textureName];
+        } else {
+            this->textures[textureName] = nullptr;
+        }
     }
 
     this->gpu.write(*this);
@@ -161,6 +170,11 @@ bool randar::Model::save()
     for (auto joint : this->joints) {
         stream.write(joint->name);
         stream.write(joint->parentId);
+    }
+
+    // Write textures.
+    for (auto item : this->textures) {
+        stream.write(item.first);
     }
 
     return true;

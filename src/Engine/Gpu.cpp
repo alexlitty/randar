@@ -612,7 +612,7 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 void randar::Gpu::draw(
     ShaderProgram& program,
     const randar::Framebuffer& framebuffer,
-    const randar::Model& model)
+    randar::Model& model)
 {
     if (!program.isInitialized()) {
         throw std::runtime_error("Drawing model without shader program");
@@ -642,19 +642,20 @@ void randar::Gpu::draw(
     }
 
     // Set textures.
-    for (unsigned int i = 0; i < model.textures.size(); i++) {
-        Texture *texture = model.textures[i];
-        if (!texture) {
+    int i = 0;
+    for (auto textureItem : model.textures) {
+        Texture *texture;
+
+        if (textureItem.second) {
+            texture = textureItem.second;
+        } else {
             texture = &randar::getDefaultTexture("rgba", 1, 1);
         }
         
         ::glActiveTexture(GL_TEXTURE0 + i);
         this->bind(*texture);
 
-        program.setUniform(
-            "meshTexture" + std::to_string(i),
-            static_cast<int>(i)
-        );
+        program.setUniform("meshTexture" + std::to_string(i), i);
     }
 
     // Draw model.
