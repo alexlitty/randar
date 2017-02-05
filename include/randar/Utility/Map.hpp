@@ -1,6 +1,7 @@
 #ifndef RANDAR_UTILITY_MAP_HPP
 #define RANDAR_UTILITY_MAP_HPP
 
+#include <cstdint>
 #include <map>
 #include <stdexcept>
 
@@ -47,12 +48,12 @@ namespace randar
      * @todo - Quite inefficient. Consider a different data structure for this
      * sort of thing.
      */
-    template <typename T>
-    unsigned int getAvailableKey(const std::map<unsigned int, T>& map)
+    template <typename S, typename T>
+    S getAvailableKey(const std::map<S, T>& map)
     {
-        unsigned int size = map.size();
+        uint32_t size = map.size();
 
-        for (unsigned int i = 0; i < size; i++) {
+        for (uint32_t i = 0; i < size; i++) {
             if (randar::hasKey(map, i)) {
                 return i;
             }
@@ -65,10 +66,10 @@ namespace randar
      *
      * Returns the key at which insertion occurred.
      */
-    template <typename T>
-    unsigned int insertAtAvailableKey(std::map<unsigned int, T>& map, const T& item)
+    template <typename S, typename T>
+    S insertAtAvailableKey(std::map<S, T>& map, const T& item)
     {
-        unsigned int key = randar::getAvailableKey(map);
+        S key = randar::getAvailableKey(map);
         map[key] = item;
         return key;
     }
