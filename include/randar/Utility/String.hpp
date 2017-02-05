@@ -2,6 +2,7 @@
 #define RANDAR_UTILITY_STRING_HPP
 
 #include <string>
+#include <vector>
 
 namespace randar
 {
@@ -15,19 +16,15 @@ namespace randar
      */
     void split(
         const std::string& str,
-        const std::string& delimiter,
+        char delimiter,
         std::vector<std::string>& results);
 
-    std::vector<std::string> split(
-        const std::string& str,
-        const std::string& delimiter);
+    std::vector<std::string> split(const std::string& str, char delimiter);
 
     /**
      * Joins a list of strings together using a delimiter.
      */
-    std::string join(
-        const std::vector<std::string>& parts,
-        const std::string& delimiter);
+    std::string join(const std::vector<std::string>& parts, char delimiter);
 }
 
 #endif

@@ -18,21 +18,20 @@ std::string randar::toLowercase(const std::string& str)
 // Splits a string into a vector based on a delimiter.
 void randar::split(
     const std::string& str,
-    const std::string& delimiter
+    char delimiter,
     std::vector<std::string>& results)
 {
     std::stringstream ss;
-    ss.str(s);
+    ss.str(str);
     std::string item;
 
+    results.clear();
     while (std::getline(ss, item, delimiter)) {
         results.push_back(item);
     }
 }
 
-std::vector<std::string> randar::split(
-    const std::string& str,
-    const std::string& delimiter)
+std::vector<std::string> randar::split(const std::string& str, char delimiter)
 {
     std::vector<std::string> results;
     randar::split(str, delimiter, results);
@@ -40,9 +39,7 @@ std::vector<std::string> randar::split(
 }
 
 // Joins a list of strings together using a delimiter.
-std::string randar::join(
-    const std::vector<std::string>& parts,
-    const std::string& delimiter)
+std::string randar::join(const std::vector<std::string>& parts, char delimiter)
 {
     std::string result;
 
