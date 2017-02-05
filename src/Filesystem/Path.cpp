@@ -10,13 +10,7 @@ randar::Path::Path()
 // Constructor, given a UNIX-style string path.
 randar::Path::Path(const std::string& path)
 {
-    this->set(path);
-}
-
-// Sets the internal path, given a UNIX-style string path.
-void randar::Path::set(const std::string& path)
-{
-    randar::split(path, '/', this->parts);
+    *this = path;
 }
 
 // Converts to a platform-appropriate string.
@@ -33,6 +27,6 @@ randar::Path::operator std::string() const
 // Assignment operator.
 randar::Path& randar::Path::operator =(const std::string& path)
 {
-    this->set(path);
+    randar::split(path, '/', this->parts);
     return *this;
 }

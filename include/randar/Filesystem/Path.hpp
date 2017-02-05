@@ -23,11 +23,6 @@ namespace randar
         Path(const std::string& path);
 
         /**
-         * Sets the internal path, given a UNIX-style string path.
-         */
-        void set(const std::string& path);
-
-        /**
          * Converts to a platform-appropriate string.
          */
         std::string toString() const;
