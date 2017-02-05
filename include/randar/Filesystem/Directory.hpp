@@ -5,7 +5,7 @@
 
 namespace randar
 {
-    class Directory : public Path
+    class Directory : virtual public Path
     {
         /**
          * Inherit constructors.
@@ -13,9 +13,19 @@ namespace randar
         using Path::Path;
 
         /**
+         * Retrieves a subdirectory instance.
+         */
+        Directory getSubdirectory(const std::string& subdirectory) const;
+
+        /**
          * Retrieves a list of files in this directory.
          */
         std::vector<File> getFiles() const;
+
+        /**
+         * Converts to a platform-appropriate string.
+         */
+        virtual std::string toString() const override;
     };
 }
 

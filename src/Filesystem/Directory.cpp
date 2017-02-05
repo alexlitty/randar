@@ -1,6 +1,12 @@
 #include <tinydir.h>
 #include <randar/Filesystem/Directory.hpp>
 
+// Retrieves a subdirectory instance.
+randar::Directory randar::Directory::getSubdirectory(const std::string& subdirectory) const
+{
+    return Directory(this->toString() + subdirectory);
+}
+
 // Retrieves a list of files in this directory.
 std::vector<randar::File> randar::Directory::getFiles() const
 {
@@ -24,4 +30,10 @@ std::vector<randar::File> randar::Directory::getFiles() const
 
     ::tinydir_close(&handle);
     return results;
+}
+
+// Converts to a platform-appropriate string.
+std::string randar::Directory::toString() const
+{
+    return randar::Path::toString() + "/";
 }
