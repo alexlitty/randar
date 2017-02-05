@@ -1,6 +1,7 @@
 #include <regex>
 #include <randar/Utility/File.hpp>
 #include <randar/Utility/String.hpp>
+#include <tinydir.h>
 
 // Retrieves a file's extension.
 std::string randar::getFileExtension(const std::string& file)
@@ -56,4 +57,27 @@ bool randar::writeAsciiFile(std::string filename, std::string contents)
 
     stream.close();
     return !stream.bad();
+}
+
+// Retrieves a list of files in a directory.
+std::vector<std::string> randar::getDirectoryFiles(const std::string& directory)
+{
+    std::vector<std::string> results;
+
+    ::tinydir_dir handle;
+    ::tinydir_open(&handle, directory.c_str());
+
+    while (handle.has_next) {
+        ::tinydir_file file;
+        ::tinydir_readfile(&handle, &file);
+
+        if (!file.is_dir) {
+            results.push_back(file.name);
+        }
+
+        ::tinydir_next(&handle);
+    }
+
+    ::tinydir_close(&handle);
+    return results;
 }

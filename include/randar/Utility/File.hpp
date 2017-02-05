@@ -27,6 +27,11 @@ namespace randar
      * Writes an ASCII file to disk.
      */
     bool writeAsciiFile(std::string filename, std::string contents);
+
+    /**
+     * Retrieves a list of files in a directory.
+     */
+    std::vector<std::string> getDirectoryFiles(const std::string& directory);
 }
 
 #endif
