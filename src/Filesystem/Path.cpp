@@ -13,6 +13,20 @@ randar::Path::Path(const std::string& path)
     *this = path;
 }
 
+// Copy constructor.
+randar::Path::Path(const randar::Path& other)
+: parts(other.parts)
+{
+
+}
+
+// Move constructor.
+randar::Path::Path(const randar::Path&& other)
+: parts(std::move(other.parts))
+{
+
+}
+
 // Converts to a platform-appropriate string.
 std::string randar::Path::toString() const
 {
@@ -24,7 +38,7 @@ randar::Path::operator std::string() const
     return this->toString();
 }
 
-// Assignment operator.
+// Assignment operator, to a UNIX-style string path.
 randar::Path& randar::Path::operator =(const std::string& path)
 {
     randar::split(path, '/', this->parts);

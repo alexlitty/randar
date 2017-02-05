@@ -23,13 +23,23 @@ namespace randar
         Path(const std::string& path);
 
         /**
+         * Copy constructor.
+         */
+        Path(const Path& other);
+
+        /**
+         * Move constructor.
+         */
+        Path(const Path&& other);
+
+        /**
          * Converts to a platform-appropriate string.
          */
-        std::string toString() const;
+        virtual std::string toString() const;
         operator std::string() const;
 
         /**
-         * Assignment operator.
+         * Assignment operator, to a UNIX-style string path.
          */
         Path& operator =(const std::string& path);
     };
