@@ -2,6 +2,18 @@
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
 
+// Loads a repository from disk.
+void randar::ResourceRepository::load(randar::Directory& directory)
+{
+
+}
+
+// Saves this repository to disk.
+void randar::ResourceRepository::save(randar::Directory& directory)
+{
+
+}
+
 // Retrieves a model.
 randar::Model* randar::ResourceRepository::getModel(uint32_t id)
 {
