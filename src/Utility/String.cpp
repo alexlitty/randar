@@ -38,3 +38,22 @@ std::vector<std::string> randar::split(
     randar::split(str, delimiter, results);
     return results;
 }
+
+// Joins a list of strings together using a delimiter.
+std::string randar::join(
+    const std::vector<std::string>& parts,
+    const std::string& delimiter)
+{
+    std::string result;
+
+    uint32_t partCount = parts.size();
+    for (uint32_t i = 0; i < partCount; i++) {
+        result += parts[i];
+
+        if ((i + 1) < partCount) {
+            result += delimiter;
+        }
+    }
+
+    return result;
+}
