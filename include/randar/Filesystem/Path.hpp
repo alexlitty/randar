@@ -28,11 +28,6 @@ namespace randar
         Path(const Path& other);
 
         /**
-         * Move constructor.
-         */
-        Path(const Path&& other);
-
-        /**
          * Converts to a platform-appropriate string.
          */
         virtual std::string toString() const;

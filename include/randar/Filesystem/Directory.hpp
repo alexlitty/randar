@@ -8,7 +8,7 @@ namespace randar
     class Directory : virtual public Path
     {
         /**
-         * Inherit constructors.
+         * Inherit constructors and operators.
          */
         using Path::Path;
 

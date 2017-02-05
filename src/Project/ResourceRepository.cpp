@@ -5,7 +5,7 @@
 // Loads a repository from disk.
 void randar::ResourceRepository::load(randar::Directory& directory)
 {
-
+    this->directory = directory;
 }
 
 // Saves this repository to disk.

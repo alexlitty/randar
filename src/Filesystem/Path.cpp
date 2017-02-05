@@ -20,13 +20,6 @@ randar::Path::Path(const randar::Path& other)
 
 }
 
-// Move constructor.
-randar::Path::Path(const randar::Path&& other)
-: parts(std::move(other.parts))
-{
-
-}
-
 // Converts to a platform-appropriate string.
 std::string randar::Path::toString() const
 {
