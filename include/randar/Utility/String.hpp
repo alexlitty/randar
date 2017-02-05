@@ -5,7 +5,22 @@
 
 namespace randar
 {
+    /**
+     * Converts a string to lowercase.
+     */
     std::string toLowercase(const std::string& str);
+
+    /**
+     * Splits a string into a vector based on a delimiter.
+     */
+    void split(
+        const std::string& str,
+        const std::string& delimiter,
+        std::vector<std::string>& results);
+
+    std::vector<std::string> split(
+        const std::string& str,
+        const std::string& delimiter);
 }
 
 #endif
