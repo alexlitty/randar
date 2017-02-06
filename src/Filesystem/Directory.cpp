@@ -7,6 +7,19 @@ randar::Directory randar::Directory::getSubdirectory(const std::string& subdirec
     return Directory(this->toString() + subdirectory);
 }
 
+// Retrieves a file in this directory.
+randar::File randar::Directory::getFile(const std::string& filename) const
+{
+    return File(this->toString() + filename);
+}
+
+randar::File randar::Directory::getFile(
+    const std::string& basename,
+    const std::string& extension) const
+{
+    return this->getFile(basename + "." + extension);
+}
+
 // Retrieves a list of files in this directory.
 std::vector<randar::File> randar::Directory::getFiles() const
 {

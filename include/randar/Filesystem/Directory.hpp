@@ -20,6 +20,14 @@ namespace randar
         Directory getSubdirectory(const std::string& subdirectory) const;
 
         /**
+         * Retrieves a file in this directory.
+         */
+        File getFile(const std::string& filename) const;
+        File getFile(
+            const std::string& basename,
+            const std::string& extension) const;
+
+        /**
          * Retrieves a list of files in this directory.
          */
         std::vector<File> getFiles() const;
