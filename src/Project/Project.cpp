@@ -22,7 +22,7 @@ randar::Project::~Project()
 // Retrieves the filename of the primary project file.
 std::string randar::Project::getProjectFilename() const
 {
-    return this->directory + "project.json";
+    return this->directory.toString() + "project.json";
 }
 
 // Loads a project into memory.
@@ -31,6 +31,9 @@ void randar::Project::load(const std::string& directory)
     this->clear();
     
     this->directory = directory;
+
+    // Load resources.
+    this->resources.load(this->directory.getSubdirectory("resources"));
 
     // Parse the main project file.
     Json project;
@@ -87,7 +90,7 @@ void randar::Project::load(const std::string& directory)
 // Saves this project to disk.
 bool randar::Project::save() const
 {
-    if (this->directory == "") {
+    if (this->directory.toString() == "") {
         return false;
     }
 
