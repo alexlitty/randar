@@ -15,9 +15,14 @@ namespace randar
         using Path::Path;
 
         /**
-         * Opens a new binary writing stream.
+         * Creates a new binary reading stream from this file.
          */
-        BinaryFileWriter openBinaryWriter();
+        BinaryFileReader createBinaryReader() const;
+
+        /**
+         * Creates a new binary writing stream to this file.
+         */
+        BinaryFileWriter createBinaryWriter() const;
     };
 }
 
