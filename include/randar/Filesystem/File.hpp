@@ -12,6 +12,11 @@ namespace randar
          * Inherit constructors.
          */
         using Path::Path;
+
+        /**
+         * Opens a new binary writing stream.
+         */
+        BinaryFileOutput
     };
 }
 
