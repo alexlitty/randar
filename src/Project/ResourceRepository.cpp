@@ -3,13 +3,13 @@
 #include <randar/Render/Texture.hpp>
 
 // Loads a repository from disk.
-void randar::ResourceRepository::load(randar::Directory& directory)
+void randar::ResourceRepository::load(const randar::Directory& directory)
 {
     this->directory = directory;
 }
 
 // Saves this repository to disk.
-void randar::ResourceRepository::save(randar::Directory& directory)
+void randar::ResourceRepository::save(const randar::Directory& directory)
 {
 
 }

@@ -29,14 +29,14 @@ namespace randar
          *
          * An exception is thrown upon error.
          */
-        void load(Directory& directory);
+        void load(const Directory& directory);
 
         /**
          * Saves this repository to disk.
          *
          * An exception is thrown upon error.
          */
-        void save(Directory& directory);
+        void save(const Directory& directory);
 
         /**
          * Retrieves and adds a model.
