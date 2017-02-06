@@ -7,10 +7,12 @@ namespace randar
 {
     class Directory : virtual public Path
     {
+    public:
         /**
          * Inherit constructors and operators.
          */
         using Path::Path;
+        using Path::operator =;
 
         /**
          * Retrieves a subdirectory instance.

@@ -34,6 +34,14 @@ randar::Path::operator std::string() const
 // Assignment operator, to a UNIX-style string path.
 randar::Path& randar::Path::operator =(const std::string& path)
 {
-    randar::split(path, '/', this->parts);
+    if (path == "") {
+        this->parts.clear();
+        this->parts.push_back(".");
+    }
+
+    else {
+        randar::split(path, '/', this->parts);
+    }
+
     return *this;
 }
