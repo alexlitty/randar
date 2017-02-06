@@ -14,7 +14,7 @@ void randar::ResourceRepository::clear()
     for (auto item : this->models) {
         delete item.second;
     }
-    this->models.clear()
+    this->models.clear();
 
     for (auto item : this->textures) {
         delete item.second;
