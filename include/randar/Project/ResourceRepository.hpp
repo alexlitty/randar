@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <randar/Filesystem/Directory.hpp>
+#include <randar/Project/Importer.hpp>
 #include <randar/Utility/Map.hpp>
 
 namespace randar
@@ -59,6 +60,11 @@ namespace randar
          */
         Texture* getTexture(uint32_t id);
         uint32_t addTexture(Texture* texture);
+
+        /**
+         * Exporting methods.
+         */
+        void exportRaTexture(uint32_t textureId);
     };
 }
 
