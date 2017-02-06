@@ -25,6 +25,11 @@ namespace randar
 
     public:
         /**
+         * Frees this repository from memory.
+         */
+        void clear();
+
+        /**
          * Loads a repository from disk.
          *
          * An exception is thrown upon error.

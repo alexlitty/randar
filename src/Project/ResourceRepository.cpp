@@ -2,6 +2,20 @@
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
 
+// Frees this repository from memory.
+void randar::ResourceRepository::clear()
+{
+    for (auto item : this->models) {
+        delete item.second;
+    }
+    this->models.clear()
+
+    for (auto item : this->textures) {
+        delete item.second;
+    }
+    this->textures.clear();
+}
+
 // Loads a repository from disk.
 void randar::ResourceRepository::load(const randar::Directory& directory)
 {
