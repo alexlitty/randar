@@ -73,6 +73,7 @@ namespace randar
         /**
          * Checks which kind of texture this is.
          */
+        std::string getType() const;
         bool isRgba() const;
         bool isDepth() const;
 

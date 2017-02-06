@@ -117,6 +117,11 @@ bool randar::Texture::isValid(std::string& error) const
 }
 
 // Checks which kind of texture this is.
+std::string randar::Texture::getType() const
+{
+    return this->type;
+}
+
 bool randar::Texture::isRgba() const
 {
     return this->type == "rgba";
