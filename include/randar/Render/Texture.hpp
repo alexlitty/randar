@@ -7,7 +7,7 @@
 
 namespace randar
 {
-    class Texture : virtual public GpuResource, virtual public FileResource
+    class Texture : virtual public GpuResource
     {
     protected:
         /**
@@ -59,7 +59,7 @@ namespace randar
         /**
          * Saves this texture to its file.
          */
-        virtual bool save() override;
+        virtual bool save();
 
         /**
          * Checks the validity of this texture's information.

@@ -6,7 +6,7 @@
 
 namespace randar
 {
-    class BinaryFileOutput
+    class BinaryFileWriter
     {
         std::ofstream stream;
 
@@ -14,7 +14,7 @@ namespace randar
         /**
          * Constructor.
          */
-        BinaryFileOutput(const std::string& file)
+        BinaryFileWriter(const std::string& file)
         {
             this->stream.open(file, std::ios::binary);
         }

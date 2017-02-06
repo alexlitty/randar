@@ -31,7 +31,7 @@ randar::Texture::Texture(const std::string& file)
 : randar::FileResource(file)
 {
     this->setFile(file);
-    BinaryFileInput stream(this->file);
+    BinaryFileReader stream(this->file);
 
     stream.read(this->type);
     stream.read(this->width);
@@ -73,7 +73,7 @@ randar::Texture::~Texture()
 // Saves this texture to its file.
 bool randar::Texture::save()
 {
-    BinaryFileOutput stream(this->file);
+    BinaryFileWriter stream(this->file);
 
     stream.write(this->type);
     stream.write(this->width);

@@ -6,7 +6,7 @@
 
 namespace randar
 {
-    class BinaryFileInput
+    class BinaryFileReader
     {
         std::ifstream stream;
 
@@ -14,7 +14,7 @@ namespace randar
         /**
          * Constructor.
          */
-        BinaryFileInput(const std::string& file)
+        BinaryFileReader(const std::string& file)
         {
             this->stream.open(file, std::ios::binary);
             if (!this->stream) {

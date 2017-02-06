@@ -2,6 +2,7 @@
 #define RANDAR_FILESYSTEM_FILE_HPP
 
 #include <randar/Filesystem/Path.hpp>
+#include <randar/Filesystem/BinaryFileStream.hpp>
 
 namespace randar
 {
@@ -16,7 +17,7 @@ namespace randar
         /**
          * Opens a new binary writing stream.
          */
-        BinaryFileOutput
+        BinaryFileWriter openBinaryWriter();
     };
 }
 

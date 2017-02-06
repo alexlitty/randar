@@ -20,7 +20,7 @@ randar::Model::Model(
     uint8_t version;
 
     this->setFile(file);
-    BinaryFileInput stream(file);
+    BinaryFileReader stream(file);
 
     // Check model file version.
     stream.read(version);
@@ -131,7 +131,7 @@ bool randar::Model::save()
     this->jointCount = this->joints.size();
     this->jointWeightCount = 0;
 
-    BinaryFileOutput stream(this->getFile());
+    BinaryFileWriter stream(this->getFile());
     stream.write(version);
 
     // Write basic model information.

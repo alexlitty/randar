@@ -3,7 +3,8 @@
 
 #include <string>
 #include <randar/Engine/Resource.hpp>
-#include <randar/Data/BinaryFile.hpp>
+#include <randar/Project/Exporter.hpp>
+#include <randar/Filesystem/BinaryFileStream.hpp>
 
 namespace randar
 {
