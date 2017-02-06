@@ -12,6 +12,21 @@ namespace randar
          * Inherit constructors.
          */
         using Path::Path;
+
+        /**
+         * Retrieves the file extension.
+         *
+         * Always returned in lowercase.
+         */
+        std::string getExtension() const;
+
+        /**
+         * Retrieves the file base name.
+         *
+         * The base name is the path of the file without directory and
+         * extension.
+         */
+        std::string getBaseName() const;
     };
 }
 
