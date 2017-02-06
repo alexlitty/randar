@@ -47,6 +47,7 @@ namespace randar
          *
          * An exception is thrown upon error.
          */
+        void save();
         void save(const Directory& directory);
 
         /**

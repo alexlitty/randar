@@ -26,12 +26,25 @@ void randar::ResourceRepository::clear()
 void randar::ResourceRepository::load(const randar::Directory& directory)
 {
     this->directory = directory;
+
+    for (auto file : this->directory.getSubdirectory("textures")) {
+
+    }
 }
 
 // Saves this repository to disk.
+void randar::ResourceRepository::save()
+{
+    this->save(this->directory);
+}
+
 void randar::ResourceRepository::save(const randar::Directory& directory)
 {
+    Directory dirTextures = directory.getSubdirectory("textures");
 
+    for (auto item : this->textures) {
+        this->exportRaTexture(item.first);
+    }
 }
 
 // Retrieves a model.
