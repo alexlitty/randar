@@ -123,11 +123,11 @@ Json randar::Project::toJson() const
     result["name"] = this->name;
 
     for (auto item : this->textures) {
-        result["textures"][item.first] = item.second->getFile();
+        //result["textures"][item.first] = item.second->getFile();
     }
 
     for (auto item : this->models) {
-        result["models"][item.first] = item.second->getFile();
+        //result["models"][item.first] = item.second->getFile();
     }
 
     return result;

@@ -2,6 +2,7 @@
 #define RANDAR_DATA_BINARY_FILE_OUTPUT_HPP
 
 #include <fstream>
+#include <stdexcept>
 #include <randar/Filesystem/Endian.hpp>
 
 namespace randar

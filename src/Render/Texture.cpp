@@ -28,9 +28,9 @@ randar::Texture::Texture(
 
 // Construct from a file.
 randar::Texture::Texture(const std::string& file)
-: randar::FileResource(file)
+//: randar::FileResource(file)
 {
-    this->setFile(file);
+    /*this->setFile(file);
     BinaryFileReader stream(this->file);
 
     stream.read(this->type);
@@ -61,7 +61,7 @@ randar::Texture::Texture(const std::string& file)
         randar::logError("Texture data missing while importing");
     }
 
-    this->gpu.initialize(*this);
+    this->gpu.initialize(*this);*/
 }
 
 // Destructor.
@@ -73,7 +73,7 @@ randar::Texture::~Texture()
 // Saves this texture to its file.
 bool randar::Texture::save()
 {
-    BinaryFileWriter stream(this->file);
+    /*BinaryFileWriter stream(this->file);
 
     stream.write(this->type);
     stream.write(this->width);
@@ -93,7 +93,7 @@ bool randar::Texture::save()
         randar::logError("Texture data missing while saving");
     }
 
-    return true;
+    return true;*/
 }
 
 // Checks the validity of this texture.

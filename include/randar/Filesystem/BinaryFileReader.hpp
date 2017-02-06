@@ -2,7 +2,9 @@
 #define RANDAR_DATA_BINARY_FILE_INPUT_HPP
 
 #include <fstream>
+#include <stdexcept>
 #include <randar/Filesystem/Endian.hpp>
+#include <randar/Filesystem/File.hpp>
 
 namespace randar
 {
@@ -20,6 +22,12 @@ namespace randar
             if (!this->stream) {
                 throw std::runtime_error("Cannot open binary file for reading");
             }
+        }
+
+        BinaryFileReader(const File& file)
+        : BinaryFileReader(file.toString())
+        {
+
         }
 
         /**

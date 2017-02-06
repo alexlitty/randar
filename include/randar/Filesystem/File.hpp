@@ -2,7 +2,6 @@
 #define RANDAR_FILESYSTEM_FILE_HPP
 
 #include <randar/Filesystem/Path.hpp>
-#include <randar/Filesystem/BinaryFileStream.hpp>
 
 namespace randar
 {
@@ -13,16 +12,6 @@ namespace randar
          * Inherit constructors.
          */
         using Path::Path;
-
-        /**
-         * Creates a new binary reading stream from this file.
-         */
-        BinaryFileReader createBinaryReader() const;
-
-        /**
-         * Creates a new binary writing stream to this file.
-         */
-        BinaryFileWriter createBinaryWriter() const;
     };
 }
 

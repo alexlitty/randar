@@ -2,7 +2,6 @@
 #define RANDAR_RENDER_TEXTURE_HPP
 
 #include <randar/Engine/GpuResource.hpp>
-#include <randar/Engine/FileResource.hpp>
 #include <randar/Render/Color.hpp>
 
 namespace randar

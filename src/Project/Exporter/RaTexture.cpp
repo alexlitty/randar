@@ -2,4 +2,7 @@
 
 void randar::Exporter::exportRaTexture(
     const randar::Texture& texture,
-    const randar::File& file);
+    const randar::File& file)
+{
+    BinaryFileReader stream(file);
+}
