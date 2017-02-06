@@ -2,6 +2,12 @@
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
 
+// Destructor.
+randar::ResourceRepository::~ResourceRepository()
+{
+    this->clear();
+}
+
 // Frees this repository from memory.
 void randar::ResourceRepository::clear()
 {

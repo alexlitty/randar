@@ -25,6 +25,11 @@ namespace randar
 
     public:
         /**
+         * Destructor.
+         */
+        ~ResourceRepository();
+
+        /**
          * Frees this repository from memory.
          */
         void clear();
