@@ -7,6 +7,11 @@
 namespace randar
 {
     /**
+     * Whether a string is an integer.
+     */
+    bool isInteger(const std::string& str);
+
+    /**
      * Converts a string to lowercase.
      */
     std::string toLowercase(const std::string& str);

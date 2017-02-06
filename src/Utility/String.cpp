@@ -1,6 +1,23 @@
 #include <locale>
+#include <set>
 #include <sstream>
 #include <randar/Utility/String.hpp>
+
+// Whether a string is an integer.
+bool randar::isInteger(const std::string& str)
+{
+    static const std::set<char> whitelist = {
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    };
+
+    for (unsigned int i = 0; i < str.size(); i++) {
+        if (!whitelist.count(str[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
 
 // Converts a string to lowercase.
 std::string randar::toLowercase(const std::string& str)
