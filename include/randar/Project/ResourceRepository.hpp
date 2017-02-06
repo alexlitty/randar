@@ -2,6 +2,7 @@
 #define RANDAR_RESOURCE_RESOURCE_REPOSITORY_HPP
 
 #include <cstdint>
+#include <set>
 #include <randar/Filesystem/Directory.hpp>
 #include <randar/Project/Importer.hpp>
 #include <randar/Utility/Map.hpp>
@@ -22,7 +23,10 @@ namespace randar
          * Resources in this repository.
          */
         std::map<uint32_t, Model*> models;
+        std::set<uint32_t> dirtyModels;
+
         std::map<uint32_t, Texture*> textures;
+        std::set<uint32_t> dirtyTextures;
 
     public:
         /**
@@ -63,8 +67,9 @@ namespace randar
         uint32_t addTexture(Texture* texture);
 
         /**
-         * Exporting methods.
+         * Texture importing and exporting.
          */
+        void importRaTexture(const File& file);
         void exportRaTexture(uint32_t textureId);
     };
 }
