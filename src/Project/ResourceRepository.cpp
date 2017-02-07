@@ -30,6 +30,10 @@ void randar::ResourceRepository::load(const randar::Directory& directory)
     for (auto file : this->directory.getSubdirectory("textures").getFiles()) {
         this->importRaTexture(file);
     }
+
+    for (auto file : this->directory.getSubdirectory("models").getFiles()) {
+        this->importRaModel(file);
+    }
 }
 
 // Saves this repository to disk.
@@ -82,7 +86,11 @@ Json randar::ResourceRepository::toJson() const
     Json result;
 
     for (auto item : this->textures) {
-        result["textures"][item.first] = "test";
+        result["textures"][item.first] = "test texture";
+    }
+
+    for (auto item : this->models) {
+        result["models"][item.first] = "test model";
     }
 
     return result;
