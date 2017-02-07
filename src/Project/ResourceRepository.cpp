@@ -57,6 +57,7 @@ randar::Model* randar::ResourceRepository::getModel(uint32_t id)
 uint32_t randar::ResourceRepository::addModel(randar::Model* model)
 {
     uint32_t key = randar::insertAtAvailableKey(this->models, model);
+    this->exportRaModel(key);
     return key;
 }
 

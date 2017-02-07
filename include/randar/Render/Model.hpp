@@ -29,7 +29,7 @@ namespace randar
         std::vector<uint32_t> faceIndices;
         IndexBuffer faceBuffer;
 
-        std::map<std::string, Texture*> textures;
+        std::map<uint32_t, Texture*> textures;
         std::vector<Joint*> joints;
 
         /**
@@ -40,23 +40,9 @@ namespace randar
         Model();
 
         /**
-         * Constructs an existing model from a file.
-         *
-         * Automatically initialized on the GPU.
-         */
-        Model(
-            const std::string& file,
-            std::map<std::string, Texture*>& availableTextures);
-
-        /**
          * Destructor.
          */
         ~Model();
-
-        /**
-         * Saves this model to its file.
-         */
-        virtual bool save() override;
     };
 }
 

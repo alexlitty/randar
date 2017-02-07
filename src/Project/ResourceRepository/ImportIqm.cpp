@@ -103,7 +103,7 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
     }
 
     // Create vector space for textures, assigned to the model elsewhere.
-    model->textures["default"] = nullptr;
+    // @@@
 
     this->addModel(model);
 }

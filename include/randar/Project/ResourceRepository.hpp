@@ -79,7 +79,10 @@ namespace randar
         /**
          * Model importing and exporting.
          */
+        void importRaModel(const File& file);
         void importIqm(const File& file);
+
+        void exportRaModel(uint32_t modelId);
 
         /**
          * Generates a complete JSON representation of this repository.
