@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <randar/Project/Importer.hpp>
+#include <randar/Project/ResourceRepository.hpp>
 #include <randar/Utility/iqm.hpp>
 
 // Imports an IQM file.

@@ -4,15 +4,13 @@
 #include <cstdint>
 #include <set>
 #include <randar/Filesystem/Directory.hpp>
-#include <randar/Project/Importer.hpp>
+#include <randar/Render/Texture.hpp>
+#include <randar/Render/Model.hpp>
 #include <randar/Utility/Map.hpp>
 #include <randar/Utility/Json.hpp>
 
 namespace randar
 {
-    class Texture;
-    class Model;
-
     class ResourceRepository
     {
         /**
@@ -74,6 +72,11 @@ namespace randar
         void importPng(const File& file);
 
         void exportRaTexture(uint32_t textureId);
+
+        /**
+         * Model importing and exporting.
+         */
+        void importIqm(const File& file);
 
         /**
          * Generates a complete JSON representation of this repository.
