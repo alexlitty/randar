@@ -56,7 +56,8 @@ randar::Model* randar::ResourceRepository::getModel(uint32_t id)
 // Adds a model.
 uint32_t randar::ResourceRepository::addModel(randar::Model* model)
 {
-    return randar::insertAtAvailableKey(this->models, model);
+    uint32_t key = randar::insertAtAvailableKey(this->models, model);
+    return key;
 }
 
 // Retrieves a texture.
@@ -68,7 +69,10 @@ randar::Texture* randar::ResourceRepository::getTexture(uint32_t id)
 // Adds a texture.
 uint32_t randar::ResourceRepository::addTexture(randar::Texture* texture)
 {
-    return randar::insertAtAvailableKey(this->textures, texture);
+    uint32_t key = randar::insertAtAvailableKey(this->textures, texture);
+    this->exportRaTexture(key);
+
+    return key;
 }
 
 // Generates a complete JSON representation of this repository.
