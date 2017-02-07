@@ -1,8 +1,7 @@
 #include <pngpp/image.hpp>
-#include <randar/Project/Importer.hpp>
-#include <randar/Utility/File.hpp>
+#include <randar/Project/ResourceRepository.hpp>
 
-void randar::Importer::importPng(const std::string& file)
+void randar::ResourceRepository::importPng(const randar::File& file)
 {
     // Load the PNG into memory.
     png::image<png::rgba_pixel> image(file);
@@ -27,5 +26,5 @@ void randar::Importer::importPng(const std::string& file)
         }
     }
 
-    this->textures[randar::getFileBaseName(file)] = texture;
+    this->addTexture(texture);
 }

@@ -3,9 +3,9 @@
 #include <randar/Utility/iqm.hpp>
 
 // Imports an IQM file.
-void randar::Importer::importIqm(const std::string& file)
+void randar::ResourceRepository::importIqm(const randar::File& file)
 {
-    FILE *f = ::fopen(file.c_str(), "rb");
+    FILE *f = ::fopen(file.toString().c_str(), "rb");
     if (!f) { throw std::runtime_error("Cannot open file"); }
 
     // Read header.
@@ -105,5 +105,5 @@ void randar::Importer::importIqm(const std::string& file)
     // Create vector space for textures, assigned to the model elsewhere.
     model->textures["default"] = nullptr;
 
-    this->models[std::to_string(meshes[0].name)] = model;
+    this->addModel(model);
 }

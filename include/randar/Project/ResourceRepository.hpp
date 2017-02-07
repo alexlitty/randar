@@ -71,6 +71,8 @@ namespace randar
          * Texture importing and exporting.
          */
         void importRaTexture(const File& file);
+        void importPng(const File& file);
+
         void exportRaTexture(uint32_t textureId);
 
         /**
