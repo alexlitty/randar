@@ -14,13 +14,9 @@ namespace randar
     {
         Directory directory;
         ResourceRepository resources;
+        std::string name;
 
     public:
-        std::string name;
-        std::map<std::string, ShaderProgram*> shaderPrograms;
-        std::map<std::string, Texture*> textures;
-        std::map<std::string, Model*> models;
-
         /**
          * Default constructor.
          */
@@ -40,7 +36,7 @@ namespace randar
         /**
          * Retrieves the filename of the primary project file.
          */
-        std::string getProjectFilename() const;
+        File getProjectFile() const;
 
     public:
         /**
@@ -48,36 +44,20 @@ namespace randar
          *
          * Throws a runtime error if the project could not be loaded at all.
          */
-        void load(const std::string& directory);
+        void load(const Directory& newDirectory);
 
         /**
          * Saves this project to disk.
-         *
-         * Returns true if the project was saved successfully, false otherwise.
          */
-        bool save() const;
+        void save() const;
 
         /**
          * Retrieves the root project directory.
          */
         std::string getDirectory() const;
 
-    protected:
         /**
-         * Clears a category of resources from memory.
-         */
-        template <typename T>
-        void clear(std::map<std::string, T*>& resources)
-        {
-            for (auto item : resources) {
-                delete item.second;
-            }
-            resources.clear();
-        }
-
-    public:
-        /**
-         * Clears this entire project from memory.
+         * Frees this project from memory.
          */
         void clear();
 

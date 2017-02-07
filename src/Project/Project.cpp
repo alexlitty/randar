@@ -20,17 +20,16 @@ randar::Project::~Project()
 }
 
 // Retrieves the filename of the primary project file.
-std::string randar::Project::getProjectFilename() const
+randar::File randar::Project::getProjectFile() const
 {
-    return this->directory.toString() + "project.json";
+    return this->directory.getFile("project", "json");
 }
 
 // Loads a project into memory.
-void randar::Project::load(const std::string& directory)
+void randar::Project::load(const randar::Directory& newDirectory)
 {
     this->clear();
-    
-    this->directory = directory;
+    this->directory = newDirectory;
 
     // Load resources.
     this->resources.load(this->directory.getSubdirectory("resources"));
@@ -39,7 +38,7 @@ void randar::Project::load(const std::string& directory)
     Json project;
     try {
         project = Json::parse(
-            randar::readAsciiFile(this->getProjectFilename())
+            randar::readAsciiFile(this->getProjectFile().toString())
         );
     }
 
@@ -52,51 +51,16 @@ void randar::Project::load(const std::string& directory)
     if (project["name"].is_string()) {
         this->name = project["name"];
     }
-
-    if (project["shaders"].is_object()) {
-        for (auto shaderProgram : project["shaders"]) {
-
-        }
-    }
-
-    if (project["textures"].is_object()) {
-        for (Json::iterator it = project["textures"].begin(); it != project["textures"].end(); it++) {
-            this->textures[it.key()] = new Texture(
-                it.value().get<std::string>()
-            );
-        }
-    }
-
-    if (project["models"].is_object()) {
-        for (Json::iterator it = project["models"].begin(); it != project["models"].end(); it++) {
-            Model *model;
-
-            try {
-                model = new Model(
-                    it.value().get<std::string>(),
-                    this->textures
-                );
-
-                this->models[it.key()] = model;
-            }
-
-            catch (std::runtime_error error) {
-                randar::logError("Removing bad model from project: " + it.key());
-            }
-        }
-    }
 }
 
 // Saves this project to disk.
-bool randar::Project::save() const
+void randar::Project::save() const
 {
-    if (this->directory.toString() == "") {
-        return false;
-    }
-
-    return randar::writeAsciiFile(
-        this->getProjectFilename(),
-        this->toJson().dump()
+    randar::writeAsciiFile(
+        this->getProjectFile().toString(),
+        Json({
+            { "name", this->name }
+        }).dump()
     );
 }
 
@@ -109,26 +73,17 @@ std::string randar::Project::getDirectory() const
 // Clears this entire project from memory.
 void randar::Project::clear()
 {
-    this->clear(this->shaderPrograms);
-    this->clear(this->textures);
+    this->resources.clear();
 
-    this->directory = "";
-    this->name = "";
+    this->directory = ".";
+    this->name = "Untitled Project";
 }
 
 // Generates a complete JSON representation of the project.
 Json randar::Project::toJson() const
 {
-    Json result;
+    Json result = this->resources.toJson();
     result["name"] = this->name;
-
-    for (auto item : this->textures) {
-        //result["textures"][item.first] = item.second->getFile();
-    }
-
-    for (auto item : this->models) {
-        //result["models"][item.first] = item.second->getFile();
-    }
 
     return result;
 }

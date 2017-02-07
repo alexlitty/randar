@@ -6,6 +6,7 @@
 #include <randar/Filesystem/Directory.hpp>
 #include <randar/Project/Importer.hpp>
 #include <randar/Utility/Map.hpp>
+#include <randar/Utility/Json.hpp>
 
 namespace randar
 {
@@ -71,6 +72,11 @@ namespace randar
          */
         void importRaTexture(const File& file);
         void exportRaTexture(uint32_t textureId);
+
+        /**
+         * Generates a complete JSON representation of this repository.
+         */
+        Json toJson() const;
     };
 }
 

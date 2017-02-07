@@ -70,3 +70,15 @@ uint32_t randar::ResourceRepository::addTexture(randar::Texture* texture)
 {
     return randar::insertAtAvailableKey(this->textures, texture);
 }
+
+// Generates a complete JSON representation of this repository.
+Json randar::ResourceRepository::toJson() const
+{
+    Json result;
+
+    for (auto item : this->textures) {
+        result["textures"][item.first] = "test";
+    }
+
+    return result;
+}
