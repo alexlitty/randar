@@ -1,4 +1,5 @@
 #include <randar/Project/ResourceRepository.hpp>
+#include <randar/Filesystem/BinaryFileWriter.hpp>
 
 void randar::ResourceRepository::exportRaTexture(uint32_t textureId)
 {

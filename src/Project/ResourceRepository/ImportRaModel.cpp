@@ -1,6 +1,7 @@
 #include <randar/Project/ResourceRepository.hpp>
+#include <randar/Filesystem/BinaryFileReader.hpp>
 
-void randar::ResourceRepository::importRaTexture(const File& file)
+void randar::ResourceRepository::importRaModel(const File& file)
 {
     std::string basename = file.getBaseName();
     if (!randar::isInteger(basename)) {

@@ -1,4 +1,5 @@
 #include <randar/Project/ResourceRepository.hpp>
+#include <randar/Filesystem/BinaryFileWriter.hpp>
 
 void randar::ResourceRepository::exportRaModel(uint32_t modelId)
 {

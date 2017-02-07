@@ -2,13 +2,12 @@
 #define RANDAR_RENDER_MODEL_HPP
 
 #include <randar/Math/Transformable.hpp>
-#include <randar/Engine/FileResource.hpp>
 #include <randar/Render/VertexBuffer.hpp>
 #include <randar/Render/IndexBuffer.hpp>
 
 namespace randar
 {
-    class Model : virtual public FileResource, virtual public Transformable
+    class Model : virtual public GpuResource, virtual public Transformable
     {
         /**
          * Serialization helpers.
