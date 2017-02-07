@@ -24,6 +24,8 @@ void randar::ResourceRepository::importRaTexture(const randar::File& file)
             );
         }
 
+        this->gpu.write(*texture);
+
         this->textures[std::stoi(basename)] = texture;
     }
 

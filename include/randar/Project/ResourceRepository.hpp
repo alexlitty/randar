@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <set>
+#include <randar/Engine/Gpu.hpp>
 #include <randar/Filesystem/Directory.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/Model.hpp>
@@ -13,6 +14,8 @@ namespace randar
 {
     class ResourceRepository
     {
+        Gpu& gpu = randar::getDefaultGpu();
+
         /**
          * The location of this repository on disk.
          */
