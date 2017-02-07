@@ -28,7 +28,7 @@ void randar::ResourceRepository::load(const randar::Directory& directory)
     this->directory = directory;
 
     for (auto file : this->directory.getSubdirectory("textures").getFiles()) {
-
+        this->importRaTexture(file);
     }
 }
 

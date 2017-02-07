@@ -34,7 +34,7 @@ std::vector<randar::File> randar::Directory::getFiles() const
 
         if (!file.is_dir) {
             results.push_back(
-                randar::File(std::string(file.name))
+                randar::File(this->toString() + std::string(file.name))
             );
         }
 
