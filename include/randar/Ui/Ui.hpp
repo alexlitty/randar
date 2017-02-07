@@ -4,7 +4,6 @@
 #include <randar/Engine/EngineMonitor.hpp>
 #include <randar/Log/LogListener.hpp>
 #include <randar/Project/Project.hpp>
-#include <randar/Project/Importer.hpp>
 #include <randar/Thread/ScopeLock.hpp>
 #include <randar/Thread/TryLock.hpp>
 #include <randar/Ui/Browser.hpp>
@@ -49,11 +48,6 @@ namespace randar
          */
         Project project;
 
-        /**
-         * Utility class for importing resources.
-         */
-        Importer importer;
-
     public:
         /**
          * Constructor.
@@ -79,14 +73,6 @@ namespace randar
             const std::string& name,
             const ::CefV8ValueList& arguments,
             ::CefRefPtr<::CefV8Value>& returnValue) override;
-
-        /**
-         * Takes any resources available in the importer and brings them into
-         * the project.
-         *
-         * Nothing happens if the importer is busy importing resources.
-         */
-        void import();
 
         /**
          * Runs Randar as an editor with a user-interface.

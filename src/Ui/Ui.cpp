@@ -78,22 +78,22 @@ void randar::Ui::execute(
     else if (name == "setMonitorTarget") {
         ScopeLock monitorLock(this->monitor);
 
-        if (arguments.size() >= 2 && arguments[0]->IsString() && arguments[1]->IsString()) {
+        if (arguments.size() >= 2 && arguments[0]->IsString()) {
             std::string category = arguments[0]->GetStringValue();
-            std::string name = arguments[1]->GetStringValue();
+            uint32_t id = arguments[1]->GetIntValue();
 
             if (category == "models") {
-                if (this->project.models.count(name)) {
-                    this->monitor.setTarget(*this->project.models[name]);
-                    return;
-                }
+                this->monitor.setTarget(
+                    *this->project.resources.getModel(id)
+                );
+                return;
             }
 
             else if (category == "textures") {
-                if (this->project.textures.count(name)) {
-                    this->monitor.setTarget(*this->project.textures[name]);
-                    return;
-                }
+                this->monitor.setTarget(
+                    *this->project.resources.getTexture(id)
+                );
+                return;
             }
         }
 
@@ -102,8 +102,6 @@ void randar::Ui::execute(
 
     // Import a new resource from a file.
     else if (name == "importResource") {
-        ScopeLock lock(this->importer);
-
         const char* fileResult = ::tinyfd_openFileDialog(
             "Import Resource",
             this->project.getDirectory().c_str(),
@@ -118,18 +116,18 @@ void randar::Ui::execute(
             return;
         }
 
-        std::string file(fileResult);
-        std::string extension = randar::getFileExtension(file);
+        File file(fileResult);
+        std::string extension = file.getExtension();
         std::string message;
 
         // Import file.
         try {
             if (extension == "iqm") {
-                this->importer.importIqm(file);
+                this->project.resources.importIqm(file);
             }
 
             else if (extension == "png") {
-                this->importer.importPng(file);
+                this->project.resources.importPng(file);
             }
             
             else {
@@ -144,15 +142,7 @@ void randar::Ui::execute(
 
         // Generate success message, unless the import failed.
         if (message == "") {
-            message = "Imported ";
-
-            if (this->importer.models.size()) {
-                message += std::to_string(this->importer.models.size()) + " models";
-            }
-
-            if (this->importer.textures.size()) {
-                message += std::to_string(this->importer.textures.size()) + " textures";
-            }
+            message = "Imported!";
         }
 
         // Return results.
@@ -169,50 +159,6 @@ void randar::Ui::execute(
     }
 }
 
-// Moves imported resources into the project.
-void randar::Ui::import()
-{
-    TryLock lock(this->importer);
-
-    if (lock && !this->importer.isEmpty()) {
-        for (auto item : this->importer.models) {
-            std::string modelName = randar::insertUniqueKey(
-                this->project.models,
-                item.first,
-                item.second
-            );
-
-            // Save to project directory.
-            item.second->setFile(
-                this->project.getDirectory()
-                + "models/" + modelName + ".model"
-            );
-            item.second->save();
-            this->gpu.write(*item.second);
-        }
-
-        for (auto item : this->importer.textures) {
-            std::string textureName = randar::insertUniqueKey(
-                this->project.textures,
-                item.first,
-                item.second
-            );
-
-            // Save to project directory.
-            item.second->setFile(
-                this->project.getDirectory()
-                + "textures/" + textureName + ".texture"
-            );
-            item.second->save();
-            this->gpu.initialize(*item.second);
-        }
-
-        this->importer.clear();
-        this->project.save();
-        this->browser.executeJs("randar.updateResources();");
-    }
-}
-
 // Runs a single tick on the interface program.
 void randar::Ui::run()
 {
@@ -224,7 +170,7 @@ void randar::Ui::run()
     // Initialize the interface.
     this->browser.setNativeCodeHandler(this);
     try {
-        this->project.load("./test-project/");
+        this->project.load(Directory("./test-project/"));
         this->project.save();
     }
 
@@ -238,7 +184,6 @@ void randar::Ui::run()
     while (true) {
         this->gpu.check();
         this->runMessageLoops();
-        this->import();
 
         // Draw and display the interface.
         ScopeLock monitorLock(this->monitor);

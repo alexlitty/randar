@@ -13,10 +13,11 @@ namespace randar
     class Project
     {
         Directory directory;
-        ResourceRepository resources;
-        std::string name;
 
     public:
+        std::string name;
+        ResourceRepository resources;
+
         /**
          * Default constructor.
          */
