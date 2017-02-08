@@ -19,6 +19,11 @@ randar::EngineMonitor::EngineMonitor()
         randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model.frag"))
     );
 
+    modelProgram.set(
+        randar::Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model-wireframe.vert")),
+        randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model-wireframe.frag"))
+    );
+
     textureProgram.set(
         randar::Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./resources/shaders/monitor-texture.vert")),
         randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-texture.frag"))

@@ -15,6 +15,7 @@ namespace randar
     {
         ShaderProgram screenProgram;
         ShaderProgram modelProgram;
+        ShaderProgram modelWireframeProgram;
         ShaderProgram textureProgram;
         Model screen;
 
