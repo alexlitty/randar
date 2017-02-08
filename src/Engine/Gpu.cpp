@@ -643,15 +643,7 @@ void randar::Gpu::draw(
 
     // Set textures.
     int i = 0;
-    for (auto textureItem : model.textures) {
-        Texture *texture;
-
-        if (textureItem.second) {
-            texture = textureItem.second;
-        } else {
-            texture = &randar::getDefaultTexture("rgba", 1, 1);
-        }
-        
+    for (auto texture : model.meshTextures) {
         ::glActiveTexture(GL_TEXTURE0 + i);
         this->bind(*texture);
 
