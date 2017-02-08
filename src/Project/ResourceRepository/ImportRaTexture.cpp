@@ -16,6 +16,8 @@ void randar::ResourceRepository::importRaTexture(const randar::File& file)
         stream.read<uint32_t>()
     );
 
+    texture->id.set(std::stoi(basename));
+
     try {
         uint32_t requiredSize = texture->getWidth() * texture->getHeight() * 4;
 
@@ -27,7 +29,7 @@ void randar::ResourceRepository::importRaTexture(const randar::File& file)
 
         this->gpu.write(*texture);
 
-        this->textures[std::stoi(basename)] = texture;
+        this->textures[texture->id.get()] = texture;
     }
 
     catch (...) {

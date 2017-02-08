@@ -11,7 +11,6 @@ void randar::ResourceRepository::exportRaModel(uint32_t modelId)
     uint8_t version = 0;
     uint32_t vertexCount = model->vertices.size();
     uint32_t faceCount = model->faceIndices.size() / 3;
-    uint16_t textureCount = model->textures.size();
     uint32_t jointCount = model->joints.size();
     uint16_t jointWeightCount = 0;
 
@@ -25,7 +24,8 @@ void randar::ResourceRepository::exportRaModel(uint32_t modelId)
     stream.write(version);
     stream.write(vertexCount);
     stream.write(faceCount);
-    stream.write(textureCount);
+    stream.write(model->getMeshTextureCount());
+    stream.write(model->meshTextures.size());
     stream.write(jointCount);
     stream.write(jointWeightCount);
 
@@ -60,7 +60,7 @@ void randar::ResourceRepository::exportRaModel(uint32_t modelId)
     }
 
     // Write textures.
-    for (auto item : model->textures) {
-        stream.write(item.first);
+    for (auto texture : model->meshTextures) {
+        stream.write(texture->id.get());
     }
 }

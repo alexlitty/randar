@@ -11,6 +11,7 @@ void randar::ResourceRepository::importRaModel(const File& file)
     uint8_t version;
     uint32_t vertexCount;
     uint32_t faceCount;
+    uint16_t requiredTextureCount;
     uint16_t textureCount;
     uint32_t jointCount;
     uint16_t jointWeightCount;
@@ -26,12 +27,14 @@ void randar::ResourceRepository::importRaModel(const File& file)
     // Read basic model information.
     stream.read(vertexCount);
     stream.read(faceCount);
+    stream.read(requiredTextureCount);
     stream.read(textureCount);
     stream.read(jointCount);
     stream.read(jointWeightCount);
 
     // Create model.
     Model *model = new Model;
+    model->id.set(std::stoi(basename));
 
     // Read vertices.
     for (unsigned int i = 0; i < vertexCount; i++) {
@@ -89,13 +92,18 @@ void randar::ResourceRepository::importRaModel(const File& file)
     }
 
     // Read textures.
+    model->setMeshTextureCount(requiredTextureCount);
     for (unsigned int i = 0; i < textureCount; i++) {
         uint32_t textureId;
         stream.read(textureId);
 
-        model->textures[textureId] = this->textures[textureId];
+        if (!this->textures.count(textureId)) {
+            throw std::runtime_error("Importing model with missing texture");
+        }
+
+        model->meshTextures.push_back(this->textures[textureId]);
     }
 
     this->gpu.write(*model);
-    this->models[std::stoi(basename)] = model;
+    this->models[model->id.get()] = model;
 }
