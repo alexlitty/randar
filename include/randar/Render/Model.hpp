@@ -10,13 +10,9 @@ namespace randar
     class Model : virtual public GpuResource, virtual public Transformable
     {
         /**
-         * Serialization helpers.
+         * The number of mesh textures required to display this model properly.
          */
-        uint32_t vertexCount;
-        uint32_t faceCount;
-        uint8_t textureCount;
-        uint32_t jointCount;
-        uint32_t jointWeightCount;
+        uint16_t meshTextureCount = 0;
 
     public:
         /**
@@ -28,7 +24,7 @@ namespace randar
         std::vector<uint32_t> faceIndices;
         IndexBuffer faceBuffer;
 
-        std::map<uint32_t, Texture*> textures;
+        std::map<uint32_t, Texture*> meshTextures;
         std::vector<Joint*> joints;
 
         /**
@@ -42,6 +38,17 @@ namespace randar
          * Destructor.
          */
         ~Model();
+
+        /**
+         * Sets and retrievess the number of required mesh textures.
+         */
+        void setMeshTextureCount(uint16_t newMeshTextureCount);
+        uint16_t getMeshTextureCount() const;
+
+        /**
+         * Checks whether this model is missing mesh textures.
+         */
+        bool isMissingMeshTextures() const;
     };
 }
 

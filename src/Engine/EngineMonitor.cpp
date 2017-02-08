@@ -19,7 +19,7 @@ randar::EngineMonitor::EngineMonitor()
         randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model.frag"))
     );
 
-    modelProgram.set(
+    modelWireframeProgram.set(
         randar::Shader(GL_VERTEX_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model-wireframe.vert")),
         randar::Shader(GL_FRAGMENT_SHADER, randar::readAsciiFile("./resources/shaders/monitor-model-wireframe.frag"))
     );
@@ -194,8 +194,15 @@ void randar::EngineMonitor::draw()
 
     // Target is a model.
     if (this->targetModel) {
+        ShaderProgram *program;
+        if (this->targetModel->textures.size()) {
+            program = &this->modelWireframeProgram;
+        } else {
+            program = &this->modelProgram;
+        }
+
         this->gpu.draw(
-            this->modelProgram,
+            *program,
             this->monitorFramebuffer,
             *this->targetModel
         );
