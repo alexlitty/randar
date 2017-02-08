@@ -615,7 +615,11 @@ void randar::Gpu::draw(
     randar::Model& model)
 {
     if (!program.isInitialized()) {
-        throw std::runtime_error("Drawing model without shader program");
+        throw std::logic_error("Drawing model with uninitialized shader program");
+    }
+
+    if (!model.isInitialized()) {
+        throw std::logic_error("Drawing uninitialized model");
     }
 
     this->bind(framebuffer);
