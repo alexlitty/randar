@@ -18,6 +18,13 @@ randar::Model::~Model()
     }
 }
 
+// Whether this model is initialized on the GPU.
+bool randar::Model::isInitialized() const
+{
+    return this->vertexBuffer.isInitialized()
+        && this->faceBuffer.isInitialized();
+}
+
 // Sets and retrieves the number of required mesh textures.
 void randar::Model::setMeshTextureCount(uint16_t newMeshTextureCount)
 {

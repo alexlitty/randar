@@ -40,6 +40,11 @@ namespace randar
         ~Model();
 
         /**
+         * Whether this model is initialized on the GPU.
+         */
+        virtual bool isInitialized() const override;
+
+        /**
          * Sets and retrievess the number of required mesh textures.
          */
         void setMeshTextureCount(uint16_t newMeshTextureCount);
