@@ -1,6 +1,7 @@
 #ifndef RANDAR_ENGINE_RESOURCE_HPP
 #define RANDAR_ENGINE_RESOURCE_HPP
 
+#include <randar/Project/ResourceId.hpp>
 #include <randar/Utility/Json.hpp>
 
 namespace randar
@@ -23,6 +24,11 @@ namespace randar
         Gpu& gpu;
 
     public:
+        /**
+         * An ID that may be set to uniquely identify this resource.
+         */
+        ResourceId id;
+
         /**
          * A user-defined name for this resource.
          */
