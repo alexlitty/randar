@@ -61,6 +61,8 @@ randar::Model* randar::ResourceRepository::getModel(uint32_t id)
 uint32_t randar::ResourceRepository::addModel(randar::Model* model)
 {
     uint32_t key = randar::insertAtAvailableKey(this->models, model);
+    model->id.set(key);
+
     this->exportRaModel(key);
     return key;
 }
@@ -75,8 +77,9 @@ randar::Texture* randar::ResourceRepository::getTexture(uint32_t id)
 uint32_t randar::ResourceRepository::addTexture(randar::Texture* texture)
 {
     uint32_t key = randar::insertAtAvailableKey(this->textures, texture);
-    this->exportRaTexture(key);
+    texture->id.set(key);
 
+    this->exportRaTexture(key);
     return key;
 }
 
