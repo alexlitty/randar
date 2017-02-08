@@ -3,11 +3,6 @@
 
 // Constructs a new model.
 randar::Model::Model()
-: vertexCount(0),
-  faceCount(0),
-  textureCount(0),
-  jointCount(0),
-  jointWeightCount(0)
 {
 
 }
@@ -38,4 +33,10 @@ uint16_t randar::Model::getMeshTextureCount() const
 bool randar::Model::isMissingMeshTextures() const
 {
     return this->getMeshTextureCount() != this->meshTextures.size();
+}
+
+// Checks whether this model requires any mesh textures.
+bool randar::Model::requiresMeshTextures() const
+{
+    return this->getMeshTextureCount() > 0;
 }

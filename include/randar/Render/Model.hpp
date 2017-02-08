@@ -24,7 +24,7 @@ namespace randar
         std::vector<uint32_t> faceIndices;
         IndexBuffer faceBuffer;
 
-        std::map<uint32_t, Texture*> meshTextures;
+        std::vector<Texture*> meshTextures;
         std::vector<Joint*> joints;
 
         /**
@@ -49,6 +49,11 @@ namespace randar
          * Checks whether this model is missing mesh textures.
          */
         bool isMissingMeshTextures() const;
+
+        /**
+         * Checks whether this model requires any mesh textures.
+         */
+        bool requiresMeshTextures() const;
     };
 }
 
