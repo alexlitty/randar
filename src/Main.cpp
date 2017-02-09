@@ -1,3 +1,4 @@
+#include <randar/Test/Test.hpp>
 #include <randar/Ui/Ui.hpp>
 
 int main(int argc, char *argv[])
@@ -13,6 +14,14 @@ int main(int argc, char *argv[])
         throw std::runtime_error(
             "Randar must be ran on a platform with 32-bit floats."
         );
+    }
+
+    // Run the test program if desired.
+    for (int i = 0; i < argc; i++) {
+        if (std::string(argv[i]) == "--test") {
+            randar::test();
+            return 0;
+        }
     }
 
     // This process may be spawned by CEF for special browser processing. If
