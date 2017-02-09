@@ -15,6 +15,11 @@ namespace randar
         using Path::operator =;
 
         /**
+         * A static directory of temporary files.
+         */
+        static Directory Temp;
+
+        /**
          * Retrieves a subdirectory instance.
          */
         Directory getSubdirectory(const std::string& subdirectory) const;

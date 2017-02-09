@@ -1,6 +1,10 @@
 #include <tinydir.h>
 #include <randar/Filesystem/Directory.hpp>
 
+// A static directory of temporary files.
+// @todo - Make this portable.
+randar::Directory randar::Directory::Temp("/tmp");
+
 // Retrieves a subdirectory instance.
 randar::Directory randar::Directory::getSubdirectory(const std::string& subdirectory) const
 {
