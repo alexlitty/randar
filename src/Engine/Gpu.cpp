@@ -531,6 +531,10 @@ void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Ve
 // Writes model data to the GPU.
 void randar::Gpu::write(randar::Model& model)
 {
+    if (!model.id.isNull()) {
+        std::cout << "Writing model " << std::to_string(model.id.get()) << std::endl;
+    }
+
     this->initialize(model.vertexBuffer);
     this->write(model.vertexBuffer, model.vertices);
 
@@ -619,7 +623,7 @@ void randar::Gpu::draw(
     }
 
     if (!model.isInitialized()) {
-        throw std::logic_error("Drawing uninitialized model");
+        this->write(model);
     }
 
     this->bind(framebuffer);
