@@ -32,14 +32,6 @@ void randar::ResourceRepository::importRaModel(const File& file)
     stream.read(jointCount);
     stream.read(jointWeightCount);
 
-    std::cout << "version:       " << version << std::endl;
-    std::cout << "vertex count:  " << vertexCount << std::endl;
-    std::cout << "face count:    " << faceCount << std::endl;
-    std::cout << "req tex count: " << requiredTextureCount << std::endl;
-    std::cout << "imp tex count: " << textureCount << std::endl;
-    std::cout << "joint count:   " << jointCount << std::endl;
-    std::cout << "jweight count: " << jointWeightCount << std::endl;
-
     // Create model.
     Model *model = new Model;
     model->id.set(std::stoi(basename));
@@ -47,15 +39,10 @@ void randar::ResourceRepository::importRaModel(const File& file)
     // Read vertices.
     for (unsigned int i = 0; i < vertexCount; i++) {
         Vertex vertex;
-        vertex.position.x = stream.read<float>();
-        vertex.position.y = stream.read<float>();
-        vertex.position.z = stream.read<float>();
-        //stream.read(vertex.position.y);
-        //stream.read(vertex.position.z);
-        std::cout << i << ": " << vertex.position.toString() << std::endl;
-
-        //std::cout << vertex.position.toString() << std::endl;
-
+        stream.read(vertex.position.x);
+        stream.read(vertex.position.y);
+        stream.read(vertex.position.z);
+        
         stream.read(vertex.color.r);
         stream.read(vertex.color.g);
         stream.read(vertex.color.b);

@@ -25,19 +25,15 @@ void randar::ResourceRepository::exportRaModel(uint32_t modelId)
     stream.write(vertexCount);
     stream.write(faceCount);
     stream.write(model->getMeshTextureCount());
-    stream.write(model->meshTextures.size());
+    stream.write(static_cast<uint16_t>(model->meshTextures.size()));
     stream.write(jointCount);
     stream.write(jointWeightCount);
 
     // Write vertices.
-    unsigned int x = 0;
     for (auto vertex : model->vertices) {
         stream.write(vertex.position.x);
         stream.write(vertex.position.y);
         stream.write(vertex.position.z);
-
-        std::cout << x << ": " << vertex.position.toString() << std::endl;
-        x++;
 
         stream.write(vertex.color.r);
         stream.write(vertex.color.g);
