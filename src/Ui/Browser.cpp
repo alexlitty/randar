@@ -43,7 +43,7 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
         ::CefBrowserHost::CreateBrowser(
             browserInfo,
             this,
-            ::CefString("file:///g/randar/bin/ui.html"),
+            ::CefString("file:///g/randar/bin/ui/ui.html"),
             ::CefBrowserSettings(),
             nullptr
         );
