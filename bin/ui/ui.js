@@ -1,15 +1,4 @@
 /**
- * Object of functions that interact with the Randar engine.
- *
- * All properties must be functions.
- */
-var engine = {
-    setMonitorTarget: function(category, name) {
-        window.setMonitorTarget(category, name);
-    }
-};
-
-/**
  * Object that contains the Randar UI "app" functionality.
  */
 var randar = {
@@ -101,6 +90,13 @@ var randar = {
         models: { },
         textures: { },
         shaders: { }
+    },
+
+    /**
+     * Map engine-level methods.
+     */
+    setMonitorTarget: function(category, name) {
+        window.setMonitorTarget(category, name);
     }
 };
 
@@ -172,7 +168,7 @@ randar.ready = function() {
     app = new Vue({
         el: '#randar',
         data: randar,
-        methods: engine
+        methods: randar
     });
 
     showMain();
