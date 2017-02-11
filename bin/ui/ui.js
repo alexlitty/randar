@@ -1,3 +1,17 @@
+/**
+ * Object of functions that interact with the Randar engine.
+ *
+ * All properties must be functions.
+ */
+var engine = {
+    setMonitorTarget: function(category, name) {
+        window.setMonitorTarget(category, name);
+    }
+};
+
+/**
+ * Object that contains the Randar UI "app" functionality.
+ */
 var randar = {
     /**
      * Handles an engine log message.
@@ -35,7 +49,7 @@ var randar = {
             }
         }
 
-        // Update project name.
+        /*// Update project name.
         var projectInfo = getElement('#main .randar');
         if (randar.resources.name) {
             projectInfo.innerHTML = randar.resources.name;
@@ -66,20 +80,17 @@ var randar = {
                 randar.setMonitorTarget('models', modelName);
             }.bind(this, modelName));
             modelsList.appendChild(element);
-        }
+        }*/
     },
 
     /**
      * Sets a new monitor target.
      */
-    setMonitorTarget: function(category, name) {
-        window.setMonitorTarget(category, name);
-    },
-
     /**
      * Project resources.
      */
     resources: {
+        name: '',
         models: { },
         textures: { },
         shaders: { }
@@ -149,7 +160,14 @@ function showObjects(category) {
 /**
  * Initialize the interface.
  */
+var app;
 randar.ready = function() {
+    app = new Vue({
+        el: '#randar',
+        data: randar,
+        methods: engine
+    });
+
     showMain();
 
     getElement('#import-resource').addEventListener('click', function() {

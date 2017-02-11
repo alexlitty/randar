@@ -3,16 +3,16 @@
         <title>Randar</title>
         <link href="ui.css" rel="stylesheet">
 
-        <script src="angular.min.js"></script>
-        <script src="app/app.component.js"></script>
-
+        <script src="vue.js"></script>
         <script src="ui.js"></script>
     </head>
 
     <body>
+        <main id="randar">
+
         <nav id="main" class="hidden">
             <ul>
-                <li class="randar"><span>Randar</span></li>
+                <li class="randar">{{ resources.name }}</li>
                 <li class="scenes">Scenes</li>
                 <li class="models">Models</li>
                 <li class="textures">Textures</li>
@@ -36,9 +36,14 @@
                 <li>&larrhk;</li>
             </ul>
 
-            <ul class="models"></ul>
-            <ul class="textures"></ul>
-            <ul class="shaders"></ul>
+            <ul v-for="category in ['models', 'textures', 'shaders']" v-bind:class="category">
+                <li v-for="(itemId, item) in resources[category]"
+                    v-on:click="setMonitorTarget(category, itemId)">
+                    {{item}}
+                </li>
+            <ul>
         </nav>
+
+        </main>
     </body>
 </html>
