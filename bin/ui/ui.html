@@ -5,6 +5,7 @@
 
         <script src="vue.js"></script>
         <script src="ui.js"></script>
+        <script src="debug.js"></script>
     </head>
 
     <body>
@@ -12,7 +13,7 @@
 
         <nav id="main" class="hidden">
             <ul>
-                <li class="randar">{{ resources.name }}</li>
+                <li class="randar">{{ project.name }}</li>
                 <li class="scenes">Scenes</li>
                 <li class="models">Models</li>
                 <li class="textures">Textures</li>
@@ -36,10 +37,10 @@
                 <li>&larrhk;</li>
             </ul>
 
-            <ul v-for="category in ['models', 'textures', 'shaders']" v-bind:class="category">
+            <ul v-for="(category, items) in resources" v-bind:class="category">
                 <li v-for="(itemId, item) in resources[category]"
                     v-on:click="setMonitorTarget(category, itemId)">
-                    {{item}}
+                    {{itemId}}
                 </li>
             <ul>
         </nav>

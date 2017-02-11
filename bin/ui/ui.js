@@ -38,6 +38,10 @@ var randar = {
         var data = JSON.parse(window.getResources());
 
         for (type in data) {
+            /*if (type == "name") {
+                randar.project.name = data[type];
+            }*/
+
             if (isString(data[type])) {
                 randar.resources[type] = data[type];
             }
@@ -84,13 +88,16 @@ var randar = {
     },
 
     /**
-     * Sets a new monitor target.
+     * Project metadata.
      */
+    project: {
+        name: 'Untitled Film'
+    },
+
     /**
      * Project resources.
      */
     resources: {
-        name: '',
         models: { },
         textures: { },
         shaders: { }
