@@ -11,7 +11,7 @@
     <body>
         <main id="randar">
 
-        <nav id="main" class="hidden">
+        <nav id="main" v-show="panel == null">
             <ul>
                 <li class="randar">{{ project.name }}</li>
                 <li class="scenes">Scenes</li>
@@ -21,7 +21,7 @@
             </ul>
         </nav>
 
-        <nav id="settings" class="hidden">
+        <nav id="settings" v-show="panel == 'settings'">
             <ul class="back">
                 <li>&larrhk;</li>
             </ul>
@@ -32,7 +32,7 @@
             <div id="engine-log"></div>
         </nav>
 
-        <nav id="objects" class="hidden">
+        <nav id="objects" v-show="panel == 'objects'">
             <ul class="back">
                 <li>&larrhk;</li>
             </ul>

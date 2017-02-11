@@ -93,6 +93,18 @@ var randar = {
     },
 
     /**
+     * The current panel.
+     */
+    panel: null,
+
+    /**
+     * "Navigates" to a different panel.
+     */
+    navigate(panel) {
+        randar.panel = panel;
+    },
+
+    /**
      * Map engine-level methods.
      */
     setMonitorTarget: function(category, name) {
@@ -130,37 +142,6 @@ function clearElement(element) {
 
 
 /**
- * Program-specific helpers.
- */
-function showMain() {
-    var objectLists = getElements('#objects ul');
-    for (var i = 0; i < objectLists.length; i++) {
-        var element = objectLists[i];
-
-        if (element.className != 'back') {
-            hideElement(element);
-        }
-    }
-
-    hideElement(getElement('#objects'));
-    hideElement(getElement('#settings'));
-    showElement(getElement('#main'));
-}
-
-function showSettings() {
-    hideElement(getElement('#main'));
-    showElement(getElement('#settings'));
-}
-
-function showObjects(category) {
-    hideElement(getElement('#main'));
-    showElement(getElement('#objects'));
-
-    showElement(getElement('#objects ul.' + category));
-}
-
-
-/**
  * Initialize the interface.
  */
 var app;
@@ -171,8 +152,6 @@ randar.ready = function() {
         methods: randar
     });
 
-    showMain();
-
     getElement('#import-resource').addEventListener('click', function() {
         var results = window.importResource();
         randar.updateResources();
@@ -180,13 +159,6 @@ randar.ready = function() {
         var message = results ? results.message : 'No file selected.';
         getElement('#import-message').innerHTML = message;
     });
-
-    var backButtons = getElements('nav ul.back');
-    for (var i = 0; i < backButtons.length; i++) {
-        backButtons[i].addEventListener('click', function() {
-            showMain();
-        });
-    }
 
     var resourceItems = getElements('#main li');
     for (var i = 0; i < resourceItems.length; i++) {
