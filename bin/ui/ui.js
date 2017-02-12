@@ -109,9 +109,20 @@ var randar = {
 /**
  * Components - Buttons.
  */
-Vue.component('back-button', {
-    template: `<ul class="back"><li>&larrhk;</li></ul>`
-});
+Vue.component('back-button', combine(
+    Component.Navigator,
+    {
+        props: {
+            parentPanelName: String
+        },
+
+        template: `
+            <ul class="back">
+                <li v-on:click="navigate(parentPanelName)">&larrhk;</li>
+            </ul>
+        `
+    }
+));
 
 
 /**
@@ -160,6 +171,30 @@ Vue.component('main-resource', combine(
 
         template: `
             <li v-bind:class="category" v-on:click="navigate(category)">{{ categoryName }}</li>
+        `
+    }
+));
+
+
+/**
+ * Component - Settings panel.
+ */
+Vue.component('settings-panel', combine(
+    Component.Panel,
+    {
+        computed: {
+            currentPanel: function() { return randar.panel; }
+        },
+
+        template: `
+            <nav v-show="currentPanel == 'settings'">
+                <back-button v-bind:parentPanelName="parentPanelName" />
+
+                <div id="import-resource" class="button">Import Resource</div>
+                <div id="import-message"></div>
+
+                <div id="engine-log"></div>
+            </nav>
         `
     }
 ));

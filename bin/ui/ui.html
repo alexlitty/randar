@@ -16,16 +16,7 @@
 
         <nav-main v-on:test="console.log('top')" v-bind:project="project" v-show="panel == null"></nav-main>
 
-        <nav id="settings" v-show="panel == 'settings'">
-            <ul class="back">
-                <li>&larrhk;</li>
-            </ul>
-
-            <div id="import-resource" class="button">Import Resource</div>
-            <div id="import-message"></div>
-
-            <div id="engine-log"></div>
-        </nav>
+        <settings-panel></settings-panel>
 
         <resource-panel category="scenes">
             <template slot="item" scope="props">
