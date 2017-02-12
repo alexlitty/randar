@@ -98,13 +98,6 @@ var randar = {
     panel: null,
 
     /**
-     * "Navigates" to a different panel.
-     */
-    navigate(panel) {
-        randar.panel = panel;
-    },
-
-    /**
      * Map engine-level methods.
      */
     setMonitorTarget: function(category, name) {
@@ -215,7 +208,7 @@ randar.ready = function() {
     });
 
     app.$on('navigate', function(panel) {
-        console.log('navigated to ' + panel);
+        randar.panel = panel;
     });
 
     getElement('#import-resource').addEventListener('click', function() {
