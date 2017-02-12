@@ -140,6 +140,14 @@ function clearElement(element) {
     element.innerHTML = '';
 }
 
+function toTitleCase(value) {
+    if (!isString(value) || !value.length) {
+        return value;
+    }
+
+    return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 
 /**
  * Vue components.
@@ -150,13 +158,13 @@ Vue.component('nav-main', {
     },
 
     template: `
-        <nav id="main">
+        <nav id="main" v-on:test="console.log('hmm')">
             <ul>
                 <main-settings v-bind:project="project" />
-                <main-resource name="scenes" />
-                <main-resource name="models" />
-                <main-resource name="textures" />
-                <main-resource name="shaders" />
+                <main-resource category="scenes" />
+                <main-resource category="models" />
+                <main-resource category="textures" />
+                <main-resource category="shaders" />
             </ul>
         </nav>
     `
@@ -167,16 +175,30 @@ Vue.component('main-settings', {
         project: Object
     },
 
-    template: `<li class="randar" v-on:click="">{{ project.name }}</li>`,
+    methods: {
+        navigate: function() { app.$emit('navigate', 'settings'); }
+    },
+
+    template: `<li class="randar" v-on:click="navigate">{{ project.name }}</li>`,
 });
 
 Vue.component('main-resource', {
     props: {
-        name: String
+        category: String
+    },
+
+    computed: {
+        categoryName: function() {
+            return toTitleCase(this.category);
+        }
+    },
+
+    methods: {
+        navigate: function() { app.$emit('navigate', this.category); }
     },
 
     template: `
-        <li v-bind:class="name" v-on:click="">
+        <li v-bind:class="category" v-on:click="navigate">{{ categoryName }}</li>
     `
 });
 
@@ -190,6 +212,10 @@ randar.ready = function() {
         el: '#randar',
         data: randar,
         methods: randar
+    });
+
+    app.$on('navigate', function(panel) {
+        console.log('navigated to ' + panel);
     });
 
     getElement('#import-resource').addEventListener('click', function() {

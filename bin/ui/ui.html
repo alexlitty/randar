@@ -11,7 +11,7 @@
     <body>
         <main id="randar">
 
-        <nav-main v-bind:project="project" v-show="panel == null"></nav-main>
+        <nav-main v-on:test="console.log('top')" v-bind:project="project" v-show="panel == null"></nav-main>
 
         <nav id="settings" v-show="panel == 'settings'">
             <ul class="back">
