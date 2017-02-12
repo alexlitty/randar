@@ -64,6 +64,12 @@ Component.Panel = combine(
             models   : function() { return randar.resources.models; },
             textures : function() { return randar.resources.textures; },
             shaders  : function() { return randar.resources.shaders; }
+        },
+
+        methods: {
+            setMonitorTarget: function(category, itemId) {
+                randar.setMonitorTarget(category, itemId);
+            }
         }
     }
 );
@@ -87,7 +93,7 @@ Component.ResourcePanel = combine(
                 <back-button v-bind:parentPanelName="parentPanelName" />
 
                 <ul v-bind:class="category">
-                    <li v-for="(item, itemId) in resources[category]">
+                    <li v-for="(item, itemId) in resources[category]" v-on:click="setMonitorTarget(category, itemId)">
                         <slot name="item" :itemId="itemId" :item="item" />
                     </li>
                 </ul>
