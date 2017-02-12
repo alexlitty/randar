@@ -87,8 +87,8 @@ Component.ResourcePanel = combine(
                 <back-button v-on:click="navigate(parentPanelName)" />
 
                 <ul v-bind:class="category">
-                    <li v-for="resource in resources[category]">
-                        Test
+                    <li v-for="(item, itemId) in resources[category]">
+                        <slot name="item" :itemId="itemId" :item="item" />
                     </li>
                 </ul>
             </nav>
