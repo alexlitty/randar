@@ -11,15 +11,7 @@
     <body>
         <main id="randar">
 
-        <nav id="main" v-show="panel == null">
-            <ul>
-                <li class="randar">{{ project.name }}</li>
-                <li class="scenes">Scenes</li>
-                <li class="models">Models</li>
-                <li class="textures">Textures</li>
-                <li class="shaders">Shaders</li>
-            </ul>
-        </nav>
+        <nav-main v-bind:project="project" v-show="panel == null"></nav-main>
 
         <nav id="settings" v-show="panel == 'settings'">
             <ul class="back">

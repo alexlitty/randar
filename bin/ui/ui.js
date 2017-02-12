@@ -27,11 +27,11 @@ var randar = {
         var data = JSON.parse(window.getResources());
 
         for (type in data) {
-            /*if (type == "name") {
+            if (type == "name") {
                 randar.project.name = data[type];
-            }*/
+            }
 
-            if (isString(data[type])) {
+            else if (isString(data[type])) {
                 randar.resources[type] = data[type];
             }
 
@@ -142,6 +142,46 @@ function clearElement(element) {
 
 
 /**
+ * Vue components.
+ */
+Vue.component('nav-main', {
+    props: {
+        project: Object
+    },
+
+    template: `
+        <nav id="main">
+            <ul>
+                <main-settings v-bind:project="project" />
+                <main-resource name="scenes" />
+                <main-resource name="models" />
+                <main-resource name="textures" />
+                <main-resource name="shaders" />
+            </ul>
+        </nav>
+    `
+});
+
+Vue.component('main-settings', {
+    props: {
+        project: Object
+    },
+
+    template: `<li class="randar" v-on:click="">{{ project.name }}</li>`,
+});
+
+Vue.component('main-resource', {
+    props: {
+        name: String
+    },
+
+    template: `
+        <li v-bind:class="name" v-on:click="">
+    `
+});
+
+
+/**
  * Initialize the interface.
  */
 var app;
@@ -159,24 +199,6 @@ randar.ready = function() {
         var message = results ? results.message : 'No file selected.';
         getElement('#import-message').innerHTML = message;
     });
-
-    var resourceItems = getElements('#main li');
-    for (var i = 0; i < resourceItems.length; i++) {
-        var item = resourceItems[i];
-        var category = item.className;
-
-        if (category == 'randar') {
-            item.addEventListener('click', function() {
-                showSettings();
-            });
-        }
-
-        else {
-            item.addEventListener('click', function(category) {
-                showObjects(category);
-            }.bind(this, category));
-        }
-    }
 
     randar.updateResources();
 }
