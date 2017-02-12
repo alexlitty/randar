@@ -143,7 +143,7 @@ function toTitleCase(value) {
 
 
 /**
- * Vue components.
+ * Vue components - Main panel.
  */
 Vue.component('nav-main', {
     props: {
@@ -194,6 +194,11 @@ Vue.component('main-resource', {
         <li v-bind:class="category" v-on:click="navigate">{{ categoryName }}</li>
     `
 });
+
+
+/**
+ * Vue components - Settings panel.
+ */
 
 
 /**
