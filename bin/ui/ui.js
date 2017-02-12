@@ -107,42 +107,6 @@ var randar = {
 
 
 /**
- * Generic helpers.
- */
-function getElement(query) {
-    return document.querySelector(query);
-}
-
-function getElements(query) {
-    return document.querySelectorAll(query);
-}
-
-function hideElement(element) {
-    element.classList.add('hidden');
-}
-
-function showElement(element) {
-    element.classList.remove('hidden');
-}
-
-function isString(value) {
-    return typeof value === 'string' || value instanceof String;
-}
-
-function clearElement(element) {
-    element.innerHTML = '';
-}
-
-function toTitleCase(value) {
-    if (!isString(value) || !value.length) {
-        return value;
-    }
-
-    return value.charAt(0).toUpperCase() + value.slice(1);
-}
-
-
-/**
  * Vue components - Main panel.
  */
 Vue.component('nav-main', {
@@ -163,42 +127,35 @@ Vue.component('nav-main', {
     `
 });
 
-Vue.component('main-settings', {
-    props: {
-        project: Object
-    },
+Vue.component('main-settings', combine(
+    Component.Navigator,
+    {
+        props: {
+            project: Object
+        },
 
-    methods: {
-        navigate: function() { app.$emit('navigate', 'settings'); }
-    },
+        template: `<li class="randar" v-on:click="navigate('settings')">{{ project.name }}</li>`,
+    }
+));
 
-    template: `<li class="randar" v-on:click="navigate">{{ project.name }}</li>`,
-});
+Vue.component('main-resource', combine(
+    Component.Navigator,
+    {
+        props: {
+            category: String
+        },
 
-Vue.component('main-resource', {
-    props: {
-        category: String
-    },
+        computed: {
+            categoryName: function() {
+                return toTitleCase(this.category);
+            }
+        },
 
-    computed: {
-        categoryName: function() {
-            return toTitleCase(this.category);
-        }
-    },
-
-    methods: {
-        navigate: function() { app.$emit('navigate', this.category); }
-    },
-
-    template: `
-        <li v-bind:class="category" v-on:click="navigate">{{ categoryName }}</li>
-    `
-});
-
-
-/**
- * Vue components - Settings panel.
- */
+        template: `
+            <li v-bind:class="category" v-on:click="navigate(category)">{{ categoryName }}</li>
+        `
+    }
+));
 
 
 /**
