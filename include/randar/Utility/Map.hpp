@@ -54,7 +54,7 @@ namespace randar
         uint32_t size = map.size();
 
         for (uint32_t i = 0; i < size; i++) {
-            if (randar::hasKey(map, i)) {
+            if (!randar::hasKey(map, (S)i)) {
                 return i;
             }
         }
