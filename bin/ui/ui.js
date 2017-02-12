@@ -39,39 +39,6 @@ var randar = {
                 }
             }
         }
-
-        /*// Update project name.
-        var projectInfo = getElement('#main .randar');
-        if (randar.resources.name) {
-            projectInfo.innerHTML = randar.resources.name;
-        } else {
-            projectInfo.innerHTML = 'Untitled Project';
-        }
-
-        // Update list elements.
-        var texturesList = getElement('#objects .textures');
-        clearElement(texturesList);
-        for (textureName in randar.resources.textures) {
-            var element = document.createElement('li');
-            element.innerHTML = textureName;
-
-            element.addEventListener('click', function(textureName) {
-                randar.setMonitorTarget('textures', textureName);
-            }.bind(this, textureName));
-            texturesList.appendChild(element);
-        }
-
-        var modelsList = getElement('#objects .models');
-        clearElement(modelsList);
-        for (modelName in randar.resources.models) {
-            var element = document.createElement('li');
-            element.innerHTML = modelName;
-
-            element.addEventListener('click', function(modelName) {
-                randar.setMonitorTarget('models', modelName);
-            }.bind(this, modelName));
-            modelsList.appendChild(element);
-        }*/
     },
 
     /**
