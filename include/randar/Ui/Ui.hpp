@@ -21,6 +21,8 @@ namespace randar
       virtual public MouseHandler,
       virtual public NativeCodeHandler
     {
+        bool synced = false;
+
     public:
         /**
          * GPU to use.
@@ -65,6 +67,22 @@ namespace randar
         virtual void onLeftClick(const MousePosition& position) override;
         virtual void onLeftDrag(const Vector& drag, const MouseModifiers& modifiers) override;
         virtual void onScroll(const Vector& scroll) override;
+
+        /**
+         * Sends JSON data to the interface.
+         */
+        void sendAllData();
+        void sendData(const Json& json);
+
+        /**
+         * Syncs data between the engine and interface, if necessary.
+         */
+        void sync();
+
+        /**
+         * Indicate a need to sync the engine and interface data.
+         */
+        void unsync();
 
         /**
          * Handles interface function calls for engine interaction.

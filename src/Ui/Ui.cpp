@@ -61,21 +61,40 @@ void randar::Ui::onScroll(const randar::Vector& scroll)
 
 }
 
+// Sends all project data to the interface.
+void randar::Ui::sendAllData() {
+    this->sendData(this->project.toJson());
+}
+
+// Sends all resources to the interface.
+void randar::Ui::sendData(const Json& json)
+{
+    this->browser.executeJs("randar.receiveData(" + json.dump() + ");");
+}
+
+// Syncs data between the engine and interface, if necessary.
+void randar::Ui::sync()
+{
+    if (!this->synced) {
+        this->sendAllData();
+        this->synced = true;
+    }
+}
+
+// Indicate a need to sync the engine and interface data.
+void randar::Ui::unsync()
+{
+    this->synced = false;
+}
+
 // Handles interface function calls for engine interaction.
 void randar::Ui::execute(
     const std::string& name,
     const ::CefV8ValueList& arguments,
     ::CefRefPtr<::CefV8Value>& returnValue)
 {
-    // Get all project resources.
-    if (name == "getResources") {
-        returnValue = ::CefV8Value::CreateString(
-            this->project.toJson().dump()
-        );
-    }
-
     // Switch the resource on the engine monitor.
-    else if (name == "setMonitorTarget") {
+    if (name == "setMonitorTarget") {
         ScopeLock monitorLock(this->monitor);
 
         if (arguments.size() >= 2 && arguments[0]->IsString()) {
@@ -156,6 +175,8 @@ void randar::Ui::execute(
             ::CefV8Value::CreateString(message),
             ::V8_PROPERTY_ATTRIBUTE_NONE
         );
+
+        this->unsync();
     }
 }
 
@@ -177,6 +198,8 @@ void randar::Ui::run()
     catch (const std::runtime_error& ex) {
         randar::logError(ex.what());
     }
+
+    this->sync();
     this->browser.executeJs("randar.ready();");
     
     // Run the interface program.
@@ -184,6 +207,7 @@ void randar::Ui::run()
     while (true) {
         this->gpu.check();
         this->runMessageLoops();
+        this->sync();
 
         // Draw and display the interface.
         ScopeLock monitorLock(this->monitor);

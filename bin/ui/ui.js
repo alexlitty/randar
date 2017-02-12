@@ -23,9 +23,7 @@ var randar = {
     /**
      * Retrieves all resources from the engine and shows them on the interface.
      */
-    updateResources: function() {
-        var data = JSON.parse(window.getResources());
-
+    receiveData: function(data) {
         for (type in data) {
             if (type == "name") {
                 randar.project.name = data[type];
@@ -228,11 +226,7 @@ randar.ready = function() {
 
     getElement('#import-resource').addEventListener('click', function() {
         var results = window.importResource();
-        randar.updateResources();
-
         var message = results ? results.message : 'No file selected.';
         getElement('#import-message').innerHTML = message;
     });
-
-    randar.updateResources();
 }
