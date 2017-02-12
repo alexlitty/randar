@@ -99,7 +99,9 @@ void randar::Ui::execute(
 
         if (arguments.size() >= 2 && arguments[0]->IsString()) {
             std::string category = arguments[0]->GetStringValue();
-            uint32_t id = arguments[1]->GetIntValue();
+            std::string itemId   = arguments[1]->GetStringValue();
+
+            uint32_t id = std::stoi(itemId);
 
             if (category == "models") {
                 this->monitor.setTarget(

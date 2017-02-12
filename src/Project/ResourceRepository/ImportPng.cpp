@@ -26,5 +26,6 @@ void randar::ResourceRepository::importPng(const randar::File& file)
         }
     }
 
+    this->gpu.write(*texture);
     this->addTexture(texture);
 }
