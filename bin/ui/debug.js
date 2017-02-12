@@ -3,6 +3,10 @@ if ((window.location.search || '').indexOf('debug') > -1) {
         console.info("Set monitor target to '" + category + "' #" + name);
     }
 
+    window.importResource = function() {
+        console.info("Resource would be imported");
+    }
+
     randar.receiveData({
         name: 'Test film',
 
