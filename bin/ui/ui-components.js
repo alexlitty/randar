@@ -54,11 +54,44 @@ Component.Panel = combine(
     Component.Navigator,
     {
         computed: {
-            project  : function() { return app.$data.project; },
-            scenes   : function() { return app.$data.resources.scenes; },
-            models   : function() { return app.$data.resources.models; },
-            textures : function() { return app.$data.resources.textures; },
-            shaders  : function() { return app.$data.resources.shaders; }
+            panelName       : function() { return null; },
+            parentPanelName : function() { return null; },
+
+            project   : function() { return randar.project; },
+            resources : function() { return randar.resources; },
+
+            scenes   : function() { return randar.resources.model; },
+            models   : function() { return randar.resources.models; },
+            textures : function() { return randar.resources.textures; },
+            shaders  : function() { return randar.resources.shaders; }
         }
+    }
+);
+
+/**
+ * A panel dedicated to a resource.
+ */
+Component.ResourcePanel = combine(
+    Component.Panel,
+    {
+        props: {
+            category: String
+        },
+
+        computed: {
+            currentPanel: function() { return randar.panel; }
+        },
+
+        template: `
+            <nav v-show="currentPanel == category">
+                <back-button v-on:click="navigate(parentPanelName)" />
+
+                <ul v-bind:class="category">
+                    <li v-for="resource in resources[category]">
+                        Test
+                    </li>
+                </ul>
+            </nav>
+        `
     }
 );

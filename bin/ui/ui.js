@@ -107,25 +107,32 @@ var randar = {
 
 
 /**
- * Vue components - Main panel.
+ * Components - Buttons.
  */
-Vue.component('nav-main', {
-    props: {
-        project: Object
-    },
-
-    template: `
-        <nav id="main" v-on:test="console.log('hmm')">
-            <ul>
-                <main-settings v-bind:project="project" />
-                <main-resource category="scenes" />
-                <main-resource category="models" />
-                <main-resource category="textures" />
-                <main-resource category="shaders" />
-            </ul>
-        </nav>
-    `
+Vue.component('back-button', {
+    template: `<ul class="back"><li>&larrhk;</li></ul>`
 });
+
+
+/**
+ * Components - Main panel.
+ */
+Vue.component('nav-main', combine(
+    Component.Panel,
+    {
+        template: `
+            <nav id="main">
+                <ul>
+                    <main-settings v-bind:project="project" />
+                    <main-resource category="scenes" />
+                    <main-resource category="models" />
+                    <main-resource category="textures" />
+                    <main-resource category="shaders" />
+                </ul>
+            </nav>
+        `
+    }
+));
 
 Vue.component('main-settings', combine(
     Component.Navigator,
@@ -154,6 +161,17 @@ Vue.component('main-resource', combine(
         template: `
             <li v-bind:class="category" v-on:click="navigate(category)">{{ categoryName }}</li>
         `
+    }
+));
+
+
+/**
+ * Component - Resource panel.
+ */
+Vue.component('resource-panel', combine(
+    Component.ResourcePanel,
+    {
+
     }
 ));
 
