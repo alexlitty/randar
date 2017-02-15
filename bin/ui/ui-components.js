@@ -37,19 +37,27 @@ function combine() {
 var Component = { };
 
 /**
+ * A generic component for common functionality.
+ */
+Component.Common = {
+    computed: {
+        project   : function() { return randar.project; },
+        resources : function() { return randar.resources; },
+        target    : function() { return randar.target; },
+
+        scenes   : function() { return randar.resources.model; },
+        models   : function() { return randar.resources.models; },
+        textures : function() { return randar.resources.textures; },
+        shaders  : function() { return randar.resources.shaders; }
+    }
+};
+
+/**
  * A panel of the interface.
  */
 Component.Panel = combine(
+    Component.Common,
     {
-        computed: {
-            project   : function() { return randar.project; },
-            resources : function() { return randar.resources; },
-
-            scenes   : function() { return randar.resources.model; },
-            models   : function() { return randar.resources.models; },
-            textures : function() { return randar.resources.textures; },
-            shaders  : function() { return randar.resources.shaders; }
-        },
 
         methods: {
 
@@ -117,12 +125,14 @@ Component.Panel = combine(
 Component.ResourceListPanel = combine(
     Component.Panel,
     {
-        props: {
-            category: String
+        computed: {
+            category: function() {
+                return this.target.resource.category;
+            }
         },
 
         template: `
-            <nav v-show="isResourceCategorySelected(category)">
+            <nav v-show="isResourceCategorySelected() && !isResourceSelected()">
                 <back-button v-bind:action="unselectResourceCategory" />
 
                 <ul v-bind:class="category">
@@ -141,14 +151,11 @@ Component.ResourceListPanel = combine(
 Component.TargetResourcePanel = combine(
     Component.Panel,
     {
-        props: {
-            category: String,
-            id:       String
-        },
-
         template: `
-            <nav v-show="isResourceSelected()">
+            <nav>
                 <back-button v-bind:action="unselectResource" />
+
+                Testing!!!!!!!!
             </nav>
         `
     }
