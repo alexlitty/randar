@@ -25,7 +25,15 @@
                 </template>
             </resource-list-panel>
 
-            <target-resource-panel></target-resource-panel>
+            <target-resource-panel>
+                <template slot="textures" scope="props">
+                    {{ props.resource.name }}
+                </template>
+
+                <template slot="models" scope="props">
+                    {{ props.resource.name }}
+                </template>
+            </target-resource-panel>
 
         </main>
     </body>

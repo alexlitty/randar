@@ -65,6 +65,15 @@ Component.Panel = combine(
                     && !this.isResourceSelected();
             },
 
+            getSelectedResource: function() {
+                if (!this.isResourceSelected()) {
+                    return { };
+                }
+
+                var resource = this.target.resource;
+                return this.resources[resource.category][resource.id];
+            },
+
             /**
              * Settings targeting.
              */
@@ -99,7 +108,8 @@ Component.Panel = combine(
              * Individual resource targeting.
              */
             isResourceSelected: function() {
-                return !_.isNull(randar.target.resource.id);
+                return this.isResourceCategorySelected()
+                    && !_.isNull(randar.target.resource.id);
             },
 
             selectResource: function(category, id) {
@@ -148,7 +158,9 @@ Component.TargetResourcePanel = combine(
     {
         template: `
             <nav v-show="isResourceSelected()">
-                <back-button v-bind:action="unselectResource" />
+                <back-button :action="unselectResource" />
+
+                <slot v-bind:name="target.resource.category" :resource="getSelectedResource()" />
             </nav>
         `
     }
