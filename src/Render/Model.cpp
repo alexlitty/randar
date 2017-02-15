@@ -53,7 +53,7 @@ Json randar::Model::toJson() const
 {
     Json texturesJson;
     for (auto texture : this->meshTextures) {
-        texturesJson[texture->id.get()] = texture->toJson();
+        texturesJson.push_back(texture->id.get());
     }
 
     return {
