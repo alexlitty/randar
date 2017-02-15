@@ -59,6 +59,11 @@ namespace randar
          * Checks whether this model requires any mesh textures.
          */
         bool requiresMeshTextures() const;
+
+        /**
+         * Retrieves model metadata as JSON.
+         */
+        Json toJson() const;
     };
 }
 

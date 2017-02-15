@@ -47,3 +47,24 @@ bool randar::Model::requiresMeshTextures() const
 {
     return this->getMeshTextureCount() > 0;
 }
+
+// Retrieves model metadata as JSON.
+Json randar::Model::toJson() const
+{
+    Json texturesJson;
+    for (auto texture : this->meshTextures) {
+        texturesJson[texture->id.get()] = texture->toJson();
+    }
+
+    return {
+        { "name", "Untitled Model" },
+
+        { "vertexCount", this->vertices.size()        },
+        { "faceCount",   this->faceIndices.size() / 3 },
+
+        { "meshTexturesRequired",  this->getMeshTextureCount()   },
+        { "isMissingMeshTextures", this->isMissingMeshTextures() },
+
+        { "textures", texturesJson }
+    };
+}
