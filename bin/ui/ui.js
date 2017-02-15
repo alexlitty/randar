@@ -1,3 +1,5 @@
+var app;
+
 /**
  * Object that contains the Randar UI "app" functionality.
  */
@@ -58,15 +60,15 @@ var randar = {
     },
 
     /**
-     * The current panel.
+     * The current UI targets.
      */
-    panel: null,
+    target: {
+        settings: false,
 
-    /**
-     * Map engine-level methods.
-     */
-    setMonitorTarget: function(category, name) {
-        window.setMonitorTarget(category, name);
+        resource: {
+            category : null,
+            id       : null
+        }
     }
 };
 
@@ -75,15 +77,14 @@ var randar = {
  * Components - Buttons.
  */
 Vue.component('back-button', combine(
-    Component.Navigator,
     {
         props: {
-            parentPanelName: String
+            action: Function
         },
 
         template: `
             <ul class="back">
-                <li v-on:click="navigate(parentPanelName)">&larrhk;</li>
+                <li v-on:click="action()">&larrhk;</li>
             </ul>
         `
     }
@@ -97,49 +98,21 @@ Vue.component('nav-main', combine(
     Component.Panel,
     {
         template: `
-            <nav id="main">
+            <nav id="main" v-show="isNothingSelected()">
                 <ul>
-                    <main-settings v-bind:project="project" />
-                    <main-resource category="scenes" />
-                    <main-resource category="models" />
-                    <main-resource category="textures" />
-                    <main-resource category="shaders" />
+                    <li class="randar" v-on:click="selectSettings()">
+                        {{ project.name }}
+                    </li>
+
+                    <li v-for="category in ['scenes', 'models', 'textures', 'shaders']"
+                        v-bind:class="category" v-on:click="selectResourceCategory(category)">
+                        {{ toTitleCase(category) }}
+                    </li>
                 </ul>
             </nav>
         `
     }
 ));
-
-Vue.component('main-settings', combine(
-    Component.Navigator,
-    {
-        props: {
-            project: Object
-        },
-
-        template: `<li class="randar" v-on:click="navigate('settings')">{{ project.name }}</li>`,
-    }
-));
-
-Vue.component('main-resource', combine(
-    Component.Navigator,
-    {
-        props: {
-            category: String
-        },
-
-        computed: {
-            categoryName: function() {
-                return toTitleCase(this.category);
-            }
-        },
-
-        template: `
-            <li v-bind:class="category" v-on:click="navigate(category)">{{ categoryName }}</li>
-        `
-    }
-));
-
 
 /**
  * Component - Settings panel.
@@ -147,13 +120,9 @@ Vue.component('main-resource', combine(
 Vue.component('settings-panel', combine(
     Component.Panel,
     {
-        computed: {
-            currentPanel: function() { return randar.panel; }
-        },
-
         template: `
-            <nav v-show="currentPanel == 'settings'">
-                <back-button v-bind:parentPanelName="parentPanelName" />
+            <nav v-show="isSettingsSelected()">
+                <back-button v-bind:action="unselectSettings" />
 
                 <div id="import-resource" class="button">Import Resource</div>
                 <div id="import-message"></div>
@@ -166,29 +135,26 @@ Vue.component('settings-panel', combine(
 
 
 /**
- * Component - Resource panel.
+ * Component - Resources.
  */
-Vue.component('resource-panel', combine(
-    Component.ResourcePanel,
+Vue.component('resource-list-panel', combine(
+    Component.ResourceListPanel,
     {
 
     }
 ));
 
+Vue.component('target-resource', Component.TargetResourcePanel);
+
 
 /**
  * Initialize the interface.
  */
-var app;
 randar.ready = function() {
     app = new Vue({
         el: '#randar',
         data: randar,
         methods: randar
-    });
-
-    app.$on('navigate', function(panel) {
-        randar.panel = panel;
     });
 
     getElement('#import-resource').addEventListener('click', function() {

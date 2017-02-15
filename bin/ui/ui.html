@@ -14,46 +14,35 @@
     <body>
         <main id="randar">
 
-        <nav-main v-on:test="console.log('top')" v-bind:project="project" v-show="panel == null"></nav-main>
+            <nav-main v-bind:project="project"></nav-main>
 
-        <settings-panel></settings-panel>
+            <settings-panel></settings-panel>
 
-        <resource-panel category="scenes">
-            <template slot="item" scope="props">
-                {{ props.itemId }}
-            </template>
-        </resource-panel>
+            <resource-list-panel category="scenes">
+                <template slot="item" scope="props">
+                    {{ props.itemId }}
+                </template>
+            </resource-panel>
 
-        <resource-panel category="models">
-            <template slot="item" scope="props">
-                {{ props.itemId }}
-            </template>
-        </resource-panel>
+            <resource-list-panel category="models">
+                <template slot="item" scope="props">
+                    {{ props.itemId }}
+                </template>
+            </resource-panel>
 
-        <resource-panel category="textures">
-            <template slot="item" scope="props">
-                {{ props.itemId }}
-            </template>
-        </resource-panel>
+            <resource-list-panel category="textures">
+                <template slot="item" scope="props">
+                    {{ props.itemId }}
+                </template>
+            </resource-panel>
 
-        <resource-panel category="shaders">
-            <template slot="item" scope="props">
-                {{ props.itemId }}
-            </template>
-        </resource-panel>
+            <resource-list-panel category="shaders">
+                <template slot="item" scope="props">
+                    {{ props.itemId }}
+                </template>
+            </resource-panel>
 
-        <!--<nav id="objects" v-show="panel == 'objects'">
-            <ul class="back">
-                <li>&larrhk;</li>
-            </ul>
-
-            <ul v-for="(category, items) in resources" v-bind:class="category">
-                <li v-for="(itemId, item) in resources[category]"
-                    v-on:click="setMonitorTarget(category, itemId)">
-                    {{itemId}}
-                </li>
-            <ul>
-        </nav>-->
+            <target-resource-panel></target-resource-panel>
 
         </main>
     </body>

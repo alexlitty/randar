@@ -37,26 +37,11 @@ function combine() {
 var Component = { };
 
 /**
- * Performs panel navigation.
- */
-Component.Navigator = {
-    methods: {
-        navigate: function(panel) {
-            app.$emit('navigate', panel); 
-        }
-    }
-};
-
-/**
  * A panel of the interface.
  */
 Component.Panel = combine(
-    Component.Navigator,
     {
         computed: {
-            panelName       : function() { return null; },
-            parentPanelName : function() { return null; },
-
             project   : function() { return randar.project; },
             resources : function() { return randar.resources; },
 
@@ -67,36 +52,103 @@ Component.Panel = combine(
         },
 
         methods: {
-            setMonitorTarget: function(category, itemId) {
-                randar.setMonitorTarget(category, itemId);
+
+            isNothingSelected: function() {
+                return !this.isSettingsSelected()
+                    && !this.isResourceCategorySelected()
+                    && !this.isResourceSelected();
+            },
+
+            /**
+             * Settings targeting.
+             */
+            isSettingsSelected: function() {
+                return randar.target.settings;
+            },
+
+            selectSettings: function() {
+                randar.target.settings = true;
+            },
+
+            unselectSettings: function() {
+                randar.target.settings = false;
+            },
+
+            /**
+             * Resource category targeting.
+             */
+            isResourceCategorySelected: function() {
+                return !_.isNull(randar.target.resource.category);
+            },
+
+            selectResourceCategory: function(category) {
+                randar.target.resource.category = category;
+            },
+
+            unselectResourceCategory: function() {
+                randar.target.resource.category = null;
+            },
+
+            /**
+             * Individual resource targeting.
+             */
+            isResourceSelected: function() {
+                return !_.isNull(randar.target.resource.id);
+            },
+
+            selectResource: function(category, id) {
+                randar.target.resource.category = category;
+                randar.target.resource.id       = id;
+
+                window.setMonitorTarget(category, id);
+            },
+
+            unselectResource: function() {
+                randar.target.resource.id = null;
             }
+
         }
     }
 );
 
 /**
- * A panel dedicated to a resource.
+ * A panel to list resources in a particular category.
  */
-Component.ResourcePanel = combine(
+Component.ResourceListPanel = combine(
     Component.Panel,
     {
         props: {
             category: String
         },
 
-        computed: {
-            currentPanel: function() { return randar.panel; }
-        },
-
         template: `
-            <nav v-show="currentPanel == category">
-                <back-button v-bind:parentPanelName="parentPanelName" />
+            <nav v-show="isResourceCategorySelected(category)">
+                <back-button v-bind:action="unselectResourceCategory" />
 
                 <ul v-bind:class="category">
-                    <li v-for="(item, itemId) in resources[category]" v-on:click="setMonitorTarget(category, itemId)">
+                    <li v-for="(item, itemId) in resources[category]" v-on:click="selectResource(category, itemId)">
                         <slot name="item" :itemId="itemId" :item="item" />
                     </li>
                 </ul>
+            </nav>
+        `
+    }
+);
+
+/**
+ * A panel to interact with the currently targeted resource.
+ */
+Component.TargetResourcePanel = combine(
+    Component.Panel,
+    {
+        props: {
+            category: String,
+            id:       String
+        },
+
+        template: `
+            <nav v-show="isResourceSelected()">
+                <back-button v-bind:action="unselectResource" />
             </nav>
         `
     }
