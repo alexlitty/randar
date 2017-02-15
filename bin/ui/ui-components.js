@@ -58,9 +58,7 @@ Component.Common = {
 Component.Panel = combine(
     Component.Common,
     {
-
         methods: {
-
             isNothingSelected: function() {
                 return !this.isSettingsSelected()
                     && !this.isResourceCategorySelected()
@@ -107,14 +105,11 @@ Component.Panel = combine(
             selectResource: function(category, id) {
                 randar.target.resource.category = category;
                 randar.target.resource.id       = id;
-
-                window.setMonitorTarget(category, id);
             },
 
             unselectResource: function() {
                 randar.target.resource.id = null;
             }
-
         }
     }
 );

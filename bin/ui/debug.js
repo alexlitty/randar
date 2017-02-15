@@ -1,6 +1,12 @@
 if ((window.location.search || '').indexOf('debug') > -1) {
     window.setMonitorTarget = function(category, name) {
-        console.info("Set monitor target to '" + category + "' #" + name);
+        if (_.isNull(name) || _.isNull(category)) {
+            console.info("Set monitor target to nothing");
+        }
+        
+        else {
+            console.info("Set monitor target to '" + category + "' #" + name);
+        }
     }
 
     window.importResource = function() {

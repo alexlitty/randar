@@ -171,7 +171,17 @@ randar.ready = function() {
     app = new Vue({
         el: '#randar',
         data: randar,
-        methods: randar
+        watch: {
+            target: {
+                deep: true,
+                handler: function(value, oldValue) {
+                    window.setMonitorTarget(
+                        value.resource.category,
+                        value.resource.id
+                    );
+                }
+            }
+        }
     });
 
     getElement('#import-resource').addEventListener('click', function() {
