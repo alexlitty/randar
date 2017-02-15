@@ -73,6 +73,7 @@ randar::Texture::~Texture()
 // Saves this texture to its file.
 bool randar::Texture::save()
 {
+    return true;
     /*BinaryFileWriter stream(this->file);
 
     stream.write(this->type);
