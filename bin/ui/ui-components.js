@@ -152,10 +152,8 @@ Component.TargetResourcePanel = combine(
     Component.Panel,
     {
         template: `
-            <nav>
+            <nav v-show="isResourceSelected()">
                 <back-button v-bind:action="unselectResource" />
-
-                Testing!!!!!!!!
             </nav>
         `
     }
