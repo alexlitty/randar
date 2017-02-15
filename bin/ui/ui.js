@@ -106,7 +106,7 @@ Vue.component('nav-main', combine(
 
                     <li v-for="category in ['scenes', 'models', 'textures', 'shaders']"
                         v-bind:class="category" v-on:click="selectResourceCategory(category)">
-                        {{ toTitleCase(category) }}
+                        {{ category | titlecase }}
                     </li>
                 </ul>
             </nav>
@@ -144,7 +144,24 @@ Vue.component('resource-list-panel', combine(
     }
 ));
 
-Vue.component('target-resource', Component.TargetResourcePanel);
+Vue.component('target-resource-panel', combine(
+    Component.TargetResourcePanel,
+    {
+
+    }
+));
+
+
+/**
+ * Vue filters.
+ */
+Vue.filter('titlecase', function(value) {
+    if (!_.isString(value) || !value.length) {
+        return value;
+    }
+
+    return value.charAt(0).toUpperCase() + value.slice(1);
+});
 
 
 /**
