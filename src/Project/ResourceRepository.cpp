@@ -89,11 +89,11 @@ Json randar::ResourceRepository::toJson() const
     Json result;
 
     for (auto item : this->textures) {
-        result["textures"][item.first] = "test texture";
+        result["textures"][item.first] = item.second->toJson();
     }
 
     for (auto item : this->models) {
-        result["models"][item.first] = "test model";
+        result["models"][item.first] = item.second->toJson();
     }
 
     return result;
