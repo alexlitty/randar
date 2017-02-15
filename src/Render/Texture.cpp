@@ -172,6 +172,8 @@ unsigned int randar::Texture::getHeight() const
 Json randar::Texture::toJson() const
 {
     return {
+        { "name",   "Untitled Texture" },
+
         { "type",   this->type   },
         { "width",  this->width  },
         { "height", this->height }
