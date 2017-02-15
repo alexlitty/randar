@@ -24,11 +24,3 @@ function isString(value) {
 function clearElement(element) {
     element.innerHTML = '';
 }
-
-function toTitleCase(value) {
-    if (!_.isString(value) || !value.length) {
-        return value;
-    }
-
-    return value.charAt(0).toUpperCase() + value.slice(1);
-}
