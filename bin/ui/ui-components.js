@@ -127,7 +127,7 @@ Component.ResourceListPanel = combine(
         },
 
         template: `
-            <nav v-show="isResourceCategorySelected() && !isResourceSelected()">
+            <nav id="resource-list" v-show="isResourceCategorySelected() && !isResourceSelected()">
                 <back-button v-bind:action="unselectResourceCategory" />
 
                 <ul v-bind:class="category">

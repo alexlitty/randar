@@ -78,7 +78,7 @@ nav#main li.randar {
     background-color: #b7b7b7;
 }
 
-nav#main li.scenes {
+nav#main li.scenes, nav#resource-list ul.scenes li {
     background-color: #d161f9;
 }
 
@@ -86,31 +86,31 @@ nav#main li.animations {
     background-color: #f96175;
 }
 
-nav#main li.models {
+nav#main li.models, nav#resource-list ul.models li {
     background-color: #4beff4;
 }
 
-nav#main li.meshes {
+nav#main li.meshes, nav#resource-list ul.meshes li {
     background-color: #e5d8b5;
 }
 
-nav#main li.textures, nav#objects ul.textures li {
+nav#main li.textures, nav#resource-list ul.textures li {
     background-color: #4bf45f;
 }
 
-nav#main li.shaders, nav#objects ul.shaders li {
+nav#main li.shaders, nav#resource-list ul.shaders li {
     background-color: #f4f44b;
 }
 
-nav#objects ul.back {
+nav#resource-list ul.back {
     margin-bottom: 32px;
 }
 
-nav#objects ul.list li {
+nav#resource-list ul.list li {
     padding: 12px 25px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-nav#objects ul.list li:last-child {
+nav#resource-list ul.list li:last-child {
     border-bottom: 0px;
 }
