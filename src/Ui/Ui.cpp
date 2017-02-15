@@ -97,7 +97,7 @@ void randar::Ui::execute(
     if (name == "setMonitorTarget") {
         ScopeLock monitorLock(this->monitor);
 
-        if (arguments.size() >= 2 && arguments[0]->IsString()) {
+        if (arguments.size() >= 2 && arguments[0]->IsString() && arguments[1]->IsString()) {
             std::string category = arguments[0]->GetStringValue();
             std::string itemId   = arguments[1]->GetStringValue();
 
