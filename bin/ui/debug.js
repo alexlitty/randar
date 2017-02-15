@@ -16,16 +16,30 @@ if ((window.location.search || '').indexOf('debug') > -1) {
     randar.receiveData({
         name: 'Test film',
 
-        models: {
-            0: "Test model 0",
-            1: "Test model 1",
-            2: "Test model 2"
+        textures: {
+            0: {
+                name: "Example texture",
+
+                type: "rgba",
+                width: 200,
+                height: 140
+            }
         },
 
-        textures: {
-            0: "Test texture 0",
-            1: "Test texture 1"
-        }
+        models: {
+            0: {
+                name: "Example model",
+
+                vertexCount: 1016,
+                faceCount: 2464,
+
+                meshTexturesRequired: 2,
+                isMissingTextures: true,
+
+                textures: [0]
+            }
+        },
+
     });
 
     window.addEventListener('load', function() {
