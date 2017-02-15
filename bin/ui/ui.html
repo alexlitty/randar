@@ -3,7 +3,8 @@
         <title>Randar</title>
         <link href="ui.css" rel="stylesheet">
 
-        <script src="vue.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <!--<script src="vue.min.js"></script>-->
         <script src="underscore.min.js"></script>
         <script src="ui-helpers.js"></script>
         <script src="ui-components.js"></script>
@@ -18,31 +19,13 @@
 
             <settings-panel></settings-panel>
 
-            <resource-list-panel category="scenes">
+            <resource-list-panel>
                 <template slot="item" scope="props">
                     {{ props.itemId }}
                 </template>
             </resource-panel>
 
-            <resource-list-panel category="models">
-                <template slot="item" scope="props">
-                    {{ props.itemId }}
-                </template>
-            </resource-panel>
-
-            <resource-list-panel category="textures">
-                <template slot="item" scope="props">
-                    {{ props.itemId }}
-                </template>
-            </resource-panel>
-
-            <resource-list-panel category="shaders">
-                <template slot="item" scope="props">
-                    {{ props.itemId }}
-                </template>
-            </resource-panel>
-
-            <target-resource-panel></target-resource-panel>
+            <target-resource-panel>??????????</target-resource-panel>
 
         </main>
     </body>
