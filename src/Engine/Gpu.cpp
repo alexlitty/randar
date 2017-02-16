@@ -227,6 +227,7 @@ void randar::Gpu::initialize(randar::Texture& texture)
     }
 
     ::glGenTextures(1, texture);
+    this->check();
 
     this->bind(texture);
 
