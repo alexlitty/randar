@@ -42,8 +42,7 @@ namespace randar
         Texture(
             std::string initType,
             uint32_t initWidth,
-            uint32_t initHeight,
-            bool initialize = true);
+            uint32_t initHeight);
 
         /**
          * Construct from a file.

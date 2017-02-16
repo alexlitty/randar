@@ -6,8 +6,7 @@
 randar::Texture::Texture(
     std::string initType,
     uint32_t initWidth,
-    uint32_t initHeight,
-    bool initialize
+    uint32_t initHeight
 ) :
   type(initType),
   width(initWidth),
@@ -21,9 +20,7 @@ randar::Texture::Texture(
         );
     }
 
-    if (initialize) {
-        this->gpu.initialize(*this);
-    }
+    this->gpu.initialize(*this);
 }
 
 // Construct from a file.

@@ -10,8 +10,7 @@ void randar::ResourceRepository::importPng(const randar::File& file)
     Texture *texture = new Texture(
         "rgba",
         image.get_width(),
-        image.get_height(),
-        false
+        image.get_height()
     );
 
     // Read into randar texture, which starts with the bottom row.
