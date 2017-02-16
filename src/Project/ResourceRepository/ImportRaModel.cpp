@@ -97,7 +97,6 @@ void randar::ResourceRepository::importRaModel(const File& file)
         stream.read(isTextureProvided);
 
         if (isTextureProvided) {
-            uint32_t textureId;
             stream.read(textureId);
 
             if (!this->textures.count(textureId)) {
