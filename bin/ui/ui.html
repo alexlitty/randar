@@ -27,11 +27,68 @@
 
             <target-resource-panel>
                 <template slot="textures" scope="props">
-                    {{ props.resource.name }}
+                    <table class="metadata">
+                        <thead>
+                            <tr>
+                                <th colspan="2">{{ props.resource.name }}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{ props.resource.type }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Dimensions</th>
+                                <td>{{ props.resource.width }} x {{ props.resource.height }}
+                            </tr>
+                        </tbody>
+                    </table>
                 </template>
 
                 <template slot="models" scope="props">
-                    {{ props.resource.name }}
+                    <table class="metadata">
+                        <thead>
+                            <tr>
+                                <th colspan="2">{{ props.resource.name }}</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <th>Vertex Count</th>
+                                <td>{{ props.resource.vertexCount }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Face Count</th>
+                                <td>{{ props.resource.faceCount }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="textures">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Textures</th>
+                            </tr>
+                        </thead>
+
+                        <tbody v-if="props.resource.textures && props.resource.textures.length">
+                            <tr class="clickable" v-for="(texture, textureId) in props.resource.textures">
+                                <th>{{ textureId }}</th>
+                                <td>{{ texture.name }}</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody v-else>
+                            <tr>
+                                <td>No texture slots</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </template>
             </target-resource-panel>
 

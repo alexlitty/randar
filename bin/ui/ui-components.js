@@ -157,7 +157,7 @@ Component.TargetResourcePanel = combine(
     Component.Panel,
     {
         template: `
-            <nav v-show="isResourceSelected()">
+            <nav id="target-resource" v-show="isResourceSelected()">
                 <back-button :action="unselectResource" />
 
                 <slot v-bind:name="target.resource.category" :resource="getSelectedResource()" />

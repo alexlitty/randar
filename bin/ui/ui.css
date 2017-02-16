@@ -114,3 +114,30 @@ nav#resource-list ul.list li {
 nav#resource-list ul.list li:last-child {
     border-bottom: 0px;
 }
+
+/**
+ * Target resource panel.
+ */
+#target-resource table {
+    width: 100%;
+    margin-top: 32px;
+
+    border: 1px solid rgba(0, 0, 0, 0);
+    text-align: left;
+}
+
+#target-resource thead tr {
+    background-color: #555;
+}
+
+#target-resource tbody tr {
+    background-color: #333;
+}
+
+#target-resource tbody tr.clickable:hover {
+    background-color: #444;
+}
+
+#target-resource td, #target-resource th {
+    padding: 16px;
+}
