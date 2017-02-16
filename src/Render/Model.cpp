@@ -25,6 +25,18 @@ bool randar::Model::isInitialized() const
         && this->faceBuffer.isInitialized();
 }
 
+// Checks whether this model is missing mesh textures.
+bool randar::Model::isMissingMeshTextures() const
+{
+    for (auto texture : this->meshTextures) {
+        if (!texture) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // Retrieves model metadata as JSON.
 Json randar::Model::toJson() const
 {

@@ -40,6 +40,11 @@ namespace randar
         virtual bool isInitialized() const override;
 
         /**
+         * Checks whether this model is missing mesh textures.
+         */
+        bool isMissingMeshTextures() const;
+
+        /**
          * Retrieves model metadata as JSON.
          */
         Json toJson() const;
