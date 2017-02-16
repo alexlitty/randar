@@ -9,11 +9,6 @@ namespace randar
 {
     class Model : virtual public GpuResource, virtual public Transformable
     {
-        /**
-         * The number of mesh textures required to display this model properly.
-         */
-        uint16_t meshTextureCount = 0;
-
     public:
         /**
          * Model data.
@@ -43,22 +38,6 @@ namespace randar
          * Whether this model is initialized on the GPU.
          */
         virtual bool isInitialized() const override;
-
-        /**
-         * Sets and retrievess the number of required mesh textures.
-         */
-        void setMeshTextureCount(uint16_t newMeshTextureCount);
-        uint16_t getMeshTextureCount() const;
-
-        /**
-         * Checks whether this model is missing mesh textures.
-         */
-        bool isMissingMeshTextures() const;
-
-        /**
-         * Checks whether this model requires any mesh textures.
-         */
-        bool requiresMeshTextures() const;
 
         /**
          * Retrieves model metadata as JSON.

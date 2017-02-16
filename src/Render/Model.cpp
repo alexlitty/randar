@@ -25,29 +25,6 @@ bool randar::Model::isInitialized() const
         && this->faceBuffer.isInitialized();
 }
 
-// Sets and retrieves the number of required mesh textures.
-void randar::Model::setMeshTextureCount(uint16_t newMeshTextureCount)
-{
-    this->meshTextureCount = newMeshTextureCount;
-}
-
-uint16_t randar::Model::getMeshTextureCount() const
-{
-    return this->meshTextureCount;
-}
-
-// Checks whether this model is missing mesh textures.
-bool randar::Model::isMissingMeshTextures() const
-{
-    return this->getMeshTextureCount() != this->meshTextures.size();
-}
-
-// Checks whether this model requires any mesh textures.
-bool randar::Model::requiresMeshTextures() const
-{
-    return this->getMeshTextureCount() > 0;
-}
-
 // Retrieves model metadata as JSON.
 Json randar::Model::toJson() const
 {
