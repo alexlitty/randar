@@ -196,10 +196,7 @@ void randar::EngineMonitor::draw()
     if (this->targetModel) {
         ShaderProgram *program;
 
-        bool wireframe = !this->targetModel->requiresMeshTextures()
-                      || this->targetModel->isMissingMeshTextures();
-
-        if (wireframe) {
+        if (this->targetModel->isMissingMeshTextures()) {
             program = &this->modelWireframeProgram;
         } else {
             program = &this->modelProgram;
