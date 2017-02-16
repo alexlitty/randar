@@ -156,32 +156,6 @@ Component.ResourceListPanel = combine(
 Component.TargetResourcePanel = combine(
     Component.Panel,
     {
-        computed: {
-            textureSlots: function() {
-                var result = [];
-
-                if (target.resource.category !== "models") {
-                    return result;
-                }
-
-                var model = this.getSelectedResource();
-                var textureCount = model.meshTexturesRequired || 0;
-                for (var i = 0; i < textureCount; i++) {
-                    var textureId = model.textures[i];
-
-                    if (textureId) {
-                        result.push(this.resources.textures[textureId]);
-                    }
-
-                    else {
-                        result.push(null);
-                    }
-                }
-
-                return result;
-            }
-        },
-
         template: `
             <nav id="target-resource" v-show="isResourceSelected()">
                 <back-button :action="unselectResource" />
