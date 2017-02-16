@@ -53,7 +53,13 @@ Json randar::Model::toJson() const
 {
     Json texturesJson;
     for (auto texture : this->meshTextures) {
-        texturesJson.push_back(texture->id.get());
+        if (texture) {
+            texturesJson.push_back(texture->id.get());
+        }
+
+        else {
+            texturesJson.push_back(nullptr);
+        }
     }
 
     return {
@@ -61,9 +67,6 @@ Json randar::Model::toJson() const
 
         { "vertexCount", this->vertices.size()        },
         { "faceCount",   this->faceIndices.size() / 3 },
-
-        { "meshTexturesRequired",  this->getMeshTextureCount()   },
-        { "isMissingMeshTextures", this->isMissingMeshTextures() },
 
         { "textures", texturesJson }
     };
