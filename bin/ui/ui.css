@@ -141,3 +141,7 @@ nav#resource-list ul.list li:last-child {
 #target-resource td, #target-resource th {
     padding: 16px;
 }
+
+#target-resource table.textures td.empty {
+    background-color: #723838;
+}
