@@ -156,11 +156,23 @@ Component.ResourceListPanel = combine(
 Component.TargetResourcePanel = combine(
     Component.Panel,
     {
+        computed: {
+            resource: function() {
+                var result = this.getSelectedResource();
+                result.hasTextures = !!(result.textures && result.textures.length);
+                return result;
+            }
+        },
+
         template: `
             <nav id="target-resource" v-show="isResourceSelected()">
                 <back-button :action="unselectResource" />
 
-                <slot v-bind:name="target.resource.category" :resource="getSelectedResource()" />
+                <slot
+                    v-bind:name="target.resource.category"
+                    :resource="resource"
+                    :textures="textures"
+                    />
             </nav>
         `
     }
