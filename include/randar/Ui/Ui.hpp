@@ -23,6 +23,13 @@ namespace randar
     {
         bool synced = false;
 
+        /**
+         * Files to be imported.
+         *
+         * Collected in a CEF thread, used in the main thread.
+         */
+        std::vector<File> importQueue;
+
     public:
         /**
          * GPU to use.

@@ -132,16 +132,9 @@ void randar::Ui::execute(
             0
         );
 
-        // No file was selected.
-        if (!fileResult) {
-            return;
-        }
+        this->importQueue.push_back(File(fileResult));
 
-        File file(fileResult);
-        std::string extension = file.getExtension();
-        std::string message;
-
-        // Import file.
+        /*// Import file.
         try {
             if (extension == "iqm") {
                 this->project.resources.importIqm(file);
@@ -176,9 +169,7 @@ void randar::Ui::execute(
             "message",
             ::CefV8Value::CreateString(message),
             ::V8_PROPERTY_ATTRIBUTE_NONE
-        );
-
-        this->unsync();
+        );*/
     }
 }
 
@@ -209,6 +200,31 @@ void randar::Ui::run()
     while (true) {
         this->gpu.check();
         this->runMessageLoops();
+
+        // Handle new resource importing.
+        if (!this->importQueue.empty()) {
+            for (auto file : this->importQueue) {
+                std::string extension = file.getExtension();
+
+                try {
+                    if (extension == "iqm") {
+                        this->project.resources.importIqm(file);
+                    }
+
+                    else if (extension == "png") {
+                        this->project.resources.importPng(file);
+                    }
+
+                }
+
+                catch (...) {
+                    // @@@
+                }
+            }
+
+            this->importQueue.clear();
+            this->unsync();
+        }
         this->sync();
 
         // Draw and display the interface.
