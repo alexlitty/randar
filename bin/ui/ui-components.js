@@ -49,6 +49,17 @@ Component.Common = {
         models   : function() { return randar.resources.models; },
         textures : function() { return randar.resources.textures; },
         shaders  : function() { return randar.resources.shaders; }
+    },
+
+    methods: {
+        getSelectedResource: function() {
+            if (!this.isResourceSelected()) {
+                return { };
+            }
+
+            var resource = this.target.resource;
+            return this.resources[resource.category][resource.id];
+        }
     }
 };
 
@@ -63,15 +74,6 @@ Component.Panel = combine(
                 return !this.isSettingsSelected()
                     && !this.isResourceCategorySelected()
                     && !this.isResourceSelected();
-            },
-
-            getSelectedResource: function() {
-                if (!this.isResourceSelected()) {
-                    return { };
-                }
-
-                var resource = this.target.resource;
-                return this.resources[resource.category][resource.id];
             },
 
             /**
@@ -123,6 +125,11 @@ Component.Panel = combine(
         }
     }
 );
+
+/**
+ * A list of resources in a particular category.
+ */
+Component.ResourceList = combine
 
 /**
  * A panel to list resources in a particular category.
