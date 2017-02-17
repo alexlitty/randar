@@ -33,10 +33,7 @@ if ((window.location.search || '').indexOf('debug') > -1) {
                 vertexCount: 1016,
                 faceCount: 2464,
 
-                meshTexturesRequired: 2,
-                isMissingTextures: true,
-
-                textures: [0]
+                textures: [0, null, 0]
             }
         },
 
