@@ -102,8 +102,8 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
         }
     }
 
-    // Create vector space for textures, assigned to the model elsewhere.
-    // @@@
+    // IQMs have no explicit texture data. For now, assume each mesh has a single texture.
+    model->meshTextures.push_back(nullptr);
 
     this->addModel(model);
 }
