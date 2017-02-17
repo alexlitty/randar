@@ -76,10 +76,15 @@
                             </tr>
                         </thead>
 
-                        <tbody v-if="props.resource.textures && props.resource.textures.length">
-                            <tr class="clickable" v-for="(texture, textureId) in props.resource.textures">
-                                <th>{{ textureId }}</th>
-                                <td>{{ texture.name }}</td>
+                        <tbody v-if="props.resource.hasTextures">
+                            <tr class="clickable" v-for="(textureId, textureSlotId) in props.resource.textures">
+                                <th>#{{ textureSlotId }}</th>
+
+                                <td v-if="props.textures[textureId]">
+                                    {{ props.textures[textureId].name }}
+                                </td>
+
+                                <td v-else class="empty">Unassigned</td>
                             </tr>
                         </tbody>
 
