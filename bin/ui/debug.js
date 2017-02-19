@@ -1,4 +1,8 @@
 if ((window.location.search || '').indexOf('debug') > -1) {
+    window.saveProject = function() {
+        console.info("Project would be saved");
+    }
+
     window.setMonitorTarget = function(category, name) {
         if (_.isNull(name) || _.isNull(category)) {
             console.info("Set monitor target to nothing");
