@@ -21,16 +21,9 @@ namespace randar
          */
         Directory directory;
 
-        /**
-         * Resources in this repository.
-         */
-        std::map<uint32_t, Model*> models;
-        std::set<uint32_t> dirtyModels;
-
-        std::map<uint32_t, Texture*> textures;
-        std::set<uint32_t> dirtyTextures;
-
     public:
+        std::map<uint32_t, Model*> models;
+        std::map<uint32_t, Texture*> textures;
         /**
          * Destructor.
          */

@@ -133,43 +133,27 @@ void randar::Ui::execute(
         );
 
         this->importQueue.push_back(File(fileResult));
+    }
 
-        /*// Import file.
-        try {
-            if (extension == "iqm") {
-                this->project.resources.importIqm(file);
+    // Set a model's mesh texture.
+    else if (name == "setModelMeshTexture") {
+        if (arguments.size() >= 0) {
+            std::string stringModelId = arguments[0]->GetStringValue();
+            std::string stringSlotId = arguments[1]->GetStringValue();
+            std::string stringTextureId = arguments[2]->GetStringValue();
+
+            uint32_t modelId = std::stoi(stringModelId);
+            uint32_t slotId = std::stoi(stringSlotId);
+            uint32_t textureId = std::stoi(stringTextureId);
+
+            Model *model = this->project.resources.getModel(modelId);
+
+            if (slotId >= model->meshTextures.size()) {
+                throw std::logic_error("UI assigning invalid texture slot id");
             }
 
-            else if (extension == "png") {
-                this->project.resources.importPng(file);
-            }
-            
-            else {
-                message = "File not compatible.";
-            }
+            model->meshTextures[slotId] = this->project.resources.getTexture(textureId);
         }
-
-        // Import failed.
-        catch (std::runtime_error error) {
-            message = error.what();
-        }
-
-        // Generate success message, unless the import failed.
-        if (message == "") {
-            message = "Imported!";
-        }
-
-        // Return results.
-        returnValue = ::CefV8Value::CreateObject(
-            ::CefRefPtr<::CefV8Accessor>(),
-            ::CefRefPtr<::CefV8Interceptor>()
-        );
-
-        returnValue->SetValue(
-            "message",
-            ::CefV8Value::CreateString(message),
-            ::V8_PROPERTY_ATTRIBUTE_NONE
-        );*/
     }
 }
 
