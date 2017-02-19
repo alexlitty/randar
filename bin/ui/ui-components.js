@@ -192,7 +192,7 @@ Component.TargetResourcePanel = combine(
                 <back-button :action="clearTargetResource" />
 
                 <resource-meta :resource="resource" />
-                <editor-model :model="resource" />
+                <editor-model v-if="resource.category === 'models'" :model="resource" />
             </nav>
         `
     }
