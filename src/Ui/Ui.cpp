@@ -139,11 +139,10 @@ void randar::Ui::execute(
     else if (name == "setModelMeshTexture") {
         if (arguments.size() >= 0) {
             std::string stringModelId = arguments[0]->GetStringValue();
-            std::string stringSlotId = arguments[1]->GetStringValue();
+            uint32_t slotId = arguments[1]->GetIntValue();
             std::string stringTextureId = arguments[2]->GetStringValue();
 
             uint32_t modelId = std::stoi(stringModelId);
-            uint32_t slotId = std::stoi(stringSlotId);
             uint32_t textureId = std::stoi(stringTextureId);
 
             Model *model = this->project.resources.getModel(modelId);
