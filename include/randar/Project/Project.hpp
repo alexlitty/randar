@@ -50,7 +50,7 @@ namespace randar
         /**
          * Saves this project to disk.
          */
-        void save() const;
+        void save();
 
         /**
          * Retrieves the root project directory.

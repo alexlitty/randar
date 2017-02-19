@@ -54,7 +54,7 @@ void randar::Project::load(const randar::Directory& newDirectory)
 }
 
 // Saves this project to disk.
-void randar::Project::save() const
+void randar::Project::save()
 {
     randar::writeAsciiFile(
         this->getProjectFile().toString(),
@@ -62,6 +62,8 @@ void randar::Project::save() const
             { "name", this->name }
         }).dump()
     );
+
+    this->resources.save();
 }
 
 // Retrieves the root project directory.
