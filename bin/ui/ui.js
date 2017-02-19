@@ -68,7 +68,9 @@ var randar = {
         resource: {
             category : null,
             id       : null
-        }
+        },
+
+        textureSlotId: null
     }
 };
 
