@@ -21,6 +21,29 @@ html, body {
     color: #efefef;
 }
 
+.button {
+
+}
+
+.button:hover, .clickable:hover {
+    box-shadow: inset 0 0 1000px 1000px rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+#save {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 15px;
+    padding: 1px 25px 0 25px;
+    background-color: #b2ffce;
+    color: #333;
+}
+
+#save:after {
+    content: "\0FCB";
+}
+
 nav {
     position: absolute;
     top: 0;
@@ -52,7 +75,6 @@ nav li {
 
 nav li:hover, nav li:active {
     position: relative;
-    z-index: 1;
 }
 
 nav li:hover {
@@ -137,7 +159,6 @@ nav#resource-list ul.list li:last-child {
 #target-resource tbody tr.clickable:hover td,
 #target-resource tbody tr.clickable:hover th {
     box-shadow: inset 0 0 1000px 1000px rgba(255, 255, 255, 0.05);
-    cursor: pointer;
 }
 
 #target-resource td, #target-resource th {
