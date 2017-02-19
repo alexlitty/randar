@@ -44,10 +44,10 @@ void randar::ResourceRepository::save()
 
 void randar::ResourceRepository::save(const randar::Directory& directory)
 {
-    Directory dirTextures = directory.getSubdirectory("textures");
-
-    for (auto item : this->textures) {
-        this->exportRaTexture(item.first);
+    for (auto item : this->models) {
+        if (item.second->isDirty()) {
+            this->exportRaModel(item.first);
+        }
     }
 }
 
