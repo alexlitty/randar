@@ -127,14 +127,14 @@ Component.ResourceList = combine(
         },
 
         methods: {
-            onResourceSelected: function(resourceId) {
-                this.$emit('resourceSelected', this.category, resourceId);
+            onSelect: function(resourceId) {
+                this.$emit('select', this.category, resourceId);
             }
         },
 
         template: `
             <ul v-bind:class="category">
-                <li v-for="(resource, resourceId) in resources[category]" v-on:click="onResourceSelected(resourceId)">
+                <li v-for="(resource, resourceId) in resources[category]" v-on:click="onSelect(resourceId)">
                     {{ resourceId }}
                 </li>
             </ul>
@@ -159,8 +159,8 @@ Component.ResourceListPanel = combine(
                 this.$emit('close');
             },
 
-            onResourceSelected: function(category, resourceId) {
-                this.$emit('resourceSelected', category, resourceId);
+            onSelect: function(category, resourceId) {
+                this.$emit('select', category, resourceId);
             }
         },
 
@@ -168,7 +168,7 @@ Component.ResourceListPanel = combine(
             <nav id="resource-list">
                 <back-button v-bind:action="onClose" />
 
-                <resource-list :category="category" @resourceSelected="onResourceSelected" />
+                <resource-list :category="category" @select="onSelect" />
             </nav>
         `
         //<!--<li v-for="(item, itemId) in resources[category]" v-on:click="selectResource(category, itemId)">-->

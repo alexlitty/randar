@@ -20,10 +20,11 @@
             <settings-panel></settings-panel>
 
             <resource-list-panel
-                v-if="target.resource.category"
+                v-if="target.resource.category && !target.resource.id"
                 :category="target.resource.category"
                 @close="unselectResourceCategory"
-                @resourceSelected="selectResource" />
+                @select="selectResource" />
+            </resource-list-panel>
 
             <target-resource-panel>
                 <template slot="textures" scope="props">
