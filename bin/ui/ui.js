@@ -95,7 +95,7 @@ Vue.component('back-button', combine(
  * Components - Main panel.
  */
 Vue.component('nav-main', combine(
-    Component.Panel,
+    Component.Common,
     {
         template: `
             <nav id="main" v-show="isNothingSelected()">
@@ -118,7 +118,7 @@ Vue.component('nav-main', combine(
  * Component - Settings panel.
  */
 Vue.component('settings-panel', combine(
-    Component.Panel,
+    Component.Common,
     {
         template: `
             <nav v-show="isSettingsSelected()">
@@ -136,13 +136,6 @@ Vue.component('settings-panel', combine(
 /**
  * Component - Resources.
  */
-Vue.component('resource-list-panel', combine(
-    Component.ResourceListPanel,
-    {
-
-    }
-));
-
 Vue.component('target-resource-panel', combine(
     Component.TargetResourcePanel,
     {
@@ -167,7 +160,8 @@ Vue.filter('titlecase', function(value) {
 randar.ready = function() {
     app = new Vue({
         el: '#randar',
-        data: randar,
+        data: _.extend(randar, Component.Common),
+        methods: Component.Common.methods,
         watch: {
             target: {
                 deep: true,

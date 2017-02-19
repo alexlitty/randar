@@ -19,11 +19,11 @@
 
             <settings-panel></settings-panel>
 
-            <resource-list-panel>
-                <template slot="item" scope="props">
-                    {{ props.itemId }}
-                </template>
-            </resource-list-panel>
+            <resource-list-panel
+                v-if="target.resource.category"
+                :category="target.resource.category"
+                @close="unselectResourceCategory"
+                @resourceSelected="selectResource" />
 
             <target-resource-panel>
                 <template slot="textures" scope="props">

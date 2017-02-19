@@ -59,72 +59,62 @@ Component.Common = {
 
             var resource = this.target.resource;
             return this.resources[resource.category][resource.id];
+        },
+
+        isNothingSelected: function() {
+            return !this.isSettingsSelected()
+                && !this.isResourceCategorySelected()
+                && !this.isResourceSelected();
+        },
+
+        /**
+         * Settings targeting.
+         */
+        isSettingsSelected: function() {
+            return randar.target.settings;
+        },
+
+        selectSettings: function() {
+            randar.target.settings = true;
+        },
+
+        unselectSettings: function() {
+            randar.target.settings = false;
+        },
+
+        /**
+         * Resource category targeting.
+         */
+        isResourceCategorySelected: function() {
+            return !_.isNull(randar.target.resource.category);
+        },
+
+        selectResourceCategory: function(category) {
+            randar.target.resource.category = category;
+        },
+
+        unselectResourceCategory: function() {
+            randar.target.resource.category = null;
+        },
+
+        /**
+         * Individual resource targeting.
+         */
+        isResourceSelected: function() {
+            return this.isResourceCategorySelected()
+                && !_.isNull(randar.target.resource.id);
+        },
+
+        selectResource: function(category, id) {
+            randar.target.resource.category = category;
+            randar.target.resource.id       = id;
+        },
+
+        unselectResource: function() {
+            randar.target.resource.id = null;
         }
     }
 };
-
-/**
- * A panel of the interface.
- */
-Component.Panel = combine(
-    Component.Common,
-    {
-        methods: {
-            isNothingSelected: function() {
-                return !this.isSettingsSelected()
-                    && !this.isResourceCategorySelected()
-                    && !this.isResourceSelected();
-            },
-
-            /**
-             * Settings targeting.
-             */
-            isSettingsSelected: function() {
-                return randar.target.settings;
-            },
-
-            selectSettings: function() {
-                randar.target.settings = true;
-            },
-
-            unselectSettings: function() {
-                randar.target.settings = false;
-            },
-
-            /**
-             * Resource category targeting.
-             */
-            isResourceCategorySelected: function() {
-                return !_.isNull(randar.target.resource.category);
-            },
-
-            selectResourceCategory: function(category) {
-                randar.target.resource.category = category;
-            },
-
-            unselectResourceCategory: function() {
-                randar.target.resource.category = null;
-            },
-
-            /**
-             * Individual resource targeting.
-             */
-            isResourceSelected: function() {
-                return this.isResourceCategorySelected()
-                    && !_.isNull(randar.target.resource.id);
-            },
-
-            selectResource: function(category, id) {
-                randar.target.resource.category = category;
-                randar.target.resource.id       = id;
-            },
-
-            unselectResource: function() {
-                randar.target.resource.id = null;
-            }
-        }
-    }
-);
 
 /**
  * A list of resources in a particular category.
@@ -155,16 +145,30 @@ Component.ResourceList = combine(
 Vue.component('resource-list', Component.ResourceList);
 
 /**
- * A panel dedicated to showing a resource list.
+ * A panel to show a resource list.
  */
 Component.ResourceListPanel = combine(
-    Component.Panel,
+    Component.Common,
     {
-        template: `
-            <nav id="resource-list" v-show="isResourceCategorySelected() && !isResourceSelected()">
-                <back-button v-bind:action="unselectResourceCategory" />
+        props: {
+            category: String
+        },
 
-                <resource-list :category="this.target.resource.category" @resourceSelected="selectResource" />
+        methods: {
+            onClose: function() {
+                this.$emit('close');
+            },
+
+            onResourceSelected: function(category, resourceId) {
+                this.$emit('resourceSelected', category, resourceId);
+            }
+        },
+
+        template: `
+            <nav id="resource-list">
+                <back-button v-bind:action="onClose" />
+
+                <resource-list :category="category" @resourceSelected="onResourceSelected" />
             </nav>
         `
         //<!--<li v-for="(item, itemId) in resources[category]" v-on:click="selectResource(category, itemId)">-->
@@ -177,7 +181,7 @@ Vue.component('resource-list-panel', Component.ResourceListPanel);
  * A panel to interact with the currently targeted resource.
  */
 Component.TargetResourcePanel = combine(
-    Component.Panel,
+    Component.Common,
     {
         computed: {
             resource: function() {
