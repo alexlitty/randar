@@ -146,12 +146,10 @@ void randar::Ui::execute(
             uint32_t textureId = std::stoi(stringTextureId);
 
             Model *model = this->project.resources.getModel(modelId);
-
-            if (slotId >= model->meshTextures.size()) {
-                throw std::logic_error("UI assigning invalid texture slot id");
-            }
-
-            model->meshTextures[slotId] = this->project.resources.getTexture(textureId);
+            model->setMeshTexture(
+                slotId,
+                this->project.resources.getTexture(textureId)
+            );
         }
     }
 }
