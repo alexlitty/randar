@@ -129,33 +129,49 @@ Component.Panel = combine(
 /**
  * A list of resources in a particular category.
  */
-Component.ResourceList = combine
-
-/**
- * A panel to list resources in a particular category.
- */
-Component.ResourceListPanel = combine(
-    Component.Panel,
+Component.ResourceList = combine(
+    Component.Common,
     {
-        computed: {
-            category: function() {
-                return this.target.resource.category;
+        props: {
+            category: String
+        },
+
+        methods: {
+            onResourceSelected: function(resourceId) {
+                this.$emit('resourceSelected', this.category, resourceId);
             }
         },
 
         template: `
-            <nav id="resource-list" v-show="isResourceCategorySelected() && !isResourceSelected()">
-                <back-button v-bind:action="unselectResourceCategory" />
-
-                <ul v-bind:class="category">
-                    <li v-for="(item, itemId) in resources[category]" v-on:click="selectResource(category, itemId)">
-                        <slot name="item" :itemId="itemId" :item="item" />
-                    </li>
-                </ul>
-            </nav>
+            <ul v-bind:class="category">
+                <li v-for="(resource, resourceId) in resources[category]" v-on:click="onResourceSelected(resourceId)">
+                    {{ resourceId }}
+                </li>
+            </ul>
         `
     }
 );
+
+Vue.component('resource-list', Component.ResourceList);
+
+/**
+ * A panel dedicated to showing a resource list.
+ */
+Component.ResourceListPanel = combine(
+    Component.Panel,
+    {
+        template: `
+            <nav id="resource-list" v-show="isResourceCategorySelected() && !isResourceSelected()">
+                <back-button v-bind:action="unselectResourceCategory" />
+
+                <resource-list :category="this.target.resource.category" @resourceSelected="selectResource" />
+            </nav>
+        `
+        //<!--<li v-for="(item, itemId) in resources[category]" v-on:click="selectResource(category, itemId)">-->
+    }
+);
+
+Vue.component('resource-list-panel', Component.ResourceListPanel);
 
 /**
  * A panel to interact with the currently targeted resource.

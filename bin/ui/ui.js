@@ -133,7 +133,6 @@ Vue.component('settings-panel', combine(
     }
 ));
 
-
 /**
  * Component - Resources.
  */
@@ -151,7 +150,6 @@ Vue.component('target-resource-panel', combine(
     }
 ));
 
-
 /**
  * Vue filters.
  */
@@ -162,7 +160,6 @@ Vue.filter('titlecase', function(value) {
 
     return value.charAt(0).toUpperCase() + value.slice(1);
 });
-
 
 /**
  * Initialize the interface.
