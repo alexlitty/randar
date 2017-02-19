@@ -19,12 +19,12 @@
 
             <settings-panel></settings-panel>
 
-            <resource-list-panel
+            <input-resource
                 v-if="target.resource.category && !target.resource.id"
                 :category="target.resource.category"
                 @close="unselectResourceCategory"
-                @select="selectResource" />
-            </resource-list-panel>
+                @select="selectResource">
+            </input-resource>
 
             <target-resource-panel>
                 <template slot="textures" scope="props">

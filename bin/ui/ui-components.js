@@ -145,9 +145,9 @@ Component.ResourceList = combine(
 Vue.component('resource-list', Component.ResourceList);
 
 /**
- * A panel to show a resource list.
+ * An input to select a resource.
  */
-Component.ResourceListPanel = combine(
+Component.InputResource = combine(
     Component.Common,
     {
         props: {
@@ -171,11 +171,10 @@ Component.ResourceListPanel = combine(
                 <resource-list :category="category" @select="onSelect" />
             </nav>
         `
-        //<!--<li v-for="(item, itemId) in resources[category]" v-on:click="selectResource(category, itemId)">-->
     }
 );
 
-Vue.component('resource-list-panel', Component.ResourceListPanel);
+Vue.component('input-resource', Component.InputResource);
 
 /**
  * A panel to interact with the currently targeted resource.
