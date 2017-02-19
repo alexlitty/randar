@@ -89,12 +89,8 @@ Component.Common = {
             return !_.isNull(randar.target.resource.category);
         },
 
-        selectResourceCategory: function(category) {
+        setTargetResourceCategory: function(category) {
             randar.target.resource.category = category;
-        },
-
-        unselectResourceCategory: function() {
-            randar.target.resource.category = null;
         },
 
         /**
@@ -105,12 +101,12 @@ Component.Common = {
                 && !_.isNull(randar.target.resource.id);
         },
 
-        selectResource: function(category, id) {
+        setTargetResource: function(category, id) {
             randar.target.resource.category = category;
             randar.target.resource.id       = id;
         },
 
-        unselectResource: function() {
+        clearTargetResource: function() {
             randar.target.resource.id = null;
         }
     }
@@ -192,7 +188,7 @@ Component.TargetResourcePanel = combine(
 
         template: `
             <nav id="target-resource" v-show="isResourceSelected()">
-                <back-button :action="unselectResource" />
+                <back-button :action="clearTargetResource" />
 
                 <slot
                     v-bind:name="target.resource.category"

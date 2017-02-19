@@ -22,8 +22,8 @@
             <input-resource
                 v-if="target.resource.category && !target.resource.id"
                 :category="target.resource.category"
-                @close="unselectResourceCategory"
-                @select="selectResource">
+                @close="target.resource.category = null"
+                @select="setTargetResource">
             </input-resource>
 
             <target-resource-panel>

@@ -105,7 +105,7 @@ Vue.component('nav-main', combine(
                     </li>
 
                     <li v-for="category in ['scenes', 'models', 'textures', 'shaders']"
-                        v-bind:class="category" v-on:click="selectResourceCategory(category)">
+                        v-bind:class="category" v-on:click="target.resource.category = category">
                         {{ category | titlecase }}
                     </li>
                 </ul>
