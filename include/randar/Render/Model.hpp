@@ -9,6 +9,8 @@ namespace randar
 {
     class Model : virtual public GpuResource, virtual public Transformable
     {
+        bool dirty = false;
+
     public:
         /**
          * Model data.
@@ -43,6 +45,16 @@ namespace randar
          * Checks whether this model is missing mesh textures.
          */
         bool isMissingMeshTextures() const;
+
+        /**
+         * Sets a mesh texture.
+         */
+        void setMeshTexture(uint32_t slotId, Texture* texture);
+
+        /**
+         * Whether this model needs to be saved to permanent storage.
+         */
+        bool isDirty() const;
 
         /**
          * Retrieves model metadata as JSON.

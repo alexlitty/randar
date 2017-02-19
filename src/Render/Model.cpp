@@ -37,6 +37,21 @@ bool randar::Model::isMissingMeshTextures() const
     return false;
 }
 
+// Sets a mesh texture.
+void randar::Model::setMeshTexture(uint32_t slotId, randar::Texture* texture)
+{
+    if (slotId >= this->meshTextures.size()) {
+        throw std::logic_error("Assigning to invalid texture slot on model");
+    }
+
+    if (this->meshTextures[slotId] == texture) {
+        return;
+    }
+
+    this->meshTextures[slotId] = texture;
+    this->dirty = true;
+}
+
 // Retrieves model metadata as JSON.
 Json randar::Model::toJson() const
 {
