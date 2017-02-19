@@ -259,6 +259,12 @@ Vue.component('editor-model', combine(
 
         methods: {
             assignMeshTexture: function(category, textureId) {
+                window.setModelMeshTexture(
+                    this.model.id,
+                    this.target.textureSlotId,
+                    textureId
+                );
+
                 this.model.textures[this.target.textureSlotId] = textureId;
                 this.target.textureSlotId = null;
             }

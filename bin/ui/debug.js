@@ -13,6 +13,10 @@ if ((window.location.search || '').indexOf('debug') > -1) {
         console.info("Resource would be imported");
     }
 
+    window.setModelMeshTexture = function(modelId, slotId, textureId) {
+        console.info("Model #" + modelId + ", texture slot #" + slotId + " would be set to texture #" + textureId);
+    }
+
     randar.receiveData({
         name: 'Test film',
 
