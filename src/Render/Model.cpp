@@ -52,6 +52,12 @@ void randar::Model::setMeshTexture(uint32_t slotId, randar::Texture* texture)
     this->dirty = true;
 }
 
+// Whether this model has changed since last being saved.
+bool randar::Model::isDirty() const
+{
+    return this->dirty;
+}
+
 // Retrieves model metadata as JSON.
 Json randar::Model::toJson() const
 {

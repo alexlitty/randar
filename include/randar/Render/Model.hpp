@@ -52,7 +52,7 @@ namespace randar
         void setMeshTexture(uint32_t slotId, Texture* texture);
 
         /**
-         * Whether this model needs to be saved to permanent storage.
+         * Whether this model has changed since last being saved.
          */
         bool isDirty() const;
 
