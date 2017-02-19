@@ -152,6 +152,11 @@ void randar::Ui::execute(
             );
         }
     }
+
+    // Save the project.
+    else if (name == "saveProject") {
+        this->save = true;
+    }
 }
 
 // Runs a single tick on the interface program.
@@ -166,7 +171,6 @@ void randar::Ui::run()
     this->browser.setNativeCodeHandler(this);
     try {
         this->project.load(Directory("./test-project/"));
-        this->project.save();
     }
 
     catch (const std::runtime_error& ex) {
@@ -182,6 +186,12 @@ void randar::Ui::run()
         this->gpu.check();
         this->runMessageLoops();
 
+        // Save the project.
+        if (this->save) {
+            this->project.save();
+            this->save = false;
+        }
+
         // Handle new resource importing.
         if (!this->importQueue.empty()) {
             for (auto file : this->importQueue) {
@@ -195,7 +205,6 @@ void randar::Ui::run()
                     else if (extension == "png") {
                         this->project.resources.importPng(file);
                     }
-
                 }
 
                 catch (...) {

@@ -30,6 +30,11 @@ namespace randar
          */
         std::vector<File> importQueue;
 
+        /**
+         * Whether to save the project.
+         */
+        bool save = false;
+
     public:
         /**
          * GPU to use.

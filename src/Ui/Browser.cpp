@@ -147,6 +147,12 @@ void randar::Browser::OnContextCreated(
         ::CefV8Value::CreateFunction("setModelMeshTexture", handler),
         ::V8_PROPERTY_ATTRIBUTE_NONE
     );
+
+    jsWindow->SetValue(
+        "saveProject",
+        ::CefV8Value::CreateFunction("saveProject", handler),
+        ::V8_PROPERTY_ATTRIBUTE_NONE
+    );
 }
 
 // CefV8Handler implementations.
