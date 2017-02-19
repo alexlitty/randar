@@ -257,6 +257,13 @@ Vue.component('editor-model', combine(
             model: Object
         },
 
+        methods: {
+            assignMeshTexture: function(category, textureId) {
+                this.model.textures[this.target.textureSlotId] = textureId;
+                this.target.textureSlotId = null;
+            }
+        },
+
         template: `
             <div>
                 <table class="textures">
@@ -291,7 +298,7 @@ Vue.component('editor-model', combine(
                     v-if="!_.isNull(target.textureSlotId)"
                     category="textures"
                     @close="target.textureSlotId = null"
-                    @select="">
+                    @select="assignMeshTexture">
                 </input-resource>
             </div>
         `
