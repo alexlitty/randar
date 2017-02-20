@@ -15,3 +15,14 @@ randar::SceneModel::~SceneModel()
         delete action;
     }
 }
+
+// Returns the model this object represents.
+randar::Model& randar::SceneModel::get()
+{
+    return *this->model;
+}
+
+randar::SceneModel::operator randar::Model&()
+{
+    return this->get();
+}

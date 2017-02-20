@@ -1,6 +1,9 @@
 #ifndef RANDAR_SCENE_SCENE_MODEL_HPP
 #define RANDAR_SCENE_SCENE_MODEL_HPP
 
+#include <randar/Scene/ModelState.hpp>
+#include <randar/Scene/Action.hpp>
+
 namespace randar
 {
     /**
@@ -16,12 +19,12 @@ namespace randar
          */
         uint32_t id;
 
-    public:
         /**
          * The model instance.
          */
         Model* model;
 
+    public:
         /**
          * All actions that influence the model in this scene.
          */
@@ -30,7 +33,7 @@ namespace randar
         /**
          * The states of this model in every possible frame.
          *
-         * Dynamically built from actions.
+         * Dynamically generated at runtime, built from actions.
          */
         std::vector<ModelState> states;
 
@@ -43,6 +46,12 @@ namespace randar
          * Destructor.
          */
         ~SceneModel();
+
+        /**
+         * Returns the model this object represents.
+         */
+        Model& get();
+        operator Model&();
     };
 }
 
