@@ -15,6 +15,7 @@ namespace randar
          * Constructor.
          */
         FrameRange(const Frame& initStart, const Frame& initEnd);
+        FrameRange(const Frame& frame);
 
         /**
          * Validates this range.
@@ -29,6 +30,11 @@ namespace randar
         void set(const Frame& newStart, const Frame& newEnd);
         void setStart(const Frame& newstart);
         void setEnd(const Frame& newEnd);
+
+        /**
+         * Retrieves the number of frames in this range.
+         */
+        uint32_t count() const;
 
         /**
          * Checks whether a frame is contained by this range.

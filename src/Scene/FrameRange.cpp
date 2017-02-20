@@ -9,6 +9,13 @@ randar::FrameRange::FrameRange(const Frame& initStart, const Frame& initEnd)
     this->check();
 }
 
+randar::FrameRange::FrameRange(const Frame& frame)
+: start(frame),
+  end(frame)
+{
+
+}
+
 // Validates this range.
 void randar::FrameRange::check() const
 {
@@ -39,6 +46,12 @@ void randar::FrameRange::setEnd(const Frame& newEnd)
 {
     this->end = newEnd;
     this->check();
+}
+
+// Retrieves the number of frames in this range.
+uint32_t randar::FrameRange::count() const
+{
+    return (this->end.get() - this->start.get()) + 1;
 }
 
 // Checks whether a frame is contained by this range.
