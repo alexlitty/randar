@@ -48,6 +48,11 @@ namespace randar
         ~SceneModel();
 
         /**
+         * Builds the states in a frame range.
+         */
+        void build(const FrameRange& frames);
+
+        /**
          * Returns the model this object represents.
          */
         Model& get();
