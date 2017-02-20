@@ -49,6 +49,12 @@ namespace randar
          */
         bool operator ==(const Frame& other);
         bool operator !=(const Frame& other);
+
+        bool operator >(const Frame& other);
+        bool operator >=(const Frame& other);
+
+        bool operator <(const Frame& other);
+        bool operator <=(const Frame& other);
     };
 }
 

@@ -50,3 +50,23 @@ bool randar::Frame::operator !=(const randar::Frame& other)
 {
     return !(*this == other);
 }
+
+bool randar::Frame::operator >(const randar::Frame& other)
+{
+    return this->id > other.id;
+}
+
+bool randar::Frame::operator >=(const randar::Frame& other)
+{
+    return this->id >= other.id;
+}
+
+bool randar::Frame::operator <(const randar::Frame& other)
+{
+    return this->id < other.id;
+}
+
+bool randar::Frame::operator <=(const randar::Frame& other)
+{
+    return this->id <= other.id;
+}
