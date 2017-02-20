@@ -12,16 +12,16 @@ namespace randar
         FrameRange frames;
 
         /**
-         * Default constructor.
-         */
-        Action();
-
-        /**
          * Constructor.
          */
         Action(
             const std::string& initType,
             const FrameRange& initFrames);
+
+        /**
+         * Destructor.
+         */
+        virtual ~Action();
 
         /**
          * Applies a single frame of this action to the scene.
