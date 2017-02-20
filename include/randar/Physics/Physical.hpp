@@ -3,11 +3,11 @@
 
 #include <stdexcept>
 #include <bullet3/btBulletDynamicsCommon.h>
-#include <randar/Math/Transformable.hpp>
+#include <randar/Math/Transform.hpp>
 
 namespace randar
 {
-    class Physical : virtual public Transformable
+    class Physical : virtual public Transform
     {
     protected:
         btRigidBody *body;

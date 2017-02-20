@@ -6,7 +6,7 @@
 
 namespace randar
 {
-    class Camera : virtual public Transformable
+    class Camera : virtual public Transform
     {
         bool isOrtho;
         float orthoLeft;

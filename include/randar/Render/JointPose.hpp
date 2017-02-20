@@ -1,11 +1,11 @@
 #ifndef RANDAR_RENDER_JOINT_POSE_HPP
 #define RANDAR_RENDER_JOINT_POSE_HPP
 
-#include <randar/Math/Transformable.hpp>
+#include <randar/Math/Transform.hpp>
 
 namespace randar
 {
-    struct JointPose : virtual public Transformable
+    struct JointPose : virtual public Transform
     {
 
     };

@@ -3,6 +3,6 @@
 
 #include <randar/Math/Constant.hpp>
 #include <randar/Math/Random.hpp>
-#include <randar/Math/Transformable.hpp>
+#include <randar/Math/Transform.hpp>
 
 #endif

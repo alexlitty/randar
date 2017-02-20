@@ -1,18 +1,18 @@
-#ifndef RANDAR_MATH_TRANSFORMABLE_HPP
-#define RANDAR_MATH_TRANSFORMABLE_HPP
+#ifndef RANDAR_MATH_TRANSFORM_HPP
+#define RANDAR_MATH_TRANSFORM_HPP
 
 #include <randar/Math/Quaternion.hpp>
 
 namespace randar
 {
-    class Transformable
+    class Transform
     {
     protected:
         Vector position;
         Quaternion rotation;
 
     public:
-        virtual ~Transformable();
+        virtual ~Transform();
 
         /**
          * Sets this transformation from a physical transformation.

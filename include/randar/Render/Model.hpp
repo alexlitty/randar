@@ -1,13 +1,13 @@
 #ifndef RANDAR_RENDER_MODEL_HPP
 #define RANDAR_RENDER_MODEL_HPP
 
-#include <randar/Math/Transformable.hpp>
+#include <randar/Math/Transform.hpp>
 #include <randar/Render/VertexBuffer.hpp>
 #include <randar/Render/IndexBuffer.hpp>
 
 namespace randar
 {
-    class Model : virtual public GpuResource, virtual public Transformable
+    class Model : virtual public GpuResource, virtual public Transform
     {
         bool dirty = false;
 
