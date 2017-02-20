@@ -1,7 +1,6 @@
 #ifndef RANDAR_SCENE_ACTION_HPP
 #define RANDAR_SCENE_ACTION_HPP
 
-#include <cstdint>
 #include <string>
 #include <randar/Scene/FrameRange.hpp>
 
@@ -9,8 +8,13 @@ namespace randar
 {
     struct Action
     {
-        const std::string type;
+        std::string type;
         FrameRange frames;
+
+        /**
+         * Default constructor.
+         */
+        Action();
 
         /**
          * Constructor.
@@ -20,9 +24,9 @@ namespace randar
             const FrameRange& initFrames);
 
         /**
-         * Applies this action to the scene.
+         * Applies a single frame of this action to the scene.
          */
-        virtual void apply(uint32_t frames = 1) = 0;
+        virtual void apply() = 0;
     };
 }
 
