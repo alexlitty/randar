@@ -48,6 +48,17 @@ void randar::FrameRange::setEnd(const Frame& newEnd)
     this->check();
 }
 
+// Gets the range of frames.
+randar::Frame randar::FrameRange::getStart() const
+{
+    return this->start;
+}
+
+randar::Frame randar::FrameRange::getEnd() const
+{
+    return this->end;
+}
+
 // Retrieves the number of frames in this range.
 uint32_t randar::FrameRange::count() const
 {

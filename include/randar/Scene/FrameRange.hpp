@@ -32,6 +32,12 @@ namespace randar
         void setEnd(const Frame& newEnd);
 
         /**
+         * Gets the range of frames.
+         */
+        Frame getStart() const;
+        Frame getEnd() const;
+
+        /**
          * Retrieves the number of frames in this range.
          */
         uint32_t count() const;
