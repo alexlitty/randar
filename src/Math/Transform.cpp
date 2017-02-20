@@ -91,6 +91,13 @@ randar::Angle randar::Transform::getAngle() const
     return this->rotation.getAngle();
 }
 
+// Applies another transform to this transform.
+void randar::Transform::apply(const randar::Transform& other)
+{
+    this->move(other.getPosition());
+    // @@@ - Also rotate
+}
+
 // Function called when a transformation occurs.
 void randar::Transform::onTransform()
 {

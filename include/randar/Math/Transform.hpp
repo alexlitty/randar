@@ -69,6 +69,11 @@ namespace randar
         Angle getAngle() const;
 
         /**
+         * Applies another transform to this transform.
+         */
+        void apply(const Transform& other);
+
+        /**
          * Function called when a transformation occurs.
          */
         virtual void onTransform();
