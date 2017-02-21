@@ -8,6 +8,7 @@ namespace randar
 {
     class Scene : virtual public Resource
     {
+    public:
         /**
          * The desired frames per second in this scene.
          */
