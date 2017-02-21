@@ -208,6 +208,10 @@ Component.ResourceCategoryPanel = combine(
             onResourceSelect: function(category, resourceId) {
                 this.target.resource.category = category;
                 this.target.resource.id = resourceId;
+            },
+
+            create: function() {
+                window.createResource(this.category);
             }
         },
 
@@ -218,7 +222,7 @@ Component.ResourceCategoryPanel = combine(
                 <div class="options">
                     <div :class=category>
                         <div v-if="category === 'scenes'">
-                            <div class="button">+ Create new scene</div>
+                            <div class="button" @click="create">+ Create new scene</div>
                         </div>
                     </div>
                 </div>
