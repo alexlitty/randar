@@ -79,6 +79,11 @@ nav {
         font-size: 26px;
         color: #121212;
     }
+
+    .back {
+        .clickable;
+        margin-bottom: 32px;
+    }
 }
 
 #settings {
@@ -118,38 +123,30 @@ nav {
     }
 }
 
-#resource-list {
-    .back {
+.resource-list {
+    li {
         .clickable;
 
-        margin-bottom: 32px;
-    }
+        padding: 12px 25px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
-    .list {
-        li {
-            .clickable;
+        &.scenes {
+            background-color: @color-scenes;
+        }
+        &.models {
+            background-color: @color-models;
+        }
 
-            padding: 12px 25px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        &.textures {
+            background-color: @color-textures;
+        }
 
-            &.scenes {
-                background-color: @color-scenes;
-            }
-            &.models {
-                background-color: @color-models;
-            }
+        &.shaders {
+            background-color: @color-shaders;
+        }
 
-            &.textures {
-                background-color: @color-textures;
-            }
-
-            &.shaders {
-                background-color: @color-shaders;
-            }
-
-            &:last-child {
-                border-bottom: 0px;
-            }
+        &:last-child {
+            border-bottom: 0px;
         }
     }
 }
