@@ -161,6 +161,7 @@ void randar::Browser::OnPaint(
             }
         }
     }
+    this->texture->write();
 }
 
 // CefRenderProcessHandler implementations.
