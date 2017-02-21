@@ -4,6 +4,7 @@
 #include <string>
 #include <bullet3/btBulletDynamicsCommon.h>
 #include <randar/Utility/glm.hpp>
+#include <randar/Utility/Json.hpp>
 
 namespace randar
 {
@@ -63,6 +64,11 @@ namespace randar
          */
         std::string toString() const;
         operator std::string() const;
+
+        /**
+         * Convert to JSON.
+         */
+        Json toJson() const;
     };
 
     /**

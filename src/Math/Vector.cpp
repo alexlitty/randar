@@ -180,3 +180,13 @@ randar::Vector::operator std::string() const
 {
     return this->toString();
 }
+
+// Convert to JSON.
+Json randar::Vector::toJson() const
+{
+    return {
+        { "x", this->x },
+        { "y", this->y },
+        { "z", this->z }
+    };
+}
