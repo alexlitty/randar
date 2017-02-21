@@ -9,6 +9,7 @@
 #include <cef/include/cef_client.h>
 #include <cef/include/wrapper/cef_helpers.h>
 #include <cef/include/capi/cef_base_capi.h>
+#include <randar/Render/Texture.hpp>
 #include <randar/Engine/Native.hpp>
 #include <randar/Engine/Window.hpp>
 #include <randar/Ui/NativeCodeHandler.hpp>
@@ -34,6 +35,8 @@ namespace randar
         randar::NativeCodeHandler* nativeCodeHandler;
 
     public:
+        Texture* texture;
+
         /**
          * Constructor.
          */
@@ -49,7 +52,6 @@ namespace randar
          *
          * Returns -1 if no sub-process was required by this instance.
          */
-
         int executeProcess(const ::CefMainArgs& mainArgs);
 
         /**

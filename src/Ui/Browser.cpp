@@ -20,6 +20,8 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
     int exitCode = ::CefExecuteProcess(mainArgs, app, nullptr);
 
     if (exitCode == -1) {
+        this->texture = new Texture("rgba", 800, 600);
+        this->texture->data.resize(800 * 600 * 4);
 
         // Run in single process mode for now. This is apparently meant for
         // debugging only, but it makes our application easier to set up.
@@ -109,6 +111,7 @@ void randar::Browser::OnAfterCreated(::CefRefPtr<::CefBrowser> browser)
     AutoLock lock_scope(this);
 
     this->browser = browser;
+    this->browser->GetHost()->WasResized();
     this->frame = this->browser->GetMainFrame();
 
     CefLifeSpanHandler::OnAfterCreated(browser);
@@ -130,6 +133,10 @@ bool randar::Browser::GetViewRect(
     ::CefRefPtr<::CefBrowser> browser,
     ::CefRect& rect)
 {
+    rect.x = 0;
+    rect.y = 0;
+    rect.width = 800;
+    rect.height = 600;
     return true;
 }
 
@@ -141,7 +148,19 @@ void randar::Browser::OnPaint(
     int width,
     int height)
 {
+    std::cout << "painting" << std::endl;
+    for (auto rect : dirtyRects) {
+        for (uint32_t row = rect.y; row < (rect.y + rect.height); row++) {
+            for (uint32_t col = rect.x; col < (rect.x + rect.width); col++) {
+                uint32_t start = (row * this->texture->getWidth() * 4);
+                start += (col * 4);
 
+                for (uint8_t i = 0; i < 4; i++) {
+                    this->texture->data[start + i] = reinterpret_cast<const char*>(buffer)[start + i];
+                }
+            }
+        }
+    }
 }
 
 // CefRenderProcessHandler implementations.
