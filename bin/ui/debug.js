@@ -49,6 +49,15 @@ if ((window.location.search || '').indexOf('debug') > -1) {
             }
         },
 
+        scenes: {
+            0: {
+                name: "Example scene",
+
+                models: {
+                }
+            }
+        }
+
     });
 
     window.addEventListener('load', function() {
