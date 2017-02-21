@@ -17,6 +17,10 @@ if ((window.location.search || '').indexOf('debug') > -1) {
         console.info("Resource would be imported");
     }
 
+    window.createResource = function(category) {
+        console.info("New resource would be created in " + category);
+    }
+
     window.setModelMeshTexture = function(modelId, slotId, textureId) {
         console.info("Model #" + modelId + ", texture slot #" + slotId + " would be set to texture #" + textureId);
     }
