@@ -215,8 +215,12 @@ Component.ResourceCategoryPanel = combine(
             <nav id="resource-category" :class="category">
                 <back-button :action="onClose" />
 
-                <div class="options" v-if="category === 'scenes'">
-                    <div class="button">+ Add new scene</div>
+                <div class="options">
+                    <div :class=category>
+                        <div v-if="category === 'scenes'">
+                            <div class="button">+ Create new scene</div>
+                        </div>
+                    </div>
                 </div>
 
                 <resource-list :category="category" @select="onResourceSelect" />
