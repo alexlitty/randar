@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <map>
 #include <stdexcept>
+#include <randar/Utility/Json.hpp>
 
 namespace randar
 {
@@ -110,6 +111,19 @@ namespace randar
 
         map[key] = item;
         return key;
+    }
+
+    /**
+     * Converts a map to JSON.
+     */
+    template <typename T, typename U>
+    Json toJson(const std::map<T, U*>& map)
+    {
+        Json result;
+        for (auto item : map) {
+            result[item.first] = item.second->toJson();
+        }
+        return result;
     }
 }
 
