@@ -7,6 +7,7 @@
 #include <randar/Filesystem/Directory.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/Model.hpp>
+#include <randar/Scene/Scene.hpp>
 #include <randar/Utility/Map.hpp>
 #include <randar/Utility/Json.hpp>
 
@@ -24,6 +25,7 @@ namespace randar
         /**
          * Resources in this repository.
          */
+        std::map<uint32_t, Scene*> scenes;
         std::map<uint32_t, Model*> models;
         std::map<uint32_t, Texture*> textures;
 
@@ -52,6 +54,12 @@ namespace randar
          */
         void save();
         void save(const Directory& directory);
+
+        /**
+         * Retrieves and adds a scene.
+         */
+        Scene* getScene(uint32_t id);
+        uint32_t addScene(Scene* scene);
 
         /**
          * Retrieves and adds a model.

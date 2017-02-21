@@ -51,6 +51,20 @@ void randar::ResourceRepository::save(const randar::Directory& directory)
     }
 }
 
+// Retrieves a scene.
+randar::Scene* randar::ResourceRepository::getScene(uint32_t id)
+{
+    return this->scenes[id];
+}
+
+// Adds a scene.
+uint32_t randar::ResourceRepository::addScene(randar::Scene* scene)
+{
+    uint32_t key = randar::insertAtAvailableKey(this->scenes, scene);
+    scene->id.set(key);
+    return key;
+}
+
 // Retrieves a model.
 randar::Model* randar::ResourceRepository::getModel(uint32_t id)
 {
