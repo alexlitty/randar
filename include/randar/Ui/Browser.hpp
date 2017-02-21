@@ -9,7 +9,9 @@
 #include <cef/include/cef_client.h>
 #include <cef/include/wrapper/cef_helpers.h>
 #include <cef/include/capi/cef_base_capi.h>
-#include <randar/Render/Texture.hpp>
+#include <randar/Render/Framebuffer.hpp>
+#include <randar/Render/Model.hpp>
+#include <randar/Render/ShaderProgram.hpp>
 #include <randar/Engine/Native.hpp>
 #include <randar/Engine/Window.hpp>
 #include <randar/Ui/NativeCodeHandler.hpp>
@@ -34,9 +36,11 @@ namespace randar
         ::CefRefPtr<::CefFrame> frame;
         randar::NativeCodeHandler* nativeCodeHandler;
 
-    public:
+        ShaderProgram* screenProgram;
+        Model* screen;
         Texture* texture;
 
+    public:
         /**
          * Constructor.
          */

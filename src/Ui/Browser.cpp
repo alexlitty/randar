@@ -2,7 +2,10 @@
 
 // Constructor.
 randar::Browser::Browser()
-: nativeCodeHandler(nullptr)
+: nativeCodeHandler(nullptr),
+  screenProgram(nullptr),
+  screen(nullptr),
+  texture(nullptr)
 {
 
 }
@@ -20,9 +23,6 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
     int exitCode = ::CefExecuteProcess(mainArgs, app, nullptr);
 
     if (exitCode == -1) {
-        this->texture = new Texture("rgba", 800, 600);
-        this->texture->data.resize(800 * 600 * 4);
-
         // Run in single process mode for now. This is apparently meant for
         // debugging only, but it makes our application easier to set up.
         ::CefSettings settings;
@@ -34,6 +34,42 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
             app,
             nullptr
         );
+
+        this->texture = new Texture("rgba", 800, 600);
+        this->texture->data.resize(800 * 600 * 4);
+
+        this->screen = new Model;
+        Vertex vertex;
+
+        vertex.position.set(-1.0f, -1.0f, 0.001f);
+        vertex.textureCoordinate.u = 0.0f;
+        vertex.textureCoordinate.v = 0.0f;
+        this->screen->vertices.push_back(vertex);
+
+        vertex.position.set(-1.0f, 1.0f, 0.001f);
+        vertex.textureCoordinate.u = 0.0f;
+        vertex.textureCoordinate.v = 1.0f;
+        this->screen->vertices.push_back(vertex);
+
+        vertex.position.set(1.0f, -1.0f, 0.001f);
+        vertex.textureCoordinate.u = 1.0f;
+        vertex.textureCoordinate.v = 0.0f;
+        this->screen->vertices.push_back(vertex);
+
+        vertex.position.set(1.0f, 1.0f, 0.001f);
+        vertex.textureCoordinate.u = 1.0f;
+        vertex.textureCoordinate.v = 1.0f;
+        this->screen->vertices.push_back(vertex);
+
+        this->screen->faceIndices.push_back(0);
+        this->screen->faceIndices.push_back(1);
+        this->screen->faceIndices.push_back(2);
+
+        this->screen->faceIndices.push_back(3);
+        this->screen->faceIndices.push_back(1);
+        this->screen->faceIndices.push_back(2);
+
+        randar::getDefaultGpu().write(*this->screen);
 
         ::CefWindowInfo browserInfo;
         browserInfo.SetAsWindowless(
