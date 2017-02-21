@@ -233,6 +233,7 @@ void randar::Ui::run()
                 this->project.resources.addScene(new Scene);
             }
 
+            this->createResourceQueue.clear();
             this->unsync();
         }
         this->sync();
