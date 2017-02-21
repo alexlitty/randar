@@ -1,4 +1,5 @@
 #include <randar/Scene/SceneModel.hpp>
+#include <randar/Utility/Vector.hpp>
 
 // Constructor.
 randar::SceneModel::SceneModel(uint32_t initId, randar::Model* initModel)
@@ -63,4 +64,20 @@ randar::Model& randar::SceneModel::get()
 randar::SceneModel::operator randar::Model&()
 {
     return this->get();
+}
+
+// Returns a JSON representation of this scene model.
+Json randar::SceneModel::toJson() const
+{
+    Json result = {
+        { "actions", randar::toJson(this->actions) }
+    };
+    
+    if (this->model) {
+        result["modelId"] = this->model->id.get();
+    } else {
+        result["modelId"] = nullptr;
+    }
+
+    return result;
 }

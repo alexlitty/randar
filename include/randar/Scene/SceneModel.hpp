@@ -57,6 +57,11 @@ namespace randar
          */
         Model& get();
         operator Model&();
+
+        /**
+         * Returns a JSON representation of this scene model.
+         */
+        Json toJson() const;
     };
 }
 
