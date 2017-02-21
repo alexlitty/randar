@@ -155,3 +155,17 @@ randar::Quaternion::operator btQuaternion() const
 {
     return btQuaternion(this->x, this->y, this->z, this->w);
 }
+
+// Converts to JSON.
+Json randar::Quaternion::toJson() const
+{
+    return {
+        { "x", this->x },
+        { "y", this->y },
+        { "z", this->z },
+        { "w", this->w },
+
+        { "axis",  this->getAxis().toJson()     },
+        { "angle", this->getAngle().toRadians() }
+    };
+}

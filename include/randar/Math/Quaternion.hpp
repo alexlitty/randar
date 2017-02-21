@@ -5,6 +5,7 @@
 #include <randar/Math/Angle.hpp>
 #include <randar/Math/Vector.hpp>
 #include <randar/Utility/glm.hpp>
+#include <randar/Utility/Json.hpp>
 
 namespace randar
 {
@@ -81,6 +82,11 @@ namespace randar
          * Converts to physics quaternion.
          */
         operator btQuaternion() const;
+
+        /**
+         * Converts to JSON.
+         */
+        Json toJson() const;
     };
 
     /**
