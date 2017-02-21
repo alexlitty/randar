@@ -19,12 +19,10 @@
 
             <settings-panel></settings-panel>
 
-            <input-resource
+            <resource-category-panel
                 v-if="target.resource.category && _.isNull(target.resource.id)"
-                :category="target.resource.category"
-                @close="target.resource.category = null"
-                @select="setTargetResource">
-            </input-resource>
+                :category="target.resource.category">
+            </resource-category-panel>
 
             <target-resource-panel></target-resource-panel>
 

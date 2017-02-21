@@ -191,6 +191,39 @@ Component.InputResource = combine(
 Vue.component('input-resource', Component.InputResource);
 
 /**
+ * A overview panel for a resource category.
+ */
+Component.ResourceCategoryPanel = combine(
+    Component.Common,
+    {
+        props: {
+            category: String
+        },
+
+        methods: {
+            onClose: function() {
+                this.target.resource.category = null;
+            },
+
+            onResourceSelect: function(category, resourceId) {
+                this.target.resource.category = category;
+                this.target.resource.id = resourceId;
+            }
+        },
+
+        template: `
+            <nav id="resource-list">
+                <back-button :action="onClose" />
+
+                <resource-list :category="category" @select="onResourceSelect" />
+            </nav>
+        `
+    }
+);
+
+Vue.component('resource-category-panel', Component.ResourceCategoryPanel);
+
+/**
  * A panel to interact with the currently targeted resource.
  */
 Component.TargetResourcePanel = combine(
