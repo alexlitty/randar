@@ -55,6 +55,7 @@ var randar = {
      * Project resources.
      */
     resources: {
+        scenes: { },
         models: { },
         textures: { },
         shaders: { }
