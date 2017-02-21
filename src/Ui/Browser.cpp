@@ -3,7 +3,6 @@
 // Constructor.
 randar::Browser::Browser()
 : nativeCodeHandler(nullptr),
-  screenProgram(nullptr),
   screen(nullptr),
   texture(nullptr)
 {
@@ -35,30 +34,33 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
             nullptr
         );
 
-        this->texture = new Texture("rgba", 800, 600);
-        this->texture->data.resize(800 * 600 * 4);
+        int width, height;
+        ::glfwGetWindowSize(&randar::getDefaultWindow(), &width, &height);
+
+        this->texture = new Texture("rgba", width, height);
+        this->texture->data.resize(width * height * 4);
 
         this->screen = new Model;
         Vertex vertex;
 
         vertex.position.set(-1.0f, -1.0f, 0.001f);
         vertex.textureCoordinate.u = 0.0f;
-        vertex.textureCoordinate.v = 0.0f;
+        vertex.textureCoordinate.v = 1.0f;
         this->screen->vertices.push_back(vertex);
 
         vertex.position.set(-1.0f, 1.0f, 0.001f);
         vertex.textureCoordinate.u = 0.0f;
-        vertex.textureCoordinate.v = 1.0f;
+        vertex.textureCoordinate.v = 0.0f;
         this->screen->vertices.push_back(vertex);
 
         vertex.position.set(1.0f, -1.0f, 0.001f);
         vertex.textureCoordinate.u = 1.0f;
-        vertex.textureCoordinate.v = 0.0f;
+        vertex.textureCoordinate.v = 1.0f;
         this->screen->vertices.push_back(vertex);
 
         vertex.position.set(1.0f, 1.0f, 0.001f);
         vertex.textureCoordinate.u = 1.0f;
-        vertex.textureCoordinate.v = 1.0f;
+        vertex.textureCoordinate.v = 0.0f;
         this->screen->vertices.push_back(vertex);
 
         this->screen->faceIndices.push_back(0);
@@ -104,6 +106,36 @@ void randar::Browser::update()
     ::CefDoMessageLoopWork();
 }
 
+// Resizes the browser to fit a window.
+void randar::Browser::resize(::GLFWwindow& window)
+{
+    int32_t width, height;
+    ::glfwGetWindowSize(&window, &width, &height);
+
+    if (width <= 0 || height <= 0) {
+        throw std::domain_error(
+            "Cannot resize browser to fit non-positive window dimensions"
+        );
+    }
+
+    this->resize(static_cast<uint32_t>(width), static_cast<uint32_t>(height));
+}
+
+// Resizes the browser to specific dimensions.
+void randar::Browser::resize(uint32_t width, uint32_t height)
+{
+    if (!this->browser) {
+        throw std::logic_error("Cannot resize uninitialized browser");
+    }
+
+    if (!this->texture) {
+        throw std::logic_error("Cannot resize browser with uninitialized texture");
+    }
+
+    this->texture->resize(width, height);
+    this->browser->GetHost()->WasResized();
+}
+
 // CefClient implementations.
 ::CefRefPtr<::CefDownloadHandler> randar::Browser::GetDownloadHandler()
 {
@@ -147,8 +179,8 @@ void randar::Browser::OnAfterCreated(::CefRefPtr<::CefBrowser> browser)
     AutoLock lock_scope(this);
 
     this->browser = browser;
-    this->browser->GetHost()->WasResized();
     this->frame = this->browser->GetMainFrame();
+    this->resize();
 
     CefLifeSpanHandler::OnAfterCreated(browser);
 }
@@ -171,8 +203,9 @@ bool randar::Browser::GetViewRect(
 {
     rect.x = 0;
     rect.y = 0;
-    rect.width = 800;
-    rect.height = 600;
+
+    rect.width = this->texture->getWidth();
+    rect.height = this->texture->getHeight();
     return true;
 }
 
@@ -180,20 +213,22 @@ void randar::Browser::OnPaint(
     ::CefRefPtr<::CefBrowser> browser,
     ::CefRenderHandler::PaintElementType type,
     const ::CefRenderHandler::RectList& dirtyRects,
-    const void* buffer,
+    const void* rawBuffer,
     int width,
     int height)
 {
-    std::cout << "painting" << std::endl;
+    const char* buffer = reinterpret_cast<const char*>(rawBuffer);
+
     for (auto rect : dirtyRects) {
         for (uint32_t row = rect.y; row < (rect.y + rect.height); row++) {
             for (uint32_t col = rect.x; col < (rect.x + rect.width); col++) {
                 uint32_t start = (row * this->texture->getWidth() * 4);
                 start += (col * 4);
 
-                for (uint8_t i = 0; i < 4; i++) {
-                    this->texture->data[start + i] = reinterpret_cast<const char*>(buffer)[start + i];
-                }
+                this->texture->data[start]     = buffer[start + 2];
+                this->texture->data[start + 1] = buffer[start + 1];
+                this->texture->data[start + 2] = buffer[start];
+                this->texture->data[start + 3] = buffer[start + 3];
             }
         }
     }

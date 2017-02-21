@@ -36,11 +36,10 @@ namespace randar
         ::CefRefPtr<::CefFrame> frame;
         randar::NativeCodeHandler* nativeCodeHandler;
 
-        ShaderProgram* screenProgram;
+    public:
         Model* screen;
         Texture* texture;
 
-    public:
         /**
          * Constructor.
          */
@@ -67,6 +66,16 @@ namespace randar
          * Performs browser work and processes message queues.
          */
         void update();
+
+        /**
+         * Resizes the browser to fit a window.
+         */
+        void resize(::GLFWwindow& window = randar::getDefaultWindow());
+
+        /**
+         * Resizes the browser to specific dimensions.
+         */
+        void resize(uint32_t width, uint32_t height);
 
         /**
          * CefClient implementations.
@@ -103,7 +112,7 @@ namespace randar
             ::CefRefPtr<::CefBrowser> browser,
             ::CefRenderHandler::PaintElementType type,
             const ::CefRenderHandler::RectList& dirtyRects,
-            const void* buffer,
+            const void* rawBuffer,
             int width,
             int height) override;
 
