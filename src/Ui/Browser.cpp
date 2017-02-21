@@ -34,10 +34,9 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
         );
 
         ::CefWindowInfo browserInfo;
-        browserInfo.transparent_painting_enabled = true;
-        browserInfo.SetAsChild(
+        browserInfo.SetAsWindowless(
             randar::getNativeWindow(randar::getDefaultWindow()),
-            ::CefRect(0, 0, 480, 1080)
+            true
         );
 
         ::CefBrowserHost::CreateBrowser(
@@ -83,6 +82,11 @@ void randar::Browser::update()
     return this;
 }
 
+::CefRefPtr<::CefRenderHandler> randar::Browser::GetRenderHandler()
+{
+    return this;
+}
+
 ::CefRefPtr<::CefRenderProcessHandler> randar::Browser::GetRenderProcessHandler()
 {
     return this;
@@ -119,6 +123,25 @@ void randar::Browser::OnBeforeClose(::CefRefPtr<::CefBrowser> browser)
     //randar::StopBrowser(); @@@
 
     CefLifeSpanHandler::OnBeforeClose(browser);
+}
+
+// CefRenderHandler implementations.
+bool randar::Browser::GetViewRect(
+    ::CefRefPtr<::CefBrowser> browser,
+    ::CefRect& rect)
+{
+    return true;
+}
+
+void randar::Browser::OnPaint(
+    ::CefRefPtr<::CefBrowser> browser,
+    ::CefRenderHandler::PaintElementType type,
+    const ::CefRenderHandler::RectList& dirtyRects,
+    const void* buffer,
+    int width,
+    int height)
+{
+
 }
 
 // CefRenderProcessHandler implementations.

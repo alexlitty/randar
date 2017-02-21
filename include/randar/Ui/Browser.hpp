@@ -25,6 +25,7 @@ namespace randar
       public ::CefDownloadHandler,
       public ::CefLifeSpanHandler,
       public ::CefLoadHandler,
+      public ::CefRenderHandler,
       public ::CefRenderProcessHandler,
       public ::CefV8Handler
     {
@@ -67,6 +68,7 @@ namespace randar
         virtual ::CefRefPtr<::CefDownloadHandler> GetDownloadHandler() override;
         virtual ::CefRefPtr<::CefLifeSpanHandler> GetLifeSpanHandler() override;
         virtual ::CefRefPtr<::CefLoadHandler> GetLoadHandler() override;
+        virtual ::CefRefPtr<::CefRenderHandler> GetRenderHandler() override;
         virtual ::CefRefPtr<::CefRenderProcessHandler> GetRenderProcessHandler() override;
 
         /**
@@ -83,6 +85,21 @@ namespace randar
          */
         virtual void OnAfterCreated(::CefRefPtr<::CefBrowser> browser) override;
         virtual void OnBeforeClose(::CefRefPtr<::CefBrowser> browser) override;
+
+        /**
+         * CefRenderHandler implementations.
+         */
+        virtual bool GetViewRect(
+            ::CefRefPtr<::CefBrowser> browser,
+            ::CefRect& rect) override;
+
+        virtual void OnPaint(
+            ::CefRefPtr<::CefBrowser> browser,
+            ::CefRenderHandler::PaintElementType type,
+            const ::CefRenderHandler::RectList& dirtyRects,
+            const void* buffer,
+            int width,
+            int height) override;
 
         /**
          * CefRenderProcessHandler implementations.
