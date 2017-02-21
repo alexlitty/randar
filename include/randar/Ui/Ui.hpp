@@ -31,6 +31,13 @@ namespace randar
         std::vector<File> importQueue;
 
         /**
+         * New resources to be created.
+         *
+         * Collected in a CEF thread, used in the main thread.
+         */
+        std::vector<std::string> createResourceQueue;
+
+        /**
          * Whether to save the project.
          */
         bool save = false;

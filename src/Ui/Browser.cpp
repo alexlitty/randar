@@ -153,6 +153,12 @@ void randar::Browser::OnContextCreated(
         ::CefV8Value::CreateFunction("saveProject", handler),
         ::V8_PROPERTY_ATTRIBUTE_NONE
     );
+
+    jsWindow->SetValue(
+        "createResource",
+        ::CefV8Value::CreateFunction("createResource", handler),
+        ::V8_PROPERTY_ATTRIBUTE_NONE
+    );
 }
 
 // CefV8Handler implementations.

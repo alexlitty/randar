@@ -157,6 +157,17 @@ void randar::Ui::execute(
     else if (name == "saveProject") {
         this->save = true;
     }
+
+    // Create a new resource.
+    else if (name == "createResource") {
+        if (arguments.size() >= 1) {
+            std::string category = arguments[0]->GetStringValue();
+
+            if (category == "scenes") {
+                this->createResourceQueue.push_back(category);
+            }
+        }
+    }
 }
 
 // Runs a single tick on the interface program.
@@ -213,6 +224,15 @@ void randar::Ui::run()
             }
 
             this->importQueue.clear();
+            this->unsync();
+        }
+
+        // Handle new resource creation.
+        if (!this->createResourceQueue.empty()) {
+            for (auto category : this->createResourceQueue) {
+                this->project.resources.addScene(new Scene);
+            }
+
             this->unsync();
         }
         this->sync();
