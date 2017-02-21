@@ -1,4 +1,5 @@
 *.iqm
+bin/ui/ui.css
 bin/*.bin
 bin/*.dat
 bin/*.pak
