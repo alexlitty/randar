@@ -110,5 +110,9 @@ Json randar::ResourceRepository::toJson() const
         result["models"][item.first] = item.second->toJson();
     }
 
+    for (auto item : this->scenes) {
+        result["scenes"][item.first] = item.second->toJson();
+    }
+
     return result;
 }
