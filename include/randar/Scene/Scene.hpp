@@ -22,6 +22,11 @@ namespace randar
          * Destructor.
          */
         ~Scene();
+
+        /**
+         * Retrieves scene data as JSON.
+         */
+        Json toJson() const;
     };
 }
 
