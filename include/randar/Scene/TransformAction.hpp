@@ -30,6 +30,11 @@ namespace randar
          * Applies a single frame of this transformation to the target.
          */
         virtual void apply() override;
+
+        /**
+         * Returns a representation of this transform action as JSON.
+         */
+        virtual Json toJson() const;
     };
 }
 
