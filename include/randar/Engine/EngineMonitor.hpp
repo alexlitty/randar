@@ -13,6 +13,7 @@ namespace randar
     : virtual public Resource,
               public Lockable
     {
+    public:
         ShaderProgram screenProgram;
         ShaderProgram modelProgram;
         ShaderProgram modelWireframeProgram;
@@ -21,7 +22,6 @@ namespace randar
 
         bool newTarget;
 
-    public:
         Framebuffer defaultFramebuffer;
 
         Framebuffer monitorFramebuffer;
