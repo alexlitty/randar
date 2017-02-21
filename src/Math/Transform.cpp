@@ -116,3 +116,11 @@ randar::Transform::operator btTransform() const
 {
     return btTransform(this->getRotation(), this->getPosition());
 }
+
+Json randar::Transform::toJson() const
+{
+    return {
+        { "position",   this->position.toJson() },
+        { "quaternion", this->rotation.toJson() }
+    };
+}

@@ -2,6 +2,7 @@
 #define RANDAR_MATH_TRANSFORM_HPP
 
 #include <randar/Math/Quaternion.hpp>
+#include <randar/Utility/Json.hpp>
 
 namespace randar
 {
@@ -87,6 +88,11 @@ namespace randar
          * Converts to physics transformation.
          */
         operator btTransform() const;
+
+        /**
+         * Returns a JSON representation of this transform.
+         */
+        Json toJson() const;
     };
 }
 
