@@ -12,7 +12,7 @@ namespace randar
         /**
          * The desired frames per second in this scene.
          */
-        uint16_t fps;
+        uint16_t fps = 24;
 
         /**
          * The models used in this scene.
