@@ -25,40 +25,8 @@ randar::Texture::Texture(
 
 // Construct from a file.
 randar::Texture::Texture(const std::string& file)
-//: randar::FileResource(file)
 {
-    /*this->setFile(file);
-    BinaryFileReader stream(this->file);
 
-    stream.read(this->type);
-    stream.read(this->width);
-    stream.read(this->height);
-
-    // Invalid dimensions.
-    if (this->width == 0 || this->height == 0 || this->width > 4096 || this->height > 4096) {
-        throw std::runtime_error("Invalid texture dimensions");
-    }
-
-    unsigned int requiredSize = this->width * this->height * 4;
-    try {
-        uint8_t value;
-
-        for (unsigned int i = 0; i < requiredSize; i++) {
-            stream.read(value);
-            this->data.push_back(value);
-        }
-    }
-
-    // Fill missing data with opaque white.
-    catch (std::runtime_error error) {
-        for (unsigned int i = data.size(); i < requiredSize; i++) {
-            this->data.push_back(255);
-        }
-
-        randar::logError("Texture data missing while importing");
-    }
-
-    this->gpu.initialize(*this);*/
 }
 
 // Destructor.
@@ -71,27 +39,6 @@ randar::Texture::~Texture()
 bool randar::Texture::save()
 {
     return true;
-    /*BinaryFileWriter stream(this->file);
-
-    stream.write(this->type);
-    stream.write(this->width);
-    stream.write(this->height);
-
-    for (auto value : this->data) {
-        stream.write(value);
-    }
-
-    // Fill missing data with opaque white.
-    unsigned int requiredSize = this->width * this->height * 4;
-    if (this->data.size() < requiredSize) {
-        for (unsigned int i = data.size(); i < requiredSize; i++) {
-            stream.write(255);
-        }
-
-        randar::logError("Texture data missing while saving");
-    }
-
-    return true;*/
 }
 
 // Checks the validity of this texture.
