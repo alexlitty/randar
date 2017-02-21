@@ -147,8 +147,8 @@ Component.ResourceList = combine(
         },
 
         template: `
-            <ul v-bind:class="category">
-                <li v-for="(resource, resourceId) in resources[category]" v-on:click="onSelect(resourceId)">
+            <ul class="list">
+                <li :class="category" v-for="(resource, resourceId) in resources[category]" v-on:click="onSelect(resourceId)">
                     {{ resourceId }}
                 </li>
             </ul>
@@ -212,8 +212,12 @@ Component.ResourceCategoryPanel = combine(
         },
 
         template: `
-            <nav id="resource-list">
+            <nav id="resource-list" :class="category">
                 <back-button :action="onClose" />
+
+                <div class="options" v-if="category === 'scenes'">
+                    <div class="button">+ Add new scene</div>
+                </div>
 
                 <resource-list :category="category" @select="onResourceSelect" />
             </nav>
