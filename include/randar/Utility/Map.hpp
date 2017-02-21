@@ -121,7 +121,7 @@ namespace randar
     {
         Json result;
         for (auto item : map) {
-            result[item.first] = item.second->toJson();
+            result[std::to_string(item.first)] = item.second->toJson();
         }
         return result;
     }
