@@ -89,6 +89,11 @@ namespace randar
         void resize(unsigned int width, unsigned int height);
 
         /**
+         * Writes texture data to the GPU.
+         */
+        void write();
+
+        /**
          * Retrieves the width and height of this texture.
          */
         unsigned int getWidth() const;
