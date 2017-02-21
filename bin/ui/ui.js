@@ -37,8 +37,14 @@ var randar = {
 
             else {
                 for (item in data[type]) {
-                    data[type][item].id = item;
-                    randar.resources[type][item] = data[type][item];
+                    if (data[type][item]) {
+                        data[type][item].id = item;
+                        Vue.set(
+                            randar.resources[type],
+                            item,
+                            data[type][item]
+                        );
+                    }
                 }
             }
         }
