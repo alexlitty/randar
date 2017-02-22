@@ -200,7 +200,7 @@ void randar::Ui::run()
     this->browser.executeJs("randar.ready();");
     
     // Run the interface program.
-    Framebuffer defaultFramebuffer;
+    Framebuffer &defaultFramebuffer = Framebuffer::getDefault();
     while (true) {
         this->gpu.check();
         this->runMessageLoops();
