@@ -516,6 +516,35 @@ void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data, GLen
     this->check();
 }
 
+void randar::Gpu::write(
+    const randar::Texture& texture,
+    const randar::Rect<uint32_t>& rect,
+    const GLvoid* data,
+    GLenum dataFormat)
+{
+    this->bind(texture);
+
+    if (texture.isRgba()) {
+        ::glTexSubImage2D(
+            GL_TEXTURE_2D,
+            0,
+            rect.left,
+            rect.top,
+            rect.width,
+            rect.height,
+            dataFormat,
+            GL_UNSIGNED_BYTE,
+            data
+        );
+    }
+
+    else {
+        throw std::runtime_error("Writing partial data to invalid texture type");
+    }
+
+    this->check();
+}
+
 // Writes vertices to a vertex buffer.
 void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Vertex>& vertices)
 {
