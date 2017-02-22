@@ -8,6 +8,7 @@
 #include <randar/Thread/TryLock.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Ui/MouseHandler.hpp>
+#include <randar/Ui/WindowListener.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
 namespace randar
@@ -19,7 +20,8 @@ namespace randar
     class Ui
     : virtual public LogListener,
       virtual public MouseHandler,
-      virtual public NativeCodeHandler
+      virtual public NativeCodeHandler,
+      virtual public WindowListener
     {
         bool synced = false;
 
@@ -47,11 +49,6 @@ namespace randar
          * GPU to use.
          */
         Gpu& gpu;
-
-        /**
-         * Window that contains the interface.
-         */
-        ::GLFWwindow* window;
 
     protected:
         /**
@@ -88,6 +85,11 @@ namespace randar
         virtual void onScroll(const Vector& scroll) override;
 
         /**
+         * Handles window events.
+         */
+        virtual void onResize(uint32_t width, uint32_t height) override;
+
+        /**
          * Sends JSON data to the interface.
          */
         void sendAllData();
@@ -113,13 +115,6 @@ namespace randar
 
         /**
          * Runs Randar as an editor with a user-interface.
-         *
-         * Updates the embedded browser and draws the engine monitor beside the
-         * HTML interface. Also facilitates any communication needed between
-         * the Randar and browser engines.
-         *
-         * The embedded browser automatically draws itself to the default
-         * framebuffer. It's magical, you need not worry about it.
          *
          * When this method returns, the program should end.
          */

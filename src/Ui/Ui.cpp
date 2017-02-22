@@ -3,11 +3,11 @@
 
 // Constructor.
 randar::Ui::Ui(randar::Browser& initBrowser)
-: gpu(randar::getDefaultGpu()),
-  window(&gpu.getWindow()),
+: randar::WindowListener(randar::getDefaultGpu().getWindow()),
+  gpu(randar::getDefaultGpu()),
   browser(initBrowser)
 {
-    ::glfwSetWindowUserPointer(this->window, this);
+    ::glfwSetWindowUserPointer(&this->window, this);
 }
 
 // Handles program log messages.
@@ -59,6 +59,13 @@ void randar::Ui::onLeftDrag(const randar::Vector& drag, const randar::MouseModif
 void randar::Ui::onScroll(const randar::Vector& scroll)
 {
 
+}
+
+// Handles window resize events.
+void randar::Ui::onResize(uint32_t width, uint32_t height)
+{
+    this->monitor.resize(width, height);
+    this->browser.resize(width, height);
 }
 
 // Sends all project data to the interface.
@@ -247,7 +254,7 @@ void randar::Ui::run()
         ScopeLock monitorLock(this->monitor);
         this->monitor.draw();
 
-        ::glfwSwapBuffers(this->window);
+        ::glfwSwapBuffers(&this->window);
     }
 }
 
