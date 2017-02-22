@@ -64,6 +64,7 @@ void randar::Ui::onScroll(const randar::Vector& scroll)
 // Handles window resize events.
 void randar::Ui::onResize(uint32_t width, uint32_t height)
 {
+    Framebuffer::getDefault().resize(width, height);
     this->monitor.resize(width, height);
     this->browser.resize(width, height);
 }
