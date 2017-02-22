@@ -26,6 +26,9 @@ namespace randar
         uint32_t height;
 
     public:
+        /**
+         * Camera used to view this framebuffer.
+         */
         Camera camera;
 
         /**
@@ -51,6 +54,15 @@ namespace randar
          * Destructor.
          */
         ~Framebuffer();
+
+        /**
+         * Retrieves the default framebuffer.
+         *
+         * This is a special framebuffer automatically provided by OpenGL upon
+         * context creation. Since Randar never creates it manually, we treat it
+         * as a globally available framebuffer.
+         */
+        static Framebuffer& getDefault();
 
         /**
          * Whether this is the default framebuffer.
