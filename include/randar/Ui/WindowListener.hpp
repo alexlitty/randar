@@ -3,6 +3,7 @@
 
 #include <set>
 #include <randar/Engine/Window.hpp>
+#include <randar/Ui/MouseButton.hpp>
 #include <randar/Ui/MouseModifiers.hpp>
 #include <randar/Ui/MousePosition.hpp>
 
@@ -18,8 +19,6 @@ namespace randar
     {
         MouseModifiers mouseModifiers;
         MousePosition mousePosition;
-        bool leftButtonPressed = false;
-        bool leftButtonDragging = false;
 
     public:
         /**
@@ -64,10 +63,17 @@ namespace randar
          * These are formed from native mouse events. If the native handlers are
          * overriden, these will not be called automatically.
          */
-        virtual void onMouseMove(const MousePosition& position);
-        virtual void onLeftClick(const MousePosition& position);
-        virtual void onLeftDrag(const Vector& drag, const MouseModifiers& modifiers);
-        virtual void onScroll(const Vector& scroll);
+        virtual void onMouseMove(
+            const MousePosition& oldPosition,
+            const MousePosition& position) = 0;
+
+        virtual void onMouseButton(
+            MouseButton button,
+            const MouseModifiers& modifiers,
+            const MousePosition& position,
+            bool release) = 0;
+
+        virtual void onScroll(const Vector& scroll) = 0;
     };
 }
 
