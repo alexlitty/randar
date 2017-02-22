@@ -3,6 +3,8 @@
 
 #include <set>
 #include <randar/Engine/Window.hpp>
+#include <randar/Ui/MouseModifiers.hpp>
+#include <randar/Ui/MousePosition.hpp>
 
 namespace randar
 {
@@ -12,8 +14,14 @@ namespace randar
      * Automatically registers itself for listening upon construction, and
      * removes itself from listening upon destruction.
      */
-    struct WindowListener
+    class WindowListener
     {
+        MouseModifiers mouseModifiers;
+        MousePosition mousePosition;
+        bool leftButtonPressed = false;
+        bool leftButtonDragging = false;
+
+    public:
         /**
          * A global list of registered listeners.
          */
@@ -35,14 +43,30 @@ namespace randar
         virtual ~WindowListener();
 
         /**
-         * Triggers a resize event, based on the current size of the window.
-         */
-        void triggerResize();
-
-        /**
          * Handles a window being resized.
          */
-        virtual void onResize(uint32_t width, uint32_t height) = 0;
+        virtual void onResize(uint32_t width, uint32_t height);
+
+        /**
+         * Handles native mouse events.
+         *
+         * These are used to create events that are easier to consume by
+         * children classes, but these could be overriden if finer control is
+         * desired.
+         */
+        virtual void onNativeMousePosition(double x, double y);
+        virtual void onNativeMouseButton(int button, int action, int mods);
+        virtual void onNativeScroll(double x, double y);
+
+        /**
+         * Handles artificial mouse events.
+         *
+         * These are formed from native mouse events. If the native handlers are
+         * overriden, these will not be called automatically.
+         */
+        virtual void onLeftClick(const MousePosition& position);
+        virtual void onLeftDrag(const Vector& drag, const MouseModifiers& modifiers);
+        virtual void onScroll(const Vector& scroll);
     };
 }
 
