@@ -6,9 +6,16 @@
 namespace randar
 {
     /**
-     * Sends resize events to window listeners.
+     * Registers a GLFW window for custom event handling.
      */
-    void onWindowResize(::GLFWwindow* window);
+    void registerHandlers(::GLFWwindow* window);
+
+    /**
+     * Callback for GLFW resize events.
+     *
+     * Forwards the event to window listeners.
+     */
+    void onWindowResize(::GLFWwindow* window, int32_t width, int32_t height);
 }
 
 #endif

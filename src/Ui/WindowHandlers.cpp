@@ -1,11 +1,14 @@
 #include <randar/Ui/WindowHandlers.hpp>
 
-// Sends resize events to window listeners.
-void onWindowResize(::GLFWwindow* window)
+// Registers a GLFW window for custom event handling.
+void randar::registerHandlers(::GLFWwindow* window)
 {
-    int32_t width, height;
-    ::glfwGetWindowSize(window, &width, &height);
+    ::glfwSetWindowSizeCallback(window, randar::onWindowResize);
+}
 
+// Sends resize events to window listeners.
+void randar::onWindowResize(::GLFWwindow* window, int32_t width, int32_t height)
+{
     for (auto listener : randar::WindowListener::list) {
         if (window == &listener->window) {
             listener->onResize(
