@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     randar::Ui ui(browser);
 
     // Register mouse movement handler.
-    ::glfwSetCursorPosCallback(ui.window, [](::GLFWwindow* window, double x, double y) {
+    /*::glfwSetCursorPosCallback(ui.window, [](::GLFWwindow* window, double x, double y) {
         reinterpret_cast<randar::Ui*>(
             ::glfwGetWindowUserPointer(window)
         )->onNativeMousePosition(x, y);
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
         reinterpret_cast<randar::Ui*>(
             ::glfwGetWindowUserPointer(window)
         )->onNativeScroll(x, y);
-    });
+    });*/
 
     // Run Randar.
     ui.run();
