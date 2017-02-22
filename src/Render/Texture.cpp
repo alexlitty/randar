@@ -104,7 +104,24 @@ void randar::Texture::resize(unsigned int width, unsigned int height)
 // Writes texture data to the GPU.
 void randar::Texture::write()
 {
-    this->gpu.write(*this, this->data.data(), GL_RGBA);
+    this->write(this->data.data(), GL_RGBA);
+}
+
+void randar::Texture::write(const GLvoid* data, GLenum format)
+{
+    this->write(
+        Rect<uint32_t>(0, 0, this->getWidth(), this->getHeight()),
+        data,
+        format
+    );
+}
+
+void randar::Texture::write(
+    const randar::Rect<uint32_t>& rect,
+    const GLvoid* data,
+    GLenum format)
+{
+    this->gpu.write(*this, rect, data, format);
 }
 
 // Retrieves the width and height of this texture.

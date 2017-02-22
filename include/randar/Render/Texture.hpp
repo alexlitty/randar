@@ -2,6 +2,7 @@
 #define RANDAR_RENDER_TEXTURE_HPP
 
 #include <randar/Engine/GpuResource.hpp>
+#include <randar/Math/Rect.hpp>
 #include <randar/Render/Color.hpp>
 
 namespace randar
@@ -92,6 +93,11 @@ namespace randar
          * Writes texture data to the GPU.
          */
         void write();
+        void write(const GLvoid* data, GLenum format);
+        void write(
+            const Rect<uint32_t>& rect,
+            const GLvoid* data,
+            GLenum format);
 
         /**
          * Retrieves the width and height of this texture.
