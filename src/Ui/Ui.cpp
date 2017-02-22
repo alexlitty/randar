@@ -24,14 +24,26 @@ void randar::Ui::onLog(const randar::LogMessage& message)
     std::cout << message.toString() << std::endl;
 }
 
-// Handles left clicking.
-void randar::Ui::onLeftClick(const randar::MousePosition& position)
+// Handles mouse movement events.
+void randar::Ui::onMouseMove(
+    const randar::MousePosition& oldPosition,
+    const randar::MousePosition& position)
+{
+
+}
+
+// Handles mouse button events.
+void randar::Ui::onMouseButton(
+    randar::MouseButton button,
+    const randar::MouseModifiers& modifiers,
+    const randar::MousePosition& position,
+    bool release)
 {
 
 }
 
 // Handles dragging with the left mouse button.
-void randar::Ui::onLeftDrag(const randar::Vector& drag, const randar::MouseModifiers& modifiers)
+/*void randar::Ui::onLeftDrag(const randar::Vector& drag, const randar::MouseModifiers& modifiers)
 {
     ScopeLock monitorLock(this->monitor);
 
@@ -53,7 +65,7 @@ void randar::Ui::onLeftDrag(const randar::Vector& drag, const randar::MouseModif
             this->monitor.camera.pan(finalDrag.x, finalDrag.y);
         }
     }
-}
+}*/
 
 // Handles mouse scrolling.
 void randar::Ui::onScroll(const randar::Vector& scroll)

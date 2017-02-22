@@ -78,8 +78,16 @@ namespace randar
         /**
          * Handles mouse events.
          */
-        virtual void onLeftClick(const MousePosition& position) override;
-        virtual void onLeftDrag(const Vector& drag, const MouseModifiers& modifiers) override;
+        virtual void onMouseMove(
+            const MousePosition& oldPosition,
+            const MousePosition& position) override;
+
+        virtual void onMouseButton(
+            MouseButton button,
+            const MouseModifiers& modifiers,
+            const MousePosition& position,
+            bool release) override;
+
         virtual void onScroll(const Vector& scroll) override;
 
         /**
