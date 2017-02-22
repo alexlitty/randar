@@ -58,6 +58,11 @@ namespace randar
         int executeProcess(const ::CefMainArgs& mainArgs);
 
         /**
+         * Gets the browser host object.
+         */
+        ::CefRefPtr<::CefBrowserHost> getHost();
+
+        /**
          * Checks whether the current page is loaded.
          */
         bool isLoading();

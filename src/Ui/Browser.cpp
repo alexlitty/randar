@@ -91,6 +91,16 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
     return exitCode;
 }
 
+// Gets the browser host object.
+::CefRefPtr<::CefBrowserHost> randar::Browser::getHost()
+{
+    if (!this->browser) {
+        throw std::logic_error("Cannot get host while browser is uninitialized");
+    }
+
+    return this->browser->GetHost();
+}
+
 // Checks whether the current page is loaded.
 bool randar::Browser::isLoading()
 {
