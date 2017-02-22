@@ -64,6 +64,7 @@ namespace randar
          * These are formed from native mouse events. If the native handlers are
          * overriden, these will not be called automatically.
          */
+        virtual void onMouseMove(const MousePosition& position);
         virtual void onLeftClick(const MousePosition& position);
         virtual void onLeftDrag(const Vector& drag, const MouseModifiers& modifiers);
         virtual void onScroll(const Vector& scroll);

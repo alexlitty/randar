@@ -42,6 +42,8 @@ void randar::WindowListener::onNativeMousePosition(double x, double y)
 
     this->mousePosition.x = x;
     this->mousePosition.y = y;
+
+    this->onMouseMove(this->mousePosition);
 }
 
 // Handles a native mouse button event.
@@ -69,6 +71,12 @@ void randar::WindowListener::onNativeMouseButton(int button, int action, int mod
 void randar::WindowListener::onNativeScroll(double x, double y)
 {
     this->onScroll(Vector(x, y));
+}
+
+// Handles an artificial mouse movement event.
+void randar::WindowListener::onMouseMove(const randar::MousePosition& position)
+{
+
 }
 
 // Handles an artificial left click.
