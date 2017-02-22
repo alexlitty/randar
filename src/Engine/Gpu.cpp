@@ -1,5 +1,6 @@
 #include <randar/Engine/Gpu.hpp>
 #include <randar/Render/DefaultTexture.hpp>
+#include <randar/Ui/WindowHandlers.hpp>
 
 // Construction.
 randar::Gpu::Gpu()
@@ -29,6 +30,7 @@ randar::Gpu::Gpu()
         throw std::runtime_error("Failed to create GLFW window");
     }
 
+    randar::registerHandlers(this->window);
     ::glfwMakeContextCurrent(this->window);
 
     // Initialize GLEW.
