@@ -133,6 +133,7 @@ void randar::Browser::resize(uint32_t width, uint32_t height)
     }
 
     this->texture->resize(width, height);
+    this->texture->data.resize(width * height * 4);
     this->browser->GetHost()->WasResized();
 }
 
