@@ -7,7 +7,6 @@
 #include <randar/Thread/ScopeLock.hpp>
 #include <randar/Thread/TryLock.hpp>
 #include <randar/Ui/Browser.hpp>
-#include <randar/Ui/MouseHandler.hpp>
 #include <randar/Ui/WindowListener.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
@@ -19,7 +18,6 @@ namespace randar
      */
     class Ui
     : virtual public LogListener,
-      virtual public MouseHandler,
       virtual public NativeCodeHandler,
       virtual public WindowListener
     {
