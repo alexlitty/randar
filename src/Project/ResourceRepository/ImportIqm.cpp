@@ -74,7 +74,7 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
     Model *model = new Model;
 
     // Read meshes.
-    iqm::mesh *meshes = reinterpret_cast<iqm::mesh*>(&buffer[header.ofs_meshes]);
+    //iqm::mesh *meshes = reinterpret_cast<iqm::mesh*>(&buffer[header.ofs_meshes]);
     for (unsigned int i = 0; i < header.num_meshes; i++) {
         //iqm::mesh &mesh = meshes[i];
     }
