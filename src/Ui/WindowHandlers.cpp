@@ -4,6 +4,9 @@
 void randar::registerHandlers(::GLFWwindow* window)
 {
     ::glfwSetWindowSizeCallback(window, randar::onWindowResize);
+    ::glfwSetCursorPosCallback(window, randar::onMousePosition);
+    ::glfwSetMouseButtonCallback(window, randar::onMouseButton);
+    ::glfwSetScrollCallback(window, randar::onScroll);
 }
 
 // Callback for GLFW window resize events.
