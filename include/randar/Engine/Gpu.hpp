@@ -2,8 +2,8 @@
 #define RANDAR_ENGINE_GPU_HPP
 
 #include <stdexcept>
-#include <randar/Render.hpp>
 #include <randar/Math/Rect.hpp>
+#include <randar/Render.hpp>
 #include <randar/Utility/glm.hpp>
 
 namespace randar
