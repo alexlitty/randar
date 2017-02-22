@@ -29,7 +29,11 @@ void randar::Ui::onMouseMove(
     const randar::MousePosition& oldPosition,
     const randar::MousePosition& position)
 {
+    ::CefMouseEvent event;
+    event.x = position.x;
+    event.y = position.y;
 
+    this->browser.getHost()->SendMouseMoveEvent(event, false);
 }
 
 // Handles mouse button events.
@@ -39,7 +43,29 @@ void randar::Ui::onMouseButton(
     const randar::MousePosition& position,
     bool release)
 {
+    ::CefMouseEvent event;
+    event.x = position.x;
+    event.y = position.y;
 
+    ::CefBrowserHost::MouseButtonType cefButton;
+    if (button == MouseButton::LEFT) {
+        cefButton = ::CefBrowserHost::MouseButtonType::MBT_LEFT;
+    }
+
+    else if (button == MouseButton::RIGHT) {
+        cefButton = ::CefBrowserHost::MouseButtonType::MBT_RIGHT;
+    }
+
+    else {
+        return;
+    }
+
+    this->browser.getHost()->SendMouseClickEvent(
+        event,
+        cefButton,
+        release,
+        1
+    );
 }
 
 // Handles dragging with the left mouse button.
