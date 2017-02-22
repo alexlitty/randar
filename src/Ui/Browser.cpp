@@ -1,3 +1,4 @@
+#include <randar/Math/Rect.hpp>
 #include <randar/Ui/Browser.hpp>
 
 // Constructor.
@@ -231,19 +232,14 @@ void randar::Browser::OnPaint(
     const char* buffer = reinterpret_cast<const char*>(rawBuffer);
 
     for (auto rect : dirtyRects) {
-        for (uint32_t row = rect.y; row < (rect.y + rect.height); row++) {
-            for (uint32_t col = rect.x; col < (rect.x + rect.width); col++) {
-                uint32_t start = (row * this->texture->getWidth() * 4);
-                start += (col * 4);
+        const char* bufferSection = &buffer[(rect.y * width * 4) + (rect.x * 4)];
 
-                this->texture->data[start]     = buffer[start + 2];
-                this->texture->data[start + 1] = buffer[start + 1];
-                this->texture->data[start + 2] = buffer[start];
-                this->texture->data[start + 3] = buffer[start + 3];
-            }
-        }
+        this->texture->write(
+            randar::Rect<uint32_t>(rect),
+            bufferSection,
+            GL_BGRA
+        );
     }
-    this->texture->write();
 }
 
 // CefRenderProcessHandler implementations.
