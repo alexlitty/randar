@@ -1,6 +1,8 @@
 # Randar
 This is the film creation suite for animated productions at Litty Studios.
 
+For detailed information, [divde into our documentation.](https://github.com/alexlitty/randar/wiki/)
+
 # Purpose
 Randar is a suite for:
 
