@@ -1,9 +1,7 @@
 ![Litty Studios](http://i.imgur.com/Dqby9SG.png?1)
 
 # Randar
-This is the film creation suite for animated productions at Litty Studios. It is our golden software -- The very tool we'll be using to create a masterpiece film and get it into theaters nationwide.
-
-External tools are used to create, rig, and texture models, which are imported into the suite for animation, scene sequencing, physics simulation, and special effects application.
+This is the film creation suite for animated productions at Litty Studios. It is our golden software -- The very tool we'll be using to create a feature-length film of masterpiece quality.
 
 [Dive into our documentation](https://github.com/alexlitty/litty-studios/wiki/) for installation guides, contribution flow, and architectural overviews. [Check out our to-do list](https://github.com/litty-studios/randar/issues) and see what you can help us with!
 
