@@ -286,12 +286,12 @@ void randar::Ui::run()
 
         // Draw the interface.
         defaultFramebuffer.clear(Color(0.15f, 0.15, 0.0f));
-        this->gpu.bind(*this->browser.texture);
-        this->gpu.draw(this->monitor.screenProgram, defaultFramebuffer, *this->browser.screen);
-
-        // Draw the engine monitor.
         ScopeLock monitorLock(this->monitor);
         this->monitor.draw();
+
+        // Draw the engine monitor.
+        this->gpu.bind(*this->browser.texture);
+        this->gpu.draw(this->monitor.screenProgram, defaultFramebuffer, *this->browser.screen);
 
         ::glfwSwapBuffers(&this->window);
     }
