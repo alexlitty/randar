@@ -233,7 +233,23 @@ void randar::Browser::OnCursorChange(
     ::CefRenderHandler::CursorType type,
     const ::CefCursorInfo& custom_cursor_info)
 {
+    static std::map<::CefRenderHandler::CursorType, randar::Cursor> cefCursors
+    {
+        { CT_POINTER, randar::Cursor::NORMAL  },
+        { CT_HAND,    randar::Cursor::POINTER },
+        { CT_IBEAM,   randar::Cursor::TEXT    }
+    };
 
+    randar::Cursor randarCursor;
+    if (!cefCursors.count(type)) {
+        randarCursor = randar::Cursor::NORMAL;
+    } else {
+        randarCursor = cefCursors[type];
+    }
+
+    for (auto listener : this->listeners) {
+        listener->onCursorChange(randarCursor);
+    }
 }
 
 void randar::Browser::OnPaint(
