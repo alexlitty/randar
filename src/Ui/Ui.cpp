@@ -24,6 +24,22 @@ void randar::Ui::onLog(const randar::LogMessage& message)
     std::cout << message.toString() << std::endl;
 }
 
+// Handles cursor changes from the browser.
+void randar::Ui::onCursorChange(randar::Cursor type)
+{
+    // @todo - Upgrade to the latest GLFW (>= 3.1) to set cursor information.
+    // Once upgraded, we can uncomment the code below.
+
+    /*static std::map<Cursor, GLFWcursor*> glfwCursors
+    {
+        { Cursor::NORMAL,  ::glfwCreateStandardCursor(GLFW_ARROW_CURSOR) },
+        { Cursor::POINTER, ::glfwCreateStandardCursor(GLFW_HAND_CURSOR)  },
+        { Cursor::TEXT,    ::glfwCreateStandardCursor(GLFW_IBEAM_CURSOR) }
+    };
+
+    ::glfwSetCursor(&this->window, glfwCursors[type]);*/
+}
+
 // Handles mouse movement events.
 void randar::Ui::onMouseMove(
     const randar::MousePosition& oldPosition,

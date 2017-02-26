@@ -7,6 +7,7 @@
 #include <randar/Thread/ScopeLock.hpp>
 #include <randar/Thread/TryLock.hpp>
 #include <randar/Ui/Browser.hpp>
+#include <randar/Ui/BrowserListener.hpp>
 #include <randar/Ui/WindowListener.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
@@ -19,6 +20,7 @@ namespace randar
     class Ui
     : virtual public LogListener,
       virtual public NativeCodeHandler,
+      virtual public BrowserListener,
       virtual public WindowListener
     {
         bool synced = false;
@@ -74,6 +76,11 @@ namespace randar
          * Handles program log messages.
          */
         virtual void onLog(const LogMessage& message) override;
+
+        /**
+         * Handles cursor changes from the browser.
+         */
+        virtual void onCursorChange(Cursor type) override;
 
         /**
          * Handles mouse events.
