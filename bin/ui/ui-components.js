@@ -347,8 +347,8 @@ Component.SceneTimeline = combine(
         },
 
         methods: {
-            isFrameSignificant: function() {
-                return true;
+            isFrameSignificant: function(id) {
+                return id % 5 === 0;
             }
         },
 
