@@ -346,7 +346,7 @@ Component.SceneTimeline = combine(
             frames: function() {
                 var result = [];
 
-                for (var i = 0; i < 20; i++) {
+                for (var i = 0; i < 60; i++) {
                     result.push({
                         id: i,
                         significant: this.isFrameSignificant(i)
