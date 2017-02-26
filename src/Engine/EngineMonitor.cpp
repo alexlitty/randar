@@ -31,7 +31,7 @@ randar::EngineMonitor::EngineMonitor()
 
     // Screen vertices.
     Vertex vertex;
-    vertex.position.set(-0.5f, -1.0f, 0.000f);
+    vertex.position.set(-0.5f, -0.5f, 0.000f);
     vertex.textureCoordinate.u = 0.0f;
     vertex.textureCoordinate.v = 0.0f;
     this->screen.vertices.push_back(vertex);
@@ -41,7 +41,7 @@ randar::EngineMonitor::EngineMonitor()
     vertex.textureCoordinate.v = 1.0f;
     this->screen.vertices.push_back(vertex);
 
-    vertex.position.set(1.0f, -1.0f, 0.000f);
+    vertex.position.set(1.0f, -0.5f, 0.000f);
     vertex.textureCoordinate.u = 1.0f;
     vertex.textureCoordinate.v = 0.0f;
     this->screen.vertices.push_back(vertex);
@@ -84,8 +84,7 @@ void randar::EngineMonitor::resize(::GLFWwindow& window)
 // Resizes the monitor.
 void randar::EngineMonitor::resize(uint32_t width, uint32_t height)
 {
-    this->defaultFramebuffer.resize(width, height);
-    this->monitorFramebuffer.resize(width * 0.75f, height);
+    this->monitorFramebuffer.resize(width * 0.75f, height * 0.75f);
 }
 
 // Clears the current target.
