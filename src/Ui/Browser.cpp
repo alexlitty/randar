@@ -232,11 +232,24 @@ void randar::Browser::OnPaint(
     const char* buffer = reinterpret_cast<const char*>(rawBuffer);
 
     for (auto rect : dirtyRects) {
-        const char* bufferSection = &buffer[(rect.y * width * 4) + (rect.x * 4)];
+        char* rectBuffer = new char[(rect.width) * (rect.height) * 4];
+
+        for (int row = rect.y; row < (rect.y + rect.height); row++) {
+            int localRow = row - rect.y;
+
+            for (int col = rect.x; col < (rect.x + rect.width); col++) {
+                int localCol = col - rect.x;
+
+                int pixelPos = (row * width * 4) + (col * 4);
+                int localPixelPos = (localRow * rect.width * 4) + (localCol * 4);
+
+                std::memcpy(&rectBuffer[localPixelPos], &buffer[pixelPos], 4);
+            }
+        }
 
         this->texture->write(
             randar::Rect<uint32_t>(rect),
-            bufferSection,
+            rectBuffer,
             GL_BGRA
         );
     }
