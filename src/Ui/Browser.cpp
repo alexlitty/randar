@@ -92,6 +92,12 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
     return exitCode;
 }
 
+// Registers a new browser listener.
+void randar::Browser::registerListener(randar::BrowserListener* listener)
+{
+    this->listeners.push_back(listener);
+}
+
 // Gets the browser host object.
 ::CefRefPtr<::CefBrowserHost> randar::Browser::getHost()
 {

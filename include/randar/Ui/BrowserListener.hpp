@@ -1,6 +1,8 @@
 #ifndef RANDAR_UI_BROWSER_LISTENER_HPP
 #define RANDAR_UI_BROWSER_LISTENER_HPP
 
+#include <randar/Ui/Cursor.hpp>
+
 namespace randar
 {
     /**

@@ -15,6 +15,7 @@
 #include <randar/Engine/Native.hpp>
 #include <randar/Engine/Window.hpp>
 #include <randar/Ui/NativeCodeHandler.hpp>
+#include <randar/Ui/BrowserListener.hpp>
 
 namespace randar
 {
@@ -36,6 +37,8 @@ namespace randar
         ::CefRefPtr<::CefFrame> frame;
         randar::NativeCodeHandler* nativeCodeHandler;
 
+        std::vector<randar::BrowserListener*> listeners;
+
     public:
         Model* screen;
         Texture* texture;
@@ -56,6 +59,13 @@ namespace randar
          * Returns -1 if no sub-process was required by this instance.
          */
         int executeProcess(const ::CefMainArgs& mainArgs);
+
+        /**
+         * Registers a new browser listener.
+         *
+         * These listeners are notified of specific browser events.
+         */
+        void registerListener(randar::BrowserListener* listener);
 
         /**
          * Gets the browser host object.
