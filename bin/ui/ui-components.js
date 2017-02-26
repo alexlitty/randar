@@ -216,19 +216,25 @@ Component.ResourceCategoryPanel = combine(
         },
 
         template: `
-            <nav id="resource-category" :class="category">
-                <back-button :action="onClose" />
+            <div>
+                <nav id="resource-category" :class="category">
+                    <back-button :action="onClose" />
 
-                <div class="options">
-                    <div :class=category>
-                        <div v-if="category === 'scenes'">
-                            <div class="button" @click="create">+ Create new scene</div>
+                    <div class="options">
+                        <div :class=category>
+                            <div v-if="category === 'scenes'">
+                                <div class="button" @click="create">+ Create new scene</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <resource-list :category="category" @select="onResourceSelect" />
-            </nav>
+                    <resource-list :category="category" @select="onResourceSelect" />
+                </nav>
+
+                <section class="info">
+                    Select a resource.
+                </section>
+            </div>
         `
     }
 );
@@ -251,12 +257,18 @@ Component.TargetResourcePanel = combine(
         },
 
         template: `
-            <nav id="target-resource" v-show="isResourceSelected()">
-                <back-button :action="clearTargetResource" />
+            <div v-show="isResourceSelected()">
+                <nav id="target-resource">
+                    <back-button :action="clearTargetResource" />
 
-                <resource-meta :resource="resource" />
-                <editor-model v-if="resource.category === 'models'" :model="resource" />
-            </nav>
+                    <resource-meta :resource="resource" />
+                    <editor-model v-if="resource.category === 'models'" :model="resource" />
+                </nav>
+
+                <section>
+                    
+                </section>
+            </div>
         `
     }
 );

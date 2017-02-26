@@ -108,18 +108,24 @@ Vue.component('nav-main', combine(
     Component.Common,
     {
         template: `
-            <nav id="main" v-show="isNothingSelected()">
-                <ul>
-                    <li class="randar" v-on:click="selectSettings()">
-                        {{ project.name }}
-                    </li>
+            <div v-show="isNothingSelected()">
+                <nav id="main" v-show="isNothingSelected()">
+                    <ul>
+                        <li class="randar" v-on:click="selectSettings()">
+                            {{ project.name }}
+                        </li>
 
-                    <li v-for="category in ['scenes', 'models', 'textures', 'shaders']"
-                        v-bind:class="category" v-on:click="target.resource.category = category">
-                        {{ category | titlecase }}
-                    </li>
-                </ul>
-            </nav>
+                        <li v-for="category in ['scenes', 'models', 'textures', 'shaders']"
+                            v-bind:class="category" v-on:click="target.resource.category = category">
+                            {{ category | titlecase }}
+                        </li>
+                    </ul>
+                </nav>
+
+                <section class="info">
+                    Welcome to Randar.
+                </section>
+            </div>
         `
     }
 ));
@@ -131,14 +137,18 @@ Vue.component('settings-panel', combine(
     Component.Common,
     {
         template: `
-            <nav v-show="isSettingsSelected()">
-                <back-button v-bind:action="unselectSettings" />
+            <div v-show="isSettingsSelected()">
+                <nav v-show="isSettingsSelected()">
+                    <back-button v-bind:action="unselectSettings" />
 
-                <div id="import-resource" class="button">Import Resource</div>
-                <div id="import-message"></div>
+                    <div id="import-resource" class="button">Import Resource</div>
+                    <div id="import-message"></div>
 
-                <div id="engine-log"></div>
-            </nav>
+                    <div id="engine-log"></div>
+                </nav>
+
+                <section></section>
+            </div>
         `
     }
 ));
