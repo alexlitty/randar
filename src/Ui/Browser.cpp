@@ -221,6 +221,15 @@ bool randar::Browser::GetViewRect(
     return true;
 }
 
+void randar::Browser::OnCursorChange(
+    ::CefRefPtr<::CefBrowser> browser,
+    unsigned long cursor,
+    ::CefRenderHandler::CursorType type,
+    const ::CefCursorInfo& custom_cursor_info)
+{
+
+}
+
 void randar::Browser::OnPaint(
     ::CefRefPtr<::CefBrowser> browser,
     ::CefRenderHandler::PaintElementType type,

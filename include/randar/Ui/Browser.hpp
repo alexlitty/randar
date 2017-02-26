@@ -113,6 +113,12 @@ namespace randar
             ::CefRefPtr<::CefBrowser> browser,
             ::CefRect& rect) override;
 
+        virtual void OnCursorChange(
+            ::CefRefPtr<::CefBrowser> browser,
+            unsigned long cursor,
+            ::CefRenderHandler::CursorType type,
+            const ::CefCursorInfo& custom_cursor_info) override;
+
         virtual void OnPaint(
             ::CefRefPtr<::CefBrowser> browser,
             ::CefRenderHandler::PaintElementType type,
