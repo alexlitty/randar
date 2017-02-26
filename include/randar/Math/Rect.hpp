@@ -36,6 +36,21 @@ namespace randar
         {
 
         }
+
+        /**
+         * Converts this rect to a string representation.
+         */
+        std::string toString() const
+        {
+            return "("
+                + std::to_string(this->left) + ", " + std::to_string(this->top) + " ... "
+                + std::to_string(this->width) + ", " + std::to_string(this->height) + ")";
+        }
+
+        operator std::string() const
+        {
+            return this->toString();
+        }
     };
 }
 
