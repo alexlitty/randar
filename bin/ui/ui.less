@@ -239,6 +239,8 @@ section.info {
         background-color: #555;
 
         .marker {
+            .clickable;
+
             border-left: 1px solid rgba(51, 51, 51, 0.35);
 
             &.significant {
@@ -263,6 +265,10 @@ section.info {
                     background-color: #333;
                     content: '';
                 }
+            }
+
+            &.selected {
+                background-color: #aaa;
             }
         }
     }

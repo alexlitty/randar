@@ -12,6 +12,10 @@ function combine() {
 
     var result = { };
     for (component of arguments) {
+        if (component.data) {
+            result.data = component.data;
+        }
+
         if (component.props) {
             result.props = _.extend(result.props || { }, component.props);
         }
@@ -282,10 +286,12 @@ Component.TargetResourcePanel = combine(
 Component.TimelineMarker = combine(
     {
         props: {
+            markerId    : Number,
             zoom        : Number,
             frame       : Number,
             duration    : Number,
-            significant : Boolean
+            significant : Boolean,
+            selected    : Boolean
         },
 
         computed: {
@@ -294,6 +300,10 @@ Component.TimelineMarker = combine(
 
                 if (this.significant) {
                     result.push('significant');
+                }
+
+                if (this.selected) {
+                    result.push('selected');
                 }
 
                 return result;
@@ -312,8 +322,14 @@ Component.TimelineMarker = combine(
             }
         },
 
+        methods: {
+            onClick: function() {
+                this.$emit('markerSelected', this.markerId);
+            }
+        },
+
         template: `
-            <div :class="classes" :style="style">
+            <div :class="classes" :style="style" @click="onClick">
                 <div>
                     <slot></slot>
                 </div>
@@ -330,6 +346,12 @@ Vue.component('timeline-marker', Component.TimelineMarker);
 Component.SceneTimeline = combine(
     Component.Common,
     {
+        data: function() {
+            return {
+                selectedFrame: 0
+            };
+        },
+
         computed: {
             zoom: function() {
                 return 75;
@@ -360,6 +382,10 @@ Component.SceneTimeline = combine(
         methods: {
             isFrameSignificant: function(id) {
                 return id % 5 === 0;
+            },
+
+            onGuideFrameSelected: function(frameId) {
+                this.selectedFrame = frameId;
             }
         },
 
@@ -368,10 +394,13 @@ Component.SceneTimeline = combine(
                 <div class="guide" :style="{ width: width }">
                     <timeline-marker
                      v-for="frame in frames" :key="frame.id"
+                     :markerId="frame.id"
                      :zoom="zoom"
                      :frame="frame.id"
                      :duration="1"
-                     :significant="frame.significant">
+                     :significant="frame.significant"
+                     :selected="selectedFrame === frame.id"
+                     @markerSelected="onGuideFrameSelected">
                         <span v-if="frame.significant">{{ frame.id }}</span>
                     </timeline-marker>
                 </div>
