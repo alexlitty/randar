@@ -239,9 +239,14 @@ section.info {
         background-color: #555;
 
         .marker {
-            border-right: 1px solid rgba(150, 150, 150, 0.75);
-            &:last-child {
-                border-right: 0;
+            border-left: 1px solid #333;
+
+            &.significant {
+                border-left: 1px solid #aaa;
+            }
+
+            &:first-child {
+                border-left: 0;
             }
 
             div {

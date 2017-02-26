@@ -282,12 +282,23 @@ Component.TargetResourcePanel = combine(
 Component.TimelineMarker = combine(
     {
         props: {
-            zoom     : Number,
-            frame    : Number,
-            duration : Number
+            zoom        : Number,
+            frame       : Number,
+            duration    : Number,
+            significant : Boolean
         },
 
         computed: {
+            classes: function() {
+                var result = ['marker'];
+
+                if (this.significant) {
+                    result.push('significant');
+                }
+
+                return result;
+            },
+
             style: function() {
                 var width = (this.zoom * this.duration) - 1;
                 if (width <= 0) {
@@ -302,7 +313,7 @@ Component.TimelineMarker = combine(
         },
 
         template: `
-            <div class="marker" :style="style">
+            <div :class="classes" :style="style">
                 <div>
                     <slot></slot>
                 </div>
@@ -359,7 +370,8 @@ Component.SceneTimeline = combine(
                      v-for="frame in frames" :key="frame.id"
                      :zoom="zoom"
                      :frame="frame.id"
-                     :duration="1">
+                     :duration="1"
+                     :significant="frame.significant">
                         <span v-if="frame.significant">{{ frame.id }}</span>
                     </timeline-marker>
                 </div>
