@@ -266,12 +266,113 @@ Component.TargetResourcePanel = combine(
                 </nav>
 
                 <section>
-                    
+                    <scene-timeline v-if="resource.category === 'scenes'">
+                    </scene-timeline>
                 </section>
             </div>
         `
     }
 );
+
+/**
+ * A marker on a timeline.
+ *
+ * Indicates an action. Also used to create the timeline headers.
+ */
+Component.TimelineMarker = combine(
+    {
+        props: {
+            zoom     : Number,
+            frame    : Number,
+            duration : Number
+        },
+
+        computed: {
+            style: function() {
+                var width = (this.zoom * this.duration) - 1;
+                if (width <= 0) {
+                    width = 1;
+                }
+
+                return {
+                    left  : this.zoom * this.frame,
+                    width : width
+                };
+            }
+        },
+
+        template: `
+            <div class="marker" :style="style">
+                <div>
+                    <slot></slot>
+                </div>
+            </div>
+        `
+    }
+);
+
+Vue.component('timeline-marker', Component.TimelineMarker);
+
+/**
+ * A timeline for scene editing.
+ */
+Component.SceneTimeline = combine(
+    Component.Common,
+    {
+        computed: {
+            zoom: function() {
+                return 75;
+            },
+
+            width: function() {
+                return this.frames.length * this.zoom;
+            },
+
+            scene: function() {
+                return this.getSelectedResource();
+            },
+
+            frames: function() {
+                var result = [];
+
+                for (var i = 0; i < 20; i++) {
+                    result.push({
+                        id: i,
+                        significant: this.isFrameSignificant(i)
+                    });
+                }
+
+                return result;
+            }
+        },
+
+        methods: {
+            isFrameSignificant: function() {
+                return true;
+            }
+        },
+
+        template: `
+            <div class="timeline">
+                <div class="guide" :style="{ width: width }">
+                    <timeline-marker
+                     v-for="frame in frames" :key="frame.id"
+                     :zoom="zoom"
+                     :frame="frame.id"
+                     :duration="1">
+                        <span v-if="frame.significant">{{ frame.id }}</span>
+                    </timeline-marker>
+                </div>
+
+                <div class="object" v-for="model in scene.models">
+
+                </div>
+            </div>
+        `
+    }
+);
+
+Vue.component('scene-timeline', Component.SceneTimeline);
 
 /**
  * A table of resource metadata.
