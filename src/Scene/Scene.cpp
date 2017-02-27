@@ -4,7 +4,7 @@
 // Destructor.
 randar::Scene::~Scene()
 {
-    for (auto item : this->models) {
+    for (auto item : this->objects) {
         delete item.second;
     }
 }
@@ -16,6 +16,6 @@ Json randar::Scene::toJson() const
         { "name", "Untitled Scene" },
         { "fps",  this->fps        },
 
-        { "models", randar::toJson(this->models) }
+        { "objects", randar::toJson(this->objects) }
     };
 }

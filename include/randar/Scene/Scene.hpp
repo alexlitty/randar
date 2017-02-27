@@ -2,7 +2,7 @@
 #define RANDAR_SCENE_SCENE_HPP
 
 #include <randar/Engine/Resource.hpp>
-#include <randar/Scene/SceneModel.hpp>
+#include <randar/Scene/Object.hpp>
 
 namespace randar
 {
@@ -17,7 +17,7 @@ namespace randar
         /**
          * The models used in this scene.
          */
-        std::map<uint32_t, SceneModel*> models;
+        std::map<uint32_t, Object*> objects;
 
         /**
          * Destructor.
