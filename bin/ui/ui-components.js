@@ -45,6 +45,7 @@ var Component = { };
  */
 Component.Common = {
     computed: {
+        debug     : function() { return randar.debug; },
         project   : function() { return randar.project; },
         resources : function() { return randar.resources; },
         target    : function() { return randar.target; },
@@ -115,6 +116,20 @@ Component.Common = {
         }
     }
 };
+
+/**
+ * A dummy engine monitor, shown in debug mode.
+ */
+Vue.component('engine-monitor', combine(
+    Component.Common,
+    {
+        template: `
+            <div id="engine-monitor" v-if="debug">
+                &lt; engine monitor &gt;
+            </div>
+        `
+    }
+));
 
 /**
  * A save-button.

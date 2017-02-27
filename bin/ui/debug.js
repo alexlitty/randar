@@ -1,4 +1,6 @@
 if ((window.location.search || '').indexOf('debug') > -1) {
+    randar.debug = true;
+
     window.saveProject = function() {
         console.info("Project would be saved");
     }
@@ -57,16 +59,16 @@ if ((window.location.search || '').indexOf('debug') > -1) {
                     modelId: 0,
                     actions: [
                         {
-                            type       : "transform",
+                            type: "transform",
 
-                            position   : {
+                            position: {
                                 x : 0.5,
                                 y : 0,
                                 z : 0
                             },
 
-                            quaternion : {
-                                axis : {
+                            quaternion: {
+                                axis: {
                                     x : 0,
                                     y : 1,
                                     z : 0

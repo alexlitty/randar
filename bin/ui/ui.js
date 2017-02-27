@@ -5,6 +5,11 @@ var app;
  */
 var randar = {
     /**
+     * Debug mode toggle.
+     */
+    debug: false,
+
+    /**
      * Handles an engine log message.
      */
     onEngineLog: function(message) {
