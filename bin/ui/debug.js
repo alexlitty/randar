@@ -53,7 +53,29 @@ if ((window.location.search || '').indexOf('debug') > -1) {
             0: {
                 name: "Example scene",
 
-                models: {
+                objects: {
+                    modelId: 0,
+                    actions: [
+                        {
+                            type       : "transform",
+
+                            position   : {
+                                x : 0.5,
+                                y : 0,
+                                z : 0
+                            },
+
+                            quaternion : {
+                                axis : {
+                                    x : 0,
+                                    y : 1,
+                                    z : 0
+                                },
+
+                                angle: 0.75
+                            }
+                        }
+                    ]
                 }
             }
         }
