@@ -120,7 +120,7 @@ randar::Transform::operator btTransform() const
 Json randar::Transform::toJson() const
 {
     return {
-        { "position",   this->position.toJson() },
-        { "quaternion", this->rotation.toJson() }
+        { "position", this->position.toJson() },
+        { "rotation", this->rotation.toJson() }
     };
 }
