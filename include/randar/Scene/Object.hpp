@@ -1,5 +1,5 @@
-#ifndef RANDAR_SCENE_SCENE_MODEL_HPP
-#define RANDAR_SCENE_SCENE_MODEL_HPP
+#ifndef RANDAR_SCENE_OBJECT_HPP
+#define RANDAR_SCENE_OBJECT_HPP
 
 #include <randar/Scene/ModelState.hpp>
 #include <randar/Scene/Action.hpp>
@@ -9,7 +9,7 @@ namespace randar
     /**
      * A structure to organize model actions and states within a scene.
      */
-    class SceneModel
+    class Object
     {
         /**
          * The unique identifier for this model within the scene.
@@ -40,12 +40,12 @@ namespace randar
         /**
          * Constructor.
          */
-        SceneModel(uint32_t initId, Model* initModel);
+        Object(uint32_t initId, Model* initModel);
 
         /**
          * Destructor.
          */
-        ~SceneModel();
+        ~Object();
 
         /**
          * Builds the states in a frame range.
@@ -59,7 +59,7 @@ namespace randar
         operator Model&();
 
         /**
-         * Returns a JSON representation of this scene model.
+         * Returns a JSON representation of this object.
          */
         Json toJson() const;
     };

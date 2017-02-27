@@ -1,8 +1,8 @@
-#include <randar/Scene/SceneModel.hpp>
+#include <randar/Scene/Object.hpp>
 #include <randar/Utility/Vector.hpp>
 
 // Constructor.
-randar::SceneModel::SceneModel(uint32_t initId, randar::Model* initModel)
+randar::Object::Object(uint32_t initId, randar::Model* initModel)
 : id(initId),
   model(initModel)
 {
@@ -10,7 +10,7 @@ randar::SceneModel::SceneModel(uint32_t initId, randar::Model* initModel)
 }
 
 // Destructor.
-randar::SceneModel::~SceneModel()
+randar::Object::~Object()
 {
     for (auto action : this->actions) {
         delete action;
@@ -18,7 +18,7 @@ randar::SceneModel::~SceneModel()
 }
 
 // Builds the states in a frame range.
-void randar::SceneModel::build(const randar::FrameRange& frames)
+void randar::Object::build(const randar::FrameRange& frames)
 {
     uint32_t frameId = frames.getStart();
     ModelState state;
@@ -56,18 +56,18 @@ void randar::SceneModel::build(const randar::FrameRange& frames)
 }
 
 // Returns the model this object represents.
-randar::Model& randar::SceneModel::get()
+randar::Model& randar::Object::get()
 {
     return *this->model;
 }
 
-randar::SceneModel::operator randar::Model&()
+randar::Object::operator randar::Model&()
 {
     return this->get();
 }
 
 // Returns a JSON representation of this scene model.
-Json randar::SceneModel::toJson() const
+Json randar::Object::toJson() const
 {
     Json result = {
         { "actions", randar::toJson(this->actions) }
