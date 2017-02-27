@@ -19,7 +19,12 @@ void randar::TransformAction::apply()
 // Returns a representation of this transform action as JSON.
 Json randar::TransformAction::toJson() const
 {
-    Json result = this->transform.toJson();
-    result["type"] = "transform";
-    return result;
+    return {
+        { "type", "transform" },
+
+        { "frame", this->frames.getStart().get() },
+        { "duration", this->frames.count() },
+
+        { "transform", this->transform.toJson() }
+    };
 }
