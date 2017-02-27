@@ -59,22 +59,26 @@ if ((window.location.search || '').indexOf('debug') > -1) {
                     modelId: 0,
                     actions: [
                         {
-                            type: "transform",
+                            type     : "transform",
+                            frame    : 3,
+                            duration : 4,
 
-                            position: {
-                                x : 0.5,
-                                y : 0,
-                                z : 0
-                            },
-
-                            quaternion: {
-                                axis: {
-                                    x : 0,
-                                    y : 1,
+                            transform: {
+                                position: {
+                                    x : 0.5,
+                                    y : 0,
                                     z : 0
                                 },
 
-                                angle: 0.75
+                                rotation: {
+                                    axis: {
+                                        x : 0,
+                                        y : 1,
+                                        z : 0
+                                    },
+
+                                    angle: 0.75
+                                }
                             }
                         }
                     ]
