@@ -420,8 +420,17 @@ Component.SceneTimeline = combine(
                     </timeline-marker>
                 </div>
 
-                <div class="object" v-for="model in scene.models">
-
+                <div class="rows" :style="{ width: width }">
+                    <div class="row" v-for="(object, objectId) in scene.objects">
+                        <timeline-marker
+                         v-for="(action, actionId) in object" :key="actionId"
+                         :markerId="actionId"
+                         :zoom="zoom"
+                         :frame="action.frame"
+                         :duration="action.duration">
+                            Transform
+                        </timeline-marker>
+                    </div>
                 </div>
             </div>
         `

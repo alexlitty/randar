@@ -24,6 +24,10 @@ html, body {
     box-shadow: inset 0 0 1000px 1000px rgba(255, 255, 255, 0.05);
 }
 
+.background-gradient() {
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
+}
+
 .button {
     display: inline-block;
     padding: 16px 25px;
@@ -229,12 +233,16 @@ section.info {
 
 .timeline {
     .marker {
+        .clickable;
+
         position: absolute;
         display: inline;
         top: 0;
         bottom: 0;
 
         div {
+            .background-gradient();
+
             display: flex;
             align-items: center;
 
@@ -253,8 +261,6 @@ section.info {
         background-color: #555;
 
         .marker {
-            .clickable;
-
             border-left: 1px solid rgba(51, 51, 51, 0.35);
 
             &.significant {
@@ -269,6 +275,8 @@ section.info {
                 background-color: #333;
 
                 &:before {
+                    .background-gradient();
+
                     position: absolute;
                     top: 0;
                     left: -1px;
@@ -287,9 +295,28 @@ section.info {
         }
     }
 
-    :not(.guide) {
-        .marker {
-            .clickable;
+    .rows {
+        position: absolute;
+        top: 24px;
+        left: 0;
+        bottom: 0;
+
+        width: 100%;
+
+        pointer-events: none;
+
+        .row {
+            position: relative;
+
+            margin: 2px 0;
+            height: 24px;
+
+            .marker {
+                pointer-events: auto;
+                font-size: 14px;
+
+                background-color: #75151e;
+            }
         }
     }
 }
