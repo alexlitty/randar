@@ -1,5 +1,5 @@
 *.iqm
-bin/ui/ui.css
+bin/ui/
 bin/*.bin
 bin/*.dat
 bin/*.pak
@@ -11,3 +11,5 @@ bin/randar
 bin/test-project
 lib/
 obj/
+
+node_modules/
