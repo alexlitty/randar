@@ -11,6 +11,7 @@ function publish(filename, contents, done) {
         path.join(__dirname, '..', 'bin', 'ui', filename)
     );
 
+    console.log('Publishing:', filename);
     mkdirp(path.dirname(filename));
     fs.writeFile(filename, contents, done);
 }
@@ -45,7 +46,7 @@ var tasks = [
                     }
 
                     else {
-                        publish("styles.css", outputs.join(), done);
+                        publish("styles.css", outputs.join(''), done);
                     }
                 });
             });
