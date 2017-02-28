@@ -11,21 +11,18 @@ function publish(filename, contents, done) {
         path.join(__dirname, '..', 'bin', 'ui', filename)
     );
 
-    console.log('Publishing:', filename);
     mkdirp(path.dirname(filename));
     fs.writeFile(filename, contents, done);
 }
 
 var tasks = [
     {
-        run: function(done) {
-            glob('ui/**/*.less', { }, function(err, filenames) {
-                if (err) {
-                    done(err);
-                    return;
-                }
+        description : 'styles',
+        files       : 'ui/**/*.less',
 
-                var renderings = filenames.map(function(filename) {
+        run: function(filenames, done) {
+            async.parallel(
+                filenames.map(function(filename) {
                     return function(rendered) {
                         less.render(
                             fs.readFileSync(filename).toString(),
@@ -38,26 +35,36 @@ var tasks = [
                             }
                         );
                     }
-                });
+                }),
 
-                async.parallel(renderings, function(err, outputs) {
-                    if (err) {
-                        done(err);
-                    }
-
-                    else {
-                        publish("styles.css", outputs.join(''), done);
-                    }
-                });
-            });
+                function(err, outputs) {
+                    (err && done(err)) || publish(
+                        'styles.css',
+                        outputs.join(''),
+                        done
+                    );
+                }
+            );
         }
     }
 ];
 
-tasks.forEach(function(task) {
-    task.run(function(err) {
-        if (err) {
-            console.error(err);
+function build() {
+    async.parallel(
+        tasks.map(function(task) {
+            return function(done) {
+                glob(task.files, { }, function(err, filenames) {
+                    (err && done(err)) || task.run(filenames, done);
+                });
+            }
+        }),
+
+        function(err) {
+            if (err) {
+                console.error(err);
+            }
         }
-    });
-});
+    );
+}
+
+build();
