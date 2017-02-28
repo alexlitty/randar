@@ -56,32 +56,34 @@ if ((window.location.search || '').indexOf('debug') > -1) {
                 name: "Example scene",
 
                 objects: {
-                    modelId: 0,
-                    actions: [
-                        {
-                            type     : "transform",
-                            frame    : 3,
-                            duration : 4,
+                    0: {
+                        modelId: 0,
+                        actions: [
+                            {
+                                type     : "transform",
+                                frame    : 3,
+                                duration : 4,
 
-                            transform: {
-                                position: {
-                                    x : 0.5,
-                                    y : 0,
-                                    z : 0
-                                },
-
-                                rotation: {
-                                    axis: {
-                                        x : 0,
-                                        y : 1,
+                                transform: {
+                                    position: {
+                                        x : 0.5,
+                                        y : 0,
                                         z : 0
                                     },
 
-                                    angle: 0.75
+                                    rotation: {
+                                        axis: {
+                                            x : 0,
+                                            y : 1,
+                                            z : 0
+                                        },
+
+                                        angle: 0.75
+                                    }
                                 }
                             }
-                        }
-                    ]
+                        ]
+                    }
                 }
             }
         }
