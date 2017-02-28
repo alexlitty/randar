@@ -24,3 +24,5 @@ function isString(value) {
 function clearElement(element) {
     element.innerHTML = '';
 }
+
+module.exports = { };

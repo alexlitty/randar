@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Randar</title>
+        <link href="ui.css" rel="stylesheet">
+        <script src="ui.js"></script>
+    </head>
+
+    <body>
+        <main id="randar">
+
+            <nav-main></nav-main>
+
+            <settings-panel></settings-panel>
+
+            <resource-category-panel
+                v-if="target.resource.category && _.isNull(target.resource.id)"
+                :category="target.resource.category">
+            </resource-category-panel>
+
+            <target-resource-panel></target-resource-panel>
+
+            <engine-monitor></engine-monitor>
+
+            <save-button></save-button>
+
+        </main>
+    </body>
+</html>

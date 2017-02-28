@@ -1,7 +1,12 @@
+var _ = require('underscore');
+global._ = _;
+var Vue = require('vue');
+require('./helpers');
+
 /**
  * Combines two or more components together.
  */
-function combine() {
+global.combine = function() {
     if (!arguments.length) {
         return { };
     }
@@ -559,3 +564,6 @@ Vue.component('editor-model', combine(
         `
     }
 ));
+global.Component = Component;
+
+module.exports = { };
