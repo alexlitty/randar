@@ -17,6 +17,21 @@ function publish(filename, contents, done) {
 
 var tasks = [
     {
+        description : 'javascript',
+        files       : 'ui/**/*.js',
+
+        run: function(filenames, done) {
+            publish(
+                'ui.js',
+                filenames.map(function(filename) {
+                    return fs.readFileSync(filename);
+                }).join(''),
+                done
+            );
+        }
+    },
+
+    {
         description : 'styles',
         files       : 'ui/**/*.less',
 
@@ -39,7 +54,7 @@ var tasks = [
 
                 function(err, outputs) {
                     (err && done(err)) || publish(
-                        'styles.css',
+                        'ui.css',
                         outputs.join(''),
                         done
                     );
