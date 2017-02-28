@@ -1,4 +1,5 @@
 var async  = require('async');
+var browserify = require('browserify');
 var exec   = require('child_process').exec;
 var fs     = require('fs');
 var glob   = require('glob');
@@ -17,17 +18,26 @@ function publish(filename, contents, done) {
 
 var tasks = [
     {
+        description : 'html',
+        files       : 'ui/**/*.html',
+
+        run: function(filenames, done) {
+            publish(
+                'ui.html',
+                fs.readFileSync('ui/html/ui.html'),
+                done
+            );
+        }
+    },
+
+    {
         description : 'javascript',
         files       : 'ui/**/*.js',
 
         run: function(filenames, done) {
-            publish(
-                'ui.js',
-                filenames.map(function(filename) {
-                    return fs.readFileSync(filename);
-                }).join(''),
-                done
-            );
+            browserify(filenames).bundle(function(err, output) {
+                (err && done(err)) || publish('ui.js', output, done);
+            });
         }
     },
 
