@@ -5,24 +5,6 @@ var randar = require('./randar');
 var app;
 
 /**
- * Components - Buttons.
- */
-Vue.component('back-button', combine(
-    {
-        props: {
-            action: Function
-        },
-
-        template: `
-            <ul class="back">
-                <li v-on:click="action()">&larrhk;</li>
-            </ul>
-        `
-    }
-));
-
-
-/**
  * Components - Main panel.
  */
 Vue.component('nav-main', combine(
