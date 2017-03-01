@@ -10,7 +10,8 @@
     "scripts": {
         "install": "node scripts/install.js",
         "build": "node scripts/build.js",
-        "build-full": "node scripts/build.js full=yes"
+        "build-full": "node scripts/build.js full=yes",
+        "test": "node scripts/test.js"
     },
 
     "dependencies": {
