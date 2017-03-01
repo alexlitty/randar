@@ -51,24 +51,6 @@ var Component = { };
 Component.Common = require('./components/common');
 
 /**
- * A save-button.
- */
-Vue.component('save-button', combine(
-    Component.Common,
-    {
-        methods: {
-            save: function() {
-                window.saveProject();
-            }
-        },
-
-        template: `
-            <div id="save" class="button" @click="save"></div>
-        `
-    }
-));
-
-/**
  * A list of resources in a particular category.
  */
 Component.ResourceList = combine(
