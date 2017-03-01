@@ -1,13 +1,12 @@
-var Vue = require('vue');
-global._ = require('underscore');
-var randar = require('./randar');
-var app;
+global._      = require('underscore');
+global.Vue    = require('vue');
+global.randar = require('./randar');
 
 /**
  * Initialize the interface.
  */
 randar.ready = function() {
-    app = new Vue({
+    new Vue({
         el: document.getElementById('randar'),
         data: randar,
         watch: {
