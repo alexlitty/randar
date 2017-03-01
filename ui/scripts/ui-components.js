@@ -48,21 +48,7 @@ var Component = { };
 /**
  * A generic component for common functionality.
  */
-Component.Common = require('./components/Common');
-
-/**
- * A dummy engine monitor, shown in debug mode.
- */
-Vue.component('engine-monitor', combine(
-    Component.Common,
-    {
-        template: `
-            <div id="engine-monitor" v-if="debug">
-                &lt; engine monitor &gt;
-            </div>
-        `
-    }
-));
+Component.Common = require('./components/common');
 
 /**
  * A save-button.
