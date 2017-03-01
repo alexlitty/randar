@@ -1,5 +1,4 @@
 var path = require('path');
-global.__randardir = path.normalize('..');
 
 var args    = process.argv.slice(2);
 var goals   = [];
