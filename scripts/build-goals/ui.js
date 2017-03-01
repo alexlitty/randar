@@ -9,13 +9,20 @@
     var path   = require('path');
 
     function publish(filename, contents, done) {
+        var niceFilename = path.join('bin', 'ui', filename);
+
         filename = path.normalize(
-            path.join(__dirname, '..', '..', 'bin', 'ui', filename)
+            path.join(__dirname, '..', '..', niceFilename)
         );
 
-        console.log('Publishing', filename);
         mkdirp(path.dirname(filename));
-        fs.writeFile(filename, contents, done);
+        fs.writeFile(filename, contents, function(err) {
+            if (!err) {
+                console.log('Published', niceFilename);
+            }
+
+            done(err);
+        });
     }
 
     var tasks = [
