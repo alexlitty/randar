@@ -1,5 +1,5 @@
 var Vue = require('vue');
-require('./ui-components');
+global._ = require('underscore');
 var randar = require('./randar');
 var app;
 
