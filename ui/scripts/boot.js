@@ -5,35 +5,6 @@ var randar = require('./randar');
 var app;
 
 /**
- * Components - Main panel.
- */
-Vue.component('nav-main', combine(
-    Component.Common,
-    {
-        template: `
-            <div v-show="isNothingSelected()">
-                <nav id="main" v-show="isNothingSelected()">
-                    <ul>
-                        <li class="randar" v-on:click="selectSettings()">
-                            {{ project.name }}
-                        </li>
-
-                        <li v-for="category in ['scenes', 'models', 'textures', 'shaders']"
-                            v-bind:class="category" v-on:click="target.resource.category = category">
-                            {{ category | titlecase }}
-                        </li>
-                    </ul>
-                </nav>
-
-                <section class="info">
-                    Welcome to Randar.
-                </section>
-            </div>
-        `
-    }
-));
-
-/**
  * Component - Settings panel.
  */
 Vue.component('settings-panel', combine(
