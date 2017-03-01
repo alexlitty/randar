@@ -2,6 +2,7 @@
     "name": "randar",
     "version": "1.0.0",
     "description": "The animated film creation suite by Litty Studios.",
+    "private": true,
 
     "repository": { },
     "author": "Litty Studios",
