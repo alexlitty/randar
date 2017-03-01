@@ -5,27 +5,6 @@ var randar = require('./randar');
 var app;
 
 /**
- * Component - Resources.
- */
-Vue.component('target-resource-panel', combine(
-    Component.TargetResourcePanel,
-    {
-
-    }
-));
-
-/**
- * Vue filters.
- */
-Vue.filter('titlecase', function(value) {
-    if (!_.isString(value) || !value.length) {
-        return value;
-    }
-
-    return value.charAt(0).toUpperCase() + value.slice(1);
-});
-
-/**
  * Initialize the interface.
  */
 randar.ready = function() {
