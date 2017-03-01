@@ -10,8 +10,7 @@ var app;
 randar.ready = function() {
     app = new Vue({
         el: document.getElementById('randar'),
-        data: _.extend(randar),
-        methods: Component.Common.methods,
+        data: randar,
         watch: {
             target: {
                 deep: true,
