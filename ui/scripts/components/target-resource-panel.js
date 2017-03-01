@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * A panel to interact with the currently targeted resource.
      */
-    module.exports = component('target-resource-panel',
+    module.exports = randar.component('target-resource-panel',
         {
             computed: {
                 resource: function() {

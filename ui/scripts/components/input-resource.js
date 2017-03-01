@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * An input to select a resource.
      */
-    module.exports = component('input-resource',
+    module.exports = randar.component('input-resource',
         {
             props: {
                 category: String

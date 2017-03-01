@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * A list of resources in a particular category.
      */
-    module.exports = component('resource-list',
+    module.exports = randar.component('resource-list',
         {
             props: {
                 category: String

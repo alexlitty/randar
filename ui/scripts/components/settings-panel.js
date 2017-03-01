@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * Component - Settings panel.
      */
-    module.exports = component('settings-panel',
+    module.exports = randar.component('settings-panel',
         {
             template: `
                 <div v-show="isSettingsSelected()">

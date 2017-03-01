@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * A overview panel for a resource category.
      */
-    module.exports = component('resource-category-panel',
+    module.exports = randar.component('resource-category-panel',
         {
             props: {
                 category: String

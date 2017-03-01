@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * An editor for models.
      */
-    module.exports = component('editor-model',
+    module.exports = randar.component('editor-model',
         {
             props: {
                 model: Object

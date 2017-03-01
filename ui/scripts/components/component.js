@@ -45,6 +45,8 @@
     /**
      * A component in our app.
      *
+     * This is made available as randar.component for easy access.
+     *
      * Essentially, this is a wrapper that initializes a new component into Vue
      * and extends it from the common component.
      *

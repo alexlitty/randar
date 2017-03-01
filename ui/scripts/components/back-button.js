@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
-     * Components - Buttons.
+     * A button to navigate to the previous panel.
      */
-    module.exports = component('back-button',
+    module.exports = randar.component('back-button',
         {
             props: {
                 action: Function

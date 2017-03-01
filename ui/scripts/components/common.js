@@ -2,7 +2,7 @@
  * A generic component for common functionality.
  */
 (function() {
-     var Common = {
+     var common = {
         computed: {
             debug     : function() { return randar.debug; },
             project   : function() { return randar.project; },
@@ -76,5 +76,5 @@
         }
     };
 
-    module.exports = Common;
+    module.exports = common;
 })();

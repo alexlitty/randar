@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * A timeline for scene editing.
      */
-    module.exports = component('scene-timeline',
+    module.exports = randar.component('scene-timeline',
         {
             data: function() {
                 return {

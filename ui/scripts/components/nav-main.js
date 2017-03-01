@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * The main panel.
      */
-    module.exports = component('nav-main',
+    module.exports = randar.component('nav-main',
         {
             template: `
                 <div v-show="isNothingSelected()">

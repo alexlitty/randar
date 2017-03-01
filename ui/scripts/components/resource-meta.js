@@ -1,10 +1,8 @@
 (function() {
-    var component = require('./component');
-
     /**
      * A table of resource metadata.
      */
-    module.exports = component('resource-meta',
+    module.exports = randar.component('resource-meta',
         {
             props: {
                 resource: Object

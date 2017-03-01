@@ -1,12 +1,10 @@
 (function() {
-    var component = require('./component');
-
     /**
      * A marker on a timeline.
      *
      * Indicates an action. Also used to create the timeline headers.
      */
-    module.exports = component('timeline-marker',
+    module.exports = randar.component('timeline-marker',
         {
             props: {
                 markerId    : Number,
