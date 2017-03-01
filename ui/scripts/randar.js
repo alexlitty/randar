@@ -1,8 +1,12 @@
 (function() {
+    var component = require('./components/component');
+
     /**
-     * Object that contains the Randar UI "app" functionality.
+     * Central object that organizes Randar UI functionality.
      */
     var randar = {
+        component: component,
+
         /** 
          * Debug mode toggle.
          */
