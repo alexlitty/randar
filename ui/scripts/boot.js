@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var Vue = require('vue');
 require('./ui-components');
 var randar = require('./randar');
