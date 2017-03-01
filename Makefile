@@ -38,13 +38,13 @@ $(GOAL): $(SOURCES_FILES) $(EXECUTABLE)
 
 # Link into executable
 $(EXECUTABLE): $(OBJECT_FILES)
-	@echo "Creating executable $(BINPATH)/$@"
 	@$(CC) $(CFLAGS) $(OBJECT_FILES) $(LDFLAGS) -o $(BINPATH)/$@
+	@echo -n "Created executable $(BINPATH)/$@"
 
 # Compile source into objects
 $(OBJPATH)/%.o: $(SRCPATH)/%.cpp
-	@echo -n "Compiling $<"
 	@$(CC) $(INCFLAGS) $(CFLAGS) -c $< -o $@
+	@echo -n "Compiled $<"
 
 # Cleaning Target
 .PHONY: clean
