@@ -9,8 +9,7 @@
                     <nav v-show="isSettingsSelected()">
                         <back-button v-bind:action="unselectSettings" />
 
-                        <div id="import-resource" class="button">Import Resource</div>
-                        <div id="import-message"></div>
+                        <input-import></input-import>
 
                         <div id="engine-log"></div>
                     </nav>
