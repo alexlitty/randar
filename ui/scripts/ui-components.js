@@ -51,34 +51,6 @@ var Component = { };
 Component.Common = require('./components/common');
 
 /**
- * A list of resources in a particular category.
- */
-Component.ResourceList = combine(
-    Component.Common,
-    {
-        props: {
-            category: String
-        },
-
-        methods: {
-            onSelect: function(resourceId) {
-                this.$emit('select', this.category, resourceId);
-            }
-        },
-
-        template: `
-            <ul class="resource-list">
-                <li :class="category" v-for="(resource, resourceId) in resources[category]" v-on:click="onSelect(resourceId)">
-                    {{ resourceId }}
-                </li>
-            </ul>
-        `
-    }
-);
-
-Vue.component('resource-list', Component.ResourceList);
-
-/**
  * An input to select a resource.
  */
 Component.InputResource = combine(
