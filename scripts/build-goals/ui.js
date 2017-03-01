@@ -13,6 +13,7 @@
             path.join(__dirname, '..', '..', 'bin', 'ui', filename)
         );
 
+        console.log('Publishing', filename);
         mkdirp(path.dirname(filename));
         fs.writeFile(filename, contents, done);
     }
