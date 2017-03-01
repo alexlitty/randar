@@ -8,20 +8,6 @@ BINPATH=bin
 # Linker flags
 LDFLAGS=-L$(LIBPATH) -lcef_dll_wrapper -lcef -lX11 -lXxf86vm -pthread -lXi -lXrandr -lGL -lGLEW -lglfw3 -lBulletDynamics -lBulletCollision -lLinearMath -lpng
 
-# Background colors
-BG_WHITE=$$(tput setab 7)
-
-# Foreground colors
-FG_RED=$$(tput setaf 1)
-FG_GREEN=$$(tput setaf 2)
-FG_YELLOW=$$(tput setaf 3)
-FG_BLUE=$$(tput setaf 4)
-FG_MAGENTA=$$(tput setaf 5)
-FG_CYAN=$$(tput setaf 6)
-
-# Other colors
-COLOR_RESET=$$(tput sgr 0)
- 
 # Goal-Based variables
 GOAL = $(MAKECMDGOALS)
 ifeq ($(GOAL), clean)
@@ -49,19 +35,16 @@ EXECUTABLE=$(EXECUTABLE_$(GOAL))
 
 # Initial Target
 $(GOAL): $(SOURCES_FILES) $(EXECUTABLE)
-	@echo "$(BG_WHITE)$(FG_MAGENTA) Executing $(COLOR_RESET)"
 
 # Link into executable
 $(EXECUTABLE): $(OBJECT_FILES)
-	@echo ""
-	@echo "$(BG_WHITE)$(FG_GREEN) Linking $(COLOR_RESET)"
-	$(CC) $(CFLAGS) $(OBJECT_FILES) $(LDFLAGS) -o $(BINPATH)/$@
-	@echo ""
+	@echo "Creating executable $(BINPATH)/$@"
+	@$(CC) $(CFLAGS) $(OBJECT_FILES) $(LDFLAGS) -o $(BINPATH)/$@
 
 # Compile source into objects
 $(OBJPATH)/%.o: $(SRCPATH)/%.cpp
-	@mkdir -p $(@D)
-	$(CC) $(INCFLAGS) $(CFLAGS) -c $< -o $@
+	@echo -n "Compiling $<"
+	@$(CC) $(INCFLAGS) $(CFLAGS) -c $< -o $@
 
 # Cleaning Target
 .PHONY: clean
