@@ -76,7 +76,7 @@
         }
     ];
 
-    function build() {
+    function build(options, done) {
         async.parallel(
             tasks.map(function(task) {
                 return function(done) {
@@ -86,11 +86,7 @@
                 }
             }),
 
-            function(err) {
-                if (err) {
-                    console.error(err);
-                }
-            }
+            done
         );
     }
 
