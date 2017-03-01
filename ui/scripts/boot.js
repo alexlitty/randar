@@ -21,10 +21,4 @@ randar.ready = function() {
             }
         }
     });
-
-    /*document.querySelector('#import-resource').addEventListener('click', function() {
-        var results = window.importResource();
-        var message = results ? results.message : 'No file selected.';
-        document.querySelector('#import-message').innerHTML = message;
-    });*/
 }
