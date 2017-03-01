@@ -1,39 +1,65 @@
-var path = require('path');
+(function() {
+    var async = require('async');
+    var path  = require('path');
 
-var args    = process.argv.slice(2);
-var goals   = [];
-var options = { };
-
-args.forEach(function(arg) {
-    if (arg === 'full=yes') {
-        options.full = true;
+    // Make a list of possible goals.
+    function getBuildGoal(goalName) {
+        return require(path.join(__dirname, 'build-goals', goalName));
     }
 
-    else {
-        goals.push(arg);
-    }
-});
+    var possibleGoals = {
+        ui     : getBuildGoal('ui'),
+        engine : getBuildGoal('engine')
+    };
 
-function getBuildGoal(goalName) {
-    return require(path.join(__dirname, 'build-goals', goalName));
-}
+    // Parse arguments.
+    var args    = process.argv.slice(2);
+    var goals   = [];
+    var options = { };
 
-function buildGoal(goalName) {
-    var goal = possibleGoals[goalName];
-    if (!goal) {
-        return;
-    }
+    args.forEach(function(arg) {
+        if (arg === 'full=yes') {
+            options.full = true;
+        }
 
-    goal.build(options, function(err) {
-        if (err) {
-            console.error(err);
+        else {
+            goals.push(arg);
         }
     });
-}
 
-var possibleGoals = {
-    ui     : getBuildGoal('ui'),
-    engine : getBuildGoal('engine')
-};
+    // If no goals are provided, use all possible goals.
+    if (!goals.length) {
+        goals = Object.keys(possibleGoals);
+    }
 
-(goals.length ? goals : Object.keys(possibleGoals)).forEach(buildGoal);
+    // Builds the desired goals.
+    function build(done) {
+        async.parallel(
+            goals.map(function(goalName) {
+                return function(done) {
+                    var goal = possibleGoals[goalName];
+                    if (!goal) {
+                        return;
+                    }
+
+                    goal.build(options, done);
+                }
+            }),
+
+            function(err) {
+                if (err) {
+                    console.error(err);
+                }
+
+                done && done(err);
+            }
+        );
+    }
+
+    if (require.main === module) {
+        build();
+    } else {
+        module.exports = build;
+    }
+
+})();
