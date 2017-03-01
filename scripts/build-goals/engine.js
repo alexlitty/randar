@@ -1,5 +1,5 @@
 (function() {
-    var child_process = require('child_process');
+    var spawn = require('child_process').spawn;
 
     function build(options, done) {
         if (process.platform === 'linux') {
@@ -8,7 +8,7 @@
                 args.push('-B');
             }
             
-            var make = child_process.spawn('make', args);
+            var make = spawn('make', args);
             make.stdout.on('data', function(data) {
                 console.log(data.toString());
             });
