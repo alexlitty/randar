@@ -1,24 +1,29 @@
 {
-  "name": "randar",
-  "version": "1.0.0",
-  "description": "The animated film creation suite by Litty Studios.",
-  "dependencies": {
-    "async": "^2.1.5",
-    "browserify": "^14.1.0",
-    "glob": "^7.1.1",
-    "less": "^2.7.2",
-    "mkdirp": "^0.5.1",
-    "underscore": "^1.8.3",
-    "vue": "^2.2.1"
-  },
-  "browser": {
-      "vue": "vue/dist/vue.common.js"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "build-ui": "node scripts/build-ui.js"
-  },
-  "repository": {},
-  "author": "Litty Studios",
-  "license": "UNLICENSED"
+    "name": "randar",
+    "version": "1.0.0",
+    "description": "The animated film creation suite by Litty Studios.",
+
+    "repository": { },
+    "author": "Litty Studios",
+    "license": "UNLICENSED",
+
+    "scripts": {
+        "build-ui": "node scripts/build-ui.js"
+    },
+
+    "dependencies": {
+        "async": "^2.1.5",
+        "browserify": "^14.1.0",
+        "glob": "^7.1.1",
+        "less": "^2.7.2",
+        "mkdirp": "^0.5.1",
+        "underscore": "^1.8.3",
+        "vue": "^2.2.1"
+    },
+
+    "devDependencies": { },
+
+    "browser": {
+        "vue": "vue/dist/vue.common.js"
+    }
 }
