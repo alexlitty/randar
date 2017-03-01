@@ -1,6 +1,4 @@
 (function() {
-    var Vue = require('vue');
-
     Vue.filter('titlecase', function(value) {
         if (!_.isString(value) || !value.length) {
             return value;

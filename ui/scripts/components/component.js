@@ -1,5 +1,4 @@
 (function() {
-    var Vue    = require('vue');
     var common = require('./common');
 
     /**
