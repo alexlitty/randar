@@ -10,9 +10,15 @@
             }
         },
 
+        methods: {
+            onClose: function() {
+                window.closeRandar();
+            }
+        },
+
         template: `
             <div id="main-menu-bar">
-                <menu-bar :items="items"></menu-bar>
+                <menu-bar :items="items" :onClose="onClose"></menu-bar>
             </div>
         `
     });
