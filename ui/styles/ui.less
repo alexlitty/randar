@@ -1,10 +1,6 @@
 @import 'colors';
 @import 'generic/clickable';
 
-.background-gradient() {
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
-}
-
 #engine-monitor {
     position: absolute;
     top: 0;
@@ -216,7 +212,6 @@ section.info {
         background-color: #555;
 
         header {
-            .background-gradient();
             padding: 0 8px;
             background-color: #333;
         }
@@ -229,11 +224,9 @@ section.info {
             }
 
             div {
-                .background-gradient();
                 background-color: #333;
 
                 &:before {
-                    .background-gradient();
 
                     position: absolute;
                     top: 0;
