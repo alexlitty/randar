@@ -1,0 +1,17 @@
+@import 'highlighted';
+
+.clickable {
+    pointer-events: auto;
+
+    &:hover {
+        .highlighted;
+        cursor: pointer;
+    }
+}
+
+tr.clickable:hover {
+    td, th {
+        .highlighted;
+        cursor: pointer;
+    }
+}
