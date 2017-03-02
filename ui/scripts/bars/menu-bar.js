@@ -12,7 +12,7 @@
                 </menuitem>
 
                 <menuitem class="close" v-if="onClose" @click="onClose">
-                    X
+
                 </menuItem>
             </menu>
         `

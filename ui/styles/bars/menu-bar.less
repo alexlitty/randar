@@ -1,11 +1,29 @@
+@import '../generic/clickable';
+
 menu.bar {
     margin  : 0;
     padding : 0;
 
     menuitem {
+        .clickable;
         display : inline-block;
 
         margin  : 0;
         padding : 6px 10px;
+    }
+
+    .close {
+        float : right;
+        width : 15px;
+
+        background-color : #933;
+        text-align       : right;
+
+        -webkit-clip-path: circle(25px at 25px 12px);
+        clip-path: circle(25px at 25px 12px);
+
+        &:after {
+            content: 'X';
+        }
     }
 }
