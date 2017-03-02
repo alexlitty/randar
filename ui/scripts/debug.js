@@ -4,6 +4,10 @@
     if ((window.location.search || '').indexOf('debug') > -1) {
         randar.debug = true;
 
+        window.closeRandar = function() {
+            console.log("Randar would close");
+        }
+
         window.saveProject = function() {
             console.info("Project would be saved");
         }
