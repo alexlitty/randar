@@ -1,0 +1,30 @@
+@import 'colors';
+@import 'generic/clickable';
+
+.resource-list {
+    li {
+        .clickable;
+
+        padding: 12px 25px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+        &.scenes {
+            background-color: @color-scenes;
+        }
+        &.models {
+            background-color: @color-models;
+        }
+
+        &.textures {
+            background-color: @color-textures;
+        }
+
+        &.shaders {
+            background-color: @color-shaders;
+        }
+
+        &:last-child {
+            border-bottom: 0px;
+        }
+    }
+}
