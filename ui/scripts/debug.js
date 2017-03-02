@@ -5,7 +5,7 @@
         randar.debug = true;
 
         window.closeRandar = function() {
-            console.log("Randar would close");
+            console.info("Randar would close");
         }
 
         window.saveProject = function() {
