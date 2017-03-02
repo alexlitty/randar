@@ -1,7 +1,8 @@
 (function() {
     randar.component('menu-bar', {
         props: {
-            items: Array
+            items: Array,
+            onClose: Function
         },
 
         template: `
@@ -9,6 +10,10 @@
                 <menuitem v-for="item in items">
                     {{ item.text }}
                 </menuitem>
+
+                <menuitem class="close" v-if="onClose" @click="onClose">
+                    X
+                </menuItem>
             </menu>
         `
     });
