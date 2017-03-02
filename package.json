@@ -12,7 +12,8 @@
         "install": "node scripts/install.js",
         "build": "node scripts/build.js",
         "build-full": "node scripts/build.js full=yes",
-        "test": "node scripts/test.js"
+        "test": "node scripts/test.js",
+        "test-full": "node scripts/test.js full=yes"
     },
 
     "dependencies": {
