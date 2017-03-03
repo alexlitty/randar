@@ -13,7 +13,9 @@
                             ],
 
                             [
-                                { text: 'Close' }
+                                { text: 'Close', action: function() {
+                                    window.closeRandar();
+                                }}
                             ]
                         ]
                     },
