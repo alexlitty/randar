@@ -5,7 +5,13 @@
         randar.debug = true;
 
         window.closeRandar = function() {
-            console.info("Randar would close");
+            document.body.innerHTML = `
+                <span style="color: #111;">
+                    Well now don't you feel silly?
+                    <br /><br />
+                    I'm not sure what you expected that to do.
+                </span>
+            `;
         }
 
         window.saveProject = function() {
