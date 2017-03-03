@@ -74,8 +74,9 @@
                             less.render(
                                 fs.readFileSync(filename).toString(),
                                 {
-                                    filename : filename,
-                                    compress : true
+                                    filename   : filename,
+                                    compress   : true,
+                                    strictMath : true
                                 },
                                 function (err, output) {
                                     rendered(err, output && output.css);
