@@ -21,7 +21,7 @@
                         text: 'Help',
                         contextMenu: [
                             [
-                                { text: 'About' }
+                                { text: 'About Randar' }
                             ]
                         ]
                     }
