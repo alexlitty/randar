@@ -1,6 +1,7 @@
-global._      = require('underscore');
-global.Vue    = require('vue');
-global.randar = require('./randar');
+global._        = require('underscore');
+global.Vue      = require('vue');
+global.interact = require('interactjs');
+global.randar   = require('./randar');
 
 /**
  * Initialize the interface.
