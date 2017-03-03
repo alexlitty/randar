@@ -1,15 +1,16 @@
 (function() {
     randar.component('context-menu', {
         props: {
-            active : Boolean,
-            items  : Array
+            groups : Array
         },
 
         template: `
-            <menu class="context" v-if="active" v-click-away="active = false">
-                <menuitem v-for="item in items">
-                    {{ item.text }}
-                </menuitem>
+            <menu class="context">
+                <menu class="group" v-for="group in groups">
+                    <menuitem v-for="item in group">
+                        {{ item.text }}
+                    </menuitem>
+                </menu>
             </menu>
         `
     });
