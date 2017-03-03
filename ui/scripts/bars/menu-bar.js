@@ -36,7 +36,7 @@
 
         template: `
             <menu class="bar">
-                <menuitem v-for="item in items">
+                <menuitem v-for="item in items" :class="activeItem === item ? 'active' : ''">
                     <div @click="onItemClick(item)">
                         {{ item.text }}
                     </div>
