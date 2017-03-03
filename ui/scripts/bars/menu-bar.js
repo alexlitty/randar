@@ -1,5 +1,11 @@
 (function() {
     randar.component('menu-bar', {
+        data: function() {
+            return {
+                activeItem: null
+            }
+        },
+
         props: {
             items: Array,
             onClose: Function
@@ -7,24 +13,37 @@
 
         methods: {
             onItemClick: function(item) {
+                if (this.activeItem === item) {
+                    this.activeItem = null;
+                    return;
+                }
+
                 if (item.contextMenu) {
-                    item.active = true;
+                    this.activeItem = item;
                 }
 
                 if (item.onClick) {
                     item.onClick();
+                }
+            },
+
+            onContextMenuClose: function(item) {
+                if (this.activeItem === item) {
+                    this.activeItem = null;
                 }
             }
         },
 
         template: `
             <menu class="bar">
-                <menuitem v-for="item in items" @click="onItemClick(item)">
-                    {{ item.text }}
+                <menuitem v-for="item in items">
+                    <div @click="onItemClick(item)">
+                        {{ item.text }}
+                    </div>
 
-                    <context-menu v-if="item.contextMenu && item.active"
-                     v-click-away="item.active = false"
-                     :groups="item.contextMenu">
+                    <context-menu v-if="item.contextMenu && activeItem === item"
+                     :groups="item.contextMenu"
+                     @close="onContextMenuClose(item)">
                     </context-menu>
                 </menuitem>
 
