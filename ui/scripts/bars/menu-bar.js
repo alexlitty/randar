@@ -12,7 +12,7 @@
         },
 
         methods: {
-            onItemClick: function(item) {
+            onItemFocus: function(item) {
                 if (this.activeItem === item) {
                     this.activeItem = null;
                     return;
@@ -27,6 +27,12 @@
                 }
             },
 
+            onItemHover: function(item) {
+                if (this.activeItem && item.contextMenu) {
+                    this.activeItem = item;
+                }
+            },
+
             onContextMenuClose: function(item) {
                 if (this.activeItem === item) {
                     this.activeItem = null;
@@ -37,7 +43,9 @@
         template: `
             <menu class="bar">
                 <menuitem v-for="item in items" :class="activeItem === item ? 'active' : ''">
-                    <div class="text" @click="onItemClick(item)">
+                    <div class="text"
+                     @click="onItemFocus(item)"
+                     @mouseover="onItemHover(item)">
                         {{ item.text }}
                     </div>
 
