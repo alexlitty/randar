@@ -1,11 +1,11 @@
 (function() {
     randar.component('main-menu-bar', {
-        computed: {
-            items: function() {
-                return [
+        data: function () {
+            return {
+                items: [
                     {
                         text: 'Randar',
-                        active: true,
+                        active: null,
                         contextMenu: [
                             [
                                 { text: 'New Project' },
@@ -17,9 +17,15 @@
                             ]
                         ]
                     },
-                    { text: 'Project' },
-                    { text: 'Help'    }
-                ];
+                    {
+                        text: 'Help',
+                        contextMenu: [
+                            [
+                                { text: 'About' }
+                            ]
+                        ]
+                    }
+                ]
             }
         },
 
