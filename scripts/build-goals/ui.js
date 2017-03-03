@@ -58,7 +58,7 @@
                         }
                     })
                 ).bundle(function(err, output) {
-                    (err && done(err)) || publish('ui.js', output, done);
+                    err ? done(err) : publish('ui.js', output, done);
                 });
             }
         },
