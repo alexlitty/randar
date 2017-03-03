@@ -2,12 +2,16 @@
 
 menu.bar {
     > menuitem {
-        .clickable;
         position: relative;
         display : inline-block;
 
         margin  : 0;
-        padding : 6px 10px;
+
+        .text {
+            .clickable;
+            display : inline-block;
+            padding : 6px 10px;
+        }
 
         &.active {
             background-color: #992727;
