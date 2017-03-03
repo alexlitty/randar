@@ -155,8 +155,12 @@ void randar::Ui::execute(
     const ::CefV8ValueList& arguments,
     ::CefRefPtr<::CefV8Value>& returnValue)
 {
+    if (name == "closeRandar") {
+        this->close = true;
+    }
+
     // Switch the resource on the engine monitor.
-    if (name == "setMonitorTarget") {
+    else if (name == "setMonitorTarget") {
         ScopeLock monitorLock(this->monitor);
 
         if (arguments.size() >= 2 && arguments[0]->IsString() && arguments[1]->IsString()) {
@@ -256,6 +260,10 @@ void randar::Ui::run()
     // Run the interface program.
     Framebuffer &defaultFramebuffer = Framebuffer::getDefault();
     while (true) {
+        if (this->close) {
+            break;
+        }
+
         this->gpu.check();
         this->runMessageLoops();
 

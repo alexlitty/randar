@@ -44,6 +44,11 @@ namespace randar
          */
         bool save = false;
 
+        /**
+         * Whether Randar should close.
+         */
+        bool close = false;
+
     public:
         /**
          * GPU to use.

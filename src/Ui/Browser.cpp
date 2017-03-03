@@ -296,6 +296,12 @@ void randar::Browser::OnContextCreated(
     ::CefRefPtr<::CefV8Value> jsWindow = context->GetGlobal();
 
     jsWindow->SetValue(
+        "closeRandar",
+        ::CefV8Value::CreateFunction("closeRandar", handler),
+        ::V8_PROPERTY_ATTRIBUTE_NONE
+    );
+
+    jsWindow->SetValue(
         "setMonitorTarget",
         ::CefV8Value::CreateFunction("setMonitorTarget", handler),
         ::V8_PROPERTY_ATTRIBUTE_NONE
