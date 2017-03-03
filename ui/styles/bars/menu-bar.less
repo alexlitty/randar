@@ -1,10 +1,7 @@
 @import '../generic/clickable';
 
 menu.bar {
-    margin  : 0;
-    padding : 0;
-
-    menuitem {
+    > menuitem {
         .clickable;
         display : inline-block;
 
@@ -12,7 +9,7 @@ menu.bar {
         padding : 6px 10px;
     }
 
-    .close {
+    > .close {
         float : right;
         width : 15px;
 
