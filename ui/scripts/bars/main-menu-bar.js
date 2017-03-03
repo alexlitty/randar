@@ -3,7 +3,20 @@
         computed: {
             items: function() {
                 return [
-                    { text: 'Randar'  },
+                    {
+                        text: 'Randar',
+                        active: true,
+                        contextMenu: [
+                            [
+                                { text: 'New Project' },
+                                { text: 'Open Project' }
+                            ],
+
+                            [
+                                { text: 'Close' }
+                            ]
+                        ]
+                    },
                     { text: 'Project' },
                     { text: 'Help'    }
                 ];
