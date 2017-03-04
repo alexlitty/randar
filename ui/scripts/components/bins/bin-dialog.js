@@ -17,7 +17,8 @@
             <dialog-box>
                 <header class="drag-handle">Master bin</header>
 
-                <bin-folder :contents="bin" :root="true"></bin-folder>
+                <bin-folder class="bin" :contents="bin" :root="true">
+                </bin-folder>
             </dialog-box>
         `
     });
