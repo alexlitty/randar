@@ -1,0 +1,16 @@
+@import '../generic/clickable';
+
+.bin {
+    .folder, .item {
+        padding-left: 10px;
+
+        .name {
+            .clickable;
+            padding: 10px;
+        }
+    }
+
+    > .folder, > .item {
+        padding-left: 0;
+    }
+}
