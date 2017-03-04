@@ -47,6 +47,7 @@
                     for (item in data[type]) {
                         if (data[type][item]) {
                             data[type][item].id = item;
+                            data[type][item].resourceType = type;
                             Vue.set(
                                 randar.resources[type],
                                 item,
