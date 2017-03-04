@@ -26,6 +26,21 @@
         }
     }
 
+    .folder {
+        .name {
+            &:before {
+                content     : '+';
+                white-space : pre;
+
+                display : inline-block;
+            }
+
+            &.expanded:before {
+                content : '-';
+            }
+        }
+    }
+
     .item {
         .name {
             &:before {
