@@ -18,9 +18,29 @@ randar.ready = function() {
             },
 
             onmove: function(event) {
-                var target = event.target,
-                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                var target = event.target;
+                var x, y;
+
+                if (target.getAttribute('data-x') === null) {
+                    var result = /^matrix\(1, 0, 0, 1, (\d+), (\d+)\)$/.exec(
+                        getComputedStyle(target).transform
+                    );
+
+                    if (result) {
+                        x = parseFloat(result[1]) || 0;
+                        y = parseFloat(result[2]) || 0;
+                    } else {
+                        x = y = 0;
+                    }
+                }
+                
+                else {
+                    x = parseFloat(target.getAttribute('data-x')) || 0;
+                    y = parseFloat(target.getAttribute('data-y')) || 0;
+                }
+
+                x += event.dx;
+                y += event.dy;
 
                 target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
                 target.setAttribute('data-x', x);
