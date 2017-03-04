@@ -9,7 +9,7 @@
             resources : function() { return randar.resources; },
             target    : function() { return randar.target; },
 
-            scenes   : function() { return randar.resources.model; },
+            scenes   : function() { return randar.resources.scenes; },
             models   : function() { return randar.resources.models; },
             textures : function() { return randar.resources.textures; },
             shaders  : function() { return randar.resources.shaders; }
