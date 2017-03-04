@@ -9,10 +9,7 @@ global.randar   = require('./randar');
 randar.ready = function() {
     interact('.draggable')
         .draggable({
-            intertia: true,
-            autoScroll: true,
-
-            allowFrom: '.drag-handle',
+            inertia: true,
 
             restrict: {
                 restriction : 'parent',
@@ -29,7 +26,9 @@ randar.ready = function() {
                 target.setAttribute('data-x', x);
                 target.setAttribute('data-y', y);
             }
-        });
+        })
+        .allowFrom('.drag-handle')
+        .styleCursor(false);
 
     new Vue({
         el: document.getElementById('randar'),
