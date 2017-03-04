@@ -9,6 +9,12 @@
     .overflow-ellipsis;
     width: 250px;
 
+    > .contents {
+        > .folder, > .item {
+            padding-left: 0;
+        }
+    }
+
     .folder, .item {
         padding-left: 10px;
 
@@ -16,12 +22,6 @@
             .clickable;
             .overflow-ellipsis;
             padding: 10px;
-        }
-    }
-
-    > .contents {
-        > .folder, > .item {
-            padding-left: 0;
         }
     }
 }
