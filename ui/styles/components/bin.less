@@ -24,4 +24,27 @@
             padding: 10px;
         }
     }
+
+    .item {
+        .name:before {
+            content     : ' ';
+            white-space : pre;
+
+            display : inline-block;
+            width   : 8px;
+            height  : 8px;
+
+            position     : relative;
+            top          : 3px;
+            margin-right : 4px;
+
+            border-radius    : 50%;
+            background-color : #eee;
+        }
+
+        .name {
+            &.models:before {
+            }
+        }
+    }
 }
