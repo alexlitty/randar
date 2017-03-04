@@ -1,12 +1,15 @@
 (function() {
     randar.component('bin-dialog', {
         computed: {
-            contents: function() {
-                return [
-                    { name: 'Scenes', items: this.scenes },
-                    { name: 'Models', items: this.models },
-                    { name: 'Textures', items: this.textures }
-                ];
+            bin: function() {
+                return {
+                    name    : 'Master bin',
+                    folders : [
+                        { name: 'Scenes', items: _.toArray(this.scenes) },
+                        { name: 'Models', items: _.toArray(this.models) },
+                        { name: 'Textures', items: _.toArray(this.textures) }
+                    ]
+                }
             }
         },
 
@@ -14,14 +17,7 @@
             <dialog-box>
                 <header class="drag-handle">Master bin</header>
 
-                <div class="bin-contents">
-                    <div class="folder" v-for="folder in contents">
-                        <div class="name">{{ folder.name }}</div>
-                        <div class="item" v-for="item in folder.items">
-                            {{ item.name }}
-                        </div>
-                    </div>
-                </div>
+                <bin-folder :contents="bin" :root="true"></bin-folder>
             </dialog-box>
         `
     });
