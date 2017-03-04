@@ -12,6 +12,8 @@ randar.ready = function() {
             intertia: true,
             autoScroll: true,
 
+            allowFrom: '.drag-handle',
+
             restrict: {
                 restriction : 'parent',
                 endOnly     : false,
