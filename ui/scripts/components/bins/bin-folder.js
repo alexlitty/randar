@@ -30,7 +30,9 @@
 
                     <div class="item" v-for="(item, itemId) in folder.items"
                      :key="itemId">
-                        <div class="name">{{ item.name }}</div>
+                        <div class="name" :class="item.resourceType">
+                            {{ item.name }}
+                        </div>
                     </div>
                 </div>
             </div>
