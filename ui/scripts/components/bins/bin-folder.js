@@ -22,7 +22,7 @@
                     {{ folder.name }}
                 </div>
 
-                <div v-if="expanded">
+                <div class="contents" v-if="expanded">
                     <bin-folder v-for="(subfolder, subfolderId) in folder.folders"
                      :key="subfolderId"
                      :folder="subfolder">
