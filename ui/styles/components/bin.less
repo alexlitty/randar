@@ -27,22 +27,34 @@
     }
 
     .folder {
-        .name {
+        > .name {
             &:before {
-                content     : '+';
+                display     : inline-block;
                 white-space : pre;
+                content     : ' ';
 
-                display : inline-block;
+                width  : 0;
+                height : 0;
+
+                border-top    : solid 5px transparent;
+                border-bottom : solid 5px transparent;
+                border-left   : solid 5px #eee;
+                
+                vertical-align : middle;
+                position       : relative;
+                bottom         : 1px;
+
+                transition : all 0.1s;
             }
 
             &.expanded:before {
-                content : '-';
+                transform: rotate(45deg);
             }
         }
     }
 
     .item {
-        .name {
+        > .name {
             &:before {
                 content     : ' ';
                 white-space : pre;
