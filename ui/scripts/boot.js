@@ -54,12 +54,15 @@ randar.ready = function() {
         el: document.getElementById('randar'),
         data: randar,
         watch: {
-            target: {
-                deep: true,
-                handler: function(value, oldValue) {
+            focusedResources: function(value) {
+                if (!value.length) {
+                    window.setMonitorTarget();
+                }
+
+                else {
                     window.setMonitorTarget(
-                        value.resource.category,
-                        value.resource.id
+                        value[0].resourceType,
+                        value[0].id
                     );
                 }
             }
