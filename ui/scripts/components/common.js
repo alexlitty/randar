@@ -20,17 +20,12 @@
         },
 
         methods: {
-            getSelectedResource: function() {
-                if (!this.isResourceSelected()) {
-                    return { };
+            getCurrentScene: function() {
+                if (!this.focusedResources.length) {
+                    return;
                 }
 
-                var resource = this.target.resource;
-                return this.resources[resource.category][resource.id];
-            },
-
-            getCurrentScene: function() {
-                var resource = this.getSelectedResource();
+                var resource = this.focusedResources[0];
                 if (!resource && resource.resourceType !== 'scenes') {
                     return null;
                 }
