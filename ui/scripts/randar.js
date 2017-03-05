@@ -93,7 +93,12 @@
         /**
          * Collection of resources that have an open dialog.
          */
-        resourcesWithDialogs: []
+        resourcesWithDialogs: [],
+
+        /**
+         * Resources whose dialogs should be focused.
+         */
+        focusedResources: []
     };
 
     module.exports = randar;
