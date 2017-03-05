@@ -321,6 +321,15 @@ void randar::Ui::run()
         }
         this->sync();
 
+        // Handle resource patches.
+        if (!this->resourcePatches.empty()) {
+            for (auto patch : this->resourcePatches) {
+                this->project.resources.apply(patch);
+            }
+
+            this->resourcePatches.clear();
+        }
+
         // Draw the interface.
         defaultFramebuffer.clear(Color(0.21f, 0.05f, 0.30f));
         ScopeLock monitorLock(this->monitor);

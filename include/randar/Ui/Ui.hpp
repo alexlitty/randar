@@ -8,7 +8,6 @@
 #include <randar/Thread/TryLock.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Ui/BrowserListener.hpp>
-#include <randar/Ui/ResourcePatch.hpp>
 #include <randar/Ui/WindowListener.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
