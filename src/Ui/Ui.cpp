@@ -309,7 +309,7 @@ void randar::Ui::run()
         this->sync();
 
         // Draw the interface.
-        defaultFramebuffer.clear(Color(0.15f, 0.15, 0.0f));
+        defaultFramebuffer.clear(Color(0.21f, 0.05f, 0.30f));
         ScopeLock monitorLock(this->monitor);
         this->monitor.draw();
 
