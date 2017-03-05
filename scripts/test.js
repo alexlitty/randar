@@ -24,8 +24,17 @@ build(function(err) {
         return;
     }
 
+    var flags = [
+        '--disable-gpu',
+        '--disable-gpu-compositing',
+        '--enable-begin-frame-scheduling',
+        '--disable-d3d11',
+        '--off-screen-rendering-enabled',
+        '--off-screen-frame-rate=60'
+    ];
+
     console.log('Running ' + executable + os.EOL);
-    var randar = spawn(path.join(binDirectory, executable), [ ], {
+    var randar = spawn(path.join(binDirectory, executable), flags, {
         cwd: binDirectory
     });
 
