@@ -8,6 +8,7 @@
 #include <randar/Thread/TryLock.hpp>
 #include <randar/Ui/Browser.hpp>
 #include <randar/Ui/BrowserListener.hpp>
+#include <randar/Ui/ResourcePatch.hpp>
 #include <randar/Ui/WindowListener.hpp>
 #include <randar/Utility/tinyfiledialogs.h>
 
@@ -38,6 +39,13 @@ namespace randar
          * Collected in a CEF thread, used in the main thread.
          */
         std::vector<std::string> createResourceQueue;
+
+        /**
+         * Patches to be applied to resources.
+         *
+         * Collected in a CEF thread, used in the main thread.
+         */
+        std::vector<ResourcePatch> resourcePatches;
 
         /**
          * Whether to save the project.
