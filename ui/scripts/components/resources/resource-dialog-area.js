@@ -7,7 +7,7 @@
         },
 
         template: `
-            <div id="resource-dialog-area">
+            <div class="dialog-area">
                 <resource-dialog v-for="(resource, resourceId) in resources"
                  :key="resourceId"
                  :resource="resource">

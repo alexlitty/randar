@@ -1,10 +1,13 @@
-#dialog-area {
+.dialog-area {
     position : absolute;
     top      : 0;
     left     : 0;
 
     width  : 100%;
-    height : calc(100% - 28px);
+    height : 100%;
 
-    margin-top : 28px;
+    &.main {
+        height     : calc(100% - 28px);
+        margin-top : 28px;
+    }
 }
