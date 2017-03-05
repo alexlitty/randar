@@ -18,3 +18,7 @@ platform/**/Debug
 platform/**/Release
 *.db
 *.exp
+*.opendb
+*.pdb
+*.ipdb
+*.iobj

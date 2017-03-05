@@ -40,6 +40,42 @@
     <Filter Include="Project\ResourceRepository">
       <UniqueIdentifier>{befbf9a0-7a7d-4fdf-b2ed-8e5c84a772a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\randar">
+      <UniqueIdentifier>{84e8f18f-995b-4a79-bbe2-8c1796d30960}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Engine">
+      <UniqueIdentifier>{2b290bc1-e07b-46be-8983-3251effaa443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Filesystem">
+      <UniqueIdentifier>{66368987-0c2f-48e1-96bf-4e4a2ba353a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Log">
+      <UniqueIdentifier>{a1ea3879-8622-44aa-a398-605eea0b0e27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Math">
+      <UniqueIdentifier>{f70fcf77-1cf1-4862-8241-cdf9a980302f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Physics">
+      <UniqueIdentifier>{682f8d8c-c674-425d-bca2-f023d632f65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Project">
+      <UniqueIdentifier>{5455e2fd-9135-4471-a58b-1f90eff09e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Render">
+      <UniqueIdentifier>{53dfb9c7-dd5c-4e84-a007-e05552705efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Scene">
+      <UniqueIdentifier>{1aa376d1-e42d-4367-a06a-44613b600d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Thread">
+      <UniqueIdentifier>{f8e313c7-44f2-4332-8dba-70bc8bb6438f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Ui">
+      <UniqueIdentifier>{b48ad911-02e7-46cb-8774-7e50d603c984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\randar\Utility">
+      <UniqueIdentifier>{801dbe3f-755a-4633-add7-862fde6f0d4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Main.cpp" />
@@ -262,5 +298,274 @@
     <ClCompile Include="..\..\..\src\Filesystem\FileUtility.cpp">
       <Filter>Filesystem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Filesystem\CefPath.cpp">
+      <Filter>Filesystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\randar\Math.hpp">
+      <Filter>include\randar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Randar.hpp">
+      <Filter>include\randar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render.hpp">
+      <Filter>include\randar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Shape.hpp">
+      <Filter>include\randar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\tinydir.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\EngineMonitor.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\FileResource.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\Glfw.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\Gpu.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\GpuResource.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\Native.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\Repository.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\Resource.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Engine\Window.hpp">
+      <Filter>include\randar\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\BinaryFileReader.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\BinaryFileStream.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\BinaryFileWriter.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\Directory.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\Endian.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\File.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\Path.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Log\DefaultLog.hpp">
+      <Filter>include\randar\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Log\Log.hpp">
+      <Filter>include\randar\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Log\LogListener.hpp">
+      <Filter>include\randar\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Log\LogMessage.hpp">
+      <Filter>include\randar\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Math\Angle.hpp">
+      <Filter>include\randar\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Math\Constant.hpp">
+      <Filter>include\randar\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Math\Quaternion.hpp">
+      <Filter>include\randar\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Math\Random.hpp">
+      <Filter>include\randar\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Math\Rect.hpp">
+      <Filter>include\randar\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Math\Transform.hpp">
+      <Filter>include\randar\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Math\vector.hpp">
+      <Filter>include\randar\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\File.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\glm.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\iqm.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\Json.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\Map.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\Resources.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\String.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\Timer.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\tinyfiledialogs.h">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Utility\Vector.hpp">
+      <Filter>include\randar\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\browser.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\BrowserListener.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\Cursor.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\MouseButton.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\MouseModifiers.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\MousePosition.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\NativeCodeHandler.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\Ui.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\WindowHandlers.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Ui\WindowListener.hpp">
+      <Filter>include\randar\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Thread\Lock.hpp">
+      <Filter>include\randar\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Thread\Lockable.hpp">
+      <Filter>include\randar\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Thread\ScopeLock.hpp">
+      <Filter>include\randar\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Thread\TryLock.hpp">
+      <Filter>include\randar\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\Action.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\Frame.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\FrameRange.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\ModelState.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\Object.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\Scene.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\TransformAction.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Scene\TransformState.hpp">
+      <Filter>include\randar\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Camera.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Color.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\DefaultTexture.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Framebuffer.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\IndexBuffer.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Joint.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\JointPose.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Light.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Material.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Model.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Renderbuffer.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Shader.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\ShaderProgram.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Texture.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Vertex.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\VertexBuffer.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Render\Viewport.hpp">
+      <Filter>include\randar\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Project\Project.hpp">
+      <Filter>include\randar\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Project\ResourceId.hpp">
+      <Filter>include\randar\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Project\ResourcePatch.hpp">
+      <Filter>include\randar\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Project\ResourceRepository.hpp">
+      <Filter>include\randar\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Physics\Physical.hpp">
+      <Filter>include\randar\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Physics\System.hpp">
+      <Filter>include\randar\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\randar\Filesystem\CefPath.hpp">
+      <Filter>include\randar\Filesystem</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
