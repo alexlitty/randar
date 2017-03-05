@@ -27,6 +27,15 @@
                 return this.resources[resource.category][resource.id];
             },
 
+            getCurrentScene: function() {
+                var resource = this.getSelectedResource();
+                if (!resource && resource.resourceType !== 'scenes') {
+                    return null;
+                }
+
+                return resource;
+            },
+
             isNothingSelected: function() {
                 return !this.isSettingsSelected()
                     && !this.isResourceCategorySelected()
