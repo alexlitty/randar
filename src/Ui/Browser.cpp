@@ -29,7 +29,7 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
         settings.single_process = true;
 
         ::CefInitialize(
-            ::CefMainArgs(),
+            mainArgs,
             settings,
             app,
             nullptr
