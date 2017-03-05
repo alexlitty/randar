@@ -8,6 +8,11 @@ var common      = require('./components/common.js');
  * Initialize the interface.
  */
 randar.ready = function() {
+    document.body.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+        return false;
+    });
+
     interact('.draggable')
         .draggable({
             inertia: true,
