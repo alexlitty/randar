@@ -88,7 +88,12 @@
             },
 
             textureSlotId: null
-        }
+        },
+
+        /**
+         * Collection of resources that have an open dialog.
+         */
+        resourcesWithDialogs: []
     };
 
     module.exports = randar;
