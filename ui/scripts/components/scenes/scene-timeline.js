@@ -4,6 +4,10 @@
      */
     module.exports = randar.component('scene-timeline',
         {
+            props: {
+                scene: Object
+            },
+
             data: function() {
                 return {
                     selectedFrame: 0
@@ -17,10 +21,6 @@
 
                 width: function() {
                     return this.frames.length * this.zoom;
-                },
-
-                scene: function() {
-                    return this.getSelectedResource();
                 },
 
                 frames: function() {
@@ -48,7 +48,7 @@
             },
 
             template: `
-                <div class="timeline">
+                <div class="timeline" v-if="scene">
                     <div class="guide" :style="{ width: width }">
                         <header>&nbsp;</header>
 
