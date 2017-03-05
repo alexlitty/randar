@@ -12,7 +12,7 @@
 
         template: `
             <dialog-box :class="isFocused ? 'focused' : null">
-                <header class="drag-handle">{{ resource.name }}</header>
+                <header class="drag-handle" @click="focusResourceDialog(resource)">{{ resource.name }}</header>
             </dialog-box>
         `
     });
