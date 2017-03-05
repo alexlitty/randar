@@ -13,9 +13,7 @@
 
         methods: {
             onItemClick: function(item) {
-                if (!this.randar.resourcesWithDialogs.includes(item)) {
-                    this.randar.resourcesWithDialogs.push(item);
-                }
+                this.focusResourceDialog(item);
             }
         },
 
