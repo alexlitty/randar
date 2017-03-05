@@ -24,6 +24,11 @@ namespace randar
         char delimiter,
         std::vector<std::string>& results);
 
+	void split(
+		const std::string& str,
+		const char* delimiters,
+		std::vector<std::string>& results);
+
     std::vector<std::string> split(const std::string& str, char delimiter);
 
     /**

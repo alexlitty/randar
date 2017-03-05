@@ -6,8 +6,10 @@
 namespace randar
 {
 
-#ifdef __linux__
+#if defined (__linux__)
     ::Window getNativeWindow(::GLFWwindow& window);
+#elif defined (_WIN32)
+	HWND getNativeWindow(::GLFWwindow& window);
 #endif
 
 }

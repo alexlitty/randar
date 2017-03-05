@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{29417657-C73E-4053-80A9-E9344D314FE4}</ProjectGuid>
+    <RootNamespace>randar</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\bin\</OutDir>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\bin\</OutDir>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\dependencies\include\libpng;$(ProjectDir)\..\dependencies\include\cef;$(ProjectDir)\..\dependencies\include;$(ProjectDir)..\..\..\include;$(ProjectDir)..\..\..\include\bullet3;$(ProjectDir)..\..\..\include\pngpp</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32;__LITTLE_ENDIAN__;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\dependencies\Debug\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BulletCollision_vs2010_debug.lib;BulletDynamics_vs2010_debug.lib;cef_sandbox.lib;glew32.lib;glfw3.lib;libcef.lib;libcef_dll_wrapper.lib;libpng16d.lib;LinearMath_vs2010_debug.lib;zlibstaticd.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;glu32.lib;imm32.lib;dbghelp.lib;psapi.lib;version.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>setlocal
+mt.exe -nologo -manifest "$(ProjectDir)randar.exe.manifest" "$(ProjectDir)compatibility.manifest" -outputresource:"$(TargetPath)";#1
+npm run build</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\dependencies\include\libpng;$(ProjectDir)\..\dependencies\include\cef;$(ProjectDir)\..\dependencies\include;$(ProjectDir)..\..\..\include;$(ProjectDir)..\..\..\include\bullet3;$(ProjectDir)..\..\..\include\pngpp</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;__LITTLE_ENDIAN__;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\dependencies\Release\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BulletCollision_vs2010.lib;BulletDynamics_vs2010.lib;cef_sandbox.lib;glew32.lib;glfw3.lib;libcef.lib;libcef_dll_wrapper.lib;libpng16.lib;LinearMath_vs2010.lib;zlibstatic.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;glu32.lib;imm32.lib;dbghelp.lib;psapi.lib;version.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+    </Link>
+    <PostBuildEvent>
+      <Command>setlocal
+mt.exe -nologo -manifest "$(ProjectDir)randar.exe.manifest" "$(ProjectDir)compatibility.manifest" -outputresource:"$(TargetPath)";#1
+npm run build</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Engine\EngineMonitor.cpp" />
+    <ClCompile Include="..\..\..\src\Engine\FileResource.cpp" />
+    <ClCompile Include="..\..\..\src\Engine\Gpu.cpp" />
+    <ClCompile Include="..\..\..\src\Engine\GpuResource.cpp" />
+    <ClCompile Include="..\..\..\src\Engine\Native.cpp" />
+    <ClCompile Include="..\..\..\src\Engine\Repository.cpp" />
+    <ClCompile Include="..\..\..\src\Engine\Resource.cpp" />
+    <ClCompile Include="..\..\..\src\Engine\Window.cpp" />
+    <ClCompile Include="..\..\..\src\Filesystem\CefPath.cpp" />
+    <ClCompile Include="..\..\..\src\Filesystem\Directory.cpp" />
+    <ClCompile Include="..\..\..\src\Filesystem\FileUtility.cpp" />
+    <ClCompile Include="..\..\..\src\Filesystem\Path.cpp" />
+    <ClCompile Include="..\..\..\src\Log\DefaultLog.cpp" />
+    <ClCompile Include="..\..\..\src\Log\Log.cpp" />
+    <ClCompile Include="..\..\..\src\Log\LogListener.cpp" />
+    <ClCompile Include="..\..\..\src\Log\LogMessage.cpp" />
+    <ClCompile Include="..\..\..\src\Main.cpp" />
+    <ClCompile Include="..\..\..\src\Math\Angle.cpp" />
+    <ClCompile Include="..\..\..\src\Math\Constant.cpp" />
+    <ClCompile Include="..\..\..\src\Math\Quaternion.cpp" />
+    <ClCompile Include="..\..\..\src\Math\Random.cpp" />
+    <ClCompile Include="..\..\..\src\Math\Transform.cpp" />
+    <ClCompile Include="..\..\..\src\Math\Vector.cpp" />
+    <ClCompile Include="..\..\..\src\Physics\Physical.cpp" />
+    <ClCompile Include="..\..\..\src\Physics\System.cpp" />
+    <ClCompile Include="..\..\..\src\Project\Project.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceId.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourcePatch.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceRepository.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceRepository\ExportRaModel.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceRepository\ExportRaTexture.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceRepository\ImportIqm.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceRepository\ImportPng.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceRepository\ImportRaModel.cpp" />
+    <ClCompile Include="..\..\..\src\Project\ResourceRepository\ImportRaTexture.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Camera.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Color.cpp" />
+    <ClCompile Include="..\..\..\src\Render\DefaultTexture.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Framebuffer.cpp" />
+    <ClCompile Include="..\..\..\src\Render\IndexBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Joint.cpp" />
+    <ClCompile Include="..\..\..\src\Render\JointPose.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Light.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Model.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Renderbuffer.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Shader.cpp" />
+    <ClCompile Include="..\..\..\src\Render\ShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Texture.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Vertex.cpp" />
+    <ClCompile Include="..\..\..\src\Render\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\Render\Viewport.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\Action.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\Frame.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\FrameRange.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\ModelState.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\Object.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\Scene.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\TransformAction.cpp" />
+    <ClCompile Include="..\..\..\src\Scene\TransformState.cpp" />
+    <ClCompile Include="..\..\..\src\Thread\Lock.cpp" />
+    <ClCompile Include="..\..\..\src\Thread\Lockable.cpp" />
+    <ClCompile Include="..\..\..\src\Thread\ScopeLock.cpp" />
+    <ClCompile Include="..\..\..\src\Thread\TryLock.cpp" />
+    <ClCompile Include="..\..\..\src\Ui\Browser.cpp" />
+    <ClCompile Include="..\..\..\src\Ui\MouseModifiers.cpp" />
+    <ClCompile Include="..\..\..\src\Ui\Ui.cpp" />
+    <ClCompile Include="..\..\..\src\Ui\WindowHandlers.cpp" />
+    <ClCompile Include="..\..\..\src\Ui\WindowListener.cpp" />
+    <ClCompile Include="..\..\..\src\Utility\File.cpp" />
+    <ClCompile Include="..\..\..\src\Utility\glm.cpp" />
+    <ClCompile Include="..\..\..\src\Utility\IqmResources.cpp" />
+    <ClCompile Include="..\..\..\src\Utility\Resources.cpp" />
+    <ClCompile Include="..\..\..\src\Utility\String.cpp" />
+    <ClCompile Include="..\..\..\src\Utility\Timer.cpp" />
+    <ClCompile Include="..\..\..\src\Utility\tinyfiledialogs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\randar\Engine\EngineMonitor.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\FileResource.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\Glfw.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\Gpu.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\GpuResource.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\Native.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\Repository.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\Resource.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Engine\Window.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\BinaryFileReader.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\BinaryFileStream.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\BinaryFileWriter.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\CefPath.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\Directory.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\Endian.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\File.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Filesystem\Path.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Log\DefaultLog.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Log\Log.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Log\LogListener.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Log\LogMessage.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math\Angle.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math\Constant.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math\Quaternion.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math\Random.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math\Rect.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math\Transform.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Math\vector.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Physics\Physical.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Physics\System.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Project\Project.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Project\ResourceId.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Project\ResourcePatch.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Project\ResourceRepository.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Randar.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Camera.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Color.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\DefaultTexture.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Framebuffer.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\IndexBuffer.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Joint.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\JointPose.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Light.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Material.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Model.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Renderbuffer.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Shader.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\ShaderProgram.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Texture.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Vertex.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\VertexBuffer.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Render\Viewport.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\Action.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\Frame.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\FrameRange.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\ModelState.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\Object.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\Scene.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\TransformAction.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Scene\TransformState.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Shape.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Thread\Lock.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Thread\Lockable.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Thread\ScopeLock.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Thread\TryLock.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\browser.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\BrowserListener.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\Cursor.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\MouseButton.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\MouseModifiers.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\MousePosition.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\NativeCodeHandler.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\Ui.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\WindowHandlers.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Ui\WindowListener.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\File.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\glm.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\iqm.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\Json.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\Map.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\Resources.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\String.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\Timer.hpp" />
+    <ClInclude Include="..\..\..\include\randar\Utility\tinyfiledialogs.h" />
+    <ClInclude Include="..\..\..\include\randar\Utility\Vector.hpp" />
+    <ClInclude Include="..\..\..\include\tinydir.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -13,3 +13,12 @@ lib/
 obj/
 
 node_modules/
+platform/windows/dependencies
+platform/**/Debug
+platform/**/Release
+*.db
+*.exp
+*.opendb
+*.pdb
+*.ipdb
+*.iobj

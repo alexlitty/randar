@@ -5,6 +5,14 @@
 // Construction.
 randar::Gpu::Gpu()
 {
+#if defined (__linux__)
+	const bool FULLSCREEN_MODE = true;
+#elif defined (_WIN32)
+	// NOTE Windows does not support fullscreen mode with CEF well
+	//		so we always want to disable it by default (Investigate later)
+	const bool FULLSCREEN_MODE = false;
+#endif
+
     // Initialize GLFW.
     if (!::glfwInit()) {
         throw std::runtime_error("Failed to initialize GLFW");
@@ -23,9 +31,20 @@ randar::Gpu::Gpu()
     ::glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     ::glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-    ::glfwWindowHint(GLFW_DECORATED, 0);
+	int width, height;
+	if (FULLSCREEN_MODE)
+	{
+		::glfwWindowHint(GLFW_DECORATED, 0);
+		width = mode->width;
+		height = mode->height;
+	}
+	else
+	{
+		width = 800;
+		height = 600;
+	}
 
-    this->window = ::glfwCreateWindow(mode->width, mode->height, "Randar", NULL, NULL);
+    this->window = ::glfwCreateWindow(width, height, "Randar", NULL, NULL);
     if (!this->window) {
         throw std::runtime_error("Failed to create GLFW window");
     }
@@ -663,11 +682,15 @@ void randar::Gpu::draw(
     program.setUniform("mvp", mvp);
 
     // Set joints uniform.
-    if (model.joints.size()) {
-        glm::mat4 jointMatrices[model.joints.size()];
+	size_t jointCount = model.joints.size();
+    if (jointCount) {
+		// TODO Is there a way to allocate this on the stack instead?
+        glm::mat4* jointMatrices = new glm::mat4[jointCount];
         for (unsigned int i = 0; i < model.joints.size(); i++) {
             jointMatrices[i] = model.joints[i]->getPoseMatrix();
         }
+
+		delete[] jointMatrices;
 
         /*::glUniformMatrix4fv(
             ::glGetUniformLocation(program, "joints"),

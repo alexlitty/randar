@@ -6,7 +6,7 @@ randar::Vector::Vector()
 
 }
 
-randar::Vector::Vector(btVector3 other)
+randar::Vector::Vector(const btVector3& other)
 : x(other.x()),
   y(other.y()),
   z(other.z())

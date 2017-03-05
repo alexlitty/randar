@@ -1,5 +1,10 @@
 #include <randar/Math/Rect.hpp>
 #include <randar/Ui/Browser.hpp>
+#include <randar/Filesystem/CefPath.hpp>
+
+#if defined (WIN32)
+#include <include/cef_sandbox_win.h>
+#endif
 
 // Constructor.
 randar::Browser::Browser()
@@ -19,8 +24,16 @@ randar::Browser::~Browser()
 // Tries to execute a CEF sub-process.
 int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
 {
-    ::CefRefPtr<Browser> app = this;
-    int exitCode = ::CefExecuteProcess(mainArgs, app, nullptr);
+	CefEnableHighDPISupport();
+
+#if defined (WIN32)
+	void* sandboxInfo = cef_sandbox_info_create();
+#else
+	void* sandboxInfo = nullptr;
+#endif
+
+    ::CefRefPtr<Browser> app(this);
+    int exitCode = ::CefExecuteProcess(mainArgs, app, sandboxInfo);
 
     if (exitCode == -1) {
         // Run in single process mode for now. This is apparently meant for
@@ -31,8 +44,8 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
         ::CefInitialize(
             mainArgs,
             settings,
-            app,
-            nullptr
+            app.get(),
+			sandboxInfo
         );
 
         int width, height;
@@ -83,7 +96,7 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
         ::CefBrowserHost::CreateBrowser(
             browserInfo,
             this,
-            ::CefString("file:///g/randar/bin/ui/ui.html"),
+            ::CefString(CefPath(CefPath::getCwd() + "ui/ui.html")),
             ::CefBrowserSettings(),
             nullptr
         );
@@ -229,7 +242,7 @@ bool randar::Browser::GetViewRect(
 
 void randar::Browser::OnCursorChange(
     ::CefRefPtr<::CefBrowser> browser,
-    unsigned long cursor,
+	CefCursorHandle cursor,
     ::CefRenderHandler::CursorType type,
     const ::CefCursorInfo& custom_cursor_info)
 {

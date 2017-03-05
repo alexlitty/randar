@@ -105,7 +105,12 @@ namespace png
             return std::string(buf);
 #else
             /* GNU variant can return a pointer to static buffer instead of buf */
-            return std::string(strerror_r(errnum, buf, ERRBUF_SIZE));
+#ifdef _WIN32
+			_itoa_s(errnum, buf, 10);
+			return std::string(buf);
+#else
+			return std::string(strerror_r(errnum, buf, ERRBUF_SIZE));
+#endif
 #endif
 #endif
 
