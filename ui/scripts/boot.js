@@ -2,6 +2,7 @@ global._        = require('underscore');
 global.Vue      = require('vue');
 global.interact = require('interactjs');
 global.randar   = require('./randar');
+var common      = require('./components/common.js');
 
 /**
  * Initialize the interface.
@@ -53,6 +54,7 @@ randar.ready = function() {
     new Vue({
         el: document.getElementById('randar'),
         data: randar,
+        methods: common.methods,
         watch: {
             focusedResources: function(value) {
                 if (!value.length) {
