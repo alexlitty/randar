@@ -1,10 +1,17 @@
 .dialog-box {
     display : inline-block;
+
+    border           : 1px solid #666;
     background-color : #333;
 
     header {
         background: #111;
         padding: 10px;
+        border-bottom: 1px solid #666;
+
+        &:last-child {
+            border-bottom: 0;
+        }
     }
 
     menu.bar {
