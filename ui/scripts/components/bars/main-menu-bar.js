@@ -7,6 +7,12 @@
                         text: 'Randar',
                         contextMenu: [
                             [
+                                { text: 'Save Project', action: function() {
+                                    window.saveProject();
+                                }}
+                            ],
+
+                            [
                                 { text: 'New Project'  },
                                 { text: 'Open Project' }
                             ],
