@@ -14,7 +14,9 @@
             scenes   : function() { return randar.resources.scenes; },
             models   : function() { return randar.resources.models; },
             textures : function() { return randar.resources.textures; },
-            shaders  : function() { return randar.resources.shaders; }
+            shaders  : function() { return randar.resources.shaders; },
+
+            focusedResources : function() { return randar.focusedResources; }
         },
 
         methods: {
