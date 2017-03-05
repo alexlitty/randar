@@ -74,6 +74,19 @@
 
             clearTargetResource: function() {
                 randar.target.resource.id = null;
+            },
+
+            /**
+             * Brings focus to the dialog for a resource.
+             *
+             * If the resource does not have a dialog, it is created.
+             */
+            focusResourceDialog: function(resource) {
+                if (!randar.resourcesWithDialogs.includes(resource)) {
+                    randar.resourcesWithDialogs.push(resource);
+                }
+
+                randar.focusedResources = [resource];
             }
         }
     };
