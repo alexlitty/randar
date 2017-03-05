@@ -4,6 +4,8 @@
 (function() {
      var common = {
         computed: {
+            randar    : function() { return randar; },
+
             debug     : function() { return randar.debug; },
             project   : function() { return randar.project; },
             resources : function() { return randar.resources; },
