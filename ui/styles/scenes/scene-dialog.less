@@ -1,0 +1,135 @@
+@import '../generic/clickable';
+
+.scene-dialog {
+    position : absolute;
+    bottom   : 0;
+    width    : 100%;
+
+    overflow : auto;
+
+    .marker {
+        .clickable;
+
+        position : absolute;
+        display  : inline;
+        top      : 0;
+        bottom   : 0;
+
+        div {
+            display     : flex;
+            align-items : center;
+
+            height      : 28px;
+            padding     : 0 8px;
+            line-height : 28px;
+        }
+    }
+
+    .guide {
+        position: relative;
+        min-height: 250px;
+        max-height: 300px;
+
+        header {
+            padding     : 2px 8px;
+            line-height : 24px;
+
+            background-color : #111;
+            border-bottom    : 1px solid #ccc;
+
+            font-size : 14px;
+        }
+
+        .markers {
+            background-color: #555;
+
+            .marker {
+                border-left: 1px solid rgba(51, 51, 51, 0.35);
+
+                &.significant {
+                    border-left: 1px solid rgba(51, 51, 51, 0.5);
+                }
+
+                div {
+                    border-bottom    : 1px solid #ccc;
+                    background-color : #111;
+
+                    font-size : 12px;
+
+                    &:before {
+                        content : '';
+
+                        position : absolute;
+                        top      : 0;
+                        left     : -1px;
+
+                        width  : 1px;
+                        height : 28px;
+
+                        border-bottom    : 1px solid #ccc;
+                        background-color : #111;
+                    }
+                }
+
+                &.selected {
+                    background-color: #aaa;
+                }
+            }
+        }
+    }
+
+    .items {
+        position: absolute;
+        top: 24px;
+        left: 0;
+        bottom: 0;
+
+        width: 100%;
+
+        pointer-events: none;
+
+        .item {
+            position: relative;
+
+            height: 24px;
+            box-sizing: border-box;
+
+            border-bottom: 1px solid rgba(25, 25, 25, 0.25);
+
+            header {
+                .clickable;
+
+                display: flex;
+                align-items: center;
+
+                padding: 0 8px;
+                background-color: #333;
+                line-height: 24px;
+            }
+
+            .markers {
+                .marker {
+                    div {
+                        .clickable;
+                        background-color: #75151e;
+                    }
+                }
+            }
+        }
+    }
+
+    .items .item, .guide {
+        display: flex;
+
+        header {
+            display: inline-block;
+            width: 100px;
+            height: 24px;
+        }
+
+        .markers {
+            flex-grow: 1;
+            position: relative;
+        }
+    }
+}
