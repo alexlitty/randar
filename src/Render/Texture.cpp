@@ -135,6 +135,18 @@ unsigned int randar::Texture::getHeight() const
     return this->height;
 }
 
+// Patches this resource.
+void randar::Texture::patch(Json json)
+{
+    for (auto it = json.begin(); it != json.end(); it++) {
+        std::string key = it.key();
+
+        if (key == "name") {
+            this->name = it.value();
+        }
+    }
+}
+
 // Converts this texture to a JSON representation.
 Json randar::Texture::toJson() const
 {

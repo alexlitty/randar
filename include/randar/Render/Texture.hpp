@@ -106,6 +106,11 @@ namespace randar
         unsigned int getHeight() const;
 
         /**
+         * Patches this resource.
+         */
+        void patch(Json json);
+
+        /**
          * Converts this texture to a JSON representation.
          */
         virtual Json toJson() const override;
