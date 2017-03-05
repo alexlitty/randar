@@ -12,6 +12,11 @@
         },
 
         methods: {
+            onItemClick: function(item) {
+                if (!this.randar.resourcesWithDialogs.includes(item)) {
+                    this.randar.resourcesWithDialogs.push(item);
+                }
+            }
         },
 
         template: `
@@ -30,7 +35,8 @@
 
                     <div class="item" v-for="(item, itemId) in folder.items"
                      :key="itemId">
-                        <div class="name" :class="item.resourceType">
+                        <div class="name" :class="item.resourceType"
+                         @click="onItemClick(item)">
                             {{ item.name }}
                         </div>
                     </div>
