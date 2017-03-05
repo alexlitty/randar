@@ -26,7 +26,7 @@
                 }
 
                 var resource = this.focusedResources[0];
-                if (!resource && resource.resourceType !== 'scenes') {
+                if (!resource || resource.resourceType !== 'scenes') {
                     return null;
                 }
 
