@@ -5,10 +5,9 @@
                 items: [
                     {
                         text: 'Randar',
-                        active: null,
                         contextMenu: [
                             [
-                                { text: 'New Project' },
+                                { text: 'New Project'  },
                                 { text: 'Open Project' }
                             ],
 
@@ -19,6 +18,24 @@
                             ]
                         ]
                     },
+
+                    {
+                        text: 'Project',
+                        contextMenu: [
+                            [
+                                { text: 'Create scene', action: function() {
+                                    window.createResource('scenes');
+                                }}
+                            ],
+
+                            [
+                                { text: 'Import resource', action: function() {
+                                    window.importResource();
+                                }}
+                            ]
+                        ]
+                    },
+
                     {
                         text: 'Help',
                         contextMenu: [
