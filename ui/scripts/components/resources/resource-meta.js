@@ -10,14 +10,14 @@
 
             computed: {
                 metaProps: function() {
-                    if (this.resource.category === 'models') {
+                    if (this.resource.resourceType === 'models') {
                         return {
                             vertexCount: 'Vertex Count',
                             faceCount: 'Face Count'
                         };
                     }
 
-                    else if (this.resource.category === 'textures') {
+                    else if (this.resource.resourceType === 'textures') {
                         return {
                             type: 'Type',
                             width: 'Width',
@@ -32,14 +32,8 @@
             },
 
             template: `
-                <table class="metadata">
-                    <thead>
-                        <tr>
-                            <th colspan="2">{{ resource.name }}</th>
-                        </tr>
-                    </thead>
-
-                    <tbody v-if="_.size(metaProps)">
+                <table class="metadata" v-if="_.size(metaProps)">
+                    <tbody>
                         <tr v-for="(propTitle, propId) in metaProps">
                             <th>{{ propTitle }}</th>
                             <td>{{ resource[propId] }}</td>
