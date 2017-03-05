@@ -5,9 +5,7 @@
     module.exports = randar.component('engine-monitor',
         {
             template: `
-                <div id="engine-monitor" v-if="debug">
-                    &lt; engine monitor &gt;
-                </div>
+                <div id="engine-monitor" v-if="debug"></div>
             `
         }
     );
