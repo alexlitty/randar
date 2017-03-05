@@ -190,7 +190,7 @@ void randar::EngineMonitor::initializeTarget()
 // Draws the monitoring target.
 void randar::EngineMonitor::draw()
 {
-    this->monitorFramebuffer.clear(Color(0.03f, 0.03f, 0.25f));
+    this->monitorFramebuffer.clear(Color(0.0f, 0.0f, 0.0f, 0.0f));
 
     // Initialize the target if it is new.
     if (this->hasNewTarget()) {
