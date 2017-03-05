@@ -201,6 +201,19 @@ void randar::Ui::execute(
         this->importQueue.push_back(File(fileResult));
     }
 
+    // Updates a resource.
+    else if (name == "patchResource") {
+        if (arguments.size() >= 3) {
+            this->resourcePatches.emplace_back(
+                arguments[0]->GetStringValue(),
+                std::stoi(static_cast<std::string>(
+                    arguments[1]->GetStringValue())),
+                Json::parse(static_cast<std::string>(
+                    arguments[2]->GetStringValue()))
+            );
+        }
+    }
+
     // Set a model's mesh texture.
     else if (name == "setModelMeshTexture") {
         if (arguments.size() >= 0) {
