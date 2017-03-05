@@ -8,7 +8,7 @@ std::string randar::File::getExtension() const
     std::smatch matches;
 
     std::regex regex(".+[.](.+)$");
-    if (!std::regex_search(this->toString(), matches, regex) || matches.size() != 2) {
+    if (!std::regex_search((const std::string&)this->toString(), matches, regex) || matches.size() != 2) {
         return "";
     }
 
@@ -21,7 +21,7 @@ std::string randar::File::getBaseName() const
     std::smatch matches;
 
     std::regex regex(".*\\/(.+)[.].+$");
-    if (!std::regex_search(this->toString(), matches, regex) || matches.size() != 2) {
+    if (!std::regex_search((const std::string&)this->toString(), matches, regex) || matches.size() != 2) {
         return "";
     }
 

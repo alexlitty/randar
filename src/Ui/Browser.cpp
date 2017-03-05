@@ -229,7 +229,7 @@ bool randar::Browser::GetViewRect(
 
 void randar::Browser::OnCursorChange(
     ::CefRefPtr<::CefBrowser> browser,
-    unsigned long cursor,
+	CefCursorHandle cursor,
     ::CefRenderHandler::CursorType type,
     const ::CefCursorInfo& custom_cursor_info)
 {

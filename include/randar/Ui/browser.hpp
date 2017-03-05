@@ -125,7 +125,7 @@ namespace randar
 
         virtual void OnCursorChange(
             ::CefRefPtr<::CefBrowser> browser,
-            unsigned long cursor,
+            CefCursorHandle cursor,
             ::CefRenderHandler::CursorType type,
             const ::CefCursorInfo& custom_cursor_info) override;
 

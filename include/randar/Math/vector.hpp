@@ -15,7 +15,7 @@ namespace randar
         float z;
 
         Vector();
-        Vector(btVector3 other);
+        Vector(const btVector3& other);
         Vector(float xInit, float yInit, float zInit = 0.0f);
         void set(float xNew, float yNew, float zNew = 0.0f);
 
