@@ -36,6 +36,14 @@ void randar::ResourceRepository::load(const randar::Directory& directory)
     }
 }
 
+// Applies a resource patch to this repository.
+void randar::ResourceRepository::apply(const randar::ResourcePatch& patch)
+{
+    if (patch.type == "textures") {
+        this->getTexture(patch.id)->patch(patch.json);
+    }
+}
+
 // Saves this repository to disk.
 void randar::ResourceRepository::save()
 {

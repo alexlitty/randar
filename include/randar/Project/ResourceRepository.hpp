@@ -1,5 +1,5 @@
-#ifndef RANDAR_RESOURCE_RESOURCE_REPOSITORY_HPP
-#define RANDAR_RESOURCE_RESOURCE_REPOSITORY_HPP
+#ifndef RANDAR_PROJECT_RESOURCE_REPOSITORY_HPP
+#define RANDAR_PROJECT_RESOURCE_REPOSITORY_HPP
 
 #include <cstdint>
 #include <set>
@@ -8,6 +8,7 @@
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Scene/Scene.hpp>
+#include <randar/Project/ResourcePatch.hpp>
 #include <randar/Utility/Map.hpp>
 #include <randar/Utility/Json.hpp>
 
@@ -46,6 +47,11 @@ namespace randar
          * An exception is thrown upon error.
          */
         void load(const Directory& directory);
+
+        /**
+         * Applies a resource patch to this repository.
+         */
+        void apply(const ResourcePatch& patch);
 
         /**
          * Saves this repository to disk.
