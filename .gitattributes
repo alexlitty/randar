@@ -1,5 +1,0 @@
-*.cpp  filter=tabspace
-*.h    filter=tabspace
-*.js   filter=tabspace
-*.less filter=tabspace
-*.html filter=tabspace
