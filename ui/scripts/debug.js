@@ -28,6 +28,10 @@
             }
         }
 
+        window.patchResource = function(type, id, patch) {
+            console.info("Patching '" + type + "' #'" + id + ":", patch);
+        }
+
         window.importResource = function() {
             console.info("Resource would be imported");
         }
