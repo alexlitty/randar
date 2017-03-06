@@ -19,9 +19,9 @@
 
 given (A,b,lo,hi), solve the LCP problem: A*x = b+w, where each x(i),w(i)
 satisfies one of
-	(1) x = lo, w >= 0
-	(2) x = hi, w <= 0
-	(3) lo < x < hi, w = 0
+    (1) x = lo, w >= 0
+    (2) x = hi, w <= 0
+    (3) lo < x < hi, w = 0
 A is a matrix of dimension n*n, everything else is a vector of size n*1.
 lo and hi can be +/- dInfinity as needed. the first `nub' variables are
 unbounded, i.e. hi and lo are assumed to be +/- dInfinity.
@@ -55,22 +55,22 @@ to be implemented. the first `nub' variables are assumed to have findex < 0.
 
 struct btDantzigScratchMemory
 {
-	btAlignedObjectArray<btScalar> m_scratch;
-	btAlignedObjectArray<btScalar> L;
-	btAlignedObjectArray<btScalar> d;
-	btAlignedObjectArray<btScalar> delta_w;
-	btAlignedObjectArray<btScalar> delta_x;
-	btAlignedObjectArray<btScalar> Dell;
-	btAlignedObjectArray<btScalar> ell;
-	btAlignedObjectArray<btScalar*> Arows;
-	btAlignedObjectArray<int> p;
-	btAlignedObjectArray<int> C;
-	btAlignedObjectArray<bool> state;
+    btAlignedObjectArray<btScalar> m_scratch;
+    btAlignedObjectArray<btScalar> L;
+    btAlignedObjectArray<btScalar> d;
+    btAlignedObjectArray<btScalar> delta_w;
+    btAlignedObjectArray<btScalar> delta_x;
+    btAlignedObjectArray<btScalar> Dell;
+    btAlignedObjectArray<btScalar> ell;
+    btAlignedObjectArray<btScalar*> Arows;
+    btAlignedObjectArray<int> p;
+    btAlignedObjectArray<int> C;
+    btAlignedObjectArray<bool> state;
 };
 
 //return false if solving failed
 bool btSolveDantzigLCP (int n, btScalar *A, btScalar *x, btScalar *b, btScalar *w,
-	int nub, btScalar *lo, btScalar *hi, int *findex,btDantzigScratchMemory& scratch);
+    int nub, btScalar *lo, btScalar *hi, int *findex,btDantzigScratchMemory& scratch);
 
 
 

@@ -24,15 +24,15 @@ subject to the following restrictions:
 
 namespace bParse {
 
-	class bMain;
-	class bFileData;
-	class bFile;
-	class bDNA;
+    class bMain;
+    class bFileData;
+    class bFile;
+    class bDNA;
 
-	// delete void* undefined
-	typedef struct bStructHandle {int unused;}bStructHandle;
-	typedef b3AlignedObjectArray<bStructHandle*>	bListBasePtr;
-	typedef b3HashMap<b3HashPtr, bStructHandle*> bPtrMap;
+    // delete void* undefined
+    typedef struct bStructHandle {int unused;}bStructHandle;
+    typedef b3AlignedObjectArray<bStructHandle*>    bListBasePtr;
+    typedef b3HashMap<b3HashPtr, bStructHandle*> bPtrMap;
 }
 
 

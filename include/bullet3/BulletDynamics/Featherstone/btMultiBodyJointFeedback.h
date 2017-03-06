@@ -21,7 +21,7 @@ subject to the following restrictions:
 
 struct btMultiBodyJointFeedback
 {
-	btSpatialForceVector	m_reactionForces;
+    btSpatialForceVector    m_reactionForces;
 };
 
 #endif //BT_MULTIBODY_JOINT_FEEDBACK_H

@@ -26,33 +26,33 @@ ATTRIBUTE_ALIGNED16(class) btContactConstraint : public btTypedConstraint
 {
 protected:
 
-	btPersistentManifold m_contactManifold;
+    btPersistentManifold m_contactManifold;
 
 public:
 
 
-	btContactConstraint(btPersistentManifold* contactManifold,btRigidBody& rbA,btRigidBody& rbB);
+    btContactConstraint(btPersistentManifold* contactManifold,btRigidBody& rbA,btRigidBody& rbB);
 
-	void	setContactManifold(btPersistentManifold* contactManifold);
+    void    setContactManifold(btPersistentManifold* contactManifold);
 
-	btPersistentManifold* getContactManifold()
-	{
-		return &m_contactManifold;
-	}
+    btPersistentManifold* getContactManifold()
+    {
+        return &m_contactManifold;
+    }
 
-	const btPersistentManifold* getContactManifold() const
-	{
-		return &m_contactManifold;
-	}
+    const btPersistentManifold* getContactManifold() const
+    {
+        return &m_contactManifold;
+    }
 
-	virtual ~btContactConstraint();
+    virtual ~btContactConstraint();
 
-	virtual void getInfo1 (btConstraintInfo1* info);
+    virtual void getInfo1 (btConstraintInfo1* info);
 
-	virtual void getInfo2 (btConstraintInfo2* info);
+    virtual void getInfo2 (btConstraintInfo2* info);
 
-	///obsolete methods
-	virtual void	buildJacobian();
+    ///obsolete methods
+    virtual void    buildJacobian();
 
 
 };

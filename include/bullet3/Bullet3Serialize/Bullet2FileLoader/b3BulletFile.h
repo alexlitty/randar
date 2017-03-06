@@ -27,57 +27,57 @@ subject to the following restrictions:
 
 namespace bParse {
 
-	// ----------------------------------------------------- //
-	class b3BulletFile : public bFile
-	{
-		
+    // ----------------------------------------------------- //
+    class b3BulletFile : public bFile
+    {
+        
 
-	protected:
-	
-		char*	m_DnaCopy;
-				
-	public:
+    protected:
+    
+        char*   m_DnaCopy;
+                
+    public:
 
-		b3AlignedObjectArray<bStructHandle*>	m_softBodies;
+        b3AlignedObjectArray<bStructHandle*>    m_softBodies;
 
-		b3AlignedObjectArray<bStructHandle*>	m_rigidBodies;
+        b3AlignedObjectArray<bStructHandle*>    m_rigidBodies;
 
-		b3AlignedObjectArray<bStructHandle*>	m_collisionObjects;
+        b3AlignedObjectArray<bStructHandle*>    m_collisionObjects;
 
-		b3AlignedObjectArray<bStructHandle*>	m_collisionShapes;
+        b3AlignedObjectArray<bStructHandle*>    m_collisionShapes;
 
-		b3AlignedObjectArray<bStructHandle*>	m_constraints;
+        b3AlignedObjectArray<bStructHandle*>    m_constraints;
 
-		b3AlignedObjectArray<bStructHandle*>	m_bvhs;
+        b3AlignedObjectArray<bStructHandle*>    m_bvhs;
 
-		b3AlignedObjectArray<bStructHandle*>	m_triangleInfoMaps;
+        b3AlignedObjectArray<bStructHandle*>    m_triangleInfoMaps;
 
-		b3AlignedObjectArray<bStructHandle*>	m_dynamicsWorldInfo;
+        b3AlignedObjectArray<bStructHandle*>    m_dynamicsWorldInfo;
 
-		b3AlignedObjectArray<char*>				m_dataBlocks;
-		b3BulletFile();
+        b3AlignedObjectArray<char*>             m_dataBlocks;
+        b3BulletFile();
 
-		b3BulletFile(const char* fileName);
+        b3BulletFile(const char* fileName);
 
-		b3BulletFile(char *memoryBuffer, int len);
+        b3BulletFile(char *memoryBuffer, int len);
 
-		virtual ~b3BulletFile();
+        virtual ~b3BulletFile();
 
-		virtual	void	addDataBlock(char* dataBlock);
-	
+        virtual void    addDataBlock(char* dataBlock);
+    
 
-		// experimental
-		virtual int		write(const char* fileName, bool fixupPointers=false);
+        // experimental
+        virtual int     write(const char* fileName, bool fixupPointers=false);
 
-		virtual	void	parse(int verboseMode);
+        virtual void    parse(int verboseMode);
 
-		virtual	void parseData();
+        virtual void parseData();
 
-		virtual	void	writeDNA(FILE* fp);
+        virtual void    writeDNA(FILE* fp);
 
-		void	addStruct(const char* structType,void* data, int len, void* oldPtr, int code);
+        void    addStruct(const char* structType,void* data, int len, void* oldPtr, int code);
 
-	};
+    };
 };
 
 #endif //B3_BULLET_FILE_H

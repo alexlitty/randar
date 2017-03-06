@@ -19,7 +19,7 @@ namespace randar
 
         /**
          * Constructor, given a string path.
-		 * All platform paths supported
+         * All platform paths supported
          */
         Path(const std::string& path);
 
@@ -36,15 +36,15 @@ namespace randar
 
         /**
          * Assignment operator, to a string path.
-		 * All platform paths supported
+         * All platform paths supported
          */
         Path& operator =(const std::string& path);
 
-		/**
-		 * Returns Current Working Directory without the trailing slash.
-		 * Path delimiter will be platform specific.
-		 */
-		static std::string getCwd();
+        /**
+         * Returns Current Working Directory without the trailing slash.
+         * Path delimiter will be platform specific.
+         */
+        static std::string getCwd();
     };
 }
 

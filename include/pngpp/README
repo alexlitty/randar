@@ -37,23 +37,23 @@ Download
 
 The project is hosted at Savannah:
 
-	http://savannah.nongnu.org/projects/pngpp/
+    http://savannah.nongnu.org/projects/pngpp/
 
 Released source packages can be found here:
 
-	http://download.savannah.nongnu.org/releases/pngpp/
+    http://download.savannah.nongnu.org/releases/pngpp/
 
 Also, you can check out sources directly from SVN repository:
 
-	svn://svn.sv.nongnu.org/pngpp/trunk/
+    svn://svn.sv.nongnu.org/pngpp/trunk/
 
 or, for people w/o outgoing svn:
 
-	http://svn.sv.nongnu.org/pngpp/trunk/
+    http://svn.sv.nongnu.org/pngpp/trunk/
 
 Online documentation can be found here:
 
-	http://www.nongnu.org/pngpp/doc/html/index.html
+    http://www.nongnu.org/pngpp/doc/html/index.html
 
 
 Help
@@ -61,7 +61,7 @@ Help
 
 There is a mailing list for developers:
 
-	http://lists.nongnu.org/mailman/listinfo/pngpp-devel
+    http://lists.nongnu.org/mailman/listinfo/pngpp-devel
 
 You can also contact me by dropping a mail to <alex.shulgin@gmail.com>.
 

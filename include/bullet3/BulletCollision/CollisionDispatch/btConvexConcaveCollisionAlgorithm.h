@@ -29,49 +29,49 @@ class btDispatcher;
 ATTRIBUTE_ALIGNED16(class)  btConvexTriangleCallback : public btTriangleCallback
 {
 
-	btVector3	m_aabbMin;
-	btVector3	m_aabbMax ;
+    btVector3   m_aabbMin;
+    btVector3   m_aabbMax ;
 
-	const btCollisionObjectWrapper* m_convexBodyWrap;
-	const btCollisionObjectWrapper* m_triBodyWrap;
+    const btCollisionObjectWrapper* m_convexBodyWrap;
+    const btCollisionObjectWrapper* m_triBodyWrap;
 
 
 
-	btManifoldResult* m_resultOut;
-	btDispatcher*	m_dispatcher;
-	const btDispatcherInfo* m_dispatchInfoPtr;
-	btScalar m_collisionMarginTriangle;
-	
+    btManifoldResult* m_resultOut;
+    btDispatcher*   m_dispatcher;
+    const btDispatcherInfo* m_dispatchInfoPtr;
+    btScalar m_collisionMarginTriangle;
+    
 public:
-	BT_DECLARE_ALIGNED_ALLOCATOR();
-	
-int	m_triangleCount;
-	
-	btPersistentManifold*	m_manifoldPtr;
+    BT_DECLARE_ALIGNED_ALLOCATOR();
+    
+int m_triangleCount;
+    
+    btPersistentManifold*   m_manifoldPtr;
 
-	btConvexTriangleCallback(btDispatcher* dispatcher,const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap,bool isSwapped);
+    btConvexTriangleCallback(btDispatcher* dispatcher,const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap,bool isSwapped);
 
-	void	setTimeStepAndCounters(btScalar collisionMarginTriangle,const btDispatcherInfo& dispatchInfo,const btCollisionObjectWrapper* convexBodyWrap, const btCollisionObjectWrapper* triBodyWrap, btManifoldResult* resultOut);
+    void    setTimeStepAndCounters(btScalar collisionMarginTriangle,const btDispatcherInfo& dispatchInfo,const btCollisionObjectWrapper* convexBodyWrap, const btCollisionObjectWrapper* triBodyWrap, btManifoldResult* resultOut);
 
-	void	clearWrapperData()
-	{
-		m_convexBodyWrap = 0;
-		m_triBodyWrap = 0;
-	}
-	virtual ~btConvexTriangleCallback();
+    void    clearWrapperData()
+    {
+        m_convexBodyWrap = 0;
+        m_triBodyWrap = 0;
+    }
+    virtual ~btConvexTriangleCallback();
 
-	virtual void processTriangle(btVector3* triangle, int partId, int triangleIndex);
-	
-	void clearCache();
+    virtual void processTriangle(btVector3* triangle, int partId, int triangleIndex);
+    
+    void clearCache();
 
-	SIMD_FORCE_INLINE const btVector3& getAabbMin() const
-	{
-		return m_aabbMin;
-	}
-	SIMD_FORCE_INLINE const btVector3& getAabbMax() const
-	{
-		return m_aabbMax;
-	}
+    SIMD_FORCE_INLINE const btVector3& getAabbMin() const
+    {
+        return m_aabbMin;
+    }
+    SIMD_FORCE_INLINE const btVector3& getAabbMax() const
+    {
+        return m_aabbMax;
+    }
 
 };
 
@@ -82,45 +82,45 @@ int	m_triangleCount;
 ATTRIBUTE_ALIGNED16(class)  btConvexConcaveCollisionAlgorithm  : public btActivatingCollisionAlgorithm
 {
 
-	btConvexTriangleCallback m_btConvexTriangleCallback;
+    btConvexTriangleCallback m_btConvexTriangleCallback;
 
-	bool	m_isSwapped;
+    bool    m_isSwapped;
 
 
 
 public:
 
-	BT_DECLARE_ALIGNED_ALLOCATOR();
-	
-	btConvexConcaveCollisionAlgorithm( const btCollisionAlgorithmConstructionInfo& ci,const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap,bool isSwapped);
+    BT_DECLARE_ALIGNED_ALLOCATOR();
+    
+    btConvexConcaveCollisionAlgorithm( const btCollisionAlgorithmConstructionInfo& ci,const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap,bool isSwapped);
 
-	virtual ~btConvexConcaveCollisionAlgorithm();
+    virtual ~btConvexConcaveCollisionAlgorithm();
 
-	virtual void processCollision (const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    virtual void processCollision (const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	btScalar	calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    btScalar    calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	virtual	void	getAllContactManifolds(btManifoldArray&	manifoldArray);
-	
-	void	clearCache();
+    virtual void    getAllContactManifolds(btManifoldArray& manifoldArray);
+    
+    void    clearCache();
 
-	struct CreateFunc :public 	btCollisionAlgorithmCreateFunc
-	{
-		virtual	btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap)
-		{
-			void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btConvexConcaveCollisionAlgorithm));
-			return new(mem) btConvexConcaveCollisionAlgorithm(ci,body0Wrap,body1Wrap,false);
-		}
-	};
+    struct CreateFunc :public   btCollisionAlgorithmCreateFunc
+    {
+        virtual btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap)
+        {
+            void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btConvexConcaveCollisionAlgorithm));
+            return new(mem) btConvexConcaveCollisionAlgorithm(ci,body0Wrap,body1Wrap,false);
+        }
+    };
 
-	struct SwappedCreateFunc :public 	btCollisionAlgorithmCreateFunc
-	{
-		virtual	btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap)
-		{
-			void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btConvexConcaveCollisionAlgorithm));
-			return new(mem) btConvexConcaveCollisionAlgorithm(ci,body0Wrap,body1Wrap,true);
-		}
-	};
+    struct SwappedCreateFunc :public    btCollisionAlgorithmCreateFunc
+    {
+        virtual btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, const btCollisionObjectWrapper* body0Wrap,const btCollisionObjectWrapper* body1Wrap)
+        {
+            void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btConvexConcaveCollisionAlgorithm));
+            return new(mem) btConvexConcaveCollisionAlgorithm(ci,body0Wrap,body1Wrap,true);
+        }
+    };
 
 };
 

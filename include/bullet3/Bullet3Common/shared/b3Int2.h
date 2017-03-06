@@ -20,39 +20,39 @@ subject to the following restrictions:
 
 struct b3UnsignedInt2
 {
-	union
-	{
-		struct
-		{
-			unsigned int x,y;
-		};
-		struct
-		{
-			unsigned int s[2];
-		};
-	};
+    union
+    {
+        struct
+        {
+            unsigned int x,y;
+        };
+        struct
+        {
+            unsigned int s[2];
+        };
+    };
 };
 
 struct b3Int2
 {
-	union
-	{
-		struct
-		{
-			int x,y;
-		};
-		struct
-		{
-			int s[2];
-		};
-	};
+    union
+    {
+        struct
+        {
+            int x,y;
+        };
+        struct
+        {
+            int s[2];
+        };
+    };
 };
 
 inline b3Int2 b3MakeInt2(int x, int y)
 {
-	b3Int2 v;
-	v.s[0] = x; v.s[1] = y;
-	return v;
+    b3Int2 v;
+    v.s[0] = x; v.s[1] = y;
+    return v;
 }
 #else
 

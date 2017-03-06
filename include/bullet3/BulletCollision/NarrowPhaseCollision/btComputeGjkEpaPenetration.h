@@ -33,17 +33,17 @@ bool btGjkEpaCalcPenDepth(const btConvexTemplate& a, const btConvexTemplate& b,
 {
     (void)v;
     
-    //	const btScalar				radialmargin(btScalar(0.));
+    //  const btScalar              radialmargin(btScalar(0.));
     
-    btVector3	guessVector(b.getWorldTransform().getOrigin()-a.getWorldTransform().getOrigin());//?? why not use the GJK input?
+    btVector3   guessVector(b.getWorldTransform().getOrigin()-a.getWorldTransform().getOrigin());//?? why not use the GJK input?
     
-    btGjkEpaSolver3::sResults	results;
+    btGjkEpaSolver3::sResults   results;
 
     
     if(btGjkEpaSolver3_Penetration(a,b,guessVector,results))
         
     {
-        //	debugDraw->drawLine(results.witnesses[1],results.witnesses[1]+results.normal,btVector3(255,0,0));
+        //  debugDraw->drawLine(results.witnesses[1],results.witnesses[1]+results.normal,btVector3(255,0,0));
         //resultOut->addContactPoint(results.normal,results.witnesses[1],-results.depth);
         wWitnessOnA = results.witnesses[0];
         wWitnessOnB = results.witnesses[1];
@@ -63,17 +63,17 @@ bool btGjkEpaCalcPenDepth(const btConvexTemplate& a, const btConvexTemplate& b,
 }
 
 template <typename btConvexTemplate, typename btGjkDistanceTemplate>
-int	btComputeGjkEpaPenetration(const btConvexTemplate& a, const btConvexTemplate& b, const btGjkCollisionDescription& colDesc, btVoronoiSimplexSolver& simplexSolver, btGjkDistanceTemplate* distInfo)
+int btComputeGjkEpaPenetration(const btConvexTemplate& a, const btConvexTemplate& b, const btGjkCollisionDescription& colDesc, btVoronoiSimplexSolver& simplexSolver, btGjkDistanceTemplate* distInfo)
 {
     
     bool m_catchDegeneracies  = true;
     btScalar m_cachedSeparatingDistance = 0.f;
     
     btScalar distance=btScalar(0.);
-    btVector3	normalInB(btScalar(0.),btScalar(0.),btScalar(0.));
+    btVector3   normalInB(btScalar(0.),btScalar(0.),btScalar(0.));
     
     btVector3 pointOnA,pointOnB;
-    btTransform	localTransA = a.getWorldTransform();
+    btTransform localTransA = a.getWorldTransform();
     btTransform localTransB = b.getWorldTransform();
     
     btScalar marginA = a.getMargin();
@@ -115,7 +115,7 @@ int	btComputeGjkEpaPenetration(const btConvexTemplate& a, const btConvexTemplate
             
             
             
-            btVector3 w	= pWorld - qWorld;
+            btVector3 w = pWorld - qWorld;
             delta = m_cachedSeparatingAxis.dot(w);
             
             // potential exit, they don't overlap
@@ -190,7 +190,7 @@ int	btComputeGjkEpaPenetration(const btConvexTemplate& a, const btConvexTemplate
             //are we getting any closer ?
             if (previousSquaredDistance - squaredDistance <= SIMD_EPSILON * previousSquaredDistance)
             {
-                //				m_simplexSolver->backup_closest(m_cachedSeparatingAxis);
+                //              m_simplexSolver->backup_closest(m_cachedSeparatingAxis);
                 checkSimplex = true;
                 m_degenerateSimplex = 12;
                 
@@ -223,7 +223,7 @@ int	btComputeGjkEpaPenetration(const btConvexTemplate& a, const btConvexTemplate
             if (!check)
             {
                 //do we need this backup_closest here ?
-                //				m_simplexSolver->backup_closest(m_cachedSeparatingAxis);
+                //              m_simplexSolver->backup_closest(m_cachedSeparatingAxis);
                 m_degenerateSimplex = 13;
                 break;
             }

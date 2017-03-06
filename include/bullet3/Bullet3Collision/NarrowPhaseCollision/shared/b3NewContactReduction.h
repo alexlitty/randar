@@ -11,7 +11,7 @@
 
 int b3ExtractManifoldSequentialGlobal(__global const b3Float4* p, int nPoints, b3Float4ConstArg nearNormal, b3Int4* contactIdx)
 {
-	if( nPoints == 0 )
+    if( nPoints == 0 )
         return 0;
     
     if (nPoints <=4)
@@ -21,17 +21,17 @@ int b3ExtractManifoldSequentialGlobal(__global const b3Float4* p, int nPoints, b
     if (nPoints >64)
         nPoints = 64;
     
-	b3Float4 center = b3MakeFloat4(0,0,0,0);
-	{
-		
-		for (int i=0;i<nPoints;i++)
-			center += p[i];
-		center /= (float)nPoints;
-	}
+    b3Float4 center = b3MakeFloat4(0,0,0,0);
+    {
+        
+        for (int i=0;i<nPoints;i++)
+            center += p[i];
+        center /= (float)nPoints;
+    }
     
-	
     
-	//	sample 4 directions
+    
+    //  sample 4 directions
     
     b3Float4 aVector = p[0] - center;
     b3Float4 u = b3Cross( nearNormal, aVector );
@@ -51,7 +51,7 @@ int b3ExtractManifoldSequentialGlobal(__global const b3Float4* p, int nPoints, b
     maxDots.z = FLT_MIN;
     maxDots.w = FLT_MIN;
     
-    //	idx, distance
+    //  idx, distance
     for(int ie = 0; ie<nPoints; ie++ )
     {
         if (p[ie].w<minW)
@@ -111,28 +111,28 @@ __kernel void   b3NewContactReductionKernel( __global b3Int4* pairs,
                                                    __global b3Float4* worldVertsB2,
                                                    volatile __global int* nGlobalContactsOut,
                                                    int vertexFaceCapacity,
-												   int contactCapacity,
+                                                   int contactCapacity,
                                                    int numPairs,
-												   int pairIndex
+                                                   int pairIndex
                                                    )
 {
 //    int i = get_global_id(0);
-	//int pairIndex = i;
-	int i = pairIndex;
+    //int pairIndex = i;
+    int i = pairIndex;
 
     b3Int4 contactIdx;
     contactIdx=b3MakeInt4(0,1,2,3);
     
-	if (i<numPairs)
-	{
+    if (i<numPairs)
+    {
         
-		if (hasSeparatingAxis[i])
-		{
-            
-			
+        if (hasSeparatingAxis[i])
+        {
             
             
-			int nPoints = clippingFaces[pairIndex].w;
+            
+            
+            int nPoints = clippingFaces[pairIndex].w;
            
             if (nPoints>0)
             {
@@ -144,25 +144,25 @@ __kernel void   b3NewContactReductionKernel( __global b3Int4* pairs,
             
                 int dstIdx;
                 dstIdx = b3AtomicInc( nGlobalContactsOut);
-				
+                
 //#if 0
                 b3Assert(dstIdx < contactCapacity);
-				if (dstIdx < contactCapacity)
-				{
+                if (dstIdx < contactCapacity)
+                {
 
-					__global struct b3Contact4Data* c = &globalContactsOut[dstIdx];
-					c->m_worldNormalOnB = -normal;
-					c->m_restituitionCoeffCmp = (0.f*0xffff);c->m_frictionCoeffCmp = (0.7f*0xffff);
-					c->m_batchIdx = pairIndex;
-					int bodyA = pairs[pairIndex].x;
-					int bodyB = pairs[pairIndex].y;
+                    __global struct b3Contact4Data* c = &globalContactsOut[dstIdx];
+                    c->m_worldNormalOnB = -normal;
+                    c->m_restituitionCoeffCmp = (0.f*0xffff);c->m_frictionCoeffCmp = (0.7f*0xffff);
+                    c->m_batchIdx = pairIndex;
+                    int bodyA = pairs[pairIndex].x;
+                    int bodyB = pairs[pairIndex].y;
 
-					pairs[pairIndex].w = dstIdx;
+                    pairs[pairIndex].w = dstIdx;
 
-					c->m_bodyAPtrAndSignBit = rigidBodies[bodyA].m_invMass==0?-bodyA:bodyA;
-					c->m_bodyBPtrAndSignBit = rigidBodies[bodyB].m_invMass==0?-bodyB:bodyB;
+                    c->m_bodyAPtrAndSignBit = rigidBodies[bodyA].m_invMass==0?-bodyA:bodyA;
+                    c->m_bodyBPtrAndSignBit = rigidBodies[bodyB].m_invMass==0?-bodyB:bodyB;
                     c->m_childIndexA =-1;
-					c->m_childIndexB =-1;
+                    c->m_childIndexB =-1;
 
                     switch (nReducedContacts)
                     {
@@ -179,16 +179,16 @@ __kernel void   b3NewContactReductionKernel( __global b3Int4* pairs,
                         }
                     };
                     
-					GET_NPOINTS(*c) = nReducedContacts;
+                    GET_NPOINTS(*c) = nReducedContacts;
                     
                  }
                  
                 
 //#endif
-				
-			}//		if (numContactsOut>0)
-		}//		if (hasSeparatingAxis[i])
-	}//	if (i<numPairs)
+                
+            }//     if (numContactsOut>0)
+        }//     if (hasSeparatingAxis[i])
+    }// if (i<numPairs)
 
     
     

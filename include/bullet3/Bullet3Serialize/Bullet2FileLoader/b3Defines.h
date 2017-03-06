@@ -26,61 +26,61 @@
 
 // ------------------------------------------------------------
 #if defined(__sgi) || defined (__sparc) || defined (__sparc__) || defined (__PPC__) || defined (__ppc__) || defined (__BIG_ENDIAN__)
-#	define B3_MAKE_ID(a,b,c,d) ( (int)(a)<<24 | (int)(b)<<16 | (c)<<8 | (d) )
+#   define B3_MAKE_ID(a,b,c,d) ( (int)(a)<<24 | (int)(b)<<16 | (c)<<8 | (d) )
 #else
-#	define B3_MAKE_ID(a,b,c,d) ( (int)(d)<<24 | (int)(c)<<16 | (b)<<8 | (a) )
+#   define B3_MAKE_ID(a,b,c,d) ( (int)(d)<<24 | (int)(c)<<16 | (b)<<8 | (a) )
 #endif
 
 
 // ------------------------------------------------------------
 #if defined(__sgi) || defined(__sparc) || defined(__sparc__) || defined (__PPC__) || defined (__ppc__) || defined (__BIG_ENDIAN__)
-#	define B3_MAKE_ID2(c, d) ( (c)<<8 | (d) )
+#   define B3_MAKE_ID2(c, d) ( (c)<<8 | (d) )
 #else
-#	define B3_MAKE_ID2(c, d) ( (d)<<8 | (c) )
+#   define B3_MAKE_ID2(c, d) ( (d)<<8 | (c) )
 #endif
 
 // ------------------------------------------------------------
-#define B3_ID_SCE		B3_MAKE_ID2('S', 'C')
-#define B3_ID_LI		B3_MAKE_ID2('L', 'I')
-#define B3_ID_OB		B3_MAKE_ID2('O', 'B')
-#define B3_ID_ME		B3_MAKE_ID2('M', 'E')
-#define B3_ID_CU		B3_MAKE_ID2('C', 'U')
-#define B3_ID_MB		B3_MAKE_ID2('M', 'B')
-#define B3_ID_MA		B3_MAKE_ID2('M', 'A')
-#define B3_ID_TE		B3_MAKE_ID2('T', 'E')
-#define B3_ID_IM		B3_MAKE_ID2('I', 'M')
-#define B3_ID_IK		B3_MAKE_ID2('I', 'K')
-#define B3_ID_WV		B3_MAKE_ID2('W', 'V')
-#define B3_ID_LT		B3_MAKE_ID2('L', 'T')
-#define B3_ID_SE		B3_MAKE_ID2('S', 'E')
-#define B3_ID_LF		B3_MAKE_ID2('L', 'F')
-#define B3_ID_LA		B3_MAKE_ID2('L', 'A')
-#define B3_ID_CA		B3_MAKE_ID2('C', 'A')
-#define B3_ID_IP		B3_MAKE_ID2('I', 'P')
-#define B3_ID_KE		B3_MAKE_ID2('K', 'E')
-#define B3_ID_WO		B3_MAKE_ID2('W', 'O')
-#define B3_ID_SCR		B3_MAKE_ID2('S', 'R')
-#define B3_ID_VF		B3_MAKE_ID2('V', 'F')
-#define B3_ID_TXT		B3_MAKE_ID2('T', 'X')
-#define B3_ID_SO		B3_MAKE_ID2('S', 'O')
-#define B3_ID_SAMPLE	B3_MAKE_ID2('S', 'A')
-#define B3_ID_GR		B3_MAKE_ID2('G', 'R')
-#define B3_ID_ID		B3_MAKE_ID2('I', 'D')
-#define B3_ID_AR		B3_MAKE_ID2('A', 'R')
-#define B3_ID_AC		B3_MAKE_ID2('A', 'C')
-#define B3_ID_SCRIPT	B3_MAKE_ID2('P', 'Y')
-#define B3_ID_FLUIDSIM	B3_MAKE_ID2('F', 'S')
-#define B3_ID_NT		B3_MAKE_ID2('N', 'T')
-#define B3_ID_BR		B3_MAKE_ID2('B', 'R')
+#define B3_ID_SCE       B3_MAKE_ID2('S', 'C')
+#define B3_ID_LI        B3_MAKE_ID2('L', 'I')
+#define B3_ID_OB        B3_MAKE_ID2('O', 'B')
+#define B3_ID_ME        B3_MAKE_ID2('M', 'E')
+#define B3_ID_CU        B3_MAKE_ID2('C', 'U')
+#define B3_ID_MB        B3_MAKE_ID2('M', 'B')
+#define B3_ID_MA        B3_MAKE_ID2('M', 'A')
+#define B3_ID_TE        B3_MAKE_ID2('T', 'E')
+#define B3_ID_IM        B3_MAKE_ID2('I', 'M')
+#define B3_ID_IK        B3_MAKE_ID2('I', 'K')
+#define B3_ID_WV        B3_MAKE_ID2('W', 'V')
+#define B3_ID_LT        B3_MAKE_ID2('L', 'T')
+#define B3_ID_SE        B3_MAKE_ID2('S', 'E')
+#define B3_ID_LF        B3_MAKE_ID2('L', 'F')
+#define B3_ID_LA        B3_MAKE_ID2('L', 'A')
+#define B3_ID_CA        B3_MAKE_ID2('C', 'A')
+#define B3_ID_IP        B3_MAKE_ID2('I', 'P')
+#define B3_ID_KE        B3_MAKE_ID2('K', 'E')
+#define B3_ID_WO        B3_MAKE_ID2('W', 'O')
+#define B3_ID_SCR       B3_MAKE_ID2('S', 'R')
+#define B3_ID_VF        B3_MAKE_ID2('V', 'F')
+#define B3_ID_TXT       B3_MAKE_ID2('T', 'X')
+#define B3_ID_SO        B3_MAKE_ID2('S', 'O')
+#define B3_ID_SAMPLE    B3_MAKE_ID2('S', 'A')
+#define B3_ID_GR        B3_MAKE_ID2('G', 'R')
+#define B3_ID_ID        B3_MAKE_ID2('I', 'D')
+#define B3_ID_AR        B3_MAKE_ID2('A', 'R')
+#define B3_ID_AC        B3_MAKE_ID2('A', 'C')
+#define B3_ID_SCRIPT    B3_MAKE_ID2('P', 'Y')
+#define B3_ID_FLUIDSIM  B3_MAKE_ID2('F', 'S')
+#define B3_ID_NT        B3_MAKE_ID2('N', 'T')
+#define B3_ID_BR        B3_MAKE_ID2('B', 'R')
 
 
-#define B3_ID_SEQ		B3_MAKE_ID2('S', 'Q')
-#define B3_ID_CO		B3_MAKE_ID2('C', 'O')
-#define B3_ID_PO		B3_MAKE_ID2('A', 'C')
-#define B3_ID_NLA		B3_MAKE_ID2('N', 'L')
+#define B3_ID_SEQ       B3_MAKE_ID2('S', 'Q')
+#define B3_ID_CO        B3_MAKE_ID2('C', 'O')
+#define B3_ID_PO        B3_MAKE_ID2('A', 'C')
+#define B3_ID_NLA       B3_MAKE_ID2('N', 'L')
 
-#define B3_ID_VS		B3_MAKE_ID2('V', 'S')
-#define B3_ID_VN		B3_MAKE_ID2('V', 'N')
+#define B3_ID_VS        B3_MAKE_ID2('V', 'S')
+#define B3_ID_VN        B3_MAKE_ID2('V', 'N')
 
 
 // ------------------------------------------------------------
@@ -119,10 +119,10 @@
     s_i=p_i[1]; p_i[1]=p_i[2]; p_i[2]=s_i; }
 
 // ------------------------------------------------------------
-#define B3_SWITCH_SHORT(a)	{ \
+#define B3_SWITCH_SHORT(a)  { \
     char s_i, *p_i; \
-	p_i= (char *)&(a); \
-	s_i=p_i[0]; p_i[0]=p_i[1]; p_i[1]=s_i; }
+    p_i= (char *)&(a); \
+    s_i=p_i[0]; p_i[0]=p_i[1]; p_i[1]=s_i; }
 
 // ------------------------------------------------------------
 #define B3_SWITCH_LONGINT(a) { \

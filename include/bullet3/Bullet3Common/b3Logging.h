@@ -24,26 +24,26 @@ void b3EnterProfileZone(const char* name);
 void b3LeaveProfileZone();
 #ifdef __cplusplus
 
-class	b3ProfileZone
+class   b3ProfileZone
 {
 public:
-	b3ProfileZone(const char* name)
-	{ 
-		b3EnterProfileZone( name ); 
-	}
+    b3ProfileZone(const char* name)
+    { 
+        b3EnterProfileZone( name ); 
+    }
 
-	~b3ProfileZone()
-	{ 
-		b3LeaveProfileZone(); 
-	}
+    ~b3ProfileZone()
+    { 
+        b3LeaveProfileZone(); 
+    }
 };
 
-#define	B3_PROFILE( name )			b3ProfileZone __profile( name )
+#define B3_PROFILE( name )          b3ProfileZone __profile( name )
 #endif
 
 #else //B3_NO_PROFILE
 
-#define	B3_PROFILE( name )
+#define B3_PROFILE( name )
 #define b3StartProfile(a)
 #define b3StopProfile
 

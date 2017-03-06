@@ -26,39 +26,39 @@ class btMultiBodyPoint2Point : public btMultiBodyConstraint
 {
 protected:
 
-	btRigidBody*	m_rigidBodyA;
-	btRigidBody*	m_rigidBodyB;
-	btVector3		m_pivotInA;
-	btVector3		m_pivotInB;
+    btRigidBody*    m_rigidBodyA;
+    btRigidBody*    m_rigidBodyB;
+    btVector3       m_pivotInA;
+    btVector3       m_pivotInB;
 
 
 public:
 
-	btMultiBodyPoint2Point(btMultiBody* body, int link, btRigidBody* bodyB, const btVector3& pivotInA, const btVector3& pivotInB);
-	btMultiBodyPoint2Point(btMultiBody* bodyA, int linkA, btMultiBody* bodyB, int linkB, const btVector3& pivotInA, const btVector3& pivotInB);
+    btMultiBodyPoint2Point(btMultiBody* body, int link, btRigidBody* bodyB, const btVector3& pivotInA, const btVector3& pivotInB);
+    btMultiBodyPoint2Point(btMultiBody* bodyA, int linkA, btMultiBody* bodyB, int linkB, const btVector3& pivotInA, const btVector3& pivotInB);
 
-	virtual ~btMultiBodyPoint2Point();
+    virtual ~btMultiBodyPoint2Point();
 
-	virtual void finalizeMultiDof();
+    virtual void finalizeMultiDof();
 
-	virtual int getIslandIdA() const;
-	virtual int getIslandIdB() const;
+    virtual int getIslandIdA() const;
+    virtual int getIslandIdB() const;
 
-	virtual void createConstraintRows(btMultiBodyConstraintArray& constraintRows,
-		btMultiBodyJacobianData& data,
-		const btContactSolverInfo& infoGlobal);
+    virtual void createConstraintRows(btMultiBodyConstraintArray& constraintRows,
+        btMultiBodyJacobianData& data,
+        const btContactSolverInfo& infoGlobal);
 
-	const btVector3& getPivotInB() const
-	{
-		return m_pivotInB;
-	}
+    const btVector3& getPivotInB() const
+    {
+        return m_pivotInB;
+    }
 
-	void setPivotInB(const btVector3& pivotInB)
-	{
-		m_pivotInB = pivotInB;
-	}
+    void setPivotInB(const btVector3& pivotInB)
+    {
+        m_pivotInB = pivotInB;
+    }
 
-	virtual void debugDraw(class btIDebugDraw* drawer);
+    virtual void debugDraw(class btIDebugDraw* drawer);
 
 };
 

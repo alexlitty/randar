@@ -28,7 +28,7 @@ ATTRIBUTE_ALIGNED16(class) btMultimaterialTriangleMeshShape : public btBvhTriang
 
 public:
 
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
     btMultimaterialTriangleMeshShape(btStridingMeshInterface* meshInterface, bool useQuantizedAabbCompression, bool buildBvh = true):
         btBvhTriangleMeshShape(meshInterface, useQuantizedAabbCompression, buildBvh)
@@ -62,8 +62,8 @@ public:
             }
         }
 
-	///optionally pass in a larger bvh aabb, used for quantization. This allows for deformations within this aabb
-	btMultimaterialTriangleMeshShape(btStridingMeshInterface* meshInterface, bool useQuantizedAabbCompression,const btVector3& bvhAabbMin,const btVector3& bvhAabbMax, bool buildBvh = true):
+    ///optionally pass in a larger bvh aabb, used for quantization. This allows for deformations within this aabb
+    btMultimaterialTriangleMeshShape(btStridingMeshInterface* meshInterface, bool useQuantizedAabbCompression,const btVector3& bvhAabbMin,const btVector3& bvhAabbMax, bool buildBvh = true):
         btBvhTriangleMeshShape(meshInterface, useQuantizedAabbCompression, bvhAabbMin, bvhAabbMax, buildBvh)
         {
             m_shapeType = MULTIMATERIAL_TRIANGLE_MESH_PROXYTYPE;
@@ -94,7 +94,7 @@ public:
                 //m_materialLookup[i] = (int*)(btAlignedAlloc(sizeof(int) * numfaces * 2, 16));
             }
         }
-	
+    
     virtual ~btMultimaterialTriangleMeshShape()
     {
 /*
@@ -107,8 +107,8 @@ public:
         m_materialLookup = NULL;
 */
     }
-	//debugging
-	virtual const char*	getName()const {return "MULTIMATERIALTRIANGLEMESH";}
+    //debugging
+    virtual const char* getName()const {return "MULTIMATERIALTRIANGLEMESH";}
 
     ///Obtains the material for a specific triangle
     const btMaterial * getMaterialProperties(int partID, int triIndex);

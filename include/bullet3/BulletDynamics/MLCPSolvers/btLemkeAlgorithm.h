@@ -35,9 +35,9 @@ public:
  
 
   btLemkeAlgorithm(const btMatrixXu& M_, const btVectorXu& q_, const int & DEBUGLEVEL_ = 0) :
-	  DEBUGLEVEL(DEBUGLEVEL_)
+      DEBUGLEVEL(DEBUGLEVEL_)
   {
-	setSystem(M_, q_);
+    setSystem(M_, q_);
   }
 
   /* GETTER / SETTER */
@@ -45,14 +45,14 @@ public:
    * \brief return info of solution process
    */
   int getInfo() {
-	return info;
+    return info;
   }
 
   /**
    * \brief get the number of steps until the solution was found
    */
   int getSteps(void) {
-	return steps;
+    return steps;
   }
 
 
@@ -61,9 +61,9 @@ public:
    * \brief set system with Matrix M and vector q
    */
   void setSystem(const btMatrixXu & M_, const btVectorXu & q_)
-	{
-		m_M = M_;
-		m_q = q_;
+    {
+        m_M = M_;
+        m_q = q_;
   }
   /***************************************************/
 

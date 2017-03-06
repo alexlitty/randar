@@ -23,79 +23,79 @@ subject to the following restrictions:
 ATTRIBUTE_ALIGNED16(class) btStaticPlaneShape : public btConcaveShape
 {
 protected:
-	btVector3	m_localAabbMin;
-	btVector3	m_localAabbMax;
-	
-	btVector3	m_planeNormal;
-	btScalar      m_planeConstant;
-	btVector3	m_localScaling;
+    btVector3   m_localAabbMin;
+    btVector3   m_localAabbMax;
+    
+    btVector3   m_planeNormal;
+    btScalar      m_planeConstant;
+    btVector3   m_localScaling;
 
 public:
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btStaticPlaneShape(const btVector3& planeNormal,btScalar planeConstant);
+    btStaticPlaneShape(const btVector3& planeNormal,btScalar planeConstant);
 
-	virtual ~btStaticPlaneShape();
+    virtual ~btStaticPlaneShape();
 
 
-	virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+    virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
 
-	virtual void	processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const;
+    virtual void    processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const;
 
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
 
-	virtual void	setLocalScaling(const btVector3& scaling);
-	virtual const btVector3& getLocalScaling() const;
-	
-	const btVector3&	getPlaneNormal() const
-	{
-		return	m_planeNormal;
-	}
+    virtual void    setLocalScaling(const btVector3& scaling);
+    virtual const btVector3& getLocalScaling() const;
+    
+    const btVector3&    getPlaneNormal() const
+    {
+        return  m_planeNormal;
+    }
 
-	const btScalar&	getPlaneConstant() const
-	{
-		return	m_planeConstant;
-	}
+    const btScalar& getPlaneConstant() const
+    {
+        return  m_planeConstant;
+    }
 
-	//debugging
-	virtual const char*	getName()const {return "STATICPLANE";}
+    //debugging
+    virtual const char* getName()const {return "STATICPLANE";}
 
-	virtual	int	calculateSerializeBufferSize() const;
+    virtual int calculateSerializeBufferSize() const;
 
-	///fills the dataBuffer and returns the struct name (and 0 on failure)
-	virtual	const char*	serialize(void* dataBuffer, btSerializer* serializer) const;
+    ///fills the dataBuffer and returns the struct name (and 0 on failure)
+    virtual const char* serialize(void* dataBuffer, btSerializer* serializer) const;
 
 
 };
 
 ///do not change those serialization structures, it requires an updated sBulletDNAstr/sBulletDNAstr64
-struct	btStaticPlaneShapeData
+struct  btStaticPlaneShapeData
 {
-	btCollisionShapeData	m_collisionShapeData;
+    btCollisionShapeData    m_collisionShapeData;
 
-	btVector3FloatData	m_localScaling;
-	btVector3FloatData	m_planeNormal;
-	float			m_planeConstant;
-	char	m_pad[4];
+    btVector3FloatData  m_localScaling;
+    btVector3FloatData  m_planeNormal;
+    float           m_planeConstant;
+    char    m_pad[4];
 };
 
 
-SIMD_FORCE_INLINE	int	btStaticPlaneShape::calculateSerializeBufferSize() const
+SIMD_FORCE_INLINE   int btStaticPlaneShape::calculateSerializeBufferSize() const
 {
-	return sizeof(btStaticPlaneShapeData);
+    return sizeof(btStaticPlaneShapeData);
 }
 
 ///fills the dataBuffer and returns the struct name (and 0 on failure)
-SIMD_FORCE_INLINE	const char*	btStaticPlaneShape::serialize(void* dataBuffer, btSerializer* serializer) const
+SIMD_FORCE_INLINE   const char* btStaticPlaneShape::serialize(void* dataBuffer, btSerializer* serializer) const
 {
-	btStaticPlaneShapeData* planeData = (btStaticPlaneShapeData*) dataBuffer;
-	btCollisionShape::serialize(&planeData->m_collisionShapeData,serializer);
+    btStaticPlaneShapeData* planeData = (btStaticPlaneShapeData*) dataBuffer;
+    btCollisionShape::serialize(&planeData->m_collisionShapeData,serializer);
 
-	m_localScaling.serializeFloat(planeData->m_localScaling);
-	m_planeNormal.serializeFloat(planeData->m_planeNormal);
-	planeData->m_planeConstant = float(m_planeConstant);
-		
-	return "btStaticPlaneShapeData";
+    m_localScaling.serializeFloat(planeData->m_localScaling);
+    m_planeNormal.serializeFloat(planeData->m_planeNormal);
+    planeData->m_planeConstant = float(m_planeConstant);
+        
+    return "btStaticPlaneShapeData";
 }
 
 

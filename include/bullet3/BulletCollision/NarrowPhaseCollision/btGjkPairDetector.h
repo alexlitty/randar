@@ -29,73 +29,73 @@ class btConvexPenetrationDepthSolver;
 /// btGjkPairDetector uses GJK to implement the btDiscreteCollisionDetectorInterface
 class btGjkPairDetector : public btDiscreteCollisionDetectorInterface
 {
-	
+    
 
-	btVector3	m_cachedSeparatingAxis;
-	btConvexPenetrationDepthSolver*	m_penetrationDepthSolver;
-	btSimplexSolverInterface* m_simplexSolver;
-	const btConvexShape* m_minkowskiA;
-	const btConvexShape* m_minkowskiB;
-	int	m_shapeTypeA;
-	int m_shapeTypeB;
-	btScalar	m_marginA;
-	btScalar	m_marginB;
+    btVector3   m_cachedSeparatingAxis;
+    btConvexPenetrationDepthSolver* m_penetrationDepthSolver;
+    btSimplexSolverInterface* m_simplexSolver;
+    const btConvexShape* m_minkowskiA;
+    const btConvexShape* m_minkowskiB;
+    int m_shapeTypeA;
+    int m_shapeTypeB;
+    btScalar    m_marginA;
+    btScalar    m_marginB;
 
-	bool		m_ignoreMargin;
-	btScalar	m_cachedSeparatingDistance;
-	
+    bool        m_ignoreMargin;
+    btScalar    m_cachedSeparatingDistance;
+    
 
 public:
 
-	//some debugging to fix degeneracy problems
-	int			m_lastUsedMethod;
-	int			m_curIter;
-	int			m_degenerateSimplex;
-	int			m_catchDegeneracies;
-	int			m_fixContactNormalDirection;
+    //some debugging to fix degeneracy problems
+    int         m_lastUsedMethod;
+    int         m_curIter;
+    int         m_degenerateSimplex;
+    int         m_catchDegeneracies;
+    int         m_fixContactNormalDirection;
 
-	btGjkPairDetector(const btConvexShape* objectA,const btConvexShape* objectB,btSimplexSolverInterface* simplexSolver,btConvexPenetrationDepthSolver*	penetrationDepthSolver);
-	btGjkPairDetector(const btConvexShape* objectA,const btConvexShape* objectB,int shapeTypeA,int shapeTypeB,btScalar marginA, btScalar marginB, btSimplexSolverInterface* simplexSolver,btConvexPenetrationDepthSolver*	penetrationDepthSolver);
-	virtual ~btGjkPairDetector() {};
+    btGjkPairDetector(const btConvexShape* objectA,const btConvexShape* objectB,btSimplexSolverInterface* simplexSolver,btConvexPenetrationDepthSolver* penetrationDepthSolver);
+    btGjkPairDetector(const btConvexShape* objectA,const btConvexShape* objectB,int shapeTypeA,int shapeTypeB,btScalar marginA, btScalar marginB, btSimplexSolverInterface* simplexSolver,btConvexPenetrationDepthSolver*   penetrationDepthSolver);
+    virtual ~btGjkPairDetector() {};
 
-	virtual void	getClosestPoints(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw,bool swapResults=false);
+    virtual void    getClosestPoints(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw,bool swapResults=false);
 
-	void	getClosestPointsNonVirtual(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw);
-	
+    void    getClosestPointsNonVirtual(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw);
+    
 
-	void setMinkowskiA(const btConvexShape* minkA)
-	{
-		m_minkowskiA = minkA;
-	}
+    void setMinkowskiA(const btConvexShape* minkA)
+    {
+        m_minkowskiA = minkA;
+    }
 
-	void setMinkowskiB(const btConvexShape* minkB)
-	{
-		m_minkowskiB = minkB;
-	}
-	void setCachedSeperatingAxis(const btVector3& seperatingAxis)
-	{
-		m_cachedSeparatingAxis = seperatingAxis;
-	}
+    void setMinkowskiB(const btConvexShape* minkB)
+    {
+        m_minkowskiB = minkB;
+    }
+    void setCachedSeperatingAxis(const btVector3& seperatingAxis)
+    {
+        m_cachedSeparatingAxis = seperatingAxis;
+    }
 
-	const btVector3& getCachedSeparatingAxis() const
-	{
-		return m_cachedSeparatingAxis;
-	}
-	btScalar	getCachedSeparatingDistance() const
-	{
-		return m_cachedSeparatingDistance;
-	}
+    const btVector3& getCachedSeparatingAxis() const
+    {
+        return m_cachedSeparatingAxis;
+    }
+    btScalar    getCachedSeparatingDistance() const
+    {
+        return m_cachedSeparatingDistance;
+    }
 
-	void	setPenetrationDepthSolver(btConvexPenetrationDepthSolver*	penetrationDepthSolver)
-	{
-		m_penetrationDepthSolver = penetrationDepthSolver;
-	}
+    void    setPenetrationDepthSolver(btConvexPenetrationDepthSolver*   penetrationDepthSolver)
+    {
+        m_penetrationDepthSolver = penetrationDepthSolver;
+    }
 
-	///don't use setIgnoreMargin, it's for Bullet's internal use
-	void	setIgnoreMargin(bool ignoreMargin)
-	{
-		m_ignoreMargin = ignoreMargin;
-	}
+    ///don't use setIgnoreMargin, it's for Bullet's internal use
+    void    setIgnoreMargin(bool ignoreMargin)
+    {
+        m_ignoreMargin = ignoreMargin;
+    }
 
 
 };

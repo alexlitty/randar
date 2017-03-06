@@ -5,32 +5,32 @@
 
 namespace randar
 {
-	class CefPath : public Path
-	{
-	public:
-		/**
-		* Default constructor.
-		*
-		* Set to the current working directory.
-		*/
-		CefPath();
+    class CefPath : public Path
+    {
+    public:
+        /**
+        * Default constructor.
+        *
+        * Set to the current working directory.
+        */
+        CefPath();
 
-		/**
-		* Constructor, given a UNIX-style string path.
-		*/
-		CefPath(const std::string& path);
+        /**
+        * Constructor, given a UNIX-style string path.
+        */
+        CefPath(const std::string& path);
 
-		/**
-		* Copy constructor.
-		*/
-		CefPath(const CefPath& other);
+        /**
+        * Copy constructor.
+        */
+        CefPath(const CefPath& other);
 
-		/**
-		* Converts to a platform-appropriate string.
-		* Prefixes file:// to path so that CEF plays nice.
-		*/
-		virtual std::string toString() const override;
-	};
+        /**
+        * Converts to a platform-appropriate string.
+        * Prefixes file:// to path so that CEF plays nice.
+        */
+        virtual std::string toString() const override;
+    };
 }
 
 #endif

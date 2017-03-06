@@ -27,18 +27,18 @@ class btActionInterface
 {
 protected:
 
-	static btRigidBody& getFixedBody();
-	
-	
+    static btRigidBody& getFixedBody();
+    
+    
 public:
 
-	virtual ~btActionInterface()
-	{
-	}
+    virtual ~btActionInterface()
+    {
+    }
 
-	virtual void updateAction( btCollisionWorld* collisionWorld, btScalar deltaTimeStep)=0;
+    virtual void updateAction( btCollisionWorld* collisionWorld, btScalar deltaTimeStep)=0;
 
-	virtual void debugDraw(btIDebugDraw* debugDrawer) = 0;
+    virtual void debugDraw(btIDebugDraw* debugDrawer) = 0;
 
 };
 

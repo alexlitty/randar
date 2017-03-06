@@ -54,55 +54,55 @@ public:
     }
 
     GIM_CONTACT(const GIM_CONTACT & contact):
-				m_point(contact.m_point),
-				m_normal(contact.m_normal),
-				m_depth(contact.m_depth),
-				m_feature1(contact.m_feature1),
-				m_feature2(contact.m_feature2)
+                m_point(contact.m_point),
+                m_normal(contact.m_normal),
+                m_depth(contact.m_depth),
+                m_feature1(contact.m_feature1),
+                m_feature2(contact.m_feature2)
     {
     }
 
     GIM_CONTACT(const btVector3 &point,const btVector3 & normal,
-    	 			btScalar depth, int feature1, int feature2):
-				m_point(point),
-				m_normal(normal),
-				m_depth(depth),
-				m_feature1(feature1),
-				m_feature2(feature2)
+                    btScalar depth, int feature1, int feature2):
+                m_point(point),
+                m_normal(normal),
+                m_depth(depth),
+                m_feature1(feature1),
+                m_feature2(feature2)
     {
     }
 
-	//! Calcs key for coord classification
+    //! Calcs key for coord classification
     SIMD_FORCE_INLINE unsigned int calc_key_contact() const
     {
-    	int _coords[] = {
-    		(int)(m_point[0]*1000.0f+1.0f),
-    		(int)(m_point[1]*1333.0f),
-    		(int)(m_point[2]*2133.0f+3.0f)};
-		unsigned int _hash=0;
-		unsigned int *_uitmp = (unsigned int *)(&_coords[0]);
-		_hash = *_uitmp;
-		_uitmp++;
-		_hash += (*_uitmp)<<4;
-		_uitmp++;
-		_hash += (*_uitmp)<<8;
-		return _hash;
+        int _coords[] = {
+            (int)(m_point[0]*1000.0f+1.0f),
+            (int)(m_point[1]*1333.0f),
+            (int)(m_point[2]*2133.0f+3.0f)};
+        unsigned int _hash=0;
+        unsigned int *_uitmp = (unsigned int *)(&_coords[0]);
+        _hash = *_uitmp;
+        _uitmp++;
+        _hash += (*_uitmp)<<4;
+        _uitmp++;
+        _hash += (*_uitmp)<<8;
+        return _hash;
     }
 
     SIMD_FORCE_INLINE void interpolate_normals( btVector3 * normals,int normal_count)
     {
-    	btVector3 vec_sum(m_normal);
-		for(int i=0;i<normal_count;i++)
-		{
-			vec_sum += normals[i];
-		}
+        btVector3 vec_sum(m_normal);
+        for(int i=0;i<normal_count;i++)
+        {
+            vec_sum += normals[i];
+        }
 
-		btScalar vec_sum_len = vec_sum.length2();
-		if(vec_sum_len <CONTACT_DIFF_EPSILON) return;
+        btScalar vec_sum_len = vec_sum.length2();
+        if(vec_sum_len <CONTACT_DIFF_EPSILON) return;
 
-		//GIM_INV_SQRT(vec_sum_len,vec_sum_len); // 1/sqrt(vec_sum_len)
+        //GIM_INV_SQRT(vec_sum_len,vec_sum_len); // 1/sqrt(vec_sum_len)
 
-		m_normal = vec_sum/btSqrt(vec_sum_len);
+        m_normal = vec_sum/btSqrt(vec_sum_len);
     }
 
 };
@@ -111,34 +111,34 @@ public:
 class btContactArray:public btAlignedObjectArray<GIM_CONTACT>
 {
 public:
-	btContactArray()
-	{
-		reserve(64);
-	}
+    btContactArray()
+    {
+        reserve(64);
+    }
 
-	SIMD_FORCE_INLINE void push_contact(
-		const btVector3 &point,const btVector3 & normal,
-		btScalar depth, int feature1, int feature2)
-	{
-		push_back( GIM_CONTACT(point,normal,depth,feature1,feature2) );
-	}
+    SIMD_FORCE_INLINE void push_contact(
+        const btVector3 &point,const btVector3 & normal,
+        btScalar depth, int feature1, int feature2)
+    {
+        push_back( GIM_CONTACT(point,normal,depth,feature1,feature2) );
+    }
 
-	SIMD_FORCE_INLINE void push_triangle_contacts(
-		const GIM_TRIANGLE_CONTACT & tricontact,
-		int feature1,int feature2)
-	{
-		for(int i = 0;i<tricontact.m_point_count ;i++ )
-		{
-			push_contact(
-				tricontact.m_points[i],
-				tricontact.m_separating_normal,
-				tricontact.m_penetration_depth,feature1,feature2);
-		}
-	}
+    SIMD_FORCE_INLINE void push_triangle_contacts(
+        const GIM_TRIANGLE_CONTACT & tricontact,
+        int feature1,int feature2)
+    {
+        for(int i = 0;i<tricontact.m_point_count ;i++ )
+        {
+            push_contact(
+                tricontact.m_points[i],
+                tricontact.m_separating_normal,
+                tricontact.m_penetration_depth,feature1,feature2);
+        }
+    }
 
-	void merge_contacts(const btContactArray & contacts, bool normal_contact_average = true);
+    void merge_contacts(const btContactArray & contacts, bool normal_contact_average = true);
 
-	void merge_contacts_unique(const btContactArray & contacts);
+    void merge_contacts_unique(const btContactArray & contacts);
 };
 
 

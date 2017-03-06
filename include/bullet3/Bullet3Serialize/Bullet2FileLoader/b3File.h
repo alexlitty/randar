@@ -22,143 +22,143 @@ subject to the following restrictions:
 
 namespace bParse {
 
-	// ----------------------------------------------------- //
-	enum bFileFlags
-	{
-		FD_INVALID   =0,
-		FD_OK        =1,
-		FD_VOID_IS_8 =2,
-		FD_ENDIAN_SWAP      =4,
-		FD_FILE_64   =8,
-		FD_BITS_VARIES    =16,
-		FD_VERSION_VARIES = 32,
-		FD_DOUBLE_PRECISION =64,
-		FD_BROKEN_DNA = 128
-	};
+    // ----------------------------------------------------- //
+    enum bFileFlags
+    {
+        FD_INVALID   =0,
+        FD_OK        =1,
+        FD_VOID_IS_8 =2,
+        FD_ENDIAN_SWAP      =4,
+        FD_FILE_64   =8,
+        FD_BITS_VARIES    =16,
+        FD_VERSION_VARIES = 32,
+        FD_DOUBLE_PRECISION =64,
+        FD_BROKEN_DNA = 128
+    };
 
-	enum bFileVerboseMode
-	{
-		FD_VERBOSE_EXPORT_XML = 1,
-		FD_VERBOSE_DUMP_DNA_TYPE_DEFINITIONS = 2,
-		FD_VERBOSE_DUMP_CHUNKS = 4,
-		FD_VERBOSE_DUMP_FILE_INFO=8,
-	};
-	// ----------------------------------------------------- //
-	class bFile
-	{
-	protected:
-		
-		char				m_headerString[7];
+    enum bFileVerboseMode
+    {
+        FD_VERBOSE_EXPORT_XML = 1,
+        FD_VERBOSE_DUMP_DNA_TYPE_DEFINITIONS = 2,
+        FD_VERBOSE_DUMP_CHUNKS = 4,
+        FD_VERBOSE_DUMP_FILE_INFO=8,
+    };
+    // ----------------------------------------------------- //
+    class bFile
+    {
+    protected:
+        
+        char                m_headerString[7];
 
-		bool				mOwnsBuffer;
-		char*				mFileBuffer;
-		int					mFileLen;
-		int					mVersion;
+        bool                mOwnsBuffer;
+        char*               mFileBuffer;
+        int                 mFileLen;
+        int                 mVersion;
 
 
-		bPtrMap				mLibPointers;
+        bPtrMap             mLibPointers;
 
-		int					mDataStart;
-		bDNA*				mFileDNA;
-		bDNA*				mMemoryDNA;
+        int                 mDataStart;
+        bDNA*               mFileDNA;
+        bDNA*               mMemoryDNA;
 
-		b3AlignedObjectArray<char*>	m_pointerFixupArray;
-		b3AlignedObjectArray<char*>	m_pointerPtrFixupArray;
-		
-		b3AlignedObjectArray<bChunkInd>	m_chunks;
+        b3AlignedObjectArray<char*> m_pointerFixupArray;
+        b3AlignedObjectArray<char*> m_pointerPtrFixupArray;
+        
+        b3AlignedObjectArray<bChunkInd> m_chunks;
         b3HashMap<b3HashPtr, bChunkInd> m_chunkPtrPtrMap;
 
         // 
-	
-		bPtrMap				mDataPointers;
+    
+        bPtrMap             mDataPointers;
 
-		
-		int					mFlags;
+        
+        int                 mFlags;
 
-		// ////////////////////////////////////////////////////////////////////////////
+        // ////////////////////////////////////////////////////////////////////////////
 
-			// buffer offset util
-		int getNextBlock(bChunkInd *dataChunk,  const char *dataPtr, const int flags);
-		void safeSwapPtr(char *dst, const char *src);
+            // buffer offset util
+        int getNextBlock(bChunkInd *dataChunk,  const char *dataPtr, const int flags);
+        void safeSwapPtr(char *dst, const char *src);
 
-		virtual	void parseHeader();
-		
-		virtual	void parseData() = 0;
+        virtual void parseHeader();
+        
+        virtual void parseData() = 0;
 
-		void resolvePointersMismatch();
-		void resolvePointersChunk(const bChunkInd& dataChunk, int verboseMode);
+        void resolvePointersMismatch();
+        void resolvePointersChunk(const bChunkInd& dataChunk, int verboseMode);
 
-		int resolvePointersStructRecursive(char *strcPtr, int old_dna, int verboseMode, int recursion);
-		//void swapPtr(char *dst, char *src);
+        int resolvePointersStructRecursive(char *strcPtr, int old_dna, int verboseMode, int recursion);
+        //void swapPtr(char *dst, char *src);
 
-		void parseStruct(char *strcPtr, char *dtPtr, int old_dna, int new_dna, bool fixupPointers);
-		void getMatchingFileDNA(short* old, const char* lookupName, const char* lookupType, char *strcData, char *data, bool fixupPointers);
-		char* getFileElement(short *firstStruct, char *lookupName, char *lookupType, char *data, short **foundPos);
-
-
-		void swap(char *head, class bChunkInd& ch, bool ignoreEndianFlag);
-		void swapData(char *data, short type, int arraySize, bool ignoreEndianFlag);
-		void swapStruct(int dna_nr, char *data, bool ignoreEndianFlag);
-		void swapLen(char *dataPtr);
-		void swapDNA(char* ptr);
+        void parseStruct(char *strcPtr, char *dtPtr, int old_dna, int new_dna, bool fixupPointers);
+        void getMatchingFileDNA(short* old, const char* lookupName, const char* lookupType, char *strcData, char *data, bool fixupPointers);
+        char* getFileElement(short *firstStruct, char *lookupName, char *lookupType, char *data, short **foundPos);
 
 
-		char* readStruct(char *head, class bChunkInd& chunk);
-		char *getAsString(int code);
+        void swap(char *head, class bChunkInd& ch, bool ignoreEndianFlag);
+        void swapData(char *data, short type, int arraySize, bool ignoreEndianFlag);
+        void swapStruct(int dna_nr, char *data, bool ignoreEndianFlag);
+        void swapLen(char *dataPtr);
+        void swapDNA(char* ptr);
 
-		void	parseInternal(int verboseMode, char* memDna,int memDnaLength);
 
-	public:
-		bFile(const char *filename, const char headerString[7]);
-		
-		//todo: make memoryBuffer const char
-		//bFile( const char *memoryBuffer, int len);
-		bFile( char *memoryBuffer, int len, const char headerString[7]);
-		virtual ~bFile();
+        char* readStruct(char *head, class bChunkInd& chunk);
+        char *getAsString(int code);
 
-		bDNA*				getFileDNA()
-		{
-			return mFileDNA;
-		}
+        void    parseInternal(int verboseMode, char* memDna,int memDnaLength);
 
-		virtual	void	addDataBlock(char* dataBlock) = 0;
+    public:
+        bFile(const char *filename, const char headerString[7]);
+        
+        //todo: make memoryBuffer const char
+        //bFile( const char *memoryBuffer, int len);
+        bFile( char *memoryBuffer, int len, const char headerString[7]);
+        virtual ~bFile();
 
-		int	getFlags() const
-		{
-			return mFlags;
-		}
+        bDNA*               getFileDNA()
+        {
+            return mFileDNA;
+        }
 
-		bPtrMap&		getLibPointers()
-		{
-			return mLibPointers;
-		}
-		
-		void* findLibPointer(void *ptr);
+        virtual void    addDataBlock(char* dataBlock) = 0;
 
-		bool ok();
+        int getFlags() const
+        {
+            return mFlags;
+        }
 
-		virtual	void parse(int verboseMode) = 0;
+        bPtrMap&        getLibPointers()
+        {
+            return mLibPointers;
+        }
+        
+        void* findLibPointer(void *ptr);
 
-		virtual	int	write(const char* fileName, bool fixupPointers=false) = 0;
+        bool ok();
 
-		virtual	void	writeChunks(FILE* fp, bool fixupPointers );
+        virtual void parse(int verboseMode) = 0;
 
-		virtual	void	writeDNA(FILE* fp) = 0;
+        virtual int write(const char* fileName, bool fixupPointers=false) = 0;
 
-		void	updateOldPointers();
-		void	resolvePointers(int verboseMode);
+        virtual void    writeChunks(FILE* fp, bool fixupPointers );
 
-		void	dumpChunks(bDNA* dna);
-		
-		int		getVersion() const
-		{
-			return mVersion;
-		}
-		//pre-swap the endianness, so that data loaded on a target with different endianness doesn't need to be swapped
-		void preSwap();
-		void writeFile(const char* fileName);
+        virtual void    writeDNA(FILE* fp) = 0;
 
-	};
+        void    updateOldPointers();
+        void    resolvePointers(int verboseMode);
+
+        void    dumpChunks(bDNA* dna);
+        
+        int     getVersion() const
+        {
+            return mVersion;
+        }
+        //pre-swap the endianness, so that data loaded on a target with different endianness doesn't need to be swapped
+        void preSwap();
+        void writeFile(const char* fileName);
+
+    };
 }
 
 

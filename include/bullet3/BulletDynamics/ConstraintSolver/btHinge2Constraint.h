@@ -32,26 +32,26 @@ subject to the following restrictions:
 ATTRIBUTE_ALIGNED16(class) btHinge2Constraint : public btGeneric6DofSpring2Constraint
 {
 protected:
-	btVector3	m_anchor;
-	btVector3	m_axis1;
-	btVector3	m_axis2;
+    btVector3   m_anchor;
+    btVector3   m_axis1;
+    btVector3   m_axis2;
 public:
-		BT_DECLARE_ALIGNED_ALLOCATOR();
-		
-	// constructor
-	// anchor, axis1 and axis2 are in world coordinate system
-	// axis1 must be orthogonal to axis2
+        BT_DECLARE_ALIGNED_ALLOCATOR();
+        
+    // constructor
+    // anchor, axis1 and axis2 are in world coordinate system
+    // axis1 must be orthogonal to axis2
     btHinge2Constraint(btRigidBody& rbA, btRigidBody& rbB, btVector3& anchor, btVector3& axis1, btVector3& axis2);
-	// access
-	const btVector3& getAnchor() { return m_calculatedTransformA.getOrigin(); }
-	const btVector3& getAnchor2() { return m_calculatedTransformB.getOrigin(); }
-	const btVector3& getAxis1() { return m_axis1; }
-	const btVector3& getAxis2() { return m_axis2; }
-	btScalar getAngle1() { return getAngle(2); }
-	btScalar getAngle2() { return getAngle(0); }
-	// limits
-	void setUpperLimit(btScalar ang1max) { setAngularUpperLimit(btVector3(-1.f, 0.f, ang1max)); }
-	void setLowerLimit(btScalar ang1min) { setAngularLowerLimit(btVector3( 1.f, 0.f, ang1min)); }
+    // access
+    const btVector3& getAnchor() { return m_calculatedTransformA.getOrigin(); }
+    const btVector3& getAnchor2() { return m_calculatedTransformB.getOrigin(); }
+    const btVector3& getAxis1() { return m_axis1; }
+    const btVector3& getAxis2() { return m_axis2; }
+    btScalar getAngle1() { return getAngle(2); }
+    btScalar getAngle2() { return getAngle(0); }
+    // limits
+    void setUpperLimit(btScalar ang1max) { setAngularUpperLimit(btVector3(-1.f, 0.f, ang1max)); }
+    void setLowerLimit(btScalar ang1min) { setAngularLowerLimit(btVector3( 1.f, 0.f, ang1min)); }
 };
 
 

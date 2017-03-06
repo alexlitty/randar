@@ -3,7 +3,7 @@
 
 inline int b3ReduceContacts(const b3Float4* p, int nPoints, const b3Float4& nearNormal, b3Int4* contactIdx)
 {
-	if( nPoints == 0 )
+    if( nPoints == 0 )
         return 0;
     
     if (nPoints <=4)
@@ -13,17 +13,17 @@ inline int b3ReduceContacts(const b3Float4* p, int nPoints, const b3Float4& near
     if (nPoints >64)
         nPoints = 64;
     
-	b3Float4 center = b3MakeFloat4(0,0,0,0);
-	{
-		
-		for (int i=0;i<nPoints;i++)
-			center += p[i];
-		center /= (float)nPoints;
-	}
+    b3Float4 center = b3MakeFloat4(0,0,0,0);
+    {
+        
+        for (int i=0;i<nPoints;i++)
+            center += p[i];
+        center /= (float)nPoints;
+    }
     
-	
     
-	//	sample 4 directions
+    
+    //  sample 4 directions
     
     b3Float4 aVector = p[0] - center;
     b3Float4 u = b3Cross3( nearNormal, aVector );
@@ -43,7 +43,7 @@ inline int b3ReduceContacts(const b3Float4* p, int nPoints, const b3Float4& near
     maxDots.z = FLT_MIN;
     maxDots.w = FLT_MIN;
     
-    //	idx, distance
+    //  idx, distance
     for(int ie = 0; ie<nPoints; ie++ )
     {
         if (p[ie].w<minW)

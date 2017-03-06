@@ -25,38 +25,38 @@ subject to the following restrictions:
 
 struct b3MyFace
 {
-	b3AlignedObjectArray<int>	m_indices;
-	b3Scalar	m_plane[4];
+    b3AlignedObjectArray<int>   m_indices;
+    b3Scalar    m_plane[4];
 };
 
 B3_ATTRIBUTE_ALIGNED16(class) b3ConvexUtility
 {
-	public:
-	B3_DECLARE_ALIGNED_ALLOCATOR();
+    public:
+    B3_DECLARE_ALIGNED_ALLOCATOR();
 
-	b3Vector3		m_localCenter;
-	b3Vector3		m_extents;
-	b3Vector3		mC;
-	b3Vector3		mE;
-	b3Scalar		m_radius;
-	
-	b3AlignedObjectArray<b3Vector3>	m_vertices;
-	b3AlignedObjectArray<b3MyFace>	m_faces;
-	b3AlignedObjectArray<b3Vector3> m_uniqueEdges;
+    b3Vector3       m_localCenter;
+    b3Vector3       m_extents;
+    b3Vector3       mC;
+    b3Vector3       mE;
+    b3Scalar        m_radius;
+    
+    b3AlignedObjectArray<b3Vector3> m_vertices;
+    b3AlignedObjectArray<b3MyFace>  m_faces;
+    b3AlignedObjectArray<b3Vector3> m_uniqueEdges;
 
-		
-	b3ConvexUtility()
-	{
-	}
-	virtual ~b3ConvexUtility();
+        
+    b3ConvexUtility()
+    {
+    }
+    virtual ~b3ConvexUtility();
 
-	bool	initializePolyhedralFeatures(const b3Vector3* orgVertices, int numVertices, bool mergeCoplanarTriangles=true);
-		
-	void	initialize();
-	bool testContainment() const;
+    bool    initializePolyhedralFeatures(const b3Vector3* orgVertices, int numVertices, bool mergeCoplanarTriangles=true);
+        
+    void    initialize();
+    bool testContainment() const;
 
 
 
 };
 #endif
-	
+    

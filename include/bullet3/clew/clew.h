@@ -1265,7 +1265,7 @@ typedef cl_uint             cl_device_local_mem_type;
 typedef cl_bitfield         cl_device_exec_capabilities;
 typedef cl_bitfield         cl_command_queue_properties;
 
-typedef intptr_t			cl_context_properties;
+typedef intptr_t            cl_context_properties;
 typedef cl_uint             cl_context_info;
 typedef cl_uint             cl_command_queue_info;
 typedef cl_uint             cl_channel_order;
@@ -1745,11 +1745,11 @@ PFNCLCREATEBUFFER)(cl_context   /* context */,
                cl_int *     /* errcode_ret */) CL_API_SUFFIX__VERSION_1_0;
 
 typedef CL_API_ENTRY cl_mem (CL_API_CALL *
-PFNCLCREATESUBBUFFER)(cl_mem   			/* buffer */,
-               cl_mem_flags 			/* flags */,
+PFNCLCREATESUBBUFFER)(cl_mem            /* buffer */,
+               cl_mem_flags             /* flags */,
                cl_buffer_create_type    /* buffer_create_type */,
-               const void *       		/* buffer_create_info */,
-               cl_int *     			/* errcode_ret */) CL_API_SUFFIX__VERSION_1_1;
+               const void *             /* buffer_create_info */,
+               cl_int *                 /* errcode_ret */) CL_API_SUFFIX__VERSION_1_1;
 
 typedef CL_API_ENTRY cl_mem (CL_API_CALL *
 PFNCLCREATEIMAGE2D)(cl_context              /* context */,
@@ -1929,7 +1929,7 @@ PFNCLGETEVENTINFO)(cl_event         /* event */,
 
 typedef CL_API_ENTRY cl_event (CL_API_CALL *
 PFNCLCREATEUSEREVENT)(cl_context    /* context */,
-                  	  cl_int *      /* errcode_ret */) CL_API_SUFFIX__VERSION_1_1;               
+                      cl_int *      /* errcode_ret */) CL_API_SUFFIX__VERSION_1_1;               
 
 typedef CL_API_ENTRY cl_int (CL_API_CALL *
 PFNCLRETAINEVENT)(cl_event /* event */) CL_API_SUFFIX__VERSION_1_0;
@@ -2288,19 +2288,19 @@ CLEW_FUN_EXPORT     PFNCLENQUEUEBARRIER                 __clewEnqueueBarrier    
 CLEW_FUN_EXPORT     PFNCLGETEXTENSIONFUNCTIONADDRESS    __clewGetExtensionFunctionAddress   ;
 
 
-#define	clGetPlatformIDs                CLEW_GET_FUN(__clewGetPlatformIDs                )
-#define	clGetPlatformInfo               CLEW_GET_FUN(__clewGetPlatformInfo               )
-#define	clGetDeviceIDs                  CLEW_GET_FUN(__clewGetDeviceIDs                  )
-#define	clGetDeviceInfo                 CLEW_GET_FUN(__clewGetDeviceInfo                 )
-#define	clCreateContext                 CLEW_GET_FUN(__clewCreateContext                 )
-#define	clCreateContextFromType         CLEW_GET_FUN(__clewCreateContextFromType         )
-#define	clRetainContext                 CLEW_GET_FUN(__clewRetainContext                 )
-#define	clReleaseContext                CLEW_GET_FUN(__clewReleaseContext                )
-#define	clGetContextInfo                CLEW_GET_FUN(__clewGetContextInfo                )
-#define	clCreateCommandQueue            CLEW_GET_FUN(__clewCreateCommandQueue            )
-#define	clRetainCommandQueue            CLEW_GET_FUN(__clewRetainCommandQueue            )
-#define	clReleaseCommandQueue           CLEW_GET_FUN(__clewReleaseCommandQueue           )
-#define	clGetCommandQueueInfo           CLEW_GET_FUN(__clewGetCommandQueueInfo           )
+#define clGetPlatformIDs                CLEW_GET_FUN(__clewGetPlatformIDs                )
+#define clGetPlatformInfo               CLEW_GET_FUN(__clewGetPlatformInfo               )
+#define clGetDeviceIDs                  CLEW_GET_FUN(__clewGetDeviceIDs                  )
+#define clGetDeviceInfo                 CLEW_GET_FUN(__clewGetDeviceInfo                 )
+#define clCreateContext                 CLEW_GET_FUN(__clewCreateContext                 )
+#define clCreateContextFromType         CLEW_GET_FUN(__clewCreateContextFromType         )
+#define clRetainContext                 CLEW_GET_FUN(__clewRetainContext                 )
+#define clReleaseContext                CLEW_GET_FUN(__clewReleaseContext                )
+#define clGetContextInfo                CLEW_GET_FUN(__clewGetContextInfo                )
+#define clCreateCommandQueue            CLEW_GET_FUN(__clewCreateCommandQueue            )
+#define clRetainCommandQueue            CLEW_GET_FUN(__clewRetainCommandQueue            )
+#define clReleaseCommandQueue           CLEW_GET_FUN(__clewReleaseCommandQueue           )
+#define clGetCommandQueueInfo           CLEW_GET_FUN(__clewGetCommandQueueInfo           )
 #ifdef CL_USE_DEPRECATED_OPENCL_1_0_APIS
 #warning CL_USE_DEPRECATED_OPENCL_1_0_APIS is defined. These APIs are unsupported and untested in OpenCL 1.1!
 /* 
@@ -2313,68 +2313,68 @@ CLEW_FUN_EXPORT     PFNCLGETEXTENSIONFUNCTIONADDRESS    __clewGetExtensionFuncti
  *  Software developers previously relying on this API are instructed to set the command queue 
  *  properties when creating the queue, instead. 
  */
-#define	clSetCommandQueueProperty       CLEW_GET_FUN(__clewSetCommandQueueProperty       )
+#define clSetCommandQueueProperty       CLEW_GET_FUN(__clewSetCommandQueueProperty       )
 #endif /* CL_USE_DEPRECATED_OPENCL_1_0_APIS */
-#define	clCreateBuffer                  CLEW_GET_FUN(__clewCreateBuffer                  )
-#define	clCreateSubBuffer               CLEW_GET_FUN(__clewCreateSubBuffer               )
-#define	clCreateImage2D                 CLEW_GET_FUN(__clewCreateImage2D                 )
-#define	clCreateImage3D                 CLEW_GET_FUN(__clewCreateImage3D                 )
-#define	clRetainMemObject               CLEW_GET_FUN(__clewRetainMemObject               )
-#define	clReleaseMemObject              CLEW_GET_FUN(__clewReleaseMemObject              )
-#define	clGetSupportedImageFormats      CLEW_GET_FUN(__clewGetSupportedImageFormats      )
-#define	clGetMemObjectInfo              CLEW_GET_FUN(__clewGetMemObjectInfo              )
-#define	clGetImageInfo                  CLEW_GET_FUN(__clewGetImageInfo                  )
-#define	clSetMemObjectDestructorCallback CLEW_GET_FUN(__clewSetMemObjectDestructorCallback)
-#define	clCreateSampler                 CLEW_GET_FUN(__clewCreateSampler                 )
-#define	clRetainSampler                 CLEW_GET_FUN(__clewRetainSampler                 )
-#define	clReleaseSampler                CLEW_GET_FUN(__clewReleaseSampler                )
-#define	clGetSamplerInfo                CLEW_GET_FUN(__clewGetSamplerInfo                )
-#define	clCreateProgramWithSource       CLEW_GET_FUN(__clewCreateProgramWithSource       )
-#define	clCreateProgramWithBinary       CLEW_GET_FUN(__clewCreateProgramWithBinary       )
-#define	clRetainProgram                 CLEW_GET_FUN(__clewRetainProgram                 )
-#define	clReleaseProgram                CLEW_GET_FUN(__clewReleaseProgram                )
-#define	clBuildProgram                  CLEW_GET_FUN(__clewBuildProgram                  )
-#define	clUnloadCompiler                CLEW_GET_FUN(__clewUnloadCompiler                )
-#define	clGetProgramInfo                CLEW_GET_FUN(__clewGetProgramInfo                )
-#define	clGetProgramBuildInfo           CLEW_GET_FUN(__clewGetProgramBuildInfo           )
-#define	clCreateKernel                  CLEW_GET_FUN(__clewCreateKernel                  )
-#define	clCreateKernelsInProgram        CLEW_GET_FUN(__clewCreateKernelsInProgram        )
-#define	clRetainKernel                  CLEW_GET_FUN(__clewRetainKernel                  )
-#define	clReleaseKernel                 CLEW_GET_FUN(__clewReleaseKernel                 )
-#define	clSetKernelArg                  CLEW_GET_FUN(__clewSetKernelArg                  )
-#define	clGetKernelInfo                 CLEW_GET_FUN(__clewGetKernelInfo                 )
-#define	clGetKernelWorkGroupInfo        CLEW_GET_FUN(__clewGetKernelWorkGroupInfo        )
-#define	clWaitForEvents                 CLEW_GET_FUN(__clewWaitForEvents                 )
-#define	clGetEventInfo                  CLEW_GET_FUN(__clewGetEventInfo                  )
-#define	clCreateUserEvent               CLEW_GET_FUN(__clewCreateUserEvent               )
-#define	clRetainEvent                   CLEW_GET_FUN(__clewRetainEvent                   )
-#define	clReleaseEvent                  CLEW_GET_FUN(__clewReleaseEvent                  )
-#define	clSetUserEventStatus            CLEW_GET_FUN(__clewSetUserEventStatus            )
-#define	clSetEventCallback              CLEW_GET_FUN(__clewSetEventCallback              )
-#define	clGetEventProfilingInfo         CLEW_GET_FUN(__clewGetEventProfilingInfo         )
-#define	clFlush                         CLEW_GET_FUN(__clewFlush                         )
-#define	clFinish                        CLEW_GET_FUN(__clewFinish                        )
-#define	clEnqueueReadBuffer             CLEW_GET_FUN(__clewEnqueueReadBuffer             )
-#define	clEnqueueReadBufferRect         CLEW_GET_FUN(__clewEnqueueReadBufferRect         )
-#define	clEnqueueWriteBuffer            CLEW_GET_FUN(__clewEnqueueWriteBuffer            )
-#define	clEnqueueWriteBufferRect        CLEW_GET_FUN(__clewEnqueueWriteBufferRect        )
-#define	clEnqueueCopyBuffer             CLEW_GET_FUN(__clewEnqueueCopyBuffer             )
-#define	clEnqueueCopyBufferRect         CLEW_GET_FUN(__clewEnqueueCopyBufferRect         )
-#define	clEnqueueReadImage              CLEW_GET_FUN(__clewEnqueueReadImage              )
-#define	clEnqueueWriteImage             CLEW_GET_FUN(__clewEnqueueWriteImage             )
-#define	clEnqueueCopyImage              CLEW_GET_FUN(__clewEnqueueCopyImage              )
-#define	clEnqueueCopyImageToBuffer      CLEW_GET_FUN(__clewEnqueueCopyImageToBuffer      )
-#define	clEnqueueCopyBufferToImage      CLEW_GET_FUN(__clewEnqueueCopyBufferToImage      )
-#define	clEnqueueMapBuffer              CLEW_GET_FUN(__clewEnqueueMapBuffer              )
-#define	clEnqueueMapImage               CLEW_GET_FUN(__clewEnqueueMapImage               )
-#define	clEnqueueUnmapMemObject         CLEW_GET_FUN(__clewEnqueueUnmapMemObject         )
-#define	clEnqueueNDRangeKernel          CLEW_GET_FUN(__clewEnqueueNDRangeKernel          )
-#define	clEnqueueTask                   CLEW_GET_FUN(__clewEnqueueTask                   )
-#define	clEnqueueNativeKernel           CLEW_GET_FUN(__clewEnqueueNativeKernel           )
-#define	clEnqueueMarker                 CLEW_GET_FUN(__clewEnqueueMarker                 )
-#define	clEnqueueWaitForEvents          CLEW_GET_FUN(__clewEnqueueWaitForEvents          )
-#define	clEnqueueBarrier                CLEW_GET_FUN(__clewEnqueueBarrier                )
-#define	clGetExtensionFunctionAddress   CLEW_GET_FUN(__clewGetExtensionFunctionAddress   )
+#define clCreateBuffer                  CLEW_GET_FUN(__clewCreateBuffer                  )
+#define clCreateSubBuffer               CLEW_GET_FUN(__clewCreateSubBuffer               )
+#define clCreateImage2D                 CLEW_GET_FUN(__clewCreateImage2D                 )
+#define clCreateImage3D                 CLEW_GET_FUN(__clewCreateImage3D                 )
+#define clRetainMemObject               CLEW_GET_FUN(__clewRetainMemObject               )
+#define clReleaseMemObject              CLEW_GET_FUN(__clewReleaseMemObject              )
+#define clGetSupportedImageFormats      CLEW_GET_FUN(__clewGetSupportedImageFormats      )
+#define clGetMemObjectInfo              CLEW_GET_FUN(__clewGetMemObjectInfo              )
+#define clGetImageInfo                  CLEW_GET_FUN(__clewGetImageInfo                  )
+#define clSetMemObjectDestructorCallback CLEW_GET_FUN(__clewSetMemObjectDestructorCallback)
+#define clCreateSampler                 CLEW_GET_FUN(__clewCreateSampler                 )
+#define clRetainSampler                 CLEW_GET_FUN(__clewRetainSampler                 )
+#define clReleaseSampler                CLEW_GET_FUN(__clewReleaseSampler                )
+#define clGetSamplerInfo                CLEW_GET_FUN(__clewGetSamplerInfo                )
+#define clCreateProgramWithSource       CLEW_GET_FUN(__clewCreateProgramWithSource       )
+#define clCreateProgramWithBinary       CLEW_GET_FUN(__clewCreateProgramWithBinary       )
+#define clRetainProgram                 CLEW_GET_FUN(__clewRetainProgram                 )
+#define clReleaseProgram                CLEW_GET_FUN(__clewReleaseProgram                )
+#define clBuildProgram                  CLEW_GET_FUN(__clewBuildProgram                  )
+#define clUnloadCompiler                CLEW_GET_FUN(__clewUnloadCompiler                )
+#define clGetProgramInfo                CLEW_GET_FUN(__clewGetProgramInfo                )
+#define clGetProgramBuildInfo           CLEW_GET_FUN(__clewGetProgramBuildInfo           )
+#define clCreateKernel                  CLEW_GET_FUN(__clewCreateKernel                  )
+#define clCreateKernelsInProgram        CLEW_GET_FUN(__clewCreateKernelsInProgram        )
+#define clRetainKernel                  CLEW_GET_FUN(__clewRetainKernel                  )
+#define clReleaseKernel                 CLEW_GET_FUN(__clewReleaseKernel                 )
+#define clSetKernelArg                  CLEW_GET_FUN(__clewSetKernelArg                  )
+#define clGetKernelInfo                 CLEW_GET_FUN(__clewGetKernelInfo                 )
+#define clGetKernelWorkGroupInfo        CLEW_GET_FUN(__clewGetKernelWorkGroupInfo        )
+#define clWaitForEvents                 CLEW_GET_FUN(__clewWaitForEvents                 )
+#define clGetEventInfo                  CLEW_GET_FUN(__clewGetEventInfo                  )
+#define clCreateUserEvent               CLEW_GET_FUN(__clewCreateUserEvent               )
+#define clRetainEvent                   CLEW_GET_FUN(__clewRetainEvent                   )
+#define clReleaseEvent                  CLEW_GET_FUN(__clewReleaseEvent                  )
+#define clSetUserEventStatus            CLEW_GET_FUN(__clewSetUserEventStatus            )
+#define clSetEventCallback              CLEW_GET_FUN(__clewSetEventCallback              )
+#define clGetEventProfilingInfo         CLEW_GET_FUN(__clewGetEventProfilingInfo         )
+#define clFlush                         CLEW_GET_FUN(__clewFlush                         )
+#define clFinish                        CLEW_GET_FUN(__clewFinish                        )
+#define clEnqueueReadBuffer             CLEW_GET_FUN(__clewEnqueueReadBuffer             )
+#define clEnqueueReadBufferRect         CLEW_GET_FUN(__clewEnqueueReadBufferRect         )
+#define clEnqueueWriteBuffer            CLEW_GET_FUN(__clewEnqueueWriteBuffer            )
+#define clEnqueueWriteBufferRect        CLEW_GET_FUN(__clewEnqueueWriteBufferRect        )
+#define clEnqueueCopyBuffer             CLEW_GET_FUN(__clewEnqueueCopyBuffer             )
+#define clEnqueueCopyBufferRect         CLEW_GET_FUN(__clewEnqueueCopyBufferRect         )
+#define clEnqueueReadImage              CLEW_GET_FUN(__clewEnqueueReadImage              )
+#define clEnqueueWriteImage             CLEW_GET_FUN(__clewEnqueueWriteImage             )
+#define clEnqueueCopyImage              CLEW_GET_FUN(__clewEnqueueCopyImage              )
+#define clEnqueueCopyImageToBuffer      CLEW_GET_FUN(__clewEnqueueCopyImageToBuffer      )
+#define clEnqueueCopyBufferToImage      CLEW_GET_FUN(__clewEnqueueCopyBufferToImage      )
+#define clEnqueueMapBuffer              CLEW_GET_FUN(__clewEnqueueMapBuffer              )
+#define clEnqueueMapImage               CLEW_GET_FUN(__clewEnqueueMapImage               )
+#define clEnqueueUnmapMemObject         CLEW_GET_FUN(__clewEnqueueUnmapMemObject         )
+#define clEnqueueNDRangeKernel          CLEW_GET_FUN(__clewEnqueueNDRangeKernel          )
+#define clEnqueueTask                   CLEW_GET_FUN(__clewEnqueueTask                   )
+#define clEnqueueNativeKernel           CLEW_GET_FUN(__clewEnqueueNativeKernel           )
+#define clEnqueueMarker                 CLEW_GET_FUN(__clewEnqueueMarker                 )
+#define clEnqueueWaitForEvents          CLEW_GET_FUN(__clewEnqueueWaitForEvents          )
+#define clEnqueueBarrier                CLEW_GET_FUN(__clewEnqueueBarrier                )
+#define clGetExtensionFunctionAddress   CLEW_GET_FUN(__clewGetExtensionFunctionAddress   )
 
 
 #define CLEW_SUCCESS                0       //!<    Success error code
@@ -2385,7 +2385,7 @@ CLEW_FUN_EXPORT     PFNCLGETEXTENSIONFUNCTIONADDRESS    __clewGetExtensionFuncti
 int         clewInit        (const char*);
 
 //! \brief Exit clew and unload OpenCL dynamic library
-void		clewExit();
+void        clewExit();
 
 //! \brief Convert an OpenCL error code to its string equivalent
 const char* clewErrorString (cl_int error);

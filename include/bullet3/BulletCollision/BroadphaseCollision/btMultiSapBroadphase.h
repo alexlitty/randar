@@ -34,117 +34,117 @@ typedef btAlignedObjectArray<btBroadphaseInterface*> btSapBroadphaseArray;
 ///and http://www.continuousphysics.com/Bullet/phpBB2/viewtopic.php?t=1329
 class btMultiSapBroadphase :public btBroadphaseInterface
 {
-	btSapBroadphaseArray	m_sapBroadphases;
-	
-	btSimpleBroadphase*		m_simpleBroadphase;
+    btSapBroadphaseArray    m_sapBroadphases;
+    
+    btSimpleBroadphase*     m_simpleBroadphase;
 
-	btOverlappingPairCache*	m_overlappingPairs;
+    btOverlappingPairCache* m_overlappingPairs;
 
-	class btQuantizedBvh*			m_optimizedAabbTree;
+    class btQuantizedBvh*           m_optimizedAabbTree;
 
 
-	bool					m_ownsPairCache;
-	
-	btOverlapFilterCallback*	m_filterCallback;
+    bool                    m_ownsPairCache;
+    
+    btOverlapFilterCallback*    m_filterCallback;
 
-	int			m_invalidPair;
+    int         m_invalidPair;
 
-	struct	btBridgeProxy
-	{
-		btBroadphaseProxy*		m_childProxy;
-		btBroadphaseInterface*	m_childBroadphase;
-	};
+    struct  btBridgeProxy
+    {
+        btBroadphaseProxy*      m_childProxy;
+        btBroadphaseInterface*  m_childBroadphase;
+    };
 
 
 public:
 
-	struct	btMultiSapProxy	: public btBroadphaseProxy
-	{
+    struct  btMultiSapProxy : public btBroadphaseProxy
+    {
 
-		///array with all the entries that this proxy belongs to
-		btAlignedObjectArray<btBridgeProxy*> m_bridgeProxies;
-		btVector3	m_aabbMin;
-		btVector3	m_aabbMax;
+        ///array with all the entries that this proxy belongs to
+        btAlignedObjectArray<btBridgeProxy*> m_bridgeProxies;
+        btVector3   m_aabbMin;
+        btVector3   m_aabbMax;
 
-		int	m_shapeType;
+        int m_shapeType;
 
-/*		void*	m_userPtr;
-		short int	m_collisionFilterGroup;
-		short int	m_collisionFilterMask;
+/*      void*   m_userPtr;
+        short int   m_collisionFilterGroup;
+        short int   m_collisionFilterMask;
 */
-		btMultiSapProxy(const btVector3& aabbMin,  const btVector3& aabbMax,int shapeType,void* userPtr, short int collisionFilterGroup,short int collisionFilterMask)
-			:btBroadphaseProxy(aabbMin,aabbMax,userPtr,collisionFilterGroup,collisionFilterMask),
-			m_aabbMin(aabbMin),
-			m_aabbMax(aabbMax),
-			m_shapeType(shapeType)
-		{
-			m_multiSapParentProxy =this;
-		}
+        btMultiSapProxy(const btVector3& aabbMin,  const btVector3& aabbMax,int shapeType,void* userPtr, short int collisionFilterGroup,short int collisionFilterMask)
+            :btBroadphaseProxy(aabbMin,aabbMax,userPtr,collisionFilterGroup,collisionFilterMask),
+            m_aabbMin(aabbMin),
+            m_aabbMax(aabbMax),
+            m_shapeType(shapeType)
+        {
+            m_multiSapParentProxy =this;
+        }
 
-		
-	};
+        
+    };
 
 protected:
 
 
-	btAlignedObjectArray<btMultiSapProxy*> m_multiSapProxies;
+    btAlignedObjectArray<btMultiSapProxy*> m_multiSapProxies;
 
 public:
 
-	btMultiSapBroadphase(int maxProxies = 16384,btOverlappingPairCache* pairCache=0);
+    btMultiSapBroadphase(int maxProxies = 16384,btOverlappingPairCache* pairCache=0);
 
 
-	btSapBroadphaseArray&	getBroadphaseArray()
-	{
-		return m_sapBroadphases;
-	}
+    btSapBroadphaseArray&   getBroadphaseArray()
+    {
+        return m_sapBroadphases;
+    }
 
-	const btSapBroadphaseArray&	getBroadphaseArray() const
-	{
-		return m_sapBroadphases;
-	}
+    const btSapBroadphaseArray& getBroadphaseArray() const
+    {
+        return m_sapBroadphases;
+    }
 
-	virtual ~btMultiSapBroadphase();
+    virtual ~btMultiSapBroadphase();
 
-	virtual btBroadphaseProxy*	createProxy(  const btVector3& aabbMin,  const btVector3& aabbMax,int shapeType,void* userPtr, short int collisionFilterGroup,short int collisionFilterMask, btDispatcher* dispatcher,void* multiSapProxy);
-	virtual void	destroyProxy(btBroadphaseProxy* proxy,btDispatcher* dispatcher);
-	virtual void	setAabb(btBroadphaseProxy* proxy,const btVector3& aabbMin,const btVector3& aabbMax, btDispatcher* dispatcher);
-	virtual void	getAabb(btBroadphaseProxy* proxy,btVector3& aabbMin, btVector3& aabbMax ) const;
+    virtual btBroadphaseProxy*  createProxy(  const btVector3& aabbMin,  const btVector3& aabbMax,int shapeType,void* userPtr, short int collisionFilterGroup,short int collisionFilterMask, btDispatcher* dispatcher,void* multiSapProxy);
+    virtual void    destroyProxy(btBroadphaseProxy* proxy,btDispatcher* dispatcher);
+    virtual void    setAabb(btBroadphaseProxy* proxy,const btVector3& aabbMin,const btVector3& aabbMax, btDispatcher* dispatcher);
+    virtual void    getAabb(btBroadphaseProxy* proxy,btVector3& aabbMin, btVector3& aabbMax ) const;
 
-	virtual void	rayTest(const btVector3& rayFrom,const btVector3& rayTo, btBroadphaseRayCallback& rayCallback,const btVector3& aabbMin=btVector3(0,0,0),const btVector3& aabbMax=btVector3(0,0,0));
+    virtual void    rayTest(const btVector3& rayFrom,const btVector3& rayTo, btBroadphaseRayCallback& rayCallback,const btVector3& aabbMin=btVector3(0,0,0),const btVector3& aabbMax=btVector3(0,0,0));
 
-	void	addToChildBroadphase(btMultiSapProxy* parentMultiSapProxy, btBroadphaseProxy* childProxy, btBroadphaseInterface*	childBroadphase);
+    void    addToChildBroadphase(btMultiSapProxy* parentMultiSapProxy, btBroadphaseProxy* childProxy, btBroadphaseInterface*    childBroadphase);
 
-	///calculateOverlappingPairs is optional: incremental algorithms (sweep and prune) might do it during the set aabb
-	virtual void	calculateOverlappingPairs(btDispatcher* dispatcher);
+    ///calculateOverlappingPairs is optional: incremental algorithms (sweep and prune) might do it during the set aabb
+    virtual void    calculateOverlappingPairs(btDispatcher* dispatcher);
 
-	bool	testAabbOverlap(btBroadphaseProxy* proxy0,btBroadphaseProxy* proxy1);
+    bool    testAabbOverlap(btBroadphaseProxy* proxy0,btBroadphaseProxy* proxy1);
 
-	virtual	btOverlappingPairCache*	getOverlappingPairCache()
-	{
-		return m_overlappingPairs;
-	}
-	virtual	const btOverlappingPairCache*	getOverlappingPairCache() const
-	{
-		return m_overlappingPairs;
-	}
+    virtual btOverlappingPairCache* getOverlappingPairCache()
+    {
+        return m_overlappingPairs;
+    }
+    virtual const btOverlappingPairCache*   getOverlappingPairCache() const
+    {
+        return m_overlappingPairs;
+    }
 
-	///getAabb returns the axis aligned bounding box in the 'global' coordinate frame
-	///will add some transform later
-	virtual void getBroadphaseAabb(btVector3& aabbMin,btVector3& aabbMax) const
-	{
-		aabbMin.setValue(-BT_LARGE_FLOAT,-BT_LARGE_FLOAT,-BT_LARGE_FLOAT);
-		aabbMax.setValue(BT_LARGE_FLOAT,BT_LARGE_FLOAT,BT_LARGE_FLOAT);
-	}
+    ///getAabb returns the axis aligned bounding box in the 'global' coordinate frame
+    ///will add some transform later
+    virtual void getBroadphaseAabb(btVector3& aabbMin,btVector3& aabbMax) const
+    {
+        aabbMin.setValue(-BT_LARGE_FLOAT,-BT_LARGE_FLOAT,-BT_LARGE_FLOAT);
+        aabbMax.setValue(BT_LARGE_FLOAT,BT_LARGE_FLOAT,BT_LARGE_FLOAT);
+    }
 
-	void	buildTree(const btVector3& bvhAabbMin,const btVector3& bvhAabbMax);
+    void    buildTree(const btVector3& bvhAabbMin,const btVector3& bvhAabbMax);
 
-	virtual void	printStats();
+    virtual void    printStats();
 
-	void quicksort (btBroadphasePairArray& a, int lo, int hi);
+    void quicksort (btBroadphasePairArray& a, int lo, int hi);
 
-	///reset broadphase internal structures, to ensure determinism/reproducability
-	virtual void resetPool(btDispatcher* dispatcher);
+    ///reset broadphase internal structures, to ensure determinism/reproducability
+    virtual void resetPool(btDispatcher* dispatcher);
 
 };
 

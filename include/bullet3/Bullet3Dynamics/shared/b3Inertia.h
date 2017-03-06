@@ -7,8 +7,8 @@
 
 struct b3Inertia
 {
-	b3Mat3x3 m_invInertiaWorld;
-	b3Mat3x3 m_initInvInertia;
+    b3Mat3x3 m_invInertiaWorld;
+    b3Mat3x3 m_initInvInertia;
 };
 
 

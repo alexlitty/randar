@@ -23,24 +23,24 @@ class btGjkEpaPenetrationDepthSolver;
 
 
 ///btSoftBodyRigidBodyCollisionConfiguration add softbody interaction on top of btDefaultCollisionConfiguration
-class	btSoftBodyRigidBodyCollisionConfiguration : public btDefaultCollisionConfiguration
+class   btSoftBodyRigidBodyCollisionConfiguration : public btDefaultCollisionConfiguration
 {
 
-	//default CreationFunctions, filling the m_doubleDispatch table
-	btCollisionAlgorithmCreateFunc*	m_softSoftCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_softRigidConvexCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_swappedSoftRigidConvexCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_softRigidConcaveCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_swappedSoftRigidConcaveCreateFunc;
+    //default CreationFunctions, filling the m_doubleDispatch table
+    btCollisionAlgorithmCreateFunc* m_softSoftCreateFunc;
+    btCollisionAlgorithmCreateFunc* m_softRigidConvexCreateFunc;
+    btCollisionAlgorithmCreateFunc* m_swappedSoftRigidConvexCreateFunc;
+    btCollisionAlgorithmCreateFunc* m_softRigidConcaveCreateFunc;
+    btCollisionAlgorithmCreateFunc* m_swappedSoftRigidConcaveCreateFunc;
 
 public:
 
-	btSoftBodyRigidBodyCollisionConfiguration(const btDefaultCollisionConstructionInfo& constructionInfo = btDefaultCollisionConstructionInfo());
+    btSoftBodyRigidBodyCollisionConfiguration(const btDefaultCollisionConstructionInfo& constructionInfo = btDefaultCollisionConstructionInfo());
 
-	virtual ~btSoftBodyRigidBodyCollisionConfiguration();
+    virtual ~btSoftBodyRigidBodyCollisionConfiguration();
 
-	///creation of soft-soft and soft-rigid, and otherwise fallback to base class implementation
-	virtual btCollisionAlgorithmCreateFunc* getCollisionAlgorithmCreateFunc(int proxyType0,int proxyType1);
+    ///creation of soft-soft and soft-rigid, and otherwise fallback to base class implementation
+    virtual btCollisionAlgorithmCreateFunc* getCollisionAlgorithmCreateFunc(int proxyType0,int proxyType1);
 
 };
 

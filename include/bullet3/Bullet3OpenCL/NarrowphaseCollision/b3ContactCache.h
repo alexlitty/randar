@@ -40,38 +40,38 @@ extern b3Scalar gContactBreakingThreshold;
 B3_ATTRIBUTE_ALIGNED16( class) b3ContactCache
 {
 
-	
+    
 
-	
-	/// sort cached points so most isolated points come first
-	int	sortCachedPoints(const b3Vector3& pt);
+    
+    /// sort cached points so most isolated points come first
+    int sortCachedPoints(const b3Vector3& pt);
 
-	
+    
 
 public:
 
-	B3_DECLARE_ALIGNED_ALLOCATOR();
+    B3_DECLARE_ALIGNED_ALLOCATOR();
 
-	
-	
-	int addManifoldPoint( const b3Vector3& newPoint);
+    
+    
+    int addManifoldPoint( const b3Vector3& newPoint);
 
-	/*void replaceContactPoint(const b3Vector3& newPoint,int insertIndex)
-	{
-		b3Assert(validContactDistance(newPoint));
-		m_pointCache[insertIndex] = newPoint;
-	}
-	*/
+    /*void replaceContactPoint(const b3Vector3& newPoint,int insertIndex)
+    {
+        b3Assert(validContactDistance(newPoint));
+        m_pointCache[insertIndex] = newPoint;
+    }
+    */
 
 
-	
-	static bool validContactDistance(const b3Vector3& pt);
-	
-	/// calculated new worldspace coordinates and depth, and reject points that exceed the collision margin
-	static void	refreshContactPoints(  const b3Transform& trA,const b3Transform& trB, struct b3Contact4Data& newContactCache);
+    
+    static bool validContactDistance(const b3Vector3& pt);
+    
+    /// calculated new worldspace coordinates and depth, and reject points that exceed the collision margin
+    static void refreshContactPoints(  const b3Transform& trA,const b3Transform& trB, struct b3Contact4Data& newContactCache);
 
-	static void removeContactPoint(struct b3Contact4Data& newContactCache,int i);
-	
+    static void removeContactPoint(struct b3Contact4Data& newContactCache,int i);
+    
 
 };
 

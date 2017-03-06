@@ -24,43 +24,43 @@ subject to the following restrictions:
 class b3CpuRigidBodyPipeline
 {
 protected:
-	struct b3CpuRigidBodyPipelineInternalData*	m_data;
+    struct b3CpuRigidBodyPipelineInternalData*  m_data;
 
-	int allocateCollidable();
+    int allocateCollidable();
 
 public:
 
 
-	b3CpuRigidBodyPipeline(class b3CpuNarrowPhase* narrowphase, struct b3DynamicBvhBroadphase* broadphaseDbvt, const struct b3Config& config);
-	virtual ~b3CpuRigidBodyPipeline();
+    b3CpuRigidBodyPipeline(class b3CpuNarrowPhase* narrowphase, struct b3DynamicBvhBroadphase* broadphaseDbvt, const struct b3Config& config);
+    virtual ~b3CpuRigidBodyPipeline();
 
-	virtual void	stepSimulation(float deltaTime);
-	virtual void	integrate(float timeStep);
-	virtual void	updateAabbWorldSpace();
-	virtual void	computeOverlappingPairs();
-	virtual void	computeContactPoints();
-	virtual void	solveContactConstraints();
+    virtual void    stepSimulation(float deltaTime);
+    virtual void    integrate(float timeStep);
+    virtual void    updateAabbWorldSpace();
+    virtual void    computeOverlappingPairs();
+    virtual void    computeContactPoints();
+    virtual void    solveContactConstraints();
 
-	int		registerConvexPolyhedron(class b3ConvexUtility* convex);
+    int     registerConvexPolyhedron(class b3ConvexUtility* convex);
 
-	int		registerPhysicsInstance(float mass, const float* position, const float* orientation, int collisionShapeIndex, int userData);
-	void	writeAllInstancesToGpu();
-	void	copyConstraintsToHost();
-	void	setGravity(const float* grav);
-	void	reset();
-	
-	int createPoint2PointConstraint(int bodyA, int bodyB, const float* pivotInA, const float* pivotInB,float breakingThreshold);
-	int createFixedConstraint(int bodyA, int bodyB, const float* pivotInA, const float* pivotInB, const float* relTargetAB, float breakingThreshold);
-	void removeConstraintByUid(int uid);
+    int     registerPhysicsInstance(float mass, const float* position, const float* orientation, int collisionShapeIndex, int userData);
+    void    writeAllInstancesToGpu();
+    void    copyConstraintsToHost();
+    void    setGravity(const float* grav);
+    void    reset();
+    
+    int createPoint2PointConstraint(int bodyA, int bodyB, const float* pivotInA, const float* pivotInB,float breakingThreshold);
+    int createFixedConstraint(int bodyA, int bodyB, const float* pivotInA, const float* pivotInB, const float* relTargetAB, float breakingThreshold);
+    void removeConstraintByUid(int uid);
 
-	void	addConstraint(class b3TypedConstraint* constraint);
-	void	removeConstraint(b3TypedConstraint* constraint);
+    void    addConstraint(class b3TypedConstraint* constraint);
+    void    removeConstraint(b3TypedConstraint* constraint);
 
-	void	castRays(const b3AlignedObjectArray<b3RayInfo>& rays,	b3AlignedObjectArray<b3RayHit>& hitResults);
+    void    castRays(const b3AlignedObjectArray<b3RayInfo>& rays,   b3AlignedObjectArray<b3RayHit>& hitResults);
 
-	const struct b3RigidBodyData* getBodyBuffer() const;
+    const struct b3RigidBodyData* getBodyBuffer() const;
 
-	int	getNumBodies() const;
+    int getNumBodies() const;
 
 };
 

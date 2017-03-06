@@ -64,36 +64,36 @@ struct GIM_HASH_TABLE_NODE
     }
 
     bool operator <(const GIM_HASH_TABLE_NODE<T> & other) const
-	{
-		///inverse order, further objects are first
-		if(m_key <  other.m_key) return true;
-		return false;
-	}
+    {
+        ///inverse order, further objects are first
+        if(m_key <  other.m_key) return true;
+        return false;
+    }
 
-	bool operator >(const GIM_HASH_TABLE_NODE<T> & other) const
-	{
-		///inverse order, further objects are first
-		if(m_key >  other.m_key) return true;
-		return false;
-	}
+    bool operator >(const GIM_HASH_TABLE_NODE<T> & other) const
+    {
+        ///inverse order, further objects are first
+        if(m_key >  other.m_key) return true;
+        return false;
+    }
 
-	bool operator ==(const GIM_HASH_TABLE_NODE<T> & other) const
-	{
-		///inverse order, further objects are first
-		if(m_key ==  other.m_key) return true;
-		return false;
-	}
+    bool operator ==(const GIM_HASH_TABLE_NODE<T> & other) const
+    {
+        ///inverse order, further objects are first
+        if(m_key ==  other.m_key) return true;
+        return false;
+    }
 };
 
 ///Macro for getting the key
 class GIM_HASH_NODE_GET_KEY
 {
 public:
-	template<class T>
-	inline GUINT operator()( const T& a)
-	{
-		return a.m_key;
-	}
+    template<class T>
+    inline GUINT operator()( const T& a)
+    {
+        return a.m_key;
+    }
 };
 
 
@@ -102,22 +102,22 @@ public:
 class GIM_HASH_NODE_CMP_KEY_MACRO
 {
 public:
-	template<class T>
-	inline int operator() ( const T& a, GUINT key)
-	{
-		return ((int)(a.m_key - key));
-	}
+    template<class T>
+    inline int operator() ( const T& a, GUINT key)
+    {
+        return ((int)(a.m_key - key));
+    }
 };
 
 ///Macro for comparing Hash nodes
 class GIM_HASH_NODE_CMP_MACRO
 {
 public:
-	template<class T>
-	inline int operator() ( const T& a, const T& b )
-	{
-		return ((int)(a.m_key - b.m_key));
-	}
+    template<class T>
+    inline int operator() ( const T& a, const T& b )
+    {
+        return ((int)(a.m_key - b.m_key));
+    }
 };
 
 
@@ -133,12 +133,12 @@ void gim_sort_hash_node_array(T * array, GUINT array_count)
 {
     if(array_count<GIM_MIN_RADIX_SORT_SIZE)
     {
-    	gim_heap_sort(array,array_count,GIM_HASH_NODE_CMP_MACRO());
+        gim_heap_sort(array,array_count,GIM_HASH_NODE_CMP_MACRO());
     }
     else
     {
-    	memcopy_elements_func cmpfunc;
-    	gim_radix_sort(array,array_count,GIM_HASH_NODE_GET_KEY(),cmpfunc);
+        memcopy_elements_func cmpfunc;
+        gim_radix_sort(array,array_count,GIM_HASH_NODE_GET_KEY(),cmpfunc);
     }
 }
 
@@ -307,17 +307,17 @@ protected:
                 GUINT index = _find_avaliable_cell(nodekey);
 
 
-				if(m_hash_table[index]!=GIM_INVALID_HASH)
-				{//The new index is alreade used... discard this new incomming object, repeated key
-				    btAssert(m_hash_table[index]==nodekey);
-					nodesptr[i].m_key = GIM_INVALID_HASH;
-				}
-				else
-				{
-					//;
-					//Assign the value for alloc
-					m_hash_table[index] = i;
-				}
+                if(m_hash_table[index]!=GIM_INVALID_HASH)
+                {//The new index is alreade used... discard this new incomming object, repeated key
+                    btAssert(m_hash_table[index]==nodekey);
+                    nodesptr[i].m_key = GIM_INVALID_HASH;
+                }
+                else
+                {
+                    //;
+                    //Assign the value for alloc
+                    m_hash_table[index] = i;
+                }
             }
         }
     }
@@ -455,7 +455,7 @@ protected:
     {
         if(index>=(GUINT)m_nodes.size()) return false;
         m_nodes.erase_sorted(index);
-		if(m_nodes.size()<2) m_sorted = false;
+        if(m_nodes.size()<2) m_sorted = false;
         return true;
     }
 
@@ -467,15 +467,15 @@ protected:
         GUINT lastindex = m_nodes.size()-1;
         if(index<lastindex && m_hash_table!=0)
         {
-			GUINT hashkey =  m_nodes[lastindex].m_key;
-			if(hashkey!=GIM_INVALID_HASH)
-			{
-				//update the new position of the last element
-				GUINT cell_index = _find_cell(hashkey);
-				btAssert(cell_index!=GIM_INVALID_HASH);
-				//new position of the last element which will be swaped
-				m_hash_table[cell_index] = index;
-			}
+            GUINT hashkey =  m_nodes[lastindex].m_key;
+            if(hashkey!=GIM_INVALID_HASH)
+            {
+                //update the new position of the last element
+                GUINT cell_index = _find_cell(hashkey);
+                btAssert(cell_index!=GIM_INVALID_HASH);
+                //new position of the last element which will be swaped
+                m_hash_table[cell_index] = index;
+            }
         }
         m_nodes.erase(index);
         m_sorted = false;
@@ -509,7 +509,7 @@ protected:
         _node_type * ptr = m_nodes.pointer();
 
         bool found = gim_binary_search_ex(
-        	ptr,0,last_index,result_ind,hashkey,GIM_HASH_NODE_CMP_KEY_MACRO());
+            ptr,0,last_index,result_ind,hashkey,GIM_HASH_NODE_CMP_KEY_MACRO());
 
 
         //Insert before found index
@@ -538,7 +538,7 @@ protected:
         _node_type * ptr = m_nodes.pointer();
 
         bool found = gim_binary_search_ex(
-        	ptr,0,last_index,result_ind,hashkey,GIM_HASH_NODE_CMP_KEY_MACRO());
+            ptr,0,last_index,result_ind,hashkey,GIM_HASH_NODE_CMP_KEY_MACRO());
 
         //Insert before found index
         if(found)
@@ -682,7 +682,7 @@ public:
 
     inline void set_sorted(bool value)
     {
-    	m_sorted = value;
+        m_sorted = value;
     }
 
     //! Retrieves the amount of keys.
@@ -728,10 +728,10 @@ public:
             if(cell_index==GIM_INVALID_HASH) return GIM_INVALID_HASH;
             return m_hash_table[cell_index];
         }
-		GUINT last_index = m_nodes.size();
+        GUINT last_index = m_nodes.size();
         if(last_index<2)
         {
-			if(last_index==0) return GIM_INVALID_HASH;
+            if(last_index==0) return GIM_INVALID_HASH;
             if(m_nodes[0].m_key == hashkey) return 0;
             return GIM_INVALID_HASH;
         }
@@ -739,7 +739,7 @@ public:
         {
             //Binary search
             GUINT result_ind = 0;
-			last_index--;
+            last_index--;
             _node_type *  ptr =  m_nodes.pointer();
 
             bool found = gim_binary_search_ex(ptr,0,last_index,result_ind,hashkey,GIM_HASH_NODE_CMP_KEY_MACRO());
@@ -840,7 +840,7 @@ public:
         {
             m_hash_table[i] = GIM_INVALID_HASH;// invalidate keys
         }
-		m_sorted = false;
+        m_sorted = false;
     }
 
     //! Insert an element into the hash

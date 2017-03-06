@@ -29,150 +29,150 @@ subject to the following restrictions:
 ATTRIBUTE_ALIGNED16(class) btConvexInternalShape : public btConvexShape
 {
 
-	protected:
+    protected:
 
-	//local scaling. collisionMargin is not scaled !
-	btVector3	m_localScaling;
+    //local scaling. collisionMargin is not scaled !
+    btVector3   m_localScaling;
 
-	btVector3	m_implicitShapeDimensions;
-	
-	btScalar	m_collisionMargin;
+    btVector3   m_implicitShapeDimensions;
+    
+    btScalar    m_collisionMargin;
 
-	btScalar	m_padding;
+    btScalar    m_padding;
 
-	btConvexInternalShape();
+    btConvexInternalShape();
 
 public:
 
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	virtual ~btConvexInternalShape()
-	{
+    virtual ~btConvexInternalShape()
+    {
 
-	}
+    }
 
-	virtual btVector3	localGetSupportingVertex(const btVector3& vec)const;
+    virtual btVector3   localGetSupportingVertex(const btVector3& vec)const;
 
-	const btVector3& getImplicitShapeDimensions() const
-	{
-		return m_implicitShapeDimensions;
-	}
+    const btVector3& getImplicitShapeDimensions() const
+    {
+        return m_implicitShapeDimensions;
+    }
 
-	///warning: use setImplicitShapeDimensions with care
-	///changing a collision shape while the body is in the world is not recommended,
-	///it is best to remove the body from the world, then make the change, and re-add it
-	///alternatively flush the contact points, see documentation for 'cleanProxyFromPairs'
-	void	setImplicitShapeDimensions(const btVector3& dimensions)
-	{
-		m_implicitShapeDimensions = dimensions;
-	}
+    ///warning: use setImplicitShapeDimensions with care
+    ///changing a collision shape while the body is in the world is not recommended,
+    ///it is best to remove the body from the world, then make the change, and re-add it
+    ///alternatively flush the contact points, see documentation for 'cleanProxyFromPairs'
+    void    setImplicitShapeDimensions(const btVector3& dimensions)
+    {
+        m_implicitShapeDimensions = dimensions;
+    }
 
-	void	setSafeMargin(btScalar minDimension, btScalar defaultMarginMultiplier = 0.1f)
-	{
-		btScalar safeMargin = defaultMarginMultiplier*minDimension;
-		if (safeMargin < getMargin())
-		{
-			setMargin(safeMargin);
-		}
-	}
-	void	setSafeMargin(const btVector3& halfExtents, btScalar defaultMarginMultiplier = 0.1f)
-	{
-		//see http://code.google.com/p/bullet/issues/detail?id=349
-		//this margin check could could be added to other collision shapes too,
-		//or add some assert/warning somewhere
-		btScalar minDimension=halfExtents[halfExtents.minAxis()]; 		
-		setSafeMargin(minDimension, defaultMarginMultiplier);
-	}
+    void    setSafeMargin(btScalar minDimension, btScalar defaultMarginMultiplier = 0.1f)
+    {
+        btScalar safeMargin = defaultMarginMultiplier*minDimension;
+        if (safeMargin < getMargin())
+        {
+            setMargin(safeMargin);
+        }
+    }
+    void    setSafeMargin(const btVector3& halfExtents, btScalar defaultMarginMultiplier = 0.1f)
+    {
+        //see http://code.google.com/p/bullet/issues/detail?id=349
+        //this margin check could could be added to other collision shapes too,
+        //or add some assert/warning somewhere
+        btScalar minDimension=halfExtents[halfExtents.minAxis()];       
+        setSafeMargin(minDimension, defaultMarginMultiplier);
+    }
 
-	///getAabb's default implementation is brute force, expected derived classes to implement a fast dedicated version
-	void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const
-	{
-		getAabbSlow(t,aabbMin,aabbMax);
-	}
-
-
-	
-	virtual void getAabbSlow(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+    ///getAabb's default implementation is brute force, expected derived classes to implement a fast dedicated version
+    void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const
+    {
+        getAabbSlow(t,aabbMin,aabbMax);
+    }
 
 
-	virtual void	setLocalScaling(const btVector3& scaling);
-	virtual const btVector3& getLocalScaling() const 
-	{
-		return m_localScaling;
-	}
+    
+    virtual void getAabbSlow(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
 
-	const btVector3& getLocalScalingNV() const 
-	{
-		return m_localScaling;
-	}
 
-	virtual void	setMargin(btScalar margin)
-	{
-		m_collisionMargin = margin;
-	}
-	virtual btScalar	getMargin() const
-	{
-		return m_collisionMargin;
-	}
+    virtual void    setLocalScaling(const btVector3& scaling);
+    virtual const btVector3& getLocalScaling() const 
+    {
+        return m_localScaling;
+    }
 
-	btScalar	getMarginNV() const
-	{
-		return m_collisionMargin;
-	}
+    const btVector3& getLocalScalingNV() const 
+    {
+        return m_localScaling;
+    }
 
-	virtual int		getNumPreferredPenetrationDirections() const
-	{
-		return 0;
-	}
-	
-	virtual void	getPreferredPenetrationDirection(int index, btVector3& penetrationVector) const
-	{
-		(void)penetrationVector;
-		(void)index;
-		btAssert(0);
-	}
+    virtual void    setMargin(btScalar margin)
+    {
+        m_collisionMargin = margin;
+    }
+    virtual btScalar    getMargin() const
+    {
+        return m_collisionMargin;
+    }
 
-	virtual	int	calculateSerializeBufferSize() const;
+    btScalar    getMarginNV() const
+    {
+        return m_collisionMargin;
+    }
 
-	///fills the dataBuffer and returns the struct name (and 0 on failure)
-	virtual	const char*	serialize(void* dataBuffer, btSerializer* serializer) const;
+    virtual int     getNumPreferredPenetrationDirections() const
+    {
+        return 0;
+    }
+    
+    virtual void    getPreferredPenetrationDirection(int index, btVector3& penetrationVector) const
+    {
+        (void)penetrationVector;
+        (void)index;
+        btAssert(0);
+    }
 
-	
+    virtual int calculateSerializeBufferSize() const;
+
+    ///fills the dataBuffer and returns the struct name (and 0 on failure)
+    virtual const char* serialize(void* dataBuffer, btSerializer* serializer) const;
+
+    
 };
 
 ///do not change those serialization structures, it requires an updated sBulletDNAstr/sBulletDNAstr64
-struct	btConvexInternalShapeData
+struct  btConvexInternalShapeData
 {
-	btCollisionShapeData	m_collisionShapeData;
+    btCollisionShapeData    m_collisionShapeData;
 
-	btVector3FloatData	m_localScaling;
+    btVector3FloatData  m_localScaling;
 
-	btVector3FloatData	m_implicitShapeDimensions;
-	
-	float			m_collisionMargin;
+    btVector3FloatData  m_implicitShapeDimensions;
+    
+    float           m_collisionMargin;
 
-	int	m_padding;
+    int m_padding;
 
 };
 
 
 
-SIMD_FORCE_INLINE	int	btConvexInternalShape::calculateSerializeBufferSize() const
+SIMD_FORCE_INLINE   int btConvexInternalShape::calculateSerializeBufferSize() const
 {
-	return sizeof(btConvexInternalShapeData);
+    return sizeof(btConvexInternalShapeData);
 }
 
 ///fills the dataBuffer and returns the struct name (and 0 on failure)
-SIMD_FORCE_INLINE	const char*	btConvexInternalShape::serialize(void* dataBuffer, btSerializer* serializer) const
+SIMD_FORCE_INLINE   const char* btConvexInternalShape::serialize(void* dataBuffer, btSerializer* serializer) const
 {
-	btConvexInternalShapeData* shapeData = (btConvexInternalShapeData*) dataBuffer;
-	btCollisionShape::serialize(&shapeData->m_collisionShapeData, serializer);
+    btConvexInternalShapeData* shapeData = (btConvexInternalShapeData*) dataBuffer;
+    btCollisionShape::serialize(&shapeData->m_collisionShapeData, serializer);
 
-	m_implicitShapeDimensions.serializeFloat(shapeData->m_implicitShapeDimensions);
-	m_localScaling.serializeFloat(shapeData->m_localScaling);
-	shapeData->m_collisionMargin = float(m_collisionMargin);
+    m_implicitShapeDimensions.serializeFloat(shapeData->m_implicitShapeDimensions);
+    m_localScaling.serializeFloat(shapeData->m_localScaling);
+    shapeData->m_collisionMargin = float(m_collisionMargin);
 
-	return "btConvexInternalShapeData";
+    return "btConvexInternalShapeData";
 }
 
 
@@ -181,43 +181,43 @@ SIMD_FORCE_INLINE	const char*	btConvexInternalShape::serialize(void* dataBuffer,
 ///btConvexInternalAabbCachingShape adds local aabb caching for convex shapes, to avoid expensive bounding box calculations
 class btConvexInternalAabbCachingShape : public btConvexInternalShape
 {
-	btVector3	m_localAabbMin;
-	btVector3	m_localAabbMax;
-	bool		m_isLocalAabbValid;
-	
+    btVector3   m_localAabbMin;
+    btVector3   m_localAabbMax;
+    bool        m_isLocalAabbValid;
+    
 protected:
-					
-	btConvexInternalAabbCachingShape();
-	
-	void setCachedLocalAabb (const btVector3& aabbMin, const btVector3& aabbMax)
-	{
-		m_isLocalAabbValid = true;
-		m_localAabbMin = aabbMin;
-		m_localAabbMax = aabbMax;
-	}
+                    
+    btConvexInternalAabbCachingShape();
+    
+    void setCachedLocalAabb (const btVector3& aabbMin, const btVector3& aabbMax)
+    {
+        m_isLocalAabbValid = true;
+        m_localAabbMin = aabbMin;
+        m_localAabbMax = aabbMax;
+    }
 
-	inline void getCachedLocalAabb (btVector3& aabbMin, btVector3& aabbMax) const
-	{
-		btAssert(m_isLocalAabbValid);
-		aabbMin = m_localAabbMin;
-		aabbMax = m_localAabbMax;
-	}
+    inline void getCachedLocalAabb (btVector3& aabbMin, btVector3& aabbMax) const
+    {
+        btAssert(m_isLocalAabbValid);
+        aabbMin = m_localAabbMin;
+        aabbMax = m_localAabbMax;
+    }
 
-	inline void getNonvirtualAabb(const btTransform& trans,btVector3& aabbMin,btVector3& aabbMax, btScalar margin) const
-	{
+    inline void getNonvirtualAabb(const btTransform& trans,btVector3& aabbMin,btVector3& aabbMax, btScalar margin) const
+    {
 
-		//lazy evaluation of local aabb
-		btAssert(m_isLocalAabbValid);
-		btTransformAabb(m_localAabbMin,m_localAabbMax,margin,trans,aabbMin,aabbMax);
-	}
-		
+        //lazy evaluation of local aabb
+        btAssert(m_isLocalAabbValid);
+        btTransformAabb(m_localAabbMin,m_localAabbMax,margin,trans,aabbMin,aabbMax);
+    }
+        
 public:
-		
-	virtual void	setLocalScaling(const btVector3& scaling);
+        
+    virtual void    setLocalScaling(const btVector3& scaling);
 
-	virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+    virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
 
-	void	recalcLocalAabb();
+    void    recalcLocalAabb();
 
 };
 

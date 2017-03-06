@@ -26,35 +26,35 @@ class b3StridingMeshInterface;
 ///The b3OptimizedBvh extends the b3QuantizedBvh to create AABB tree for triangle meshes, through the b3StridingMeshInterface.
 B3_ATTRIBUTE_ALIGNED16(class) b3OptimizedBvh : public b3QuantizedBvh
 {
-	
+    
 public:
-	B3_DECLARE_ALIGNED_ALLOCATOR();
+    B3_DECLARE_ALIGNED_ALLOCATOR();
 
 protected:
 
 public:
 
-	b3OptimizedBvh();
+    b3OptimizedBvh();
 
-	virtual ~b3OptimizedBvh();
+    virtual ~b3OptimizedBvh();
 
-	void	build(b3StridingMeshInterface* triangles,bool useQuantizedAabbCompression, const b3Vector3& bvhAabbMin, const b3Vector3& bvhAabbMax);
+    void    build(b3StridingMeshInterface* triangles,bool useQuantizedAabbCompression, const b3Vector3& bvhAabbMin, const b3Vector3& bvhAabbMax);
 
-	void	refit(b3StridingMeshInterface* triangles,const b3Vector3& aabbMin,const b3Vector3& aabbMax);
+    void    refit(b3StridingMeshInterface* triangles,const b3Vector3& aabbMin,const b3Vector3& aabbMax);
 
-	void	refitPartial(b3StridingMeshInterface* triangles,const b3Vector3& aabbMin, const b3Vector3& aabbMax);
+    void    refitPartial(b3StridingMeshInterface* triangles,const b3Vector3& aabbMin, const b3Vector3& aabbMax);
 
-	void	updateBvhNodes(b3StridingMeshInterface* meshInterface,int firstNode,int endNode,int index);
+    void    updateBvhNodes(b3StridingMeshInterface* meshInterface,int firstNode,int endNode,int index);
 
-	/// Data buffer MUST be 16 byte aligned
-	virtual bool serializeInPlace(void *o_alignedDataBuffer, unsigned i_dataBufferSize, bool i_swapEndian) const
-	{
-		return b3QuantizedBvh::serialize(o_alignedDataBuffer,i_dataBufferSize,i_swapEndian);
+    /// Data buffer MUST be 16 byte aligned
+    virtual bool serializeInPlace(void *o_alignedDataBuffer, unsigned i_dataBufferSize, bool i_swapEndian) const
+    {
+        return b3QuantizedBvh::serialize(o_alignedDataBuffer,i_dataBufferSize,i_swapEndian);
 
-	}
+    }
 
-	///deSerializeInPlace loads and initializes a BVH from a buffer in memory 'in place'
-	static b3OptimizedBvh *deSerializeInPlace(void *i_alignedDataBuffer, unsigned int i_dataBufferSize, bool i_swapEndian);
+    ///deSerializeInPlace loads and initializes a BVH from a buffer in memory 'in place'
+    static b3OptimizedBvh *deSerializeInPlace(void *i_alignedDataBuffer, unsigned int i_dataBufferSize, bool i_swapEndian);
 
 
 };

@@ -21,10 +21,10 @@ subject to the following restrictions:
 
 struct btGjkCollisionDescription
 {
-    btVector3	m_firstDir;
-    int			m_maxGjkIterations;
-    btScalar	m_maximumDistanceSquared;
-    btScalar	m_gjkRelError2;
+    btVector3   m_firstDir;
+    int         m_maxGjkIterations;
+    btScalar    m_maximumDistanceSquared;
+    btScalar    m_gjkRelError2;
     btGjkCollisionDescription()
     :m_firstDir(0,1,0),
     m_maxGjkIterations(1000),

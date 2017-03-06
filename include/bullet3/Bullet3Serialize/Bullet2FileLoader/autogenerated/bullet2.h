@@ -23,7 +23,7 @@ namespace Bullet3SerializeBullet2 {
 
 // put an empty struct in the case
 typedef struct bInvalidHandle {
-	int unused;
+    int unused;
 }bInvalidHandle;
 
     class PointerArray;
@@ -822,7 +822,7 @@ typedef struct bInvalidHandle {
     };
 
 
-	// -------------------------------------------------- //
+    // -------------------------------------------------- //
     class b3DynamicsWorldDoubleData
     {
     public:

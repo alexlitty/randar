@@ -3,7 +3,7 @@
 
 struct MyTest
 {
-	int bla;
+    int bla;
 };
 
 #ifdef __cplusplus
@@ -13,10 +13,10 @@ struct MyTest
 
 inline int b3AtomicAdd (volatile int *p, int val)
 {
-	int oldValue = *p;
-	int newValue = oldValue+val;
-	*p = newValue;
-	return oldValue;
+    int oldValue = *p;
+    int newValue = oldValue+val;
+    *p = newValue;
+    return oldValue;
 }
 
 #define __global 

@@ -13,58 +13,58 @@
 
 inline b3Float4 b3Lerp3(b3Float4ConstArg a,b3Float4ConstArg b, float  t)
 {
-	return b3MakeFloat4(	a.x + (b.x - a.x) * t,
-						a.y + (b.y - a.y) * t,
-						a.z + (b.z - a.z) * t,
-						0.f);
+    return b3MakeFloat4(    a.x + (b.x - a.x) * t,
+                        a.y + (b.y - a.y) * t,
+                        a.z + (b.z - a.z) * t,
+                        0.f);
 }
 
 // Clips a face to the back of a plane, return the number of vertices out, stored in ppVtxOut
 int clipFaceGlobal(__global const b3Float4* pVtxIn, int numVertsIn, b3Float4ConstArg planeNormalWS,float planeEqWS, __global b3Float4* ppVtxOut)
 {
-	
-	int ve;
-	float ds, de;
-	int numVertsOut = 0;
+    
+    int ve;
+    float ds, de;
+    int numVertsOut = 0;
     //double-check next test
-    //	if (numVertsIn < 2)
-    //		return 0;
+    //  if (numVertsIn < 2)
+    //      return 0;
     
-	b3Float4 firstVertex=pVtxIn[numVertsIn-1];
-	b3Float4 endVertex = pVtxIn[0];
-	
-	ds = b3Dot(planeNormalWS,firstVertex)+planeEqWS;
+    b3Float4 firstVertex=pVtxIn[numVertsIn-1];
+    b3Float4 endVertex = pVtxIn[0];
     
-	for (ve = 0; ve < numVertsIn; ve++)
-	{
-		endVertex=pVtxIn[ve];
-		de = b3Dot(planeNormalWS,endVertex)+planeEqWS;
-		if (ds<0)
-		{
-			if (de<0)
-			{
-				// Start < 0, end < 0, so output endVertex
-				ppVtxOut[numVertsOut++] = endVertex;
-			}
-			else
-			{
-				// Start < 0, end >= 0, so output intersection
-				ppVtxOut[numVertsOut++] = b3Lerp3(firstVertex, endVertex,(ds * 1.f/(ds - de)) );
-			}
-		}
-		else
-		{
-			if (de<0)
-			{
-				// Start >= 0, end < 0 so output intersection and end
-				ppVtxOut[numVertsOut++] = b3Lerp3(firstVertex, endVertex,(ds * 1.f/(ds - de)) );
-				ppVtxOut[numVertsOut++] = endVertex;
-			}
-		}
-		firstVertex = endVertex;
-		ds = de;
-	}
-	return numVertsOut;
+    ds = b3Dot(planeNormalWS,firstVertex)+planeEqWS;
+    
+    for (ve = 0; ve < numVertsIn; ve++)
+    {
+        endVertex=pVtxIn[ve];
+        de = b3Dot(planeNormalWS,endVertex)+planeEqWS;
+        if (ds<0)
+        {
+            if (de<0)
+            {
+                // Start < 0, end < 0, so output endVertex
+                ppVtxOut[numVertsOut++] = endVertex;
+            }
+            else
+            {
+                // Start < 0, end >= 0, so output intersection
+                ppVtxOut[numVertsOut++] = b3Lerp3(firstVertex, endVertex,(ds * 1.f/(ds - de)) );
+            }
+        }
+        else
+        {
+            if (de<0)
+            {
+                // Start >= 0, end < 0 so output intersection and end
+                ppVtxOut[numVertsOut++] = b3Lerp3(firstVertex, endVertex,(ds * 1.f/(ds - de)) );
+                ppVtxOut[numVertsOut++] = endVertex;
+            }
+        }
+        firstVertex = endVertex;
+        ds = de;
+    }
+    return numVertsOut;
 }
 
 
@@ -76,25 +76,25 @@ __kernel void   clipFacesAndFindContactsKernel(    __global const b3Float4* sepa
                                                    __global b3Float4* worldVertsB1,
                                                    __global b3Float4* worldVertsB2,
                                                     int vertexFaceCapacity,
-															int pairIndex
+                                                            int pairIndex
                                                    )
 {
 //    int i = get_global_id(0);
-	//int pairIndex = i;
-	int i = pairIndex;
+    //int pairIndex = i;
+    int i = pairIndex;
     
-	float minDist = -1e30f;
-	float maxDist = 0.02f;
+    float minDist = -1e30f;
+    float maxDist = 0.02f;
     
-//	if (i<numPairs)
-	{
+//  if (i<numPairs)
+    {
         
-		if (hasSeparatingAxis[i])
-		{
+        if (hasSeparatingAxis[i])
+        {
             
-//			int bodyIndexA = pairs[i].x;
-	//		int bodyIndexB = pairs[i].y;
-		    
+//          int bodyIndexA = pairs[i].x;
+    //      int bodyIndexB = pairs[i].y;
+            
             int numLocalContactsOut = 0;
 
             int capacityWorldVertsB2 = vertexFaceCapacity;
@@ -151,17 +151,17 @@ __kernel void   clipFacesAndFindContactsKernel(    __global const b3Float4* sepa
                             depth = minDist;
                         }
 /*
-						static float maxDepth = 0.f;
-						if (depth < maxDepth)
-						{
-							maxDepth = depth;
-							if (maxDepth < -10)
-							{
-								printf("error at framecount %d?\n",myframecount);
-							}
-							printf("maxDepth = %f\n", maxDepth);
+                        static float maxDepth = 0.f;
+                        if (depth < maxDepth)
+                        {
+                            maxDepth = depth;
+                            if (maxDepth < -10)
+                            {
+                                printf("error at framecount %d?\n",myframecount);
+                            }
+                            printf("maxDepth = %f\n", maxDepth);
 
-						}
+                        }
 */
                         if (depth <=maxDist)
                         {
@@ -179,8 +179,8 @@ __kernel void   clipFacesAndFindContactsKernel(    __global const b3Float4* sepa
             for (int i=0;i<numLocalContactsOut;i++)
                 pVtxIn[i] = pVtxOut[i];
                 
-		}//		if (hasSeparatingAxis[i])
-	}//	if (i<numPairs)
+        }//     if (hasSeparatingAxis[i])
+    }// if (i<numPairs)
     
 }
 

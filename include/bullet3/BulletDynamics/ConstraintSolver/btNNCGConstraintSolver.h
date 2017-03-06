@@ -22,39 +22,39 @@ ATTRIBUTE_ALIGNED16(class) btNNCGConstraintSolver : public btSequentialImpulseCo
 {
 protected:
 
-	btScalar m_deltafLengthSqrPrev;
+    btScalar m_deltafLengthSqrPrev;
 
-	btAlignedObjectArray<btScalar> m_pNC;  // p for None Contact constraints
-	btAlignedObjectArray<btScalar> m_pC;   // p for Contact constraints
-	btAlignedObjectArray<btScalar> m_pCF;  // p for ContactFriction constraints
-	btAlignedObjectArray<btScalar> m_pCRF; // p for ContactRollingFriction constraints
+    btAlignedObjectArray<btScalar> m_pNC;  // p for None Contact constraints
+    btAlignedObjectArray<btScalar> m_pC;   // p for Contact constraints
+    btAlignedObjectArray<btScalar> m_pCF;  // p for ContactFriction constraints
+    btAlignedObjectArray<btScalar> m_pCRF; // p for ContactRollingFriction constraints
 
-	//These are recalculated in every iterations. We just keep these to prevent reallocation in each iteration.
-	btAlignedObjectArray<btScalar> m_deltafNC;  // deltaf for NoneContact constraints
-	btAlignedObjectArray<btScalar> m_deltafC;   // deltaf for Contact constraints
-	btAlignedObjectArray<btScalar> m_deltafCF;  // deltaf for ContactFriction constraints
-	btAlignedObjectArray<btScalar> m_deltafCRF; // deltaf for ContactRollingFriction constraints
+    //These are recalculated in every iterations. We just keep these to prevent reallocation in each iteration.
+    btAlignedObjectArray<btScalar> m_deltafNC;  // deltaf for NoneContact constraints
+    btAlignedObjectArray<btScalar> m_deltafC;   // deltaf for Contact constraints
+    btAlignedObjectArray<btScalar> m_deltafCF;  // deltaf for ContactFriction constraints
+    btAlignedObjectArray<btScalar> m_deltafCRF; // deltaf for ContactRollingFriction constraints
 
-		
+        
 protected:
 
-	virtual btScalar solveGroupCacheFriendlyFinish(btCollisionObject** bodies,int numBodies,const btContactSolverInfo& infoGlobal);
-	virtual btScalar solveSingleIteration(int iteration, btCollisionObject** bodies ,int numBodies,btPersistentManifold** manifoldPtr, int numManifolds,btTypedConstraint** constraints,int numConstraints,const btContactSolverInfo& infoGlobal,btIDebugDraw* debugDrawer);
+    virtual btScalar solveGroupCacheFriendlyFinish(btCollisionObject** bodies,int numBodies,const btContactSolverInfo& infoGlobal);
+    virtual btScalar solveSingleIteration(int iteration, btCollisionObject** bodies ,int numBodies,btPersistentManifold** manifoldPtr, int numManifolds,btTypedConstraint** constraints,int numConstraints,const btContactSolverInfo& infoGlobal,btIDebugDraw* debugDrawer);
 
-	virtual btScalar solveGroupCacheFriendlySetup(btCollisionObject** bodies,int numBodies,btPersistentManifold** manifoldPtr, int numManifolds,btTypedConstraint** constraints,int numConstraints,const btContactSolverInfo& infoGlobal,btIDebugDraw* debugDrawer);
+    virtual btScalar solveGroupCacheFriendlySetup(btCollisionObject** bodies,int numBodies,btPersistentManifold** manifoldPtr, int numManifolds,btTypedConstraint** constraints,int numConstraints,const btContactSolverInfo& infoGlobal,btIDebugDraw* debugDrawer);
 
 public:
 
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btNNCGConstraintSolver() : btSequentialImpulseConstraintSolver(), m_onlyForNoneContact(false) {}
+    btNNCGConstraintSolver() : btSequentialImpulseConstraintSolver(), m_onlyForNoneContact(false) {}
 
-	virtual btConstraintSolverType getSolverType() const
-	{
-		return BT_NNCG_SOLVER;
-	}
+    virtual btConstraintSolverType getSolverType() const
+    {
+        return BT_NNCG_SOLVER;
+    }
 
-	bool m_onlyForNoneContact;
+    bool m_onlyForNoneContact;
 };
 
 

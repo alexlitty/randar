@@ -37,13 +37,13 @@ email: projectileman@yahoo.com
 #include <string.h>
 
 #ifdef PREFETCH
-#include <xmmintrin.h>	// for prefetch
-#define pfval	64
-#define pfval2	128
+#include <xmmintrin.h>  // for prefetch
+#define pfval   64
+#define pfval2  128
 //! Prefetch 64
-#define pf(_x,_i)	_mm_prefetch((void *)(_x + _i + pfval), 0)
+#define pf(_x,_i)   _mm_prefetch((void *)(_x + _i + pfval), 0)
 //! Prefetch 128
-#define pf2(_x,_i)	_mm_prefetch((void *)(_x + _i + pfval2), 0)
+#define pf2(_x,_i)  _mm_prefetch((void *)(_x + _i + pfval2), 0)
 #else
 //! Prefetch 64
 #define pf(_x,_i)
@@ -57,7 +57,7 @@ email: projectileman@yahoo.com
 {\
     for (GUINT _i_=0;_i_<element_count ;++_i_)\
     {\
-    	dest_array[_i_] = source_array[_i_];\
+        dest_array[_i_] = source_array[_i_];\
     }\
 }\
 
@@ -65,7 +65,7 @@ email: projectileman@yahoo.com
 {\
     for (GUINT _i_=0;_i_<element_count ;++_i_)\
     {\
-    	copy_macro(dest_array[_i_],source_array[_i_]);\
+        copy_macro(dest_array[_i_],source_array[_i_]);\
     }\
 }\
 
@@ -74,7 +74,7 @@ email: projectileman@yahoo.com
 {\
     for (GUINT _i_=0;_i_<element_count ;++_i_)\
     {\
-    	array[_i_] = 0;\
+        array[_i_] = 0;\
     }\
 }\
 
@@ -82,7 +82,7 @@ email: projectileman@yahoo.com
 {\
     for (GUINT _i_=0;_i_<element_count ;++_i_)\
     {\
-    	array[_i_] = constant;\
+        array[_i_] = constant;\
     }\
 }\
 
@@ -161,30 +161,30 @@ inline void gim_simd_memcpy(void * dst, const void * src, size_t copysize)
 template<class T>
 inline void gim_swap_elements(T* _array,size_t _i,size_t _j)
 {
-	T _e_tmp_ = _array[_i];
-	_array[_i] = _array[_j];
-	_array[_j] = _e_tmp_;
+    T _e_tmp_ = _array[_i];
+    _array[_i] = _array[_j];
+    _array[_j] = _e_tmp_;
 }
 
 
 template<class T>
 inline void gim_swap_elements_memcpy(T* _array,size_t _i,size_t _j)
 {
-	char _e_tmp_[sizeof(T)];
-	gim_simd_memcpy(_e_tmp_,&_array[_i],sizeof(T));
-	gim_simd_memcpy(&_array[_i],&_array[_j],sizeof(T));
-	gim_simd_memcpy(&_array[_j],_e_tmp_,sizeof(T));
+    char _e_tmp_[sizeof(T)];
+    gim_simd_memcpy(_e_tmp_,&_array[_i],sizeof(T));
+    gim_simd_memcpy(&_array[_i],&_array[_j],sizeof(T));
+    gim_simd_memcpy(&_array[_j],_e_tmp_,sizeof(T));
 }
 
 template <int SIZE>
 inline void gim_swap_elements_ptr(char * _array,size_t _i,size_t _j)
 {
-	char _e_tmp_[SIZE];
-	_i*=SIZE;
-	_j*=SIZE;
-	gim_simd_memcpy(_e_tmp_,_array+_i,SIZE);
-	gim_simd_memcpy(_array+_i,_array+_j,SIZE);
-	gim_simd_memcpy(_array+_j,_e_tmp_,SIZE);
+    char _e_tmp_[SIZE];
+    _i*=SIZE;
+    _j*=SIZE;
+    gim_simd_memcpy(_e_tmp_,_array+_i,SIZE);
+    gim_simd_memcpy(_array+_i,_array+_j,SIZE);
+    gim_simd_memcpy(_array+_j,_e_tmp_,SIZE);
 }
 
 #endif // GIM_MEMORY_H_INCLUDED

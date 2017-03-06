@@ -21,7 +21,7 @@ subject to the following restrictions:
 #include "btTriangleIndexVertexArray.h"
 
 
-ATTRIBUTE_ALIGNED16( struct)	btMaterialProperties
+ATTRIBUTE_ALIGNED16( struct)    btMaterialProperties
 {
     ///m_materialBase ==========> 2 btScalar values make up one material, friction then restitution
     int m_numMaterials;
@@ -39,7 +39,7 @@ ATTRIBUTE_ALIGNED16( struct)	btMaterialProperties
     PHY_ScalarType m_triangleType;
 };
 
-typedef btAlignedObjectArray<btMaterialProperties>	MaterialArray;
+typedef btAlignedObjectArray<btMaterialProperties>  MaterialArray;
 
 ///Teh btTriangleIndexVertexMaterialArray is built on TriangleIndexVertexArray
 ///The addition of a material array allows for the utilization of the partID and
@@ -51,13 +51,13 @@ ATTRIBUTE_ALIGNED16(class) btTriangleIndexVertexMaterialArray : public btTriangl
 {
 protected:
     MaterialArray       m_materials;
-		
+        
 public:
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
     btTriangleIndexVertexMaterialArray()
-	{
-	}
+    {
+    }
 
     btTriangleIndexVertexMaterialArray(int numTriangles,int* triangleIndexBase,int triangleIndexStride,
         int numVertices,btScalar* vertexBase,int vertexStride,
@@ -66,7 +66,7 @@ public:
 
     virtual ~btTriangleIndexVertexMaterialArray() {}
 
-    void	addMaterialProperties(const btMaterialProperties& mat, PHY_ScalarType triangleType = PHY_INTEGER)
+    void    addMaterialProperties(const btMaterialProperties& mat, PHY_ScalarType triangleType = PHY_INTEGER)
     {
         m_materials.push_back(mat);
         m_materials[m_materials.size()-1].m_triangleType = triangleType;
