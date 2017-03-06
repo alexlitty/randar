@@ -63,7 +63,10 @@ std::string randar::Path::getCwd()
 {
     char result[PATH_MAX];
     ssize_t count = ::readlink("/proc/self/exe", result, PATH_MAX);
-    return std::string(result, (count > 0) ? count : 0);
+    std::string programPath = std::string(result, (count > 0) ? count : 0);
+
+    auto pos = programPath.find_last_of("/");
+    return programPath.substr(0, pos + 1);
 }
 #elif defined (_WIN32)
 std::string randar::Path::getCwd()
