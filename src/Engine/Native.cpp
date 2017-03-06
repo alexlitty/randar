@@ -11,7 +11,7 @@
 
 HWND randar::getNativeWindow(::GLFWwindow& window)
 {
-	return ::glfwGetWin32Window(&window);
+    return ::glfwGetWin32Window(&window);
 }
 
 #endif

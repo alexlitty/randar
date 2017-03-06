@@ -71,12 +71,12 @@ std::string randar::Path::getCwd()
 #elif defined (_WIN32)
 std::string randar::Path::getCwd()
 {
-	char buffer[MAX_PATH];
-	::GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string path(buffer);
-	auto pos = path.find_last_of("\\/");
-	
-	return path.substr(0, pos + 1);
+    char buffer[MAX_PATH];
+    ::GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::string path(buffer);
+    auto pos = path.find_last_of("\\/");
+    
+    return path.substr(0, pos + 1);
 }
 #else
 #error "Unimplemented randar::Path::getCwd()"

@@ -25,12 +25,12 @@ randar::Browser::~Browser()
 // Tries to execute a CEF sub-process.
 int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
 {
-	CefEnableHighDPISupport();
+    CefEnableHighDPISupport();
 
 #if defined (WIN32)
-	void* sandboxInfo = cef_sandbox_info_create();
+    void* sandboxInfo = cef_sandbox_info_create();
 #else
-	void* sandboxInfo = nullptr;
+    void* sandboxInfo = nullptr;
 #endif
 
     ::CefRefPtr<Browser> app(this);
@@ -46,7 +46,7 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
             mainArgs,
             settings,
             app.get(),
-			sandboxInfo
+            sandboxInfo
         );
 
         int width, height;
@@ -246,7 +246,7 @@ bool randar::Browser::GetViewRect(
 
 void randar::Browser::OnCursorChange(
     ::CefRefPtr<::CefBrowser> browser,
-	CefCursorHandle cursor,
+    CefCursorHandle cursor,
     ::CefRenderHandler::CursorType type,
     const ::CefCursorInfo& custom_cursor_info)
 {

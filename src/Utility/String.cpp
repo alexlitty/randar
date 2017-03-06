@@ -49,27 +49,27 @@ void randar::split(
 }
 
 void randar::split(
-	const std::string& str,
-	const char* delimiters,
-	std::vector<std::string>& results)
+    const std::string& str,
+    const char* delimiters,
+    std::vector<std::string>& results)
 {
-	std::stringstream ss;
-	ss.str(str);
-	std::string line;
+    std::stringstream ss;
+    ss.str(str);
+    std::string line;
 
-	results.clear();
-	while (std::getline(ss, line)) {
-		std::size_t prev = 0, pos;
-		while ((pos = line.find_first_of(delimiters, prev)) != std::string::npos) {
-			if (pos >= prev)
-				results.push_back(line.substr(prev, pos - prev));
+    results.clear();
+    while (std::getline(ss, line)) {
+        std::size_t prev = 0, pos;
+        while ((pos = line.find_first_of(delimiters, prev)) != std::string::npos) {
+            if (pos >= prev)
+                results.push_back(line.substr(prev, pos - prev));
 
-			prev = pos + 1;
-		}
+            prev = pos + 1;
+        }
 
-		if (prev < line.length())
-			results.push_back(line.substr(prev, std::string::npos));
-	}
+        if (prev < line.length())
+            results.push_back(line.substr(prev, std::string::npos));
+    }
 }
 
 std::vector<std::string> randar::split(const std::string& str, char delimiter)

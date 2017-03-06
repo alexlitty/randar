@@ -24,9 +24,9 @@ int main(int argc, char *argv[])
     }
 
 #if defined (__linux__)
-	::CefMainArgs arguments(argc, argv);
+    ::CefMainArgs arguments(argc, argv);
 #elif defined (_WIN32)
-	::CefMainArgs arguments(::GetModuleHandle(NULL));
+    ::CefMainArgs arguments(::GetModuleHandle(NULL));
 #endif
 
     // This process may be spawned by CEF for special browser processing. If
