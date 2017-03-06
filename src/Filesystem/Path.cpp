@@ -1,8 +1,15 @@
 #include <algorithm>
 #include <randar/Filesystem/Path.hpp>
 
-#ifdef _WIN32
+#if defined __linux__
+
+#include <limits.h>
+#include <unistd.h>
+
+#elif defined _WIN32
+
 #include <Windows.h>
+
 #endif
 
 // Default constructor.
@@ -52,7 +59,12 @@ randar::Path& randar::Path::operator =(const std::string& path)
 }
 
 #if defined (__linux__)
-#error "Unimplemented randar::Path::getCwd()"
+std::string randar::Path::getCwd()
+{
+    char result[PATH_MAX];
+    ssize_t count = ::readlink("/proc/self/exe", result, PATH_MAX);
+    return std::string(result, (count > 0) ? count : 0);
+}
 #elif defined (_WIN32)
 std::string randar::Path::getCwd()
 {
