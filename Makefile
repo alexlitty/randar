@@ -1,6 +1,6 @@
 # Paths
 SRCPATH=src
-INCPATHS=include include/bullet3 include/pngpp platform/linux/include/cef
+INCPATHS=include include/bullet3 include/pngpp platform/linux/include platform/linux/include/cef
 OBJPATH=obj
 LIBPATH=lib
 BINPATH=bin
