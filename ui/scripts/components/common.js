@@ -16,6 +16,7 @@
             textures : function() { return randar.resources.textures; },
             shaders  : function() { return randar.resources.shaders; },
 
+            overlays         : function() { return randar.overlays; },
             focusedResources : function() { return randar.focusedResources; }
         },
 
