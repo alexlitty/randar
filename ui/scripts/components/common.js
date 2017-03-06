@@ -94,6 +94,18 @@
                 }
 
                 randar.focusedResources = [resource];
+            },
+
+            /**
+             * Updates a resource on the UI, then patches the change into the
+             * engine.
+             */
+            updateResource(resource, patch) {
+                for (prop in patch) {
+                    this.$set(resource, prop, patch[prop]);
+                }
+
+                window.patchResource(resource.resourceType, resource.id, patch);
             }
         }
     };
