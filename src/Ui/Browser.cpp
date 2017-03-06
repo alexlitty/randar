@@ -1,5 +1,6 @@
 #include <randar/Math/Rect.hpp>
 #include <randar/Ui/Browser.hpp>
+#include <randar/Filesystem/Directory.hpp>
 #include <randar/Filesystem/CefPath.hpp>
 
 #if defined (WIN32)
@@ -93,10 +94,13 @@ int randar::Browser::executeProcess(const ::CefMainArgs& mainArgs)
             true
         );
 
+        Directory cwd = CefPath::getCwd();
+        Path htmlFile = cwd.getSubdirectory("ui").getFile("ui.html");
+
         ::CefBrowserHost::CreateBrowser(
             browserInfo,
             this,
-            ::CefString(CefPath(CefPath::getCwd() + "ui/ui.html")),
+            ::CefString(CefPath(htmlFile)),
             ::CefBrowserSettings(),
             nullptr
         );
