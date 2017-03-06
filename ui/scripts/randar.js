@@ -91,6 +91,11 @@
         },
 
         /**
+         * Overlays that should be displayed.
+         */
+        overlays: { },
+
+        /**
          * Collection of resources that have an open dialog.
          */
         resourcesWithDialogs: [],
