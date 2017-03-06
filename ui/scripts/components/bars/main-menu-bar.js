@@ -46,7 +46,7 @@
                         text: 'Help',
                         contextMenu: [
                             [
-                                { text: 'About Randar' }
+                                { text: 'About Randar', action: this.showAbout }
                             ]
                         ]
                     }
@@ -55,6 +55,10 @@
         },
 
         methods: {
+            showAbout: function() {
+                this.$set(this.overlays, 'about', true);
+            },
+
             onClose: function() {
                 window.closeRandar();
             }
