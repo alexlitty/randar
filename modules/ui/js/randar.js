@@ -1,110 +1,123 @@
-(function() {
-    var component = require('./components/component');
+const glob = require('glob');
 
-    /**
-     * Central object that organizes Randar UI functionality.
+/**
+ * Central object that organizes Randar UI functionality.
+ */
+global.randar = {
+    engine: {
+    },
+
+    common: require('./components/common'),
+
+    /** 
+     * Debug mode toggle.
      */
-    var randar = {
-        component: component,
+    debug: false,
 
-        /** 
-         * Debug mode toggle.
-         */
-        debug: false,
+    /** 
+     * Handles an engine log message.
+     */
+    onEngineLog: function(message) {
+        randar.log('[' + message.level + '] ' + message.contents);
+    },  
 
-        /** 
-         * Handles an engine log message.
-         */
-        onEngineLog: function(message) {
-            randar.log('[' + message.level + '] ' + message.contents);
-        },  
+    /** 
+     * Submits a new log message to be shown on the interface.
+     */
+    log: function(message) {
+        var div = document.createElement('div');
+        div.innerHTML = message;
 
-        /** 
-         * Submits a new log message to be shown on the interface.
-         */
-        log: function(message) {
-            var div = document.createElement('div');
-            div.innerHTML = message;
+        var logElement = document.querySelector('#engine-log');
+        logElement.insertBefore(div, logElement.firstChild);
+    },  
 
-            var logElement = document.querySelector('#engine-log');
-            logElement.insertBefore(div, logElement.firstChild);
-        },  
+    /** 
+     * Retrieves all resources from the engine and shows them on the interface.
+     */
+    receiveData: function(data) {
+        for (type in data) {
+            if (type == "name") {
+                randar.project.name = data[type];
+            }   
 
-        /** 
-         * Retrieves all resources from the engine and shows them on the interface.
-         */
-        receiveData: function(data) {
-            for (type in data) {
-                if (type == "name") {
-                    randar.project.name = data[type];
-                }   
+            else if (_.isString(data[type])) {
+                randar.resources[type] = data[type];
+            }   
 
-                else if (_.isString(data[type])) {
-                    randar.resources[type] = data[type];
-                }   
-
-                else {
-                    for (item in data[type]) {
-                        if (data[type][item]) {
-                            data[type][item].id = item;
-                            data[type][item].resourceType = type;
-                            Vue.set(
-                                randar.resources[type],
-                                item,
-                                data[type][item]
-                            );
-                        }
+            else {
+                for (item in data[type]) {
+                    if (data[type][item]) {
+                        data[type][item].id = item;
+                        data[type][item].resourceType = type;
+                        Vue.set(
+                            randar.resources[type],
+                            item,
+                            data[type][item]
+                        );
                     }
                 }
             }
+        }
+    },
+
+    /**
+     * Project metadata.
+     */
+    project: {
+        name: 'Untitled Film'
+    },
+
+    /**
+     * Project resources.
+     */
+    resources: {
+        scenes: { },
+        models: { },
+        textures: { },
+        shaders: { }
+    },
+
+    /**
+     * The current UI targets.
+     */
+    target: {
+        settings: false,
+
+        resource: {
+            category : null,
+            id       : null
         },
 
-        /**
-         * Project metadata.
-         */
-        project: {
-            name: 'Untitled Film'
-        },
+        textureSlotId: null
+    },
 
-        /**
-         * Project resources.
-         */
-        resources: {
-            scenes: { },
-            models: { },
-            textures: { },
-            shaders: { }
-        },
+    /**
+     * Overlays that should be displayed.
+     */
+    overlays: { },
 
-        /**
-         * The current UI targets.
-         */
-        target: {
-            settings: false,
+    /**
+     * Collection of resources that have an open dialog.
+     */
+    resourcesWithDialogs: [],
 
-            resource: {
-                category : null,
-                id       : null
-            },
+    /**
+     * Resources whose dialogs should be focused.
+     */
+    focusedResources: []
+};
 
-            textureSlotId: null
-        },
+/**
+ * Add the component helper after randar.common is available.
+ */
+randar.component = require('./components/component');
 
-        /**
-         * Overlays that should be displayed.
-         */
-        overlays: { },
-
-        /**
-         * Collection of resources that have an open dialog.
-         */
-        resourcesWithDialogs: [],
-
-        /**
-         * Resources whose dialogs should be focused.
-         */
-        focusedResources: []
-    };
-
-    module.exports = randar;
-})();
+/**
+ * Initialize all available components, directives, and filters.
+ */
+for (dir of ['components', 'directives', 'filters']) {
+    glob.sync(path.join(__dirname, dir, '**', '*.js')).forEach(filename => {
+        require(filename);
+    });
+}
