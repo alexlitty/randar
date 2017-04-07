@@ -10,7 +10,6 @@
     "start": "electron modules/ui/"
   },
   "dependencies": {
-    "browserify": "^14.3.0",
     "electron": "^1.6.2",
     "interactjs": "^1.2.8",
     "underscore": "^1.8.3",

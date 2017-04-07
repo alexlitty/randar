@@ -1,6 +1,5 @@
 (function() {
     var async  = require('async');
-    var browserify = require('browserify');
     var exec   = require('child_process').exec;
     var fs     = require('fs');
     var glob   = require('glob');
