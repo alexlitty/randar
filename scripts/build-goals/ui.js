@@ -26,14 +26,16 @@
     var tasks = [
         {
             description : 'html',
-            files       : 'modules/ui/**/*.html',
+            files       : 'modules/ui/html/**/*.html',
 
             run: function(filenames, done) {
-                publish(
-                    'ui.html',
-                    fs.readFileSync('modules/ui/html/ui.html'),
-                    done
-                );
+                filenames.forEach(filename => {
+                    publish(
+                        path.basename(filename),
+                        fs.readFileSync(filename),
+                        done
+                    );
+                });
             }
         },
 
@@ -74,9 +76,15 @@
     function build(options, done) {
         async.parallel(
             tasks.map(function(task) {
+                let search = path.join(__dirname, '..', '..', task.files);
+
                 return function(done) {
-                    glob(task.files, { }, function(err, filenames) {
-                        (err && done(err)) || task.run(filenames, done);
+                    glob(search, { }, function(err, filenames) {
+                        if (err) {
+                            done(err);
+                        } else {
+                            task.run(filenames, done);
+                        }
                     });
                 }
             }),
