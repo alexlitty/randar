@@ -1,114 +1,112 @@
 /**
- * A generic component for common functionality.
+ * A base, generic component for common functionality.
  */
-(function() {
-     var common = {
-        computed: {
-            randar    : function() { return randar; },
+var common = {
+    computed: {
+        randar    : function() { return randar; },
 
-            debug     : function() { return randar.debug; },
-            project   : function() { return randar.project; },
-            resources : function() { return randar.resources; },
-            target    : function() { return randar.target; },
+        debug     : function() { return randar.debug; },
+        project   : function() { return randar.project; },
+        resources : function() { return randar.resources; },
+        target    : function() { return randar.target; },
 
-            scenes   : function() { return randar.resources.scenes; },
-            models   : function() { return randar.resources.models; },
-            textures : function() { return randar.resources.textures; },
-            shaders  : function() { return randar.resources.shaders; },
+        scenes   : function() { return randar.resources.scenes; },
+        models   : function() { return randar.resources.models; },
+        textures : function() { return randar.resources.textures; },
+        shaders  : function() { return randar.resources.shaders; },
 
-            overlays         : function() { return randar.overlays; },
-            focusedResources : function() { return randar.focusedResources; }
+        overlays         : function() { return randar.overlays; },
+        focusedResources : function() { return randar.focusedResources; }
+    },
+
+    methods: {
+        getCurrentScene: function() {
+            if (!this.focusedResources.length) {
+                return;
+            }
+
+            var resource = this.focusedResources[0];
+            if (!resource || resource.resourceType !== 'scenes') {
+                return null;
+            }
+
+            return resource;
         },
 
-        methods: {
-            getCurrentScene: function() {
-                if (!this.focusedResources.length) {
-                    return;
-                }
+        isNothingSelected: function() {
+            return !this.isSettingsSelected()
+                && !this.isResourceCategorySelected()
+                && !this.isResourceSelected();
+        },
 
-                var resource = this.focusedResources[0];
-                if (!resource || resource.resourceType !== 'scenes') {
-                    return null;
-                }
+        /**
+         * Settings targeting.
+         */
+        isSettingsSelected: function() {
+            return randar.target.settings;
+        },
 
-                return resource;
-            },
+        selectSettings: function() {
+            randar.target.settings = true;
+        },
 
-            isNothingSelected: function() {
-                return !this.isSettingsSelected()
-                    && !this.isResourceCategorySelected()
-                    && !this.isResourceSelected();
-            },
+        unselectSettings: function() {
+            randar.target.settings = false;
+        },
 
-            /**
-             * Settings targeting.
-             */
-            isSettingsSelected: function() {
-                return randar.target.settings;
-            },
+        /**
+         * Resource category targeting.
+         */
+        isResourceCategorySelected: function() {
+            return !_.isNull(randar.target.resource.category);
+        },
 
-            selectSettings: function() {
-                randar.target.settings = true;
-            },
+        setTargetResourceCategory: function(category) {
+            randar.target.resource.category = category;
+        },
 
-            unselectSettings: function() {
-                randar.target.settings = false;
-            },
+        /**
+         * Individual resource targeting.
+         */
+        isResourceSelected: function() {
+            return this.isResourceCategorySelected()
+                && !_.isNull(randar.target.resource.id);
+        },
 
-            /**
-             * Resource category targeting.
-             */
-            isResourceCategorySelected: function() {
-                return !_.isNull(randar.target.resource.category);
-            },
+        setTargetResource: function(category, id) {
+            randar.target.resource.category = category;
+            randar.target.resource.id       = id;
+        },
 
-            setTargetResourceCategory: function(category) {
-                randar.target.resource.category = category;
-            },
+        clearTargetResource: function() {
+            randar.target.resource.id = null;
+        },
 
-            /**
-             * Individual resource targeting.
-             */
-            isResourceSelected: function() {
-                return this.isResourceCategorySelected()
-                    && !_.isNull(randar.target.resource.id);
-            },
-
-            setTargetResource: function(category, id) {
-                randar.target.resource.category = category;
-                randar.target.resource.id       = id;
-            },
-
-            clearTargetResource: function() {
-                randar.target.resource.id = null;
-            },
-
-            /**
-             * Brings focus to the dialog for a resource.
-             *
-             * If the resource does not have a dialog, it is created.
-             */
-            focusResourceDialog: function(resource) {
-                if (!randar.resourcesWithDialogs.includes(resource)) {
-                    randar.resourcesWithDialogs.push(resource);
-                }
-
-                randar.focusedResources = [resource];
-            },
-
-            /**
-             * Updates a resource on the UI, then patches the change into the
-             * engine.
-             */
-            updateResource(resource, patch) {
-                for (prop in patch) {
-                    this.$set(resource, prop, patch[prop]);
-                }
-
-                window.patchResource(resource.resourceType, resource.id, patch);
+        /**
+         * Brings focus to the dialog for a resource.
+         *
+         * If the resource does not have a dialog, it is created.
+         */
+        focusResourceDialog: function(resource) {
+            if (!randar.resourcesWithDialogs.includes(resource)) {
+                randar.resourcesWithDialogs.push(resource);
             }
-        }
-    };
 
-    module.exports = common;
-})();
+            randar.focusedResources = [resource];
+        },
+
+        /**
+         * Updates a resource on the UI, then patches the change into the
+         * engine.
+         */
+        updateResource(resource, patch) {
+            for (prop in patch) {
+                this.$set(resource, prop, patch[prop]);
+            }
+
+            window.patchResource(resource.resourceType, resource.id, patch);
+        }
+    }
+};
+
+module.exports = common;
