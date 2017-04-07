@@ -4,18 +4,25 @@ const url = require('url');
 
 var win;
 
-function createWindow() {
+app.on('ready', () => {
     win = new BrowserWindow({
         width  : 800,
-        height : 600
+        height : 600,
+
+        show  : false,
+        frame : false,
+
+        backgroundColor: '#111'
+    });
+
+    win.on('ready-to-show', () => {
+        win.show();
     });
 
     win.on('closed', () => {
         win = null;
     });
-}
-
-app.on('ready', createWindow);
+});
 
 app.on('windows-all-closed', () => {
     app.quit();
