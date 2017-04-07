@@ -22,6 +22,10 @@ app.on('ready', () => {
     win.on('closed', () => {
         win = null;
     });
+
+    win.loadURL('file://' + __dirname + '/build/ui.html');
+
+    win.webContents.openDevTools();
 });
 
 app.on('windows-all-closed', () => {
