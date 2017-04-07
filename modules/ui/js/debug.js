@@ -1,7 +1,7 @@
 (function() {
     var randar = require('./randar');
 
-    if ((window.location.search || '').indexOf('debug') > -1) {
+    if (true) {//(window.location.search || '').indexOf('debug') > -1) {
         randar.debug = true;
 
         window.closeRandar = function() {
