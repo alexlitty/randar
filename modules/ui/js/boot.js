@@ -1,8 +1,17 @@
-global._        = require('underscore');
-global.Vue      = require('vue');
-global.interact = require('interactjs');
-global.randar   = require('./randar');
-var common      = require('./components/common.js');
+function requireRandarModule(modulePath) {
+    return require(
+        path.join(app.getAppPath(), 'js', modulePath)
+    );
+}
+
+const {app}    = require('electron').remote;
+const path     = require('path');
+
+const _        = require('underscore');
+const interact = require('interactjs');
+const Vue      = require('vue/dist/vue.common.js');
+
+require(path.join(app.getAppPath(), 'js', 'randar'));
 
 /**
  * Initialize the interface.
@@ -59,7 +68,7 @@ randar.ready = function() {
     new Vue({
         el: document.getElementById('randar'),
         data: randar,
-        methods: common.methods,
+        methods: randar.common.methods,
         watch: {
             focusedResources: function(value) {
                 if (!value.length) {
