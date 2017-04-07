@@ -6,7 +6,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "node scripts/build.js",
-    "build-full": "node scripts/build.js full=yes"
+    "build-full": "node scripts/build.js full=yes",
+    "test": "electron modules/ui/ui.js"
   },
   "dependencies": {
     "browserify": "^14.3.0",
