@@ -39,7 +39,7 @@
 
         {
             description : 'javascript',
-            files       : 'modules/ui/**/*.js',
+            files       : 'modules/ui/js/**/*.js',
 
             run: function(filenames, done) {
                 browserify(
@@ -63,7 +63,7 @@
 
         {
             description : 'styles',
-            files       : 'modules/ui/**/*.less',
+            files       : 'modules/ui/less/**/*.less',
 
             run: function(filenames, done) {
                 async.parallel(
