@@ -38,30 +38,6 @@
         },
 
         {
-            description : 'javascript',
-            files       : 'modules/ui/js/**/*.js',
-
-            run: function(filenames, done) {
-                browserify(
-                    filenames.sort(function(a, b) {
-                        var aBoot = a.indexOf('boot.js') > -1;
-                        var bBoot = b.indexOf('boot.js') > -1;
-
-                        if (aBoot && !bBoot) {
-                            return -1;
-                        } else if (!aBoot && bBoot) {
-                            return 1;
-                        } else {
-                            return 0;
-                        }
-                    })
-                ).bundle(function(err, output) {
-                    err ? done(err) : publish('ui.js', output, done);
-                });
-            }
-        },
-
-        {
             description : 'styles',
             files       : 'modules/ui/less/**/*.less',
 
