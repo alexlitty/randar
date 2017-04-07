@@ -5,6 +5,8 @@
   "author": "Litty Studios",
   "license": "UNLICENSED",
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "electron": "^1.6.2"
+  },
   "devDependencies": {}
 }
