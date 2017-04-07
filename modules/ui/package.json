@@ -1,0 +1,7 @@
+{
+  "main": "ui.js",
+  "scripts": {
+    "build": "node ../../scripts/build.js ui",
+    "start": "electron ."
+  }
+}
