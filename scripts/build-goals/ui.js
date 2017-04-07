@@ -40,7 +40,7 @@
         },
 
         {
-            description : 'styles',
+            description : 'less',
             files       : 'modules/ui/less/**/*.less',
 
             run: function(filenames, done) {
