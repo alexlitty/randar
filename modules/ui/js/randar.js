@@ -45,7 +45,7 @@ global.randar = {
      * Import a resource.
      */
     importResource: () => {
-
+        console.log('importing resource');
     },
 
     /** 
