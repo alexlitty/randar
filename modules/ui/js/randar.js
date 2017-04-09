@@ -9,6 +9,11 @@ global.randar = {
      */
     browser: require('electron').remote.getCurrentWindow(),
 
+    /**
+     * Close the UI and exit the program.
+     */
+    exit: () => randar.browser.close(),
+
     engine: {
     },
 
