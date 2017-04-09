@@ -1,5 +1,5 @@
 randar.component('main-menu-bar', {
-    data: function () {
+    data: function() {
         return {
             items: [
                 {
@@ -44,6 +44,12 @@ randar.component('main-menu-bar', {
                 {
                     text: 'Help',
                     contextMenu: [
+                        [
+                            { text: 'Toggle DevTools', action: function() {
+                                randar.browser.toggleDevTools();
+                            }}
+                        ],
+
                         [
                             { text: 'About Randar', action: this.showAbout }
                         ]
