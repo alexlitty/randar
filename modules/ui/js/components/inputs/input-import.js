@@ -1,7 +1,7 @@
 randar.component('input-import', {
     methods: {
         onClick: function() {
-            window.importResource();
+            randar.importResource();
         }
     },
 

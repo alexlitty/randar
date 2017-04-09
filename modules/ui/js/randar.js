@@ -4,6 +4,8 @@ const glob = require('glob');
  * Central object that organizes Randar UI functionality.
  */
 global.randar = {
+    common: require('./components/common'),
+
     /**
      * A reference to Electron's BrowserWindow instance for this window.
      */
@@ -14,13 +16,21 @@ global.randar = {
      */
     exit: () => randar.browser.close(),
 
+    /**
+     * Methods that bridge engine and UI functionality.
+     */
     engine: {
         setMonitorTarget: (type, id) => {
 
         }
     },
 
-    common: require('./components/common'),
+    /**
+     * Import a resource.
+     */
+    importResource: () => {
+
+    },
 
     /** 
      * Handles an engine log message.

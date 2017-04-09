@@ -41,7 +41,7 @@ randar.component('main-menu-bar', {
 
                         [
                             { text: 'Import resource', action: function() {
-                                window.importResource();
+                                randar.importResource();
                             }}
                         ]
                     ]
