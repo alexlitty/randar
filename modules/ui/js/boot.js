@@ -68,11 +68,11 @@ window.addEventListener('DOMContentLoaded', () => {
         watch: {
             focusedResources: function(value) {
                 if (!value.length) {
-                    window.setMonitorTarget();
+                    randar.engine.setMonitorTarget();
                 }
 
                 else {
-                    window.setMonitorTarget(
+                    randar.engine.setMonitorTarget(
                         value[0].resourceType,
                         value[0].id
                     );

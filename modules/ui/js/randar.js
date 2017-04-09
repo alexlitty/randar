@@ -15,6 +15,9 @@ global.randar = {
     exit: () => randar.browser.close(),
 
     engine: {
+        setMonitorTarget: (type, id) => {
+
+        }
     },
 
     common: require('./components/common'),
