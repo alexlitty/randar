@@ -103,7 +103,7 @@ var common = {
                 this.$set(resource, prop, patch[prop]);
             }
 
-            window.patchResource(resource.resourceType, resource.id, patch);
+            randar.engine.patchResource(resource.resourceType, resource.id, patch);
         }
     }
 };

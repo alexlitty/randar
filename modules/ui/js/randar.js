@@ -21,11 +21,15 @@ global.randar = {
      */
     engine: {
         setMonitorTarget: (type, id) => {
+            console.log('setting monitor target');
+        },
 
+        patchResource: (resourceType, resourceId, patch) => {
+            console.log('patching resource');
         },
 
         setModelMeshTexture: (modelId, slotId, textureId) => {
-
+            console.log('setting model mesh texture');
         }
     },
 
