@@ -59,11 +59,15 @@ var tasks = [
                 }),
 
                 function(err, outputs) {
-                    (err && done(err)) || publish(
-                        'ui.css',
-                        outputs.join(''),
-                        done
-                    );
+                    if (err) {
+                        done(err);
+                    } else {
+                        publish(
+                            'ui.css',
+                            outputs.join(''),
+                            done
+                        );
+                    }
                 }
             );
         }
