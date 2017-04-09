@@ -10,7 +10,7 @@ require(path.join(app.getAppPath(), 'js', 'randar'));
 /**
  * Initialize the interface.
  */
-randar.ready = function() {
+window.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('contextmenu', function(event) {
         event.preventDefault();
         return false;
@@ -78,4 +78,4 @@ randar.ready = function() {
             }
         }
     });
-}
+});
