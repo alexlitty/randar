@@ -10,11 +10,6 @@ global.randar = {
     common: require('./components/common'),
 
     /** 
-     * Debug mode toggle.
-     */
-    debug: false,
-
-    /** 
      * Handles an engine log message.
      */
     onEngineLog: function(message) {
