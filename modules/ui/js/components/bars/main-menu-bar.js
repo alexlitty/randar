@@ -18,7 +18,7 @@ randar.component('main-menu-bar', {
 
                         [
                             { text: 'Close', action: function() {
-                                window.closeRandar();
+                                randar.exit();
                             }}
                         ]
                     ]
@@ -65,7 +65,7 @@ randar.component('main-menu-bar', {
         },
 
         onClose: function() {
-            window.closeRandar();
+            randar.exit();
         }
     },
 
