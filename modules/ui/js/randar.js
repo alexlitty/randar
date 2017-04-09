@@ -4,6 +4,11 @@ const glob = require('glob');
  * Central object that organizes Randar UI functionality.
  */
 global.randar = {
+    /**
+     * A reference to Electron's BrowserWindow instance for this window.
+     */
+    browser: require('electron').remote.getCurrentWindow(),
+
     engine: {
     },
 
