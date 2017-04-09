@@ -17,6 +17,12 @@ randar.component('main-menu-bar', {
                         ],
 
                         [
+                            { text: 'Toggle DevTools', action: function() {
+                                randar.browser.toggleDevTools();
+                            }}
+                        ],
+
+                        [
                             { text: 'Close', action: function() {
                                 randar.exit();
                             }}
@@ -44,12 +50,6 @@ randar.component('main-menu-bar', {
                 {
                     text: 'Help',
                     contextMenu: [
-                        [
-                            { text: 'Toggle DevTools', action: function() {
-                                randar.browser.toggleDevTools();
-                            }}
-                        ],
-
                         [
                             { text: 'About Randar', action: this.showAbout }
                         ]
