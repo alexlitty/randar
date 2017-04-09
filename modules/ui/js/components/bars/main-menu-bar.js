@@ -7,7 +7,7 @@ randar.component('main-menu-bar', {
                     contextMenu: [
                         [
                             { text: 'Save Project', action: function() {
-                                window.saveProject();
+                                randar.engine.saveProject();
                             }}
                         ],
 

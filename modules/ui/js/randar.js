@@ -20,6 +20,10 @@ global.randar = {
      * Methods that bridge engine and UI functionality.
      */
     engine: {
+        saveProject: () => {
+            console.log('saving project');
+        },
+
         setMonitorTarget: (type, id) => {
             console.log('setting monitor target');
         },
