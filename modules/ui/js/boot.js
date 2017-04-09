@@ -1,9 +1,3 @@
-function requireRandarModule(modulePath) {
-    return require(
-        path.join(app.getAppPath(), 'js', modulePath)
-    );
-}
-
 const {app}    = require('electron').remote;
 const path     = require('path');
 
