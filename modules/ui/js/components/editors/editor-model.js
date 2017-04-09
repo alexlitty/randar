@@ -8,7 +8,7 @@ randar.component('editor-model', {
 
     methods: {
         assignMeshTexture: function(category, textureId) {
-            window.setModelMeshTexture(
+            randar.engine.setModelMeshTexture(
                 this.model.id,
                 this.target.textureSlotId,
                 textureId

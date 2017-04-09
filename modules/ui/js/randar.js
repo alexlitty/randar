@@ -22,6 +22,10 @@ global.randar = {
     engine: {
         setMonitorTarget: (type, id) => {
 
+        },
+
+        setModelMeshTexture: (modelId, slotId, textureId) => {
+
         }
     },
 
