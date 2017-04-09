@@ -1,6 +1,12 @@
 @import '../generic/clickable';
 
 menu.bar {
+    -webkit-app-region: drag;
+
+    > * {
+        -webkit-app-region: no-drag;
+    }
+
     > menuitem {
         position: relative;
         display : inline-block;
