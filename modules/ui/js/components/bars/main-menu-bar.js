@@ -35,7 +35,7 @@ randar.component('main-menu-bar', {
                     contextMenu: [
                         [
                             { text: 'Create scene', action: function() {
-                                window.createResource('scenes');
+                                randar.engine.createResource('scenes');
                             }}
                         ],
 

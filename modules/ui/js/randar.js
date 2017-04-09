@@ -24,6 +24,10 @@ global.randar = {
             console.log('saving project');
         },
 
+        createResource: (resourceType) => {
+            console.log('creating new resource');
+        },
+
         setMonitorTarget: (type, id) => {
             console.log('setting monitor target');
         },
