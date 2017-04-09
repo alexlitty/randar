@@ -11,6 +11,8 @@ require(path.join(app.getAppPath(), 'js', 'randar'));
  * Initialize the interface.
  */
 window.addEventListener('DOMContentLoaded', () => {
+    randar.browser.setSize(screen.width, screen.height);
+
     document.body.addEventListener('contextmenu', function(event) {
         event.preventDefault();
         return false;
