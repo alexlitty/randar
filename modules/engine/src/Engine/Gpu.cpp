@@ -48,7 +48,6 @@ randar::Gpu::Gpu()
         throw std::runtime_error("Failed to create GLFW window");
     }
 
-    randar::registerHandlers(this->window);
     ::glfwMakeContextCurrent(this->window);
 
     // Initialize GLEW.
