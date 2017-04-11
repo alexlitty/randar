@@ -1,6 +1,5 @@
 #include <randar/Engine/Gpu.hpp>
 #include <randar/Render/DefaultTexture.hpp>
-#include <randar/Ui/WindowHandlers.hpp>
 
 // Construction.
 randar::Gpu::Gpu()
