@@ -1,2 +1,5 @@
 node_modules/
 modules/*/build/
+modules/adapter/*.gyp
+modules/adapter/*.i
+modules/adapter/*.cxx
