@@ -24,7 +24,27 @@ function build(options, done) {
     const headers = glob.sync(path.join(engineIncludeDir, '**', '*.hpp'));
     const sources = glob.sync(path.join(engineSrcDir, '**', '*.cpp'));
 
-    publish('binding.gyp', JSON.stringify({
+    const swigFilename = 'engine.i';
+    const wrapFilename = 'engine_wrap.cxx';
+    const gypFilename  = 'binding.gyp';
+
+    // Start the swig file with the main module declaration.
+    var swigContents = [
+        '%module engine',
+        '%{',
+    ].concat(headers.map((filename) => {
+        return '#include "' + filename + '"';
+    })).concat([
+        '%}'
+    ]).concat(headers.map((filename) => {
+        return '%include "' + filename + '"';
+    })).join('\n');
+
+    // Publish the swig file.
+    publish(swigFilename, swigContents);
+
+    // Define the final node module being built.
+    publish(gypFilename, JSON.stringify({
         targets: [{
             target_name : 'engine',
             sources     : sources.map((filename) => {
@@ -32,14 +52,11 @@ function build(options, done) {
                     engineDir,
                     path.join('..', 'engine')
                 )
-            }),
+            }).concat([wrapFilename]),
 
             cflags: [
                 // Disable warnings.
-                '-w',
-
-                // Multithread make.
-                '-j 2'
+                '-w'
             ],
 
             // Enable exceptions.
