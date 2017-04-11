@@ -6,7 +6,7 @@
 
 namespace randar
 {
-    class TransformAction : virtual Action
+    class TransformAction : virtual public Action
     {
         /**
          * The target to receive the transformation.
