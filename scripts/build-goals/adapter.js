@@ -21,23 +21,48 @@ function publish(filename, contents) {
 }
 
 function build(options, done) {
-    const headers = glob.sync(path.join(engineIncludeDir, '**', '*.hpp'));
-    const sources = glob.sync(path.join(engineSrcDir, '**', '*.cpp'));
-
     const swigFilename = 'engine.i';
     const wrapFilename = 'engine_wrap.cxx';
     const gypFilename  = 'binding.gyp';
+
+    const headers = glob.sync(path.join(engineIncludeDir, '**', '*.hpp'));
+    const sources = glob.sync(path.join(engineSrcDir, '**', '*.cpp'));
+
+    headerContents = headers.reduce((result, filename) => {
+        result[filename] = fs.readFileSync(filename).toString();
+        return result;
+    }, { });
+
+    // Sort headers by dependencies required.
+    var availableHeaders = headers.slice();
+    var sortedHeaders    = [];
+    while (availableHeaders.length) {
+        var key = availableHeaders.findIndex((header) => {
+            return availableHeaders.every((otherHeader) => {
+                return headerContents[header].indexOf(
+                    otherHeader.replace(engineIncludeDir, '')
+                ) == -1;
+            });
+        });
+
+        if (key == -1) {
+            key = 0;
+        }
+        sortedHeaders = sortedHeaders.concat(
+            availableHeaders.splice(key, 1)
+        );
+    }
 
     // Start the swig file with the main module declaration.
     var swigContents = [
         '%module engine',
         '%{',
-    ].concat(headers.map((filename) => {
+    ].concat(sortedHeaders.map((filename) => {
         return '#include "' + filename + '"';
     })).concat([
         '%}'
-    ]).concat(headers.map((filename) => {
-        return '%include "' + filename + '"';
+    ]).concat(sortedHeaders.map((filename) => {
+        return '%import "' + filename + '"';
     })).join('\n');
 
     // Publish the swig file.
