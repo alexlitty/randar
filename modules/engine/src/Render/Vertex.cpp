@@ -1,7 +1,5 @@
 #include <randar/Render/Vertex.hpp>
 
-const unsigned int randar::Vertex::stride = 17;
-
 randar::Vertex::Vertex()
 : randar::Vertex::Vertex(randar::Vector(), randar::Color())
 {

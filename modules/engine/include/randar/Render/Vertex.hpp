@@ -20,7 +20,7 @@ namespace randar
 
     struct Vertex
     {
-        const static unsigned int stride;
+        const unsigned int stride = 17;
 
         /**
          * Basic vertex information.

@@ -291,7 +291,7 @@ void randar::Gpu::initialize(randar::VertexBuffer& buffer)
     ::glGenBuffers(1, buffer);
     ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
-    unsigned int stride = Vertex::stride * sizeof(GLfloat);
+    unsigned int stride = Vertex().stride * sizeof(GLfloat);
 
     // Position.
     ::glEnableVertexAttribArray(0);
@@ -568,14 +568,14 @@ void randar::Gpu::write(
 void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Vertex>& vertices)
 {
     unsigned int count = vertices.size();
-    GLfloat *data = new GLfloat[count * Vertex::stride];
+    GLfloat *data = new GLfloat[count * Vertex().stride];
     for (unsigned int i = 0; i < count; i++) {
-        GLfloat *subdata = &data[i * Vertex::stride];
+        GLfloat *subdata = &data[i * Vertex().stride];
         vertices[i].appendTo(subdata);
     }
 
     ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    ::glBufferData(GL_ARRAY_BUFFER, count * Vertex::stride * sizeof(GLfloat), data, GL_STATIC_DRAW);
+    ::glBufferData(GL_ARRAY_BUFFER, count * Vertex().stride * sizeof(GLfloat), data, GL_STATIC_DRAW);
     delete[] data;
 }
 
