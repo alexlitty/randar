@@ -26,10 +26,10 @@ namespace randar
          * OpenGL name assignment and retrieval.
          */
         void setGlName(::GLuint newGlName);
-        ::GLuint getGlName() const;
-        operator ::GLuint() const;
-        operator ::GLuint*();
-        operator ::GLuint&();
+        GLuint getGlName() const;
+        operator GLuint() const;
+        operator GLuint*();
+        operator GLuint&();
     };
 }
 
