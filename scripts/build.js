@@ -8,7 +8,8 @@
     }
 
     var possibleGoals = {
-        ui     : getBuildGoal('ui'),
+        ui      : getBuildGoal('ui'),
+        adapter : getBuildGoal('adapter')
     };
 
     // Parse arguments.
