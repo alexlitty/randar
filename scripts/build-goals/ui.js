@@ -6,7 +6,7 @@ const mkdirp = require('mkdirp');
 const path   = require('path');
 
 function publish(filename, contents, done) {
-    filepath = path.normalize(
+    const filepath = path.normalize(
         path.join(__dirname, '..', '..', 'modules', 'ui', 'build', filename)
     );
 
