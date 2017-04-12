@@ -6,8 +6,15 @@ randar::Gpu::Gpu()
 {
     // Initialize GLEW.
     ::glewExperimental = true;
-    if (::glewInit() != GLEW_OK) {
-        throw std::runtime_error("Failed to initialize GLEW");
+    GLenum status = ::glewInit();
+    if (status != GLEW_OK) {
+        throw std::runtime_error(
+            "Failed to initialize GLEW: " + std::string(
+                reinterpret_cast<const char*>(
+                    ::glewGetErrorString(status)
+                )
+            )
+        );
     }
 
     // Configure OpenGL.
