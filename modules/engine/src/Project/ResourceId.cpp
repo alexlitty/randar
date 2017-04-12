@@ -78,4 +78,6 @@ randar::ResourceId& randar::ResourceId::operator =(const randar::ResourceId& oth
     } else {
         this->set(other.get());
     }
+
+    return *this;
 }

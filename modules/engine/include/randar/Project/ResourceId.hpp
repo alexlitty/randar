@@ -65,7 +65,7 @@ namespace randar
         /**
          * Assignment operator.
          */
-        ResourceId& operator=(const ResourceId& other);
+        ResourceId& operator =(const ResourceId& other);
     };
 }
 
