@@ -1,8 +1,8 @@
 #ifndef RANDAR_ENGINE_GPU_RESOURCE_HPP
 #define RANDAR_ENGINE_GPU_RESOURCE_HPP
 
+#include <GL/glew.h>
 #include <randar/Engine/Resource.hpp>
-#include <randar/Engine/Glfw.hpp>
 
 namespace randar
 {
