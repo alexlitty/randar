@@ -24,6 +24,7 @@ void randar::VertexArray::destroy()
 randar::VertexArray& randar::VertexArray::operator =(const randar::VertexArray& other)
 {
     this->glName = other.glName;
+    return *this;
 }
 
 randar::VertexBuffer::VertexBuffer()
@@ -49,4 +50,5 @@ void randar::VertexBuffer::destroy()
 randar::VertexBuffer& randar::VertexBuffer::operator =(const randar::VertexBuffer& other)
 {
     this->glName = other.glName;
+    return *this;
 }

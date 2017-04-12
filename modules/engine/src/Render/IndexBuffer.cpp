@@ -24,4 +24,5 @@ void randar::IndexBuffer::destroy()
 randar::IndexBuffer& randar::IndexBuffer::operator =(const IndexBuffer& other)
 {
     this->glName = other.glName;
+    return *this;
 }
