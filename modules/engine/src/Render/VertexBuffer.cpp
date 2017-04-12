@@ -21,7 +21,7 @@ void randar::VertexArray::destroy()
     this->gpu.destroy(*this);
 }
 
-randar::VertexArray& randar::VertexArray operator =(const randar::VertexArray& other)
+randar::VertexArray& randar::VertexArray::operator =(const randar::VertexArray& other)
 {
     this->glName = other.glName;
 }
