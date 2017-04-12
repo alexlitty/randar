@@ -4,61 +4,10 @@
 // Construction.
 randar::Gpu::Gpu()
 {
-#if defined (__linux__)
-    const bool FULLSCREEN_MODE = true;
-#elif defined (_WIN32)
-    // NOTE Windows does not support fullscreen mode with CEF well
-    //      so we always want to disable it by default (Investigate later)
-    const bool FULLSCREEN_MODE = false;
-#endif
-
-    // Initialize GLFW.
-    if (!::glfwInit()) {
-        throw std::runtime_error("Failed to initialize GLFW");
-    }
-
-    ::glfwWindowHint(GLFW_SAMPLES, 0);
-    ::glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    ::glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    ::glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    ::glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    auto monitor = ::glfwGetPrimaryMonitor();
-    const ::GLFWvidmode* mode = ::glfwGetVideoMode(monitor);
-    ::glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-    ::glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-    ::glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-    ::glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-
-    int width, height;
-    if (FULLSCREEN_MODE)
-    {
-        ::glfwWindowHint(GLFW_DECORATED, 0);
-        width = mode->width;
-        height = mode->height;
-    }
-    else
-    {
-        width = 800;
-        height = 600;
-    }
-
-    this->window = ::glfwCreateWindow(width, height, "Randar", NULL, NULL);
-    if (!this->window) {
-        throw std::runtime_error("Failed to create GLFW window");
-    }
-
-    ::glfwMakeContextCurrent(this->window);
-
     // Initialize GLEW.
     ::glewExperimental = true;
     if (::glewInit() != GLEW_OK) {
         throw std::runtime_error("Failed to initialize GLEW");
-    }
-
-    // @todo - Ignore driver error. Investigate later.
-    if (::glGetError() != GL_NO_ERROR) {
-
     }
 
     // Configure OpenGL.
@@ -73,13 +22,6 @@ randar::Gpu::Gpu()
 // Destruction.
 randar::Gpu::~Gpu()
 {
-    ::glfwDestroyWindow(this->window);
-}
-
-// Retrieves the default window.
-::GLFWwindow& randar::Gpu::getWindow()
-{
-    return *this->window;
 }
 
 // Initializes a framebuffer.

@@ -21,16 +21,9 @@ namespace randar
         ::GLuint boundFramebuffer;
         ::GLuint boundTexture;
 
-        GLFWwindow *window;
-
     public:
         Gpu();
         ~Gpu();
-
-        /**
-         * Retrieves the default window.
-         */
-        ::GLFWwindow& getWindow();
 
         /**
          * Initializes a resource on the GPU.
