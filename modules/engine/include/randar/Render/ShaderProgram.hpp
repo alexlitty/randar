@@ -70,6 +70,11 @@ namespace randar
         void setUniform(const std::string& name, int integer);
 
         /**
+         * Assignment operator.
+         */
+        ShaderProgram& operator =(const ShaderProgram& other);
+
+        /**
          * Allow the GPU class to set uniform locations.
          */
         friend class Gpu;

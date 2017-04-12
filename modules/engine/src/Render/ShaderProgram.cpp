@@ -72,3 +72,10 @@ void randar::ShaderProgram::setUniform(const std::string& name, int integer)
         this->gpu.setUniform(*this, this->uniformLocations[name], integer);
     }
 }
+
+// Assignment operator.
+randar::ShaderProgram& randar::ShaderProgram::operator =(const randar::ShaderProgram& other)
+{
+    this->set(other.vertexShader, other.fragmentShader);
+    return *this;
+}
