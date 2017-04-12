@@ -14,6 +14,7 @@ namespace randar
      */
     struct VertexArray : virtual public GpuResource
     {
+        VertexArray();
         VertexArray(const VertexArray& other);
 
         virtual void initialize() override;

@@ -1,6 +1,11 @@
 #include <randar/Render/VertexBuffer.hpp>
 #include <randar/Engine/Gpu.hpp>
 
+randar::VertexArray::VertexArray()
+{
+
+}
+
 randar::VertexArray::VertexArray(const randar::VertexArray& other)
 {
     *this = other;
