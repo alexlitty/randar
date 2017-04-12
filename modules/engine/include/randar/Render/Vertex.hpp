@@ -4,7 +4,6 @@
 #include <cstdint>
 #include <map>
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <randar/Math/Vector.hpp>
 #include <randar/Render/Color.hpp>
 #include <randar/Render/Texture.hpp>
