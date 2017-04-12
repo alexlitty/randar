@@ -14,8 +14,12 @@ namespace randar
      */
     struct VertexArray : virtual public GpuResource
     {
+        VertexArray(const VertexArray& other);
+
         virtual void initialize() override;
         virtual void destroy() override;
+
+        VertexArray& operator =(const VertexArray& other);
     };
 
     /**
@@ -29,8 +33,12 @@ namespace randar
     {
         VertexArray vertexArray;
 
+        VertexBuffer(const VertexBuffer& other);
+
         virtual void initialize() override;
         virtual void destroy() override;
+
+        VertexBuffer& operator =(const VertexBuffer& other);
     };
 }
 
