@@ -12,16 +12,40 @@ const engineDir        = path.join(rootDir, 'modules', 'engine');
 const engineIncludeDir = path.join(engineDir, 'include', 'randar');
 const engineSrcDir     = path.join(engineDir, 'src');
 
-function publish(filename, contents, done) {
+function publish(filename, contents, sensitive, done) {
     const filepath = path.normalize(path.join(adapterDir, filename));
 
-    mkdirp(path.dirname(filepath));
-    fs.writeFile(filepath, contents, (err) => {
-        if (!err) {
-            console.log('Published', filepath);
-        }
-        done(err);
-    });
+    function write() {
+        mkdirp(path.dirname(filepath));
+        fs.writeFile(filepath, contents, (err) => {
+            if (!err) {
+                console.log('Published', filepath);
+            }
+            done(err);
+        });
+    }
+
+    /**
+     * If this file is sensitive to updates, only publish it when its
+     * contents have changed.
+     *
+     * For example, node-gyp will perform an unconditional full compilation
+     * if the binding file has changed, regardless if a partial compilation
+     * is logically possible.
+     */
+    if (sensitive) {
+        fs.readFile(filepath, (err, data) => {
+            if (data && data.toString() == contents) {
+                done();
+            } else {
+                write();
+            }
+        });
+    }
+
+    else {
+        write();
+    }
 }
 
 function run(command, args, expectedFilename, done) {
@@ -142,9 +166,9 @@ function build(options, done) {
     };
 
     async.series([
-        (next) => publish(swigFilename, swigContents, next),
+        (next) => publish(swigFilename, swigContents, false, next),
         (next) => publish(
-            gypFilename, JSON.stringify(gypBinding, null, '    '), next
+            gypFilename, JSON.stringify(gypBinding, null, '    '), true, next
         ),
 
         // Creates a C++ file that wraps our engine within V8-friendly code.
