@@ -149,7 +149,6 @@ function build(options, done) {
                 '-lXrandr',
                 '-lGL',
                 '-lGLEW',
-                '-L/usr/local/lib/libglfw3.a',
                 '-lBulletDynamics',
                 '-lBulletCollision',
                 '-lLinearMath',
