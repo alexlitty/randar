@@ -13,9 +13,10 @@ namespace randar
 
     public:
         /**
-         * Constructor and destructor.
+         * Constructors and destructor.
          */
         GpuResource();
+        GpuResource(const GpuResource& other);
         ~GpuResource();
 
         /**
@@ -31,6 +32,11 @@ namespace randar
         operator GLuint() const;
         operator GLuint*();
         operator GLuint&();
+
+        /**
+         * Assignment operator.
+         */
+        GpuResource& operator =(const GpuResource& other);
     };
 }
 

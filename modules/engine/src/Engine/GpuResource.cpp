@@ -1,10 +1,15 @@
 #include <randar/Engine/GpuResource.hpp>
 
-// Constructor and destructor.
+// Constructors and destructor.
 randar::GpuResource::GpuResource()
 : glName(0)
 {
 
+}
+
+randar::GpuResource::GpuResource(const randar::GpuResource& other)
+{
+    *this = other;
 }
 
 randar::GpuResource::~GpuResource()
@@ -42,4 +47,11 @@ randar::GpuResource::operator ::GLuint*()
 randar::GpuResource::operator ::GLuint&()
 {
     return this->glName;
+}
+
+// Assignment operator.
+randar::GpuResource& randar::GpuResource::operator =(const randar::GpuResource& other)
+{
+    this->glName = other.glName;
+    return *this;
 }
