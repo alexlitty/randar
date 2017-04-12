@@ -62,9 +62,6 @@ randar::EngineMonitor::EngineMonitor()
 
     // Send models to the GPU.
     this->gpu.write(this->screen);
-
-    // Initialize the UI size.
-    this->resize();
 }
 
 randar::EngineMonitor::~EngineMonitor()
