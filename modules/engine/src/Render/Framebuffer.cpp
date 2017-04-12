@@ -7,8 +7,7 @@ randar::Framebuffer::Framebuffer()
   texture(nullptr),
   depthBuffer(nullptr)
 {
-    int width, height;
-    ::glfwGetFramebufferSize(&this->gpu.getWindow(), &width, &height);
+    int width = 256, height = 256;
 
     if (width <= 0 || height <= 0) {
         throw std::runtime_error(
