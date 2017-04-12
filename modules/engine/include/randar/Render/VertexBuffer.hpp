@@ -34,6 +34,7 @@ namespace randar
     {
         VertexArray vertexArray;
 
+        VertexBuffer();
         VertexBuffer(const VertexBuffer& other);
 
         virtual void initialize() override;

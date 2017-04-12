@@ -26,6 +26,11 @@ randar::VertexArray& randar::VertexArray operator =(const randar::VertexArray& o
     this->glName = other.glName;
 }
 
+randar::VertexBuffer::VertexBuffer()
+{
+
+}
+
 randar::VertexBuffer::VertexBuffer(const randar::VertexBuffer& other)
 {
     *this = other;
