@@ -141,7 +141,6 @@ function build(options, done) {
             ].map((dir) => path.normalize(path.join(rootDir, dir))),
 
             libraries: [
-                '-Llib',
                 '-lX11',
                 '-lXxf86vm',
                 '-pthread',
