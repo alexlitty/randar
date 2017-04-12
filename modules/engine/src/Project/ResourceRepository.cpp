@@ -2,6 +2,18 @@
 #include <randar/Render/Model.hpp>
 #include <randar/Render/Texture.hpp>
 
+// Constructor.
+randar::ResourceRepository::ResourceRepository()
+{
+
+}
+
+// Dummy copy constructor.
+randar::ResourceRepository::ResourceRepository(const randar::ResourceRepository& other)
+{
+    *this = other;
+}
+
 // Destructor.
 randar::ResourceRepository::~ResourceRepository()
 {
@@ -115,4 +127,11 @@ Json randar::ResourceRepository::toJson() const
     result["scenes"] = randar::toJson(this->scenes);
 
     return result;
+}
+
+// Assignment operator.
+randar::ResourceRepository& randar::ResourceRepository::operator =(const randar::ResourceRepository& other)
+{
+    throw std::runtime_error("ResourceRepository is not copyable.");
+    return *this;
 }

@@ -32,6 +32,16 @@ namespace randar
 
     public:
         /**
+         * Constructor.
+         */
+        ResourceRepository();
+
+        /**
+         * Dummy copy constructor.
+         */
+        ResourceRepository(const ResourceRepository& other);
+
+        /**
          * Destructor.
          */
         ~ResourceRepository();
@@ -99,6 +109,11 @@ namespace randar
          * Generates a complete JSON representation of this repository.
          */
         Json toJson() const;
+
+        /**
+         * Assignment operator.
+         */
+        ResourceRepository& operator =(const ResourceRepository& other);
     };
 }
 
