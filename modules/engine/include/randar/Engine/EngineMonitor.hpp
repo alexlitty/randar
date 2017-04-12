@@ -1,7 +1,6 @@
 #ifndef RANDAR_UI_ENGINE_MONITOR_HPP
 #define RANDAR_UI_ENGINE_MONITOR_HPP
 
-#include <randar/Engine/Window.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Render/ShaderProgram.hpp>
@@ -41,11 +40,6 @@ namespace randar
 
         EngineMonitor();
         ~EngineMonitor();
-
-        /**
-         * Resizes the monitor to fit a window.
-         */
-        void resize(::GLFWwindow& window = randar::getDefaultWindow());
 
         /**
          * Resizes the monitor.

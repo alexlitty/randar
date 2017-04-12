@@ -72,15 +72,6 @@ randar::EngineMonitor::~EngineMonitor()
 
 }
 
-// Resizes the monitor to fit a window.
-void randar::EngineMonitor::resize(::GLFWwindow& window)
-{
-    int32_t width, height;
-    ::glfwGetWindowSize(&window, &width, &height);
-
-    this->resize(static_cast<uint32_t>(width), static_cast<uint32_t>(height));
-}
-
 // Resizes the monitor.
 void randar::EngineMonitor::resize(uint32_t width, uint32_t height)
 {
