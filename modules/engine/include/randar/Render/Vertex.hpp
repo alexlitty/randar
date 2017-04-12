@@ -44,10 +44,26 @@ namespace randar
          */
         std::map<unsigned char, unsigned char> jointWeights;
 
+        /**
+         * Constructors.
+         */
         Vertex();
         Vertex(Vector initPosition, Color initColor);
 
+        /**
+         * Copy constructor.
+         */
+        Vertex(const Vertex& other);
+
+        /**
+         * Appends this vertex to an ongoing array.
+         */
         void appendTo(GLfloat* array) const;
+
+        /**
+         * Assignment operator.
+         */
+        Vertex& operator =(const Vertex& other);
     };
 }
 
