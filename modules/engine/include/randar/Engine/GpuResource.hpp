@@ -8,6 +8,7 @@ namespace randar
 {
     class GpuResource : virtual public Resource
     {
+    protected:
         ::GLuint glName;
 
     public:
