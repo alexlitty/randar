@@ -69,3 +69,13 @@ randar::ResourceId::operator uint32_t() const
 {
     return this->get();
 }
+
+// Assignment operator.
+randar::ResourceId& randar::ResourceId::operator =(const randar::ResourceId& other)
+{
+    if (this->isNull()) {
+        this->clear();
+    } else {
+        this->set(other.get());
+    }
+}

@@ -61,6 +61,11 @@ namespace randar
          */
         uint32_t get() const;
         operator uint32_t() const;
+
+        /**
+         * Assignment operator.
+         */
+        ResourceId& operator=(const ResourceId& other);
     };
 }
 
