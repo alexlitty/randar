@@ -7,10 +7,15 @@ namespace randar
 {
     struct IndexBuffer : virtual public GpuResource
     {
+        IndexBuffer();
+        IndexBuffer(const IndexBuffer& other);
+
         unsigned int count;
 
         virtual void initialize() override;
         virtual void destroy() override;
+
+        IndexBuffer& operator =(const IndexBuffer& other);
     };
 }
 
