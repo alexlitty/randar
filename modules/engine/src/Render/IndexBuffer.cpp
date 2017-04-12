@@ -6,7 +6,7 @@ randar::IndexBuffer::IndexBuffer()
 
 }
 
-randar::IndexBuffer(const IndexBuffer& other)
+randar::IndexBuffer::IndexBuffer(const IndexBuffer& other)
 {
     *this = other;
 }
