@@ -62,7 +62,7 @@ function build(options, done) {
     })).concat([
         '%}'
     ]).concat(sortedHeaders.map((filename) => {
-        return '%import "' + filename + '"';
+        return '%include "' + filename + '"';
     })).join('\n');
 
     // Publish the swig file.
@@ -79,10 +79,25 @@ function build(options, done) {
                 )
             }).concat([wrapFilename]),
 
-            cflags: [
-                // Disable warnings.
-                '-w'
+            libraries: [
+                '-Llib',
+                '-lX11',
+                '-lXxf86vm',
+                '-pthread',
+                '-lXi',
+                '-lXrandr',
+                '-lGL',
+                '-lGLEW',
+
+                '-L/usr/local/lib/libglfw3.a',
+                '-lBulletDynamics',
+                '-lBulletCollision',
+                '-lLinearMath',
+                '-lpng'
             ],
+
+            // Disable warnings.
+            cflags: ['-w'],
 
             // Enable exceptions.
             'cflags!'    : ['-fno-exceptions'],
