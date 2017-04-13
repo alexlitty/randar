@@ -108,7 +108,7 @@ function build(options, done) {
         circularHeaders.forEach((header) => console.warn('! -', header));
         console.warn('! Build will continue but may fail');
     }
-    
+
     // Start the swig file by ignoring unwrappable operators. These operators
     // could be explicitly renamed if we need them in the adapter.
     var swigContents = [
@@ -143,7 +143,42 @@ function build(options, done) {
         ' btVector3',
         ' btQuaternion',
         ' btTransform'
-    ].map((x) => `%ignore operator${x};`).join('\n') + '\n';
+    ].map(x => `%ignore operator${x};`).join('\n') + '\n';
+
+    // Include common typemappings.
+    swigContents += '%naturalvar;#define BUILDING_NODE_EXTENSION;\n' + [
+        'complex.i',
+        'stdint.i',
+        'carrays.i',
+
+        'typemaps/implicit.swg',
+
+        'javascript/v8/typemaps.i',
+        'javascript/v8/std_common.i',
+        'javascript/v8/std_string.i',
+        'javascript/v8/std_except.i',
+        'javascript/v8/std_complex.i',
+
+        'javascript/v8/std_pair.i',
+        'javascript/v8/std_deque.i',
+        'javascript/v8/std_map.i',
+        './std_vector.i',
+
+        'javascripttypemaps.swg',
+        'javascriptcode.swg',
+        'javascriptcomplex.swg',
+        'javascriptfragments.swg',
+        'javascripthelpers.swg',
+        'javascriptinit.swg',
+        'javascriptkw.swg',
+        'javascriptprimtypes.swg',
+        'javascriptruntime.swg',
+        'javascriptstrings.swg',
+
+        'arrays_javascript.i'
+    ].map(x => `%include "${x}";`).join('\n') + '\n';
+
+    swigContents += '%template(stringvector) std::vector<std::string>;\n';
 
     // Add the main module declaration with all our engine headers.
     swigContents += [
