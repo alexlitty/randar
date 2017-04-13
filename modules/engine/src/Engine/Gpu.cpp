@@ -4,6 +4,48 @@
 // Construction.
 randar::Gpu::Gpu()
 {
+    static int attribs[] = { 
+        GLX_X_RENDERABLE, true,
+        GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT,
+        GLX_RENDER_TYPE, GLX_RGBA_BIT,
+        GLX_X_VISUAL_TYPE, GLX_TRUE_COLOR,
+        GLX_RED_SIZE, 8,
+        GLX_GREEN_SIZE, 8,
+        GLX_BLUE_SIZE, 8,
+        GLX_ALPHA_SIZE, 8,
+        GLX_DEPTH_SIZE, 24, 
+        GLX_STENCIL_SIZE, 8,
+        GLX_DOUBLEBUFFER, false,
+        None
+    };
+
+    // Create an OpenGL context.
+    this->display = ::XOpenDisplay(nullptr);
+    if (!this->display) {
+        throw std::runtime_error("Failed to open X display");
+    }
+
+    int fbcount;
+    ::GLXFBConfig *fbc = ::glXChooseFBConfig(
+        this->display,
+        DefaultScreen(this->display),
+        attribs,
+        &fbcount);
+    if (fbcount == 0) {
+        throw std::runtime_error("No framebuffers available");
+    }
+
+    this->visualInfo = ::glXGetVisualFromFBConfig(this->display, fbc[0]);
+    ::XFree(fbc);
+    if (!this->visualInfo) {
+        throw std::runtime_error("No appropriate visual found");
+    }
+
+    this->context = ::glXCreateContext(this->display, this->visualInfo, nullptr, true);
+    if (!this->context) {
+        throw std::runtime_error("Failed to create GLX context");
+    }
+
     // Initialize GLEW.
     ::glewExperimental = true;
     GLenum status = ::glewInit();
@@ -29,6 +71,19 @@ randar::Gpu::Gpu()
 // Destruction.
 randar::Gpu::~Gpu()
 {
+    ::glXDestroyContext(this->display, this->context);
+    ::XFree(this->display);
+    ::XFree(this->visualInfo);
+}
+
+// Makes the context of this GPU current.
+void randar::Gpu::use()
+{
+    ::glXMakeCurrent(
+        this->display,
+        RootWindow(this->display, this->visualInfo->screen),
+        this->context
+    );
 }
 
 // Initializes a framebuffer.

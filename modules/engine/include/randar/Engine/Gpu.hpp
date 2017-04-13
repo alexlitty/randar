@@ -18,12 +18,21 @@ namespace randar
     class Gpu
     {
     protected:
+        ::Display *display;
+        ::XVisualInfo *visualInfo;
+        ::GLXContext context;
+
         ::GLuint boundFramebuffer;
         ::GLuint boundTexture;
 
     public:
         Gpu();
         ~Gpu();
+
+        /**
+         * Makes the context of this GPU current.
+         */
+        void use();
 
         /**
          * Initializes a resource on the GPU.
