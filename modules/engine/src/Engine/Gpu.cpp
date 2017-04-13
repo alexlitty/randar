@@ -740,6 +740,12 @@ void randar::Gpu::check()
     }
 }
 
+// Waits until all commands have been processed by the GPU.
+void randar::Gpu::finish()
+{
+    ::glFinish();
+}
+
 // Retrieves the default GPU context.
 randar::Gpu& randar::getDefaultGpu()
 {

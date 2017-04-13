@@ -138,6 +138,11 @@ namespace randar
          * If the GPU is in a bad state, throws an error.
          */
         void check();
+
+        /**
+         * Waits until all commands have been processed by the GPU.
+         */
+        void finish();
     };
 
     /**
