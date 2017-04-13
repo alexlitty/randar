@@ -7,19 +7,16 @@
 
 #define GLX_CONTEXT_MAJOR_VERSION_ARB 0x2091
 #define GLX_CONTEXT_MINOR_VERSION_ARB 0x2092
-typedef GLXContext (*glXCreateContextAttribsARBProc)(
-    Display*,
-    GLXFBConfig,
-    GLXContext,
-    Bool,
-    const int*);
 
 namespace randar
 {
-    struct GlContext
+    class GlContext
     {
-        Version version;
+        ::Display *display;
+        ::XVisualInfo *visualInfo;
+        ::GLXContext context;
 
+    public:
         /**
          * Default constructor.
          */
@@ -36,6 +33,11 @@ namespace randar
          * Destructor.
          */
         ~GlContext();
+
+        /**
+         * Makes this context current.
+         */
+        void use();
 
         /**
          * Dummy assignment operator.

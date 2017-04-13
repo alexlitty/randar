@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include <randar/System/GlContext.hpp>
 
+// Default constructor.
 randar::GlContext::GlContext()
 {
     static int attribs[] = {
@@ -14,49 +15,59 @@ randar::GlContext::GlContext()
         GLX_ALPHA_SIZE, 8,
         GLX_DEPTH_SIZE, 24,
         GLX_STENCIL_SIZE, 8,
-        GLX_DOUBLEBUFFER, true,
+        GLX_DOUBLEBUFFER, false,
         None
     };
 
-    ::Display *display = ::XOpenDisplay(nullptr);
-    if (!display) {
+    this->display = ::XOpenDisplay(nullptr);
+    if (!this->display) {
         throw std::runtime_error("Failed to open X display");
     }
 
     int fbcount;
     ::GLXFBConfig *fbc = ::glXChooseFBConfig(
-        display,
-        DefaultScreen(display),
+        this->display,
+        DefaultScreen(this->display),
         attribs,
         &fbcount);
     if (fbcount == 0) {
         throw std::runtime_error("No framebuffers available");
     }
 
-    ::XVisualInfo *vi = ::glXGetVisualFromFBConfig(display, fbc[0]);
-    if (!vi) {
+    this->visualInfo = ::glXGetVisualFromFBConfig(this->display, fbc[0]);
+    if (!this->visualInfo) {
         throw std::runtime_error("No appropriate visual found");
     }
 
-    ::GLXContext ctx = ::glXCreateContext(display, vi, nullptr, true);
-    if (!ctx) {
+    this->context = ::glXCreateContext(this->display, this->visualInfo, nullptr, true);
+    if (!this->context) {
         throw std::runtime_error("Failed to create GLX context");
     }
 
-    ::glXMakeCurrent(display, RootWindow(display, vi->screen), ctx);
+    ::XFree(fbc);
 }
 
+// Dummy copy constructor.
 randar::GlContext::GlContext(const GlContext& other)
 {
-
+    *this = other;
 }
 
+// Destructor.
 randar::GlContext::~GlContext()
 {
-
+    ::glXDestroyContext(this->display, this->context);
+    ::XFree(this->display);
+    ::XFree(this->visualInfo);
 }
 
+// Makes this context current.
+void randar::GlContext::use() {
+    ::glXMakeCurrent(this->display, RootWindow(this->display, this->visualInfo->screen), this->context);
+}
+
+// Dummy assignment operator.
 randar::GlContext& randar::GlContext::operator =(const randar::GlContext& other)
 {
-
+    throw std::runtime_error("GlContext may not be copied");
 }
