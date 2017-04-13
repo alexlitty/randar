@@ -2,6 +2,8 @@
 #define RANDAR_ENGINE_GPU_HPP
 
 #include <stdexcept>
+#include <GL/glew.h>
+#include <GL/glx.h>
 #include <randar/Math/Rect.hpp>
 #include <randar/Render.hpp>
 #include <randar/Utility/glm.hpp>
