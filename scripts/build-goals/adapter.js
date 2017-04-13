@@ -108,9 +108,45 @@ function build(options, done) {
         circularHeaders.forEach((header) => console.warn('! -', header));
         console.warn('! Build will continue but may fail');
     }
-
-    // Start the swig file with the main module declaration.
+    
+    // Start the swig file by ignoring unwrappable operators. These operators
+    // could be explicitly renamed if we need them in the adapter.
     var swigContents = [
+        '=',
+        '+=',
+        '-=',
+        '*=',
+        '/=',
+        '%=',
+        '+',
+        '-',
+        '*',
+        '/',
+        '%',
+        '!',
+        '==',
+        '!=',
+        '<',
+        '<=',
+        '>',
+        '>=',
+        ' bool',
+        ' uint8_t',
+        ' uint32_t',
+        ' float',
+        ' std::string',
+        ' std::mutex&',
+        ' GLuint',
+        ' GLuint*',
+        ' GLuint&',
+        ' Model&',
+        ' btVector3',
+        ' btQuaternion',
+        ' btTransform'
+    ].map((x) => `%ignore operator${x};`).join('\n') + '\n';
+
+    // Add the main module declaration with all our engine headers.
+    swigContents += [
         '%module engine',
         '%{',
     ].concat(sortedHeaders.map((filename) => {
@@ -119,7 +155,7 @@ function build(options, done) {
         '%}'
     ]).concat(sortedHeaders.map((filename) => {
         return '%include "' + filename + '"';
-    })).join('\n');
+    })).join('\n') + '\n';
 
     // Describe the complete compilation of the engine node module.
     const gypBinding = {
@@ -173,7 +209,7 @@ function build(options, done) {
         (next) => run(
             'swig',
             ['-c++', '-javascript', '-node', '-o', wrapFilename, swigFilename],
-            swigFilename,
+            wrapFilename,
             next
         ),
 
