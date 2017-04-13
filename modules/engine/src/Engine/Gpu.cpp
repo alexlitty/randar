@@ -1,6 +1,8 @@
 #include <randar/Engine/Gpu.hpp>
 #include <randar/Render/DefaultTexture.hpp>
 
+
+
 // Construction.
 randar::Gpu::Gpu()
 {
@@ -45,6 +47,7 @@ randar::Gpu::Gpu()
     if (!this->context) {
         throw std::runtime_error("Failed to create GLX context");
     }
+    this->use();
 
     // Initialize GLEW.
     ::glewExperimental = true;
