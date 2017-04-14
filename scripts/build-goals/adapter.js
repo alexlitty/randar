@@ -54,7 +54,6 @@ function run(command, args, expectedFilename, done) {
         stdio : 'inherit'
     });
 
-    program.on('error', done);
     program.on('close', (err) => {
         if (!err) {
             console.log('Published', path.join(adapterDir, expectedFilename));
