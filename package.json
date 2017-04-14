@@ -10,6 +10,7 @@
     "start": "electron modules/ui/"
   },
   "dependencies": {
+    "async": "^2.3.0",
     "electron": "^1.6.2",
     "interactjs": "^1.2.8",
     "node-gyp": "^3.6.0",
