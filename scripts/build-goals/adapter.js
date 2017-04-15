@@ -1,10 +1,11 @@
 const async  = require('async');
-const spawn  = require('child_process').spawn;
 const fs     = require('fs');
 const glob   = require('glob');
 const less   = require('less');
 const mkdirp = require('mkdirp');
+const os     = require('os');
 const path   = require('path');
+const spawn  = require('child_process').spawn;
 
 const rootDir          = path.normalize(path.join(__dirname, '..', '..'));
 const adapterDir       = path.join(rootDir, 'modules', 'adapter');
