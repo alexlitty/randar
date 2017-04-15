@@ -148,6 +148,8 @@ function build(options, done) {
         '<=',
         '>',
         '>=',
+        '<<',
+        '>>',
         ' bool',
         ' uint8_t',
         ' uint32_t',
