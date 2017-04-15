@@ -63,6 +63,11 @@ function run(command, args, expectedFilename, done) {
 }
 
 function build(options, done) {
+    var swigContents = '';
+    function addSwigLines(lines) {
+        swigContents += lines.map(line => line + ';\n').join('');
+    }
+
     const swigFilename   = 'engine.i';
     const wrapFilename   = 'engine_wrap.cxx';
     const gypFilename    = 'binding.gyp';
@@ -108,9 +113,22 @@ function build(options, done) {
         console.warn('! Build will continue but may fail');
     }
 
-    // Start the swig file by ignoring unwrappable operators. These operators
-    // could be explicitly renamed if we need them in the adapter.
-    var swigContents = [
+    // Start our swig file with a declaration of the system architecture. This
+    // is used to provide the correct typemaps for fixed width integer types,
+    // like uint32_t.
+    //
+    // Swig defaults to 32-bit mappings. If this is a 64-bit system, we must
+    // define SWIGWORDSIZE64 to request the 64-bit mappings.
+    if (os.arch() == 'x64') {
+        addSwigLines(['#define SWIGWORDSIZE64 true']);
+    }
+
+    // %naturalvar requests a more intuitive interface with class members.
+    addSwigLines(['%naturalvar']);
+
+    // Ignore operators that don't translate well to node code. These operators
+    // could be explicitly renamed if we end up needing them.
+    addSwigLines([
         '=',
         '+=',
         '-=',
@@ -142,13 +160,13 @@ function build(options, done) {
         ' btVector3',
         ' btQuaternion',
         ' btTransform'
-    ].map(x => `%ignore operator${x};`).join('\n') + '\n';
+    ].map(x => `%ignore operator${x}`));
 
     // Include common typemappings.
-    swigContents += '%naturalvar;#define BUILDING_NODE_EXTENSION;\n' + [
+    addSwigLines([
         'complex.i',
-        'stdint.i',
         'carrays.i',
+        'stdint.i',
 
         'typemaps/implicit.swg',
 
@@ -175,21 +193,41 @@ function build(options, done) {
         'javascriptstrings.swg',
 
         'arrays_javascript.i'
-    ].map(x => `%include "${x}";`).join('\n') + '\n';
+    ].map(x => `%include "${x}"`));
 
     swigContents += '%template(stringvector) std::vector<std::string>;\n';
 
-    // Add the main module declaration with all our engine headers.
-    swigContents += [
-        '%module engine',
-        '%{',
-    ].concat(sortedHeaders.map((filename) => {
-        return '#include "' + filename + '"';
-    })).concat([
-        '%}'
-    ]).concat(sortedHeaders.map((filename) => {
-        return '%include "' + filename + '"';
-    })).join('\n') + '\n';
+    // Define our wrapping module.
+    addSwigLines(
+        ['%module engine', '%{']
+        .concat(sortedHeaders.map(filename => `#include "${filename}"`))
+        .concat(['%}'])
+    );
+
+    addSwigLines(sortedHeaders.reduce((lines, filename) => {
+        lines.push(`%include "${filename}"`);
+    
+        var re = /typedef\s+([A-Za-z0-9_]+<[A-Za-z0-9_]+>)\s+([A-Za-z0-9_:]+);/g;
+        var match;
+        do {
+            if (match = re.exec(headerContents[filename])) {
+                var alias = match[2];
+                var original = match[1];
+
+                if (original.indexOf('::') == -1) {
+                    original = `randar::${original}`;
+                }
+
+                lines.push(`%template(${alias}) ${original}`);
+            }
+        } while (match);
+
+        return lines;
+    }, []));
+
+    addSwigLines([
+        //'%template(UInt32Dimensional2) randar::Dimensional2<uint32_t>'
+    ]);
 
     // Describe the complete compilation of the engine node module.
     const gypBinding = {
@@ -242,7 +280,13 @@ function build(options, done) {
         // Creates a C++ file that wraps our engine within V8-friendly code.
         (next) => run(
             'swig',
-            ['-c++', '-javascript', '-node', '-o', wrapFilename, swigFilename],
+            [
+                '-c++',
+                '-javascript',
+                '-node',
+                '-o', wrapFilename,
+                swigFilename
+            ],
             wrapFilename,
             next
         ),
@@ -250,7 +294,10 @@ function build(options, done) {
         // Creates an importable node module for our engine.
         (next) => run(
             'node-gyp',
-            ['build', '-j', '4'],
+            [
+                'build',
+                '-j', '4'
+            ],
             moduleFilename,
             next
         )
