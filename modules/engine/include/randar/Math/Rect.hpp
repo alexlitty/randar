@@ -1,8 +1,6 @@
 #ifndef RANDAR_MATH_RECT_HPP
 #define RANDAR_MATH_RECT_HPP
 
-#include <cef/include/internal/cef_types_wrappers.h>
-
 namespace randar
 {
     template <typename T>
@@ -21,18 +19,6 @@ namespace randar
           top(initTop),
           width(initWidth),
           height(initHeight)
-        {
-
-        }
-
-        /**
-         * Construct from a CEF rect.
-         */
-        Rect(const ::CefRect& rect)
-        : left(rect.x),
-          top(rect.y),
-          width(rect.width),
-          height(rect.height)
         {
 
         }
