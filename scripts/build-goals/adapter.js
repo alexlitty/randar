@@ -181,7 +181,7 @@ function build(options, done) {
 
         'javascript/v8/std_pair.i',
         'javascript/v8/std_deque.i',
-        'javascript/v8/std_map.i',
+        './std_map.i',
         './std_vector.i',
 
         'javascripttypemaps.swg',
