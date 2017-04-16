@@ -84,10 +84,10 @@ void randar::Texture::clear(const Color& color)
 
     uint32_t pixelCount = this->width * this->height;
     for (unsigned int i = 0; i < pixelCount; i++) {
-        values.push_back(color.r);
-        values.push_back(color.g);
-        values.push_back(color.b);
-        values.push_back(color.a);
+        values.push_back(color.r());
+        values.push_back(color.g());
+        values.push_back(color.b());
+        values.push_back(color.a());
     }
 
     this->gpu.write(*this, values.data(), GL_RGBA);
