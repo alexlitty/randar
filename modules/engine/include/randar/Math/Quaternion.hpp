@@ -3,7 +3,7 @@
 
 #include <bullet3/btBulletDynamicsCommon.h>
 #include <randar/Math/Angle.hpp>
-#include <randar/Math/Vector.hpp>
+#include <randar/Math/Vector3.hpp>
 #include <randar/Utility/glm.hpp>
 #include <randar/Utility/Json.hpp>
 
@@ -16,7 +16,7 @@ namespace randar
         float z;
         float w;
 
-        Vector axis;
+        Vector3 axis;
 
     public:
         /**
@@ -32,7 +32,7 @@ namespace randar
         /**
          * Construction from axis and angle.
          */
-        Quaternion(const Vector& newAxis, const Angle& newAngle);
+        Quaternion(const Vector3& newAxis, const Angle& newAngle);
 
         /**
          * Construction from physics quaternion.
@@ -43,8 +43,8 @@ namespace randar
          * Absolutely sets the rotation represented by this quaternion.
          */
         void set(float ix, float iy, float iz, float iw, bool updateAxis = true);
-        void set(const Vector& newAxis, const Angle& newAngle);
-        void setAxis(const Vector& newAxis);
+        void set(const Vector3& newAxis, const Angle& newAngle);
+        void setAxis(const Vector3& newAxis);
         void setAngle(const Angle& newAngle);
 
         /**
@@ -55,7 +55,7 @@ namespace randar
         /**
          * Gets information about the represented rotation.
          */
-        Vector getAxis() const;
+        Vector3 getAxis() const;
         Angle getAngle() const;
 
         /**
@@ -66,7 +66,7 @@ namespace randar
         /**
          * Transforms a vector.
          */
-        Vector transform(Vector vector) const;
+        Vector3 transform(Vector3 vector) const;
 
         /**
          * Retrieves a matrix for transforming.

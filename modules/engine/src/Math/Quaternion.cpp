@@ -17,7 +17,7 @@ randar::Quaternion::Quaternion(float ix, float iy, float iz, float iw)
 }
 
 // Construction from axis and angle.
-randar::Quaternion::Quaternion(const Vector& newAxis, const Angle& newAngle)
+randar::Quaternion::Quaternion(const Vector3& newAxis, const Angle& newAngle)
 {
     this->set(newAxis, newAngle);
 }
@@ -42,10 +42,10 @@ void randar::Quaternion::set(float ix, float iy, float iz, float iw, bool update
     }
 }
 
-void randar::Quaternion::set(const Vector& newAxis, const Angle& newAngle)
+void randar::Quaternion::set(const Vector3& newAxis, const Angle& newAngle)
 {
     float halfRads = newAngle.toRadians() / 2.0f;
-    Vector transformedAxis = newAxis.normalized() * std::sin(halfRads);
+    Vector3 transformedAxis = newAxis.normalized() * std::sin(halfRads);
     this->set(
         transformedAxis.x,
         transformedAxis.y,
@@ -57,7 +57,7 @@ void randar::Quaternion::set(const Vector& newAxis, const Angle& newAngle)
     this->axis = newAxis;
 }
 
-void randar::Quaternion::setAxis(const Vector& newAxis)
+void randar::Quaternion::setAxis(const Vector3& newAxis)
 {
     this->set(newAxis, this->getAngle());
 }
@@ -74,16 +74,16 @@ void randar::Quaternion::rotate(const Angle& deltaAngle)
 }
 
 // Gets information about the represented rotation.
-randar::Vector randar::Quaternion::getAxis() const
+randar::Vector3 randar::Quaternion::getAxis() const
 {
     float d = std::sqrt(1 - (this->w * this->w));
 
     // Arbitrary axis. Any axis produces the same result.
     if (d == 0.0f) {
-        return Vector(1.0f, 0.0f, 0.0f);
+        return Vector3(1.0f, 0.0f, 0.0f);
     }
 
-    return Vector(
+    return Vector3(
         this->x / d,
         this->y / d,
         this->z / d
@@ -114,7 +114,7 @@ void randar::Quaternion::normalize()
 }
 
 // Transforms a single point.
-randar::Vector randar::Quaternion::transform(randar::Vector vector) const
+randar::Vector3 randar::Quaternion::transform(randar::Vector3 vector) const
 {
     return vector *= this->getMatrix();
 }

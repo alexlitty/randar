@@ -71,20 +71,20 @@ void randar::Camera::disableOrtho()
     this->updateMatrices();
 }
 
-void randar::Camera::setTarget(randar::Vector newTarget)
+void randar::Camera::setTarget(randar::Vector3 newTarget)
 {
     this->target = newTarget;
     this->updateMatrices();
 }
 
-randar::Vector randar::Camera::getTarget() const
+randar::Vector3 randar::Camera::getTarget() const
 {
     return this->target;
 }
 
 void randar::Camera::pan(float x, float y)
 {
-    Vector movement(x, y);
+    Vector3 movement(x, y);
 
     this->move(movement);
     this->target += movement;

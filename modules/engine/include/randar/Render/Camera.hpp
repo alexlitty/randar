@@ -19,7 +19,7 @@ namespace randar
         float nearZ;
         float farZ;
 
-        Vector target;
+        Vector3 target;
 
         glm::mat4 view;
         glm::mat4 projection;
@@ -41,8 +41,8 @@ namespace randar
         /**
          * Sets and retrieves the position that the camera is pointed at.
          */
-        void setTarget(Vector newTarget);
-        Vector getTarget() const;
+        void setTarget(Vector3 newTarget);
+        Vector3 getTarget() const;
 
         void setFieldOfView(float newFieldOfView);
 

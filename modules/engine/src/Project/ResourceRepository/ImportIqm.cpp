@@ -86,7 +86,7 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
         if (intexcoord) ::memcpy(data.texcoord, &intexcoord[i * 2], sizeof(data.texcoord));
 
         Vertex vertex;
-        vertex.position = Vector(data.position[0], data.position[1], data.position[2]);
+        vertex.position = Vector3(data.position[0], data.position[1], data.position[2]);
         vertex.textureCoordinate.u = data.texcoord[0];
         vertex.textureCoordinate.v = data.texcoord[1];
         model->vertices.push_back(vertex);

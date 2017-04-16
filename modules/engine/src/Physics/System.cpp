@@ -5,7 +5,7 @@ randar::System::System()
   overlappingPairCache(new btDbvtBroadphase()),
   world(&dispatcher, overlappingPairCache, &solver, &collisionConfiguration)
 {
-    this->world.setGravity(Vector(0, -0.5f, 0));
+    this->world.setGravity(Vector3(0, -0.5f, 0));
 }
 
 randar::System::~System()

@@ -88,6 +88,11 @@ namespace randar
         void write(Model& model);
 
         /**
+         * Reads the underlying data of a GPU resource.
+         */
+        Color read(Framebuffer& framebuffer);
+
+        /**
          * Gets the location of a shader program uniform.
          *
          * Returns -1 if the uniform is not used by the program.

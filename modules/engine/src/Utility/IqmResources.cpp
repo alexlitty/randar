@@ -86,7 +86,7 @@ void randar::Resources::importIqm(std::ifstream& file)
         if (inposition) ::memcpy(data.position, &inposition[i * 3], sizeof(data.position));
 
         Vertex vertex;
-        vertex.position = Vector(data.position[0], data.position[1], data.position[2]);
+        vertex.position = Vector3(data.position[0], data.position[1], data.position[2]);
         model->mesh.vertices.append(vertex);
     }
     model->mesh.vertices.send();

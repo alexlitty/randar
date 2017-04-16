@@ -13,14 +13,14 @@ void randar::Transform::set(const btTransform& transform)
 }
 
 // Absolutely sets the position.
-void randar::Transform::setPosition(const randar::Vector& newPosition)
+void randar::Transform::setPosition(const randar::Vector3& newPosition)
 {
     this->position = newPosition;
     this->onTransform();
 }
 
 // Relatively sets the position.
-void randar::Transform::move(const randar::Vector& movement)
+void randar::Transform::move(const randar::Vector3& movement)
 {
     this->setPosition(
         this->getPosition() + movement
@@ -35,7 +35,7 @@ void randar::Transform::move(const randar::Quaternion& angularMovement)
 }
 
 // Retrieves the position.
-randar::Vector randar::Transform::getPosition() const
+randar::Vector3 randar::Transform::getPosition() const
 {
     return this->position;
 }
@@ -47,7 +47,7 @@ void randar::Transform::setRotation(const randar::Quaternion& quaternion)
     this->onTransform();
 }
 
-void randar::Transform::setRotation(const randar::Vector& axis, const randar::Angle& angle)
+void randar::Transform::setRotation(const randar::Vector3& axis, const randar::Angle& angle)
 {
     this->rotation.set(axis, angle);
     this->onTransform();
@@ -60,13 +60,13 @@ randar::Quaternion randar::Transform::getRotation() const
 }
 
 // Sets and retrieves the axis of rotation.
-void randar::Transform::setRotationAxis(const randar::Vector& axis)
+void randar::Transform::setRotationAxis(const randar::Vector3& axis)
 {
     this->rotation.setAxis(axis);
     this->onTransform();
 }
 
-randar::Vector randar::Transform::getRotationAxis() const
+randar::Vector3 randar::Transform::getRotationAxis() const
 {
     return this->rotation.getAxis();
 }

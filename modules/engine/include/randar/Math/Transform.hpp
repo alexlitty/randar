@@ -9,7 +9,7 @@ namespace randar
     class Transform
     {
     protected:
-        Vector position;
+        Vector3 position;
         Quaternion rotation;
 
     public:
@@ -23,25 +23,25 @@ namespace randar
         /**
          * Absolutely sets the position.
          */
-        void setPosition(const Vector& newPosition);
+        void setPosition(const Vector3& newPosition);
 
         /**
          * Relatively sets the position.
          */
-        void move(const Vector& movement);
+        void move(const Vector3& movement);
         void move(const Quaternion& angularMovement);
-        void moveAbout(const Vector& origin, const Vector& movement);
+        void moveAbout(const Vector3& origin, const Vector3& movement);
 
         /**
          * Retrieves the position.
          */
-        Vector getPosition() const;
+        Vector3 getPosition() const;
 
         /**
          * Sets the rotation.
          */
         void setRotation(const Quaternion& quaternion);
-        void setRotation(const Vector& axis, const Angle& angle);
+        void setRotation(const Vector3& axis, const Angle& angle);
 
         /**
          * Retrieves the rotation.
@@ -51,8 +51,8 @@ namespace randar
         /**
          * Sets and retrieves the axis of rotation.
          */
-        void setRotationAxis(const Vector& axis);
-        Vector getRotationAxis() const;
+        void setRotationAxis(const Vector3& axis);
+        Vector3 getRotationAxis() const;
 
         /**
          * Absolutely sets the angle of rotation.

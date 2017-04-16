@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <map>
 #include <GL/glew.h>
-#include <randar/Math/Vector.hpp>
+#include <randar/Math/Vector3.hpp>
 #include <randar/Render/Color.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/Joint.hpp>
@@ -24,7 +24,7 @@ namespace randar
         /**
          * Basic vertex information.
          */
-        Vector position;
+        Vector3 position;
         Color color;
         
         /**
@@ -47,7 +47,7 @@ namespace randar
          * Constructors.
          */
         Vertex();
-        Vertex(Vector initPosition, Color initColor);
+        Vertex(Vector3 initPosition, Color initColor);
 
         /**
          * Copy constructor.

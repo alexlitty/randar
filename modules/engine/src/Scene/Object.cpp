@@ -1,5 +1,5 @@
 #include <randar/Scene/Object.hpp>
-#include <randar/Utility/Vector.hpp>
+#include <randar/Utility/Vector3.hpp>
 
 // Constructor.
 randar::Object::Object(uint32_t initId, randar::Model* initModel)

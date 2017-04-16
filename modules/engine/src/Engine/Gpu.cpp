@@ -594,6 +594,33 @@ void randar::Gpu::write(randar::Model& model)
     this->write(model.faceBuffer, model.faceIndices);
 }
 
+// Reads the contents of a framebuffer from the GPU.
+randar::Color randar::Gpu::read(randar::Framebuffer& framebuffer)
+{
+    GLfloat *data = new GLfloat[64];
+
+    this->bind(framebuffer);
+    ::glReadPixels(
+        0,
+        0,
+        1,
+        1,
+        GL_RGBA,
+        GL_FLOAT,
+        data
+    );
+
+    Color result(
+        data[0],
+        data[1],
+        data[2],
+        data[3]
+    );
+
+    delete[] data;
+    return result;
+}
+
 // Gets the location of a shader program uniform.
 ::GLint randar::Gpu::getUniformLocation(
     const randar::ShaderProgram& program,

@@ -111,8 +111,8 @@ void randar::EngineMonitor::initializeTarget()
 {
     if (this->targetModel) {
         this->monitorFramebuffer.camera.disableOrtho();
-        this->monitorFramebuffer.camera.setPosition(randar::Vector(0.0f, 0.0f, -15.0f));
-        this->monitorFramebuffer.camera.setTarget(randar::Vector(0.0f, 0.0f, 0.0f));
+        this->monitorFramebuffer.camera.setPosition(randar::Vector3(0.0f, 0.0f, -15.0f));
+        this->monitorFramebuffer.camera.setTarget(randar::Vector3(0.0f, 0.0f, 0.0f));
     }
 
     else if (this->targetTexture) {

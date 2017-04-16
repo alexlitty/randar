@@ -2,12 +2,12 @@
 
 // Constructors.
 randar::Vertex::Vertex()
-: randar::Vertex::Vertex(randar::Vector(), randar::Color())
+: randar::Vertex::Vertex(randar::Vector3(), randar::Color())
 {
 
 }
 
-randar::Vertex::Vertex(Vector initPosition, Color initColor)
+randar::Vertex::Vertex(Vector3 initPosition, Color initColor)
 : position(initPosition),
   color(initColor)
 {
