@@ -24,7 +24,7 @@ void randar::Image::freeData()
 // Allocates enough memory to accommodate the current image dimensions.
 void randar::Image::allocateData()
 {
-    this->data = new float[this->getWidth() * this->getHeight() * 4];
+    this->data = new float[this->rawSize()];
 }
 
 // Resizes the image.
@@ -47,7 +47,7 @@ uint32_t randar::Image::getPixelIndex(const randar::Vector2<uint32_t>& vec) cons
 
 uint32_t randar::Image::getPixelIndex(uint32_t x, uint32_t y) const
 {
-    return ((y * getWidth()) + (x)) * 4;
+    return ((y * this->getWidth()) + (x)) * 4;
 }
 
 // Gets the color of a pixel.
@@ -100,4 +100,10 @@ void randar::Image::_setPixel(uint32_t x, uint32_t y, float r, float g, float b,
 float* randar::Image::raw()
 {
     return this->data;
+}
+
+// Retrieves the expected size of the raw image data.
+uint32_t randar::Image::rawSize() const
+{
+    return this->getWidth() * this->getHeight() * 4;
 }

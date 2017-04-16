@@ -106,6 +106,11 @@ namespace randar
          * Retrieves a pointer to the raw image data.
          */
         float* raw();
+
+        /**
+         * Retrieves the expected element size of the raw array.
+         */
+        uint32_t rawSize();
     };
 }
 
