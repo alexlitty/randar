@@ -219,8 +219,6 @@ function build(options, done) {
 
             include_dirs: [
                 'modules/engine/include',
-                'modules/engine/platform/linux/include',
-                'modules/engine/platform/linux/include/cef',
                 'modules/engine/include/bullet3'
             ].map((dir) => path.normalize(path.join(rootDir, dir))),
 
