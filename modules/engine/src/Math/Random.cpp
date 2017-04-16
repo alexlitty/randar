@@ -1,18 +1,20 @@
-#include <cstdlib>
 #include <ctime>
 #include <randar/Math/Random.hpp>
 
+// Seeds the random number generator with the current time.
 void randar::seedRandomWithTime()
 {
     std::srand(static_cast<unsigned int>(std::time(0)));
 }
 
-float randar::random(float min, float max)
+// Generates a random float within [0, 1].
+float randar::randomFloat()
 {
-    return min + (std::rand() / (RAND_MAX / (max - min)));
+    return std::rand();
 }
 
-int randar::random(int min, int max)
+// Generates a random float.
+float randar::randomFloat(float min, float max)
 {
-    return rand() % (max - min + 1) + min;
+    return min + (std::rand() / (RAND_MAX / (max - min)));
 }
