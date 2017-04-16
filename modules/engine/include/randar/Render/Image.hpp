@@ -48,8 +48,16 @@ namespace randar
          * The position should be checked beforehand to ensure it is within the
          * image's range. If it is out of a range, behavior is undefined.
          */
-        uint32_t getPixelIndex(const Vector2<uint32_t>& vec);
-        uint32_t getPixelIndex(uint32_t x, uint32_t y);
+        uint32_t getPixelIndex(const Vector2<uint32_t>& vec) const;
+        uint32_t getPixelIndex(uint32_t x, uint32_t y) const;
+
+        /**
+         * Gets the color of a pixel.
+         *
+         * If the desired pixel is out of range, behavior is undefined.
+         */
+        Color getPixel(const Vector2<uint32_t>& vec) const;
+        Color getPixel(uint32_t x, uint32_t y) const;
 
         /**
          * Safely sets the color of a pixel.
