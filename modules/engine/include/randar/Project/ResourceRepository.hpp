@@ -23,6 +23,7 @@ namespace randar
          */
         Directory directory;
 
+    public:
         /**
          * Resources in this repository.
          */
@@ -30,7 +31,6 @@ namespace randar
         std::map<uint32_t, Model*> models;
         std::map<uint32_t, Texture*> textures;
 
-    public:
         /**
          * Constructor.
          */
@@ -116,5 +116,11 @@ namespace randar
         ResourceRepository& operator =(const ResourceRepository& other);
     };
 }
+
+#ifdef SWIG
+    %template(map_model) std::map<uint32_t, randar::Model*>;
+    %template(map_scene) std::map<uint32_t, randar::Scene*>;
+    %template(map_texture) std::map<uint32_t, randar::Texture*>;
+#endif
 
 #endif
