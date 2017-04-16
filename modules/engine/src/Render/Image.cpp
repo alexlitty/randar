@@ -2,8 +2,29 @@
 
 // Default constructor.
 randar::Image::Image()
+: data(nullptr)
 {
 
+}
+
+// Destructor.
+randar::Image::~Image()
+{
+    this->freeData();
+}
+
+// Frees the raw image data.
+void randar::Image::freeData()
+{
+    if (this->data) {
+        delete[] this->data;
+    }
+}
+
+// Allocates enough memory to accommodate the current image dimensions.
+void randar::Image::allocateData()
+{
+    this->data = new float[this->getWidth() * this->getHeight() * 4];
 }
 
 // Resizes the image.
@@ -13,8 +34,9 @@ void randar::Image::resize(uint32_t newWidth, uint32_t newHeight)
         return;
     }
 
-    this->data.resize(newWidth * newHeight * 4);
+    this->freeData();
     randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
+    this->allocateData();
 }
 
 // Gets the underlying buffer position for a pixel.
@@ -74,8 +96,8 @@ void randar::Image::_setPixel(uint32_t x, uint32_t y, float r, float g, float b,
     this->data[index++] = a;
 }
 
-// Retrieves a read-only reference to the raw image data.
-const std::vector<float>& randar::Image::getData()
+// Retrieves a pointer to the raw image data.
+float* randar::Image::raw()
 {
     return this->data;
 }

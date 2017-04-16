@@ -18,7 +18,7 @@ namespace randar
          *
          * First pixel is the top-left corner of the image.
          */
-        std::vector<float> data;
+        float* data;
 
     public:
         /**
@@ -29,6 +29,25 @@ namespace randar
         Image();
 
         /**
+         * Destructor.
+         */
+        ~Image();
+
+    protected:
+        /**
+         * Frees the raw image data.
+         */
+        void freeData();
+
+        /**
+         * Allocates enough memory to accommodate the current image dimensions.
+         *
+         * Any previous data is not freed.
+         */
+        void allocateData();
+
+    public:
+        /**
          * Resizes the image.
          *
          * If the image is decreasing in size, right-bottom pixels are
@@ -37,7 +56,7 @@ namespace randar
          * It is more efficient to use the set method when an external buffer of
          * pixels is immediately available.
          *
-         * @@@ todo - Image gets warped upon resizing.
+         * @@@ todo - Image gets cleared upon resizing.
          */
         virtual void resize(uint32_t newWidth, uint32_t newHeight) override;
 
@@ -84,9 +103,9 @@ namespace randar
         void _setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a);
 
         /**
-         * Retrieves a read-only reference to the raw image data.
+         * Retrieves a pointer to the raw image data.
          */
-        const std::vector<float>& getData();
+        float* raw();
     };
 }
 
