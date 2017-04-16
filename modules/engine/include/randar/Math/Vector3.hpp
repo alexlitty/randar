@@ -15,7 +15,7 @@ namespace randar
         float z;
 
         Vector3();
-        Vector3(const btVector33& other);
+        Vector3(const btVector3& other);
         Vector3(float xInit, float yInit, float zInit = 0.0f);
         void set(float xNew, float yNew, float zNew = 0.0f);
 
@@ -57,7 +57,7 @@ namespace randar
         /**
          * Convert to physics vector.
          */
-        operator btVector33() const;
+        operator btVector3() const;
 
         /**
          * Convert to string.
