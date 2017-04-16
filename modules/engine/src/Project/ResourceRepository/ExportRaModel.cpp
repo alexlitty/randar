@@ -34,9 +34,9 @@ void randar::ResourceRepository::exportRaModel(uint32_t modelId)
         stream.write(vertex.position.y);
         stream.write(vertex.position.z);
 
-        stream.write(vertex.color.r);
-        stream.write(vertex.color.g);
-        stream.write(vertex.color.b);
+        stream.write(vertex.color.r());
+        stream.write(vertex.color.g());
+        stream.write(vertex.color.b());
 
         stream.write(vertex.textureId);
         stream.write(vertex.textureCoordinate.u);
