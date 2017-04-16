@@ -1,6 +1,6 @@
 node_modules/
 modules/*/build/
 modules/adapter/*.gyp
-modules/adapter/engine.i
+modules/adapter/adapter.i
 modules/adapter/*.cxx
 npm-debug.log

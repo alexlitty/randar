@@ -69,10 +69,10 @@ function build(options, done) {
         swigContents += lines.map(line => line + ';\n').join('');
     }
 
-    const swigFilename   = 'engine.i';
-    const wrapFilename   = 'engine_wrap.cxx';
+    const swigFilename   = 'adapter.i';
+    const wrapFilename   = 'adapter.cxx';
     const gypFilename    = 'binding.gyp';
-    const moduleFilename = 'build/engine.node';
+    const moduleFilename = 'build/adapter.node';
 
     const headers = glob.sync(path.join(engineIncludeDir, '**', '*.hpp'));
     const sources = glob.sync(path.join(engineSrcDir, '**', '*.cpp'));
@@ -201,14 +201,14 @@ function build(options, done) {
     // Define our wrapping module.
     const includes = sortedHeaders.map(filename => `#include "${filename}"`);
     addSwigLines(
-        ['%module engine', '%{'].concat(includes).concat(['%}'])
+        ['%module adapter', '%{'].concat(includes).concat(['%}'])
         .concat(includes.map(line => line.replace('#', '%')))
     );
 
     // Describe the complete compilation of the engine node module.
     const gypBinding = {
         targets: [{
-            target_name: 'engine',
+            target_name: 'adapter',
 
             sources: sources.map((filename) => {
                 return filename.replace(
