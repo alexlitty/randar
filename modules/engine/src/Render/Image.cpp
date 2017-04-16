@@ -13,13 +13,7 @@ void randar::Image::resize(uint32_t newWidth, uint32_t newHeight)
         return;
     }
 
-    // Resize width.
-    if (this->getWidth() < newWidth) {
-        for (uint32_t i = 0; i < newWidth; i++) {
-
-        }
-    }
-
+    this->data.resize(newWidth * newHeight * 4);
     randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
 }
 

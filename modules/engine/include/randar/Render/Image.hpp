@@ -14,7 +14,7 @@ namespace randar
          * Raw image data.
          *
          * Each pixel is represented by four consecutive floats indicating the
-         * red, green, blue, and alpha values respectively from 0 to 1.
+         * red, green, blue, and alpha values clamped within [0, 1].
          *
          * First pixel is the top-left corner of the image.
          */
@@ -32,10 +32,12 @@ namespace randar
          * Resizes the image.
          *
          * If the image is decreasing in size, right-bottom pixels are
-         * truncated. If increasing, the new area is filled with black pixels.
+         * truncated. If increasing, the new area is filled with opaque black.
          *
          * It is more efficient to use the set method when an external buffer of
          * pixels is immediately available.
+         *
+         * @@@ todo - Image gets warped upon resizing.
          */
         virtual void resize(uint32_t newWidth, uint32_t newHeight) override;
 
