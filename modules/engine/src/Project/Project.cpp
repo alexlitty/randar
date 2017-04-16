@@ -53,6 +53,11 @@ void randar::Project::load(const randar::Directory& newDirectory)
     }
 }
 
+void randar::Project::load(const std::string& path)
+{
+    this->load(randar::Directory(path));
+}
+
 // Saves this project to disk.
 void randar::Project::save()
 {

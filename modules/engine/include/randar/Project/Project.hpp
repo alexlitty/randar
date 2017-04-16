@@ -46,6 +46,7 @@ namespace randar
          * Throws a runtime error if the project could not be loaded at all.
          */
         void load(const Directory& newDirectory);
+        void load(const std::string& path);
 
         /**
          * Saves this project to disk.
