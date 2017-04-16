@@ -24,7 +24,7 @@ void randar::Image::resize(uint32_t newWidth, uint32_t newHeight)
 }
 
 // Gets the underlying buffer position for a pixel.
-uint32_t randar::Image::getPixelIndex(const randar::Vector32<uint32_t>& vec)
+uint32_t randar::Image::getPixelIndex(const randar::Vector2<uint32_t>& vec)
 {
     return this->getPixelIndex(vec.x, vec.y);
 }
@@ -35,7 +35,7 @@ uint32_t randar::Image::getPixelIndex(uint32_t x, uint32_t y)
 }
 
 // Safely sets the color of a pixel.
-void randar::Image::setPixel(const randar::Vector32<uint32_t>& vec, const randar::Color& color)
+void randar::Image::setPixel(const randar::Vector2<uint32_t>& vec, const randar::Color& color)
 {
     this->setPixel(vec.x, vec.y, color);
 }
