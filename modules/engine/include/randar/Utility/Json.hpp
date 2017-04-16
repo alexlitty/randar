@@ -7,6 +7,16 @@ using Json = nlohmann::json;
 namespace randar
 {
     template <typename T>
+    Json toJson(const std::vector<T*>& vector)
+    {
+        Json result;
+        for (auto item : vector) {
+            result.push_back(item->toJson());
+        }
+        return result;
+    }
+
+    template <typename T>
     Json toJson(const std::map<std::string, T*>& items)
     {
         Json result;
