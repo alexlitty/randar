@@ -198,39 +198,12 @@ function build(options, done) {
         'arrays_javascript.i'
     ].map(x => `%include "${x}"`));
 
-    swigContents += '%template(stringvector) std::vector<std::string>;\n';
-
     // Define our wrapping module.
+    const includes = sortedHeaders.map(filename => `#include "${filename}"`);
     addSwigLines(
-        ['%module engine', '%{']
-        .concat(sortedHeaders.map(filename => `#include "${filename}"`))
-        .concat(['%}'])
+        ['%module engine', '%{'].concat(includes).concat(['%}'])
+        .concat(includes.map(line => line.replace('#', '%')))
     );
-
-    addSwigLines(sortedHeaders.reduce((lines, filename) => {
-        lines.push(`%include "${filename}"`);
-    
-        var re = /typedef\s+([A-Za-z0-9_]+<[A-Za-z0-9_]+>)\s+([A-Za-z0-9_:]+);/g;
-        var match;
-        do {
-            if (match = re.exec(headerContents[filename])) {
-                var alias = match[2];
-                var original = match[1];
-
-                if (original.indexOf('::') == -1) {
-                    original = `randar::${original}`;
-                }
-
-                lines.push(`%template(${alias}) ${original}`);
-            }
-        } while (match);
-
-        return lines;
-    }, []));
-
-    addSwigLines([
-        //'%template(UInt32Dimensional2) randar::Dimensional2<uint32_t>'
-    ]);
 
     // Describe the complete compilation of the engine node module.
     const gypBinding = {
