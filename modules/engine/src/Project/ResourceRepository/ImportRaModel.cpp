@@ -41,9 +41,11 @@ void randar::ResourceRepository::importRaModel(const File& file)
         stream.read(vertex.position.y);
         stream.read(vertex.position.z);
         
-        stream.read(vertex.color.r);
-        stream.read(vertex.color.g);
-        stream.read(vertex.color.b);
+        float r, g, b;
+        stream.read(r);
+        stream.read(g);
+        stream.read(b);
+        vertex.color.set(r, g, b);
 
         stream.read(vertex.textureId);
         stream.read(vertex.textureCoordinate.u);
