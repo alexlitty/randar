@@ -18,8 +18,8 @@
     var options = { };
 
     args.forEach(function(arg) {
-        if (arg === 'full=yes') {
-            options.full = true;
+        if (arg === 'rebuild=yes') {
+            options.rebuild = true;
         }
 
         else {

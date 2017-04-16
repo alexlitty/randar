@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "node scripts/build.js",
-    "build-full": "node scripts/build.js full=yes",
+    "rebuild": "node scripts/build.js rebuild=yes",
     "install": "node scripts/install.js",
     "start": "electron modules/ui/"
   },
