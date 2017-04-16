@@ -1,4 +1,3 @@
-#include <tinydir.h>
 #include <randar/Filesystem/Directory.hpp>
 
 // A static directory of temporary files.
