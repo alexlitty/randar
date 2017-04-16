@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <randar/Filesystem/Endian.hpp>
+#include <randar/Render/Color.hpp>
 
 namespace randar
 {
@@ -25,6 +26,14 @@ namespace randar
          */
         template <typename T>
         void write(const T& value)
+        {
+            this->stream.write(reinterpret_cast<const char*>(&value), sizeof value);
+        }
+
+        /**
+         * Writes numeric values to the file.
+         */
+        void write(float value)
         {
             this->stream.write(reinterpret_cast<const char*>(&value), sizeof value);
         }
