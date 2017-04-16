@@ -26,10 +26,10 @@ void randar::Vertex::appendTo(GLfloat* array) const
     array[0]  = position.x;
     array[1]  = position.y;
     array[2]  = position.z;
-    array[3]  = color.r;
-    array[4]  = color.g;
-    array[5]  = color.b;
-    array[6]  = color.a;
+    array[3]  = color.r();
+    array[4]  = color.g();
+    array[5]  = color.b();
+    array[6]  = color.a();
 
     // Joints.
     array[7]  = 0;
