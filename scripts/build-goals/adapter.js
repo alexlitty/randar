@@ -49,7 +49,7 @@ function publish(filename, contents, sensitive, done) {
     }
 }
 
-function run(command, args, expectedFilename, done) {
+function run(command, args, successMessage, done) {
     const program = spawn(command, args, {
         cwd   : adapterDir,
         stdio : 'inherit'
@@ -57,7 +57,7 @@ function run(command, args, expectedFilename, done) {
 
     program.on('close', (err) => {
         if (!err) {
-            console.log('Published', path.join(adapterDir, expectedFilename));
+            console.log(successMessage);
         }
         done(err);
     });
@@ -261,9 +261,27 @@ function build(options, done) {
                 '-o', wrapFilename,
                 swigFilename
             ],
-            wrapFilename,
+            `Published ${path.join(adapterDir, wrapFilename)}`,
             next
         ),
+
+        // Initiate a rebuild if desired.
+        (next) => {
+            if (!options.rebuild) {
+                next();
+            } else {
+                run('node-gyp', ['clean'], 'Full rebuild initiated', next)
+            }
+        },
+
+        // Configure compilation if required.
+        (next) => {
+            if (fs.existsSync(path.join(adapterDir, 'build'))) {
+                next();
+            } else {
+                run('node-gyp', ['configure'], 'Ready to compile adapter', next);
+            }
+        },
 
         // Creates an importable node module for our engine.
         (next) => run(
@@ -272,7 +290,7 @@ function build(options, done) {
                 'build',
                 '-j', '4'
             ],
-            moduleFilename,
+            `Published ${path.join(adapterDir, moduleFilename)}`,
             next
         )
     ], done);
