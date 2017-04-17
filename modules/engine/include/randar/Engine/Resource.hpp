@@ -7,11 +7,6 @@
 namespace randar
 {
     /**
-     * Resolve circular dependencies with the GPU.
-     */
-    class Gpu;
-
-    /**
      * A resource, which may or may not be fully loaded into memory.
      *
      * Resource objects begin as a self-description. They can initialized into
@@ -20,9 +15,6 @@ namespace randar
      */
     class Resource
     {
-    protected:
-        Gpu& gpu;
-
     public:
         /**
          * An ID that may be set to uniquely identify this resource.

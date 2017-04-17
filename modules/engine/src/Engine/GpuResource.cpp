@@ -1,8 +1,9 @@
 #include <randar/Engine/GpuResource.hpp>
 
 // Constructors and destructor.
-randar::GpuResource::GpuResource()
-: glName(0)
+randar::GpuResource::GpuResource(randar::Gpu* initGpu)
+: gpu(initGpu),
+  glName(0)
 {
 
 }

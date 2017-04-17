@@ -2,8 +2,7 @@
 #include <randar/Engine/Gpu.hpp>
 
 randar::Resource::Resource(const std::string& initName)
-: gpu(randar::getDefaultGpu()),
-  name(initName)
+: name(initName)
 {
 
 }
