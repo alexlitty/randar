@@ -41,6 +41,7 @@ namespace randar
          * New texture constructor.
          */
         Texture(
+            Gpu* gpuInit,
             std::string initType,
             uint32_t initWidth,
             uint32_t initHeight);

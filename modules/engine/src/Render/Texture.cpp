@@ -4,10 +4,12 @@
 
 // New texture constructor.
 randar::Texture::Texture(
+    randar::Gpu* gpuInit,
     std::string initType,
     uint32_t initWidth,
     uint32_t initHeight
 ) :
+  randar::GpuResource(gpuInit),
   type(initType),
   width(initWidth),
   height(initHeight)
@@ -20,7 +22,9 @@ randar::Texture::Texture(
         );
     }
 
-    this->gpu.initialize(*this);
+    if (this->gpu) {
+        this->gpu->initialize(*this);
+    }
 }
 
 // Construct from a file.
@@ -32,7 +36,9 @@ randar::Texture::Texture(const std::string& file)
 // Destructor.
 randar::Texture::~Texture()
 {
-    this->gpu.destroy(*this);
+    if (this->gpu) {
+        this->gpu->destroy(*this);
+    }
 }
 
 // Saves this texture to its file.
@@ -90,7 +96,9 @@ void randar::Texture::clear(const Color& color)
         values.push_back(color.a());
     }
 
-    this->gpu.write(*this, values.data(), GL_RGBA);
+    if (this->gpu) {
+        this->gpu->write(*this, values.data(), GL_RGBA);
+    }
 }
 
 // Resizes this texture.
@@ -98,7 +106,9 @@ void randar::Texture::resize(unsigned int width, unsigned int height)
 {
     this->width = width;
     this->height = height;
-    this->gpu.resize(*this);
+    if (this->gpu) {
+        this->gpu->resize(*this);
+    }
 }
 
 // Writes texture data to the GPU.
@@ -121,7 +131,9 @@ void randar::Texture::write(
     const GLvoid* data,
     GLenum format)
 {
-    this->gpu.write(*this, rect, data, format);
+    if (this->gpu) {
+        this->gpu->write(*this, rect, data, format);
+    }
 }
 
 // Retrieves the width and height of this texture.
