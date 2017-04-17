@@ -27,12 +27,13 @@ namespace randar
         ::XVisualInfo *visualInfo;
         ::GLXContext context;
 
+        Dimensional2<uint32_t> pbufferDimensions;
+        Framebuffer *defaultFb;
+
         ::GLuint boundFramebuffer;
         ::GLuint boundTexture;
 
     public:
-        Framebuffer defaultFramebuffer;
-
         Gpu();
         ~Gpu();
 
@@ -40,6 +41,16 @@ namespace randar
          * Makes the context of this GPU current.
          */
         void use();
+
+        /**
+         * Retrieves the dimensions of the default framebuffer.
+         */
+        Dimensional2<uint32_t> defaultFramebufferDimensions() const;
+
+        /**
+         * Retrieves the default framebuffer.
+         */
+        Framebuffer& defaultFramebuffer();
 
         /**
          * Initializes a resource on the GPU.

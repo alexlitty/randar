@@ -4,6 +4,8 @@
 // Construction.
 randar::Gpu::Gpu()
 {
+    this->pbufferDimensions.resize(800, 600);
+
     int fbAttribs[] = { 
         GLX_X_RENDERABLE, true,
         GLX_DRAWABLE_TYPE, GLX_PBUFFER_BIT,
@@ -20,8 +22,8 @@ randar::Gpu::Gpu()
     };
 
     int pbAttribs[] = {
-        GLX_PBUFFER_WIDTH, 800,
-        GLX_PBUFFER_HEIGHT, 600,
+        GLX_PBUFFER_WIDTH, this->pbufferDimensions.getWidth(),
+        GLX_PBUFFER_HEIGHT, this->pbufferDimensions.getHeight(),
         None
     };
 
@@ -77,6 +79,9 @@ randar::Gpu::Gpu()
 
     ::glEnable(GL_BLEND);
     ::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // Configure default framebuffer.
+    this->defaultFb = new Framebuffer(*this);
 }
 
 // Destruction.
@@ -85,6 +90,18 @@ randar::Gpu::~Gpu()
     ::glXDestroyContext(this->display, this->context);
     ::XFree(this->display);
     ::XFree(this->visualInfo);
+}
+
+// Retrieves the dimensions of the default framebuffer.
+randar::Dimensional2<uint32_t> randar::Gpu::defaultFramebufferDimensions() const
+{
+    return this->pbufferDimensions;
+}
+
+// Retrieves the default framebuffer.
+randar::Framebuffer& randar::Gpu::defaultFramebuffer()
+{
+    return *this->defaultFb;
 }
 
 // Makes the context of this GPU current.
