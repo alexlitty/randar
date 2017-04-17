@@ -8,16 +8,16 @@ namespace randar
 {
     class Camera : virtual public Transform
     {
-        bool isOrtho;
-        float orthoLeft;
-        float orthoRight;
-        float orthoBottom;
-        float orthoTop;
+        bool isOrtho = false;
+        float orthoLeft = 0;
+        float orthoRight = 1;
+        float orthoBottom = 0;
+        float orthoTop = 1;
 
-        Angle fieldOfView;
-        float aspectRatio;
-        float nearZ;
-        float farZ;
+        Angle fieldOfView = 45.0f;
+        float aspectRatio = 4.0f / 3.0f;
+        float nearZ = 0.1f;
+        float farZ = 100.0f;
 
         Vector3 target;
 

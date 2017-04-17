@@ -1,11 +1,6 @@
 #include <randar/Render/Camera.hpp>
 
 randar::Camera::Camera()
-: isOrtho(false),
-  fieldOfView(45.0f),
-  aspectRatio(4.0f / 3.0f),
-  nearZ(0.1f),
-  farZ(100.0f)
 {
     this->updateMatrices();
 }
