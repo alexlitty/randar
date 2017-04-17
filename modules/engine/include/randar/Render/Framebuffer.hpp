@@ -7,6 +7,8 @@
 
 namespace randar
 {
+    class Gpu;
+
     /**
      * A framebuffer.
      *
@@ -25,19 +27,20 @@ namespace randar
         uint32_t width;
         uint32_t height;
 
+        /**
+         * Constructs a default framebuffer.
+         *
+         * The default framebuffer is created outside this class. This is simply
+         * a representation of it. To get a copy of this, it must be created by
+         * a Gpu instance.
+         */
+        Framebuffer();
+
     public:
         /**
          * Camera used to view this framebuffer.
          */
         Camera camera;
-
-        /**
-         * Constructs a default framebuffer.
-         *
-         * The default framebuffer is created outside of Randar. This is simply
-         * a representation of it.
-         */
-        Framebuffer();
 
         /**
          * Constructs and initializes new framebuffer.
@@ -54,15 +57,6 @@ namespace randar
          * Destructor.
          */
         ~Framebuffer();
-
-        /**
-         * Retrieves the default framebuffer.
-         *
-         * This is a special framebuffer automatically provided by OpenGL upon
-         * context creation. Since Randar never creates it manually, we treat it
-         * as a globally available framebuffer.
-         */
-        static Framebuffer& getDefault();
 
         /**
          * Whether this is the default framebuffer.

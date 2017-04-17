@@ -31,6 +31,8 @@ namespace randar
         ::GLuint boundTexture;
 
     public:
+        Framebuffer defaultFramebuffer;
+
         Gpu();
         ~Gpu();
 

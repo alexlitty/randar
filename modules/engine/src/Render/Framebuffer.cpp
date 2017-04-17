@@ -53,13 +53,6 @@ randar::Framebuffer::~Framebuffer()
     }
 }
 
-// Retrieves the default framebuffer.
-randar::Framebuffer& randar::Framebuffer::getDefault()
-{
-    static Framebuffer defaultFramebuffer;
-    return defaultFramebuffer;
-}
-
 // Whether this is the default framebuffer.
 bool randar::Framebuffer::isDefault() const
 {
