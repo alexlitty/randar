@@ -1,4 +1,4 @@
-#include <randar/Project/ResourceRepository.hpp>
+/*#include <randar/Project/ResourceRepository.hpp>
 #include <randar/Filesystem/BinaryFileReader.hpp>
 
 void randar::ResourceRepository::importRaTexture(const randar::File& file)
@@ -36,4 +36,4 @@ void randar::ResourceRepository::importRaTexture(const randar::File& file)
         delete texture;
         throw std::runtime_error("Corrupt raTexture data");
     }
-}
+}*/

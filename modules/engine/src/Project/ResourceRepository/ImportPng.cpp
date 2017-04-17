@@ -1,4 +1,4 @@
-#include <pngpp/image.hpp>
+/*#include <pngpp/image.hpp>
 #include <randar/Project/ResourceRepository.hpp>
 
 void randar::ResourceRepository::importPng(const randar::File& file)
@@ -27,4 +27,4 @@ void randar::ResourceRepository::importPng(const randar::File& file)
 
     this->gpu.write(*texture);
     this->addTexture(texture);
-}
+}*/

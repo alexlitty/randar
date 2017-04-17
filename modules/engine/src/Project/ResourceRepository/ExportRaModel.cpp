@@ -1,7 +1,7 @@
-#include <randar/Project/ResourceRepository.hpp>
-#include <randar/Filesystem/BinaryFileWriter.hpp>
+//#include <randar/Project/ResourceRepository.hpp>
+//#include <randar/Filesystem/BinaryFileWriter.hpp>
 
-void randar::ResourceRepository::exportRaModel(uint32_t modelId)
+/*void randar::ResourceRepository::exportRaModel(uint32_t modelId)
 {
     Model *model = this->models[modelId];
     if (!model) {
@@ -42,10 +42,10 @@ void randar::ResourceRepository::exportRaModel(uint32_t modelId)
         stream.write(vertex.textureCoordinate.u);
         stream.write(vertex.textureCoordinate.v);
 
-        /*for (auto jointWeight : vertex.jointWeights) {
+        for (auto jointWeight : vertex.jointWeights) {
             stream.write(jointWeight.first);
             stream.write(jointWeight.second);
-        }*/
+        }
     }
 
     // Write faces.
@@ -69,4 +69,4 @@ void randar::ResourceRepository::exportRaModel(uint32_t modelId)
             stream.write(false);
         }
     }
-}
+}*/

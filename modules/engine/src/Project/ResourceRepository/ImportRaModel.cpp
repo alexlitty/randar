@@ -1,4 +1,4 @@
-#include <randar/Project/ResourceRepository.hpp>
+/*#include <randar/Project/ResourceRepository.hpp>
 #include <randar/Filesystem/BinaryFileReader.hpp>
 
 void randar::ResourceRepository::importRaModel(const File& file)
@@ -116,4 +116,4 @@ void randar::ResourceRepository::importRaModel(const File& file)
 
     this->gpu.write(*model);
     this->models[model->id.get()] = model;
-}
+}*/

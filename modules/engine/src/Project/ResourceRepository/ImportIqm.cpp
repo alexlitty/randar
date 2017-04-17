@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <randar/Project/ResourceRepository.hpp>
 #include <randar/Utility/iqm.hpp>
 
@@ -106,4 +106,4 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
     model->meshTextures.push_back(nullptr);
 
     this->addModel(model);
-}
+}*/
