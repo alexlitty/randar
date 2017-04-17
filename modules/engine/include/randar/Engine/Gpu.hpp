@@ -28,7 +28,7 @@ namespace randar
         ::GLXContext context;
 
         Dimensional2<uint32_t> pbufferDimensions;
-        Framebuffer *defaultFb;
+        Framebuffer* defaultFb;
 
         ::GLuint boundFramebuffer;
         ::GLuint boundTexture;

@@ -81,7 +81,7 @@ randar::Gpu::Gpu()
     ::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Configure default framebuffer.
-    this->defaultFb = new Framebuffer(*this);
+    this->defaultFb = new Framebuffer(*this, this->defaultFramebufferDimensions());
 }
 
 // Destruction.
