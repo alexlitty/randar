@@ -1,6 +1,7 @@
 #include <randar/Render/DefaultTexture.hpp>
 
 randar::Texture& randar::getDefaultTexture(
+    Gpu& gpu,
     const std::string& type,
     uint32_t width,
     uint32_t height)
@@ -12,7 +13,7 @@ randar::Texture& randar::getDefaultTexture(
 
     auto dimensions = std::make_pair(width, height);
     if (defaultTextures[type][dimensions] == nullptr) {
-        Texture *texture = new Texture(type, width, height);
+        Texture *texture = new Texture(&gpu, type, width, height);
         texture->clear();
 
         defaultTextures[type][dimensions] = texture;
