@@ -2,43 +2,46 @@
 #include <randar/Engine/Gpu.hpp>
 
 // Constructs a default framebuffer.
-randar::Framebuffer::Framebuffer(const randar::Gpu& gpu)
-: isDefaultFramebuffer(true),
+randar::Framebuffer::Framebuffer(randar::Gpu& gpuInit)
+: randar::GpuResource(&gpuInit),
+  isDefaultFramebuffer(true),
   texture(nullptr),
   depthBuffer(nullptr)
 {
-    this->resize(gpu.defaultFramebufferDimensions());
+    this->resize(this->gpu->defaultFramebufferDimensions());
 }
 
 // Constructs and initializes a new framebuffer.
 randar::Framebuffer::Framebuffer(
+    randar::Gpu& gpuInit,
     std::string textureType,
     bool enableDepthBuffer,
     uint32_t initWidth,
     uint32_t initHeight)
-: isDefaultFramebuffer(false),
-  texture(new randar::Texture(textureType, initWidth, initHeight)),
-  depthBuffer(new randar::Renderbuffer(randar::Renderbuffer::DEPTH, initWidth, initHeight)),
+: randar::GpuResource(&gpuInit),
+  isDefaultFramebuffer(false),
+  texture(new randar::Texture(this->gpu, textureType, initWidth, initHeight)),
+  depthBuffer(new randar::Renderbuffer(this->gpu, randar::Renderbuffer::DEPTH, initWidth, initHeight)),
   width(initWidth),
   height(initHeight)
 {
-    this->gpu.initialize(*this);
+    this->gpu->initialize(*this);
 }
 
 // Destructor.
 randar::Framebuffer::~Framebuffer()
 {
     if (this->isInitialized()) {
-        this->gpu.destroy(*this);
+        this->gpu->destroy(*this);
     }
 
     if (this->hasTexture()) {
-        this->gpu.destroy(*this->texture);
+        this->gpu->destroy(*this->texture);
         delete this->texture;
     }
 
     if (this->hasDepthBuffer()) {
-        this->gpu.destroy(*this->depthBuffer);
+        this->gpu->destroy(*this->depthBuffer);
         delete this->depthBuffer;
     }
 }
@@ -58,7 +61,7 @@ bool randar::Framebuffer::isInitialized() const
 // Clears the framebuffer with an optional color.
 void randar::Framebuffer::clear(const randar::Color& color)
 {
-    this->gpu.clear(*this, color);
+    this->gpu->clear(*this, color);
 }
 
 // Resizes this framebuffer and its dependencies.
@@ -71,7 +74,7 @@ void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
     this->width = newWidth;
     this->height = newHeight;
-    this->gpu.resize(*this);
+    this->gpu->resize(*this);
 }
 
 // Gets the width of this framebuffer.

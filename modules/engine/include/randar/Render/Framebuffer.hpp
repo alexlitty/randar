@@ -8,8 +8,6 @@
 
 namespace randar
 {
-    class Gpu;
-
     /**
      * A framebuffer.
      *
@@ -34,7 +32,7 @@ namespace randar
          * The actual framebuffer is created outside this class. This is simply
          * a representation of it.
          */
-        Framebuffer(const Gpu& gpu);
+        Framebuffer(Gpu& gpuInit);
 
     public:
         friend Gpu;
@@ -50,6 +48,7 @@ namespace randar
          * @todo - Throw exception if not initialized.
          */
         Framebuffer(
+            Gpu& gpuInit,
             std::string textureType,
             bool enableDepthBuffer = false,
             unsigned int initWidth = 1,
