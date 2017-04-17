@@ -2,10 +2,10 @@
 #include <randar/Engine/EngineMonitor.hpp>
 #include <randar/Engine/Gpu.hpp>
 
-randar::EngineMonitor::EngineMonitor()
+/*randar::EngineMonitor::EngineMonitor()
 : newTarget(false),
   monitorFramebuffer("rgba", true),
-  camera(monitorFramebuffer.camera)
+  camera(this->monitorFramebuffer.camera)
 {
     this->clearTarget();
 
@@ -221,4 +221,4 @@ void randar::EngineMonitor::draw()
     // Draw monitor framebuffer onto screen model.
     this->gpu.bind(this->monitorFramebuffer.getTexture());
     this->gpu.draw(this->screenProgram, this->defaultFramebuffer, this->screen);
-}
+}*/
