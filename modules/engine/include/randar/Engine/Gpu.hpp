@@ -6,6 +6,7 @@
 #include <GL/glx.h>
 #include <randar/Math/Rect.hpp>
 #include <randar/Render.hpp>
+#include <randar/Render/Image.hpp>
 #include <randar/Utility/glm.hpp>
 
 namespace randar
@@ -21,6 +22,8 @@ namespace randar
     {
     protected:
         ::Display *display;
+        ::GLXFBConfig *fbConfig;
+        ::GLXPbuffer pbuffer;
         ::XVisualInfo *visualInfo;
         ::GLXContext context;
 
@@ -90,7 +93,8 @@ namespace randar
         /**
          * Reads the underlying data of a GPU resource.
          */
-        Color read(Framebuffer& framebuffer);
+        void read(Framebuffer& framebuffer, Image& image);
+        Image read(Framebuffer& framebuffer);
 
         /**
          * Gets the location of a shader program uniform.

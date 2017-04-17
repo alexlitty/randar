@@ -1,14 +1,12 @@
 #include <randar/Engine/Gpu.hpp>
 #include <randar/Render/DefaultTexture.hpp>
 
-
-
 // Construction.
 randar::Gpu::Gpu()
 {
-    static int attribs[] = { 
+    int fbAttribs[] = { 
         GLX_X_RENDERABLE, true,
-        GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT,
+        GLX_DRAWABLE_TYPE, GLX_PBUFFER_BIT,
         GLX_RENDER_TYPE, GLX_RGBA_BIT,
         GLX_X_VISUAL_TYPE, GLX_TRUE_COLOR,
         GLX_RED_SIZE, 8,
@@ -21,24 +19,34 @@ randar::Gpu::Gpu()
         None
     };
 
+    int pbAttribs[] = {
+        GLX_PBUFFER_WIDTH, 800,
+        GLX_PBUFFER_HEIGHT, 600,
+        None
+    };
+
     // Create an OpenGL context.
     this->display = ::XOpenDisplay(nullptr);
     if (!this->display) {
         throw std::runtime_error("Failed to open X display");
     }
 
-    int fbcount;
-    ::GLXFBConfig *fbc = ::glXChooseFBConfig(
+    int fbCount;
+    this->fbConfig = ::glXChooseFBConfig(
         this->display,
         DefaultScreen(this->display),
-        attribs,
-        &fbcount);
-    if (fbcount == 0) {
+        fbAttribs,
+        &fbCount);
+    if (fbCount == 0) {
         throw std::runtime_error("No framebuffers available");
     }
 
-    this->visualInfo = ::glXGetVisualFromFBConfig(this->display, fbc[0]);
-    ::XFree(fbc);
+    this->pbuffer = ::glXCreatePbuffer(this->display, this->fbConfig[0], pbAttribs);
+    if (!this->pbuffer) {
+        throw std::runtime_error("Failed to create pixel buffer");
+    }
+
+    this->visualInfo = ::glXGetVisualFromFBConfig(this->display, this->fbConfig[0]);
     if (!this->visualInfo) {
         throw std::runtime_error("No appropriate visual found");
     }
@@ -595,30 +603,27 @@ void randar::Gpu::write(randar::Model& model)
 }
 
 // Reads the contents of a framebuffer from the GPU.
-randar::Color randar::Gpu::read(randar::Framebuffer& framebuffer)
+void randar::Gpu::read(randar::Framebuffer& framebuffer, randar::Image& image)
 {
-    GLfloat *data = new GLfloat[64];
-
     this->bind(framebuffer);
+
     ::glReadPixels(
         0,
         0,
-        1,
-        1,
+        image.getWidth(),
+        image.getHeight(),
         GL_RGBA,
         GL_FLOAT,
-        data
+        image.raw()
     );
+}
 
-    Color result(
-        data[0],
-        data[1],
-        data[2],
-        data[3]
-    );
-
-    delete[] data;
-    return result;
+randar::Image randar::Gpu::read(randar::Framebuffer& framebuffer)
+{
+    Image image;
+    image.resize(64, 64);
+    this->read(framebuffer, image);
+    return image;
 }
 
 // Gets the location of a shader program uniform.
