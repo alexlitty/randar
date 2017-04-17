@@ -7,6 +7,13 @@ randar::Image::Image()
 
 }
 
+// Copy constructor.
+randar::Image::Image(const randar::Image& other)
+: randar::Image()
+{
+    *this = other;
+}
+
 // Destructor.
 randar::Image::~Image()
 {
@@ -18,6 +25,7 @@ void randar::Image::freeData()
 {
     if (this->data) {
         delete[] this->data;
+        this->data = nullptr;
     }
 }
 
@@ -106,4 +114,18 @@ float* randar::Image::raw()
 uint32_t randar::Image::rawSize() const
 {
     return this->getWidth() * this->getHeight() * 4;
+}
+
+// Assignment operator.
+randar::Image& randar::Image::operator =(const randar::Image& other)
+{
+    this->resize(other.getWidth(), other.getHeight());
+
+    for (uint32_t x = 0; x < this->getWidth(); x++) {
+        for (uint32_t y = 0; y < this->getHeight(); y++) {
+            this->setPixel(x, y, other.getPixel(x, y));
+        }
+    }
+
+    return *this;
 }

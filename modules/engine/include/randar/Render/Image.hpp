@@ -29,6 +29,11 @@ namespace randar
         Image();
 
         /**
+         * Copy constructor.
+         */
+        Image(const Image& other);
+
+        /**
          * Destructor.
          */
         ~Image();
@@ -111,6 +116,11 @@ namespace randar
          * Retrieves the expected element size of the raw array.
          */
         uint32_t rawSize() const;
+
+        /**
+         * Assignment operator.
+         */
+        Image& operator =(const Image& other);
     };
 }
 
