@@ -2,12 +2,15 @@
 #include <randar/Engine/Gpu.hpp>
 
 // Constructor.
-randar::Renderbuffer::Renderbuffer(randar::Renderbuffer::Type initType, unsigned int initWidth, unsigned int initHeight)
-: type(initType),
+randar::Renderbuffer::Renderbuffer(randar::Gpu* gpuInit, randar::Renderbuffer::Type initType, unsigned int initWidth, unsigned int initHeight)
+: randar::GpuResource(gpuInit),
+  type(initType),
   width(initWidth),
   height(initHeight)
 {
-    this->gpu.initialize(*this);
+    if (this->gpu) {
+        this->gpu->initialize(*this);
+    }
 }
 
 // Constructs a new renderbuffer from an existing one.
@@ -16,17 +19,23 @@ randar::Renderbuffer::Renderbuffer(const randar::Renderbuffer& other)
   width(other.width),
   height(other.height)
 {
-    this->gpu.initialize(*this);
+    if (this->gpu) {
+        this->gpu->initialize(*this);
+    }
 }
 
 // Destructor.
 randar::Renderbuffer::~Renderbuffer()
 {
-    this->gpu.destroy(*this);
+    if (this->gpu) {
+        this->gpu->destroy(*this);
+    }
 }
 
 // Resizes this framebuffer.
 void randar::Renderbuffer::resize(unsigned int width, unsigned int height)
 {
-    this->gpu.resize(*this, width, height);
+    if (this->gpu) {
+        this->gpu->resize(*this, width, height);
+    }
 }

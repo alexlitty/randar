@@ -20,6 +20,7 @@ namespace randar
          * Constructor.
          */
         Renderbuffer(
+            Gpu* gpuInit = nullptr,
             Type initType = Renderbuffer::Type::INVALID,
             unsigned int initWidth = 1,
             unsigned int initHeight = 1);
