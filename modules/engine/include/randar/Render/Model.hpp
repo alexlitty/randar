@@ -26,10 +26,8 @@ namespace randar
 
         /**
          * Constructs a new model.
-         *
-         * Must be manually initialized on the GPU.
          */
-        Model();
+        Model(Gpu* gpuInit = nullptr);
 
         /**
          * Destructor.

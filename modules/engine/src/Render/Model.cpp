@@ -2,7 +2,10 @@
 #include <randar/Engine/Gpu.hpp>
 
 // Constructs a new model.
-randar::Model::Model()
+randar::Model::Model(randar::Gpu* gpuInit)
+: randar::GpuResource(gpuInit),
+  vertexBuffer(*gpuInit),
+  faceBuffer(*gpuInit)
 {
 
 }
@@ -10,8 +13,10 @@ randar::Model::Model()
 // Destructor.
 randar::Model::~Model()
 {
-    this->gpu.destroy(this->vertexBuffer);
-    this->gpu.destroy(this->faceBuffer);
+    if (this->gpu) {
+        this->gpu->destroy(this->vertexBuffer);
+        this->gpu->destroy(this->faceBuffer);
+    }
 
     for (auto joint : this->joints) {
         delete joint;
