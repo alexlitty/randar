@@ -8,13 +8,3 @@ randar::Light::Light()
 {
 
 }
-
-void randar::Light::initialize()
-{
-    this->gpu.initialize(this->shaderProgram);
-}
-
-void randar::Light::destroy()
-{
-    this->gpu.destroy(this->shaderProgram);
-}

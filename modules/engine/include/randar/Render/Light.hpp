@@ -13,9 +13,6 @@ namespace randar
         ShaderProgram shaderProgram;
 
         Light();
-
-        virtual void initialize() override;
-        virtual void destroy() override;
     };
 }
 
