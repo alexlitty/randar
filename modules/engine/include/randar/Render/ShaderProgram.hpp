@@ -23,7 +23,7 @@ namespace randar
         /**
          * Constructs a new shader program.
          */
-        ShaderProgram();
+        ShaderProgram(Gpu* gpuInit = nullptr);
 
         /**
          * Constructs a new shader program as a copy of an existing one.
