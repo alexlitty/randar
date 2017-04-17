@@ -2,13 +2,15 @@
 #include <randar/Engine/Gpu.hpp>
 
 // Constructs a default framebuffer.
-randar::Framebuffer::Framebuffer(randar::Gpu& gpuInit)
+randar::Framebuffer::Framebuffer(randar::Gpu& gpuInit, randar::Dimensional2<uint32_t> dims)
 : randar::GpuResource(&gpuInit),
   isDefaultFramebuffer(true),
+  width(dims.getWidth()),
+  height(dims.getHeight()),
   texture(nullptr),
   depthBuffer(nullptr)
 {
-    this->resize(this->gpu->defaultFramebufferDimensions());
+
 }
 
 // Constructs and initializes a new framebuffer.
@@ -72,9 +74,11 @@ void randar::Framebuffer::resize(randar::Dimensional2<uint32_t> dimensions)
 
 void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    this->width = newWidth;
-    this->height = newHeight;
-    this->gpu->resize(*this);
+    if (!this->isDefault()) {
+        this->width = newWidth;
+        this->height = newHeight;
+        this->gpu->resize(*this);
+    }
 }
 
 // Gets the width of this framebuffer.

@@ -32,7 +32,7 @@ namespace randar
          * The actual framebuffer is created outside this class. This is simply
          * a representation of it.
          */
-        Framebuffer(Gpu& gpuInit);
+        Framebuffer(Gpu& gpuInit, Dimensional2<uint32_t> dims);
 
     public:
         friend Gpu;
