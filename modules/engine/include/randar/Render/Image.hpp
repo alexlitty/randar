@@ -110,7 +110,7 @@ namespace randar
         /**
          * Retrieves the expected element size of the raw array.
          */
-        uint32_t rawSize();
+        uint32_t rawSize() const;
     };
 }
 
