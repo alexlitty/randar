@@ -759,7 +759,7 @@ void randar::Gpu::draw(
         Texture *texture = model.meshTextures[i];
 
         if (!texture) {
-            texture = &randar::getDefaultTexture("rgba", 1, 1);
+            texture = &randar::getDefaultTexture(*this, "rgba", 1, 1);
         }
 
         ::glActiveTexture(GL_TEXTURE0 + i);
