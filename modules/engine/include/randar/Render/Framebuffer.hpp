@@ -1,6 +1,7 @@
 #ifndef RANDAR_RENDER_FRAMEBUFFER_HPP
 #define RANDAR_RENDER_FRAMEBUFFER_HPP
 
+#include <randar/Math/Dimensional2.hpp>
 #include <randar/Render/Camera.hpp>
 #include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
@@ -30,13 +31,14 @@ namespace randar
         /**
          * Constructs a default framebuffer.
          *
-         * The default framebuffer is created outside this class. This is simply
-         * a representation of it. To get a copy of this, it must be created by
-         * a Gpu instance.
+         * The actual framebuffer is created outside this class. This is simply
+         * a representation of it.
          */
-        Framebuffer();
+        Framebuffer(const Gpu& gpu);
 
     public:
+        friend Gpu;
+
         /**
          * Camera used to view this framebuffer.
          */
@@ -76,6 +78,7 @@ namespace randar
         /**
          * Resizes this framebuffer and its dependencies.
          */
+        void resize(Dimensional2<uint32_t> dimensions);
         void resize(uint32_t newWidth, uint32_t newHeight);
 
         /**
