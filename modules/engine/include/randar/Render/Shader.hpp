@@ -13,7 +13,7 @@ namespace randar
         /**
          * Constructs a new uninitialized shader.
          */
-        Shader();
+        Shader(Gpu* initGpu = nullptr);
 
         /**
          * Constructs a new shader as a copy of an existing one.

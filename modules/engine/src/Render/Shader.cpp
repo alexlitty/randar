@@ -2,7 +2,8 @@
 #include <randar/Engine/Gpu.hpp>
 
 // Constructs a new uninitialized shader.
-randar::Shader::Shader()
+randar::Shader::Shader(randar::Gpu* gpuInit)
+: randar::GpuResource(gpuInit)
 {
 
 }
@@ -20,22 +21,27 @@ randar::Shader::Shader(
 : shaderType(initShaderType),
   code(initCode)
 {
-    this->gpu.initialize(*this);
+    if (this->gpu) {
+        this->gpu->initialize(*this);
+    }
 }
 
 // Destructor.
 randar::Shader::~Shader() {
-    this->gpu.destroy(*this);
+    if (this->gpu) {
+        this->gpu->destroy(*this);
+    }
 }
 
 // Assignment operator.
 randar::Shader& randar::Shader::operator =(const randar::Shader& other)
 {
+    this->gpu = other.gpu;
     this->shaderType = other.shaderType;
     this->code = other.code;
 
     if (other.isInitialized()) {
-        this->gpu.initialize(*this);
+        this->gpu->initialize(*this);
     }
 
     return *this;
