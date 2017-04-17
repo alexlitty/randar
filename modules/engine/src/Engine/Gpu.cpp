@@ -794,10 +794,3 @@ void randar::Gpu::finish()
 {
     ::glFinish();
 }
-
-// Retrieves the default GPU context.
-randar::Gpu& randar::getDefaultGpu()
-{
-    static Gpu defaultGpu;
-    return defaultGpu;
-}

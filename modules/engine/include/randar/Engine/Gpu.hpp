@@ -166,11 +166,6 @@ namespace randar
          */
         void finish();
     };
-
-    /**
-     * Retrieves the default GPU context.
-     */
-    Gpu& getDefaultGpu();
 }
 
 #endif
