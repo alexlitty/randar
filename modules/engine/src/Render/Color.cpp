@@ -15,6 +15,18 @@ randar::Color::Color(float rInit, float gInit, float bInit, float aInit)
     this->set(rInit, gInit,  bInit, aInit);
 }
 
+// Copy constructor.
+randar::Color::Color(const Color& other)
+{
+    this->set(other);
+}
+
+// Sets this color from another color.
+void randar::Color::set(const Color& other)
+{
+    this->set(other.r(), other.g(), other.b(), other.a());
+}
+
 // Safely sets the color using float values.
 void randar::Color::set(float rNew, float gNew, float bNew, float aNew)
 {

@@ -53,6 +53,16 @@ namespace randar
         Color(float rInit, float gInit, float bInit, float aInit = 1.0f);
 
         /**
+         * Copy constructor.
+         */
+        Color(const Color& other);
+
+        /**
+         * Sets this color from another color.
+         */
+        void set(const Color& other);
+
+        /**
          * Safely sets the color using float values.
          *
          * Values are clamped within [0, 1]. If all values are always clamped
