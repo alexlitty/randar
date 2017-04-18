@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <randar/Render/Image.hpp>
 
 // Default constructor.
@@ -35,6 +36,17 @@ void randar::Image::allocateData()
     this->data = new float[this->rawSize()];
 }
 
+// Sets and retrieves the internal data layout.
+void randar::Image::layout(randar::Image::LAYOUT newLayout)
+{
+    this->internalLayout = newLayout;
+}
+
+randar::Image::LAYOUT randar::Image::layout() const
+{
+    return this->internalLayout;
+}
+
 // Resizes the image.
 void randar::Image::resize(uint32_t newWidth, uint32_t newHeight)
 {
@@ -55,7 +67,15 @@ uint32_t randar::Image::getPixelIndex(const randar::Vector2<uint32_t>& vec) cons
 
 uint32_t randar::Image::getPixelIndex(uint32_t x, uint32_t y) const
 {
-    return ((y * this->getWidth()) + (x)) * 4;
+    if (!this->hasDimensions()) {
+        throw std::runtime_error("Image has no dimensions");
+    }
+
+    if (this->internalLayout == Image::LAYOUT::FLIP_VERTICAL) {
+        return ((((this->getHeight() - 1) - y) * this->getWidth()) + x) * 4;
+    } else {
+        return ((y * this->getWidth()) + x) * 4;
+    }
 }
 
 // Gets the color of a pixel.

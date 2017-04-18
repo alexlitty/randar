@@ -9,6 +9,19 @@ namespace randar
 {
     class Image : public Dimensional2<uint32_t>
     {
+    public:
+        /**
+         * A description of an image's pixel layout.
+         */
+        enum class LAYOUT
+        {
+            // Pixels are left-to-right, starting from top-left.
+            NORMAL,
+
+            // Pixels are left-to-right, starting from bottom-left.
+            FLIP_VERTICAL
+        };
+
     protected:
         /**
          * Raw image data.
@@ -19,6 +32,11 @@ namespace randar
          * First pixel is the top-left corner of the image.
          */
         float* data;
+
+        /**
+         * Pixel layout of the raw image data.
+         */
+        LAYOUT internalLayout;
 
     public:
         /**
@@ -52,6 +70,12 @@ namespace randar
         void allocateData();
 
     public:
+        /**
+         * Sets and retrieves the internal data layout.
+         */
+        void layout(LAYOUT newLayout);
+        LAYOUT layout() const;
+
         /**
          * Resizes the image.
          *
