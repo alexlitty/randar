@@ -638,7 +638,7 @@ void randar::Gpu::read(randar::Framebuffer& framebuffer, randar::Image& image)
 randar::Image randar::Gpu::read(randar::Framebuffer& framebuffer)
 {
     Image image;
-    image.resize(64, 64);
+    image.resize(framebuffer.getWidth(), framebuffer.getHeight());
     this->read(framebuffer, image);
     return image;
 }
