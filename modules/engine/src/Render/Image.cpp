@@ -68,10 +68,10 @@ randar::Color randar::Image::getPixel(uint32_t x, uint32_t y) const
 {
     uint32_t index = this->getPixelIndex(x, y);
     return randar::Color(
-        this->data[index++],
-        this->data[index++],
-        this->data[index++],
-        this->data[index++]
+        this->data[index],
+        this->data[index + 1],
+        this->data[index + 2],
+        this->data[index + 3]
     );
 }
 
@@ -98,10 +98,10 @@ void randar::Image::setPixel(uint32_t x, uint32_t y, float r, float g, float b, 
 void randar::Image::_setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a)
 {
     uint32_t index = this->getPixelIndex(x, y);
-    this->data[index++] = r;
-    this->data[index++] = g;
-    this->data[index++] = b;
-    this->data[index++] = a;
+    this->data[index] = r;
+    this->data[index + 1] = g;
+    this->data[index + 2] = b;
+    this->data[index + 3] = a;
 }
 
 // Retrieves a pointer to the raw image data.
