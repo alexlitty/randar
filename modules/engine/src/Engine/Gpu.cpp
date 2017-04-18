@@ -624,6 +624,7 @@ void randar::Gpu::read(randar::Framebuffer& framebuffer, randar::Image& image)
 {
     this->bind(framebuffer);
 
+    image.layout(Image::LAYOUT::FLIP_VERTICAL);
     ::glReadPixels(
         0,
         0,
