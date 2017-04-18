@@ -81,12 +81,12 @@ float randar::Color::r() const
     return this->data[0];
 }
 
-float randar::Color::b() const
+float randar::Color::g() const
 {
     return this->data[1];
 }
 
-float randar::Color::g() const
+float randar::Color::b() const
 {
     return this->data[2];
 }
