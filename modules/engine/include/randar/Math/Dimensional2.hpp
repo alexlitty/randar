@@ -46,6 +46,14 @@ namespace randar
         }
 
         /**
+         * Whether this object has non-zero dimensions.
+         */
+        bool hasDimensions() const
+        {
+            return this->getWidth() != 0 && this->getHeight() != 0;
+        }
+
+        /**
          * Sets the width and height of this object.
          */
         virtual void resize(T newWidth, T newHeight)
