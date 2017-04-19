@@ -68,34 +68,64 @@ describe('Image', function() {
     });
 
     describe('mutation', function() {
-        it('setting pixels, non-vector & color object arguments', function() {
-            const image = new adapter.Image();
-            image.resize(64, 64);
+        describe('setting individual pixels', function() {
+            function setTest(mutate, read) {
+                const image = new adapter.Image();
+                image.resize(64, 64);
 
-            const otherColor  = new adapter.Color();
-            const targetColor = new adapter.Color(0.34, 0.74, 0.44, 0.01);
+                const otherColor  = new adapter.Color();
+                const targetColor = new adapter.Color(0.34, 0.74, 0.44, 0.85);
+                const target      = { x: 15, y: 31 };
 
-            const target = { x: 31, y: 5 };
-            forEachPixel(image, (x, y) => {
-                image.setPixel(x, y, otherColor);
-            });
+                forEachPixel(image, (x, y) => {
+                    mutate(image, x, y, otherColor);
+                });
 
-            image.setPixel(target.x, target.y, targetColor);
-            forEachPixel(image, (x, y) => {
-                const color = image.getPixel(x, y);
-                let checkColor;
-                assertColor(
-                    image.getPixel(x, y),
-                    (target.x === x && target.y === y) ? targetColor : otherColor
+                mutate(image, target.x, target.y, targetColor);
+                forEachPixel(image, (x, y) => {
+                    let expectedColor;
+                    if (target.x === x && target.y === y) {
+                        expectedColor = targetColor;
+                    } else {
+                        expectedColor = otherColor;
+                    }
+
+                    assertColor(read(image, x, y), expectedColor);
+                });
+            }
+
+            it('non-vector & color object arguments', function() {
+                setTest(
+                    (image, x, y, color) => image.setPixel(x, y, color),
+                    (image, x, y)        => image.getPixel(x, y)
                 );
             });
-        });
 
-        it('targets correct pixel with Vector2 argument', function() {
-            /*const image new adapter.Image();
-            image.resize(64, 64);
+            it('non-vector & color channel arguments', function() {
+                setTest(
+                    (image, x, y, color) => image.setPixel(
+                        x,
+                        y,
+                        color.r(),
+                        color.g(),
+                        color.b(),
+                        color.a()
+                    ),
 
-            const */
+                    (image, x, y) => image.getPixel(x, y)
+                );
+            });
+
+            it('vector & color object arguments', function() {
+                setTest(
+                    (image, x, y, color) => image.setPixel(
+                        new adapter.Vector2_uint32(x, y),
+                        color
+                    ),
+
+                    (image, x, y) => image.getPixel(x, y)
+                );
+            });
         });
     });
 
