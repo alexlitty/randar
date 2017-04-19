@@ -118,8 +118,9 @@ namespace randar
          * If values always meet these requirements beforehand, use _setPixel.
          */
         void setPixel(const Vector2<uint32_t>& vec, const Color& color);
+        void setPixel(const Vector2<uint32_t>& vec,  float r, float g, float b, float a = 1.0f);
         void setPixel(uint32_t x, uint32_t y, const Color& color);
-        void setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a);
+        void setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a = 1.0f);
 
         /**
          * Blindly sets the color of a pixel.
