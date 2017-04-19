@@ -67,8 +67,8 @@ describe('Image', function() {
         });
     });
 
-    describe('mutation', function() {
-        describe('setting individual pixels', function() {
+    describe('pixels', function() {
+        describe('setting', function() {
             function setTest(alphaProvided, mutate, read) {
                 const image = new adapter.Image();
                 image.resize(64, 64);
