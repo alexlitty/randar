@@ -1,13 +1,35 @@
 const assert  = require('assert');
 const adapter = require('../../modules/adapter');
 
+function forEachPixel(image, routine) {
+    for (var x = 0; x < image.getWidth(); x++) {
+        for (var y = 0; y < image.getHeight(); y++) {
+            routine(x, y);
+        }
+    }
+}
+
+function assertDimensions(image, width, height) {
+    if (width === 0 || height === 0) {
+        assert(!image.hasDimensions());
+    } else {
+        assert(image.hasDimensions());
+    }
+    assert.equal(image.getWidth(), width);
+    assert.equal(image.getHeight(), height);
+}
+
+function assertColor(actual, expected) {
+    assert.equal(actual.r(), expected.r());
+    assert.equal(actual.g(), expected.g());
+    assert.equal(actual.b(), expected.b());
+    assert.equal(actual.a(), expected.a());
+}
+
 describe('Image', function() {
     describe('construction', function() {
         it('default constructs dimensionless', function() {
-            const image = new adapter.Image();
-            assert.equal(image.getWidth(), 0);
-            assert.equal(image.getHeight(), 0);
-            assert.equal(image.hasDimensions(), false);
+            assertDimensions(new adapter.Image(), 0, 0);
         });
 
         it('copy constructs deeply', function() {
@@ -46,15 +68,7 @@ describe('Image', function() {
     });
 
     describe('mutation', function() {
-        function mutate() {
-            for (var x = 0; x < 64; x++) {
-                for (var y = 0; y < 64; y++) {
-                    image.setPixel(x, y, otherColor);
-                }
-            }
-        }
-
-        it('targets correct pixel with coordinate arguments', function() {
+        it('setting pixels, non-vector & color object arguments', function() {
             const image = new adapter.Image();
             image.resize(64, 64);
 
@@ -62,32 +76,26 @@ describe('Image', function() {
             const targetColor = new adapter.Color(0.34, 0.74, 0.44, 0.01);
 
             const target = { x: 31, y: 5 };
+            forEachPixel(image, (x, y) => {
+                image.setPixel(x, y, otherColor);
+            });
+
             image.setPixel(target.x, target.y, targetColor);
-
-            for (var x = 0; x < 64; x++) {
-                for (var y = 0; y < 64; y++) {
-                    const color = image.getPixel(x, y);
-                    let checkColor;
-
-                    if (x === target.x && y === target.y) {
-                        checkColor = targetColor;
-                    } else {
-                        checkColor = otherColor;
-                    }
-
-                    assert.equal(color.r(), checkColor.r());
-                    assert.equal(color.g(), checkColor.g());
-                    assert.equal(color.b(), checkColor.b());
-                    assert.equal(color.a(), checkColor.a());
-                }
-            }
+            forEachPixel(image, (x, y) => {
+                const color = image.getPixel(x, y);
+                let checkColor;
+                assertColor(
+                    image.getPixel(x, y),
+                    (target.x === x && target.y === y) ? targetColor : otherColor
+                );
+            });
         });
 
         it('targets correct pixel with Vector2 argument', function() {
-            const image new adapter.Image();
+            /*const image new adapter.Image();
             image.resize(64, 64);
 
-            const 
+            const */
         });
     });
 
