@@ -71,6 +71,10 @@ uint32_t randar::Image::getPixelIndex(const randar::Vector2<uint32_t>& vec) cons
 
 uint32_t randar::Image::getPixelIndex(uint32_t x, uint32_t y) const
 {
+    if (!this->hasDimensions()) {
+        throw std::runtime_error("Image has no dimensions");
+    }
+
     if (x >= this->getWidth() || y >= this->getHeight()) {
         throw std::runtime_error("Pixel position out of range");
     }
