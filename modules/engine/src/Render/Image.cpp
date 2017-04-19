@@ -105,6 +105,11 @@ void randar::Image::setPixel(const randar::Vector2<uint32_t>& vec, const randar:
     this->setPixel(vec.x, vec.y, color);
 }
 
+void randar::Image::setPixel(const randar::Vector2<uint32_t>& vec, float r, float g, float b, float a)
+{
+    this->setPixel(vec, Color(r, g, b, a));
+}
+
 void randar::Image::setPixel(uint32_t x, uint32_t y, const randar::Color& color)
 {
     if (!this->isWithinDimensions(x, y)) {
