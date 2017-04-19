@@ -69,12 +69,17 @@ describe('Image', function() {
 
     describe('mutation', function() {
         describe('setting individual pixels', function() {
-            function setTest(mutate, read) {
+            function setTest(alphaProvided, mutate, read) {
                 const image = new adapter.Image();
                 image.resize(64, 64);
 
                 const otherColor  = new adapter.Color();
-                const targetColor = new adapter.Color(0.34, 0.74, 0.44, 0.85);
+                const targetColor = new adapter.Color(
+                    0.34,
+                    0.74,
+                    0.44,
+                    alphaProvided ? 0.85 : 1
+                );
                 const target      = { x: 15, y: 31 };
 
                 forEachPixel(image, (x, y) => {
@@ -96,35 +101,61 @@ describe('Image', function() {
 
             it('non-vector & color object arguments', function() {
                 setTest(
+                    true,
                     (image, x, y, color) => image.setPixel(x, y, color),
                     (image, x, y)        => image.getPixel(x, y)
                 );
             });
 
             it('non-vector & color channel arguments', function() {
-                setTest(
-                    (image, x, y, color) => image.setPixel(
-                        x,
-                        y,
-                        color.r(),
-                        color.g(),
-                        color.b(),
-                        color.a()
-                    ),
+                for (alphaProvided of [true, false]) {
+                    setTest(
+                        alphaProvided,
+                        (image, x, y, color) => image.setPixel(
+                            x,
+                            y,
+                            color.r(),
+                            color.g(),
+                            color.b(),
+                            color.a()
+                        ),
 
-                    (image, x, y) => image.getPixel(x, y)
-                );
+                        (image, x, y) => image.getPixel(x, y)
+                    );
+                }
             });
 
             it('vector & color object arguments', function() {
                 setTest(
+                    true,
                     (image, x, y, color) => image.setPixel(
                         new adapter.Vector2_uint32(x, y),
                         color
                     ),
 
-                    (image, x, y) => image.getPixel(x, y)
+                    (image, x, y) => image.getPixel(
+                        new adapter.Vector2_uint32(x, y)
+                    )
                 );
+            });
+
+            it('vector & color channel arguments', function() {
+                for (alphaProvided of [true, false]) {
+                    setTest(
+                        alphaProvided,
+                        (image, x, y, color) => image.setPixel(
+                            new adapter.Vector2_uint32(x, y),
+                            color.r(),
+                            color.g(),
+                            color.b(),
+                            color.a()
+                        ),
+
+                        (image, x, y) => image.getPixel(
+                            new adapter.Vector2_uint32(x, y)
+                        )
+                    );
+                }
             });
         });
     });
