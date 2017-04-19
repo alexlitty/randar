@@ -1,3 +1,4 @@
+#include <cstring>
 #include <stdexcept>
 #include <randar/Render/Image.hpp>
 
@@ -140,6 +141,11 @@ float* randar::Image::raw()
     return this->data;
 }
 
+const float* randar::Image::raw() const
+{
+    return this->data;
+}
+
 // Retrieves the expected size of the raw image data.
 uint32_t randar::Image::rawSize() const
 {
@@ -150,12 +156,6 @@ uint32_t randar::Image::rawSize() const
 randar::Image& randar::Image::operator =(const randar::Image& other)
 {
     this->resize(other.getWidth(), other.getHeight());
-
-    for (uint32_t x = 0; x < this->getWidth(); x++) {
-        for (uint32_t y = 0; y < this->getHeight(); y++) {
-            this->setPixel(x, y, other.getPixel(x, y));
-        }
-    }
-
+    std::memcpy(this->raw(), other.raw(), sizeof(float) * this->rawSize());
     return *this;
 }
