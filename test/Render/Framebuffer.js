@@ -6,6 +6,8 @@ function constructDefault(routine) {
     const dims = gpu.defaultFramebufferDimensions();
     const fb   = new adapter.Framebuffer(gpu, dims);
 
+    assert(fb.getWidth() > 0 && fb.getHeight() > 0);
+
     if (routine) {
         routine(gpu, dims, fb);
     }
@@ -21,8 +23,10 @@ function assertColor(color, expectedColor) {
 }
 
 function assertCleared(gpu, fb, expectedColor) {
-    const image = gpu.read(fb);
+    const image = new adapter.Image();
+    gpu.read(fb, image);
 
+    assert(image.hasDimensions());
     for (var x = 0; x < image.getWidth(); x++) {
         for (var y = 0; y < image.getHeight(); y++) {
             assertColor(image.getPixel(x, y), expectedColor);
@@ -54,7 +58,6 @@ describe('Framebuffer', function() {
             constructDefault(function(gpu, dims, fb) {
                 const colors = [
                     new adapter.Color(1, 1, 1, 1),
-                    new adapter.Color(1, 0, 0, 1),
                     new adapter.Color(0, 0, 1, 0)
                 ];
 
