@@ -34,6 +34,8 @@ void randar::Image::freeData()
 void randar::Image::allocateData()
 {
     if (!this->hasDimensions()) {
+        this->data = nullptr;
+    } else {
         this->data = new float[this->rawSize()];
     }
 }
