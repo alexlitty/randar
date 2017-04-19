@@ -68,17 +68,17 @@ namespace randar
 }
 
 #ifdef SWIG
-    %template(vector2_float) randar::Vector2<float>;
+    %template(Vector2_float) randar::Vector2<float>;
 
-    %template(vector2_int8) randar::Vector2<int8_t>;
-    %template(vector2_int16) randar::Vector2<int16_t>;
-    %template(vector2_int32) randar::Vector2<int32_t>;
-    %template(vector2_int64) randar::Vector2<int64_t>;
+    %template(Vector2_int8) randar::Vector2<int8_t>;
+    %template(Vector2_int16) randar::Vector2<int16_t>;
+    %template(Vector2_int32) randar::Vector2<int32_t>;
+    %template(Vector2_int64) randar::Vector2<int64_t>;
 
-    %template(vector2_uint8) randar::Vector2<uint8_t>;
-    %template(vector2_uint16) randar::Vector2<uint16_t>;
-    %template(vector2_uint32) randar::Vector2<uint32_t>;
-    %template(vector2_uint64) randar::Vector2<uint64_t>;
+    %template(Vector2_uint8) randar::Vector2<uint8_t>;
+    %template(Vector2_uint16) randar::Vector2<uint16_t>;
+    %template(Vector2_uint32) randar::Vector2<uint32_t>;
+    %template(Vector2_uint64) randar::Vector2<uint64_t>;
 #endif
 
 #endif
