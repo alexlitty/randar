@@ -48,5 +48,38 @@ function assertDims(dims, expectedWidth, expectedHeight) {
                 assertDims(b, 56, 78);
             });
         });
+
+        describe('usage', function() {
+            it('maintains correct width and height after resizing', function() {
+                const dims = new adapter[dimName]();
+
+                for (var x = 0; x < 127; x++) {
+                    for (var y = 0; y < 127; y++) {
+                        dims.resize(x, y);
+                        assertDims(dims, x, y);
+                    }
+                }
+            });
+
+            it('maintains correct width when changing height', function() {
+                const dims = new adapter[dimName]();
+
+                dims.setWidth(24);
+                for (var y = 0; y < 127; y++) {
+                    dims.setHeight(y);
+                    assertDims(dims, 24, y);
+                }
+            });
+
+            it('maintains correct height when changing width', function() {
+                const dims = new adapter[dimName]();
+
+                dims.setHeight(36);
+                for (var x = 0; x < 127; x++) {
+                    dims.setWidth(x);
+                    assertDims(dims, x, 36);
+                }
+            });
+        });
     });
 });
