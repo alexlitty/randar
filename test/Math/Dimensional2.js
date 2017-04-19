@@ -80,6 +80,34 @@ function assertDims(dims, expectedWidth, expectedHeight) {
                     assertDims(dims, x, 36);
                 }
             });
+
+            it('correctly checks within dimensions', function() {
+                const dims = new adapter[dimName](4, 5);
+
+                assert(dims.isWithinDimensions(0, 0))
+                assert(dims.isWithinDimensions(3, 2))
+                assert(dims.isWithinDimensions(3, 4))
+
+                assert(!dims.isWithinDimensions(4, 4))
+                assert(!dims.isWithinDimensions(3, 5))
+                assert(!dims.isWithinDimensions(4, 5))
+                assert(!dims.isWithinDimensions(6, 6))
+            });
+
+            it('converts to string', function() {
+                const dims = new adapter[dimName]();
+
+                for (var x = 0; x < 127; x++) {
+                    for (var y = 0; y < 127; y++) {
+                        dims.resize(x, y);
+
+                        const result = dims.toString().split('x');
+                        assert.equal(result.length, 2);
+                        assert.equal(parseInt(result[0]), x);
+                        assert.equal(parseInt(result[1]), y);
+                    }
+                }
+            });
         });
     });
 });
