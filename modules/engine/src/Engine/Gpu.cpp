@@ -79,9 +79,6 @@ randar::Gpu::Gpu()
 
     ::glEnable(GL_BLEND);
     ::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // Configure default framebuffer.
-    this->defaultFb = new Framebuffer(*this, this->defaultFramebufferDimensions());
 }
 
 // Destruction.
@@ -90,18 +87,6 @@ randar::Gpu::~Gpu()
     ::glXDestroyContext(this->display, this->context);
     ::XFree(this->display);
     ::XFree(this->visualInfo);
-}
-
-// Retrieves the dimensions of the default framebuffer.
-randar::Dimensional2<uint32_t> randar::Gpu::defaultFramebufferDimensions() const
-{
-    return this->pbufferDimensions;
-}
-
-// Retrieves the default framebuffer.
-randar::Framebuffer& randar::Gpu::defaultFramebuffer()
-{
-    return *this->defaultFb;
 }
 
 // Makes the context of this GPU current.
