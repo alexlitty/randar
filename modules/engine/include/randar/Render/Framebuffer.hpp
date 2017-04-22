@@ -3,6 +3,7 @@
 
 #include <randar/Math/Dimensional2.hpp>
 #include <randar/Render/Camera.hpp>
+#include <randar/Render/Image.hpp>
 #include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/System/Window.hpp>
