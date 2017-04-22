@@ -600,15 +600,6 @@ void randar::Gpu::setUniform(
     ::glUniform1i(location, integer);
 }
 
-// Binds a framebuffer.
-void randar::Gpu::bind(const randar::Framebuffer& framebuffer)
-{
-    ::glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-
-    const Viewport &viewport = framebuffer.camera.viewport;
-    ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
-}
-
 // Binds an index buffer.
 void randar::Gpu::bind(const randar::IndexBuffer& buffer)
 {

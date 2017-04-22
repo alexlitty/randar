@@ -65,10 +65,13 @@ randar::Framebuffer::~Framebuffer()
     }
 }
 
-// Whether this is the default framebuffer.
-bool randar::Framebuffer::isDefault() const
+// Binds the framebuffer for further operations.
+void randar::Framebuffer::bind()
 {
-    return this->isDefaultFramebuffer;
+    ::glBindFramebuffer(GL_FRAMEBUFFER, this->glName);
+
+    const Viewport &viewport = this->camera.viewport;
+    ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
 }
 
 // Clears the framebuffer with an optional color.

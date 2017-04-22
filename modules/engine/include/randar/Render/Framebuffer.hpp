@@ -51,9 +51,9 @@ namespace randar
         ~Framebuffer();
 
         /**
-         * Whether this is the default framebuffer.
+         * Binds the framebuffer for further operations.
          */
-        bool isDefault() const;
+        void bind();
 
         /**
          * Clears the framebuffer with an optional color.

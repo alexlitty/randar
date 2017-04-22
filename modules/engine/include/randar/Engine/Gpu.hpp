@@ -137,7 +137,6 @@ namespace randar
          * These should only be called internally. Made public for easier
          * debugging.
          */
-        void bind(const Framebuffer& framebuffer);
         void bind(const IndexBuffer& buffer);
         void bind(const Model& model);
         void bind(const Renderbuffer& renderbuffer);
