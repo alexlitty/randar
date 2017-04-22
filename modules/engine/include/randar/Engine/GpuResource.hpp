@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <randar/Engine/Resource.hpp>
+#include <randar/System/GraphicsContext.hpp>
 
 namespace randar
 {
@@ -19,8 +20,15 @@ namespace randar
     protected:
         /**
          * The Gpu that is responsible for this resource, if any.
+         *
+         * @deprecated
          */
         Gpu *gpu;
+
+        /**
+         * Graphics context that is responsible for this resource.
+         */
+        GraphicsContext *ctx;
 
         /**
          * GPU identifier for this resource.
@@ -34,6 +42,7 @@ namespace randar
         /**
          * Constructors and destructor.
          */
+        GpuResource(GraphicsContext& initCtx);
         GpuResource(Gpu* initGpu = nullptr);
         GpuResource(const GpuResource& other);
         ~GpuResource();
