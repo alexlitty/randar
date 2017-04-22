@@ -12,21 +12,45 @@ randar::Framebuffer::Framebuffer(randar::Window& window)
 
 }
 
-// Constructs and initializes a new framebuffer.
-randar::Framebuffer::Framebuffer(
-    randar::Gpu& gpuInit,
+// Constructs a new framebuffer.
+/*randar::Framebuffer::Framebuffer(
+    randar::GraphicsContext& context,
     std::string textureType,
     bool enableDepthBuffer,
     uint32_t initWidth,
     uint32_t initHeight)
-: randar::GpuResource(&gpuInit),
+: randar::GpuResource(context),
   randar::Dimensional2<uint32_t>(initWidth, initHeight),
   isDefaultFramebuffer(false),
-  texture(new randar::Texture(this->gpu, textureType, initWidth, initHeight)),
-  depthBuffer(new randar::Renderbuffer(this->gpu, randar::Renderbuffer::DEPTH, initWidth, initHeight))
+  texture(nullptr),
+  depthBuffer(nullptr)
 {
-    this->gpu->initialize(*this);
-}
+    ::glGenFramebuffers(1, framebuffer);
+    this->bind(); // @@@
+
+    if (this->texture) {
+        // initialize(texture)
+        // bind(texture)
+        // if (rgba) {
+            // glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
+            // glEnum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+            // glDrawBuffers(1, drawBuffers);
+        // }
+
+        // if (depth) {
+            // glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
+        // }
+    }
+
+    if (this->depthBuffer) {
+        // initialize(depthBuffer)
+        // bind(depthBuffer)
+    }
+
+    if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        throw std::runtime_error("Error while initializing framebuffer");
+    }
+}*/
 
 // Destructor.
 randar::Framebuffer::~Framebuffer()
@@ -50,12 +74,6 @@ randar::Framebuffer::~Framebuffer()
 bool randar::Framebuffer::isDefault() const
 {
     return this->isDefaultFramebuffer;
-}
-
-// Whether this framebuffer is initialized on the GPU.
-bool randar::Framebuffer::isInitialized() const
-{
-    return this->isDefault() || randar::GpuResource::isInitialized();
 }
 
 // Clears the framebuffer with an optional color.

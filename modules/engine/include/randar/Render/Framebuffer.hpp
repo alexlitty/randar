@@ -36,16 +36,14 @@ namespace randar
         Framebuffer(randar::Window& window);
 
         /**
-         * Constructs and initializes new framebuffer.
-         *
-         * @todo - Throw exception if not initialized.
+         * Constructs a new framebuffer.
          */
-        Framebuffer(
-            Gpu& gpuInit,
+        /*Framebuffer(
+            GraphicsContext& initCtx,
             std::string textureType,
             bool enableDepthBuffer = false,
             unsigned int initWidth = 1,
-            unsigned int initHeight = 1);
+            unsigned int initHeight = 1);*/
 
         /**
          * Destructor.
@@ -56,11 +54,6 @@ namespace randar
          * Whether this is the default framebuffer.
          */
         bool isDefault() const;
-
-        /**
-         * Whether this framebuffer is initialized on the GPU.
-         */
-        virtual bool isInitialized() const override;
 
         /**
          * Clears the framebuffer with an optional color.
