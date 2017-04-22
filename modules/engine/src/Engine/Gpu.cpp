@@ -114,67 +114,6 @@ void randar::Gpu::use()
     );
 }
 
-// Initializes a framebuffer.
-void randar::Gpu::initialize(randar::Framebuffer& framebuffer)
-{
-    if (framebuffer.isInitialized()) {
-        return;
-    }
-
-    // Initialize framebuffer.
-    ::glGenFramebuffers(1, framebuffer);
-    this->bind(framebuffer);
-
-    // Initialize framebuffer texture.
-    if (framebuffer.hasTexture()) {
-        Texture& texture = framebuffer.getTexture();
-
-        this->initialize(texture);
-        this->bind(texture);
-
-        // Attach RGBA texture.
-        if (texture.isRgba()) {
-            ::glFramebufferTexture(
-                GL_FRAMEBUFFER,
-                GL_COLOR_ATTACHMENT0,
-                texture,
-                0
-            );
-
-            ::GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-            ::glDrawBuffers(1, drawBuffers);
-        }
-
-        // Attach depth texture.
-        else if (texture.isDepth()) {
-            ::glFramebufferTexture(
-                GL_FRAMEBUFFER,
-                GL_DEPTH_ATTACHMENT,
-                texture,
-                0
-            );
-
-            ::glDrawBuffer(GL_NONE);
-        }
-
-        // Invalid texture.
-        else {
-            throw std::runtime_error("Configuring framebuffer with invalid texture type");
-        }
-    }
-
-    // Initialize framebuffer depth buffer.
-    if (framebuffer.hasDepthBuffer()) {
-        this->initialize(framebuffer.getDepthBuffer());
-        this->bind(framebuffer.getDepthBuffer());
-    }
-
-    // Check for errors.
-    if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        throw std::runtime_error("Error while initializing framebuffer");
-    }
-}
-
 // Initializes an index buffer.
 void randar::Gpu::initialize(randar::IndexBuffer& buffer)
 {
