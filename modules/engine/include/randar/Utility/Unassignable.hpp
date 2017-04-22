@@ -15,7 +15,7 @@ namespace randar
         Unassignable(Unassignable const&) = delete; 
         Unassignable& operator=(Unassignable const&) = delete;
         Unassignable();
-    }
+    };
 }
 
 #endif
