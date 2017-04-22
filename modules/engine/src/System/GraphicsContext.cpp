@@ -58,7 +58,7 @@ randar::GraphicsContext::GraphicsContext()
 
     // Find a proper framebuffer configuration.
     int fbCount = 0;
-    ::GLXFBConfig *fbConfigs = ::glXChooseFBConfig(
+    this->fbConfigs = ::glXChooseFBConfig(
         this->display,
         DefaultScreen(this->display),
         fbAttribs,
@@ -90,7 +90,6 @@ randar::GraphicsContext::GraphicsContext()
 
     // Wait for X to throw any errors available.
     ::XSync(this->display, false);
-    ::XFree(fbConfigs);
 
     // Immediately enable off-screen rendering.
     this->use();
@@ -133,19 +132,27 @@ randar::GraphicsContext::~GraphicsContext()
 // Makes this context current without considering a window.
 void randar::GraphicsContext::use()
 {
-    ::glXMakeCurrent(
+    bool success = ::glXMakeCurrent(
         this->display,
         this->glxPixelBuffer,
         this->ctx
     );
+
+    if (!success) {
+        throw std::runtime_error("Failed to switch graphics context");
+    }
 }
 
 // Makes this context and a window current.
 void randar::GraphicsContext::use(randar::Window& window)
 {
-    ::glXMakeCurrent(
+    bool success = ::glXMakeCurrent(
         this->display,
         window.glx(),
         this->ctx
     );
+
+    if (!success) {
+        throw std::runtime_error("Failed to switch graphics context");
+    }
 }

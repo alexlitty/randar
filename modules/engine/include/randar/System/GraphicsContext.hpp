@@ -53,6 +53,11 @@ namespace randar
         ::XVisualInfo *visual;
 
         /**
+         * Available framebuffer configurations.
+         */
+        ::GLXFBConfig *fbConfigs;
+
+        /**
          * Raw context this object wraps around.
          */
         ::GLXContext ctx;
