@@ -55,7 +55,10 @@ randar::Framebuffer::Framebuffer(randar::Window& window)
 // Destructor.
 randar::Framebuffer::~Framebuffer()
 {
-    ::glDeleteFramebuffers(1, this->glName);
+    if (!this->isDefaultFramebuffer) {
+        ::glDeleteFramebuffers(1, &this->glName);
+    }
+
     if (this->texture) {
         // delete this->texture;
     }
