@@ -53,6 +53,12 @@ randar::Window::~Window()
     ::XDestroyWindow(this->ctx.display, this->handle);
 }
 
+// Retrieves the associated context.
+randar::GraphicsContext& randar::Window::context()
+{
+    return this->ctx;
+}
+
 // Retrieves the native window handle.
 ::Window randar::Window::native()
 {

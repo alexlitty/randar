@@ -44,6 +44,11 @@ namespace randar
             ~Window();
 
             /**
+             * Retrieves the associated context.
+             */
+            GraphicsContext& context();
+
+            /**
              * Retrieves the native window handle.
              */
             ::Window native();
