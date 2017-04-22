@@ -88,7 +88,6 @@ namespace randar
         /**
          * Clears a GPU resource.
          */
-        void clear(const Framebuffer& framebuffer, const Color& color);
         void clear(const Texture& texture);
 
         /**
