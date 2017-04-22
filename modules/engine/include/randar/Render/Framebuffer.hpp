@@ -5,6 +5,7 @@
 #include <randar/Render/Camera.hpp>
 #include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
+#include <randar/System/Window.hpp>
 
 namespace randar
 {
@@ -16,31 +17,23 @@ namespace randar
      *
      * May optionally include a depth buffer.
      */
-    class Framebuffer : virtual public GpuResource
+    class Framebuffer : virtual public GpuResource, public Dimensional2<uint32_t>
     {
     protected:
         bool isDefaultFramebuffer;
         Texture* texture;
         Renderbuffer* depthBuffer;
 
-        uint32_t width;
-        uint32_t height;
-
     public:
-        friend Gpu;
-
         /**
          * Camera used to view this framebuffer.
          */
         Camera camera;
 
         /**
-         * Constructs a default framebuffer.
-         *
-         * The actual framebuffer is created outside this class. This is simply
-         * a representation of it.
+         * Constructs a representation of a window's default framebuffer.
          */
-        Framebuffer(Gpu& gpuInit, Dimensional2<uint32_t> dims);
+        Framebuffer(randar::Window& window);
 
         /**
          * Constructs and initializes new framebuffer.
