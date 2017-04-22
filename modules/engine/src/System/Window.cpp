@@ -35,6 +35,14 @@ randar::Window::Window(
         &swa
     );
 
+    this->glxWindow = ::glXCreateWindow(
+        ctx.display,
+        ctx.fbConfigs[0],
+        this->handle,
+        nullptr
+    );
+
+    ::XSync(ctx.display, false);
     ::XMapWindow(ctx.display, this->handle);
 }
 
