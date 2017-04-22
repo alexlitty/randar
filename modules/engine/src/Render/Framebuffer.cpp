@@ -90,23 +90,19 @@ void randar::Framebuffer::resize(randar::Dimensional2<uint32_t> dimensions)
 
 void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    if (!this->isDefault()) {
-        this->width = newWidth;
-        this->height = newHeight;
-        this->gpu->resize(*this);
+    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
+    this->camera.viewport = Viewport(0, 0, newWidth, newHeight);
+    if (this->isDefaultFramebuffer) {
+        throw std::runtime_error("Resizing default framebuffer not supported yet");
     }
-}
 
-// Gets the width of this framebuffer.
-uint32_t randar::Framebuffer::getWidth() const
-{
-    return this->width;
-}
+    if (this->texture) {
+        // this->texture->resize(newWidth, newHeight);
+    }
 
-// Gets the height of this framebuffer.
-uint32_t randar::Framebuffer::getHeight() const
-{
-    return this->height;
+    if (this->depthBuffer) {
+        // this->depthBuffer->resize(newWidth, newHeight);
+    }
 }
 
 // Checks whether this framebuffer has a texture.

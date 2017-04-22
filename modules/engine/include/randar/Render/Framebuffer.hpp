@@ -67,12 +67,6 @@ namespace randar
         void resize(uint32_t newWidth, uint32_t newHeight);
 
         /**
-         * Gets the width and height of this framebuffer.
-         */
-        uint32_t getWidth() const;
-        uint32_t getHeight() const;
-
-        /**
          * Checks whether this framebuffer has a texture and depth buffer.
          */
         bool hasTexture() const;

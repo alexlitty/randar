@@ -81,7 +81,6 @@ namespace randar
         /**
          * Resizes a GPU resource.
          */
-        void resize(Framebuffer& framebuffer);
         void resize(Renderbuffer& renderbuffer, unsigned int width, unsigned int height);
         void resize(Texture& texture);
 

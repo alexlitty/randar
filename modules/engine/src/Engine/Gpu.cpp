@@ -318,23 +318,6 @@ void randar::Gpu::initialize(randar::VertexBuffer& buffer)
     );
 }
 
-// Resizes a framebuffer.
-void randar::Gpu::resize(randar::Framebuffer& framebuffer)
-{
-    uint32_t width = framebuffer.getWidth();
-    uint32_t height = framebuffer.getHeight();
-
-    framebuffer.camera.viewport = Viewport(0, 0, width, height);
-
-    if (framebuffer.hasTexture()) {
-        framebuffer.getTexture().resize(width, height);
-    }
-
-    if (framebuffer.hasDepthBuffer()) {
-        this->resize(framebuffer.getDepthBuffer(), width, height);
-    }
-}
-
 // Resizes a renderbuffer.
 void randar::Gpu::resize(randar::Renderbuffer& renderbuffer, unsigned int width, unsigned int height)
 {
