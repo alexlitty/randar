@@ -571,7 +571,7 @@ void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 // Drawing.
 void randar::Gpu::draw(
     ShaderProgram& program,
-    const randar::Framebuffer& framebuffer,
+    randar::Framebuffer& framebuffer,
     randar::Model& model)
 {
     if (!program.isInitialized()) {
@@ -582,7 +582,7 @@ void randar::Gpu::draw(
         this->write(model);
     }
 
-    this->bind(framebuffer);
+    framebuffer.bind();
 
     // Set MVP uniform.
     glm::mat4 mvp = framebuffer.camera.getProjectionMatrix()
