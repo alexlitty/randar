@@ -68,6 +68,7 @@ randar::Framebuffer::~Framebuffer()
 // Binds the framebuffer for further operations.
 void randar::Framebuffer::bind()
 {
+    this->ctx->use();
     ::glBindFramebuffer(GL_FRAMEBUFFER, this->glName);
 
     const Viewport &viewport = this->camera.viewport;
@@ -127,4 +128,30 @@ randar::Texture& randar::Framebuffer::getTexture()
 randar::Renderbuffer& randar::Framebuffer::getDepthBuffer()
 {
     return *this->depthBuffer;
+}
+
+// Reads the contents of the framebuffer.
+void randar::Framebuffer::read(randar::Image& image)
+{
+    this->bind();
+
+    image.resize(this->getWidth(), this->getHeight());
+    image.layout(Image::LAYOUT::FLIP_VERTICAL);
+
+    ::glReadPixels(
+        0,
+        0,
+        image.getWidth(),
+        image.getHeight(),
+        GL_RGBA,
+        GL_FLOAT,
+        image.raw()
+    );
+}
+
+randar::Image randar::Framebuffer::read()
+{
+    Image image;
+    this->read(image);
+    return image;
 }

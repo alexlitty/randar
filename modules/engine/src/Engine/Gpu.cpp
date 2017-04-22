@@ -507,31 +507,6 @@ void randar::Gpu::write(randar::Model& model)
     this->write(model.faceBuffer, model.faceIndices);
 }
 
-// Reads the contents of a framebuffer from the GPU.
-void randar::Gpu::read(randar::Framebuffer& framebuffer, randar::Image& image)
-{
-    this->bind(framebuffer);
-
-    image.resize(framebuffer.getWidth(), framebuffer.getHeight());
-    image.layout(Image::LAYOUT::FLIP_VERTICAL);
-    ::glReadPixels(
-        0,
-        0,
-        image.getWidth(),
-        image.getHeight(),
-        GL_RGBA,
-        GL_FLOAT,
-        image.raw()
-    );
-}
-
-randar::Image randar::Gpu::read(randar::Framebuffer& framebuffer)
-{
-    Image image;
-    this->read(framebuffer, image);
-    return image;
-}
-
 // Gets the location of a shader program uniform.
 ::GLint randar::Gpu::getUniformLocation(
     const randar::ShaderProgram& program,

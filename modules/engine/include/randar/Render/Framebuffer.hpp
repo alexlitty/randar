@@ -77,6 +77,12 @@ namespace randar
          */
         Texture& getTexture();
         Renderbuffer& getDepthBuffer();
+
+        /**
+         * Reads the contents of the framebuffer.
+         */
+        void read(Image& image);
+        Image read();
     };
 }
 
