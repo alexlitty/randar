@@ -57,7 +57,6 @@ namespace randar
          *
          * Nothing happens if the resource is already initialized.
          */
-        void initialize(Framebuffer& framebuffer);
         void initialize(IndexBuffer& buffer);
         void initialize(Renderbuffer& renderbuffer);
         void initialize(Shader& shader);
@@ -71,7 +70,6 @@ namespace randar
          *
          * Throws an error if the resource is not initialized yet.
          */
-        void destroy(Framebuffer& framebuffer);
         void destroy(IndexBuffer& buffer);
         void destroy(Renderbuffer& renderbuffer);
         void destroy(Shader& shader);

@@ -357,17 +357,6 @@ void randar::Gpu::resize(randar::Texture& texture)
     this->clear(texture);
 }
 
-// Destroys a framebuffer.
-void randar::Gpu::destroy(randar::Framebuffer& framebuffer)
-{
-    if (!framebuffer.isDefault()) {
-        if (!framebuffer.isInitialized()) {
-            throw std::runtime_error("Destroying framebuffer that is not initialized");
-        }
-        ::glDeleteFramebuffers(1, framebuffer);
-    }
-}
-
 // Destroys an index buffer.
 void randar::Gpu::destroy(randar::IndexBuffer& buffer)
 {
