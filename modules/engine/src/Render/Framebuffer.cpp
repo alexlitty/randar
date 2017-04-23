@@ -14,7 +14,7 @@ randar::Framebuffer::Framebuffer(randar::Window& initWindow)
 }
 
 // Constructs a new framebuffer.
-/*randar::Framebuffer::Framebuffer(
+randar::Framebuffer::Framebuffer(
     randar::GraphicsContext& context,
     std::string textureType,
     bool enableDepthBuffer,
@@ -27,32 +27,8 @@ randar::Framebuffer::Framebuffer(randar::Window& initWindow)
   depthBuffer(nullptr),
   window(nullptr)
 {
-    ::glGenFramebuffers(1, framebuffer);
-    this->bind(); // @@@
-
-    if (this->texture) {
-        // initialize(texture)
-        // bind(texture)
-        // if (rgba) {
-            // glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
-            // glEnum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-            // glDrawBuffers(1, drawBuffers);
-        // }
-
-        // if (depth) {
-            // glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
-        // }
-    }
-
-    if (this->depthBuffer) {
-        // initialize(depthBuffer)
-        // bind(depthBuffer)
-    }
-
-    if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        throw std::runtime_error("Error while initializing framebuffer");
-    }
-}*/
+    this->reset();
+}
 
 // Destructor.
 randar::Framebuffer::~Framebuffer()
@@ -97,9 +73,10 @@ bool randar::Framebuffer::check()
 void randar::Framebuffer::reset()
 {
     if (this->isDefaultFramebuffer) {
-        throw std::runtime_error("Cannot change default framebuffer attachments");
+        throw std::runtime_error("Cannot modify default framebuffer attachments");
     }
 
+    this->bind();
     if (this->glName > 0) {
         ::glDeleteFramebuffers(1, &this->glName);
     }
@@ -110,25 +87,40 @@ void randar::Framebuffer::reset()
 void randar::Framebuffer::attach(randar::Texture& texture)
 {
     this->reset();
+    this->resize(texture);
+    this->texture = &texture;
 
-    /*if (this->texture) {
-        // initialize(texture)
-        // bind(texture)
-        // if (rgba) {
-            // glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
-            // glEnum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-            // glDrawBuffers(1, drawBuffers);
-        // }
+    if (texture.type == "rgba") {
+        ::glFramebufferTexture(
+            GL_FRAMEBUFFER,
+            GL_COLOR_ATTACHMENT0,
+            texture,
+            0
+        );
 
-        // if (depth) {
-            // glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
-        // }
-    }
+        glEnum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+        ::glDrawBuffers(1, drawBuffers);
 
-    if (this->depthBuffer) {
         // initialize(depthBuffer)
         // bind(depthBuffer)
+    }
+
+    /*else if (texture.type == "depth") {
+        ::glFramebufferTexture(
+            GL_FRAMEBUFFER,
+            GL_DEPTH_ATTACHMENT,
+            texture,
+            0
+        );
     }*/
+
+    else {
+        throw std::runtime_error("Attaching texture with invalid type");
+    }
+
+    if (!this->check()) {
+        throw std::runtime_error("Bad framebuffer attachments");
+    }
 }
 
 // Clears the framebuffer with an optional color.
@@ -154,7 +146,7 @@ void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
     }
 
     if (this->texture) {
-        // this->texture->resize(newWidth, newHeight);
+        this->texture->resize(newWidth, newHeight);
     }
 
     if (this->depthBuffer) {

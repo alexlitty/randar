@@ -86,6 +86,8 @@ namespace randar
          * Attaches a texture to the framebuffer.
          *
          * Resets all prior attachments.
+         *
+         * Framebuffer is "resized" to attached texture size.
          */
         void attach(Texture& texture);
 
