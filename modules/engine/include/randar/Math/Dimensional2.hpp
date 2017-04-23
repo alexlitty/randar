@@ -47,7 +47,7 @@ namespace randar
         /**
          * Constructor for initial width, height, and limits specification.
          */
-        Dimensional2(T initWidth, initHeight, initMaxWidth, initMaxHeight)
+        Dimensional2(T initWidth, T initHeight, T initMaxWidth, T initMaxHeight)
         : maxWidth(initMaxWidth),
           maxHeight(initMaxHeight)
         {
