@@ -8,7 +8,7 @@ function assertDims(texture, width, height) {
 
 const ctx = new adapter.GraphicsContext();
 
-describe.only('Texture', function() {
+describe('Texture', function() {
     it('constructs rgba by default', function() {
         const texture = new adapter.Texture(ctx, 64, 64);
         assert.equal(texture.type, 'rgba');
