@@ -156,3 +156,9 @@ void randar::GraphicsContext::use(randar::Window& window)
         throw std::runtime_error("Failed to switch graphics context");
     }
 }
+
+// Waits for any queued OpenGL commands to be completed.
+void randar::GraphicsContext::sync()
+{
+    ::glFinish();
+}

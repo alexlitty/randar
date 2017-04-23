@@ -112,6 +112,11 @@ namespace randar
         void use(randar::Window& window);
 
         /**
+         * Waits for any queued OpenGL commands to be completed.
+         */
+        void sync();
+
+        /**
          * Allow Randar windows to manipulate the ongoing list of associated
          * windows.
          */
