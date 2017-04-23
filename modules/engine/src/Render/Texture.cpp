@@ -31,12 +31,6 @@ randar::Texture::Texture(
     this->clear();
 }
 
-// Construct from a file.
-randar::Texture::Texture(const std::string& file)
-{
-
-}
-
 // Destructor.
 randar::Texture::~Texture()
 {

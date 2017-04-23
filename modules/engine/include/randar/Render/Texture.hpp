@@ -48,11 +48,6 @@ namespace randar
             uint32_t initHeight);
 
         /**
-         * Construct from a file.
-         */
-        Texture(const std::string& file);
-
-        /**
          * Destructor.
          */
         ~Texture();
