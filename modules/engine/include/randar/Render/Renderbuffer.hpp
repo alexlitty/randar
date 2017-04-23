@@ -2,11 +2,12 @@
 #define RANDAR_RENDER_RENDERBUFFER_HPP
 
 #include <randar/Engine/GpuResource.hpp>
+#include <randar/Math/Dimensional2.hpp>
 #include <randar/System/GraphicsContext.hpp>
 
 namespace randar
 {
-    class Renderbuffer : public GpuResource, virtual Dimensional2<uint32_t>
+    class Renderbuffer : public GpuResource, virtual public Dimensional2<uint32_t>
     {
     public:
         /**

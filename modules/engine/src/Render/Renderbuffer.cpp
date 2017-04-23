@@ -6,7 +6,7 @@ randar::Renderbuffer::Renderbuffer(
     randar::GraphicsContext& context,
     uint32_t initWidth,
     uint32_t initHeight,
-    const std::string& initType)
+    const std::string& initBufferType)
 : randar::GpuResource(context),
   bufferType(initBufferType)
 {
