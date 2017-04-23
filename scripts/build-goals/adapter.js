@@ -127,6 +127,9 @@ function build(options, done) {
     // %naturalvar requests a more intuitive interface with class members.
     addSwigLines(['%naturalvar']);
 
+    // Disable implicit generation of default constructors.
+    addSwigLines(['%nodefaultctor']);
+
     // Ignore operators that don't translate well to node code. These operators
     // could be explicitly renamed if we end up needing them.
     addSwigLines([
