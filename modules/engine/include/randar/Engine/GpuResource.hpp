@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <randar/Engine/Resource.hpp>
 #include <randar/System/GraphicsContext.hpp>
+#include <randar/Utility/Unassignable.hpp>
 
 namespace randar
 {
@@ -15,7 +16,7 @@ namespace randar
      * GpuResources are not present on a GPU at all times. In fact, these
      * resources may not be associated with any GPU whatsoever.
      */
-    class GpuResource : virtual public Resource
+    class GpuResource : virtual public Resource, public Unassignable
     {
     protected:
         /**
@@ -44,7 +45,6 @@ namespace randar
          */
         GpuResource(GraphicsContext& initCtx);
         GpuResource(Gpu* initGpu = nullptr);
-        GpuResource(const GpuResource& other);
         ~GpuResource();
 
         /**
@@ -60,11 +60,6 @@ namespace randar
         operator GLuint() const;
         operator GLuint*();
         operator GLuint&();
-
-        /**
-         * Assignment operator.
-         */
-        GpuResource& operator =(const GpuResource& other);
     };
 }
 
