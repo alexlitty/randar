@@ -1,30 +1,34 @@
-#include <randar/Log/DefaultLog.hpp>
 #include <randar/Render/Texture.hpp>
-#include <randar/Engine/Gpu.hpp>
+#include <randar/System/GraphicsContext.hpp>
 
 // New texture constructor.
 randar::Texture::Texture(
-    randar::Gpu* gpuInit,
-    std::string initType,
+    randar::GraphicsContext& context,
     uint32_t initWidth,
-    uint32_t initHeight
+    uint32_t initHeight,
+    std::string initType,
 ) :
-  randar::GpuResource(gpuInit),
+  randar::GpuResource(context),
   type(initType),
   width(initWidth),
   height(initHeight)
 {
-    if (this->width == 0 || this->height == 0 || this->width > 4096 || this->height > 4096) {
-        throw std::runtime_error(
-            "Invalid texture dimensions ("
-            + std::to_string(this->width) + "x"
-            + std::to_string(this->height) + ")"
-        );
+    if (!this->hasDimensions() || this->getWidth() > 4096 || this->getHeight() > 4096) {
+        throw std::runtime_error("Invalid texture dimensions");
     }
 
-    if (this->gpu) {
-        this->gpu->initialize(*this);
-    }
+    // Create.
+    ::glGenTextures(1, &this->glName);
+    this->bind();
+
+    // Configure.
+    ::glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    ::glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    ::glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    ::glTexParameter(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    // Clear the texture, implicitly sending the desired texture size.
+    this->clear();
 }
 
 // Construct from a file.

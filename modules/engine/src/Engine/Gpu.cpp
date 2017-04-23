@@ -194,29 +194,6 @@ void randar::Gpu::initialize(randar::ShaderProgram& program)
     ::glDetachShader(program, program.fragmentShader);
 }
 
-// Initializes a texture.
-void randar::Gpu::initialize(randar::Texture& texture)
-{
-    ::glGenTextures(1, texture);
-    this->check();
-
-    this->bind(texture);
-
-    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    if (texture.data.size()) {
-        this->write(texture);
-    }
-
-    // No data provided. Initialize the texture with arbitrary content.
-    else {
-        this->clear(texture);
-    }
-}
-
 // Initializes a vertex array.
 // @todo - Make this into a useful function, out of vertex buffer initialization.
 void randar::Gpu::initialize(randar::VertexArray& vertexArray)
