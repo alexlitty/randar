@@ -293,15 +293,6 @@ void randar::Gpu::destroy(randar::IndexBuffer& buffer)
     ::glDeleteBuffers(1, buffer);
 }
 
-// Destroys a renderbuffer.
-void randar::Gpu::destroy(randar::Renderbuffer& renderbuffer)
-{
-    if (!renderbuffer.isInitialized()) {
-        throw std::runtime_error("Destroying renderbuffer that is not initialized");
-    }
-    ::glDeleteRenderbuffers(1, renderbuffer);
-}
-
 // Destroys a shader.
 void randar::Gpu::destroy(randar::Shader& shader)
 {

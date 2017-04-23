@@ -56,7 +56,6 @@ namespace randar
          * Throws an error if the resource is not initialized yet.
          */
         void destroy(IndexBuffer& buffer);
-        void destroy(Renderbuffer& renderbuffer);
         void destroy(Shader& shader);
         void destroy(ShaderProgram& program);
         void destroy(VertexArray& vertexArray);

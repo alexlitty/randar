@@ -33,8 +33,8 @@ randar::Renderbuffer::Renderbuffer(const randar::Renderbuffer& other)
 // Destructor.
 randar::Renderbuffer::~Renderbuffer()
 {
-    if (this->gpu) {
-        this->gpu->destroy(*this);
+    if (this->glName > 0) {
+        ::glDeleteRenderbuffers(1, &this->glName);
     }
 }
 
