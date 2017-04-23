@@ -10,9 +10,12 @@
 
 namespace randar
 {
-    class Texture : virtual public GpuResource, public Dimensional2<uint32_t>
+    class Texture : virtual public GpuResource, virtual public Dimensional2<uint32_t>
     {
     public:
+        using Dimensional2<uint32_t>::getWidth;
+        using Dimensional2<uint32_t>::getHeight;
+
         /**
          * Type of texture.
          *
@@ -27,7 +30,8 @@ namespace randar
             GraphicsContext& context,
             uint32_t initWidth,
             uint32_t initHeight,
-            const std::string& initType = "rgba");
+            const std::string& initType = "rgba")
+                throw(std::runtime_error);
 
         /**
          * Destructor.
