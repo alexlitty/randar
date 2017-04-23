@@ -63,6 +63,7 @@ bool randar::Framebuffer::check()
     if (this->isDefaultFramebuffer) {
         return true;
     }
+
     return ::glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
 }
 
@@ -76,8 +77,14 @@ void randar::Framebuffer::reset()
     this->bind();
     if (this->glName > 0) {
         ::glDeleteFramebuffers(1, &this->glName);
+        this->ctx->check();
     }
+
     ::glGenFramebuffers(1, &this->glName);
+    this->ctx->check();
+    if (this->glName == 0) {
+        throw std::runtime_error("Failed to reset framebuffer");
+    }
 }
 
 // Attachs a texture to the framebuffer.
