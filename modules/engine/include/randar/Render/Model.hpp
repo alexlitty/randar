@@ -37,7 +37,7 @@ namespace randar
         /**
          * Whether this model is initialized on the GPU.
          */
-        virtual bool isInitialized() const override;
+        bool isInitialized() const;
 
         /**
          * Checks whether this model is missing mesh textures.
