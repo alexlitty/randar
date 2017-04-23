@@ -76,6 +76,13 @@ namespace randar
          */
         bool check();
 
+    protected:
+        /**
+         * Destroys this framebuffer and removes its attachments.
+         */
+        void destroy();
+
+    public:
         /**
          * Resets all attachments.
          */

@@ -29,17 +29,7 @@ randar::Framebuffer::Framebuffer(randar::Window& initWindow)
 // Destructor.
 randar::Framebuffer::~Framebuffer()
 {
-    if (!this->isDefaultFramebuffer) {
-        ::glDeleteFramebuffers(1, &this->glName);
-    }
-
-    if (this->texture) {
-        // delete this->texture;
-    }
-
-    if (this->depthBuffer) {
-        // delete this->depthBuffer;
-    }
+    this->destroy();
 }
 
 // Binds the framebuffer for further operations.
@@ -68,6 +58,24 @@ bool randar::Framebuffer::check()
     return ::glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
 }
 
+// Destroys this framebuffer and removes its attachments.
+void randar::Framebuffer::destroy()
+{
+    if (this->glName > 0) {
+        this->ctx->use();
+        ::glDeleteFramebuffers(1, &this->glName);
+    }
+
+    if (this->texture) {
+        this->texture = nullptr;
+    }
+
+    if (this->depthBuffer) {
+        delete this->depthBuffer;
+        this->depthBuffer = nullptr;
+    }
+}
+
 // Resets all attachments.
 void randar::Framebuffer::reset()
 {
@@ -75,17 +83,15 @@ void randar::Framebuffer::reset()
         throw std::runtime_error("Cannot modify default framebuffer attachments");
     }
 
-    this->bind();
-    if (this->glName > 0) {
-        ::glDeleteFramebuffers(1, &this->glName);
-        this->ctx->check();
-    }
+    this->destroy();
 
     ::glGenFramebuffers(1, &this->glName);
     this->ctx->check();
     if (this->glName == 0) {
         throw std::runtime_error("Failed to reset framebuffer");
     }
+
+    this->resize(0, 0);
 }
 
 // Attachs a texture to the framebuffer.
@@ -156,18 +162,19 @@ void randar::Framebuffer::resize(randar::Dimensional2<uint32_t> dimensions)
 
 void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
-    this->camera.viewport = Viewport(0, 0, newWidth, newHeight);
     if (this->isDefaultFramebuffer) {
         throw std::runtime_error("Resizing default framebuffer not supported yet");
     }
+
+    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
+    this->camera.viewport = Viewport(0, 0, newWidth, newHeight);
 
     if (this->texture) {
         this->texture->resize(newWidth, newHeight);
     }
 
     if (this->depthBuffer) {
-        // this->depthBuffer->resize(newWidth, newHeight);
+        this->depthBuffer->resize(newWidth, newHeight);
     }
 }
 
