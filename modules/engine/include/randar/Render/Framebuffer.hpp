@@ -57,6 +57,7 @@ namespace randar
          * Disabling copying.
          */
         Framebuffer(const Framebuffer& other) = delete;
+        Framebuffer(Framebuffer&& other) = delete;
         Framebuffer& operator=(const Framebuffer& other) = delete;
 
         /**
