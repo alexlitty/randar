@@ -4,13 +4,12 @@
 // Constructor.
 randar::Renderbuffer::Renderbuffer(
     randar::GraphicsContext& context,
-    unsigned int initWidth,
-    unsigned int initHeight,
+    uint32_t initWidth,
+    uint32_t initHeight,
     const std::string& initType)
 : randar::GpuResource(context),
-  bufferType(initBufferType),
-  width(initWidth),
-  height(initHeight)
+  randar::Dimensional2<uint32_t>(initWidth, initHeight),
+  bufferType(initBufferType)
 {
     if (this->gpu) {
         this->gpu->initialize(*this);
@@ -37,9 +36,8 @@ randar::Renderbuffer::~Renderbuffer()
 }
 
 // Resizes this framebuffer.
-void randar::Renderbuffer::resize(unsigned int width, unsigned int height)
+void randar::Renderbuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    if (this->gpu) {
-        this->gpu->resize(*this, width, height);
-    }
+    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
+    // @@@
 }

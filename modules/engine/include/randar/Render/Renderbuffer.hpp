@@ -6,8 +6,9 @@
 
 namespace randar
 {
-    class Renderbuffer : public GpuResource
+    class Renderbuffer : public GpuResource, virtual Dimensional2<uint32_t>
     {
+    public:
         /**
          * Type of renderbuffer.
          *
@@ -15,23 +16,14 @@ namespace randar
          */
         const std::string bufferType;
 
-    public:
-        unsigned int width;
-        unsigned int height;
-
         /**
          * Constructor.
          */
         Renderbuffer(
             GraphicsContext& context,
-            unsigned int initWidth = 1,
-            unsigned int initHeight = 1,
+            uint32_t initWidth,
+            uint32_t initHeight,
             const std::string& initBufferType = "depth");
-
-        /**
-         * Constructs a new renderbuffer from an existing one.
-         */
-        Renderbuffer(const Renderbuffer& other);
 
         /**
          * Destructor.
@@ -41,7 +33,7 @@ namespace randar
         /**
          * Resizes this framebuffer.
          */
-        void resize(unsigned int width, unsigned int height);
+        void resize(uint32_t newWidth, uint32_t newHeight);
     };
 }
 
