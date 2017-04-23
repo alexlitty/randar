@@ -167,6 +167,7 @@ function build(options, done) {
 
     // Include common typemappings.
     addSwigLines([
+        './exception_handler.i',
         'complex.i',
         'carrays.i',
         'stdint.i',
@@ -176,7 +177,6 @@ function build(options, done) {
         'javascript/v8/typemaps.i',
         'javascript/v8/std_common.i',
         'javascript/v8/std_string.i',
-        'javascript/v8/std_except.i',
         'javascript/v8/std_complex.i',
 
         'javascript/v8/std_pair.i',
@@ -195,7 +195,7 @@ function build(options, done) {
         'javascriptruntime.swg',
         'javascriptstrings.swg',
 
-        'arrays_javascript.i'
+        'arrays_javascript.i',
     ].map(x => `%include "${x}"`));
 
     // Define our wrapping module.
