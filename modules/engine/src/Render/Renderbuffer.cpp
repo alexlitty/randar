@@ -2,9 +2,13 @@
 #include <randar/Engine/Gpu.hpp>
 
 // Constructor.
-randar::Renderbuffer::Renderbuffer(randar::Gpu* gpuInit, randar::Renderbuffer::Type initType, unsigned int initWidth, unsigned int initHeight)
-: randar::GpuResource(gpuInit),
-  type(initType),
+randar::Renderbuffer::Renderbuffer(
+    randar::GraphicsContext& context,
+    unsigned int initWidth,
+    unsigned int initHeight,
+    const std::string& initType)
+: randar::GpuResource(context),
+  bufferType(initBufferType),
   width(initWidth),
   height(initHeight)
 {

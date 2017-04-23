@@ -6,14 +6,16 @@
 
 namespace randar
 {
-    struct Renderbuffer : virtual public GpuResource
+    class Renderbuffer : public GpuResource
     {
-        enum Type {
-            INVALID,
-            DEPTH
-        };
+        /**
+         * Type of renderbuffer.
+         *
+         * Only valid value is "depth" at the moment.
+         */
+        const std::string bufferType;
 
-        const Type type;
+    public:
         unsigned int width;
         unsigned int height;
 
@@ -22,9 +24,9 @@ namespace randar
          */
         Renderbuffer(
             GraphicsContext& context,
-            Type initType = Renderbuffer::Type::INVALID,
             unsigned int initWidth = 1,
-            unsigned int initHeight = 1);
+            unsigned int initHeight = 1,
+            const std::string& initBufferType = "depth");
 
         /**
          * Constructs a new renderbuffer from an existing one.
