@@ -19,9 +19,8 @@ namespace randar
      * May optionally include a depth buffer.
      */
     class Framebuffer :
-        virtual public GpuResource,
-        virtual public Dimensional2<uint32_t>,
-        virtual public Unassignable
+        public GpuResource,
+        virtual public Dimensional2<uint32_t>
     {
     protected:
         bool isDefaultFramebuffer;

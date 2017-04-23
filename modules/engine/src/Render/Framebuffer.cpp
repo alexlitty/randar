@@ -24,7 +24,6 @@ randar::Framebuffer::Framebuffer(randar::Window& initWindow)
         this->window->getWidth(),
         this->window->getHeight()
     );
-    this->getGlName();
 }
 
 // Destructor.
@@ -94,6 +93,7 @@ void randar::Framebuffer::attach(randar::Texture& texture)
     this->resize(texture);
     this->texture = &texture;
 
+    this->bind();
     if (texture.type == "rgba") {
         ::glFramebufferTexture(
             GL_FRAMEBUFFER,
