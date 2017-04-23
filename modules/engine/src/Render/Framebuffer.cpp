@@ -91,8 +91,15 @@ void randar::Framebuffer::reset()
 // Attachs a texture to the framebuffer.
 void randar::Framebuffer::attach(randar::Texture& texture)
 {
-    this->reset();
-    this->resize(texture);
+    if (this->texture) {
+        throw std::runtime_error("Framebuffer already has an attached texture");
+    }
+
+    if (this->depthBuffer) {
+        throw std::runtime_error("Framebuffer already has an attached depth buffer");
+    }
+
+    this->resize(texture.getWidth(), texture.getHeight());
     this->texture = &texture;
 
     this->bind();
@@ -109,18 +116,20 @@ void randar::Framebuffer::attach(randar::Texture& texture)
         GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
         ::glDrawBuffers(1, drawBuffers);
 
-        // initialize(depthBuffer)
-        // bind(depthBuffer)
-    }
+        this->depthBuffer = new Renderbuffer(
+            this->ctx,
+            this->getWidth(),
+            this->getHeight(),
+            "depth"
+        );
 
-    /*else if (texture.type == "depth") {
-        ::glFramebufferTexture(
+        ::glFramebufferRenderbuffer(
             GL_FRAMEBUFFER,
             GL_DEPTH_ATTACHMENT,
-            texture,
-            0
+            GL_RENDERBUFFER,
+            this->depthBuffer->getGlName()
         );
-    }*/
+    }
 
     else {
         throw std::runtime_error("Attaching texture with invalid type");
