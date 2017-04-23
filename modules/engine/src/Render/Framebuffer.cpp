@@ -123,7 +123,7 @@ void randar::Framebuffer::attach(randar::Texture& texture)
         ::glDrawBuffers(1, drawBuffers);
 
         this->depthBuffer = new Renderbuffer(
-            this->ctx,
+            *this->ctx,
             this->getWidth(),
             this->getHeight(),
             "depth"
