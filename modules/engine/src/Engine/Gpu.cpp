@@ -334,15 +334,6 @@ void randar::Gpu::destroy(randar::ShaderProgram& program)
     ::glDeleteProgram(program);
 }
 
-// Destroys a texture.
-void randar::Gpu::destroy(randar::Texture& texture)
-{
-    if (!texture.isInitialized()) {
-        throw std::runtime_error("Destroying texture that is not initialized");
-    }
-    ::glDeleteTextures(1, texture);
-}
-
 // Destroys a vertex array.
 // @todo - Separate logic from vertex buffers.
 void randar::Gpu::destroy(randar::VertexArray& vertexArray)

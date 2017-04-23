@@ -62,7 +62,6 @@ namespace randar
         void destroy(Renderbuffer& renderbuffer);
         void destroy(Shader& shader);
         void destroy(ShaderProgram& program);
-        void destroy(Texture& texture);
         void destroy(VertexArray& vertexArray);
         void destroy(VertexBuffer& buffer);
 

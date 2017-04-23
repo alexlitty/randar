@@ -40,9 +40,7 @@ randar::Texture::Texture(const std::string& file)
 // Destructor.
 randar::Texture::~Texture()
 {
-    if (this->gpu) {
-        this->gpu->destroy(*this);
-    }
+    ::glDeleteFramebuffers(1, &this->glName);
 }
 
 // Binds the texture for further operations.
