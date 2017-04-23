@@ -49,7 +49,7 @@ namespace randar
         /**
          * Resizes this texture.
          */
-        void resize(uint32_t width, uint32_t height);
+        void resize(uint32_t newWidth, uint32_t newHeight);
     };
 }
 
