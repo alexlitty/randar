@@ -90,3 +90,33 @@ void randar::Texture::resize(uint32_t newWidth, uint32_t newHeight)
     randar::Dimensional2<uint32_t>::resize(width, height);
     this->reset();
 }
+
+// Reads the contents of the texture.
+void randar::Texture::read(randar::Image& image)
+{
+    this->bind();
+
+    image.resize(this->getWidth(), this->getHeight());
+    image.layout(Image::LAYOUT::FLIP_VERTICAL);
+
+    if (this->type == "rgba") {
+        ::glGetTexImage(
+            GL_TEXTURE_2D,
+            0,
+            GL_RGBA,
+            GL_FLOAT,
+            image.raw()
+        );
+    }
+
+    else {
+        throw std::runtime_error("Reading invalid texture type");
+    }
+}
+
+randar::Image randar::Texture::read()
+{
+    Image image;
+    this->read(image);
+    return image;
+}

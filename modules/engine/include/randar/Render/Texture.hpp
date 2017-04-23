@@ -50,6 +50,12 @@ namespace randar
          * Resizes this texture.
          */
         void resize(uint32_t newWidth, uint32_t newHeight);
+
+        /**
+         * Reads the contents of the texture.
+         */
+        void read(Image& image);
+        Image read();
     };
 }
 
