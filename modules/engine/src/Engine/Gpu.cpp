@@ -112,13 +112,6 @@ void randar::Gpu::initialize(randar::IndexBuffer& buffer)
 // Initializes a renderbuffer.
 void randar::Gpu::initialize(randar::Renderbuffer& renderbuffer)
 {
-    if (renderbuffer.isInitialized()) {
-        return;
-    }
-
-    ::glGenRenderbuffers(1, renderbuffer);
-    this->bind(renderbuffer);
-
     ::glRenderbufferStorage(
         GL_RENDERBUFFER,
         GL_DEPTH_COMPONENT,

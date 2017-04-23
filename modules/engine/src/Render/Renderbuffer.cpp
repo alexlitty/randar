@@ -11,8 +11,11 @@ randar::Renderbuffer::Renderbuffer(
   randar::Dimensional2<uint32_t>(initWidth, initHeight),
   bufferType(initBufferType)
 {
-    if (this->gpu) {
-        this->gpu->initialize(*this);
+    ::glGenRenderbuffers(1, &this->glName);
+
+    this->ctx->check();
+    if (this->glName == 0) {
+        throw std::runtime_error("Failed to create renderbuffer");
     }
 }
 
