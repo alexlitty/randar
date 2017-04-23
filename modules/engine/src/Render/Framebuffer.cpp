@@ -84,6 +84,28 @@ void randar::Framebuffer::bind()
     ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
 }
 
+// Checks the sanity of framebuffer attachments.
+bool randar::Framebuffer::check()
+{
+    if (this->isDefaultFramebuffer) {
+        return true;
+    }
+    return ::glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+}
+
+// Resets all attachments.
+void randar::Framebuffer::reset()
+{
+    if (this->isDefaultFramebuffer) {
+        throw std::runtime_error("Cannot change default framebuffer attachments");
+    }
+
+    if (this->glName > 0) {
+        ::glDeleteFramebuffers(1, &this->glName);
+    }
+    ::glGenFramebuffers(1, &this->glName);
+}
+
 // Clears the framebuffer with an optional color.
 void randar::Framebuffer::clear(const randar::Color& color)
 {

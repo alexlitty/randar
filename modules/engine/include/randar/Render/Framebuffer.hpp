@@ -39,6 +39,13 @@ namespace randar
         Camera camera;
 
         /**
+         * Constructs an off-screen framebuffer.
+         *
+         * Useless until a texture is attached.
+         */
+        Framebuffer();
+
+        /**
          * Constructs a representation of a window's default framebuffer.
          */
         Framebuffer(randar::Window& initWindow);
@@ -62,6 +69,23 @@ namespace randar
          * Binds the framebuffer for further operations.
          */
         void bind();
+
+        /**
+         * Checks the sanity of framebuffer attachments.
+         *
+         * If false, framebuffer requires further configuration before use.
+         */
+        bool check();
+
+        /**
+         * Resets all attachments.
+         */
+        void reset();
+
+        /**
+         * Attaches a texture to the framebuffer.
+         */
+        void attach(Texture& texture, bool depth);
 
         /**
          * Clears the framebuffer with an optional color.
