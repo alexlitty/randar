@@ -106,6 +106,31 @@ void randar::Framebuffer::reset()
     ::glGenFramebuffers(1, &this->glName);
 }
 
+// Attachs a texture to the framebuffer.
+void randar::Framebuffer::attach(randar::Texture& texture)
+{
+    this->reset();
+
+    /*if (this->texture) {
+        // initialize(texture)
+        // bind(texture)
+        // if (rgba) {
+            // glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
+            // glEnum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+            // glDrawBuffers(1, drawBuffers);
+        // }
+
+        // if (depth) {
+            // glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
+        // }
+    }
+
+    if (this->depthBuffer) {
+        // initialize(depthBuffer)
+        // bind(depthBuffer)
+    }*/
+}
+
 // Clears the framebuffer with an optional color.
 void randar::Framebuffer::clear(const randar::Color& color)
 {

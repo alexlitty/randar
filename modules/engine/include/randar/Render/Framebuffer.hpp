@@ -84,8 +84,10 @@ namespace randar
 
         /**
          * Attaches a texture to the framebuffer.
+         *
+         * Resets all prior attachments.
          */
-        void attach(Texture& texture, bool depth);
+        void attach(Texture& texture);
 
         /**
          * Clears the framebuffer with an optional color.
