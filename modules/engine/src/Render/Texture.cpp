@@ -6,7 +6,7 @@ randar::Texture::Texture(
     uint32_t initWidth,
     uint32_t initHeight,
     const std::string& initType
-) throw(std::runtime_error)
+)
 :
   randar::GpuResource(context),
   randar::Dimensional2<uint32_t>(

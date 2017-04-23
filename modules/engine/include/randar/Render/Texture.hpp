@@ -30,8 +30,7 @@ namespace randar
             GraphicsContext& context,
             uint32_t initWidth,
             uint32_t initHeight,
-            const std::string& initType = "rgba")
-                throw(std::runtime_error);
+            const std::string& initType = "rgba");
 
         /**
          * Destructor.
