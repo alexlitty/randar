@@ -2,6 +2,7 @@
 #define RANDAR_RENDER_RENDERBUFFER_HPP
 
 #include <randar/Engine/GpuResource.hpp>
+#include <randar/System/GraphicsContext.hpp>
 
 namespace randar
 {
@@ -20,7 +21,7 @@ namespace randar
          * Constructor.
          */
         Renderbuffer(
-            Gpu* gpuInit = nullptr,
+            GraphicsContext& context,
             Type initType = Renderbuffer::Type::INVALID,
             unsigned int initWidth = 1,
             unsigned int initHeight = 1);
