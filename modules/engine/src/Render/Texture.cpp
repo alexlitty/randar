@@ -1,5 +1,4 @@
 #include <randar/Render/Texture.hpp>
-#include <randar/System/GraphicsContext.hpp>
 
 // New texture constructor.
 randar::Texture::Texture(
