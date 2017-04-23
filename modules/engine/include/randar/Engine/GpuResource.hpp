@@ -16,7 +16,7 @@ namespace randar
      * GpuResources are not present on a GPU at all times. In fact, these
      * resources may not be associated with any GPU whatsoever.
      */
-    class GpuResource : virtual public Resource, public Unassignable
+    class GpuResource : virtual public Resource
     {
     protected:
         /**
@@ -47,10 +47,14 @@ namespace randar
         GpuResource(Gpu* initGpu = nullptr);
         ~GpuResource();
 
+        GpuResource(const GpuResource& other) = delete;
+        GpuResource(GpuResource&& other) = delete;
+        GpuResource& operator=(const GpuResource& other) = delete;
+
         /**
          * Whether this resource is initialized on the GPU.
          */
-        virtual bool isInitialized() const;
+        bool isInitialized() const;
 
         /**
          * OpenGL name assignment and retrieval.
