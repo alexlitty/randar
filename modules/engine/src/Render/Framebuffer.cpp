@@ -52,8 +52,10 @@ void randar::Framebuffer::bind()
     }
     ::glBindFramebuffer(GL_FRAMEBUFFER, this->glName);
 
-    const Viewport &viewport = this->camera.viewport;
-    ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
+    if (this->hasDimensions()) {
+        const Viewport &viewport = this->camera.viewport;
+        ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
+    }
 }
 
 // Checks the sanity of framebuffer attachments.
@@ -94,11 +96,13 @@ void randar::Framebuffer::attach(randar::Texture& texture)
     this->texture = &texture;
 
     this->bind();
+    this->texture->bind();
+
     if (texture.type == "rgba") {
         ::glFramebufferTexture(
             GL_FRAMEBUFFER,
             GL_COLOR_ATTACHMENT0,
-            texture,
+            texture.getGlName(),
             0
         );
 
