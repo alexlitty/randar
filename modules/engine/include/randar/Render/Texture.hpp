@@ -1,13 +1,13 @@
 #ifndef RANDAR_RENDER_TEXTURE_HPP
 #define RANDAR_RENDER_TEXTURE_HPP
 
-#include <randar/Engine/GpuResource.hpp>
-#include <randar/Math/Rect.hpp>
-#include <randar/Math/Dimensional2.hpp>
-#include <randar/Render/Color.hpp>
-
 #define RANDAR_TEXTURE_MAX_WIDTH  4096
 #define RANDAR_TEXTURE_MAX_HEIGHT 4096
+
+#include <randar/Engine/GpuResource.hpp>
+#include <randar/Math/Dimensional2.hpp>
+#include <randar/Render/Color.hpp>
+#include <randar/System/GraphicsContext.hpp>
 
 namespace randar
 {
