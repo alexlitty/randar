@@ -44,7 +44,6 @@ namespace randar
          * Nothing happens if the resource is already initialized.
          */
         void initialize(IndexBuffer& buffer);
-        void initialize(Renderbuffer& renderbuffer);
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
         void initialize(VertexArray& vertexArray);
@@ -60,11 +59,6 @@ namespace randar
         void destroy(ShaderProgram& program);
         void destroy(VertexArray& vertexArray);
         void destroy(VertexBuffer& buffer);
-
-        /**
-         * Resizes a GPU resource.
-         */
-        void resize(Renderbuffer& renderbuffer, unsigned int width, unsigned int height);
 
         /**
          * Writes the underlying data of a GPU resource.

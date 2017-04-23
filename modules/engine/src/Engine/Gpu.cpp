@@ -109,17 +109,6 @@ void randar::Gpu::initialize(randar::IndexBuffer& buffer)
     ::glGenBuffers(1, buffer);
 }
 
-// Initializes a renderbuffer.
-void randar::Gpu::initialize(randar::Renderbuffer& renderbuffer)
-{
-    ::glRenderbufferStorage(
-        GL_RENDERBUFFER,
-        GL_DEPTH_COMPONENT,
-        renderbuffer.width,
-        renderbuffer.height
-    );
-}
-
 // Initializes a shader.
 void randar::Gpu::initialize(randar::Shader& shader)
 {
@@ -266,21 +255,6 @@ void randar::Gpu::initialize(randar::VertexBuffer& buffer)
         GL_FALSE,
         stride,
         (void*)(15 * sizeof(GLfloat))
-    );
-}
-
-// Resizes a renderbuffer.
-void randar::Gpu::resize(randar::Renderbuffer& renderbuffer, unsigned int width, unsigned int height)
-{
-    renderbuffer.width  = width;
-    renderbuffer.height = height;
-
-    this->bind(renderbuffer);
-    ::glRenderbufferStorage(
-        GL_RENDERBUFFER,
-        GL_DEPTH_COMPONENT,
-        renderbuffer.width,
-        renderbuffer.height
     );
 }
 
