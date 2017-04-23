@@ -19,20 +19,10 @@ randar::Renderbuffer::Renderbuffer(
     }
 }
 
-// Constructs a new renderbuffer from an existing one.
-randar::Renderbuffer::Renderbuffer(const randar::Renderbuffer& other)
-: type(other.type),
-  width(other.width),
-  height(other.height)
-{
-    if (this->gpu) {
-        this->gpu->initialize(*this);
-    }
-}
-
 // Destructor.
 randar::Renderbuffer::~Renderbuffer()
 {
+    this->ctx->use();
     if (this->glName > 0) {
         ::glDeleteRenderbuffers(1, &this->glName);
     }

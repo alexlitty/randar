@@ -26,6 +26,12 @@ namespace randar
             const std::string& initBufferType = "depth");
 
         /**
+         * Disable assignment.
+         */
+        Renderbuffer(const Renderbuffer& other) = delete;
+        Renderbuffer& operator =(const Renderbuffer& other) = delete;
+
+        /**
          * Destructor.
          */
         ~Renderbuffer();
