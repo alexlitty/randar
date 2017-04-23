@@ -197,10 +197,6 @@ void randar::Gpu::initialize(randar::ShaderProgram& program)
 // Initializes a texture.
 void randar::Gpu::initialize(randar::Texture& texture)
 {
-    if (texture.isInitialized()) {
-        return;
-    }
-
     ::glGenTextures(1, texture);
     this->check();
 
@@ -554,12 +550,6 @@ void randar::Gpu::bind(const randar::Model& model)
 void randar::Gpu::bind(const randar::Renderbuffer& renderbuffer)
 {
     ::glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
-}
-
-// Binds a texture.
-void randar::Gpu::bind(const randar::Texture& texture)
-{
-    ::glBindTexture(GL_TEXTURE_2D, texture);
 }
 
 // Binds a vertex buffer.

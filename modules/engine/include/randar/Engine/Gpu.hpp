@@ -120,7 +120,6 @@ namespace randar
         void bind(const IndexBuffer& buffer);
         void bind(const Model& model);
         void bind(const Renderbuffer& renderbuffer);
-        void bind(const Texture& texture);
         void bind(const VertexBuffer& buffer);
 
         /**

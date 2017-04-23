@@ -3,11 +3,12 @@
 
 #include <randar/Engine/GpuResource.hpp>
 #include <randar/Math/Rect.hpp>
+#include <randar/Math/Dimensional2.hpp>
 #include <randar/Render/Color.hpp>
 
 namespace randar
 {
-    class Texture : virtual public GpuResource
+    class Texture : virtual public GpuResource, public Dimensional2<uint32_t>
     {
     protected:
         /**
@@ -55,6 +56,11 @@ namespace randar
          * Destructor.
          */
         ~Texture();
+
+        /**
+         * Binds the texture for further operations.
+         */
+        void bind();
 
         /**
          * Saves this texture to its file.

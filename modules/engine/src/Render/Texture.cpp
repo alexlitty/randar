@@ -41,6 +41,12 @@ randar::Texture::~Texture()
     }
 }
 
+// Binds the texture for further operations.
+void randar::Texture::bind()
+{
+    ::glBindTexture(GL_TEXTURE_2D, this->glName);
+}
+
 // Saves this texture to its file.
 bool randar::Texture::save()
 {
