@@ -291,13 +291,6 @@ void randar::Gpu::resize(randar::Renderbuffer& renderbuffer, unsigned int width,
     );
 }
 
-// Resizes a texture.
-void randar::Gpu::resize(randar::Texture& texture)
-{
-    // Since we send the dimensions with texture data, just clear the texture.
-    this->clear(texture);
-}
-
 // Destroys an index buffer.
 void randar::Gpu::destroy(randar::IndexBuffer& buffer)
 {
@@ -352,12 +345,6 @@ void randar::Gpu::destroy(randar::VertexBuffer& buffer)
     ::glDeleteBuffers(1, buffer);
 }
 
-// Clears a texture.
-void randar::Gpu::clear(const randar::Texture& texture)
-{
-    this->write(texture, nullptr, GL_RGBA);
-}
-
 // Writes indices to an index buffer.
 void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<uint32_t>& indices)
 {
@@ -370,80 +357,6 @@ void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<uint
         &indices.data()[0],
         GL_STATIC_DRAW
     );
-}
-
-// Writes an image to a texture.
-void randar::Gpu::write(const randar::Texture& texture)
-{
-    this->write(texture, texture.data.data(), GL_RGBA);
-}
-
-void randar::Gpu::write(const randar::Texture& texture, const GLvoid* data, GLenum dataFormat)
-{
-    this->bind(texture);
-
-    if (texture.isRgba()) {
-        ::glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RGBA,
-            texture.getWidth(),
-            texture.getHeight(),
-            0,
-            dataFormat,
-            GL_UNSIGNED_BYTE,
-            data
-        );
-    }
-
-    else if (texture.isDepth()) {
-        ::glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_DEPTH_COMPONENT,
-            texture.getWidth(),
-            texture.getHeight(),
-            0,
-            GL_DEPTH_COMPONENT,
-            GL_FLOAT,
-            data
-        );
-    }
-
-    else {
-        throw std::runtime_error("Writing data to invalid texture type");
-    }
-
-    this->check();
-}
-
-void randar::Gpu::write(
-    const randar::Texture& texture,
-    const randar::Rect<uint32_t>& rect,
-    const GLvoid* data,
-    GLenum dataFormat)
-{
-    this->bind(texture);
-
-    if (texture.isRgba()) {
-        ::glTexSubImage2D(
-            GL_TEXTURE_2D,
-            0,
-            rect.left,
-            rect.top,
-            rect.width,
-            rect.height,
-            dataFormat,
-            GL_UNSIGNED_BYTE,
-            data
-        );
-    }
-
-    else {
-        throw std::runtime_error("Writing partial data to invalid texture type");
-    }
-
-    this->check();
 }
 
 // Writes vertices to a vertex buffer.
@@ -572,7 +485,7 @@ void randar::Gpu::draw(
         Texture *texture = model.meshTextures[i];
 
         if (!texture) {
-            texture = &randar::getDefaultTexture(*this, "rgba", 1, 1);
+            //texture = &randar::getDefaultTexture(*this, "rgba", 1, 1);
         }
 
         ::glActiveTexture(GL_TEXTURE0 + i);

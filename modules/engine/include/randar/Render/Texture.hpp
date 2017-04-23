@@ -74,33 +74,7 @@ namespace randar
         /**
          * Resizes this texture.
          */
-        void resize(unsigned int width, unsigned int height);
-
-        /**
-         * Writes texture data to the GPU.
-         */
-        void write();
-        void write(const GLvoid* data, GLenum format);
-        void write(
-            const Rect<uint32_t>& rect,
-            const GLvoid* data,
-            GLenum format);
-
-        /**
-         * Retrieves the width and height of this texture.
-         */
-        unsigned int getWidth() const;
-        unsigned int getHeight() const;
-
-        /**
-         * Patches this resource.
-         */
-        void patch(Json json);
-
-        /**
-         * Converts this texture to a JSON representation.
-         */
-        virtual Json toJson() const override;
+        void resize(uint32_t width, uint32_t height);
     };
 }
 

@@ -71,9 +71,6 @@ namespace randar
          * Writes the underlying data of a GPU resource.
          */
         void write(IndexBuffer& indexBuffer, const std::vector<uint32_t>& indices);
-        void write(const Texture& texture);
-        void write(const Texture& texture, const GLvoid* data, GLenum dataFormat);
-        void write(const Texture& texture, const Rect<uint32_t>& rect, const GLvoid* data, GLenum dataFormat);
         void write(const VertexBuffer& buffer, const std::vector<Vertex>& vertices);
         void write(Model& model);
 
