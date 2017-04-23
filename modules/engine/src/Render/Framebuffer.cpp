@@ -1,6 +1,17 @@
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Engine/Gpu.hpp>
 
+// Constructs an off-screen framebuffer.
+randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
+: randar::GpuResource(context),
+  isDefaultFramebuffer(false),
+  texture(nullptr),
+  depthBuffer(nullptr),
+  window(nullptr)
+{
+    this->reset();
+}
+
 // Constructs a default framebuffer.
 randar::Framebuffer::Framebuffer(randar::Window& initWindow)
 : randar::GpuResource(initWindow.context()),
@@ -11,23 +22,6 @@ randar::Framebuffer::Framebuffer(randar::Window& initWindow)
   window(&initWindow)
 {
 
-}
-
-// Constructs a new framebuffer.
-randar::Framebuffer::Framebuffer(
-    randar::GraphicsContext& context,
-    std::string textureType,
-    bool enableDepthBuffer,
-    uint32_t initWidth,
-    uint32_t initHeight)
-: randar::GpuResource(context),
-  randar::Dimensional2<uint32_t>(initWidth, initHeight),
-  isDefaultFramebuffer(false),
-  texture(nullptr),
-  depthBuffer(nullptr),
-  window(nullptr)
-{
-    this->reset();
 }
 
 // Destructor.

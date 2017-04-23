@@ -43,22 +43,12 @@ namespace randar
          *
          * Useless until a texture is attached.
          */
-        Framebuffer();
+        Framebuffer(GraphicsContext& context);
 
         /**
          * Constructs a representation of a window's default framebuffer.
          */
         Framebuffer(randar::Window& initWindow);
-
-        /**
-         * Constructs a new framebuffer.
-         */
-        /*Framebuffer(
-            GraphicsContext& initCtx,
-            std::string textureType,
-            bool enableDepthBuffer = false,
-            unsigned int initWidth = 1,
-            unsigned int initHeight = 1);*/
 
         /**
          * Destructor.
