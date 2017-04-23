@@ -6,15 +6,18 @@ randar::Texture::Texture(
     randar::GraphicsContext& context,
     uint32_t initWidth,
     uint32_t initHeight,
-    std::string initType,
+    const std::string& initType
 ) :
   randar::GpuResource(context),
-  type(initType),
-  width(initWidth),
-  height(initHeight)
+  randar::Dimensional2(
+    initWidth,
+    initHeight,
+    RANDAR_TEXTURE_MAX_WIDTH,
+    RANDAR_TEXTURE_MAX_HEIGHT),
+  type(initType)
 {
-    if (!this->hasDimensions() || this->getWidth() > 4096 || this->getHeight() > 4096) {
-        throw std::runtime_error("Invalid texture dimensions");
+    if (type != "rgba" && type != "depth") {
+        throw std::runtime_error("Invalid texture type");
     }
 
     // Create.
