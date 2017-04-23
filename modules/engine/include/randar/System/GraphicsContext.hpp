@@ -80,6 +80,11 @@ namespace randar
          */
         std::vector<randar::Window*> windows;
 
+        /**
+         * A list of errors collected through the check method.
+         */
+        std::vector<std::string> errors;
+
     public:
         /**
          * Constructor.
@@ -115,6 +120,13 @@ namespace randar
          * Waits for any queued OpenGL commands to be completed.
          */
         void sync();
+
+        /**
+         * Checks for any errors reported by OpenGL.
+         *
+         * If an error has occurred, an exception is thrown.
+         */
+        void check();
 
         /**
          * Allow Randar windows to manipulate the ongoing list of associated

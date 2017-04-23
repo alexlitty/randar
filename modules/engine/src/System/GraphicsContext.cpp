@@ -162,3 +162,14 @@ void randar::GraphicsContext::sync()
 {
     ::glFinish();
 }
+
+// Checks for any errors reported by OpenGL.
+void randar::GraphicsContext::check()
+{
+    GLenum status;
+    while ((status = ::glGetError()) != GL_NO_ERROR) {
+        this->errors.push_back(
+            "OpenGL error " + std::to_string(status)
+        );
+    }
+}
