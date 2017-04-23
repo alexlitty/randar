@@ -172,4 +172,13 @@ void randar::GraphicsContext::check()
             "OpenGL error " + std::to_string(status)
         );
     }
+
+    if (this->errors.size()) {
+        std::string result = "GraphicsContext check failed";
+        for (auto message : this->errors) {
+            result += "\n" + message;
+        }
+
+        throw std::runtime_error(result);
+    }
 }

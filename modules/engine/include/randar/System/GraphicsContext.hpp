@@ -40,7 +40,7 @@ namespace randar
      * associated with this context. To perform rendering in a window, use the
      * default framebuffers exposed by randar Windows.
      */
-    class GraphicsContext : public Unassignable
+    class GraphicsContext
     {
         /**
          * Display that was used to construct this context.
