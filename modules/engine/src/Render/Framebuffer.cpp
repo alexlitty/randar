@@ -2,12 +2,13 @@
 #include <randar/Engine/Gpu.hpp>
 
 // Constructs a default framebuffer.
-randar::Framebuffer::Framebuffer(randar::Window& window)
-: randar::GpuResource(window.context()),
-  randar::Dimensional2<uint32_t>(window),
+randar::Framebuffer::Framebuffer(randar::Window& initWindow)
+: randar::GpuResource(initWindow.context()),
+  randar::Dimensional2<uint32_t>(initWindow),
   isDefaultFramebuffer(true),
   texture(nullptr),
-  depthBuffer(nullptr)
+  depthBuffer(nullptr),
+  window(&initWindow)
 {
 
 }
@@ -23,7 +24,8 @@ randar::Framebuffer::Framebuffer(randar::Window& window)
   randar::Dimensional2<uint32_t>(initWidth, initHeight),
   isDefaultFramebuffer(false),
   texture(nullptr),
-  depthBuffer(nullptr)
+  depthBuffer(nullptr),
+  window(nullptr)
 {
     ::glGenFramebuffers(1, framebuffer);
     this->bind(); // @@@
@@ -71,7 +73,11 @@ randar::Framebuffer::~Framebuffer()
 // Binds the framebuffer for further operations.
 void randar::Framebuffer::bind()
 {
-    this->ctx->use();
+    if (this->window) {
+        this->window->use();
+    } else {
+        this->ctx->use();
+    }
     ::glBindFramebuffer(GL_FRAMEBUFFER, this->glName);
 
     const Viewport &viewport = this->camera.viewport;

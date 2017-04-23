@@ -25,6 +25,13 @@ namespace randar
         Texture* texture;
         Renderbuffer* depthBuffer;
 
+        /**
+         * Window this framebuffer is associated with.
+         *
+         * If this is present, this is the default framebuffer for the window.
+         */
+        randar::Window *window;
+
     public:
         /**
          * Camera used to view this framebuffer.
@@ -34,7 +41,7 @@ namespace randar
         /**
          * Constructs a representation of a window's default framebuffer.
          */
-        Framebuffer(randar::Window& window);
+        Framebuffer(randar::Window& initWindow);
 
         /**
          * Constructs a new framebuffer.
