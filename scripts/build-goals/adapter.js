@@ -196,6 +196,7 @@ function build(options, done) {
         'javascriptstrings.swg',
 
         'arrays_javascript.i',
+        './gl.i'
     ].map(x => `%include "${x}"`));
 
     // Define our wrapping module.
