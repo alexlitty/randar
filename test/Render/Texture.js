@@ -14,6 +14,10 @@ describe.only('Texture', function() {
         assert.equal(texture.type, 'rgba');
     });
 
+    it('refuses invalid type construction', function() {
+        assert.throws(() => new adapter.Texture(ctx, 64, 64, 'invalid'));
+    });
+
     describe('rgba', function() {
         it('constructs with correct dimensions', function() {
             const dims = [
