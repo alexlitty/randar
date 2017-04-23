@@ -59,6 +59,7 @@ namespace randar
          * Copy constructor.
          */
         Dimensional2(const Dimensional2& other)
+        : Dimensional2()
         {
             *this = other;
         }
