@@ -60,10 +60,13 @@ namespace randar
 
             /**
              * Makes this window and its associated context current.
-             *
-             * If no context is associated, an exception is thrown.
              */
             void use();
+
+            /**
+             * Swap the window's back and front buffers.
+             */
+            void swapBuffers();
     };
 }
 

@@ -76,3 +76,9 @@ void randar::Window::use()
 {
     this->ctx.use(*this);
 }
+
+// Swaps the window's back and front buffers.
+void randar::Window::swapBuffers()
+{
+    ::glXSwapBuffers(this->ctx.display, this->glxWindow);
+}
