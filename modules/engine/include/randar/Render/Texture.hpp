@@ -5,8 +5,7 @@
 #define RANDAR_TEXTURE_MAX_HEIGHT 4096
 
 #include <randar/Engine/GpuResource.hpp>
-#include <randar/Math/Dimensional2.hpp>
-#include <randar/Render/Color.hpp>
+#include <randar/Render/Image.hpp>
 #include <randar/System/GraphicsContext.hpp>
 
 namespace randar
