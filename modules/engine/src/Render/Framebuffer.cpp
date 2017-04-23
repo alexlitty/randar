@@ -92,7 +92,7 @@ void randar::Framebuffer::attach(randar::Texture& texture)
             0
         );
 
-        glEnum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+        GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
         ::glDrawBuffers(1, drawBuffers);
 
         // initialize(depthBuffer)
