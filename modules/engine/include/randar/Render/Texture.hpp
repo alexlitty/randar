@@ -10,7 +10,7 @@
 
 namespace randar
 {
-    class Texture : virtual public GpuResource, virtual public Dimensional2<uint32_t>
+    class Texture : public GpuResource, virtual public Dimensional2<uint32_t>
     {
     public:
         using Dimensional2<uint32_t>::getWidth;

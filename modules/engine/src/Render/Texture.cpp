@@ -22,9 +22,13 @@ randar::Texture::Texture(
 
     // Create.
     ::glGenTextures(1, &this->glName);
-    this->bind();
+    this->ctx->check();
+    if (this->glName == 0) {
+        throw std::runtime_error("Failed to create texture");
+    }
 
     // Configure.
+    this->bind();
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     ::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -82,6 +86,8 @@ void randar::Texture::reset()
     else {
         throw std::runtime_error("Resetting invalid texture type");
     }
+
+    this->ctx->check();
 }
 
 // Resizes this texture.
