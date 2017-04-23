@@ -9,7 +9,7 @@ randar::Texture::Texture(
     const std::string& initType
 ) :
   randar::GpuResource(context),
-  randar::Dimensional2(
+  randar::Dimensional2<uint32_t>(
     initWidth,
     initHeight,
     RANDAR_TEXTURE_MAX_WIDTH,
