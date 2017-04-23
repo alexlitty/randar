@@ -148,8 +148,6 @@ namespace randar
          */
         Dimensional2& operator =(const Dimensional2& other)
         {
-            this->maxWidth = other.maxWidth;
-            this->maxHeight = other.maxHeight;
             this->resize(other.getWidth(), other.getHeight());
             return *this;
         }
