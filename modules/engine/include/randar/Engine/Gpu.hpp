@@ -29,8 +29,6 @@ namespace randar
 
         Dimensional2<uint32_t> pbufferDimensions;
 
-        ::GLuint boundTexture;
-
     public:
         Gpu();
         ~Gpu();
@@ -49,7 +47,6 @@ namespace randar
         void initialize(Renderbuffer& renderbuffer);
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
-        void initialize(Texture& texture);
         void initialize(VertexArray& vertexArray);
         void initialize(VertexBuffer& buffer);
 
@@ -69,12 +66,6 @@ namespace randar
          * Resizes a GPU resource.
          */
         void resize(Renderbuffer& renderbuffer, unsigned int width, unsigned int height);
-        void resize(Texture& texture);
-
-        /**
-         * Clears a GPU resource.
-         */
-        void clear(const Texture& texture);
 
         /**
          * Writes the underlying data of a GPU resource.

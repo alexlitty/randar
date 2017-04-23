@@ -67,25 +67,10 @@ namespace randar
          *
          * Does not check GPU validity.
          *
-         * If the texture is invalid, the error argument is filled with a
-         * description of the problem. Otherwise the argument remains unchanged.
+         * Implicitly lets the GPU know the current size of the texture.
          */
-        bool isValid(std::string& error) const;
+        void reset();
 
-        /**
-         * Checks which kind of texture this is.
-         */
-        std::string getType() const;
-        bool isRgba() const;
-        bool isDepth() const;
-
-        /**
-         * Clears this texture with a color.
-         *
-         * @todo - Inefficient.
-         */
-        void clear(const Color& color = Color(0.0f, 0.0f, 0.0f));
- 
         /**
          * Resizes this texture.
          */
