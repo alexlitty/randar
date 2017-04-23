@@ -2,6 +2,7 @@
 #define RANDAR_MATH_DIMENSIONAL2_HPP
 
 #include <limits>
+#include <stdexcept>
 #include <randar/Engine/Stringable.hpp>
 #include <randar/Math/Vector2.hpp>
 
