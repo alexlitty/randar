@@ -15,13 +15,16 @@ randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
 // Constructs a default framebuffer.
 randar::Framebuffer::Framebuffer(randar::Window& initWindow)
 : randar::GpuResource(initWindow.context()),
-  randar::Dimensional2<uint32_t>(initWindow),
   isDefaultFramebuffer(true),
   texture(nullptr),
   depthBuffer(nullptr),
   window(&initWindow)
 {
-
+    randar::Dimensional2<uint32_t>::resize(
+        this->window->getWidth(),
+        this->window->getHeight()
+    );
+    this->getGlName();
 }
 
 // Destructor.

@@ -18,7 +18,10 @@ namespace randar
      *
      * May optionally include a depth buffer.
      */
-    class Framebuffer : virtual public GpuResource, public Dimensional2<uint32_t>
+    class Framebuffer :
+        virtual public GpuResource,
+        virtual public Dimensional2<uint32_t>,
+        virtual public Unassignable
     {
     protected:
         bool isDefaultFramebuffer;
@@ -49,6 +52,12 @@ namespace randar
          * Constructs a representation of a window's default framebuffer.
          */
         Framebuffer(randar::Window& initWindow);
+
+        /**
+         * Disabling copying.
+         */
+        Framebuffer(const Framebuffer& other) = delete;
+        Framebuffer& operator=(const Framebuffer& other) = delete;
 
         /**
          * Destructor.
