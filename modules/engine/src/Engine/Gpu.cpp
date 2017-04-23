@@ -489,7 +489,7 @@ void randar::Gpu::draw(
         }
 
         ::glActiveTexture(GL_TEXTURE0 + i);
-        this->bind(*texture);
+        texture->bind();
 
         program.setUniform("meshTexture" + std::to_string(i), i);
     }
