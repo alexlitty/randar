@@ -31,6 +31,11 @@ namespace randar
         ~Renderbuffer();
 
         /**
+         * Binds the renderbuffer for further operations.
+         */
+        void bind();
+
+        /**
          * Resizes this framebuffer.
          */
         void resize(uint32_t newWidth, uint32_t newHeight);

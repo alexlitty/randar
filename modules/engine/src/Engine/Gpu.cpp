@@ -411,12 +411,6 @@ void randar::Gpu::bind(const randar::Model& model)
     // @todo - bind joints, textures and whatnot.
 }
 
-// Binds a renderbuffer.
-void randar::Gpu::bind(const randar::Renderbuffer& renderbuffer)
-{
-    ::glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
-}
-
 // Binds a vertex buffer.
 void randar::Gpu::bind(const randar::VertexBuffer& buffer)
 {

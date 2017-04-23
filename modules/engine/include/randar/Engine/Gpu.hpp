@@ -105,7 +105,6 @@ namespace randar
          */
         void bind(const IndexBuffer& buffer);
         void bind(const Model& model);
-        void bind(const Renderbuffer& renderbuffer);
         void bind(const VertexBuffer& buffer);
 
         /**

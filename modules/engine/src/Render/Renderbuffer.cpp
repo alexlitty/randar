@@ -38,7 +38,14 @@ randar::Renderbuffer::~Renderbuffer()
     }
 }
 
-// Resizes this framebuffer.
+// Binds the renderbuffer for further operations.
+void randar::Renderbuffer::bind()
+{
+    this->ctx->use();
+    ::glBindRenderbuffer(GL_RENDERBUFFER, this->glName);
+}
+
+// Resizes this renderbuffer.
 void randar::Renderbuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
     randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
