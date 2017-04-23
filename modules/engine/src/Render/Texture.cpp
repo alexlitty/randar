@@ -87,6 +87,6 @@ void randar::Texture::reset()
 // Resizes this texture.
 void randar::Texture::resize(uint32_t width, uint32_t height)
 {
-    randar::Dimensional2::resize(width, height)
+    randar::Dimensional2<uint32_t>::resize(width, height);
     this->reset();
 }
