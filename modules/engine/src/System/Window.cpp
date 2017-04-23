@@ -34,6 +34,8 @@ randar::Window::Window(
         CWColormap | CWEventMask,
         &swa
     );
+    ::XMapWindow(ctx.display, this->handle);
+    ::XSync(ctx.display, false);
 
     this->glxWindow = ::glXCreateWindow(
         ctx.display,
@@ -41,9 +43,6 @@ randar::Window::Window(
         this->handle,
         nullptr
     );
-
-    ::XSync(ctx.display, false);
-    ::XMapWindow(ctx.display, this->handle);
 }
 
 // Destructor.
