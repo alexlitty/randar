@@ -1,19 +1,6 @@
 const assert  = require('assert');
 const adapter = require('../../modules/adapter');
-
-function constructDefault(routine) {
-    const gpu  = new adapter.Gpu();
-    const dims = gpu.defaultFramebufferDimensions();
-    const fb   = new adapter.Framebuffer(gpu, dims);
-
-    assert(fb.getWidth() > 0 && fb.getHeight() > 0);
-
-    if (routine) {
-        routine(gpu, dims, fb);
-    }
-
-    return fb;
-}
+const ctx     = require('../../modules/adapter');
 
 function assertColor(color, expectedColor) {
     assert.equal(color.r(), expectedColor.r());
@@ -35,21 +22,18 @@ function assertCleared(gpu, fb, expectedColor) {
 }
 
 describe('Framebuffer', function() {
-    describe('construction', function() {
-        it('default constructs to default framebuffer', function() {
-            constructDefault(function(gpu, dims, fb) {
-                assert(fb.isDefault());
-                assert(fb.getWidth(), dims.getWidth());
-                assert(fb.getHeight(), dims.getHeight());
-            });
+    describe('window', function() {
+        it('constructs with window', function() {
+            let ctx = new adapter.GraphicsContext();
+            let win = new adapter.Window(ctx, 600, 480);
+            let fb  = new adapter.Framebuffer(win);
         });
     });
 
-    describe('usage', function() {
+    /*describe('usage', function() {
         it('clears with no argument', function() {
             constructDefault(function(gpu, dims, fb) {
                 fb.clear();
-
                 assertCleared(gpu, fb, new adapter.Color());
             });
         });
@@ -67,5 +51,5 @@ describe('Framebuffer', function() {
                 }
             });
         });
-    });
+    });*/
 });
