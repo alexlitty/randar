@@ -21,12 +21,57 @@ function assertCleared(gpu, fb, expectedColor) {
     }
 }
 
-describe('Framebuffer', function() {
+describe.only('Framebuffer', function() {
     describe('window', function() {
         it('constructs with window', function() {
             let ctx = new adapter.GraphicsContext();
             let win = new adapter.Window(ctx, 600, 480);
             let fb  = new adapter.Framebuffer(win);
+            assert.equal(fb.getGlName(), 0);
+        });
+
+        it('refuses attachments', function() {
+            let ctx = new adapter.GraphicsContext();
+            let win = new adapter.Window(ctx, 800, 600);
+            let fb  = new adapter.Framebuffer(win);
+
+            let texture = new adapter.Texture(ctx, 800, 600, 'rgba');
+            assert.throws(() => fb.attach(texture));
+        });
+
+        //it('multiple constructions affect same window', function() {
+        //});
+    });
+
+    describe('off-screen', function() {
+        it('constructs with context', function() {
+            let ctx = new adapter.GraphicsContext();
+            let fb  = new adapter.Framebuffer(ctx);
+            assert.notEqual(fb.getGlName(), 0);
+        });
+
+        it('constructs unique gl names', function() {
+            let ctx = new adapter.GraphicsContext();
+            let fb1 = new adapter.Framebuffer(ctx);
+            let fb2 = new adapter.Framebuffer(ctx);
+
+            assert.notEqual(fb1.getGlName(), 0);
+            assert.notEqual(fb2.getGlName(), 0);
+            assert.notEqual(fb1.getGlName(), fb2.getGlName());
+        });
+
+        it('initializes after attachment', function() {
+            let ctx = new adapter.GraphicsContext();
+            let fb  = new adapter.Framebuffer(ctx);
+
+            let texture = new adapter.Texture(ctx, 64, 64, 'rgba');
+            console.log('???', texture.type);
+            fb.attach(texture);
+            console.log('???');
+
+            assert.notEqual(fb.getGlName(), 0);
+            assert.equal(fb.getWidth(), texture.getWidth());
+            assert.equal(fb.getHeight(), texture.getHeight());
         });
     });
 
