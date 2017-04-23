@@ -6,7 +6,7 @@ void randar::ResourceRepository::exportRaTexture(uint32_t textureId)
     Texture *texture = this->textures[textureId];
 
     if (!texture) {
-        throw std::logic_error("Exporting nonexistent texture");
+        throw std::runtime_error("Exporting nonexistent texture");
     }
 
     BinaryFileWriter stream(

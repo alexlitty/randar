@@ -22,7 +22,7 @@ bool randar::Frame::isFinal() const
 uint32_t randar::Frame::get() const
 {
     if (this->isFinal()) {
-        throw std::logic_error("Retrieving ID of final frame");
+        throw std::runtime_error("Retrieving ID of final frame");
     }
 
     return this->id;

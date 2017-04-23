@@ -5,7 +5,7 @@
 {
     Model *model = this->models[modelId];
     if (!model) {
-        throw std::logic_error("Exporting nonexistent model");
+        throw std::runtime_error("Exporting nonexistent model");
     }
 
     uint8_t version = 0;

@@ -59,7 +59,7 @@ bool randar::ResourceId::isNull() const
 uint32_t randar::ResourceId::get() const
 {
     if (this->isNull()) {
-        throw std::logic_error("Cannot convert null resource ID to integer");
+        throw std::runtime_error("Cannot convert null resource ID to integer");
     }
 
     return *this->id;

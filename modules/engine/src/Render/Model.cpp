@@ -46,7 +46,7 @@ bool randar::Model::isMissingMeshTextures() const
 void randar::Model::setMeshTexture(uint32_t slotId, randar::Texture* texture)
 {
     if (slotId >= this->meshTextures.size()) {
-        throw std::logic_error("Assigning to invalid texture slot on model");
+        throw std::runtime_error("Assigning to invalid texture slot on model");
     }
 
     if (this->meshTextures[slotId] == texture) {

@@ -23,7 +23,7 @@ void randar::Object::build(const randar::FrameRange& frames)
     ModelState state;
 
     if (frames.getEnd().isFinal()) {
-        throw std::logic_error(
+        throw std::runtime_error(
             "Must specify absolute final frame when building scene model"
         );
     }

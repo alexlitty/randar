@@ -20,11 +20,11 @@ randar::FrameRange::FrameRange(const Frame& frame)
 void randar::FrameRange::check() const
 {
     if (this->start == randar::Frame::Final) {
-        throw std::logic_error("FrameRange starts with Final Frame");
+        throw std::runtime_error("FrameRange starts with Final Frame");
     }
 
     if (this->start > this->end) {
-        throw std::logic_error("FrameRange start is beyond end");
+        throw std::runtime_error("FrameRange start is beyond end");
     }
 }
 
