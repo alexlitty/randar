@@ -94,13 +94,6 @@ randar::GraphicsContext::GraphicsContext()
     // Immediately enable off-screen rendering.
     this->use();
 
-    // Initialize glew.
-    ::glewExperimental = true;
-    GLenum status = ::glewInit();
-    if (status != GLEW_OK) {
-        throw std::runtime_error("Failed to initialize GLEW");
-    }
-
     // Configure OpenGL.
     ::glEnable(GL_VERTEX_ARRAY);
     ::glEnable(GL_DEPTH_TEST);
@@ -164,21 +157,26 @@ void randar::GraphicsContext::sync()
 }
 
 // Checks for any errors reported by OpenGL.
-void randar::GraphicsContext::check()
+void randar::GraphicsContext::check(const std::string& message)
 {
-    GLenum status;
-    while ((status = ::glGetError()) != GL_NO_ERROR) {
-        this->errors.push_back(
-            "OpenGL error " + std::to_string(status)
-        );
+    static std::map<GLenum, std::string> errorDescriptions = {
+        { GL_INVALID_ENUM, "Invalid enum passed to GL" },
+        { GL_INVALID_VALUE, "Invalid value passed to GL" },
+        { GL_INVALID_OPERATION, "GL operation not valid in current state" },
+        { GL_INVALID_FRAMEBUFFER_OPERATION, "Invalid GL framebuffer operation" },
+        { GL_OUT_OF_MEMORY, "Out of memory" }
+    };
+
+    this->use();
+    this->status = ::glGetError();
+    if (status == GL_NO_ERROR) {
+        return;
     }
 
-    if (this->errors.size()) {
-        std::string result = "GraphicsContext check failed";
-        for (auto message : this->errors) {
-            result += "\n" + message;
-        }
-
-        throw std::runtime_error(result);
+    std::string description = errorDescriptions[this->status];
+    if (description.empty()) {
+        description = "Unknown GL error #" + std::to_string(this->status);
     }
+
+    throw std::runtime_error(message + ": " + description);
 }
