@@ -118,8 +118,6 @@ randar::GraphicsContext::GraphicsContext()
 
     ::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     this->check("Cannot set GL blending function");
-
-    std::cout << "created context at: " << this << std::endl;
 }
 
 // Destructor.
@@ -144,7 +142,6 @@ randar::GraphicsContext::~GraphicsContext()
 // Makes this context current without considering a window.
 void randar::GraphicsContext::use()
 {
-    std::cout << "checking context at " << this << std::endl;
     this->check("Uncaught GL error");
 
     bool success = ::glXMakeCurrent(

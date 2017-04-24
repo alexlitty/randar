@@ -117,7 +117,6 @@ void randar::Framebuffer::reset()
 
     this->destroy();
 
-    std::cout << "using context at: " << this->ctx << std::endl; // @@@
     this->ctx->use();
     ::glGenFramebuffers(1, &this->glName);
     this->ctx->check("Cannot generate framebuffer");
@@ -154,7 +153,6 @@ void randar::Framebuffer::attach(randar::Texture& texture)
     this->texture->bind();
 
     if (texture.type == "rgba") {
-        std::cout << texture.getGlName() << std::endl;
         ::glFramebufferTexture2D(
             GL_FRAMEBUFFER,
             GL_COLOR_ATTACHMENT0,
