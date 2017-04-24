@@ -7,7 +7,7 @@
 
 namespace randar
 {
-    class Image : public Dimensional2<uint32_t>
+    class Image : virtual public Dimensional2<uint32_t>
     {
     public:
         /**
