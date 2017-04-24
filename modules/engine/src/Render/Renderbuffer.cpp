@@ -13,7 +13,7 @@ randar::Renderbuffer::Renderbuffer(
     this->ctx->use();
     ::glGenRenderbuffers(1, &this->glName);
 
-    this->ctx->check();
+    this->ctx->check("Cannot generate renderbuffer");
     if (this->glName == 0) {
         throw std::runtime_error("Failed to create renderbuffer");
     }
@@ -50,5 +50,5 @@ void randar::Renderbuffer::resize(uint32_t newWidth, uint32_t newHeight)
         this->getHeight()
     );
 
-    this->ctx->check();
+    this->ctx->check("Cannot resize renderbuffer");
 }

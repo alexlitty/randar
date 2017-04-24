@@ -22,7 +22,7 @@ randar::Texture::Texture(
 
     // Create.
     ::glGenTextures(1, &this->glName);
-    this->ctx->check();
+    this->ctx->check("Cannot generate texture");
     if (this->glName == 0) {
         throw std::runtime_error("Failed to create texture");
     }
@@ -87,7 +87,7 @@ void randar::Texture::reset()
         throw std::runtime_error("Resetting invalid texture type");
     }
 
-    this->ctx->check();
+    this->ctx->check("Cannot reinitialize texture");
 }
 
 // Resizes this texture.
