@@ -33,8 +33,13 @@ randar::Renderbuffer::~Renderbuffer()
 // Binds the renderbuffer for further operations.
 void randar::Renderbuffer::bind()
 {
+    if (this->glName == 0) {
+        throw std::runtime_error("Cannot bind uninitialized renderbuffer");
+    }
+
     this->ctx->use();
     ::glBindRenderbuffer(GL_RENDERBUFFER, this->glName);
+    this->ctx->check("Cannot bind renderbuffer");
 }
 
 // Resizes this renderbuffer.
