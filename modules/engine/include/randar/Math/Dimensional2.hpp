@@ -23,6 +23,12 @@ namespace randar
 
     public:
         /**
+         * Disable assignments.
+         */
+        Dimensional2(const Dimensional2<T>& other) = delete;
+        Dimensional2<T>& operator =(const Dimensional2<T>& other) = delete;
+
+        /**
          * Default constructor.
          *
          * Initializes the object with 0 width, 0 height, and no limits.
@@ -56,18 +62,9 @@ namespace randar
         }
 
         /**
-         * Copy constructor.
-         */
-        Dimensional2(const Dimensional2& other)
-        : Dimensional2()
-        {
-            *this = other;
-        }
-
-        /**
          * Whether this object has non-zero dimensions.
          */
-        bool hasDimensions() const
+        virtual bool hasDimensions() const
         {
             return this->getWidth() != 0 && this->getHeight() != 0;
         }
@@ -94,12 +91,12 @@ namespace randar
          * Calls are delegated to the resize method. If you need to override the
          * resizing behavior, simply override resize.
          */
-        void setWidth(T newWidth)
+        virtual void setWidth(T newWidth)
         {
             this->resize(newWidth, this->height);
         }
 
-        void setHeight(T newHeight)
+        virtual void setHeight(T newHeight)
         {
             this->resize(this->width, newHeight);
         }
@@ -107,12 +104,12 @@ namespace randar
         /**
          * Gets the width and height of this object.
          */
-        T getWidth() const
+        virtual T getWidth() const
         {
             return this->width;
         }
 
-        T getHeight() const
+        virtual T getHeight() const
         {
             return this->height;
         }
@@ -123,12 +120,12 @@ namespace randar
          * This check is 0-based. If the dimensions are 20x20, a position at
          * (5, 20) is out of range; (0, 19) is within range.
          */
-        bool isWithinDimensions(const Vector2<T>& position)
+        virtual bool isWithinDimensions(const Vector2<T>& position)
         {
             return this->isWithinDimensions(position.x, position.y);
         }
 
-        bool isWithinDimensions(T x, T y)
+        virtual bool isWithinDimensions(T x, T y)
         {
             return x < this->getWidth()
                 && y < this->getHeight()
@@ -139,18 +136,9 @@ namespace randar
         /**
          * Describes the dimensions of this object as a string.
          */
-        std::string toString() const
+        virtual std::string toString() const
         {
             return std::to_string(this->width) + "x" + std::to_string(this->height);
-        }
-
-        /**
-         * Assignment operator.
-         */
-        Dimensional2& operator =(const Dimensional2& other)
-        {
-            this->resize(other.getWidth(), other.getHeight());
-            return *this;
         }
     };
 }
