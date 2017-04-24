@@ -40,7 +40,9 @@ void randar::Framebuffer::bind()
     } else {
         this->ctx->use();
     }
+
     ::glBindFramebuffer(GL_FRAMEBUFFER, this->glName);
+    this->ctx->check("Cannot bind framebuffer");
 
     if (this->hasDimensions()) {
         const Viewport &viewport = this->camera.viewport;
@@ -62,7 +64,12 @@ void randar::Framebuffer::check()
         { GL_FRAMEBUFFER_UNSUPPORTED, "Configuration not supported" }
     };
 
+    this->ctx->check("Uncaught GL error before Framebuffer sanity check");
+
     if (this->isDefaultFramebuffer) {
+        if (!this->window) {
+            throw std::runtime_error("Default framebuffer is missing window");
+        }
         return;
     }
 
@@ -87,6 +94,8 @@ void randar::Framebuffer::destroy()
     if (this->glName > 0) {
         this->ctx->use();
         ::glDeleteFramebuffers(1, &this->glName);
+        this->ctx->check("Cannot destroy framebuffer");
+        this->glName = 0;
     }
 
     if (this->texture) {
@@ -108,6 +117,8 @@ void randar::Framebuffer::reset()
 
     this->destroy();
 
+    std::cout << "using context at: " << this->ctx << std::endl; // @@@
+    this->ctx->use();
     ::glGenFramebuffers(1, &this->glName);
     this->ctx->check("Cannot generate framebuffer");
     if (this->glName == 0) {
@@ -120,12 +131,20 @@ void randar::Framebuffer::reset()
 // Attachs a texture to the framebuffer.
 void randar::Framebuffer::attach(randar::Texture& texture)
 {
+    if (this->window) {
+        throw std::runtime_error("Cannot add attachments to window framebuffer");
+    }
+
     if (this->texture) {
         throw std::runtime_error("Framebuffer already has an attached texture");
     }
 
     if (this->depthBuffer) {
         throw std::runtime_error("Framebuffer already has an attached depth buffer");
+    }
+
+    if (!texture.hasDimensions()) {
+        throw std::runtime_error("Attachment must have positive dimensions");
     }
 
     this->resize(texture.getWidth(), texture.getHeight());
@@ -135,15 +154,18 @@ void randar::Framebuffer::attach(randar::Texture& texture)
     this->texture->bind();
 
     if (texture.type == "rgba") {
-        ::glFramebufferTexture(
+        std::cout << texture.getGlName() << std::endl;
+        ::glFramebufferTexture2D(
             GL_FRAMEBUFFER,
             GL_COLOR_ATTACHMENT0,
+            GL_TEXTURE_2D,
             texture.getGlName(),
-            0
-        );
+            0);
+        this->ctx->check("Cannot attach texture");
 
         GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
         ::glDrawBuffers(1, drawBuffers);
+        this->ctx->check("Cannot set draw buffers");
 
         this->depthBuffer = new Renderbuffer(
             *this->ctx,
@@ -158,6 +180,7 @@ void randar::Framebuffer::attach(randar::Texture& texture)
             GL_RENDERBUFFER,
             this->depthBuffer->getGlName()
         );
+        this->ctx->check("Cannot attach renderbuffer");
     }
 
     else {
