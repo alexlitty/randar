@@ -3,7 +3,7 @@
 %exception {
     try {
         $action
-    } catch (...) {
-        SWIG_exception(SWIG_RuntimeError, "runtime error");
+    } catch (std::runtime_error &e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
     }
 }
