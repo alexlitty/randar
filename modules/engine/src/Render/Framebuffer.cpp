@@ -68,6 +68,7 @@ void randar::Framebuffer::check()
 
     this->bind();
     this->status = ::glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    this->ctx->check("Cannot check framebuffer status");
     if (this->status == GL_FRAMEBUFFER_COMPLETE) {
         return;
     }
