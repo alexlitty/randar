@@ -3,7 +3,6 @@
 
 #include <randar/Math/Dimensional2.hpp>
 #include <randar/System/GraphicsContext.hpp>
-#include <randar/Utility/Unassignable.hpp>
 
 namespace randar
 {
@@ -14,7 +13,7 @@ namespace randar
      * Continuing to use such windows will result in undefined behavior. Thus,
      * be sure to destroy windows first.
      */
-    class Window : public Dimensional2<uint32_t>, public Unassignable
+    class Window : virtual public Dimensional2<uint32_t>
     {
         protected:
             /**
@@ -33,6 +32,12 @@ namespace randar
             ::GLXWindow glxWindow;
 
         public:
+            /**
+             * Disable assignment.
+             */
+            Window(const Window& other) = delete;
+            Window& operator =(const Window& other) = delete;
+
             /**
              * Constructs a window from a graphics context.
              */

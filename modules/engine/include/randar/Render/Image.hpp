@@ -40,16 +40,17 @@ namespace randar
 
     public:
         /**
+         * Disable assignments.
+         */
+        Image(const Image& other) = delete;
+        Image& operator =(const Image& other) = delete;
+
+        /**
          * Default constructor.
          *
          * Creates an empty image with no width nor height.
          */
         Image();
-
-        /**
-         * Copy constructor.
-         */
-        Image(const Image& other);
 
         /**
          * Destructor.
@@ -142,11 +143,6 @@ namespace randar
          * Retrieves the expected element size of the raw array.
          */
         uint32_t rawSize() const;
-
-        /**
-         * Assignment operator.
-         */
-        Image& operator =(const Image& other);
     };
 }
 

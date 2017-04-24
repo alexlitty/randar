@@ -5,7 +5,6 @@
 #include <vector>
 #include <GL/glew.h>
 #include <GL/glx.h>
-#include <randar/Utility/Unassignable.hpp>
 
 namespace randar
 {

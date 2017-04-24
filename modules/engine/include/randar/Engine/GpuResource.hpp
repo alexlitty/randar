@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 #include <randar/Engine/Resource.hpp>
 #include <randar/System/GraphicsContext.hpp>
-#include <randar/Utility/Unassignable.hpp>
 
 namespace randar
 {

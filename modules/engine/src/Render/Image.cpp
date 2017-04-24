@@ -9,13 +9,6 @@ randar::Image::Image()
 
 }
 
-// Copy constructor.
-randar::Image::Image(const randar::Image& other)
-: randar::Image()
-{
-    *this = other;
-}
-
 // Destructor.
 randar::Image::~Image()
 {
@@ -150,12 +143,4 @@ const float* randar::Image::raw() const
 uint32_t randar::Image::rawSize() const
 {
     return this->getWidth() * this->getHeight() * 4;
-}
-
-// Assignment operator.
-randar::Image& randar::Image::operator =(const randar::Image& other)
-{
-    this->resize(other.getWidth(), other.getHeight());
-    std::memcpy(this->raw(), other.raw(), sizeof(float) * this->rawSize());
-    return *this;
 }
