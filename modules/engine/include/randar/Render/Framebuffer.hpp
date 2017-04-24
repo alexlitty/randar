@@ -35,6 +35,9 @@ namespace randar
         randar::Window *window;
 
     public:
+        using Dimensional2<uint32_t>::getWidth;
+        using Dimensional2<uint32_t>::getHeight;
+
         /**
          * Camera used to view this framebuffer.
          */
