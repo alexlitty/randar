@@ -178,5 +178,17 @@ void randar::GraphicsContext::check(const std::string& message)
         description = "Unknown GL error #" + std::to_string(this->status);
     }
 
+    // Clear the error queue.
+    uint32_t additionalErrorCount = 0;
+    while ((this->status =::glGetError()) != GL_NO_ERROR) {
+        additionalErrorCount++;
+    }
+
+    if (additionalErrorCount) {
+        description += "(+ "
+                     + std::to_string(additionalErrorCount)
+                     + " unchecked)";
+    }
+
     throw std::runtime_error(message + ": " + description);
 }
