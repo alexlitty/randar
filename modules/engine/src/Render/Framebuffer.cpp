@@ -53,13 +53,17 @@ void randar::Framebuffer::check()
 {
     static std::map<GLenum, std::string> errorDescriptions = {
         { GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT, "Attachment incomplete" },
-        { GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS, "Attachments have differing dimensions" },
         { GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT, "No images attached" },
+        { GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER, "Invalid draw buffer" },
+        { GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER, "Invalid read buffer" },
+        { GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE, "Inconsistent sampling configurations" },
+        { GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS, "Inconsistent layering" },
+        { GL_FRAMEBUFFER_UNDEFINED, "Nonexistent default framebuffer" },
         { GL_FRAMEBUFFER_UNSUPPORTED, "Configuration not supported" }
     };
 
     if (this->isDefaultFramebuffer) {
-        return true;
+        return;
     }
 
     this->bind();
