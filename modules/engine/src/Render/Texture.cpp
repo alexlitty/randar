@@ -46,8 +46,13 @@ randar::Texture::~Texture()
 // Binds the texture for further operations.
 void randar::Texture::bind()
 {
+    if (this->glName == 0) {
+        throw std::runtime_error("Cannot bind uninitialized texture");
+    }
+
     this->ctx->use();
     ::glBindTexture(GL_TEXTURE_2D, this->glName);
+    this->ctx->check("Cannot bind texture");
 }
 
 // Resets the texture with arbitrary data.
@@ -118,6 +123,8 @@ void randar::Texture::read(randar::Image& image)
     else {
         throw std::runtime_error("Reading invalid texture type");
     }
+
+    this->ctx->check("Cannot read texture");
 }
 
 randar::Image randar::Texture::read()
