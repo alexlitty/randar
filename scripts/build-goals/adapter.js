@@ -241,7 +241,13 @@ function build(options, done) {
             ],
 
             // Disable warnings.
-            cflags: ['-w'],
+            cflags: [
+                // Disable warnings.
+                '-w',
+
+                // Force C++11 compilation.
+                '-std=c++11'
+            ],
 
             // Enable exceptions.
             'cflags!'    : ['-fno-exceptions'],
