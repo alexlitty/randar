@@ -257,10 +257,3 @@ void randar::Framebuffer::read(randar::Image& image)
         image.raw()
     );
 }
-
-randar::Image randar::Framebuffer::read()
-{
-    Image image;
-    this->read(image);
-    return image;
-}

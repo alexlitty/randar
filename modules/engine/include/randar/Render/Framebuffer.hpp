@@ -41,6 +41,12 @@ namespace randar
         Camera camera;
 
         /**
+         * Disabling copying.
+         */
+        Framebuffer(const Framebuffer& other) = delete;
+        Framebuffer& operator=(const Framebuffer& other) = delete;
+
+        /**
          * Constructs an off-screen framebuffer.
          *
          * Useless until a texture is attached.
@@ -51,13 +57,6 @@ namespace randar
          * Constructs a representation of a window's default framebuffer.
          */
         Framebuffer(randar::Window& initWindow);
-
-        /**
-         * Disabling copying.
-         */
-        Framebuffer(const Framebuffer& other) = delete;
-        Framebuffer(Framebuffer&& other) = delete;
-        Framebuffer& operator=(const Framebuffer& other) = delete;
 
         /**
          * Destructor.
@@ -134,7 +133,6 @@ namespace randar
          * Reads the contents of the framebuffer.
          */
         void read(Image& image);
-        Image read();
     };
 }
 
