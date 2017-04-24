@@ -94,6 +94,7 @@ randar::GraphicsContext::GraphicsContext()
 
     // Immediately enable off-screen rendering.
     this->use();
+    this->check("Cannot create graphics context");
 
     // Initialize GLEW.
     ::glewExperimental = true;
@@ -104,11 +105,21 @@ randar::GraphicsContext::GraphicsContext()
 
     // Configure OpenGL.
     ::glEnable(GL_VERTEX_ARRAY);
+    this->check("Cannot enable GL vertex arrays");
+
     ::glEnable(GL_DEPTH_TEST);
+    this->check("Cannot enable GL depth test");
+
     ::glDepthFunc(GL_LESS);
+    this->check("Cannot set GL depth test function");
 
     ::glEnable(GL_BLEND);
+    this->check("Cannot enable GL blending");
+
     ::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    this->check("Cannot set GL blending function");
+
+    std::cout << "created context at: " << this << std::endl;
 }
 
 // Destructor.
@@ -133,12 +144,16 @@ randar::GraphicsContext::~GraphicsContext()
 // Makes this context current without considering a window.
 void randar::GraphicsContext::use()
 {
+    std::cout << "checking context at " << this << std::endl;
+    this->check("Uncaught GL error");
+
     bool success = ::glXMakeCurrent(
         this->display,
         this->glxPixelBuffer,
         this->ctx
     );
 
+    this->check("Cannot switch graphics context");
     if (!success) {
         throw std::runtime_error("Failed to switch graphics context");
     }
@@ -170,12 +185,11 @@ void randar::GraphicsContext::check(const std::string& message)
     static std::map<GLenum, std::string> errorDescriptions = {
         { GL_INVALID_ENUM, "Invalid enum passed to GL" },
         { GL_INVALID_VALUE, "Invalid value passed to GL" },
-        { GL_INVALID_OPERATION, "GL operation not valid in current state" },
+        { GL_INVALID_OPERATION, "GL operation not valid" },
         { GL_INVALID_FRAMEBUFFER_OPERATION, "Invalid GL framebuffer operation" },
         { GL_OUT_OF_MEMORY, "Out of memory" }
     };
 
-    this->use();
     this->status = ::glGetError();
     if (status == GL_NO_ERROR) {
         return;

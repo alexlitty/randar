@@ -130,6 +130,9 @@ namespace randar
          *
          * If an error has occurred, an exception is thrown with the given
          * message, which should indicate the action previously performed.
+         *
+         * Ensure this context is current before invoking. To prevent an
+         * infinite loop, this does not make the context current.
          */
         void check(const std::string& message);
 
