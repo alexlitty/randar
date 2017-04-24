@@ -95,6 +95,13 @@ randar::GraphicsContext::GraphicsContext()
     // Immediately enable off-screen rendering.
     this->use();
 
+    // Initialize GLEW.
+    ::glewExperimental = true;
+    this->status = ::glewInit();
+    if (this->status != GLEW_OK) {
+        throw std::runtime_error("Failed to initialize GLEW");
+    }
+
     // Configure OpenGL.
     ::glEnable(GL_VERTEX_ARRAY);
     ::glEnable(GL_DEPTH_TEST);
