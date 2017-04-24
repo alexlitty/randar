@@ -69,12 +69,23 @@ namespace randar
          */
         void bind();
 
+    protected:
+        /**
+         * Current framebuffer completeness status.
+         *
+         * Used in the check method. Allocated here for performance.
+         */
+        GLenum status;
+
+    public:
         /**
          * Checks the sanity of framebuffer attachments.
          *
-         * If false, framebuffer requires further configuration before use.
+         * Throws an exception if the framebuffer is not complete. Window
+         * framebuffers never thrown an exception, as they are always ready
+         * for use.
          */
-        bool check();
+        void check();
 
     protected:
         /**

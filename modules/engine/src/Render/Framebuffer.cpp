@@ -49,13 +49,31 @@ void randar::Framebuffer::bind()
 }
 
 // Checks the sanity of framebuffer attachments.
-bool randar::Framebuffer::check()
+void randar::Framebuffer::check()
 {
+    static std::map<GLenum, std::string> errorDescriptions = {
+        { GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT, "Attachment incomplete" },
+        { GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS, "Attachments have differing dimensions" },
+        { GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT, "No images attached" },
+        { GL_FRAMEBUFFER_UNSUPPORTED, "Configuration not supported" }
+    };
+
     if (this->isDefaultFramebuffer) {
         return true;
     }
 
-    return ::glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+    this->bind();
+    this->status = ::glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if (this->status == GL_FRAMEBUFFER_COMPLETE) {
+        return;
+    }
+
+    std::string description = errorDescriptions[status];
+    if (description.empty()) {
+        description = "Unknown GL status #" + std::to_string(status);
+    }
+
+    throw std::runtime_error("Framebuffer incomplete: " + description);
 }
 
 // Destroys this framebuffer and removes its attachments.
@@ -86,7 +104,7 @@ void randar::Framebuffer::reset()
     this->destroy();
 
     ::glGenFramebuffers(1, &this->glName);
-    this->ctx->check();
+    this->ctx->check("Cannot generate framebuffer");
     if (this->glName == 0) {
         throw std::runtime_error("Failed to reset framebuffer");
     }
@@ -141,9 +159,7 @@ void randar::Framebuffer::attach(randar::Texture& texture)
         throw std::runtime_error("Attaching texture with invalid type");
     }
 
-    if (!this->check()) {
-        throw std::runtime_error("Bad framebuffer attachments");
-    }
+    this->check();
 }
 
 // Clears the framebuffer with an optional color.
