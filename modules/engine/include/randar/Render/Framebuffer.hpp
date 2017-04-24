@@ -119,7 +119,6 @@ namespace randar
         /**
          * Resizes this framebuffer and its dependencies.
          */
-        void resize(Dimensional2<uint32_t> dimensions);
         void resize(uint32_t newWidth, uint32_t newHeight);
 
         /**

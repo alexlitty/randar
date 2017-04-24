@@ -197,11 +197,6 @@ void randar::Framebuffer::clear(const randar::Color& color)
 }
 
 // Resizes this framebuffer and its dependencies.
-void randar::Framebuffer::resize(randar::Dimensional2<uint32_t> dimensions)
-{
-    this->resize(dimensions.getWidth(), dimensions.getHeight());
-}
-
 void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
     if (this->isDefaultFramebuffer) {
