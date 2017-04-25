@@ -44,7 +44,7 @@ describe('Image', function() {
             assert.equal(a.getWidth(), b.getWidth());
             assert.equal(a.getHeight(), b.getHeight());
             assert.notEqual(a.raw(), b.raw());
-            assert.equal(a.rawSize(), b.rawSize());
+            assert.equal(a.rawCount(), b.rawCount());
 
             var pixel = b.getPixel(0, 0);
             assert.equal(pixel.r(), v1);
@@ -175,7 +175,7 @@ describe('Image', function() {
                 assert.equal(image.getHeight(), size.y);
 
                 assert.equal(image.raw(), null);
-                assert.equal(image.rawSize(), 0);
+                assert.equal(image.rawCount(), 0);
                 assert.equal(image.hasDimensions(), false);
             }
         });
@@ -192,20 +192,20 @@ describe('Image', function() {
             const image = new adapter.Image();
 
             image.resize(1, 1);
-            assert.equal(image.rawSize(), 4);
+            assert.equal(image.rawCount(), 4);
 
             image.resize(4, 4);
-            assert.equal(image.rawSize(), 64);
+            assert.equal(image.rawCount(), 64);
 
             image.resize(3, 1);
-            assert.equal(image.rawSize(), 12);
+            assert.equal(image.rawCount(), 12);
 
             for (var x = 1; x < 64; x++) {
                 for (var y = 1; y < 64; y++) {
                     image.resize(x, y);
                     assert.equal(image.getWidth(), x);
                     assert.equal(image.getHeight(), y);
-                    assert.equal(image.rawSize(), x * y * 4);
+                    assert.equal(image.rawCount(), x * y * 4);
                 }
             }
         });
@@ -216,12 +216,12 @@ describe('Image', function() {
             image.resize(1024, 768);
             assert.equal(image.getWidth(), 1024);
             assert.equal(image.getHeight(), 768);
-            assert.equal(image.rawSize(), 3145728);
+            assert.equal(image.rawCount(), 3145728);
             
             image.resize(10000, 10000);
             assert.equal(image.getWidth(), 10000);
             assert.equal(image.getHeight(), 10000);
-            assert.equal(image.rawSize(), 400000000);
+            assert.equal(image.rawCount(), 400000000);
         });
 
         it('rejects ridiculously large sizes', function() {
