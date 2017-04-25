@@ -113,10 +113,10 @@ uint32_t randar::Image::getPixelIndex(uint32_t x, uint32_t y) const
     }
 
     if (this->internalLayout == Image::LAYOUT::FLIP_VERTICAL) {
-        return ((((this->getHeight() - 1) - y) * this->getWidth()) + x) * 4;
-    } else {
-        return ((y * this->getWidth()) + x) * 4;
+        y = y;
     }
+
+    return ((y * this->getWidth()) + x) * 4;
 }
 
 // Gets the color of a pixel.
@@ -149,22 +149,17 @@ void randar::Image::setPixel(const randar::Vector2<uint32_t>& vec, float r, floa
 
 void randar::Image::setPixel(uint32_t x, uint32_t y, const randar::Color& color)
 {
-    this->_setPixel(x, y, color.r(), color.g(), color.b(), color.a());
+    uint32_t index = this->getPixelIndex(x, y);
+
+    this->data[index]     = color.r();
+    this->data[index + 1] = color.g();
+    this->data[index + 2] = color.b();
+    this->data[index + 3] = color.a();
 }
 
 void randar::Image::setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a)
 {
     this->setPixel(x, y, Color(r, g, b, a));
-}
-
-// Blindly sets the color of a pixel.
-void randar::Image::_setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a)
-{
-    uint32_t index = this->getPixelIndex(x, y);
-    this->data[index] = r;
-    this->data[index + 1] = g;
-    this->data[index + 2] = b;
-    this->data[index + 3] = a;
 }
 
 // Retrieves a pointer to the raw image data.

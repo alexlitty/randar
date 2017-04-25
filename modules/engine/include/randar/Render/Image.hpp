@@ -138,23 +138,11 @@ namespace randar
          *
          * Positions begin at 0. If the desired pixel is out of range, nothing
          * happens. Color values are clamped within [0, 1].
-         *
-         * If values always meet these requirements beforehand, use _setPixel.
          */
         void setPixel(const Vector2<uint32_t>& vec, const Color& color);
         void setPixel(const Vector2<uint32_t>& vec,  float r, float g, float b, float a = 1.0f);
         void setPixel(uint32_t x, uint32_t y, const Color& color);
         void setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a = 1.0f);
-
-        /**
-         * Blindly sets the color of a pixel.
-         *
-         * If the desired pixel is out of range or color values are not clamped
-         * within [0, 1], behavior is undefined.
-         *
-         * If values may not meet these requirements beforehand, use setPixel.
-         */
-        void _setPixel(uint32_t x, uint32_t y, float r, float g, float b, float a);
 
         /**
          * Retrieves a pointer to the raw image data.
