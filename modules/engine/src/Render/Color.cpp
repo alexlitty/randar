@@ -39,22 +39,22 @@ void randar::Color::set(float rNew, float gNew, float bNew, float aNew)
 // Safely sets a channel on the color using float values.
 void randar::Color::r(float v)
 {
-    this->_r(randar::clampUnsignedFloat(v));
+    this->data[0] = randar::clampUnsignedFloat(v);
 }
 
 void randar::Color::g(float v)
 {
-    this->_g(randar::clampUnsignedFloat(v));
+    this->data[1] = randar::clampUnsignedFloat(v);
 }
 
 void randar::Color::b(float v)
 {
-    this->_b(randar::clampUnsignedFloat(v));
+    this->data[2] = randar::clampUnsignedFloat(v);
 }
 
 void randar::Color::a(float v)
 {
-    this->_a(randar::clampUnsignedFloat(v));
+    this->data[3] = randar::clampUnsignedFloat(v);
 }
 
 // Sets the color using 8-bit integer values.
@@ -69,22 +69,22 @@ void randar::Color::setInt(uint8_t rNew, uint8_t gNew, uint8_t bNew, uint8_t aNe
 // Sets a channel on the color using 8-bit integer values.
 void randar::Color::rInt(uint8_t v)
 {
-    this->_r(v / 255.0f);
+    this->r(v / 255.0f);
 }
 
 void randar::Color::gInt(uint8_t v)
 {
-    this->_g(v / 255.0f);
+    this->g(v / 255.0f);
 }
 
 void randar::Color::bInt(uint8_t v)
 {
-    this->_b(v / 255.0f);
+    this->b(v / 255.0f);
 }
 
 void randar::Color::aInt(uint8_t v)
 {
-    this->_a(v / 255.0f);
+    this->a(v / 255.0f);
 }
 
 // Gets a channel on the color as a float clamped within [0, 1].

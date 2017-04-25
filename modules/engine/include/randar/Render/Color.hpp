@@ -42,10 +42,6 @@ namespace randar
          *
          * Alpha is optional and defaults to 1, fully opaque.
          *
-         * No constructor is provided for blindly initializing the color values.
-         * If performance is required, consider calling _set on an existing
-         * instance or not using the class altogether.
-         *
          * No constructor is provided for initializing the color using 8-bit
          * integers, for intuitive Node.js compatibility.
          *
@@ -65,28 +61,9 @@ namespace randar
         /**
          * Safely sets the color using float values.
          *
-         * Values are clamped within [0, 1]. If all values are always clamped
-         * beforehand, use _set.
-         *
          * Alpha is optional and defaults to 1, fully opaque.
          */
         void set(float rNew, float gNew, float bNew, float aNew = 1.0f);
-
-        /**
-         * Blindly sets the color using float values.
-         *
-         * If any value is not clamped within [0, 1], behavior is undefined. If
-         * any value may not be clamped beforehand, use set.
-         *
-         * Alpha is optional and defaults to 1, fully opaque.
-         */
-        inline void _set(float rNew, float gNew, float bNew, float aNew = 1.0f)
-        {
-            this->data[0] = rNew;
-            this->data[1] = gNew;
-            this->data[2] = bNew;
-            this->data[3] = aNew;
-        }
 
         /**
          * Safely sets a channel on the color using float values.
@@ -97,18 +74,6 @@ namespace randar
         void g(float v);
         void b(float v);
         void a(float v);
-
-        /**
-         * Blindly sets a channel on the color using float values.
-         *
-         * If a value is not clamped within [0, 1], behavior is undefined. If
-         * any value may not be clamped beforehand, use the safe method
-         * alternative.
-         */
-        inline void _r(float v) { this->data[0] = v; }
-        inline void _g(float v) { this->data[1] = v; }
-        inline void _b(float v) { this->data[2] = v; }
-        inline void _a(float v) { this->data[3] = v; }
 
         /**
          * Sets the color using 8-bit integer values.
