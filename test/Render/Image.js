@@ -32,6 +32,10 @@ describe('Image', function() {
             assertDimensions(new adapter.Image(), 0, 0);
         });
 
+        it('constructs with specific dimensions', function() {
+            assertDimensions(new adapter.Image(32, 75), 32, 75);
+        });
+
         it('copy constructs deeply', function() {
             const a = new adapter.Image();
             const v1 = 0.3499999940395355;
