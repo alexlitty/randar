@@ -9,11 +9,7 @@ randar::Texture::Texture(
 )
 :
   randar::GpuResource(context),
-  randar::Dimensional2<uint32_t>(
-    initWidth,
-    initHeight,
-    RANDAR_TEXTURE_MAX_WIDTH,
-    RANDAR_TEXTURE_MAX_HEIGHT),
+  randar::Dimensional2<uint32_t>(initWidth, initHeight),
   type(initType)
 {
     if (type != "rgba" && type != "depth") {
@@ -98,7 +94,15 @@ void randar::Texture::reset()
 // Resizes this texture.
 void randar::Texture::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
+    if (newWidth > RANDAR_TEXTURE_MAX_WIDTH || newHeight > RANDAR_TEXTURE_MAX_HEIGHT) {
+        throw std::runtime_error(
+            "Texture dimensions may not exceed "
+            + std::to_string(RANDAR_TEXTURE_MAX_WIDTH) + "x"
+            + std::to_string(RANDAR_TEXTURE_MAX_HEIGHT)
+        );
+    }
+
+    Dimensional2<uint32_t>::resize(newWidth, newHeight);
     this->reset();
 }
 
@@ -125,11 +129,4 @@ void randar::Texture::read(randar::Image& image)
     }
 
     this->ctx->check("Cannot read texture");
-}
-
-randar::Image randar::Texture::read()
-{
-    Image image;
-    this->read(image);
-    return image;
 }
