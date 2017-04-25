@@ -25,7 +25,7 @@ namespace randar
         /**
          * Disable assignments.
          */
-        Dimensional2(const Dimensional2<T>& other) = delete;
+        explicit Dimensional2(const Dimensional2<T>& other) = delete;
         Dimensional2<T>& operator =(const Dimensional2<T>& other) = delete;
 
         /**
@@ -35,54 +35,43 @@ namespace randar
          */
         Dimensional2()
         : width(0),
-          height(0),
-          maxWidth(std::numeric_limits<T>::max()),
-          maxHeight(std::numeric_limits<T>::max())
+          height(0)
         {
 
         }
 
         /**
-         * Constructor for initial width & height specification with no limits.
+         * Primary constructor.
          */
         Dimensional2(T initWidth, T initHeight)
-        : Dimensional2()
+        : width(initWidth),
+          height(initHeight)
         {
-            this->resize(initWidth, initHeight);
-        }
 
-        /**
-         * Constructor for initial width, height, and limits specification.
-         */
-        Dimensional2(T initWidth, T initHeight, T initMaxWidth, T initMaxHeight)
-        : maxWidth(initMaxWidth),
-          maxHeight(initMaxHeight)
-        {
-            this->resize(initWidth, initHeight);
         }
 
         /**
          * Whether this object has non-zero dimensions.
          */
-        virtual bool hasDimensions() const
+        bool hasDimensions() const
         {
             return this->getWidth() != 0 && this->getHeight() != 0;
         }
 
+    public:
         /**
          * Sets the width and height of this object.
+         *
+         * Invokes onResize after the new dimensions are set.
          */
         virtual void resize(T newWidth, T newHeight)
         {
-            if (newWidth > this->maxWidth || newHeight > this->maxHeight) {
-                throw std::runtime_error(
-                    "Dimensions may not exceed "
-                    + std::to_string(this->maxWidth) + "x"
-                    + std::to_string(this->maxHeight)
-                );
+            if (newWidth < 0 || newHeight < 0) {
+                throw std::runtime_error("Dimensions must not be negative");
             }
-            this->width = (newWidth < 0) ? 0 : newWidth;
-            this->height = (newHeight < 0) ? 0 : newHeight;
+
+            this->width = newWidth;
+            this->height = newHeight;
         }
 
         /**
@@ -91,12 +80,12 @@ namespace randar
          * Calls are delegated to the resize method. If you need to override the
          * resizing behavior, simply override resize.
          */
-        virtual void setWidth(T newWidth)
+        void setWidth(T newWidth)
         {
             this->resize(newWidth, this->height);
         }
 
-        virtual void setHeight(T newHeight)
+        void setHeight(T newHeight)
         {
             this->resize(this->width, newHeight);
         }
@@ -104,12 +93,12 @@ namespace randar
         /**
          * Gets the width and height of this object.
          */
-        virtual T getWidth() const
+        T getWidth() const
         {
             return this->width;
         }
 
-        virtual T getHeight() const
+        T getHeight() const
         {
             return this->height;
         }
@@ -120,12 +109,12 @@ namespace randar
          * This check is 0-based. If the dimensions are 20x20, a position at
          * (5, 20) is out of range; (0, 19) is within range.
          */
-        virtual bool isWithinDimensions(const Vector2<T>& position)
+        bool isWithinDimensions(const Vector2<T>& position)
         {
             return this->isWithinDimensions(position.x, position.y);
         }
 
-        virtual bool isWithinDimensions(T x, T y)
+        bool isWithinDimensions(T x, T y)
         {
             return x < this->getWidth()
                 && y < this->getHeight()
