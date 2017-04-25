@@ -45,7 +45,7 @@ void randar::Renderbuffer::bind()
 // Resizes this renderbuffer.
 void randar::Renderbuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
+    Dimensional2<uint32_t>::resize(newWidth, newHeight);
 
     this->bind();
     ::glRenderbufferStorage(
