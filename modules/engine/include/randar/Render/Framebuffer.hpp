@@ -19,9 +19,20 @@ namespace randar
      * May optionally include a depth buffer.
      */
     class Framebuffer :
-        public GpuResource,
+        virtual public GpuResource,
         virtual public Dimensional2<uint32_t>
     {
+    public:
+        /**
+         * Help swig identify inherited methods.
+         */
+        using Dimensional2<uint32_t>::getWidth;
+        using Dimensional2<uint32_t>::getHeight;
+        using Dimensional2<uint32_t>::setWidth;
+        using Dimensional2<uint32_t>::setHeight;
+        using Dimensional2<uint32_t>::hasDimensions;
+        using Dimensional2<uint32_t>::isWithinDimensions;
+
     protected:
         bool isDefaultFramebuffer;
         Texture* texture;
@@ -115,7 +126,7 @@ namespace randar
         /**
          * Resizes this framebuffer and its dependencies.
          */
-        void resize(uint32_t newWidth, uint32_t newHeight);
+        virtual void resize(uint32_t newWidth, uint32_t newHeight) override;
 
         /**
          * Checks whether this framebuffer has a texture and depth buffer.

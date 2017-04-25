@@ -15,15 +15,12 @@ randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
 // Constructs a default framebuffer.
 randar::Framebuffer::Framebuffer(randar::Window& initWindow)
 : randar::GpuResource(initWindow.context()),
+  randar::Dimensional2<uint32_t>(initWindow.getWidth(), initWindow.getHeight()),
   isDefaultFramebuffer(true),
   texture(nullptr),
   depthBuffer(nullptr),
   window(&initWindow)
 {
-    randar::Dimensional2<uint32_t>::resize(
-        this->window->getWidth(),
-        this->window->getHeight()
-    );
 }
 
 // Destructor.
@@ -203,7 +200,7 @@ void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
         throw std::runtime_error("Resizing default framebuffer not supported yet");
     }
 
-    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
+    Dimensional2<uint32_t>::resize(newWidth, newHeight);
     this->camera.viewport = Viewport(0, 0, newWidth, newHeight);
 
     if (this->texture) {
