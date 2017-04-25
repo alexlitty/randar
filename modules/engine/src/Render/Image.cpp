@@ -4,15 +4,58 @@
 
 // Default constructor.
 randar::Image::Image()
-: data(nullptr)
+: randar::Dimensional2<uint32_t>(0, 0),
+  data(nullptr)
 {
 
+}
+
+// Primary constructor.
+randar::Image::Image(uint32_t initWidth, uint32_t initHeight)
+: randar::Image()
+{
+    this->resize(initWidth, initHeight);
+}
+
+// Copy constructor.
+randar::Image::Image(const randar::Image& other)
+: randar::Image()
+{
+    *this = other;
 }
 
 // Destructor.
 randar::Image::~Image()
 {
     this->freeData();
+}
+
+// Assignment operator.
+randar::Image& randar::Image::operator =(const randar::Image& other)
+{
+    this->copy(other.data, other.getWidth(), other.getHeight());
+    this->internalLayout = other.internalLayout;
+    return *this;
+}
+
+// Copies a data buffer into the image.
+void randar::Image::copy(float* otherData, uint32_t newWidth, uint32_t newHeight)
+{
+    this->resize(newWidth, newHeight);
+
+    if (this->data) {
+        std::memcpy(this->data, otherData, this->rawSize());
+    }
+}
+
+// Adopts an externally created data buffer.
+void randar::Image::adopt(float* newData, uint32_t newWidth, uint32_t newHeight)
+{
+    this->freeData();
+
+    this->width  = newWidth;
+    this->height = newHeight;
+    this->data = newData;
 }
 
 // Frees the raw image data.
@@ -30,7 +73,7 @@ void randar::Image::allocateData()
     if (!this->hasDimensions()) {
         this->data = nullptr;
     } else {
-        this->data = new float[this->rawSize()];
+        this->data = new float[this->rawCount()];
     }
 }
 
@@ -48,12 +91,8 @@ randar::Image::LAYOUT randar::Image::layout() const
 // Resizes the image.
 void randar::Image::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    if (this->getWidth() == newWidth && this->getHeight() == newHeight) {
-        return;
-    }
-
+    Dimensional2<uint32_t>::resize(newWidth, newHeight);
     this->freeData();
-    randar::Dimensional2<uint32_t>::resize(newWidth, newHeight);
     this->allocateData();
 }
 
@@ -139,8 +178,14 @@ const float* randar::Image::raw() const
     return this->data;
 }
 
-// Retrieves the expected size of the raw image data.
-uint32_t randar::Image::rawSize() const
+// Calculates the expected element count of the raw image data.
+uint32_t randar::Image::rawCount() const
 {
     return this->getWidth() * this->getHeight() * 4;
+}
+
+// Calculates the expected byte size of the raw image data.
+uint32_t randar::Image::rawSize() const
+{
+    return this->rawCount() * sizeof(float);
 }

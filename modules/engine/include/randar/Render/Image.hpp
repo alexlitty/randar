@@ -11,6 +11,16 @@ namespace randar
     {
     public:
         /**
+         * Help swig identify inherited methods.
+         */
+        using Dimensional2<uint32_t>::getWidth;
+        using Dimensional2<uint32_t>::getHeight;
+        using Dimensional2<uint32_t>::setWidth;
+        using Dimensional2<uint32_t>::setHeight;
+        using Dimensional2<uint32_t>::hasDimensions;
+        using Dimensional2<uint32_t>::isWithinDimensions;
+
+        /**
          * A description of an image's pixel layout.
          */
         enum class LAYOUT
@@ -36,15 +46,9 @@ namespace randar
         /**
          * Pixel layout of the raw image data.
          */
-        LAYOUT internalLayout;
+        LAYOUT internalLayout = LAYOUT::NORMAL;
 
     public:
-        /**
-         * Disable assignments.
-         */
-        Image(const Image& other) = delete;
-        Image& operator =(const Image& other) = delete;
-
         /**
          * Default constructor.
          *
@@ -53,9 +57,34 @@ namespace randar
         Image();
 
         /**
+         * Primary constructor.
+         */
+        Image(uint32_t initWidth, uint32_t initHeight);
+
+        /**
+         * Copy constructor.
+         */
+        Image(const Image& other);
+
+        /**
          * Destructor.
          */
         ~Image();
+
+        /**
+         * Assignment operator.
+         */
+        Image& operator =(const Image& other);
+
+        /**
+         * Copies a data buffer into the image.
+         */
+        void copy(float* otherData, uint32_t newWidth, uint32_t newHeight);
+
+        /**
+         * Adopts an externally created data buffer.
+         */
+        void adopt(float* newData, uint32_t newWidth, uint32_t newHeight);
 
     protected:
         /**
@@ -80,13 +109,7 @@ namespace randar
         /**
          * Resizes the image.
          *
-         * If the image is decreasing in size, right-bottom pixels are
-         * truncated. If increasing, the new area is filled with opaque black.
-         *
-         * It is more efficient to use the set method when an external buffer of
-         * pixels is immediately available.
-         *
-         * @@@ todo - Image gets cleared upon resizing.
+         * The image's data is reallocated. Any existing data is lost.
          */
         virtual void resize(uint32_t newWidth, uint32_t newHeight) override;
 
@@ -140,7 +163,12 @@ namespace randar
         const float* raw() const;
 
         /**
-         * Retrieves the expected element size of the raw array.
+         * Calculates the expected element count of the raw image data.
+         */
+        uint32_t rawCount() const;
+
+        /**
+         * Calculates the expected byte size of the raw image data.
          */
         uint32_t rawSize() const;
     };
