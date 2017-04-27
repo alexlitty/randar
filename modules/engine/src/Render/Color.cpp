@@ -21,6 +21,13 @@ randar::Color::Color(const Color& other)
     this->set(other);
 }
 
+// Assignment operator.
+randar::Color& randar::Color::operator =(const Color& other)
+{
+    this->set(other);
+    return *this;
+}
+
 // Sets this color from another color.
 void randar::Color::set(const Color& other)
 {

@@ -54,6 +54,11 @@ namespace randar
         Color(const Color& other);
 
         /**
+         * Assignment operator.
+         */
+        Color& operator =(const Color& other);
+
+        /**
          * Sets this color from another color.
          */
         void set(const Color& other);
