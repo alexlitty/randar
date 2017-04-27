@@ -117,6 +117,7 @@ namespace randar
         Version& operator =(const Version& other)
         {
             this->set(other.toString());
+            return *this;
         }
     };
 }
