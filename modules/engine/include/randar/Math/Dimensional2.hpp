@@ -51,6 +51,14 @@ namespace randar
         }
 
         /**
+         * Destructor.
+         */
+        virtual ~Dimensional2()
+        {
+
+        }
+
+        /**
          * Whether this object has non-zero dimensions.
          */
         bool hasDimensions() const
