@@ -80,6 +80,10 @@ randar::GraphicsContext::GraphicsContext()
         pbAttribs
     );
 
+    if (!this->glxPixelBuffer) {
+        throw std::runtime_error("Failed to initialize GLX pixel buffer");
+    }
+
     // Create the context.
     this->ctx = glXCreateContextAttribsARB(
         this->display,
