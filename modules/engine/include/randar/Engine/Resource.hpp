@@ -27,11 +27,6 @@ namespace randar
         std::string name;
 
         /**
-         * Constructor.
-         */
-        Resource(const std::string& initName = "");
-
-        /**
          * Destructor.
          */
         virtual ~Resource();
