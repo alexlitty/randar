@@ -99,7 +99,7 @@ namespace randar
             std::string result;
             for (uint8_t i = 0; i < this->parts.size(); i++) {
                 result += std::to_string(this->parts[i]);
-                if (i + 1 != this->parts.size()) {
+                if (static_cast<unsigned int>(i + 1) != this->parts.size()) {
                     result += ".";
                 }
             }
