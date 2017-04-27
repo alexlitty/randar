@@ -8,6 +8,7 @@ randar::IndexBuffer::IndexBuffer(randar::Gpu& initGpu)
 }
 
 randar::IndexBuffer::IndexBuffer(const IndexBuffer& other)
+: randar::GpuResource(other.gpu)
 {
     *this = other;
 }

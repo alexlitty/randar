@@ -9,6 +9,7 @@ randar::ShaderProgram::ShaderProgram(Gpu* gpuInit)
 
 // Constructs a new shader program as a copy of an existing one.
 randar::ShaderProgram::ShaderProgram(const randar::ShaderProgram& other)
+: randar::GpuResource(other.gpu)
 {
     this->vertexShader = other.vertexShader;
     this->fragmentShader = other.fragmentShader;

@@ -10,6 +10,7 @@ randar::Shader::Shader(randar::Gpu* gpuInit)
 
 // Constructs a new shader as a copy of an existing one.
 randar::Shader::Shader(const randar::Shader& other)
+: randar::GpuResource(other.gpu)
 {
     *this = other;
 }
