@@ -244,9 +244,6 @@ function build(options, done) {
 
             // Disable warnings.
             cflags: [
-                // Enable debug symbols. Uncomment as required.
-                // '-g',
-
                 // SWIG uses plenty of deprecated v8 calls on purpose. They're
                 // perfectly fine to use; Ignore them.
                 '-Wno-deprecated-declarations',
