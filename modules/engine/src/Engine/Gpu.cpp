@@ -22,8 +22,8 @@ randar::Gpu::Gpu()
     };
 
     int pbAttribs[] = {
-        GLX_PBUFFER_WIDTH, this->pbufferDimensions.getWidth(),
-        GLX_PBUFFER_HEIGHT, this->pbufferDimensions.getHeight(),
+        //GLX_PBUFFER_WIDTH, this->pbufferDimensions.getWidth(),
+        //GLX_PBUFFER_HEIGHT, this->pbufferDimensions.getHeight(),
         None
     };
 
