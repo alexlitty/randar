@@ -81,6 +81,12 @@ namespace randar
 
     public:
         /**
+         * Disable assignment.
+         */
+        GraphicsContext(const GraphicsContext& other) = delete;
+        GraphicsContext& operator =(const GraphicsContext& other) = delete;
+
+        /**
          * Constructor.
          */
         GraphicsContext();
