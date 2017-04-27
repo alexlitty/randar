@@ -32,6 +32,12 @@ randar::Path::Path(const randar::Path& other)
 
 }
 
+// Destructor.
+randar::Path::~Path()
+{
+
+}
+
 // Converts to a platform-appropriate string.
 std::string randar::Path::toString() const
 {

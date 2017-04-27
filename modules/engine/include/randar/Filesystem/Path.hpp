@@ -29,6 +29,11 @@ namespace randar
         Path(const Path& other);
 
         /**
+         * Destructor.
+         */
+        virtual ~Path();
+
+        /**
          * Converts to a platform-appropriate string.
          */
         virtual std::string toString() const;
