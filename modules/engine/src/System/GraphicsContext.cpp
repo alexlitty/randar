@@ -89,6 +89,10 @@ randar::GraphicsContext::GraphicsContext()
         ctxAttribs
     );
 
+    if (!this->ctx) {
+        throw std::runtime_error("Failed to initialize graphics context");
+    }
+
     // Wait for X to throw any errors available.
     ::XSync(this->display, false);
 
