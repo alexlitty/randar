@@ -1,14 +1,15 @@
-const assert  = require('assert');
-const adapter = require('../../modules/adapter');
-
 function assertDims(texture, width, height) {
     assert.equal(texture.getWidth(), width);
     assert.equal(texture.getHeight(), height);
 };
 
-const ctx = new adapter.GraphicsContext();
-
 describe('Texture', function() {
+    let ctx;
+
+    before(function() {
+        ctx = new adapter.GraphicsContext();
+    });
+
     it('constructs rgba by default', function() {
         const texture = new adapter.Texture(ctx, 64, 64);
         assert.equal(texture.type, 'rgba');

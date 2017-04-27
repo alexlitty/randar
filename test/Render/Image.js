@@ -1,6 +1,3 @@
-const assert  = require('assert');
-const adapter = require('../../modules/adapter');
-
 function forEachPixel(image, routine) {
     for (var x = 0; x < image.getWidth(); x++) {
         for (var y = 0; y < image.getHeight(); y++) {

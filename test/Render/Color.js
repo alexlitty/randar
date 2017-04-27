@@ -1,6 +1,3 @@
-const adapter = require('../../modules/adapter');
-const assert  = require('assert');
-
 const rgb  = ['r', 'g', 'b'];
 const rgba = rgb.concat('a');
 

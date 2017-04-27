@@ -1,6 +1,3 @@
-const assert  = require('assert');
-const adapter = require('../../modules/adapter');
-
 function assertDims(dims, expectedWidth, expectedHeight) {
     if (expectedWidth === 0 || expectedHeight === 0) {
         assert(!dims.hasDimensions());
