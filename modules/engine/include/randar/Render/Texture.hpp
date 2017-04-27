@@ -26,6 +26,12 @@ namespace randar
         using Dimensional2<uint32_t>::isWithinDimensions;
 
         /**
+         * Disable assignment.
+         */
+        Texture(const Texture& other) = delete;
+        Texture& operator =(const Texture& other) = delete;
+
+        /**
          * Type of texture.
          *
          * Valid values are "rgba" and "depth".
