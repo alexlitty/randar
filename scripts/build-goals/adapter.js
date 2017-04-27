@@ -66,7 +66,7 @@ function run(command, args, successMessage, done) {
 function build(options, done) {
     var swigContents = '';
     function addSwigLines(lines) {
-        swigContents += lines.map(line => line + ';\n').join('');
+        swigContents += lines.map(line => line + '\n').join('');
     }
 
     const swigFilename   = 'adapter.i';
@@ -98,7 +98,8 @@ function build(options, done) {
         });
 
         // If we can't find a header without satisfied dependencies, we've
-        // encountered a circular dependency. Swig 
+        // encountered a circular dependency. Swig may be able to resolve it
+        // anyway, but warn the user just in case.
         if (key == -1) {
             key = 0;
             circularHeaders.push(availableHeaders[key]);
@@ -125,10 +126,10 @@ function build(options, done) {
     }
 
     // %naturalvar requests a more intuitive interface with class members.
-    addSwigLines(['%naturalvar']);
+    addSwigLines(['%naturalvar;']);
 
     // Disable implicit generation of default constructors.
-    addSwigLines(['%nodefaultctor']);
+    addSwigLines(['%nodefaultctor;']);
 
     // Ignore operators that don't translate well to node code. These operators
     // could be explicitly renamed if we end up needing them.
@@ -166,7 +167,7 @@ function build(options, done) {
         ' btVector3',
         ' btQuaternion',
         ' btTransform'
-    ].map(x => `%ignore operator${x}`));
+    ].map(x => `%ignore operator${x};`));
 
     // Include common typemappings.
     addSwigLines([
