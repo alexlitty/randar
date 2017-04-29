@@ -1,3 +1,4 @@
+#include <map>
 #include <randar/Render/DefaultTexture.hpp>
 
 randar::Texture& randar::getDefaultTexture(
