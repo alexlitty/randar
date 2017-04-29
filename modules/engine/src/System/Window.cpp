@@ -1,45 +1,47 @@
 #include <randar/System/GraphicsContext.hpp>
 #include <randar/System/Window.hpp>
 
-// Constructs the definition of a window.
+// Constructor.
 randar::Window::Window(
     randar::GraphicsContext& context,
     uint32_t width,
     uint32_t height
-) :
-  randar::Dimensional2<uint32_t>(width, height),
-  ctx(context)
+)
+: randar::GraphicsContextResource(&context),
+  randar::Dimensional2<uint32_t>(width, height)
 {
     ::XSetWindowAttributes swa;
 
     swa.event_mask = ExposureMask | KeyPressMask;
     swa.colormap = ::XCreateColormap(
-        ctx.display,
-        DefaultRootWindow(ctx.display),
-        ctx.visual->visual,
+        this->ctx->display,
+        DefaultRootWindow(this->ctx->display),
+        this->ctx->visual->visual,
         AllocNone
     );
 
     this->handle = ::XCreateWindow(
-        ctx.display,
-        DefaultRootWindow(ctx.display),
+        this->ctx->display,
+        DefaultRootWindow(this->ctx->display),
         0,
         0,
         width,
         height,
         0,
-        ctx.visual->depth,
+        this->ctx->visual->depth,
         InputOutput,
-        ctx.visual->visual,
+        this->ctx->visual->visual,
         CWColormap | CWEventMask,
         &swa
     );
-    ::XMapWindow(ctx.display, this->handle);
-    ::XSync(ctx.display, false);
+
+    this->ctx->use();
+    ::XMapWindow(this->ctx->display, this->handle);
+    ::XSync(this->ctx->display, false);
 
     this->glxWindow = ::glXCreateWindow(
-        ctx.display,
-        ctx.fbConfigs[0],
+        this->ctx->display,
+        this->ctx->fbConfigs[0],
         this->handle,
         nullptr
     );
@@ -48,14 +50,14 @@ randar::Window::Window(
 // Destructor.
 randar::Window::~Window()
 {
-    ::glXDestroyWindow(this->ctx.display, this->glxWindow);
-    ::XDestroyWindow(this->ctx.display, this->handle);
+    //::glXDestroyWindow(this->ctx->display, this->glxWindow);
+    //::XDestroyWindow(this->ctx->display, this->handle);
 }
 
 // Retrieves the associated context.
 randar::GraphicsContext& randar::Window::context()
 {
-    return this->ctx;
+    return *this->ctx;
 }
 
 // Retrieves the native window handle.
@@ -73,11 +75,11 @@ randar::GraphicsContext& randar::Window::context()
 // Makes this window and its associated context current.
 void randar::Window::use()
 {
-    this->ctx.use(*this);
+    this->ctx->use(*this);
 }
 
 // Swaps the window's back and front buffers.
 void randar::Window::swapBuffers()
 {
-    ::glXSwapBuffers(this->ctx.display, this->glxWindow);
+    ::glXSwapBuffers(this->ctx->display, this->glxWindow);
 }

@@ -2,7 +2,7 @@
 #define RANDAR_SYSTEM_WINDOW_HPP
 
 #include <randar/Math/Dimensional2.hpp>
-#include <randar/System/GraphicsContext.hpp>
+#include <randar/System/GraphicsContextResource.hpp>
 
 namespace randar
 {
@@ -13,14 +13,11 @@ namespace randar
      * Continuing to use such windows will result in undefined behavior. Thus,
      * be sure to destroy windows first.
      */
-    class Window : virtual public Dimensional2<uint32_t>
+    class Window
+    : virtual public GraphicsContextResource,
+      virtual public Dimensional2<uint32_t>
     {
         protected:
-            /**
-             * Context this window is associated with.
-             */
-            GraphicsContext &ctx;
-
             /**
              * Raw window handle.
              */
@@ -39,14 +36,14 @@ namespace randar
             Window& operator =(const Window& other) = delete;
 
             /**
-             * Constructs a window from a graphics context.
+             * Constructor.
              */
             Window(GraphicsContext& context, uint32_t width, uint32_t height);
 
             /**
              * Destructor.
              */
-            ~Window();
+            virtual ~Window();
 
             /**
              * Retrieves the associated context.
