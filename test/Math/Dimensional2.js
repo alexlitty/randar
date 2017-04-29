@@ -34,14 +34,15 @@ function assertDims(dims, expectedWidth, expectedHeight) {
                 assertDims(new adapter[dimName](45, 68), 45, 68);
             });
 
-            it('copy constructs deeply', function() {
+            it('assigns as reference', function() {
                 const a = new adapter[dimName](12, 34);
-                const b = new adapter[dimName](a);
+                const b = a;
+
                 assertDims(a, 12, 34);
                 assertDims(b, 12, 34);
 
                 b.resize(56, 78);
-                assertDims(a, 12, 34);
+                assertDims(a, 56, 78);
                 assertDims(b, 56, 78);
             });
         });
