@@ -50,7 +50,8 @@ namespace randar
          *
          * Do not let children set this value directly, otherwise contexts won't
          * be aware of the resource's existence and destructions will become
-         * prone to segfaults. Use the associate & unassociate methods instead.
+         * prone to segfaults. Use the context's associate & unassociate methods
+         * instead.
          */
         GraphicsContext* ctx;
 
@@ -67,9 +68,9 @@ namespace randar
         ) = delete;
 
         /**
-         * Default constructor.
+         * Constructor.
          */
-        GraphicsContextResource();
+        GraphicsContextResource(GraphicsContext* initCtx);
 
         /**
          * Destructor.
@@ -78,48 +79,6 @@ namespace randar
          * nothing special happens.
          */
         virtual ~GraphicsContextResource();
-
-    protected:
-        /**
-         * Associates the resource with a context.
-         *
-         * After association, the resource is initialized on the given context.
-         *
-         * An exception is thrown if a context is already associated.
-         */
-        void associate(GraphicsContext& newCtx);
-
-        /**
-         * Unassociates the resource from the currently associated context.
-         *
-         * Before unassociation, the resource is uninitialized from the given
-         * context.
-         *
-         * An exception is thrown if no context is currently associated.
-         */
-        void unassociate();
-
-    public:
-        /**
-         * Initializes the resource onto the currently associated context.
-         *
-         * An exception must be thrown if no context is available or if this
-         * resource is already initialized.
-         */
-        virtual void initialize() = 0;
-
-        /**
-         * Uninitializes the resource from the currently associated context.
-         *
-         * An exception must be thrown if this resource is not actually
-         * initialized beforehand.
-         */
-        virtual void uninitialize() = 0;
-
-        /**
-         * Whether the resource is initialized in its associated context.
-         */
-        virtual bool isInitialized() const = 0;
     };
 }
 
