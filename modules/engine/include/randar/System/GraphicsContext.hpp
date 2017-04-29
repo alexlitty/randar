@@ -154,13 +154,15 @@ namespace randar
          * These must be used in the Node.js adapter so we can destruct
          * resources in a predictable manner.
          */
-        randar::Window& window(uint32_t width, uint32_t height);
+        Framebuffer& framebuffer();
+        Framebuffer& framebuffer(randar::Window& win);
+
         randar::Texture& texture(
             uint32_t width,
             uint32_t height,
             const std::string& type = "rgba");
-        //Framebuffer& framebuffer(GraphicsContext& ctx);
-        //Framebuffer& framebuffer(randar::Window& win);
+
+        randar::Window& window(uint32_t width, uint32_t height);
 
         /**
          * Allow Randar windows to manipulate the ongoing list of associated

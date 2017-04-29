@@ -242,9 +242,14 @@ void randar::GraphicsContext::unassociate(randar::GraphicsContextResource& r)
 }
 
 // Resource creators.
-randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
+randar::Framebuffer& randar::GraphicsContext::framebuffer()
 {
-    return *new randar::Window(*this, width, height);
+    return *new Framebuffer(*this);
+}
+
+randar::Framebuffer& randar::GraphicsContext::framebuffer(randar::Window& win)
+{
+    return *new Framebuffer(win);
 }
 
 randar::Texture& randar::GraphicsContext::texture(
@@ -255,18 +260,7 @@ randar::Texture& randar::GraphicsContext::texture(
     return *new Texture(*this, width, height, type);
 }
 
-/*randar::Framebuffer& randar::GraphicsContext::framebuffer(
-    randar::GraphicsContext& ctx
-) {
-    Framebuffer* fb = new Framebuffer(ctx);
-    this->associate(fb);
-    return *fb;
+randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
+{
+    return *new randar::Window(*this, width, height);
 }
-
-randar::Framebuffer& randar::GraphicsContext::framebuffer(
-    randar::Window& win
-) {
-    Framebuffer* fb = new Framebuffer(win);
-    this->associate(fb);
-    return *fb;
-}*/
