@@ -37,23 +37,23 @@ describe.only('Framebuffer', function() {
         });
 
         it('constructs with window', function() {
-            let win = new adapter.Window(ctx, 600, 480);
-            let fb  = new adapter.Framebuffer(win);
+            let win = ctx.window(600, 480);
+            let fb  = ctx.framebuffer(win);
             assert.equal(fb.getGlName(), 0);
         });
 
         it('refuses attachments', function() {
-            let win = new adapter.Window(ctx, 800, 600);
-            let fb  = new adapter.Framebuffer(win);
+            let win = ctx.window(800, 600);
+            let fb  = ctx.framebuffer(win);
 
-            let texture = ctx.texture(ctx, 800, 600, 'rgba');
+            let texture = ctx.texture(800, 600, 'rgba');
             assert.throws(() => fb.attach(texture));
         });
 
         it('clears with correct color', function() {
             this.timeout(20000);
-            let win = new adapter.Window(ctx, 800, 600);
-            let fb  = new adapter.Framebuffer(win);
+            let win = ctx.window(800, 600);
+            let fb  = ctx.framebuffer(win);
             const color = new adapter.Color(
                 0.250980406999588,
                 0.7490196228027344,
@@ -65,21 +65,21 @@ describe.only('Framebuffer', function() {
         });
 
         it('multiple constructions affect same window', function() {
-            //let fb1 = new adapter.Framebuffer(win);
+            //let fb1 = ctx.framebuffer(win);
         });
     });
 
     describe('off-screen', function() {
         it('constructs with context', function() {
             let ctx = new adapter.GraphicsContext();
-            let fb  = new adapter.Framebuffer(ctx);
+            let fb  = ctx.framebuffer();
             //assert.notEqual(fb.getGlName(), 0);
         });
 
         it('constructs unique gl names', function() {
             let ctx = new adapter.GraphicsContext();
-            let fb1 = new adapter.Framebuffer(ctx);
-            let fb2 = new adapter.Framebuffer(ctx);
+            let fb1 = ctx.framebuffer();
+            let fb2 = ctx.framebuffer();
 
             //assert.notEqual(fb1.getGlName(), 0);
             //assert.notEqual(fb2.getGlName(), 0);
@@ -88,10 +88,10 @@ describe.only('Framebuffer', function() {
 
         it('attaches rgba texture', function() {
             let ctx = new adapter.GraphicsContext();
-            let fb  = new adapter.Framebuffer(ctx);
+            let fb  = ctx.framebuffer();
             ctx.check('during test');
 
-            let texture = ctx.texture(ctx, 64, 64, 'rgba');
+            let texture = ctx.texture(64, 64, 'rgba');
             fb.attach(texture);
 
             assert.notEqual(fb.getGlName(), 0);
