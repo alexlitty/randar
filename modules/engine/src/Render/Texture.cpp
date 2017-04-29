@@ -7,18 +7,17 @@ randar::Texture::Texture(
     uint32_t initHeight,
     const std::string& initType
 )
-: randar::Dimensional2<uint32_t>(initWidth, initHeight),
+: randar::GraphicsContextResource(&context),
+  randar::Dimensional2<uint32_t>(initWidth, initHeight),
   type(initType)
 {
-    this->associate(context);
+
 }
 
 // Destructor.
 randar::Texture::~Texture()
 {
-    if (this->ctx) {
-        this->unassociate();
-    }
+
 }
 
 // Initializes the texture on the associated graphics context.

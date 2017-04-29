@@ -56,17 +56,17 @@ namespace randar
         /**
          * Initializes the texture on the associated graphics context.
          */
-        virtual void initialize() override;
+        virtual void initialize();
 
         /**
          * Uninitializes the texture from the associated graphics context.
          */
-        virtual void uninitialize() override;
+        virtual void uninitialize();
 
         /**
          * Checks if the texture is initialized.
          */
-        virtual bool isInitialized() const override;
+        virtual bool isInitialized() const;
 
         /**
          * Binds the texture for further operations.
