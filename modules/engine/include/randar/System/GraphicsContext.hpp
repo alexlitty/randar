@@ -2,12 +2,14 @@
 #define RANDAR_SYSTEM_GRAPHICS_CONTEXT_HPP
 
 #include <stdexcept>
+#include <set>
 #include <vector>
 #include <GL/glew.h>
 #include <GL/glx.h>
 
 namespace randar
 {
+    class GraphicsContextResource;
     class Window;
 
     /**
@@ -80,6 +82,11 @@ namespace randar
         std::vector<randar::Window*> windows;
 
     public:
+        /**
+         * A list of objects that depend on this context.
+         */
+        std::set<GraphicsContextResource*> resources;
+
         /**
          * Disable assignment.
          */

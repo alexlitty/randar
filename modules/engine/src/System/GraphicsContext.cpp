@@ -1,5 +1,5 @@
 #include <map>
-#include <randar/System/GraphicsContext.hpp>
+#include <randar/System/GraphicsContextResource.hpp>
 #include <randar/System/Window.hpp>
 
 // Allows us to pass attributes while creating a context.
@@ -131,11 +131,9 @@ randar::GraphicsContext::GraphicsContext()
 // Destructor.
 randar::GraphicsContext::~GraphicsContext()
 {
-    ::glXMakeCurrent(
-        this->display,
-        None,
-        None
-    );
+    for (auto resource : this->resources) {
+        resource->unassociate();
+    }
 
     for (auto window : this->windows) {
         delete window;
