@@ -1,9 +1,6 @@
 #ifndef RANDAR_RENDER_TEXTURE_HPP
 #define RANDAR_RENDER_TEXTURE_HPP
 
-#define RANDAR_TEXTURE_MAX_WIDTH  4096
-#define RANDAR_TEXTURE_MAX_HEIGHT 4096
-
 #include <randar/Render/Image.hpp>
 #include <randar/System/GlNamedResource.hpp>
 #include <randar/System/GraphicsContextResource.hpp>

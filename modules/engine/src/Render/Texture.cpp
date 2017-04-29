@@ -25,12 +25,16 @@ randar::Texture::~Texture()
 // Initializes the texture on the associated graphics context.
 void randar::Texture::initialize()
 {
-    if (this->type != "rgba" && this->type != "depth") {
-        throw std::runtime_error("Invalid texture type");
+    if (this->isInitialized()) {
+        throw std::runtime_error("Texture is already initialized");
     }
 
     if (!this->ctx) {
         throw std::runtime_error("Texture is not associated with a context");
+    }
+
+    if (this->type != "rgba" && this->type != "depth") {
+        throw std::runtime_error("Invalid texture type");
     }
 
     ::glGenTextures(1, &this->glName);
@@ -121,14 +125,6 @@ void randar::Texture::reset()
 // Resizes this texture.
 void randar::Texture::resize(uint32_t newWidth, uint32_t newHeight)
 {
-    if (newWidth > RANDAR_TEXTURE_MAX_WIDTH || newHeight > RANDAR_TEXTURE_MAX_HEIGHT) {
-        throw std::runtime_error(
-            "Texture dimensions may not exceed "
-            + std::to_string(RANDAR_TEXTURE_MAX_WIDTH) + "x"
-            + std::to_string(RANDAR_TEXTURE_MAX_HEIGHT)
-        );
-    }
-
     Dimensional2<uint32_t>::resize(newWidth, newHeight);
     this->reset();
 }
