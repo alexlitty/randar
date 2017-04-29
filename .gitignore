@@ -3,4 +3,5 @@ modules/*/build/
 modules/adapter/*.gyp
 modules/adapter/adapter.i
 modules/adapter/*.cxx
+modules/adapter/*.node
 npm-debug.log
