@@ -46,7 +46,7 @@ describe.only('Framebuffer', function() {
             let win = new adapter.Window(ctx, 800, 600);
             let fb  = new adapter.Framebuffer(win);
 
-            let texture = new adapter.Texture(ctx, 800, 600, 'rgba');
+            let texture = ctx.texture(ctx, 800, 600, 'rgba');
             assert.throws(() => fb.attach(texture));
         });
 
@@ -91,7 +91,7 @@ describe.only('Framebuffer', function() {
             let fb  = new adapter.Framebuffer(ctx);
             ctx.check('during test');
 
-            let texture = new adapter.Texture(ctx, 64, 64, 'rgba');
+            let texture = ctx.texture(ctx, 64, 64, 'rgba');
             fb.attach(texture);
 
             assert.notEqual(fb.getGlName(), 0);
