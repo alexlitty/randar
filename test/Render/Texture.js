@@ -36,6 +36,10 @@ describe('Texture', function() {
             }
         });
 
+        it('refuses construction with invalid dimensions', function() {
+            assert.throws(() => new adapter.Texture(ctx, -32, 32, 'rgba'));
+        });
+
         it('resizes with correct dimensions', function() {
             const dims = [
                 { x: 64, y: 64 },
@@ -54,7 +58,6 @@ describe('Texture', function() {
         it('refuses resizing with invalid dimensions', function() {
             let texture = new adapter.Texture(ctx, 32, 32, 'rgba');
             assert.throws(() => texture.resize(-32, 32));
-            assert.throws(() => texture.resize(5000, 5000));
         });
     });
 });
