@@ -4,14 +4,15 @@
 #define RANDAR_TEXTURE_MAX_WIDTH  4096
 #define RANDAR_TEXTURE_MAX_HEIGHT 4096
 
-#include <randar/Engine/GpuResource.hpp>
 #include <randar/Render/Image.hpp>
-#include <randar/System/GraphicsContext.hpp>
+#include <randar/System/GlNamedResource.hpp>
+#include <randar/System/GraphicsContextResource.hpp>
 
 namespace randar
 {
     class Texture :
-        virtual public GpuResource,
+        virtual public GraphicsContextResource,
+        virtual public GlNamedResource,
         virtual public Dimensional2<uint32_t>
     {
     public:
@@ -26,17 +27,17 @@ namespace randar
         using Dimensional2<uint32_t>::isWithinDimensions;
 
         /**
-         * Disable assignment.
-         */
-        Texture(const Texture& other) = delete;
-        Texture& operator =(const Texture& other) = delete;
-
-        /**
          * Type of texture.
          *
          * Valid values are "rgba" and "depth".
          */
         const std::string type;
+
+        /**
+         * Disable assignment.
+         */
+        Texture(const Texture& other) = delete;
+        Texture& operator =(const Texture& other) = delete;
 
         /**
          * New texture constructor.
@@ -50,7 +51,22 @@ namespace randar
         /**
          * Destructor.
          */
-        ~Texture();
+        virtual ~Texture();
+
+        /**
+         * Initializes the texture on the associated graphics context.
+         */
+        virtual void initialize() override;
+
+        /**
+         * Uninitializes the texture from the associated graphics context.
+         */
+        virtual void uninitialize() override;
+
+        /**
+         * Checks if the texture is initialized.
+         */
+        virtual bool isInitialized() const override;
 
         /**
          * Binds the texture for further operations.
