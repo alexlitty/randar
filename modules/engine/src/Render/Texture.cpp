@@ -11,13 +11,15 @@ randar::Texture::Texture(
   randar::Dimensional2<uint32_t>(initWidth, initHeight),
   type(initType)
 {
-
+    this->initialize();
 }
 
 // Destructor.
 randar::Texture::~Texture()
 {
-
+    if (this->isInitialized()) {
+        this->uninitialize();
+    }
 }
 
 // Initializes the texture on the associated graphics context.
