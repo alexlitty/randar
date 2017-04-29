@@ -1,5 +1,7 @@
 #include <map>
 #include <randar/System/GraphicsContextResource.hpp>
+#include <randar/Render/Framebuffer.hpp>
+#include <randar/Render/Texture.hpp>
 #include <randar/System/Window.hpp>
 
 // Allows us to pass attributes while creating a context.
@@ -132,11 +134,7 @@ randar::GraphicsContext::GraphicsContext()
 randar::GraphicsContext::~GraphicsContext()
 {
     for (auto resource : this->resources) {
-        resource->unassociate();
-    }
-
-    for (auto window : this->windows) {
-        delete window;
+        delete resource;
     }
 
     ::glXDestroyPbuffer(this->display, this->glxPixelBuffer);
@@ -217,3 +215,58 @@ void randar::GraphicsContext::check(const std::string& message)
 
     throw std::runtime_error(message + ": " + description);
 }
+
+// Associates and unassociates a resources with this context.
+void randar::GraphicsContext::associate(randar::GraphicsContextResource& r)
+{
+    if (this->resources.count(&r)) {
+        throw std::runtime_error("Context is already associated with resource");
+    }
+
+    if (r.ctx) {
+        throw std::runtime_error(
+            "Resource is already associated with "
+            + std::string(r.ctx == this ? "this" : "another")
+            + " context"
+        );
+    }
+
+    this->resources.insert(&r);
+}
+
+void randar::GraphicsContext::unassociate(randar::GraphicsContextResource& r)
+{
+    if (!this->resources.erase(&r)) {
+        throw std::runtime_error("Resource is not associated with context");
+    }
+}
+
+// Resource creators.
+randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
+{
+    return *new randar::Window(*this, width, height);
+}
+
+randar::Texture& randar::GraphicsContext::texture(
+    uint32_t width,
+    uint32_t height,
+    const std::string& type)
+{
+    return *new Texture(*this, width, height, type);
+}
+
+/*randar::Framebuffer& randar::GraphicsContext::framebuffer(
+    randar::GraphicsContext& ctx
+) {
+    Framebuffer* fb = new Framebuffer(ctx);
+    this->associate(fb);
+    return *fb;
+}
+
+randar::Framebuffer& randar::GraphicsContext::framebuffer(
+    randar::Window& win
+) {
+    Framebuffer* fb = new Framebuffer(win);
+    this->associate(fb);
+    return *fb;
+}*/

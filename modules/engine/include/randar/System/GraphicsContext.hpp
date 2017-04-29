@@ -10,6 +10,8 @@
 namespace randar
 {
     class GraphicsContextResource;
+    class Framebuffer;
+    class Texture;
     class Window;
 
     /**
@@ -72,14 +74,6 @@ namespace randar
          * enables windowless rendering. It is not used otherwise.
          */
         ::GLXPbuffer glxPixelBuffer;
-
-        /**
-         * Windows associated with this context, if any.
-         *
-         * We track these in case this context is destroyed before the windows
-         * are, in which case we also uninitialize the windows.
-         */
-        std::vector<randar::Window*> windows;
 
     public:
         /**
@@ -147,6 +141,26 @@ namespace randar
          * infinite loop, this does not make the context current.
          */
         void check(const std::string& message);
+
+        /**
+         * Associates and unassociates a resource with this context.
+         */
+        void associate(GraphicsContextResource& resource);
+        void unassociate(GraphicsContextResource& resource);
+
+        /**
+         * Resource creators.
+         *
+         * These must be used in the Node.js adapter so we can destruct
+         * resources in a predictable manner.
+         */
+        randar::Window& window(uint32_t width, uint32_t height);
+        randar::Texture& texture(
+            uint32_t width,
+            uint32_t height,
+            const std::string& type = "rgba");
+        //Framebuffer& framebuffer(GraphicsContext& ctx);
+        //Framebuffer& framebuffer(randar::Window& win);
 
         /**
          * Allow Randar windows to manipulate the ongoing list of associated
