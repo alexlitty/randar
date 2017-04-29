@@ -4,10 +4,10 @@
 randar::GraphicsContextResource::GraphicsContextResource(
     GraphicsContext* initCtx
 )
-: ctx(initCtx)
+: ctx(nullptr)
 {
-    if (this->ctx) {
-        this->ctx->associate(*this);
+    if (initCtx) {
+        initCtx->associate(*this);
     }
 }
 

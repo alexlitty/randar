@@ -232,6 +232,7 @@ void randar::GraphicsContext::associate(randar::GraphicsContextResource& r)
     }
 
     this->resources.insert(&r);
+    r.ctx = this;
 }
 
 void randar::GraphicsContext::unassociate(randar::GraphicsContextResource& r)
