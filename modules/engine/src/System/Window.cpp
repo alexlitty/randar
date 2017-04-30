@@ -53,8 +53,8 @@ randar::Window::Window(
 // Destructor.
 randar::Window::~Window()
 {
-    //::glXDestroyWindow(this->ctx->display, this->glxWindow);
-    //::XDestroyWindow(this->ctx->display, this->handle);
+    ::glXDestroyWindow(this->ctx->display, this->glxWindow);
+    ::XDestroyWindow(this->ctx->display, this->handle);
 }
 
 // Retrieves the associated context.
