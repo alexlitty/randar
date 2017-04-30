@@ -11,17 +11,28 @@
 namespace randar
 {
     /**
-     * A framebuffer.
+     * An OpenGL framebuffer.
      *
-     * Hard-coded to always use a texture. May be changed if it causes a huge
-     * performance drop.
+     * Framebuffers come in two flavors: Real off-screen framebuffers which
+     * truly "are" customizable OpenGL framebuffers, and default on-screen
+     * framebuffers which are constructed outside our program, associated with
+     * a window, and represented with an instance of this class.
      *
-     * May optionally include a depth buffer.
+     * Default framebuffers aren't customizable. You can't attach textures to
+     * them and whatnot -- but you can otherwise render to them normally.
+     *
+     * We should spin-off default framebuffers as their own class when we have
+     * the time.
      */
     class Framebuffer :
         virtual public GpuResource,
         virtual public Dimensional2<uint32_t>
     {
+        /**
+         * Let windows construct default framebuffers.
+         */
+        friend randar::Window;
+
     public:
         /**
          * Help swig identify inherited methods.
@@ -64,11 +75,15 @@ namespace randar
          */
         Framebuffer(GraphicsContext& context);
 
+    protected:
         /**
          * Constructs a representation of a window's default framebuffer.
+         *
+         * Should only be invoked by a Randar window.
          */
         Framebuffer(randar::Window& initWindow);
 
+    public:
         /**
          * Destructor.
          */
