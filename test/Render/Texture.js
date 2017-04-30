@@ -11,12 +11,12 @@ describe('Texture', function() {
     });
 
     it('constructs rgba by default', function() {
-        const texture = new adapter.Texture(ctx, 64, 64);
+        const texture = ctx.texture(64, 64);
         assert.equal(texture.type, 'rgba');
     });
 
     it('refuses invalid type construction', function() {
-        assert.throws(() => new adapter.Texture(ctx, 64, 64, 'invalid'));
+        assert.throws(() => ctx.texture(64, 64, 'invalid'));
     });
 
     describe('rgba', function() {
@@ -29,7 +29,7 @@ describe('Texture', function() {
 
             for (dim of dims) {
                 assertDims(
-                    new adapter.Texture(ctx, dim.x, dim.y, 'rgba'),
+                    ctx.texture(dim.x, dim.y, 'rgba'),
                     dim.x,
                     dim.y
                 );
@@ -37,7 +37,7 @@ describe('Texture', function() {
         });
 
         it('refuses construction with invalid dimensions', function() {
-            assert.throws(() => new adapter.Texture(ctx, -32, 32, 'rgba'));
+            assert.throws(() => ctx.texture(-32, 32, 'rgba'));
         });
 
         it('resizes with correct dimensions', function() {
@@ -48,7 +48,7 @@ describe('Texture', function() {
             ];
 
             for (dim of dims) {
-                let texture = new adapter.Texture(ctx, 2, 2, 'rgba');
+                let texture = ctx.texture(2, 2, 'rgba');
 
                 assert.doesNotThrow(() => texture.resize(dim.x, dim.y));
                 assertDims(texture, dim.x, dim.y);
@@ -56,7 +56,7 @@ describe('Texture', function() {
         });
 
         it('refuses resizing with invalid dimensions', function() {
-            let texture = new adapter.Texture(ctx, 32, 32, 'rgba');
+            let texture = ctx.texture(32, 32, 'rgba');
             assert.throws(() => texture.resize(-32, 32));
         });
     });
