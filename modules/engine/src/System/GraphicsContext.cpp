@@ -242,6 +242,11 @@ void randar::GraphicsContext::unassociate(randar::GraphicsContextResource& r)
     }
 }
 
+bool randar::GraphicsContext::isAssociated(randar::GraphicsContextResource& r)
+{
+    return this->resources.count(&r);
+}
+
 // Resource creators.
 randar::Framebuffer& randar::GraphicsContext::framebuffer()
 {
