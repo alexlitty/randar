@@ -42,31 +42,6 @@ describe('Framebuffer', function() {
             assert.equal(fb.getGlName(), 0);
         });
 
-        it('refuses attachments', function() {
-            let win = ctx.window(800, 600);
-            let fb  = win.framebuffer();
-
-            let texture = ctx.texture(800, 600, 'rgba');
-            assert.throws(() => fb.attach(texture));
-        });
-
-        it('clears with correct color', function() {
-            let win = ctx.window(300, 100);
-            let fb  = win.framebuffer();
-            const color = new adapter.Color(
-                0.250980406999588,
-                0.7490196228027344,
-                0.2980392277240753
-            );
-
-            fb.clear(color);
-            assertCleared(fb, color);
-
-            win.present();
-            fb.clear(color);
-            assertCleared(fb, color);
-        });
-
         it('assigned by reference', function() {
             let win = ctx.window(64, 64);
 
@@ -95,6 +70,42 @@ describe('Framebuffer', function() {
             fb2.clear(color2);
             assertCleared(fb2, color2);
             assertCleared(fb1, color2);
+        });
+
+        it('refuses attachments', function() {
+            let win = ctx.window(800, 600);
+            let fb  = win.framebuffer();
+
+            let texture = ctx.texture(800, 600, 'rgba');
+            assert.throws(() => fb.attach(texture));
+        });
+
+        it('clears with black by default', function() {
+            let win = ctx.window(200, 200);
+            let fb  = win.framebuffer();
+
+            fb.clear();
+            win.present();
+
+            fb.clear();
+            assertCleared(fb, new adapter.Color(0, 0, 0, 1));
+        });
+
+        it('clears specific color', function() {
+            let win = ctx.window(300, 100);
+            let fb  = win.framebuffer();
+            const color = new adapter.Color(
+                0.250980406999588,
+                0.7490196228027344,
+                0.2980392277240753
+            );
+
+            fb.clear(color);
+            assertCleared(fb, color);
+
+            win.present();
+            fb.clear(color);
+            assertCleared(fb, color);
         });
     });
 
