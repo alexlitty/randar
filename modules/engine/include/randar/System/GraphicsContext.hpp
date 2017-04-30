@@ -154,6 +154,11 @@ namespace randar
         bool isAssociated(GraphicsContextResource& resource);
 
         /**
+         * Counts the resources associated with the context.
+         */
+        unsigned int resourceCount() const;
+
+        /**
          * Resource creators.
          *
          * These must be used in the Node.js adapter so we can destruct

@@ -252,6 +252,12 @@ bool randar::GraphicsContext::isAssociated(randar::GraphicsContextResource& r)
     return this->resources.count(&r);
 }
 
+// Counts the resources associated with this context.
+unsigned int randar::GraphicsContext::resourceCount() const
+{
+    return this->resources.size();
+}
+
 // Resource creators.
 randar::Framebuffer& randar::GraphicsContext::framebuffer()
 {
