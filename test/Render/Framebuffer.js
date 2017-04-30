@@ -62,7 +62,7 @@ describe('Framebuffer', function() {
             fb.clear(color);
             assertCleared(fb, color);
 
-            //win.present();
+            win.present();
             fb.clear(color);
             assertCleared(fb, color);
         });
@@ -71,19 +71,23 @@ describe('Framebuffer', function() {
             let win = ctx.window(64, 64);
 
             const color1 = new adapter.Color(
-                0.250980406999588,
-                0.7490196228027344,
-                0.2980392277240753
-            );
-
-            const color2 = new adapter.Color(
                 0.6705882549285889,
                 0.34117648005485535,
                 0.9098039269447327,
                 0.21960784494876862
             );
 
+            const color2 = new adapter.Color(
+                0.250980406999588,
+                0.7490196228027344,
+                0.2980392277240753,
+                0.8705882430076599
+            );
+
             let fb1 = win.framebuffer();
+            fb1.clear(color1);
+            win.present();
+
             fb1.clear(color1);
             assertCleared(fb1, color1);
 
