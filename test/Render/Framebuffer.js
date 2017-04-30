@@ -51,8 +51,7 @@ describe('Framebuffer', function() {
         });
 
         it('clears with correct color', function() {
-            this.timeout(20000);
-            let win = ctx.window(800, 600);
+            let win = ctx.window(300, 100);
             let fb  = win.framebuffer();
             const color = new adapter.Color(
                 0.250980406999588,
@@ -62,10 +61,36 @@ describe('Framebuffer', function() {
 
             fb.clear(color);
             assertCleared(fb, color);
+
+            //win.present();
+            fb.clear(color);
+            assertCleared(fb, color);
         });
 
-        it('multiple constructions affect same window', function() {
-            //let fb1 = win.framebuffer();
+        it('assigned by reference', function() {
+            let win = ctx.window(64, 64);
+
+            const color1 = new adapter.Color(
+                0.250980406999588,
+                0.7490196228027344,
+                0.2980392277240753
+            );
+
+            const color2 = new adapter.Color(
+                0.6705882549285889,
+                0.34117648005485535,
+                0.9098039269447327,
+                0.21960784494876862
+            );
+
+            let fb1 = win.framebuffer();
+            fb1.clear(color1);
+            assertCleared(fb1, color1);
+
+            let fb2 = fb1;
+            fb2.clear(color2);
+            assertCleared(fb2, color2);
+            assertCleared(fb1, color2);
         });
     });
 
