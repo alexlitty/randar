@@ -3,7 +3,7 @@
 
 // Constructs an off-screen framebuffer.
 randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
-: randar::GpuResource(context),
+: randar::GraphicsContextResource(&context),
   isDefaultFramebuffer(false),
   texture(nullptr),
   depthBuffer(nullptr),
@@ -14,7 +14,7 @@ randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
 
 // Constructs a default framebuffer.
 randar::Framebuffer::Framebuffer(randar::Window& initWindow)
-: randar::GpuResource(initWindow.context()),
+: randar::GraphicsContextResource(&initWindow.context()),
   randar::Dimensional2<uint32_t>(initWindow.getWidth(), initWindow.getHeight()),
   isDefaultFramebuffer(true),
   texture(nullptr),

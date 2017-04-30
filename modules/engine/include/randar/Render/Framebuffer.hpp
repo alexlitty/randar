@@ -25,7 +25,8 @@ namespace randar
      * the time.
      */
     class Framebuffer :
-        virtual public GpuResource,
+        virtual public GraphicsContextResource,
+        virtual public GlNamedResource,
         virtual public Dimensional2<uint32_t>
     {
         /**
