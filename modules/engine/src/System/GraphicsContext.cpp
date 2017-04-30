@@ -246,6 +246,7 @@ void randar::GraphicsContext::unassociate(randar::GraphicsContextResource& r)
     }
 }
 
+// Checks if a resource is associated with the context.
 bool randar::GraphicsContext::isAssociated(randar::GraphicsContextResource& r)
 {
     return this->resources.count(&r);

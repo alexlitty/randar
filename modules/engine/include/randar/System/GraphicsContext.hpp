@@ -147,6 +147,10 @@ namespace randar
          */
         void associate(GraphicsContextResource& resource);
         void unassociate(GraphicsContextResource& resource);
+
+        /**
+         * Checks if a resource is associated with the context.
+         */
         bool isAssociated(GraphicsContextResource& resource);
 
         /**
