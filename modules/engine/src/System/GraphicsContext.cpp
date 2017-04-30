@@ -224,11 +224,15 @@ void randar::GraphicsContext::associate(randar::GraphicsContextResource& r)
     }
 
     if (r.ctx) {
-        throw std::runtime_error(
-            "Resource is already associated with "
-            + std::string(r.ctx == this ? "this" : "another")
-            + " context"
-        );
+        if (r.ctx != this) {
+            throw std::runtime_error(
+                "Resource is already associated with "
+                + std::string(r.ctx == this ? "this" : "another")
+                + " context"
+            );
+        }
+
+        return;
     }
 
     this->resources.insert(&r);
@@ -250,7 +254,9 @@ bool randar::GraphicsContext::isAssociated(randar::GraphicsContextResource& r)
 // Resource creators.
 randar::Framebuffer& randar::GraphicsContext::framebuffer()
 {
-    return *new Framebuffer(*this);
+    randar::Framebuffer* fb = new Framebuffer(*this);
+    this->associate(*fb);
+    return *fb;
 }
 
 randar::Texture& randar::GraphicsContext::texture(
@@ -258,10 +264,14 @@ randar::Texture& randar::GraphicsContext::texture(
     uint32_t height,
     const std::string& type)
 {
-    return *new Texture(*this, width, height, type);
+    randar::Texture* t = new Texture(*this, width, height, type);
+    this->associate(*t);
+    return *t;
 }
 
 randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
 {
-    return *new randar::Window(*this, width, height);
+    randar::Window* w = new randar::Window(*this, width, height);
+    this->associate(*w);
+    return *w;
 }

@@ -4,17 +4,15 @@
 randar::GraphicsContextResource::GraphicsContextResource(
     GraphicsContext* initCtx
 )
-: ctx(nullptr)
+: ctx(initCtx)
 {
-    if (initCtx) {
-        initCtx->associate(*this);
-    }
+
 }
 
 // Destructor.
 randar::GraphicsContextResource::~GraphicsContextResource()
 {
-    if (this->ctx) {
+    if (this->ctx && this->ctx->isAssociated(*this)) {
         this->ctx->unassociate(*this);
     }
 }
