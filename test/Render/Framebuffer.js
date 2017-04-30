@@ -38,13 +38,13 @@ describe('Framebuffer', function() {
 
         it('constructs with window', function() {
             let win = ctx.window(600, 480);
-            let fb  = ctx.framebuffer(win);
+            let fb  = win.framebuffer();
             assert.equal(fb.getGlName(), 0);
         });
 
         it('refuses attachments', function() {
             let win = ctx.window(800, 600);
-            let fb  = ctx.framebuffer(win);
+            let fb  = win.framebuffer();
 
             let texture = ctx.texture(800, 600, 'rgba');
             assert.throws(() => fb.attach(texture));
@@ -53,7 +53,7 @@ describe('Framebuffer', function() {
         it('clears with correct color', function() {
             this.timeout(20000);
             let win = ctx.window(800, 600);
-            let fb  = ctx.framebuffer(win);
+            let fb  = win.framebuffer();
             const color = new adapter.Color(
                 0.250980406999588,
                 0.7490196228027344,
@@ -65,7 +65,7 @@ describe('Framebuffer', function() {
         });
 
         it('multiple constructions affect same window', function() {
-            //let fb1 = ctx.framebuffer(win);
+            //let fb1 = win.framebuffer();
         });
     });
 
