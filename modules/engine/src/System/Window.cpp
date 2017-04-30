@@ -84,6 +84,10 @@ void randar::Window::use()
 // Retrieves an internal instance of the default framebuffer.
 randar::Framebuffer& randar::Window::framebuffer()
 {
+    if (!this->fb) {
+        throw std::runtime_error("Default framebuffer not available");
+    }
+
     return *this->fb;
 }
 
