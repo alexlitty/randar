@@ -1,11 +1,14 @@
 #ifndef RANDAR_SYSTEM_WINDOW_HPP
 #define RANDAR_SYSTEM_WINDOW_HPP
 
+#include <memory>
 #include <randar/Math/Dimensional2.hpp>
 #include <randar/System/GraphicsContextResource.hpp>
 
 namespace randar
 {
+    class Framebuffer;
+
     /**
      * A window on the display.
      *
@@ -27,6 +30,11 @@ namespace randar
              * GLX's wrapper handle for the raw window.
              */
             ::GLXWindow glxWindow;
+
+            /**
+             * The default framebuffer, provided for convenience.
+             */
+            std::unique_ptr<Framebuffer> fb;
 
         public:
             /**
@@ -66,9 +74,21 @@ namespace randar
             void use();
 
             /**
-             * Swap the window's back and front buffers.
+             * Retrieves an internal instance of the default framebuffer.
              */
-            void swapBuffers();
+            Framebuffer& framebuffer();
+
+            /**
+             * Presents the contents of the default framebuffer.
+             *
+             * This swaps the window's low-level back and front buffers -- not
+             * to be confused with Randar's framebuffers. This is a platform
+             * specific operation you needn't worry much about.
+             *
+             * Even though the low-level buffers are swapped, the contents of
+             * the default framebuffer after this operation are undefined.
+             */
+            void present();
     };
 }
 

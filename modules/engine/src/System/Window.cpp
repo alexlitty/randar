@@ -1,3 +1,4 @@
+#include <randar/Render/Framebuffer.hpp>
 #include <randar/System/GraphicsContext.hpp>
 #include <randar/System/Window.hpp>
 
@@ -45,6 +46,8 @@ randar::Window::Window(
         this->handle,
         nullptr
     );
+
+    this->fb.reset(new Framebuffer(*this));
 }
 
 // Destructor.
@@ -78,8 +81,14 @@ void randar::Window::use()
     this->ctx->use(*this);
 }
 
-// Swaps the window's back and front buffers.
-void randar::Window::swapBuffers()
+// Retrieves an internal instance of the default framebuffer.
+randar::Framebuffer& randar::Window::framebuffer()
+{
+    return *this->fb;
+}
+
+// Presents the contents of the default framebuffer.
+void randar::Window::present()
 {
     ::glXSwapBuffers(this->ctx->display, this->glxWindow);
 }
