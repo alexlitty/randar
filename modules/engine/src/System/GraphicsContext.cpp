@@ -223,20 +223,15 @@ void randar::GraphicsContext::associate(randar::GraphicsContextResource& r)
         throw std::runtime_error("Context is already associated with resource");
     }
 
-    if (r.ctx) {
-        if (r.ctx != this) {
-            throw std::runtime_error(
-                "Resource is already associated with "
-                + std::string(r.ctx == this ? "this" : "another")
-                + " context"
-            );
-        }
-
-        return;
+    if (r.ctx != this) {
+        throw std::runtime_error(
+            "Resource is already associated with "
+            + std::string(r.ctx == this ? "this" : "another")
+            + " context"
+        );
     }
 
     this->resources.insert(&r);
-    r.ctx = this;
 }
 
 void randar::GraphicsContext::unassociate(randar::GraphicsContextResource& r)
