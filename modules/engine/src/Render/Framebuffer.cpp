@@ -21,6 +21,7 @@ randar::Framebuffer::Framebuffer(randar::Window& initWindow)
   depthBuffer(nullptr),
   window(&initWindow)
 {
+
 }
 
 // Destructor.
