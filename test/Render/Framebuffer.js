@@ -102,7 +102,7 @@ describe('Framebuffer', function() {
         it('constructs with context', function() {
             let ctx = new adapter.GraphicsContext();
             let fb  = ctx.framebuffer();
-            //assert.notEqual(fb.getGlName(), 0);
+            assert.notEqual(fb.getGlName(), 0);
         });
 
         it('constructs unique gl names', function() {
@@ -110,9 +110,9 @@ describe('Framebuffer', function() {
             let fb1 = ctx.framebuffer();
             let fb2 = ctx.framebuffer();
 
-            //assert.notEqual(fb1.getGlName(), 0);
-            //assert.notEqual(fb2.getGlName(), 0);
-            //assert.notEqual(fb1.getGlName(), fb2.getGlName());
+            assert.notEqual(fb1.getGlName(), 0);
+            assert.notEqual(fb2.getGlName(), 0);
+            assert.notEqual(fb1.getGlName(), fb2.getGlName());
         });
 
         it('attaches rgba texture', function() {
