@@ -139,27 +139,4 @@ describe('Framebuffer', function() {
             assert.equal(fb.getHeight(), texture.getHeight());
         });
     });
-
-    /*describe('usage', function() {
-        it('clears with no argument', function() {
-            constructDefault(function(gpu, dims, fb) {
-                fb.clear();
-                assertCleared(gpu, fb, new adapter.Color());
-            });
-        });
-
-        it('clears with a color argument', function() {
-            constructDefault(function(gpu, dims, fb) {
-                const colors = [
-                    new adapter.Color(1, 1, 1, 1),
-                    new adapter.Color(0, 0, 1, 0)
-                ];
-
-                for (color of colors) {
-                    fb.clear(color);
-                    assertCleared(gpu, fb, color);
-                }
-            });
-        });
-    });*/
 });
