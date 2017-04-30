@@ -5,14 +5,14 @@ function assertColor(color, expectedColor, msg) {
     assert.equal(color.a(), expectedColor.a(), msg);
 }
 
-function assertCleared(fb, expectedColor) {
+function assertCleared(readable, expectedColor) {
     let image = new adapter.Image();
-    fb.read(image);
+    readable.read(image);
 
     image.layout(adapter.Image.LAYOUT_NORMAL);
     assert(image.hasDimensions());
-    assert.equal(image.getWidth(), fb.getWidth());
-    assert.equal(image.getHeight(), fb.getHeight());
+    assert.equal(image.getWidth(), readable.getWidth());
+    assert.equal(image.getHeight(), readable.getHeight());
     for (var x = 0; x < image.getWidth(); x++) {
         for (var y = 0; y < image.getHeight(); y++) {
             assertColor(
@@ -129,14 +129,31 @@ describe('Framebuffer', function() {
         it('attaches rgba texture', function() {
             let ctx = new adapter.GraphicsContext();
             let fb  = ctx.framebuffer();
-            ctx.check('during test');
 
             let texture = ctx.texture(64, 64, 'rgba');
             fb.attach(texture);
 
             assert.notEqual(fb.getGlName(), 0);
-            assert.equal(fb.getWidth(), texture.getWidth());
-            assert.equal(fb.getHeight(), texture.getHeight());
+            assert.equal(fb.getWidth(), 64);
+            assert.equal(fb.getHeight(), 64);
+        });
+
+        it('writes to rgba texture', function() {
+            let ctx   = new adapter.GraphicsContext();
+            let fb    = ctx.framebuffer();
+            let color = new adapter.Color(
+                0.250980406999588,
+                0.7490196228027344,
+                0.2980392277240753,
+                0.8705882430076599
+            );
+
+            let texture = ctx.texture(128, 128, 'rgba');
+            fb.attach(texture);
+
+            fb.clear(color);
+            assertCleared(fb, color);
+            assertCleared(texture, color);
         });
     });
 });
