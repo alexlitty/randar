@@ -248,11 +248,6 @@ randar::Framebuffer& randar::GraphicsContext::framebuffer()
     return *new Framebuffer(*this);
 }
 
-randar::Framebuffer& randar::GraphicsContext::framebuffer(randar::Window& win)
-{
-    return *new Framebuffer(win);
-}
-
 randar::Texture& randar::GraphicsContext::texture(
     uint32_t width,
     uint32_t height,

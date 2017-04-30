@@ -155,7 +155,6 @@ namespace randar
          * resources in a predictable manner.
          */
         Framebuffer& framebuffer();
-        Framebuffer& framebuffer(randar::Window& win);
 
         randar::Texture& texture(
             uint32_t width,
