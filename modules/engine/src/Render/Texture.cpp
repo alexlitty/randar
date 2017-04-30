@@ -37,6 +37,7 @@ void randar::Texture::initialize()
         throw std::runtime_error("Invalid texture type");
     }
 
+    this->ctx->use();
     ::glGenTextures(1, &this->glName);
 
     this->ctx->check("Cannot generate texture");
