@@ -2,7 +2,7 @@ const spawn = require('child_process').spawn;
 
 let helpers = {
     requirements: {
-        node: 'v6.10.2'
+        node: 'v6.10.3'
     }
 };
 
