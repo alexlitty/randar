@@ -29,11 +29,13 @@ try {
             if (code !== 0) {
                 throw new Error('Failed to install or switch Node.js version.');
             }
+
+            process.exit(1);
         });
     });
 }
 
 catch (e) {
     console.error(e.message, 'Manual installation may be required.');
-    process.exit(1);
+    process.exit(2);
 }
