@@ -1,0 +1,27 @@
+#!/bin/bash
+function installNode {
+    node scripts/install/node
+}
+
+installNode
+case $? in
+
+    # Node.js was updated. Make sure version is actually correct now.
+    1)
+        installNode
+        if [ $? -ne 0 ]; then
+            echo "Node.js version is not updating. Manual installation required."
+            exit
+        fi
+        ;;
+
+    # Node.js is at an incompatible version and cannot be updated.
+    2)
+        exit
+        ;;
+
+    # Node.js is at a compatible version and ready to use.
+    *)
+        ;;
+
+esac
