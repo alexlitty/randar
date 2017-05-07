@@ -2,6 +2,7 @@ const async = require('async');
 const https = require('https');
 const path  = require('path');
 const spawn = require('child_process').spawn;
+const targz = require('targz');
 
 const config   = require('../../config');
 const download = require('../utility/download');
@@ -30,17 +31,81 @@ tmp.dir((error, tmpDir, tmpDone) => async.waterfall([
         });
     },
 
-    (response, next) => {
-        /*response.on('data', (data) => {
-            console.log(data);
-            response.on('end', next);
+    (compressedFile, next) => {
+        const extractionDir = path.join(path.dirname(compressedFile));
+
+        targz.decompress({
+            src  : compressedFile,
+            dest : extractionDir,
+        }, (error) => {
+            if (error) {
+                next(error);
+            } else {
+                next(null, path.join(
+                    extractionDir, `swig-rel-${config.requirements.swig}`
+                ));
+            }
+        });
+    },
+
+    (swigDir, next) => {
+        const autogen = spawn('./autogen.sh', [], {
+            cwd   : swigDir,
+            stdio : 'inherit'
         });
 
-        response.req.on('error', (error) => {
-            console.error(error);
+        autogen.on('close', (code) => {
+            if (code !== 0) {
+                next(new Error('Failed to pre-configure SWIG for compilation'));
+            } else {
+                next(null, swigDir);
+            }
+        });
+    },
+
+    (swigDir, next) => {
+        const configure = spawn('sh', [path.join(swigDir, 'configure')], {
+            cwd   : swigDir,
+            stdio : 'inherit'
         });
 
-        response.req.on('end', () => next);*/
+        configure.on('close', (code) => {
+            if (code !== 0) {
+                next(new Error('Failed to configure SWIG for compilation'));
+            } else {
+                next(null, swigDir);
+            }
+        });
+    },
+
+    (swigDir, next) => {
+        const make = spawn('make', ['-C', swigDir], {
+            cwd   : swigDir,
+            stdio : 'inherit'
+        });
+
+        make.on('close', (code) => {
+            if (code !== 0) {
+                next(new Error('Failed to compile SWIG'));
+            } else {
+                next(null, swigDir);
+            }
+        });
+    },
+
+    (swigDir, next) => {
+        const install = spawn('sudo', ['make', 'install', '-C', swigDir], {
+            cwd   : swigDir,
+            stdio : 'inherit'
+        });
+
+        install.on('close', (code) => {
+            if (code !== 0) {
+                next(new Error('Failed to install SWIG'));
+            } else {
+                next();
+            }
+        });
     }
 
 ], (err) => {
@@ -48,6 +113,8 @@ tmp.dir((error, tmpDir, tmpDone) => async.waterfall([
     if (err) {
         console.error(err.message);
         code = 1;
+    } else {
+        console.log(`Installed SWIG ${config.requirements.swig}`);
     }
 
     tmpDone();
