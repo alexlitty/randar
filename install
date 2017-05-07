@@ -19,7 +19,7 @@ function symlinkNode {
     isCommand node || {
         isCommand nodejs || return 1
         PATH_USR_BINARY=`command -v nodejs | xargs dirname`
-        ln -s ${PATH_USR_BINARY}/nodejs ${PATH_USR_BINARY}/node || return 1
+        sudo ln -s ${PATH_USR_BINARY}/nodejs ${PATH_USR_BINARY}/node || return 1
     }
 
     return 0
