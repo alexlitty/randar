@@ -2,11 +2,11 @@ const spawn  = require('child_process').spawn;
 const config = require('../../config');
 
 function checkSwig(cb) {
-    const swig = spawn('swig', ['-v'], { stdio: 'ignore' });
+    const swig = spawn('swig', ['-v'], { stdio: 'pipe' });
 
     let version = '';
-    swig.on('data', (data) => {
-        version += data.toString();
+    swig.stdout.on('data', (data) => {
+        version += data.toString().trim();
     });
 
     swig.on('error', () => {});
