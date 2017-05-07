@@ -34,7 +34,7 @@ function download(remoteFilename, localFilename, cb) {
         bar.interrupt(`Fetching ${remoteFilename} into ${localFilename}`);
 
         response.on('data', (data) => bar.tick(data.length));
-        response.on('close',  () => {
+        response.on('end',  () => {
             cb();
         });
     });
@@ -42,8 +42,6 @@ function download(remoteFilename, localFilename, cb) {
     request.on('error', (error) => { 
         cb(error);
     });
-
-    request.end();
 }
 
 module.exports = download;
