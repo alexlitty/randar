@@ -52,4 +52,14 @@ sudo npm install -g node-gyp || exit
 # Install npm packages. See package.json.
 npm install ${PATH_ROOT}
 
+# Ensure SWIG is installed.
+run utility/check-swig || {
+    run install-goals/swig || exit
+    run utility/check-swig || {
+        echo "SWIG has been installed but executable is unavailable"
+        exit
+    }
+}
+
+# :)
 echo "Randar installed. <3"
