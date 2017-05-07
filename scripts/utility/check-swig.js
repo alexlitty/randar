@@ -2,16 +2,21 @@ const spawn  = require('child_process').spawn;
 const config = require('../../config');
 
 function checkSwig(cb) {
-    const swig = spawn('swig', ['-v'], { stdio: 'pipe' });
+    const swig = spawn('swig', ['-version'], { stdio: 'pipe' });
 
-    let version = '';
+    let output = '';
     swig.stdout.on('data', (data) => {
-        version += data.toString().trim();
+        output += data.toString();
     });
 
     swig.on('error', () => {});
     swig.on('close', (code) => {
-        cb(code === 0 && version === config.requirements.swig);
+        const re = new RegExp(
+            `^SWIG Version ${config.requirements.swig.replace('.', '\\.')}$`,
+            'm'
+        );
+
+        cb(code === 0 && re.test(output));
     });
 }
 
