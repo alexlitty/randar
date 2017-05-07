@@ -1,27 +1,22 @@
 #!/bin/bash
-function installNode {
-    node scripts/install/node
+
+PATH_ROOT=`dirname $0`
+
+function run {
+    node ${PATH_ROOT}/scripts/${1}
 }
 
-installNode
-case $? in
+# Ensure the required version of Node.js is installed. If it isn't, try to
+# install it automatically.
+run utility/check-node
+if [ $? -ne 0 ]; then
+    run install-goals/node
 
-    # Node.js was updated. Make sure version is actually correct now.
-    1)
-        installNode
-        if [ $? -ne 0 ]; then
-            echo "Node.js version is not updating. Manual installation required."
-            exit
-        fi
-        ;;
-
-    # Node.js is at an incompatible version and cannot be updated.
-    2)
+    run utility/check-node
+    if [ $? -ne 0 ]; then
+        echo "Default node command is not mapped to required version."
         exit
-        ;;
+    fi
+fi
 
-    # Node.js is at a compatible version and ready to use.
-    *)
-        ;;
-
-esac
+echo "Randar installed. <3"
