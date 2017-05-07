@@ -4,6 +4,7 @@
   "description": "The animated film creation suite by Litty Studios.",
   "author": "Litty Studios",
   "license": "UNLICENSED",
+  "private": true,
   "scripts": {
     "build": "node scripts/build.js",
     "rebuild": "node scripts/build.js rebuild=yes",
