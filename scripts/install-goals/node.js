@@ -1,6 +1,6 @@
 const spawn     = require('child_process').spawn;
-const helpers   = require('../helpers');
 const checkNode = require('../utility/check-node');
+const config    = require('../../config');
 
 if (checkNode()) {
     process.exit(0);
@@ -8,7 +8,7 @@ if (checkNode()) {
 
 console.log(
     `Detected node.js ${process.version}. `
-    + `Attempting to install required ${helpers.requirements.node}.`
+    + `Attempting to install required ${config.requirements.node}.`
 );
 
 try {
@@ -20,13 +20,13 @@ try {
             throw new Error('Failed to install n.');
         }
 
-        const use = spawn('sudo', ['n', helpers.requirements.node.slice(1)], opt);
+        const use = spawn('sudo', ['n', config.requirements.node.slice(1)], opt);
         use.on('close', (code) => {
             if (code !== 0) {
                 throw new Error('Failed to install or switch Node.js version.');
             }
 
-            console.log(`Node.js ${helpers.requirements.node} installed.`);
+            console.log(`Node.js ${config.requirements.node} installed.`);
         });
     });
 }
