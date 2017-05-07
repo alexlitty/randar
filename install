@@ -11,6 +11,9 @@ function run {
 run utility/check-node
 if [ $? -ne 0 ]; then
     run install-goals/node
+    if [ $? -ne 0 ]; then
+        exit
+    fi
 
     run utility/check-node
     if [ $? -ne 0 ]; then
@@ -18,5 +21,8 @@ if [ $? -ne 0 ]; then
         exit
     fi
 fi
+
+# Install npm packages. See package.json.
+npm install ${PATH_ROOT}
 
 echo "Randar installed. <3"

@@ -7,8 +7,6 @@
   "scripts": {
     "build": "node scripts/build.js",
     "rebuild": "node scripts/build.js rebuild=yes",
-    "preinstall": "node scripts/preinstall.js",
-    "install": "node scripts/install.js",
     "start": "./node_modules/electron/dist/electron modules/ui/",
     "test": "./node_modules/mocha/bin/mocha --recursive"
   },
