@@ -6,21 +6,46 @@ function run {
     node ${PATH_ROOT}/scripts/${1}
 }
 
+function exists {
+    command -v ${1} > /dev/null 2>&1
+}
+
+# Creates a symlink if the node command is not available but nodejs is.
+function symlinkNode {
+    exists node
+
+    if [ $? -ne 0 ]; then
+        exists nodejs
+        if [ $? -ne 0 ]; then
+            PATH_USR_BINARY=`command -v nodejs | xargs dirname`
+            ln -s ${PATH_USR_BINARY}/nodejs ${PATH_USR_BINARY}/node || return 1
+        fi
+    fi
+
+    return 0
+}
+
+# Ensure some version of Node.js is installed.
+symlinkNode
+exists node
+if [ $? -ne 0 ]; then
+    sudo apt-get install nodejs-dev || exit
+    symlinkNode || exit
+fi
+
 # Ensure the required version of Node.js is installed. If it isn't, try to
 # install it automatically.
 run utility/check-node
 if [ $? -ne 0 ]; then
-    run install-goals/node
-    if [ $? -ne 0 ]; then
-        exit
-    fi
-
-    run utility/check-node
-    if [ $? -ne 0 ]; then
-        echo "Default node command is not mapped to required version."
-        exit
-    fi
+    run install-goals/node || exit
+    run utility/check-node || {
+        echo "Default node command is not mapped to required version.";
+        exit;
+    }
 fi
+
+# Install node-gyp globally.
+sudo npm install -g node-gyp || exit
 
 # Install npm packages. See package.json.
 npm install ${PATH_ROOT}
