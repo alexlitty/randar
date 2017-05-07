@@ -25,8 +25,9 @@ function symlinkNode {
     return 0
 }
 
-# Basic dependencies.
-${CMD_SYSTEM_INSTALL} make g++
+# System-level dependencies.
+SWIG_DEPENDENCIES="pkg-config autoconf automake libtool libpcre++-dev bison g++"
+${CMD_SYSTEM_INSTALL} ${SWIG_DEPENDENCIES}
 
 # Ensure some version of Node.js is installed.
 symlinkNode
