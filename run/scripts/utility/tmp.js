@@ -1,5 +1,4 @@
-const fs    = require('fs');
-const spawn = require('child_process').spawn;
+require('../init');
 
 function dir(routine) {
     const mktemp = spawn('mktemp', ['-d'], { stdio: 'pipe' });

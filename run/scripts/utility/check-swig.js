@@ -1,5 +1,4 @@
-const spawn  = require('child_process').spawn;
-const config = require('../../config');
+require('../init');
 
 function checkSwig(cb) {
     const swig = spawn('swig', ['-version'], { stdio: 'pipe' });

@@ -1,4 +1,4 @@
-const config = require('../../config');
+require('../init');
 
 function checkNode() {
     return process.version === config.requirements.node;

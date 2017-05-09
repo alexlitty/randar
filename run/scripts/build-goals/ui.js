@@ -1,9 +1,5 @@
-const async  = require('async');
-const fs     = require('fs');
-const glob   = require('glob');
-const less   = require('less');
-const mkdirp = require('mkdirp');
-const path   = require('path');
+require('../init');
+const less = require('less');
 
 function publish(filename, contents, done) {
     const filepath = path.normalize(

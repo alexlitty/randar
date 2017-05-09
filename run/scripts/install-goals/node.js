@@ -1,6 +1,5 @@
-const spawn     = require('child_process').spawn;
+require('../init');
 const checkNode = require('../utility/check-node');
-const config    = require('../../config');
 
 if (checkNode()) {
     process.exit(0);

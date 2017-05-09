@@ -1,10 +1,10 @@
 #!/bin/bash
-RANDAR_PATH=`dirname $0`
+RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 CMD_SYSTEM_INSTALL="sudo apt-get install"
 CMD_NPM_INSTALL="npm install --loglevel http"
 
-function run {
-    node ${RANDAR_PATH}/scripts/${1} || return 1
+function js {
+    node ${RANDAR_PATH}/run/scripts/${1} || return 1
     return 0
 }
 
@@ -39,9 +39,9 @@ isCommand node || {
 
 # Ensure the required version of Node.js is installed. If it isn't, try to
 # install it automatically.
-run utility/check-node || {
-    run install-goals/node || exit
-    run utility/check-node || {
+js utility/check-node || {
+    js install-goals/node || exit
+    js utility/check-node || {
         echo "Default node command is not mapped to required version."
         exit
     }
@@ -56,9 +56,9 @@ isCommand node-gyp || {
 ${CMD_NPM_INSTALL} ${RANDAR_PATH} || exit
 
 # Ensure SWIG is installed.
-run utility/check-swig || {
-    run install-goals/swig || exit
-    run utility/check-swig || {
+js utility/check-swig || {
+    js install-goals/swig || exit
+    js utility/check-swig || {
         echo "SWIG has been installed but executable is unavailable."
         exit
     }

@@ -1,10 +1,4 @@
-const async = require('async');
-const https = require('https');
-const path  = require('path');
-const spawn = require('child_process').spawn;
-const targz = require('targz');
-
-const config   = require('../../config');
+require('../init');
 const download = require('../utility/download');
 const tmp      = require('../utility/tmp');
 
