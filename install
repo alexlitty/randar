@@ -1,10 +1,10 @@
 #!/bin/bash
-
-PATH_ROOT=`dirname $0`
+RANDAR_PATH=`dirname $0`
 CMD_SYSTEM_INSTALL="sudo apt-get install"
+CMD_NPM_INSTALL="npm install --loglevel http"
 
 function run {
-    node ${PATH_ROOT}/scripts/${1} || return 1
+    node ${RANDAR_PATH}/scripts/${1} || return 1
     return 0
 }
 
@@ -47,22 +47,25 @@ run utility/check-node || {
     }
 }
 
-# Install node-gyp globally.
+# Install global npm packages. This cannot be done via package.json.
 isCommand node-gyp || {
-    sudo npm install -g node-gyp || exit
+    sudo ${CMD_NPM_INSTALL} -g node-gyp || exit
 }
 
-# Install npm packages. See package.json.
-npm install ${PATH_ROOT}
+# Install non-global npm packages. See package.json.
+${CMD_NPM_INSTALL} ${RANDAR_PATH} || exit
 
 # Ensure SWIG is installed.
 run utility/check-swig || {
     run install-goals/swig || exit
     run utility/check-swig || {
-        echo "SWIG has been installed but executable is unavailable"
+        echo "SWIG has been installed but executable is unavailable."
         exit
     }
 }
+
+# Perform a first-time build.
+${RANDAR_PATH}/run/build || exit
 
 # :)
 cat << "EOF"
