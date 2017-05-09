@@ -48,7 +48,9 @@ run utility/check-node || {
 }
 
 # Install node-gyp globally.
-sudo npm install -g node-gyp || exit
+isCommand node-gyp || {
+    sudo npm install -g node-gyp || exit
+}
 
 # Install npm packages. See package.json.
 npm install ${PATH_ROOT}
@@ -63,4 +65,14 @@ run utility/check-swig || {
 }
 
 # :)
-echo "Randar installed. <3"
+cat << "EOF"
+
+██████╗  █████╗ ███╗   ██╗██████╗  █████╗ ██████╗ 
+██╔══██╗██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
+██████╔╝███████║██╔██╗ ██║██║  ██║███████║██████╔╝
+██╔══██╗██╔══██║██║╚██╗██║██║  ██║██╔══██║██╔══██╗
+██║  ██║██║  ██║██║ ╚████║██████╔╝██║  ██║██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+                                                  
+EOF
+echo "Installed. <3 Go make something beautiful."
