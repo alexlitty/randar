@@ -1,0 +1,4 @@
+#!/bin/bash
+RANDAR_PATH=`dirname $0 | xargs dirname`
+
+${RANDAR_PATH}/node_modules/mocha/bin/mocha --recursive $*
