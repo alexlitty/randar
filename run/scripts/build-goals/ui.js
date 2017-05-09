@@ -2,14 +2,12 @@ require('../init');
 const less = require('less');
 
 function publish(filename, contents, done) {
-    const filepath = path.normalize(
-        path.join(__dirname, '..', '..', 'modules', 'ui', 'build', filename)
-    );
+    const filepath = path.join(RANDAR_PATH.UI, 'build', filename);
 
     mkdirp(path.dirname(filepath));
     fs.writeFile(filepath, contents, function(err) {
         if (!err) {
-            console.log('Published', filename);
+            console.log('Published', filepath);
         }
 
         done(err);
@@ -73,7 +71,7 @@ var tasks = [
 function build(options, done) {
     async.parallel(
         tasks.map(function(task) {
-            let search = path.join(__dirname, '..', '..', task.files);
+            let search = path.join(RANDAR_PATH.ROOT, task.files);
 
             return function(done) {
                 glob(search, { }, function(err, filenames) {
