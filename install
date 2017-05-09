@@ -26,9 +26,9 @@ function symlinkNode {
 }
 
 # System-level dependencies.
-ENGINE_DEPENDENCIES="g++ libglew-dev libglm-dev"
+ENGINE_DEPENDENCIES="g++ libglew-dev libglm-dev libbullet-dev libpng-dev"
 SWIG_DEPENDENCIES="pkg-config autoconf automake libtool libpcre++-dev bison"
-${CMD_SYSTEM_INSTALL} ${ENGINE_DEPENDENCIES} ${SWIG_DEPENDENCIES}
+${CMD_SYSTEM_INSTALL} ${ENGINE_DEPENDENCIES} ${SWIG_DEPENDENCIES} || exit
 
 # Ensure some version of Node.js is installed.
 symlinkNode
