@@ -1,0 +1,5 @@
+#!/bin/bash
+RANDAR_PATH=`dirname $0 | xargs dirname`
+
+node ${RANDAR_PATH}/scripts/build.js $* || exit 1
+exit 0
