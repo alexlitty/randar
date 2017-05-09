@@ -232,8 +232,6 @@ function build(options, done) {
                 '-lX11',
                 '-lXxf86vm',
                 '-pthread',
-                '-lXi',
-                '-lXrandr',
                 '-lGL',
                 '-lGLEW',
                 '-lBulletDynamics',
