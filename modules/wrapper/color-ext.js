@@ -1,5 +1,10 @@
 /**
  * Extends Color functionality.
+ *
+ * @@@ todo -- Stop this extension. It's not going to work like I expected it
+ * to. This manipulates the package's Color object, but the underlying engine
+ * object is unchanged. If we try to call one of these extended functions on a
+ * Color that was returned by the raw engine, it won't exist.
  */
 module.exports = (randar) => {
     /**
