@@ -1,0 +1,42 @@
+#!/bin/bash
+cat << "EOF"
+
+     This software may not be used, distributed,
+     reverse engineered or otherwise analyzed by
+     without the explicit and written permission
+               of Alexander Litty.
+
+
+                    Behold:
+
+
+  ██████╗  █████╗ ███╗   ██╗██████╗  █████╗ ██████╗ 
+  ██╔══██╗██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
+  ██████╔╝███████║██╔██╗ ██║██║  ██║███████║██████╔╝
+  ██╔══██╗██╔══██║██║╚██╗██║██║  ██║██╔══██║██╔══██╗
+  ██║  ██║██║  ██║██║ ╚████║██████╔╝██║  ██║██║  ██║
+  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+
+
+        The animated film production suite
+                by Litty Studios
+
+
+              www.littystudios.com
+            San Francisco, California
+
+
+      No soul dictates the potential of another.
+    Surround yourself with nothing less than love
+                forever and always.
+
+
+      run/help ........ Shows this sappy inspiration.
+      run/install ..... Installs and updates.
+      run/uninstall ... Don't do this.
+      run/build ....... Builds all modules.
+      run/rebuild ..... Rebuilds all modules.
+      run/test ........ Runs automated test suite.
+      run/ui .......... Starts the user interface.
+
+EOF
