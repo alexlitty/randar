@@ -1,4 +1,5 @@
-var randar = require('../adapter');
-randar.assert = require('./assert');
+const randar = require('../adapter');
+
+require('./color-ext')(randar);
 
 module.exports = randar;
