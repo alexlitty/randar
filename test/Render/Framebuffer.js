@@ -1,8 +1,8 @@
 function assertColor(color, expectedColor, msg) {
-    assert.equal(color.r(), expectedColor.r(), msg); 
-    assert.equal(color.g(), expectedColor.g(), msg);
-    assert.equal(color.b(), expectedColor.b(), msg);
-    assert.equal(color.a(), expectedColor.a(), msg);
+    assert.equal(color.r().toFixed(3), expectedColor.r().toFixed(3), msg); 
+    assert.equal(color.g().toFixed(3), expectedColor.g().toFixed(3), msg);
+    assert.equal(color.b().toFixed(3), expectedColor.b().toFixed(3), msg);
+    assert.equal(color.a().toFixed(3), expectedColor.a().toFixed(3), msg);
 }
 
 function assertCleared(readable, expectedColor) {
