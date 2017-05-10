@@ -1,7 +1,12 @@
 #!/bin/bash
 RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 CMD_SYSTEM_INSTALL="sudo apt-get install"
-CMD_NPM_INSTALL="npm install --loglevel http"
+CMD_NPM_INSTALL="sudo npm install --loglevel http"
+
+NODE_DEP="nodejs-dev"
+NPM_DEP="npm"
+ENGINE_DEP="g++ libglew-dev libglm-dev libbullet-dev libpng-dev"
+SWIG_DEP="pkg-config autoconf automake libtool libpcre++-dev bison"
 
 function js {
     node ${RANDAR_PATH}/run/scripts/${1} || return 1
@@ -26,15 +31,18 @@ function symlinkNode {
 }
 
 # System-level dependencies.
-ENGINE_DEPENDENCIES="g++ libglew-dev libglm-dev libbullet-dev libpng-dev"
-SWIG_DEPENDENCIES="pkg-config autoconf automake libtool libpcre++-dev bison"
-${CMD_SYSTEM_INSTALL} ${ENGINE_DEPENDENCIES} ${SWIG_DEPENDENCIES} || exit
+${CMD_SYSTEM_INSTALL} ${ENGINE_DEP} ${SWIG_DEP} || exit
 
 # Ensure some version of Node.js is installed.
 symlinkNode
 isCommand node || {
-    ${CMD_SYSTEM_INSTALL} nodejs-dev || exit
+    ${CMD_SYSTEM_INSTALL} ${NODE_DEP} || exit
     symlinkNode || exit
+}
+
+# Ensure some version of npm is installed.
+isCommand npm || {
+    ${CMD_SYSTEM_INSTALL} ${NPM_DEP} || exit
 }
 
 # Ensure the required version of Node.js is installed. If it isn't, try to
@@ -49,7 +57,7 @@ js utility/check-node || {
 
 # Install global npm packages. This cannot be done via package.json.
 isCommand node-gyp || {
-    sudo ${CMD_NPM_INSTALL} -g node-gyp || exit
+    ${CMD_NPM_INSTALL} -g node-gyp || exit
 }
 
 # Install non-global npm packages. See package.json.
