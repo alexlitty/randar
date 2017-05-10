@@ -6,10 +6,10 @@ function assertColor(color, expectedColor, msg) {
 }
 
 function assertCleared(readable, expectedColor) {
-    let image = new adapter.Image();
+    let image = new randar.Image();
     readable.read(image);
 
-    image.layout(adapter.Image.LAYOUT_NORMAL);
+    image.layout(randar.Image.LAYOUT_NORMAL);
     assert(image.hasDimensions());
     assert.equal(image.getWidth(), readable.getWidth());
     assert.equal(image.getHeight(), readable.getHeight());
@@ -29,7 +29,7 @@ describe('Framebuffer', function() {
         let ctx;
         
         beforeEach(function() {
-            ctx = new adapter.GraphicsContext();
+            ctx = new randar.GraphicsContext();
         });
 
         afterEach(function() {
@@ -45,14 +45,14 @@ describe('Framebuffer', function() {
         it('assigned by reference', function() {
             let win = ctx.window(64, 64);
 
-            const color1 = new adapter.Color(
+            const color1 = new randar.Color(
                 0.6705882549285889,
                 0.34117648005485535,
                 0.9098039269447327,
                 0.21960784494876862
             );
 
-            const color2 = new adapter.Color(
+            const color2 = new randar.Color(
                 0.250980406999588,
                 0.7490196228027344,
                 0.2980392277240753,
@@ -88,13 +88,13 @@ describe('Framebuffer', function() {
             win.present();
 
             fb.clear();
-            assertCleared(fb, new adapter.Color(0, 0, 0, 1));
+            assertCleared(fb, new randar.Color(0, 0, 0, 1));
         });
 
         it('clears specific color', function() {
             let win = ctx.window(300, 100);
             let fb  = win.framebuffer();
-            const color = new adapter.Color(
+            const color = new randar.Color(
                 0.250980406999588,
                 0.7490196228027344,
                 0.2980392277240753
@@ -111,13 +111,13 @@ describe('Framebuffer', function() {
 
     describe('off-screen', function() {
         it('constructs with context', function() {
-            let ctx = new adapter.GraphicsContext();
+            let ctx = new randar.GraphicsContext();
             let fb  = ctx.framebuffer();
             assert.notEqual(fb.getGlName(), 0);
         });
 
         it('constructs unique gl names', function() {
-            let ctx = new adapter.GraphicsContext();
+            let ctx = new randar.GraphicsContext();
             let fb1 = ctx.framebuffer();
             let fb2 = ctx.framebuffer();
 
@@ -127,7 +127,7 @@ describe('Framebuffer', function() {
         });
 
         it('attaches rgba texture', function() {
-            let ctx = new adapter.GraphicsContext();
+            let ctx = new randar.GraphicsContext();
             let fb  = ctx.framebuffer();
 
             let texture = ctx.texture(64, 64, 'rgba');
@@ -139,9 +139,9 @@ describe('Framebuffer', function() {
         });
 
         it('writes to rgba texture', function() {
-            let ctx   = new adapter.GraphicsContext();
+            let ctx   = new randar.GraphicsContext();
             let fb    = ctx.framebuffer();
-            let color = new adapter.Color(
+            let color = new randar.Color(
                 0.250980406999588,
                 0.7490196228027344,
                 0.2980392277240753,

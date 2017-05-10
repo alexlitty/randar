@@ -26,22 +26,22 @@ function assertColor(actual, expected) {
 describe('Image', function() {
     describe('construction', function() {
         it('default constructs dimensionless', function() {
-            assertDimensions(new adapter.Image(), 0, 0);
+            assertDimensions(new randar.Image(), 0, 0);
         });
 
         it('constructs with specific dimensions', function() {
-            assertDimensions(new adapter.Image(32, 75), 32, 75);
+            assertDimensions(new randar.Image(32, 75), 32, 75);
         });
 
         it('copy constructs deeply', function() {
-            const a = new adapter.Image();
+            const a = new randar.Image();
             const v1 = 0.3499999940395355;
             const v2 = 0.7400000095367432;
 
             a.resize(1, 1);
             a.setPixel(0, 0, v1, v1, v1, v1);
 
-            const b = new adapter.Image(a);
+            const b = new randar.Image(a);
             assert.equal(a.getWidth(), b.getWidth());
             assert.equal(a.getHeight(), b.getHeight());
             assert.notEqual(a.raw(), b.raw());
@@ -71,11 +71,11 @@ describe('Image', function() {
     describe('pixels', function() {
         describe('setting', function() {
             function setTest(alphaProvided, mutate, read) {
-                const image = new adapter.Image();
+                const image = new randar.Image();
                 image.resize(64, 64);
 
-                const otherColor  = new adapter.Color();
-                const targetColor = new adapter.Color(
+                const otherColor  = new randar.Color();
+                const targetColor = new randar.Color(
                     0.34,
                     0.74,
                     0.44,
@@ -130,12 +130,12 @@ describe('Image', function() {
                 setTest(
                     true,
                     (image, x, y, color) => image.setPixel(
-                        new adapter.Vector2_uint32(x, y),
+                        new randar.Vector2_uint32(x, y),
                         color
                     ),
 
                     (image, x, y) => image.getPixel(
-                        new adapter.Vector2_uint32(x, y)
+                        new randar.Vector2_uint32(x, y)
                     )
                 );
             });
@@ -145,7 +145,7 @@ describe('Image', function() {
                     setTest(
                         alphaProvided,
                         (image, x, y, color) => image.setPixel(
-                            new adapter.Vector2_uint32(x, y),
+                            new randar.Vector2_uint32(x, y),
                             color.r(),
                             color.g(),
                             color.b(),
@@ -153,7 +153,7 @@ describe('Image', function() {
                         ),
 
                         (image, x, y) => image.getPixel(
-                            new adapter.Vector2_uint32(x, y)
+                            new randar.Vector2_uint32(x, y)
                         )
                     );
                 }
@@ -163,7 +163,7 @@ describe('Image', function() {
 
     describe('sizing', function() {
         it('stays dimensionless with zero width or height', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
             const sizes = [
                 { x: 0, y: 0 },
                 { x: 0, y: 1 },
@@ -182,7 +182,7 @@ describe('Image', function() {
         });
 
         it('reports correct dimensions after resizing', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
 
             image.resize(33, 55);
             assert.equal(image.getWidth(), 33);
@@ -190,7 +190,7 @@ describe('Image', function() {
         });
 
         it('maintains correct raw size', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
 
             image.resize(1, 1);
             assert.equal(image.rawCount(), 4);
@@ -212,7 +212,7 @@ describe('Image', function() {
         });
 
         it('accepts reasonably large sizes', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
 
             image.resize(1024, 768);
             assert.equal(image.getWidth(), 1024);
@@ -226,7 +226,7 @@ describe('Image', function() {
         });
 
         it('rejects ridiculously large sizes', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
 
             assert.throws(() => image.resize(5000000000, 1));
             assert.throws(() => image.resize(1, 5000000000));
@@ -234,21 +234,21 @@ describe('Image', function() {
         });
 
         it('rejects negative sizes', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
             assert.throws(() => image.resize(-1, 19));
             assert.throws(() => image.resize(75, -105));
             assert.throws(() => image.resize(-66, -45));
         });
 
         it('rejects numeric strings', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
             assert.throws(() => image.resize('64', 19));
             assert.throws(() => image.resize(5, '3'));
             assert.throws(() => image.resize('114', '63'));
         });
         
         it('rejects nonsensical sizes', function() {
-            const image = new adapter.Image();
+            const image = new randar.Image();
             assert.throws(() => image.resize(45, null));
             assert.throws(() => image.resize(undefined, 9));
             assert.throws(() => image.resize(NaN, 64));

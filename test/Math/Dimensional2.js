@@ -27,15 +27,15 @@ function assertDims(dims, expectedWidth, expectedHeight) {
     describe(dimName, function() {
         describe('construction', function() {
             it('default constructs zero width and height', function() {
-                assertDims(new adapter[dimName](), 0, 0);
+                assertDims(new randar[dimName](), 0, 0);
             });
 
             it('constructs width and height arguments', function() {
-                assertDims(new adapter[dimName](45, 68), 45, 68);
+                assertDims(new randar[dimName](45, 68), 45, 68);
             });
 
             it('assigns as reference', function() {
-                const a = new adapter[dimName](12, 34);
+                const a = new randar[dimName](12, 34);
                 const b = a;
 
                 assertDims(a, 12, 34);
@@ -49,7 +49,7 @@ function assertDims(dims, expectedWidth, expectedHeight) {
 
         describe('usage', function() {
             it('maintains correct width and height after resizing', function() {
-                const dims = new adapter[dimName]();
+                const dims = new randar[dimName]();
 
                 for (var x = 0; x < 127; x++) {
                     for (var y = 0; y < 127; y++) {
@@ -60,7 +60,7 @@ function assertDims(dims, expectedWidth, expectedHeight) {
             });
 
             it('maintains correct width when changing height', function() {
-                const dims = new adapter[dimName]();
+                const dims = new randar[dimName]();
 
                 dims.setWidth(24);
                 for (var y = 0; y < 127; y++) {
@@ -70,7 +70,7 @@ function assertDims(dims, expectedWidth, expectedHeight) {
             });
 
             it('maintains correct height when changing width', function() {
-                const dims = new adapter[dimName]();
+                const dims = new randar[dimName]();
 
                 dims.setHeight(36);
                 for (var x = 0; x < 127; x++) {
@@ -80,7 +80,7 @@ function assertDims(dims, expectedWidth, expectedHeight) {
             });
 
             it('correctly checks within dimensions', function() {
-                const dims = new adapter[dimName](4, 5);
+                const dims = new randar[dimName](4, 5);
 
                 assert(dims.isWithinDimensions(0, 0))
                 assert(dims.isWithinDimensions(3, 2))
@@ -93,7 +93,7 @@ function assertDims(dims, expectedWidth, expectedHeight) {
             });
 
             it('converts to string', function() {
-                const dims = new adapter[dimName]();
+                const dims = new randar[dimName]();
 
                 for (var x = 0; x < 127; x++) {
                     for (var y = 0; y < 127; y++) {

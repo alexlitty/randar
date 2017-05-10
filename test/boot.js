@@ -8,7 +8,7 @@ before(function() {
     global.path    = require('path');
 
     global.voidFile = os.platform() === 'win32' ? 'NUL' : '/dev/null';
-    global.adapter = require(path.join(__dirname, '..', 'modules', 'adapter'));
+    global.randar = require(path.join('..', 'modules', 'wrapper'));
 
     /**
      * Register a segfault listener.
@@ -23,8 +23,8 @@ before(function() {
      * file handle.
      *
      * You can configure the adapter to build as a debug module, but it doesn't
-     * seem to provide any additional information. The release module symbols
-     * appear descriptive enough for most problems anyway.
+     * seem to provide any additional information here. The release module
+     * symbols appear descriptive enough for most problems anyway.
      */
     global.SegfaultHandler = require('segfault-handler');
     SegfaultHandler.registerHandler(voidFile);

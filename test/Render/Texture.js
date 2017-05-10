@@ -7,7 +7,7 @@ describe('Texture', function() {
     let ctx;
 
     before(function() {
-        ctx = new adapter.GraphicsContext();
+        ctx = new randar.GraphicsContext();
     });
 
     it('constructs rgba by default', function() {
