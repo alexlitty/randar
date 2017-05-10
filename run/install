@@ -1,7 +1,7 @@
 #!/bin/bash
 RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 CMD_SYSTEM_INSTALL="sudo apt-get install"
-CMD_NPM_INSTALL="sudo npm install --loglevel http"
+CMD_NPM_INSTALL="npm install --loglevel http"
 
 NODE_DEP="nodejs-dev"
 NPM_DEP="npm"
@@ -40,9 +40,10 @@ isCommand node || {
     symlinkNode || exit
 }
 
-# Ensure some version of npm is installed.
+# Ensure some version of npm is installed. Try for the latest.
 isCommand npm || {
     ${CMD_SYSTEM_INSTALL} ${NPM_DEP} || exit
+    sudo ${CMD_NPM_INSTALL} -g npm || exit
 }
 
 # Ensure the required version of Node.js is installed. If it isn't, try to
@@ -57,7 +58,7 @@ js utility/check-node || {
 
 # Install global npm packages. This cannot be done via package.json.
 isCommand node-gyp || {
-    ${CMD_NPM_INSTALL} -g node-gyp || exit
+    sudo ${CMD_NPM_INSTALL} -g node-gyp || exit
 }
 
 # Install non-global npm packages. See package.json.
