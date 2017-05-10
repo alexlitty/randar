@@ -8,7 +8,7 @@ before(function() {
     global.path    = require('path');
 
     global.voidFile = os.platform() === 'win32' ? 'NUL' : '/dev/null';
-    global.randar = require(path.join('..', 'modules', 'wrapper'));
+    global.randar = require('..');
 
     /**
      * Register a segfault listener.
