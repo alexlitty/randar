@@ -17,7 +17,7 @@ global.targz    = require('targz');
 global.url      = require('url');
 
 // Absolute paths to different parts of the Randar project.
-let p = { };
+var p = { };
 global.RANDAR_PATH = p;
 
 p.ROOT           = path.join('..', '..');

@@ -1,5 +1,5 @@
 require('../init');
-const checkNode = require('../utility/check-node');
+var checkNode = require('../utility/check-node');
 
 if (checkNode()) {
     process.exit(0);
@@ -11,15 +11,15 @@ console.log(
 );
 
 try {
-    const opt = { stdio: 'inherit' };
+    var opt = { stdio: 'inherit' };
 
-    const install = spawn('sudo', ['npm', 'install', '-g', 'n'], opt);
+    var install = spawn('sudo', ['npm', 'install', '-g', 'n'], opt);
     install.on('close', (code) => {
         if (code !== 0) {
             throw new Error('Failed to install n.');
         }
 
-        const use = spawn('sudo', ['n', config.requirements.node.slice(1)], opt);
+        var use = spawn('sudo', ['n', config.requirements.node.slice(1)], opt);
         use.on('close', (code) => {
             if (code !== 0) {
                 throw new Error('Failed to install or switch Node.js version.');
