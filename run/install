@@ -76,31 +76,8 @@ js utility/check-swig || {
 # Perform a first-time build.
 ${RANDAR_PATH}/run/build || exit
 
-cat << "EOF"
-
-
-        Installed and built successfully.
-
-                    Behold:
-
-
-  ██████╗  █████╗ ███╗   ██╗██████╗  █████╗ ██████╗ 
-  ██╔══██╗██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
-  ██████╔╝███████║██╔██╗ ██║██║  ██║███████║██████╔╝
-  ██╔══██╗██╔══██║██║╚██╗██║██║  ██║██╔══██║██╔══██╗
-  ██║  ██║██║  ██║██║ ╚████║██████╔╝██║  ██║██║  ██║
-  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-
-
-    run/uninstall ... Don't do this.
-    run/build     ... Builds all modules.
-    run/test      ... Runs automated test suite.
-    run/ui        ... Starts the user interface.
-
-
-           Go make something beautiful.
-        
-                      <3
-
-
-EOF
+# :)
+clear
+echo "         Installed and built successfully."
+echo
+${RANDAR_PATH}/run/help
