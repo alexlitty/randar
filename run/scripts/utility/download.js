@@ -1,4 +1,6 @@
 require('../init');
+const http     = require('follow-redirects').http;
+const https    = require('follow-redirects').https;
 const progress = require('progress');
 
 function download(remoteFilename, localFilename, cb) {

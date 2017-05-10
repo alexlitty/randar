@@ -5,8 +5,6 @@ global.child_process = require('child_process');
 global.spawn         = child_process.spawn;
 
 global.fs       = require('fs');
-global.http     = require('http');
-global.https    = require('https');
 global.os       = require('os');
 global.path     = require('path');
 global.url      = require('url');
