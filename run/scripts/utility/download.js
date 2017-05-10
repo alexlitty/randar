@@ -1,4 +1,5 @@
 require('../init');
+const progress = require('progress');
 
 function download(remoteFilename, localFilename, cb) {
     const remoteUrl   = url.parse(remoteFilename);

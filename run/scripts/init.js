@@ -4,16 +4,11 @@ global.config = require('./config');
 global.child_process = require('child_process');
 global.spawn         = child_process.spawn;
 
-global.async    = require('async');
 global.fs       = require('fs');
-global.glob     = require('glob');
 global.http     = require('http');
 global.https    = require('https');
 global.os       = require('os');
-global.mkdirp   = require('mkdirp');
 global.path     = require('path');
-global.progress = require('progress');
-global.targz    = require('targz');
 global.url      = require('url');
 
 // Absolute paths to different parts of the Randar project.

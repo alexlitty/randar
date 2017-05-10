@@ -1,4 +1,7 @@
 require('./init');
+global.async  = require('async');
+global.glob   = require('glob');
+global.mkdirp = require('mkdirp');
 
 // Make a list of possible goals.
 function getBuildGoal(goalName) {

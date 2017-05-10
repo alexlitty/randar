@@ -1,4 +1,6 @@
 require('../init');
+const async    = require('async');
+const targz    = require('targz');
 const download = require('../utility/download');
 const tmp      = require('../utility/tmp');
 
