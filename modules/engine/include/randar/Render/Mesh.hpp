@@ -2,6 +2,7 @@
 #define RANDAR_RENDER_MESH_HPP
 
 #include <randar/System/GraphicsContextResource.hpp>
+#include <randar/Render/GlBuffer.hpp>
 #include <randar/Render/Vertex.hpp>
 
 namespace randar
@@ -124,7 +125,6 @@ namespace randar
          * Whether this mesh is initialized on the associated graphics context.
          */
         bool isInitialized() const;
-
     };
 }
 
