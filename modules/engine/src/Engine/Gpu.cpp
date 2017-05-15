@@ -99,16 +99,6 @@ void randar::Gpu::use()
     );
 }
 
-// Initializes an index buffer.
-void randar::Gpu::initialize(randar::IndexBuffer& buffer)
-{
-    if (buffer.isInitialized()) {
-        return;
-    }
-
-    ::glGenBuffers(1, buffer);
-}
-
 // Initializes a shader.
 void randar::Gpu::initialize(randar::Shader& shader)
 {
@@ -187,15 +177,6 @@ void randar::Gpu::initialize(randar::VertexArray& vertexArray)
     ::glGenVertexArrays(1, vertexArray);
 }
 
-// Destroys an index buffer.
-void randar::Gpu::destroy(randar::IndexBuffer& buffer)
-{
-    if (!buffer.isInitialized()) {
-        throw std::runtime_error("Destroying index buffer that is not initialized");
-    }
-    ::glDeleteBuffers(1, buffer);
-}
-
 // Destroys a shader.
 void randar::Gpu::destroy(randar::Shader& shader)
 {
@@ -221,20 +202,6 @@ void randar::Gpu::destroy(randar::VertexArray& vertexArray)
     if (!vertexArray.isInitialized()) {
         throw std::runtime_error("Destroying vertex array that is not initialized");
     }
-}
-
-// Writes indices to an index buffer.
-void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<uint32_t>& indices)
-{
-    this->bind(indexBuffer);
-
-    indexBuffer.count = indices.size();
-    ::glBufferData(
-        GL_ELEMENT_ARRAY_BUFFER,
-        indexBuffer.count * sizeof(uint32_t),
-        &indices.data()[0],
-        GL_STATIC_DRAW
-    );
 }
 
 // Gets the location of a shader program uniform.
@@ -263,12 +230,6 @@ void randar::Gpu::setUniform(
 {
     ::glUseProgram(program);
     ::glUniform1i(location, integer);
-}
-
-// Binds an index buffer.
-void randar::Gpu::bind(const randar::IndexBuffer& buffer)
-{
-    ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer);
 }
 
 // Drawing.
