@@ -187,77 +187,6 @@ void randar::Gpu::initialize(randar::VertexArray& vertexArray)
     ::glGenVertexArrays(1, vertexArray);
 }
 
-// Initializes a vertex buffer.
-void randar::Gpu::initialize(randar::VertexBuffer& buffer)
-{
-    if (buffer.isInitialized()) {
-        return;
-    }
-
-    ::glGenVertexArrays(1, buffer.vertexArray);
-    ::glBindVertexArray(buffer.vertexArray);
-
-    ::glGenBuffers(1, buffer);
-    ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
-
-    unsigned int stride = Vertex().stride * sizeof(GLfloat);
-
-    // Position.
-    ::glEnableVertexAttribArray(0);
-    ::glVertexAttribPointer(
-        0,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        stride,
-        (void*)0
-    );  
-
-    // Color.
-    ::glEnableVertexAttribArray(1);
-    ::glVertexAttribPointer(
-        1,
-        4,
-        GL_FLOAT,
-        GL_FALSE,
-        stride,
-        (void*)(3 * sizeof(GLfloat))
-    );  
-
-    // Bone index.
-    ::glEnableVertexAttribArray(2);
-    ::glVertexAttribPointer(
-        2,
-        4,
-        GL_FLOAT,
-        GL_FALSE,
-        stride,
-        (void*)(7 * sizeof(GLfloat))
-    );  
-
-    // Bone weights.
-    ::glEnableVertexAttribArray(3);
-    ::glVertexAttribPointer(
-        3,
-        4,
-        GL_FLOAT,
-        GL_FALSE,
-        stride,
-        (void*)(11 * sizeof(GLfloat))
-    );
-
-    // Texture coordinates.
-    ::glEnableVertexAttribArray(4);
-    ::glVertexAttribPointer(
-        4,
-        2,
-        GL_FLOAT,
-        GL_FALSE,
-        stride,
-        (void*)(15 * sizeof(GLfloat))
-    );
-}
-
 // Destroys an index buffer.
 void randar::Gpu::destroy(randar::IndexBuffer& buffer)
 {
@@ -294,15 +223,6 @@ void randar::Gpu::destroy(randar::VertexArray& vertexArray)
     }
 }
 
-// Destroys a vertex buffer.
-void randar::Gpu::destroy(randar::VertexBuffer& buffer)
-{
-    if (!buffer.isInitialized()) {
-        throw std::runtime_error("Destroying vertex buffer that is not initialized");
-    }
-    ::glDeleteBuffers(1, buffer);
-}
-
 // Writes indices to an index buffer.
 void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<uint32_t>& indices)
 {
@@ -315,31 +235,6 @@ void randar::Gpu::write(randar::IndexBuffer& indexBuffer, const std::vector<uint
         &indices.data()[0],
         GL_STATIC_DRAW
     );
-}
-
-// Writes vertices to a vertex buffer.
-void randar::Gpu::write(const randar::VertexBuffer& buffer, const std::vector<Vertex>& vertices)
-{
-    unsigned int count = vertices.size();
-    GLfloat *data = new GLfloat[count * Vertex().stride];
-    for (unsigned int i = 0; i < count; i++) {
-        GLfloat *subdata = &data[i * Vertex().stride];
-        vertices[i].appendTo(subdata);
-    }
-
-    ::glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    ::glBufferData(GL_ARRAY_BUFFER, count * Vertex().stride * sizeof(GLfloat), data, GL_STATIC_DRAW);
-    delete[] data;
-}
-
-// Writes model data to the GPU.
-void randar::Gpu::write(randar::Model& model)
-{
-    this->initialize(model.vertexBuffer);
-    this->write(model.vertexBuffer, model.vertices);
-
-    this->initialize(model.faceBuffer);
-    this->write(model.faceBuffer, model.faceIndices);
 }
 
 // Gets the location of a shader program uniform.
@@ -376,23 +271,8 @@ void randar::Gpu::bind(const randar::IndexBuffer& buffer)
     ::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer);
 }
 
-// Binds the vertex and index buffers of a model's mesh.
-void randar::Gpu::bind(const randar::Model& model)
-{
-    this->bind(model.vertexBuffer);
-    this->bind(model.faceBuffer);
-
-    // @todo - bind joints, textures and whatnot.
-}
-
-// Binds a vertex buffer.
-void randar::Gpu::bind(const randar::VertexBuffer& buffer)
-{
-    ::glBindVertexArray(buffer.vertexArray);
-}
-
 // Drawing.
-void randar::Gpu::draw(
+/*void randar::Gpu::draw(
     ShaderProgram& program,
     randar::Framebuffer& framebuffer,
     randar::Model& model)
@@ -424,12 +304,12 @@ void randar::Gpu::draw(
 
         delete[] jointMatrices;
 
-        /*::glUniformMatrix4fv(
+        ::glUniformMatrix4fv(
             ::glGetUniformLocation(program, "joints"),
             model.joints.size(),
             GL_FALSE,
             &jointMatrices[0][0][0]
-        );*/
+        );
     }
 
     // Set textures.
@@ -456,7 +336,7 @@ void randar::Gpu::draw(
         GL_UNSIGNED_INT,
         (void*)0
     );
-}
+}*/
 
 // Performs a sanity check.
 void randar::Gpu::check()
