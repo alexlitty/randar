@@ -11,8 +11,6 @@
 
 namespace randar
 {
-    class Model;
-
     /**
      * An interface with a GPU driver.
      *
@@ -43,29 +41,18 @@ namespace randar
          *
          * Nothing happens if the resource is already initialized.
          */
-        void initialize(IndexBuffer& buffer);
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
         void initialize(VertexArray& vertexArray);
-        void initialize(VertexBuffer& buffer);
 
         /**
          * Destroys a resource on the GPU.
          *
          * Throws an error if the resource is not initialized yet.
          */
-        void destroy(IndexBuffer& buffer);
         void destroy(Shader& shader);
         void destroy(ShaderProgram& program);
         void destroy(VertexArray& vertexArray);
-        void destroy(VertexBuffer& buffer);
-
-        /**
-         * Writes the underlying data of a GPU resource.
-         */
-        void write(IndexBuffer& indexBuffer, const std::vector<uint32_t>& indices);
-        void write(const VertexBuffer& buffer, const std::vector<Vertex>& vertices);
-        void write(Model& model);
 
         /**
          * Gets the location of a shader program uniform.
@@ -90,24 +77,6 @@ namespace randar
             const ShaderProgram& program,
             ::GLint location,
             int integer);
-
-        /**
-         * Binds a GPU resource.
-         *
-         * These should only be called internally. Made public for easier
-         * debugging.
-         */
-        void bind(const IndexBuffer& buffer);
-        void bind(const Model& model);
-        void bind(const VertexBuffer& buffer);
-
-        /**
-         * Drawing.
-         */
-        void draw(
-            ShaderProgram &program,
-            Framebuffer& framebuffer,
-            Model& model);
 
         /**
          * Performs a sanity check.
