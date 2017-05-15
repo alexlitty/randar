@@ -1,6 +1,8 @@
 #ifndef RANDAR_SCENE_OBJECT_HPP
 #define RANDAR_SCENE_OBJECT_HPP
 
+#ifdef RANDAR_IGNORE
+
 #include <randar/Scene/ModelState.hpp>
 #include <randar/Scene/Action.hpp>
 
@@ -64,5 +66,7 @@ namespace randar
         Json toJson() const;
     };
 }
+
+#endif
 
 #endif

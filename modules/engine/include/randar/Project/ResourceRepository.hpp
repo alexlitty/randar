@@ -6,7 +6,6 @@
 #include <randar/Engine/Gpu.hpp>
 #include <randar/Filesystem/Directory.hpp>
 #include <randar/Render/Texture.hpp>
-#include <randar/Render/Model.hpp>
 #include <randar/Scene/Scene.hpp>
 #include <randar/Utility/Map.hpp>
 #include <randar/Utility/Json.hpp>
@@ -42,11 +41,5 @@ namespace randar
         //ResourceRepository& operator =(const ResourceRepository& other);
     //};
 }
-
-#ifdef SWIG
-    %template(map_model) std::map<uint32_t, randar::Model*>;
-    %template(map_scene) std::map<uint32_t, randar::Scene*>;
-    %template(map_texture) std::map<uint32_t, randar::Texture*>;
-#endif
 
 #endif

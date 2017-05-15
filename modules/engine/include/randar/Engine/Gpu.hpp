@@ -5,8 +5,8 @@
 #include <GL/glew.h>
 #include <GL/glx.h>
 #include <randar/Math/Rect.hpp>
-#include <randar/Render.hpp>
 #include <randar/Render/Image.hpp>
+#include <randar/Render/ShaderProgram.hpp>
 #include <randar/Utility/glm.hpp>
 
 namespace randar

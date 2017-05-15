@@ -1,6 +1,8 @@
 #ifndef RANDAR_SCENE_SCENE_HPP
 #define RANDAR_SCENE_SCENE_HPP
 
+#ifdef RANDAR_IGNORE
+
 #include <randar/Engine/Resource.hpp>
 #include <randar/Scene/Object.hpp>
 
@@ -30,5 +32,7 @@ namespace randar
         Json toJson() const;
     };
 }
+
+#endif
 
 #endif

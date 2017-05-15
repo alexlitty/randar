@@ -1,7 +1,7 @@
 #include <randar/Scene/Object.hpp>
 
 // Constructor.
-randar::Object::Object(uint32_t initId, randar::Model* initModel)
+/*randar::Object::Object(uint32_t initId, randar::Model* initModel)
 : id(initId),
   model(initModel)
 {
@@ -79,4 +79,4 @@ Json randar::Object::toJson() const
     }
 
     return result;
-}
+}*/

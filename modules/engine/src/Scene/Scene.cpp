@@ -2,7 +2,7 @@
 #include <randar/Utility/Map.hpp>
 
 // Destructor.
-randar::Scene::~Scene()
+/*randar::Scene::~Scene()
 {
     for (auto item : this->objects) {
         delete item.second;
@@ -18,4 +18,4 @@ Json randar::Scene::toJson() const
 
         { "objects", randar::toJson(this->objects) }
     };
-}
+}*/
