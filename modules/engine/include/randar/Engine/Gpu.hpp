@@ -43,7 +43,6 @@ namespace randar
          */
         void initialize(Shader& shader);
         void initialize(ShaderProgram& program);
-        void initialize(VertexArray& vertexArray);
 
         /**
          * Destroys a resource on the GPU.
@@ -52,7 +51,6 @@ namespace randar
          */
         void destroy(Shader& shader);
         void destroy(ShaderProgram& program);
-        void destroy(VertexArray& vertexArray);
 
         /**
          * Gets the location of a shader program uniform.

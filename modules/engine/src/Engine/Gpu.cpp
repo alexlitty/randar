@@ -166,17 +166,6 @@ void randar::Gpu::initialize(randar::ShaderProgram& program)
     ::glDetachShader(program, program.fragmentShader);
 }
 
-// Initializes a vertex array.
-// @todo - Make this into a useful function, out of vertex buffer initialization.
-void randar::Gpu::initialize(randar::VertexArray& vertexArray)
-{
-    if (vertexArray.isInitialized()) {
-        return;
-    }
-
-    ::glGenVertexArrays(1, vertexArray);
-}
-
 // Destroys a shader.
 void randar::Gpu::destroy(randar::Shader& shader)
 {
@@ -193,15 +182,6 @@ void randar::Gpu::destroy(randar::ShaderProgram& program)
         throw std::runtime_error("Destroying shader program that is not initialized");
     }
     ::glDeleteProgram(program);
-}
-
-// Destroys a vertex array.
-// @todo - Separate logic from vertex buffers.
-void randar::Gpu::destroy(randar::VertexArray& vertexArray)
-{
-    if (!vertexArray.isInitialized()) {
-        throw std::runtime_error("Destroying vertex array that is not initialized");
-    }
 }
 
 // Gets the location of a shader program uniform.
