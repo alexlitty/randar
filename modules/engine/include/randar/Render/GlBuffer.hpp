@@ -85,6 +85,7 @@ namespace randar
                     throw std::runtime_error("Failed to create OpenGL buffer");
                 }
 
+                this->inSync = false;
                 this->sync();
             }
         };
@@ -100,6 +101,8 @@ namespace randar
             if (this->isInitialized()) {
                 ::glDeleteBuffers(1, &this->glName);
                 this->glName = 0;
+
+                this->inSync = false;
             }
         }
 
@@ -130,13 +133,15 @@ namespace randar
         /**
          * Syncs local data to the buffer.
          *
-         * Throws an exception if the data could not be synced.
+         * Nothing happens if no syncing is required. Throws an exception if
+         * local data could not be synced.
          */
         void sync()
         {
-            if (!this->inSync) {
-                this->inSync = true;
+            if (this->inSync) {
+                return;
             }
+            this->inSync = true;
 
             this->bind();
             ::glBufferData(T, this->data.size() * sizeof(U), this->data.data(), GL_STATIC_DRAW);
