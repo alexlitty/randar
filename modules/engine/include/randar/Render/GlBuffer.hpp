@@ -226,6 +226,11 @@ namespace randar
 
     typedef GlBuffer<GL_ARRAY_BUFFER, float> FloatArrayBuffer;
     typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer;
+
+    #ifdef SWIG
+        %template(FloatArrayBuffer) GlBuffer<GL_ARRAY_BUFFER, float>;
+        %template(IndexBuffer) GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int>;
+    #endif
 }
 
 #endif
