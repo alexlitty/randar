@@ -106,7 +106,7 @@ namespace randar
         /**
          * Whether this buffer is initialized.
          */
-        void isInitialized() const
+        bool isInitialized() const
         {
             return this->ctx && this->glName;
         }
@@ -163,10 +163,40 @@ namespace randar
             this->data.push_back(value);
             this->inSync = false;
         }
+
+        /**
+         * Gets the value from the specified index.
+         *
+         * Throws an exception if the index exceeds the buffer size.
+         */
+        U get(uint32_t index) const
+        {
+            if (index >= this->data.size()) {
+                throw std::runtime_error("Accessing out-of-range GlBuffer index");
+            }
+
+            return this->data[index];
+        }
+
+        /**
+         * Retrieves an immutable pointer to the local raw data.
+         */
+        const U* raw() const
+        {
+            return this->data.data();
+        }
+
+        /**
+         * Counts the data available in this buffer.
+         */
+        uint32_t count() const
+        {
+            return this->data.size();
+        }
     };
 
     typedef GlBuffer<GL_ARRAY_BUFFER, float> FloatArrayBuffer;
-    typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer2;
+    typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer;
 }
 
 #endif
