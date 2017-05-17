@@ -56,4 +56,23 @@ void randar::VertexBuffer::append(const randar::Vertex& vertex)
     this->colorBuffer.append(vertex.color.a());
 }
 
-//randar::Vertex randar::VertexBuffer::get(uint32_t index) const
+randar::Vertex randar::VertexBuffer::get(uint32_t index) const
+{
+    uint32_t positionIndex = index * 3;
+    uint32_t colorIndex    = index * 4;
+
+    return Vertex(
+        Vector3(
+            this->positionBuffer.get(positionIndex),
+            this->positionBuffer.get(positionIndex + 1),
+            this->positionBuffer.get(positionIndex + 2)
+        ),
+
+        Color(
+            this->colorBuffer.get(colorIndex),
+            this->colorBuffer.get(colorIndex + 1),
+            this->colorBuffer.get(colorIndex + 2),
+            this->colorBuffer.get(colorIndex + 3)
+        )
+    );
+}

@@ -63,9 +63,11 @@ namespace randar
         /**
          * Retrieves the vertex at the desired index.
          *
+         * This is quite inefficient. Made available for debugging and testing.
+         *
          * Throws an exception if the index exceeds the buffer size.
          */
-        //Vertex get(uint32_t index) const;
+        Vertex get(uint32_t index) const;
     };
 }
 
