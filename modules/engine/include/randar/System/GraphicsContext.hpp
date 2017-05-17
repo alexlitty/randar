@@ -10,6 +10,12 @@
 namespace randar
 {
     class GraphicsContextResource;
+
+    template <GLenum T, typename U> class GlBuffer;
+    typedef GlBuffer<GL_ARRAY_BUFFER, float> FloatArrayBuffer;
+    typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer;
+    class VertexBuffer;
+
     class Framebuffer;
     class Texture;
     class Window;
@@ -164,6 +170,11 @@ namespace randar
          * These must be used in the Node.js adapter so we can destruct
          * resources in a predictable manner.
          */
+        FloatArrayBuffer& floatArrayBuffer();
+        IndexBuffer& indexBuffer();
+
+        VertexBuffer& vertexBuffer();
+
         Framebuffer& framebuffer();
 
         randar::Texture& texture(

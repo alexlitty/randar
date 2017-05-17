@@ -2,6 +2,7 @@
 #include <randar/System/GraphicsContextResource.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Texture.hpp>
+#include <randar/Render/VertexBuffer.hpp>
 #include <randar/System/Window.hpp>
 
 // Allows us to pass attributes while creating a context.
@@ -254,6 +255,27 @@ unsigned int randar::GraphicsContext::resourceCount() const
 }
 
 // Resource creators.
+randar::FloatArrayBuffer& randar::GraphicsContext::floatArrayBuffer()
+{
+    randar::FloatArrayBuffer *fab = new FloatArrayBuffer(*this);
+    this->associate(*fab);
+    return *fab;
+}
+
+randar::IndexBuffer& randar::GraphicsContext::indexBuffer()
+{
+    randar::IndexBuffer *ib = new IndexBuffer(*this);
+    this->associate(*ib);
+    return *ib;
+}
+
+randar::VertexBuffer& randar::GraphicsContext::vertexBuffer()
+{
+    randar::VertexBuffer *vb = new VertexBuffer(*this);
+    this->associate(*vb);
+    return *vb;
+}
+
 randar::Framebuffer& randar::GraphicsContext::framebuffer()
 {
     randar::Framebuffer* fb = new Framebuffer(*this);
