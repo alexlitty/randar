@@ -174,7 +174,7 @@ namespace randar
         }
 
         /**
-         * Gets the value from the specified index.
+         * Gets the local value at the specified index.
          *
          * Throws an exception if the index exceeds the buffer size.
          */
@@ -185,6 +185,26 @@ namespace randar
             }
 
             return this->data[index];
+        }
+
+        /**
+         * Queries the OpenGL buffer value at the specified index.
+         *
+         * This should never be used outside debugging and testing; It is
+         * extremely inefficient. The get method is superior in all practical
+         * cases.
+         *
+         * Does not perform syncing prior to querying. Does not perform any
+         * out-of-range checks.
+         */
+        U query(uint32_t index)
+        {
+            this->bind();
+
+            U glData;
+            ::glGetBufferSubData(T, index * sizeof(U), sizeof(U), &glData);
+            this->ctx->check("Cannot query OpenGL buffer");
+            return glData;
         }
 
         /**
