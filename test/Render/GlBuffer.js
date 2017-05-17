@@ -74,6 +74,17 @@ describe('GlBuffer', function() {
                 assert(buffer.isInitialized())
                 assert(buffer.isSynced())
             })
+
+            it('is synced accurately', function() {
+                for (d of data) {
+                    buffer.append(d)
+                }
+
+                buffer.sync()
+                for (let i = 0; i < data.length; i++) {
+                    assert.equal(buffer.query(i).toFixed(2), data[i].toFixed(2))
+                }
+            });
         })
     }
 })
