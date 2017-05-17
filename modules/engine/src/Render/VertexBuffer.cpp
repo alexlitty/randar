@@ -36,10 +36,24 @@ bool randar::VertexBuffer::isInitialized() const
         && this->colorBuffer.isInitialized();
 }
 
+// Syncs local data to the OpenGL buffers.
+void randar::VertexBuffer::sync()
+{
+    this->positionBuffer.sync();
+    this->colorBuffer.sync();
+}
+
 // Appends a new vertex.
 void randar::VertexBuffer::append(const randar::Vertex& vertex)
 {
-    
+    this->positionBuffer.append(vertex.position.x);
+    this->positionBuffer.append(vertex.position.y);
+    this->positionBuffer.append(vertex.position.z);
+
+    this->colorBuffer.append(vertex.color.r());
+    this->colorBuffer.append(vertex.color.g());
+    this->colorBuffer.append(vertex.color.b());
+    this->colorBuffer.append(vertex.color.a());
 }
 
 //randar::Vertex randar::VertexBuffer::get(uint32_t index) const

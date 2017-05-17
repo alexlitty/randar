@@ -51,6 +51,11 @@ namespace randar
         bool isInitialized() const;
 
         /**
+         * Syncs local data to the OpenGL buffers.
+         */
+        void sync();
+
+        /**
          * Appends a new vertex.
          */
         void append(const Vertex& vertex);
