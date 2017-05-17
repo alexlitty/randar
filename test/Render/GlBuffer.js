@@ -82,9 +82,10 @@ describe('GlBuffer', function() {
 
                 buffer.sync()
                 for (let i = 0; i < data.length; i++) {
+                    assert.equal(buffer.get(i).toFixed(2), data[i].toFixed(2))
                     assert.equal(buffer.query(i).toFixed(2), data[i].toFixed(2))
                 }
-            });
+            })
         })
     }
 })
