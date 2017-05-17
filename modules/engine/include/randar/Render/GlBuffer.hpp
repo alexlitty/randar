@@ -145,11 +145,20 @@ namespace randar
             if (this->inSync) {
                 return;
             }
-            this->inSync = true;
 
             this->bind();
             ::glBufferData(T, this->data.size() * sizeof(U), this->data.data(), GL_STATIC_DRAW);
             this->ctx->check("Cannot write data to OpenGL buffer");
+
+            this->inSync = true;
+        }
+
+        /**
+         * Whether the local data is synced to the OpenGL buffer.
+         */
+        bool isSynced() const
+        {
+            return this->inSync;
         }
 
         /**
