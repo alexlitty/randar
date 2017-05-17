@@ -12,6 +12,7 @@ describe('GlBuffer', function() {
 
     for (bufferName in bufferTypes) {
         let creatorName = bufferName[0].toLowerCase() + bufferName.slice(1)
+        let data        = bufferTypes[bufferName]
         let buffer
 
         beforeEach(function() {
@@ -29,17 +30,11 @@ describe('GlBuffer', function() {
             })
 
             it('is not automatically initialized after appending', function() {
-                buffer.append(0.65)
+                for (d of data) {
+                    buffer.append(d)
+                }
 
-                assert.equal(buffer.count(), 1)
-                assert(!buffer.isInitialized())
-                assert(!buffer.isSynced())
-
-                buffer.append(0.78)
-                buffer.append(0.01)
-                buffer.append(1.00)
-
-                assert.equal(buffer.count(), 4)
+                assert.equal(buffer.count(), data.length)
                 assert(!buffer.isInitialized())
                 assert(!buffer.isSynced())
             })
@@ -52,13 +47,12 @@ describe('GlBuffer', function() {
             })
 
             it('initializes with data', function() {
-                buffer.append(0.09)
-                assert.equal(buffer.count(), 1)
-                assert(!buffer.isInitialized())
-                assert(!buffer.isSynced())
+                for (d of data) {
+                    buffer.append(d)
+                }
 
                 buffer.initialize()
-                assert.equal(buffer.count(), 1)
+                assert.equal(buffer.count(), data.length)
                 assert(buffer.isInitialized())
                 assert(buffer.isSynced())
             })
@@ -71,22 +65,15 @@ describe('GlBuffer', function() {
             })
 
             it('syncs with data', function() {
-                buffer.append(0.62)
-                buffer.sync()
+                for (d of data) {
+                    buffer.append(d)
+                }
 
-                assert.equal(buffer.count(), 1)
+                buffer.sync()
+                assert.equal(buffer.count(), data.length)
                 assert(buffer.isInitialized())
                 assert(buffer.isSynced())
-
-                buffer.append(0.42)
-                buffer.append(4.2)
-                buffer.append(42.0)
-                buffer.sync()
-
-                assert.equal(buffer.count(), 4)
-                assert(buffer.isInitialized())
-                assert(buffer.isSynced())
-            });
+            })
         })
     }
 })
