@@ -110,6 +110,15 @@ namespace randar
         Vertex query(uint32_t index);
 
         /**
+         * Finds the index of a vertex in this collection.
+         *
+         * Returns true if the vertex was found, false otherwise. The index
+         * parameter is filled with the found vertex, or remains unchanged if
+         * the vertex wasn't found.
+         */
+        bool find(const Vertex& vertex, uint32_t& index);
+
+        /**
          * Counts the vertices in this collection.
          */
         uint32_t count() const;
