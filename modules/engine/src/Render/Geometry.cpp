@@ -42,7 +42,7 @@ bool randar::Geometry::isInitialized()
 }
 
 // Adds a vertex to the geometry's available vertices.
-uint32_t randar::Geometry::addVertex(const randar::Vertex& vertex)
+uint32_t randar::Geometry::useVertex(const randar::Vertex& vertex)
 {
     uint32_t index;
     if (this->vertices.find(vertex, index)) {
@@ -63,5 +63,5 @@ void randar::Geometry::appendIndex(unsigned int index)
 // Appends a vertex to the geometry shape.
 void randar::Geometry::append(const randar::Vertex& vertex)
 {
-    this->appendIndex(this->addVertex(vertex));
+    this->appendIndex(this->useVertex(vertex));
 }

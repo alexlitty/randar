@@ -7,11 +7,10 @@ namespace randar
 {
     class Geometry : virtual public GraphicsContextResource
     {
-    protected:
+    public:
         VertexBuffer vertices;
         IndexBuffer indices;
 
-    public:
         /**
          * Disable assignment.
          */
@@ -62,7 +61,7 @@ namespace randar
          *
          * In most cases, you can use the simplified append method instead.
          */
-        uint32_t addVertex(const Vertex& vertex);
+        uint32_t useVertex(const Vertex& vertex);
 
         /**
          * Appends the index of an available vertex to the geometry shape.
