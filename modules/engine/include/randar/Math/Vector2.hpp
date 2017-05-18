@@ -80,6 +80,15 @@ namespace randar
             return *this;
         }
     };
+
+    /**
+     * Vector2 comparison operator.
+     */
+    template <typename T, typename U>
+    bool operator ==(const Vector2<T>& a, const Vector2<U>& b)
+    {
+        return a.x == b.x && a.y == b.y;
+    }
 }
 
 #ifdef SWIG
