@@ -89,6 +89,11 @@ namespace randar
          * out-of-range checks.
          */
         Vertex query(uint32_t index);
+
+        /**
+         * Counts the vertices in this collection.
+         */
+        uint32_t count() const;
     };
 }
 

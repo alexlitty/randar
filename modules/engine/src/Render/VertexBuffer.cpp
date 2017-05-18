@@ -132,3 +132,9 @@ randar::Vertex randar::VertexBuffer::query(uint32_t index)
         )
     );
 }
+
+// Counts the vertices in this collection.
+uint32_t randar::VertexBuffer::count() const
+{
+    return this->positionBuffer.count() / 3;
+}
