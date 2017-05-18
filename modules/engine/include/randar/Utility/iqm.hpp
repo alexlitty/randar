@@ -1,3 +1,4 @@
+#ifndef SWIG
 #ifndef RANDAR_UTILITY_IQM_HPP
 #define RANDAR_UTILITY_IQM_HPP
 
@@ -170,4 +171,5 @@ namespace randar
     }
 }
 
+#endif
 #endif
