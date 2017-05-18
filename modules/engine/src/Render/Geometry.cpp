@@ -61,12 +61,6 @@ uint32_t randar::Geometry::useVertex(const randar::Vertex& vertex)
     return index;
 }
 
-// Appends the index of an available vertex to the geometry shape.
-void randar::Geometry::appendIndex(unsigned int index)
-{
-    this->indices.append(index);
-}
-
 // Appends a vertex to the geometry shape.
 void randar::Geometry::append(const randar::Vertex& vertex)
 {

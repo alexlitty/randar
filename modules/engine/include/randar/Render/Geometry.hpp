@@ -69,17 +69,6 @@ namespace randar
         uint32_t useVertex(const Vertex& vertex);
 
         /**
-         * Appends the index of an available vertex to the geometry shape.
-         *
-         * Behavior is undefined when the index does not identify an available
-         * vertex. An index may be specified prematurely, as long as it
-         * eventually refers to an available vertex before geometry usage.
-         *
-         * In most cases, you can use the simplified append method instead.
-         */
-        void appendIndex(unsigned int index);
-
-        /**
          * Appends a vertex to the geometry shape.
          *
          * This method simply calls appendVertex, captures the index of the
