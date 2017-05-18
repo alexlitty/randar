@@ -41,7 +41,10 @@ describe('VertexBuffer', function() {
             assertVertex(buffer.get(i), vertices[i]);
         }
 
+        assert.equal(buffer.count(), vertices.length);
         buffer.sync();
+        assert.equal(buffer.count(), vertices.length);
+
         for (let i = 0; i < vertices.length; i++) {
             assertVertex(buffer.get(i), vertices[i]);
             assertVertex(buffer.query(i), vertices[i]);
@@ -52,10 +55,13 @@ describe('VertexBuffer', function() {
         let i = 0;
         for (vertex of vertices) {
             buffer.append(vertex);
+            assert(buffer.has(vertices[i]));
             assert.equal(buffer.find(vertices[i]), i);
+            i++;
         }
 
         for (let i = 0; i < vertices.length; i++) {
+            assert(buffer.has(vertices[i]));
             assert.equal(buffer.find(vertices[i]), i);
         }
     });
