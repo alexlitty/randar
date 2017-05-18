@@ -123,6 +123,18 @@ randar::Vertex randar::VertexBuffer::query(uint32_t index)
     );
 }
 
+// Whether this collection contains a vertex.
+bool randar::VertexBuffer::has(const randar::Vertex& vertex) const
+{
+    for (auto searchVertex : this->vertices) {
+        if (searchVertex == vertex) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // Finds the index of a vertex in this collection.
 bool randar::VertexBuffer::find(const randar::Vertex& vertex, uint32_t& index)
 {
