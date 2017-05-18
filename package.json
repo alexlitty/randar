@@ -6,10 +6,17 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "node scripts/build.js",
-    "rebuild": "node scripts/build.js rebuild=yes",
-    "start": "./node_modules/electron/dist/electron modules/ui/",
-    "test": "./node_modules/mocha/bin/mocha --recursive"
+    "build": "./run/build",
+    "b": "./run/b",
+
+    "rebuild": "./run/rebuild",
+    "r": "./run/rebuild",
+
+    "start": "./run/ui",
+    "s": "./run/ui",
+    "ui": "./run/ui",
+
+    "test": "./run/test"
   },
   "dependencies": {
     "async": "^2.3.0",
