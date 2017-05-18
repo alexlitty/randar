@@ -2,7 +2,7 @@
 #include <randar/System/GraphicsContextResource.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Texture.hpp>
-#include <randar/Render/VertexBuffer.hpp>
+#include <randar/Render/Geometry.hpp>
 #include <randar/System/Window.hpp>
 
 // Allows us to pass attributes while creating a context.
@@ -274,6 +274,13 @@ randar::VertexBuffer& randar::GraphicsContext::vertexBuffer()
     randar::VertexBuffer *vb = new VertexBuffer(*this);
     this->associate(*vb);
     return *vb;
+}
+
+randar::Geometry& randar::GraphicsContext::geometry()
+{
+    randar::Geometry *geo = new Geometry(*this);
+    this->associate(*geo);
+    return *geo;
 }
 
 randar::Framebuffer& randar::GraphicsContext::framebuffer()

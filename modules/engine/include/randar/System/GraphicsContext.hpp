@@ -14,7 +14,9 @@ namespace randar
     template <GLenum T, typename U> class GlBuffer;
     typedef GlBuffer<GL_ARRAY_BUFFER, float> FloatArrayBuffer;
     typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer;
+
     class VertexBuffer;
+    class Geometry;
 
     class Framebuffer;
     class Texture;
@@ -173,7 +175,9 @@ namespace randar
         FloatArrayBuffer& floatArrayBuffer();
         IndexBuffer& indexBuffer();
 
+
         VertexBuffer& vertexBuffer();
+        Geometry& geometry();
 
         Framebuffer& framebuffer();
 
