@@ -7,13 +7,32 @@
 namespace randar
 {
     /**
-     * A high-level "buffer" of vertices composed of multiple OpenGL buffers.
+     * A high-level buffer of vertices.
      */
     class VertexBuffer : virtual public GraphicsContextResource
     {
     protected:
+        /**
+         * Redundant list of vertices in this vertex buffer.
+         *
+         * Used to optimize certain operations.
+         */
+        std::vector<Vertex> vertices;
+
+        /**
+         * OpenGL vertex array object, which acts as a container for "attribute"
+         * buffers.
+         *
+         * Simplifies and optimizes rendering operations.
+         */
         GLuint vertexArrayName;
 
+        /**
+         * OpenGL buffers, each holding a specific vertex attribute for all
+         * vertices in this "vertex buffer."
+         *
+         * These buffers hold the final data used during rendering operations.
+         */
         FloatArrayBuffer positionBuffer;
         FloatArrayBuffer colorBuffer;
 

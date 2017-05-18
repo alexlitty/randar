@@ -79,6 +79,8 @@ void randar::VertexBuffer::sync()
 // Appends a new vertex.
 void randar::VertexBuffer::append(const randar::Vertex& vertex)
 {
+    this->vertices.push_back(vertex);
+
     this->positionBuffer.append(vertex.position.x);
     this->positionBuffer.append(vertex.position.y);
     this->positionBuffer.append(vertex.position.z);
@@ -92,23 +94,11 @@ void randar::VertexBuffer::append(const randar::Vertex& vertex)
 // Retrieves the vertex at the desired index.
 randar::Vertex randar::VertexBuffer::get(uint32_t index) const
 {
-    uint32_t positionIndex = index * 3;
-    uint32_t colorIndex    = index * 4;
+    if (index >= this->count()) {
+        throw std::runtime_error("Vertex index is out of range");
+    }
 
-    return Vertex(
-        Vector3(
-            this->positionBuffer.get(positionIndex),
-            this->positionBuffer.get(positionIndex + 1),
-            this->positionBuffer.get(positionIndex + 2)
-        ),
-
-        Color(
-            this->colorBuffer.get(colorIndex),
-            this->colorBuffer.get(colorIndex + 1),
-            this->colorBuffer.get(colorIndex + 2),
-            this->colorBuffer.get(colorIndex + 3)
-        )
-    );
+    return this->vertices[index];
 }
 
 // Queries the vertex at the desired index in the lower level buffers.
@@ -136,5 +126,5 @@ randar::Vertex randar::VertexBuffer::query(uint32_t index)
 // Counts the vertices in this collection.
 uint32_t randar::VertexBuffer::count() const
 {
-    return this->positionBuffer.count() / 3;
+    return this->vertices.size();
 }
