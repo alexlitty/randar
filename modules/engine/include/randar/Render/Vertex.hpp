@@ -13,8 +13,8 @@ namespace randar
 {
     struct TextureCoordinate
     {
-        float u;
-        float v;
+        float u = 0;
+        float v = 0;
     };
 
     struct Vertex
@@ -32,7 +32,7 @@ namespace randar
          *
          * textureId is local to a mesh.
          */
-        int8_t textureId;
+        int8_t textureId = -1;
         TextureCoordinate textureCoordinate;
 
         /**
