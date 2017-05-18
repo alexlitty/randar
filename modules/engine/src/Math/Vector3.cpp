@@ -161,6 +161,14 @@ randar::Vector3 randar::operator /(randar::Vector3 lhs, float rhs)
     return lhs /= rhs;
 }
 
+// Vector3 comparison operator.
+bool randar::operator ==(const randar::Vector3& a, const Vector3& b)
+{
+    return a.x == b.x
+        && a.y == b.y
+        && a.z == b.z;
+}
+
 // Convert to physics vector.
 randar::Vector3::operator btVector3() const
 {

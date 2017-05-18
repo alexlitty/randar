@@ -87,6 +87,11 @@ namespace randar
     Vector3 operator /(Vector3 lhs, float other);
 
     /**
+     * Vector3 comparison operator.
+     */
+    bool operator ==(const Vector3& a, const Vector3& b);
+
+    /**
      * Node.js helpers for intuitive vector creation.
      */
     Vector3 vector();
