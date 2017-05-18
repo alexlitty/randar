@@ -38,6 +38,12 @@ namespace randar
 
     public:
         /**
+         * Disable assignment.
+         */
+        VertexBuffer(const VertexBuffer& other) = delete;
+        VertexBuffer& operator =(const VertexBuffer& other) = delete;
+
+        /**
          * Constructor.
          *
          * Immediately initializes an empty vertex buffer on a context.
