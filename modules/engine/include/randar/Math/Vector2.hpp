@@ -57,6 +57,21 @@ namespace randar
         }
 
         /**
+         * Gets the x and y values of this vector.
+         *
+         * Used for alternative coordinate systems, such as texture coordinates.
+         */
+        float u() const
+        {
+            return this->x;
+        }
+
+        float v() const
+        {
+            return this->y;
+        }
+
+        /**
          * Assignment operator.
          */
         Vector2<T>& operator =(const Vector2<T>& other)
