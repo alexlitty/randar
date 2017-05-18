@@ -90,4 +90,30 @@ describe.only('Geometry', function() {
         assert.equal(geo.vertices.find(randar.vertex(4, 5, 6)), 0);
         assert.equal(geo.vertices.find(randar.vertex(9, 7, 4)), 1);
     });
+
+    it('draws to off-screen framebuffer', function() {
+        geo.append(randar.vertex(0.5, -0.5, -0.5));
+        geo.append(randar.vertex(0.5, 0.5, -0.5));
+        geo.append(randar.vertex(-0.5, 0.5, -0.5));
+
+        let fb = ctx.framebuffer();
+        geo.drawTo(fb);
+    });
+
+    it.only('draws to default framebuffer', function() {
+        this.timeout(10000);
+
+        geo.append(randar.vertex(0.5, -0.5, 0.5));
+        geo.append(randar.vertex(0.5, 0.5, 0.5));
+        geo.append(randar.vertex(-0.5, 0.5, 0.5));
+
+        let win = ctx.window(256, 256);
+        let fb = win.framebuffer();
+
+        for (let i = 0; i < 100; i++) {
+            fb.clear(randar.color(0.3, 0.3, 0.6));
+            geo.drawTo(fb);
+            win.present();
+        }
+    });
 });
