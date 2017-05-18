@@ -85,6 +85,15 @@ namespace randar
     Vector3 operator *(Vector3 lhs, float rhs);
     Vector3 operator *(float lhs, Vector3 rhs);
     Vector3 operator /(Vector3 lhs, float other);
+
+    /**
+     * Node.js helpers for intuitive vector creation.
+     */
+    Vector3 vector();
+    Vector3 vector(float x, float y, float z = 0.0f);
+
+    Vector3 position();
+    Vector3 position(float x, float y, float z = 0.0f);
 }
 
 #endif

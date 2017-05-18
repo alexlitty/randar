@@ -190,3 +190,24 @@ Json randar::Vector3::toJson() const
         { "z", this->z }
     };
 }
+
+// Node.js helpers for intuitive vector creation.
+randar::Vector3 randar::vector()
+{
+    return Vector3();
+}
+
+randar::Vector3 randar::vector(float x, float y, float z)
+{
+    return Vector3(x, y, z);
+}
+
+randar::Vector3 randar::position()
+{
+    return randar::vector();
+}
+
+randar::Vector3 randar::position(float x, float y, float z)
+{
+    return randar::vector(x, y, z);
+}
