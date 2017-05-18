@@ -16,7 +16,7 @@ randar::Geometry::~Geometry()
 // Initializes the geometry on a context.
 void randar::Geometry::initialize()
 {
-    if (this->ctx) {
+    if (!this->ctx) {
         throw std::runtime_error("Context no longer available");
     }
 
