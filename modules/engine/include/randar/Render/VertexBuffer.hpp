@@ -12,6 +12,8 @@ namespace randar
     class VertexBuffer : virtual public GraphicsContextResource
     {
     protected:
+        GLuint vertexArrayName;
+
         FloatArrayBuffer positionBuffer;
         FloatArrayBuffer colorBuffer;
 
@@ -46,9 +48,17 @@ namespace randar
         void uninitialize();
 
         /**
-         * Whether this vertex buffer is initialized on a context.
+         * Whether the vertex buffer is initialized on a context.
          */
         bool isInitialized() const;
+
+        /**
+         * Binds the vertex buffer for further operations.
+         *
+         * Technically, this only binds the OpenGL vertex array since it is the
+         * only binding required for "vertex buffer" operations.
+         */
+        void bind();
 
         /**
          * Syncs local data to the OpenGL buffers.

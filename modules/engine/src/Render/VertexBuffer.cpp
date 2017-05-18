@@ -18,22 +18,55 @@ randar::VertexBuffer::~VertexBuffer()
 // Initializes the vertex buffer on a context.
 void randar::VertexBuffer::initialize()
 {
+    ::glGenVertexArrays(1, &this->vertexArrayName);
+    this->ctx->check("Cannot create vertex array");
+    if (!this->vertexArrayName) {
+        throw std::runtime_error("Failed to create vertex array");
+    }
+
     this->positionBuffer.initialize();
     this->colorBuffer.initialize();
+
+    this->bind();
+    this->positionBuffer.bind();
+    ::glEnableVertexAttribArray(0);
+    ::glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+    this->colorBuffer.bind();
+    ::glEnableVertexAttribArray(1);
+    ::glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, 0, nullptr);
+
+    this->ctx->check("Cannot assign vertex attribute pointers");
 }
 
 // Uninitializes the vertex buffer from a context.
 void randar::VertexBuffer::uninitialize()
 {
-    this->positionBuffer.uninitialize();
-    this->colorBuffer.uninitialize();
+    if (this->isInitialized()) {
+        ::glDeleteVertexArrays(1, &this->vertexArrayName);
+
+        this->positionBuffer.uninitialize();
+        this->colorBuffer.uninitialize();
+    }
 }
 
 // Whether the vertex buffer is initialized on a context.
 bool randar::VertexBuffer::isInitialized() const
 {
-    return this->positionBuffer.isInitialized()
+    return this->ctx
+        && this->vertexArrayName
+        && this->positionBuffer.isInitialized()
         && this->colorBuffer.isInitialized();
+}
+
+// Binds the vertex buffer for further operations.
+void randar::VertexBuffer::bind()
+{
+    if (!this->isInitialized()) {
+        throw std::runtime_error("Cannot bind uninitialized vertex buffer");
+    }
+
+    ::glBindVertexArray(this->vertexArrayName);
 }
 
 // Syncs local data to the OpenGL buffers.
