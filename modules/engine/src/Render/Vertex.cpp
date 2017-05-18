@@ -70,3 +70,26 @@ void randar::Vertex::appendTo(GLfloat* array) const
     array[15] = textureCoordinate.u;
     array[16] = textureCoordinate.v;
 }
+
+// Node.js helpers for intuitive vertex creation.
+randar::Vertex randar::vertex(const randar::Vector3& p, const randar::Color& c)
+{
+    return randar::Vertex(p, c);
+}
+
+randar::Vertex randar::vertex(float x, float y, float z)
+{
+    return randar::Vertex(x, y, z);
+}
+
+randar::Vertex randar::vertex(
+    float x,
+    float y,
+    float z,
+    float r,
+    float g,
+    float b,
+    float a)
+{
+    return randar::Vertex(x, y, z, r, g, b, a);
+}
