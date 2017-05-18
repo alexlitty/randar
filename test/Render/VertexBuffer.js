@@ -12,6 +12,15 @@ function assertVertex(vertex, other) {
 describe('VertexBuffer', function() {
     let ctx;
     let buffer;
+    let vertices;
+
+    before(function() {
+        vertices = [
+            randar.vertex(0.9, 0.9, 0.2, 0.1, 0.2, 0.3, 0.4),
+            randar.vertex(-0.9, 0.9, 0.4, 0.9, 0.8, 0.7, 0.6),
+            randar.vertex(-0.9, -0.9, 0.3, 0.5, 0.6, 0.4, 0.9)
+        ];
+    });
 
     beforeEach(function() {
         ctx    = new randar.GraphicsContext();
@@ -24,12 +33,6 @@ describe('VertexBuffer', function() {
     });
 
     it('accurately appends vertices', function() {
-        const vertices = [
-            randar.vertex(0.9, 0.9, 0.2, 0.1, 0.2, 0.3, 0.4),
-            randar.vertex(-0.9, 0.9, 0.4, 0.9, 0.8, 0.7, 0.6),
-            randar.vertex(-0.9, -0.9, 0.3, 0.5, 0.6, 0.4, 0.9)
-        ];
-
         for (vertex of vertices) {
             buffer.append(vertex);
         }
@@ -42,6 +45,18 @@ describe('VertexBuffer', function() {
         for (let i = 0; i < vertices.length; i++) {
             assertVertex(buffer.get(i), vertices[i]);
             assertVertex(buffer.query(i), vertices[i]);
+        }
+    });
+
+    it('finds vertices', function() {
+        let i = 0;
+        for (vertex of vertices) {
+            buffer.append(vertex);
+            assert.equal(buffer.find(vertices[i]), i);
+        }
+
+        for (let i = 0; i < vertices.length; i++) {
+            assert.equal(buffer.find(vertices[i]), i);
         }
     });
 });
