@@ -10,7 +10,7 @@ function assertVertex(vertex, x, y, z, r, g, b, a)
     assert.equal(vertex.color.a().toFixed(2), a.toFixed(2));
 }
 
-describe.only('Vertex', function() {
+describe('Vertex', function() {
     it('constructs with no arguments', function() {
         assertVertex(
             randar.vertex(),
