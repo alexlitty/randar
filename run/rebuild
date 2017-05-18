@@ -1,0 +1,5 @@
+#!/bin/bash
+RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
+
+node ${RANDAR_PATH}/run/scripts/build.js rebuild=yes $* || exit 1
+exit 0
