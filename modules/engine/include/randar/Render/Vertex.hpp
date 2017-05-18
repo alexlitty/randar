@@ -11,12 +11,6 @@
 
 namespace randar
 {
-    struct TextureCoordinate
-    {
-        float u = 0;
-        float v = 0;
-    };
-
     struct Vertex
     {
         const unsigned int stride = 17;
@@ -33,7 +27,7 @@ namespace randar
          * textureId is local to a mesh.
          */
         int8_t textureId = -1;
-        TextureCoordinate textureCoordinate;
+        Vector2<float> textureCoordinate;
 
         /**
          * The influencing joint indices, mapped against the influencing weight
