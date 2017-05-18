@@ -126,14 +126,26 @@ randar::Vertex randar::VertexBuffer::query(uint32_t index)
 // Finds the index of a vertex in this collection.
 bool randar::VertexBuffer::find(const randar::Vertex& vertex, uint32_t& index)
 {
+    try {
+        index = this->find(vertex);
+        return true;
+    }
+
+    catch (...) {
+        return false;
+    }
+}
+
+uint32_t randar::VertexBuffer::find(const randar::Vertex& vertex)
+{
     uint32_t count = this->count();
     for (uint32_t i = 0; i < count; i++) {
         if (this->vertices[i] == vertex) {
-            index = i;
-            return true;
+            return i;
         }
     }
-    return false;
+
+    throw std::runtime_error("Vertex not found");
 }
 
 // Counts the vertices in this collection.

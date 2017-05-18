@@ -119,6 +119,13 @@ namespace randar
         bool find(const Vertex& vertex, uint32_t& index);
 
         /**
+         * Finds the index of a vertex in this collection.
+         *
+         * Throws an exception if the vertex cannot be found.
+         */
+        uint32_t find(const Vertex& vertex);
+
+        /**
          * Counts the vertices in this collection.
          */
         uint32_t count() const;
