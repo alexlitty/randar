@@ -64,6 +64,11 @@ namespace randar
     };
 
     /**
+     * Vertex comparison operator.
+     */
+    bool operator ==(const Vertex& a, const Vertex& b);
+
+    /**
      * Node.js helpers for intuitive vertex creation.
      */
     Vertex vertex(const Vector3& p = Vector3(), const Color& c = Color());

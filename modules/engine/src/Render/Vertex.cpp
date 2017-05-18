@@ -71,6 +71,16 @@ void randar::Vertex::appendTo(GLfloat* array) const
     array[16] = textureCoordinate.v();
 }
 
+// Vertex comparison operator.
+bool randar::operator ==(const randar::Vertex& a, const randar::Vertex& b)
+{
+    return a.position == b.position
+        && a.color == b.color
+        && a.textureId == b.textureId
+        && a.textureCoordinate == b.textureCoordinate
+        && a.jointWeights == b.jointWeights;
+}
+
 // Node.js helpers for intuitive vertex creation.
 randar::Vertex randar::vertex(const randar::Vector3& p, const randar::Color& c)
 {
