@@ -46,8 +46,16 @@ namespace randar
         /**
          * Constructors.
          */
-        Vertex();
-        Vertex(Vector3 initPosition, Color initColor);
+        Vertex(const Vector3& p = Vector3(), const Color& c = Color());
+        Vertex(float x, float y, float z = 0.0f);
+        Vertex(
+            float x,
+            float y,
+            float z,
+            float r,
+            float g,
+            float b,
+            float a = 1.0f);
 
         /**
          * Copy constructor and assignment operator.
@@ -62,10 +70,9 @@ namespace randar
     };
 
     /**
-     * Node.js helper for intuitive vertex creation.
+     * Node.js helpers for intuitive vertex creation.
      */
-    Vertex vertex();
-    Vertex vertex(Vector3 p, Color c = Color());
+    Vertex vertex(const Vector3& p = Vector3(), const Color& c = Color());
     Vertex vertex(float x, float y, float z = 0.0f);
     Vertex vertex(
         float x,
