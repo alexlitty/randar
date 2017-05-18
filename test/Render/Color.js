@@ -4,7 +4,7 @@ const rgba = rgb.concat('a');
 describe('Color', function() {
     describe('construction', function() {
         it('default constructs opaque black', function() {
-            const color = new randar.Color();
+            const color = randar.color();
             assert.equal(color.r(), 0);
             assert.equal(color.g(), 0);
             assert.equal(color.b(), 0);
@@ -12,7 +12,7 @@ describe('Color', function() {
         });
 
         it('constructs rgb arguments', function() {
-            const color = new randar.Color(
+            const color = randar.color(
                 0.250980406999588,
                 0.9882352948188782,
                 0.3490196168422699
@@ -24,7 +24,7 @@ describe('Color', function() {
         });
 
         it('constructs rgba arguments', function() {
-            const color = new randar.Color(
+            const color = randar.color(
                 0.250980406999588,
                 0.9882352948188782,
                 0.3490196168422699,
@@ -37,28 +37,17 @@ describe('Color', function() {
             assert.equal(color.a(), 0.09803921729326248);
         });
 
-        it('copy constructs deeply', function() {
-            const a = new randar.Color(0.75, 0.64, 0.54, 0.22);
-            const b = new randar.Color(a);
-            assert(a.equals(b));
-
-            for (channel in randar.Color.channels) {
-                a[channel](0.1);
-                assert(!a.equals(b));
-            }
-        });
-
         it('refuses string arguments', function() {
-            assert.throws(() => new randar.Color('0.1', '0.2', '0.3', '0.4'));
+            assert.throws(() => randar.color('0.1', '0.2', '0.3', '0.4'));
         });
 
         it('refuses one or two numeric arguments', function() {
-            assert.throws(() => new randar.Color(0.75));
-            assert.throws(() => new randar.Color(0.54, 0.29));
+            assert.throws(() => randar.color(0.75));
+            assert.throws(() => randar.color(0.54, 0.29));
         });
 
         it('does not interpret 8-bit integers', function() {
-            const color = new randar.Color(135, 49, 164, 255);
+            const color = randar.color(135, 49, 164, 255);
             
             for (channel of rgba) {
                 assert.equal(color[channel](), 1);
@@ -68,7 +57,7 @@ describe('Color', function() {
 
     describe('8-bit integers', function() {
         it('assign and retrieve within [0, 255]', function() {
-            const color = new randar.Color();
+            const color = randar.color();
 
             for (channel of rgba) {
                 const fn = `${channel}Int`;
@@ -84,7 +73,7 @@ describe('Color', function() {
         });
 
         it('refuse being set out-of-range', function() {
-            const color = new randar.Color();
+            const color = randar.color();
 
             for (channel of rgba) {
                 assert.throws(() => color[`${channel}Int`](256));
@@ -97,7 +86,7 @@ describe('Color', function() {
 
     describe('floats', function() {
         it('clamp within [0, 1]', function() {
-            const color = new randar.Color();
+            const color = randar.color();
 
             for (channel of rgba) {
                 color[channel](1.3);

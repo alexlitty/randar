@@ -124,6 +124,12 @@ namespace randar
      * Generates a random color with full opacity.
      */
     Color randomColor();
+
+    /**
+     * Node.js helpers for intuitive color creation.
+     */
+    Color color();
+    Color color(float r, float g, float b, float a = 1.0f);
 }
 
 #endif

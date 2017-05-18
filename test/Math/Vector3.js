@@ -4,7 +4,7 @@ function assertVector(vector, x, y, z) {
     assert.equal(vector.z, z);
 }
 
-describe.only('Vector3', function() {
+describe('Vector3', function() {
     for (let creator of ['vector', 'position']) {
         describe(`via ${creator}`, function() {
             it('constructs with no arguments', function() {

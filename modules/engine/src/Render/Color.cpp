@@ -152,3 +152,14 @@ randar::Color randar::randomColor()
     color.randomize();
     return color;
 }
+
+// Node.js helpers for intuitive color creation.
+randar::Color randar::color()
+{
+    return randar::Color();
+}
+
+randar::Color randar::color(float r, float g, float b, float a)
+{
+    return randar::Color(r, g, b, a);
+}
