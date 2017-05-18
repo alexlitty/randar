@@ -68,21 +68,6 @@ namespace randar
          */
         void appendTo(GLfloat* array) const;
     };
-
-    /**
-     * Node.js helpers for intuitive vertex creation.
-     */
-    Vertex vertex(const Vector3& p = Vector3(), const Color& c = Color());
-    Vertex vertex(float x, float y, float z = 0.0f);
-    Vertex vertex(
-        float x,
-        float y,
-        float z,
-        float r,
-        float g,
-        float b,
-        float a = 1.0f
-    );
 }
 
 #endif
