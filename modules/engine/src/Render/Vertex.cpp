@@ -14,10 +14,21 @@ randar::Vertex::Vertex(Vector3 initPosition, Color initColor)
 
 }
 
-// Copy constructor.
+// Copy constructor and assignment operator.
 randar::Vertex::Vertex(const randar::Vertex& other)
 {
     *this = other;
+}
+
+randar::Vertex& randar::Vertex::operator =(const randar::Vertex& other)
+{
+    this->position          = other.position;
+    this->color             = other.color;
+    this->textureId         = other.textureId;
+    this->textureCoordinate = other.textureCoordinate;
+    this->jointWeights      = other.jointWeights;
+
+    return *this;
 }
 
 // Appends this vertex to an ongoing array.
@@ -45,16 +56,4 @@ void randar::Vertex::appendTo(GLfloat* array) const
 
     array[15] = textureCoordinate.u;
     array[16] = textureCoordinate.v;
-}
-
-// Assignment operator.
-randar::Vertex& randar::Vertex::operator =(const randar::Vertex& other)
-{
-    this->position          = other.position;
-    this->color             = other.color;
-    this->textureId         = other.textureId;
-    this->textureCoordinate = other.textureCoordinate;
-    this->jointWeights      = other.jointWeights;
-
-    return *this;
 }

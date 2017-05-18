@@ -50,20 +50,32 @@ namespace randar
         Vertex(Vector3 initPosition, Color initColor);
 
         /**
-         * Copy constructor.
+         * Copy constructor and assignment operator.
          */
         Vertex(const Vertex& other);
+        Vertex& operator =(const Vertex& other);
 
         /**
          * Appends this vertex to an ongoing array.
          */
         void appendTo(GLfloat* array) const;
-
-        /**
-         * Assignment operator.
-         */
-        Vertex& operator =(const Vertex& other);
     };
+
+    /**
+     * Node.js helper for intuitive vertex creation.
+     */
+    Vertex vertex();
+    Vertex vertex(Vector3 p, Color c = Color());
+    Vertex vertex(float x, float y, float z = 0.0f);
+    Vertex vertex(
+        float x,
+        float y,
+        float z,
+        float r,
+        float g,
+        float b,
+        float a = 1.0f
+    );
 }
 
 #endif
