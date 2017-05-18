@@ -64,5 +64,16 @@ uint32_t randar::Geometry::useVertex(const randar::Vertex& vertex)
 // Appends a vertex to the geometry shape.
 void randar::Geometry::append(const randar::Vertex& vertex)
 {
-    this->appendIndex(this->useVertex(vertex));
+    this->indices.append(this->useVertex(vertex));
+}
+
+// Draws the geometry to a framebuffer.
+void randar::Geometry::drawTo(Framebuffer &fb)
+{
+    this->sync();
+    this->vertices.bind();
+    this->indices.bind();
+
+    fb.bind();
+    ::glDrawElements(GL_TRIANGLES, this->indices.count(), GL_UNSIGNED_INT, 0);
 }

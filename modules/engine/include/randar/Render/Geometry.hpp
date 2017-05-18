@@ -2,6 +2,7 @@
 #define RANDAR_RENDER_GEOMETRY_HPP
 
 #include <randar/Render/VertexBuffer.hpp>
+#include <randar/Render/Framebuffer.hpp>
 
 namespace randar
 {
@@ -78,6 +79,11 @@ namespace randar
          * This is the preferred way to append a vertex to geometry.
          */
         void append(const Vertex& vertex);
+
+        /**
+         * Draws the geometry to a framebuffer.
+         */
+        void drawTo(Framebuffer& fb);
     };
 }
 
