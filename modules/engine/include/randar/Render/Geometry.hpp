@@ -28,12 +28,63 @@ namespace randar
          */
         ~Geometry();
 
+        /**
+         * Initializes the geometry on a context.
+         *
+         * Nothing happens if the geometry is already initialized. Throws an
+         * exception if initialization fails.
+         */
         void initialize();
+
+        /**
+         * Uninitializes the geometry from a context.
+         *
+         * Nothing happens if the geometry is not initialized. No exceptions are
+         * thrown upon failure.
+         */
         void uninitialize();
+
+        /**
+         * Whether the geometry is initialized on a context.
+         */
         bool isInitialized();
 
-        void appendVertex(const Vertex& vertex);
+        /**
+         * Adds a vertex to the geometry's available vertices.
+         *
+         * Returns an index that identifies the vertex in this geometry's
+         * available vertices, which is later used to construct a shape.
+         *
+         * If the vertex already exists in the available geometry, it is not
+         * appended and the existing index is returned.
+         *
+         * This does not manipulate the shape of the geometry.
+         *
+         * In most cases, you can use the simplified append method instead.
+         */
+        uint32_t addVertex(const Vertex& vertex);
+
+        /**
+         * Appends the index of an available vertex to the geometry shape.
+         *
+         * Behavior is undefined when the index does not identify an available
+         * vertex. An index may be specified prematurely, as long as it
+         * eventually refers to an available vertex before geometry usage.
+         *
+         * In most cases, you can use the simplified append method instead.
+         */
         void appendIndex(unsigned int index);
+
+        /**
+         * Appends a vertex to the geometry shape.
+         *
+         * This method simply calls appendVertex, captures the index of the
+         * vertex in this geometry's available vertices, and calls appendIndex
+         * with it.
+         *
+         * This is the preferred way to append a vertex to geometry.
+         */
+        void append(const Vertex& vertex);
     };
 }
 
