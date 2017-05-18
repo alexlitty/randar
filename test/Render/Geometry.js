@@ -1,4 +1,4 @@
-describe.only('Geometry', function() {
+describe('Geometry', function() {
     let ctx;
     let geo;
 
@@ -100,7 +100,7 @@ describe.only('Geometry', function() {
         geo.drawTo(fb);
     });
 
-    it.only('draws to default framebuffer', function() {
+    it('draws to default framebuffer', function() {
         this.timeout(10000);
 
         geo.append(randar.vertex(0.5, -0.5, 0.5));
