@@ -41,6 +41,13 @@ bool randar::Geometry::isInitialized()
         && this->indices.isInitialized();
 }
 
+// Syncs local data to OpenGL.
+void randar::Geometry::sync()
+{
+    this->vertices.sync();
+    this->indices.sync();
+}
+
 // Adds a vertex to the geometry's available vertices.
 uint32_t randar::Geometry::useVertex(const randar::Vertex& vertex)
 {

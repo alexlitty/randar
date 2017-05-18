@@ -49,6 +49,11 @@ namespace randar
         bool isInitialized();
 
         /**
+         * Syncs local data to OpenGL.
+         */
+        void sync();
+
+        /**
          * Adds a vertex to the geometry's available vertices.
          *
          * Returns an index that identifies the vertex in this geometry's
