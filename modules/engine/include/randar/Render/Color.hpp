@@ -121,6 +121,11 @@ namespace randar
     };
 
     /**
+     * Color comparison operator.
+     */
+    bool operator ==(const Color& a, const Color& b);
+
+    /**
      * Generates a random color with full opacity.
      */
     Color randomColor();

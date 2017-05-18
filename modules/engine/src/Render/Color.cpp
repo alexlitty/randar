@@ -145,6 +145,15 @@ void randar::Color::randomize(bool randomizeAlpha)
     this->aInt(randar::randomFloat());
 }
 
+// Color comparison operator.
+bool randar::operator ==(const randar::Color& a, const randar::Color& b)
+{
+    return a.r() == b.r()
+        && a.g() == b.g()
+        && a.b() == b.b()
+        && a.a() == b.a();
+}
+
 // Generates a random color with full opacity.
 randar::Color randar::randomColor()
 {
