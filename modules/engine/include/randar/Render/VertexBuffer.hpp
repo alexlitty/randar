@@ -78,6 +78,17 @@ namespace randar
          * Throws an exception if the index exceeds the buffer size.
          */
         Vertex get(uint32_t index) const;
+
+        /**
+         * Queries the vertex at the desired index in the lower level buffers.
+         *
+         * This is extremely inefficient. Made available for debugging and
+         * testing. You will never need to use this for practical purposes.
+         *
+         * Does not perform syncing prior to querying. Does not perform any
+         * out-of-range checks.
+         */
+        Vertex query(uint32_t index);
     };
 }
 

@@ -89,6 +89,7 @@ void randar::VertexBuffer::append(const randar::Vertex& vertex)
     this->colorBuffer.append(vertex.color.a());
 }
 
+// Retrieves the vertex at the desired index.
 randar::Vertex randar::VertexBuffer::get(uint32_t index) const
 {
     uint32_t positionIndex = index * 3;
@@ -106,6 +107,28 @@ randar::Vertex randar::VertexBuffer::get(uint32_t index) const
             this->colorBuffer.get(colorIndex + 1),
             this->colorBuffer.get(colorIndex + 2),
             this->colorBuffer.get(colorIndex + 3)
+        )
+    );
+}
+
+// Queries the vertex at the desired index in the lower level buffers.
+randar::Vertex randar::VertexBuffer::query(uint32_t index)
+{
+    uint32_t positionIndex = index * 3;
+    uint32_t colorIndex    = index * 4;
+
+    return Vertex(
+        Vector3(
+            this->positionBuffer.query(positionIndex),
+            this->positionBuffer.query(positionIndex + 1),
+            this->positionBuffer.query(positionIndex + 2)
+        ),
+
+        Color(
+            this->colorBuffer.query(colorIndex),
+            this->colorBuffer.query(colorIndex + 1),
+            this->colorBuffer.query(colorIndex + 2),
+            this->colorBuffer.query(colorIndex + 3)
         )
     );
 }
