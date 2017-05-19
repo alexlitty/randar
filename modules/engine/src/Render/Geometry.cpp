@@ -76,4 +76,5 @@ void randar::Geometry::drawTo(Framebuffer &fb)
 
     fb.bind();
     ::glDrawElements(GL_TRIANGLES, this->indices.count(), GL_UNSIGNED_INT, 0);
+    this->ctx->check("Failed to draw geometry to framebuffer");
 }
