@@ -12,6 +12,7 @@ randar::Window::Window(
   randar::Dimensional2<uint32_t>(width, height)
 {
     ::XSetWindowAttributes swa;
+    this->bindContext();
 
     swa.event_mask = ExposureMask | KeyPressMask;
     swa.colormap = ::XCreateColormap(
@@ -36,7 +37,6 @@ randar::Window::Window(
         &swa
     );
 
-    this->bindContext();
     ::XMapWindow(this->ctx->display, this->handle);
     ::XSync(this->ctx->display, false);
 
