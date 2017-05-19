@@ -164,6 +164,10 @@ void randar::GraphicsContext::use()
 // Makes this context and a window current.
 void randar::GraphicsContext::use(randar::Window& window)
 {
+    if (this != &window.context()) {
+        throw std::runtime_error("Window is not associated with this context");
+    }
+
     bool success = ::glXMakeCurrent(
         this->display,
         window.glx(),
