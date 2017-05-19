@@ -96,7 +96,10 @@ describe('Geometry', function() {
         geo.append(randar.vertex(0.5, 0.5, -0.5));
         geo.append(randar.vertex(-0.5, 0.5, -0.5));
 
-        let fb = ctx.framebuffer();
+        let fb      = ctx.framebuffer();
+        let texture = ctx.texture(64, 64);
+        fb.attach(texture);
+
         geo.drawTo(fb);
     });
 
