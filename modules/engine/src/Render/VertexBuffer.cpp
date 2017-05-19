@@ -18,6 +18,8 @@ randar::VertexBuffer::~VertexBuffer()
 // Initializes the vertex buffer on a context.
 void randar::VertexBuffer::initialize()
 {
+    this->bindContext();
+
     ::glGenVertexArrays(1, &this->vertexArrayName);
     this->ctx->check("Cannot create vertex array");
     if (!this->vertexArrayName) {
@@ -43,6 +45,7 @@ void randar::VertexBuffer::initialize()
 void randar::VertexBuffer::uninitialize()
 {
     if (this->isInitialized()) {
+        this->bindContext();
         ::glDeleteVertexArrays(1, &this->vertexArrayName);
 
         this->positionBuffer.uninitialize();
@@ -66,6 +69,7 @@ void randar::VertexBuffer::bind()
         throw std::runtime_error("Cannot bind uninitialized vertex buffer");
     }
 
+    this->bindContext();
     ::glBindVertexArray(this->vertexArrayName);
 }
 

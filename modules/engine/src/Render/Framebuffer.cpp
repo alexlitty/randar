@@ -34,9 +34,9 @@ randar::Framebuffer::~Framebuffer()
 void randar::Framebuffer::bind()
 {
     if (this->window) {
-        this->window->use();
+        this->window->bind();
     } else {
-        this->ctx->use();
+        this->bindContext();
     }
 
     ::glBindFramebuffer(GL_FRAMEBUFFER, this->glName);
@@ -45,6 +45,7 @@ void randar::Framebuffer::bind()
     if (this->hasDimensions()) {
         const Viewport &viewport = this->camera.viewport;
         ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
+        this->ctx->check("Cannot update framebuffer viewport");
     }
 }
 
@@ -89,11 +90,15 @@ void randar::Framebuffer::check()
 // Destroys this framebuffer and removes its attachments.
 void randar::Framebuffer::destroy()
 {
-    if (this->glName > 0) {
-        this->ctx->use();
-        ::glDeleteFramebuffers(1, &this->glName);
-        this->ctx->check("Cannot destroy framebuffer");
-        this->glName = 0;
+    if (this->ctx) {
+        this->bind();
+
+        if (this->glName > 0) {
+            this->ctx->use();
+            ::glDeleteFramebuffers(1, &this->glName);
+            this->ctx->check("Cannot destroy framebuffer");
+            this->glName = 0;
+        }
     }
 
     if (this->texture) {
@@ -115,7 +120,7 @@ void randar::Framebuffer::reset()
 
     this->destroy();
 
-    this->ctx->use();
+    this->bindContext();
     ::glGenFramebuffers(1, &this->glName);
     this->ctx->check("Cannot generate framebuffer");
     if (this->glName == 0) {
@@ -140,6 +145,8 @@ void randar::Framebuffer::attach(randar::Texture& texture)
         throw std::runtime_error("Framebuffer already has an attached depth buffer");
     }
 
+    // @@@ - check if texture is on the same context
+
     if (!texture.hasDimensions()) {
         throw std::runtime_error("Attachment must have positive dimensions");
     }
@@ -163,8 +170,7 @@ void randar::Framebuffer::attach(randar::Texture& texture)
         ::glDrawBuffers(1, drawBuffers);
         this->ctx->check("Cannot set draw buffers");
 
-        this->depthBuffer = new Renderbuffer(
-            *this->ctx,
+        this->depthBuffer = &this->ctx->renderbuffer(
             this->getWidth(),
             this->getHeight(),
             "depth"

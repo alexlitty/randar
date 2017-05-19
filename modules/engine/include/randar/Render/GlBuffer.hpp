@@ -78,12 +78,9 @@ namespace randar
         void initialize()
         {
             if (!this->isInitialized()) {
-                if (!this->ctx) {
-                    throw std::runtime_error("Graphics context is no longer available");
-                }
+                this->bindContext();
 
                 ::glGenBuffers(1, &this->glName);
-
                 this->ctx->check("Cannot generate OpenGL buffer");
                 if (!this->glName) {
                     throw std::runtime_error("Failed to create OpenGL buffer");
@@ -103,6 +100,8 @@ namespace randar
         void uninitialize()
         {
             if (this->isInitialized()) {
+                this->bindContext();
+
                 ::glDeleteBuffers(1, &this->glName);
                 this->glName = 0;
 
@@ -131,6 +130,7 @@ namespace randar
                 this->initialize();
             }
 
+            this->bindContext();
             ::glBindBuffer(T, this->glName);
         }
 
