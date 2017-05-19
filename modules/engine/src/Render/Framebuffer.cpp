@@ -90,15 +90,10 @@ void randar::Framebuffer::check()
 // Destroys this framebuffer and removes its attachments.
 void randar::Framebuffer::destroy()
 {
-    if (this->ctx) {
-        this->bind();
-
-        if (this->glName > 0) {
-            this->ctx->use();
-            ::glDeleteFramebuffers(1, &this->glName);
-            this->ctx->check("Cannot destroy framebuffer");
-            this->glName = 0;
-        }
+    if (this->glName > 0) {
+        this->ctx->use();
+        ::glDeleteFramebuffers(1, &this->glName);
+        this->glName = 0;
     }
 
     if (this->texture) {
