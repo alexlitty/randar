@@ -18,6 +18,7 @@ namespace randar
     class VertexBuffer;
     class Geometry;
 
+    class Renderbuffer;
     class Framebuffer;
     class Texture;
     class Window;
@@ -175,9 +176,13 @@ namespace randar
         FloatArrayBuffer& floatArrayBuffer();
         IndexBuffer& indexBuffer();
 
-
         VertexBuffer& vertexBuffer();
         Geometry& geometry();
+
+        Renderbuffer& renderbuffer(
+            uint32_t width,
+            uint32_t height,
+            const std::string& type);
 
         Framebuffer& framebuffer();
 
