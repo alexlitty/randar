@@ -59,6 +59,9 @@ randar::GraphicsContext::GraphicsContext()
 
     // Get a local X display.
     this->display = ::XOpenDisplay(0);
+    if (!this->display) {
+        throw std::runtime_error("Cannot create X display connection");
+    }
 
     // Find a proper framebuffer configuration.
     int fbCount = 0;
@@ -75,6 +78,9 @@ randar::GraphicsContext::GraphicsContext()
 
     // Get the visual from our chosen framebuffer.
     this->visual = ::glXGetVisualFromFBConfig(this->display, fbConfigs[0]);
+    if (!this->visual) {
+        throw std::runtime_error("Failed to get X visual information");
+    }
 
     // Create the GLX pixel buffer.
     this->glxPixelBuffer = ::glXCreatePbuffer(
@@ -97,7 +103,7 @@ randar::GraphicsContext::GraphicsContext()
     );
 
     if (!this->ctx) {
-        throw std::runtime_error("Failed to initialize graphics context");
+        throw std::runtime_error("Failed to create graphics context");
     }
 
     // Wait for X to throw any errors available.
