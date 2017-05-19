@@ -1,14 +1,15 @@
 #ifndef RANDAR_RENDER_RENDERBUFFER_HPP
 #define RANDAR_RENDER_RENDERBUFFER_HPP
 
-#include <randar/Engine/GpuResource.hpp>
 #include <randar/Math/Dimensional2.hpp>
-#include <randar/System/GraphicsContext.hpp>
+#include <randar/System/GlNamedResource.hpp>
+#include <randar/System/GraphicsContextResource.hpp>
 
 namespace randar
 {
     class Renderbuffer :
-        virtual public GpuResource,
+        virtual public GraphicsContextResource,
+        virtual public GlNamedResource,
         virtual public Dimensional2<uint32_t>
     {
     public:

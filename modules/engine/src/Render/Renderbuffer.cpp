@@ -7,12 +7,12 @@ randar::Renderbuffer::Renderbuffer(
     uint32_t initWidth,
     uint32_t initHeight,
     const std::string& initBufferType)
-: randar::GpuResource(context),
+: randar::GraphicsContextResource(&context),
   bufferType(initBufferType)
 {
-    this->ctx->use();
-    ::glGenRenderbuffers(1, &this->glName);
+    this->bindContext();
 
+    ::glGenRenderbuffers(1, &this->glName);
     this->ctx->check("Cannot generate renderbuffer");
     if (this->glName == 0) {
         throw std::runtime_error("Failed to create renderbuffer");
@@ -37,7 +37,7 @@ void randar::Renderbuffer::bind()
         throw std::runtime_error("Cannot bind uninitialized renderbuffer");
     }
 
-    this->ctx->use();
+    this->bindContext();
     ::glBindRenderbuffer(GL_RENDERBUFFER, this->glName);
     this->ctx->check("Cannot bind renderbuffer");
 }
