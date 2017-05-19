@@ -79,6 +79,13 @@ namespace randar
          * nothing special happens.
          */
         virtual ~GraphicsContextResource();
+
+        /**
+         * Binds the associated context for further operations.
+         *
+         * Throws an exception if the context is not available.
+         */
+        void bindContext();
     };
 }
 
