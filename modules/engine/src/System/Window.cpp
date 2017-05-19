@@ -36,7 +36,7 @@ randar::Window::Window(
         &swa
     );
 
-    this->ctx->use();
+    this->bindContext();
     ::XMapWindow(this->ctx->display, this->handle);
     ::XSync(this->ctx->display, false);
 
@@ -75,9 +75,13 @@ randar::GraphicsContext& randar::Window::context()
     return this->glxWindow;
 }
 
-// Makes this window and its associated context current.
-void randar::Window::use()
+// Binds the window for further operations.
+void randar::Window::bind()
 {
+    if (!this->ctx) {
+        throw std::runtime_error("Graphics context unavailable");
+    }
+
     this->ctx->use(*this);
 }
 

@@ -69,9 +69,9 @@ namespace randar
             ::GLXWindow glx();
 
             /**
-             * Makes this window and its associated context current.
+             * Binds the window for further operations.
              */
-            void use();
+            void bind();
 
             /**
              * Retrieves an internal instance of the default framebuffer.
