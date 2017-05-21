@@ -54,6 +54,16 @@ namespace randar
             virtual ~Window();
 
             /**
+             * Closes the window.
+             *
+             * Nothing happens if the window is not open or initialized.
+             *
+             * Once closed, a window may not be re-initialized again. A new
+             * Window object must be created.
+             */
+            void close();
+
+            /**
              * Retrieves the associated context.
              */
             GraphicsContext& context();

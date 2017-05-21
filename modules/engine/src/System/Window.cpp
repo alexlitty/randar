@@ -53,6 +53,12 @@ randar::Window::Window(
 // Destructor.
 randar::Window::~Window()
 {
+    this->close();
+}
+
+// Closes the window.
+void randar::Window::close()
+{
     this->fb.release();
 
     ::glXDestroyWindow(this->ctx->display, this->glxWindow);
