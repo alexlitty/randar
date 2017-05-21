@@ -24,9 +24,12 @@ randar::Renderbuffer::Renderbuffer(
 // Destructor.
 randar::Renderbuffer::~Renderbuffer()
 {
-    this->ctx->use();
-    if (this->glName > 0) {
-        ::glDeleteRenderbuffers(1, &this->glName);
+    if (this->ctx) {
+        this->ctx->use();
+
+        if (this->glName > 0) {
+            ::glDeleteRenderbuffers(1, &this->glName);
+        }
     }
 }
 
