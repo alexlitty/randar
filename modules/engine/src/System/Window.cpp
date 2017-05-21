@@ -70,6 +70,7 @@ void randar::Window::close()
 
         ::glXDestroyWindow(this->ctx->display, this->glxWindow);
         ::XDestroyWindow(this->ctx->display, this->handle);
+        ::XSync(this->ctx->display, false);
     }
 }
 
