@@ -107,6 +107,11 @@ namespace randar
         ~GraphicsContext();
 
         /**
+         * Queries the version of OpenGL being used.
+         */
+        std::string version();
+
+        /**
          * Makes this context current without considering a window.
          *
          * This simply enables off-screen rendering via framebuffers. To enable
