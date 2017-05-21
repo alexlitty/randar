@@ -40,6 +40,7 @@ describe('Framebuffer', function() {
             let win = ctx.window(600, 480);
             let fb  = win.framebuffer();
             assert.equal(fb.getGlName(), 0);
+            win.close();
         });
 
         it('assigned by reference', function() {
@@ -70,6 +71,8 @@ describe('Framebuffer', function() {
             fb2.clear(color2);
             assertCleared(fb2, color2);
             assertCleared(fb1, color2);
+
+            win.close();
         });
 
         it('refuses attachments', function() {
@@ -78,6 +81,8 @@ describe('Framebuffer', function() {
 
             let texture = ctx.texture(800, 600, 'rgba');
             assert.throws(() => fb.attach(texture));
+
+            win.close();
         });
 
         it('clears with black by default', function() {
@@ -89,6 +94,8 @@ describe('Framebuffer', function() {
 
             fb.clear();
             assertCleared(fb, new randar.Color(0, 0, 0, 1));
+
+            win.close();
         });
 
         it('clears specific color', function() {
@@ -106,6 +113,8 @@ describe('Framebuffer', function() {
             win.present();
             fb.clear(color);
             assertCleared(fb, color);
+
+            win.close();
         });
     });
 
