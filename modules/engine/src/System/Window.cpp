@@ -56,13 +56,21 @@ randar::Window::~Window()
     this->close();
 }
 
+// Whether the window is initialized and open.
+bool randar::Window::isInitialized() const
+{
+    return this->fb != nullptr;
+}
+
 // Closes the window.
 void randar::Window::close()
 {
-    this->fb.release();
+    if (this->isInitialized()) {
+        this->fb.release();
 
-    ::glXDestroyWindow(this->ctx->display, this->glxWindow);
-    ::XDestroyWindow(this->ctx->display, this->handle);
+        ::glXDestroyWindow(this->ctx->display, this->glxWindow);
+        ::XDestroyWindow(this->ctx->display, this->handle);
+    }
 }
 
 // Retrieves the associated context.

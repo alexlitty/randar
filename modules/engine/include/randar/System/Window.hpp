@@ -54,6 +54,11 @@ namespace randar
             virtual ~Window();
 
             /**
+             * Whether the window is initialized and open.
+             */
+            bool isInitialized() const;
+
+            /**
              * Closes the window.
              *
              * Nothing happens if the window is not open or initialized.
