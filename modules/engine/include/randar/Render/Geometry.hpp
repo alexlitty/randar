@@ -1,8 +1,9 @@
 #ifndef RANDAR_RENDER_GEOMETRY_HPP
 #define RANDAR_RENDER_GEOMETRY_HPP
 
-#include <randar/Render/VertexBuffer.hpp>
 #include <randar/Render/Framebuffer.hpp>
+#include <randar/Render/Primitive.hpp>
+#include <randar/Render/VertexBuffer.hpp>
 
 namespace randar
 {
@@ -11,6 +12,13 @@ namespace randar
     public:
         VertexBuffer vertices;
         IndexBuffer indices;
+
+        /**
+         * Primitive used by the geometry.
+         *
+         * Describes how vertices should be interpreted.
+         */
+        Primitive primitive = randar::Primitive::Triangle;
 
         /**
          * Disable assignment.

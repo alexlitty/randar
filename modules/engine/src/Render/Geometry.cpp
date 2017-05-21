@@ -74,7 +74,22 @@ void randar::Geometry::drawTo(Framebuffer &fb)
     this->vertices.bind();
     this->indices.bind();
 
+    GLenum glPrimitive;
+    switch (this->primitive) {
+        case randar::Primitive::Point:
+            glPrimitive = GL_POINTS;
+            break;
+
+        case randar::Primitive::Triangle:
+            glPrimitive = GL_TRIANGLES;
+            break;
+
+        default:
+            throw std::runtime_error("Geometry has unknown primitive type");
+            break;
+    }
+
     fb.bind();
-    ::glDrawElements(GL_TRIANGLES, this->indices.count(), GL_UNSIGNED_INT, 0);
+    ::glDrawElements(glPrimitive, this->indices.count(), GL_UNSIGNED_INT, 0);
     this->ctx->check("Failed to draw geometry to framebuffer");
 }
