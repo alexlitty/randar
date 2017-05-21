@@ -1,44 +1,47 @@
 #ifndef RANDAR_RENDER_SHADER_PROGRAM_HPP
 #define RANDAR_RENDER_SHADER_PROGRAM_HPP
 
+#include <map>
 #include <randar/Render/Shader.hpp>
+#include <randar/System/GraphicsContextResource.hpp>
+#include <randar/System/GlNamedResource.hpp>
 #include <randar/Utility/glm.hpp>
 
 namespace randar
 {
-    class ShaderProgram : virtual public GpuResource
+    class ShaderProgram
+    : virtual public GraphicsContextResource,
+      virtual public GlNamedResource
     {
         /**
-         * The uniforms used by this program mapped against their locations.
+         * Shaders used by this program.
+         */
+        std::map<Shader::Type, Shader*> shaders;
+
+        /**
+         * Uniforms used by this program mapped against their locations.
          *
          * If a location is -1, the uniform has been requested somewhere but is
          * not used by the program.
          */
         std::map<std::string, ::GLint> uniformLocations;
 
+        /**
+         * Whether the program needs to be re-initialized.
+         */
+        bool inSync = false;
+
     public:
-        Shader vertexShader;
-        Shader fragmentShader;
+        /**
+         * Disable assignment.
+         */
+        ShaderProgram(const ShaderProgram& other) = delete;
+        ShaderProgram& operator =(const ShaderProgram& other) = delete;
 
         /**
-         * Constructs a new shader program.
+         * Constructor.
          */
-        ShaderProgram(Gpu* gpuInit = nullptr);
-
-        /**
-         * Constructs a new shader program as a copy of an existing one.
-         *
-         * If the existing program is initialized, this program will also be
-         * initialized.
-         */
-        ShaderProgram(const ShaderProgram& other);
-
-        /**
-         * Constructs a shader program from existing shaders.
-         */
-        ShaderProgram(
-            Shader& initVertexShader,
-            Shader& initFragmentShader);
+        ShaderProgram(GraphicsContext& context);
 
         /**
          * Destructor.
@@ -46,13 +49,44 @@ namespace randar
         ~ShaderProgram();
 
         /**
-         * Sets the program shaders and initializes the program.
-         *
-         * If the program was already initialized, it it destroyed first.
+         * Whether this program is complete and linkable.
          */
-        void set(
-            const Shader& initVertexShader,
-            const Shader& initFragmentShader);
+        bool isComplete() const;
+
+        /**
+         * Initializes the program.
+         *
+         * Re-initializes the program if it is already initialized.
+         *
+         * Throws an exception if the program could not be initialized.
+         */
+        void initialize();
+
+        /**
+         * Uninitializes the program.
+         *
+         * Nothing happens if the program is not initialized.
+         */
+        void uninitialize();
+
+        /**
+         * Whether the program is initialized.
+         */
+        bool isInitialized() const;
+
+        /**
+         * Uses this program for further operations.
+         */
+        void use();
+
+        /**
+         * Attaches a shader to the program.
+         *
+         * If a shader of the same type is already being used, it is overridden.
+         *
+         * The shader must not be destroyed while the program exists.
+         */
+        void attach(Shader& shader);
 
     protected:
         /**
@@ -68,16 +102,6 @@ namespace randar
          */
         void setUniform(const std::string& name, const glm::mat4& matrix);
         void setUniform(const std::string& name, int integer);
-
-        /**
-         * Assignment operator.
-         */
-        ShaderProgram& operator =(const ShaderProgram& other);
-
-        /**
-         * Allow the GPU class to set uniform locations.
-         */
-        friend class Gpu;
     };
 }
 

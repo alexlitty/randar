@@ -1,67 +1,142 @@
 #include <randar/Render/ShaderProgram.hpp>
-#include <randar/Engine/Gpu.hpp>
 
-// Constructs a new shader program.
-randar::ShaderProgram::ShaderProgram(Gpu* gpuInit)
-: randar::GpuResource(gpuInit)
+// Constructor.
+randar::ShaderProgram::ShaderProgram(randar::GraphicsContext& context)
+: randar::GraphicsContextResource(&context)
 {
-}
 
-// Constructs a new shader program as a copy of an existing one.
-randar::ShaderProgram::ShaderProgram(const randar::ShaderProgram& other)
-: randar::GpuResource(other.gpu)
-{
-    this->vertexShader = other.vertexShader;
-    this->fragmentShader = other.fragmentShader;
-
-    if (other.isInitialized()) {
-        this->gpu->initialize(*this);
-    }
-}
-
-// Constructs a shader program from existing shaders.
-randar::ShaderProgram::ShaderProgram(
-    randar::Shader& initVertexShader,
-    randar::Shader& initFragmentShader)
-: vertexShader(initVertexShader),
-  fragmentShader(initFragmentShader)
-{
-    if (this->gpu) {
-        this->gpu->initialize(*this);
-    }
 }
 
 // Destructor.
 randar::ShaderProgram::~ShaderProgram()
 {
-    if (this->gpu) {
-        this->gpu->destroy(*this);
+    this->uninitialize();
+}
+
+// Whether this program is complete and linkable.
+bool randar::ShaderProgram::isComplete() const
+{
+    if (!this->shaders.count(Shader::Type::Vertex)) {
+        return false;
+    }
+
+    if (!this->shaders.count(Shader::Type::Fragment)) {
+        return false;
+    }
+
+    return true;
+}
+
+// Initializes the program.
+void randar::ShaderProgram::initialize()
+{
+    GLint linkStatus, logLength;
+    this->uninitialize();
+
+    if (!this->isComplete()) {
+        throw std::runtime_error("Shader program is incomplete");
+    }
+
+    if (!this->ctx) {
+        throw std::runtime_error("Graphics context unavailable");
+    }
+    this->ctx->use();
+
+    // Create the program.
+    this->glName = ::glCreateProgram();
+    this->ctx->check("Cannot create shader program");
+    if (!this->glName) {
+        throw std::runtime_error("Failed to create shader program");
+    }
+
+    // Link shaders.
+    for (auto item : this->shaders) {
+        ::glAttachShader(this->glName, item.second->getGlName());
+    }
+    ::glLinkProgram(this->glName);
+    this->ctx->check("Cannot link shader program");
+
+    for (auto item : this->shaders) {
+        ::glDetachShader(this->glName, item.second->getGlName());
+    }
+
+    // Check linkage.
+    ::glGetProgramiv(this->glName, GL_LINK_STATUS, &linkStatus);
+    ::glGetProgramiv(this->glName, GL_INFO_LOG_LENGTH, &logLength);
+    if (linkStatus == GL_FALSE) {
+        std::string message = "Shader program linking failed: ";
+
+        if (logLength > 0) {
+            GLchar *log = new char[logLength + 1];
+
+            ::glGetProgramInfoLog(this->glName, logLength, nullptr, log);
+            message += std::string(log);
+
+            delete[] log;
+        } else {
+            message += "No log available";
+        }
+
+        throw std::runtime_error(message);
     }
 }
 
-// Sets the program shaders and initializes the program.
-void randar::ShaderProgram::set(
-    const randar::Shader& initVertexShader,
-    const randar::Shader& initFragmentShader)
+// Uninitializes the program.
+void randar::ShaderProgram::uninitialize()
 {
-    if (this->isInitialized()) {
-        this->gpu->destroy(*this);
+    if (!this->isInitialized()) {
+        return;
     }
 
-    this->vertexShader = initVertexShader;
-    this->fragmentShader = initFragmentShader;
-    if (this->gpu) {
-        this->gpu->initialize(*this);
+    this->ctx->use();
+    ::glDeleteProgram(this->glName);
+    this->glName = 0;
+
+    this->uniformLocations.clear();
+}
+
+// Whether the program is initialized.
+bool randar::ShaderProgram::isInitialized() const
+{
+    return this->ctx && this->glName;
+}
+
+// Uses this program for further operations.
+void randar::ShaderProgram::use()
+{
+    if (!this->isInitialized()) {
+        throw std::runtime_error("Shader program is not initialized");
     }
+
+    if (!this->inSync) {
+        this->initialize();
+        this->inSync = true;
+    }
+
+    this->ctx->use();
+    ::glUseProgram(this->glName);
+}
+
+// Attaches a shader to the program.
+void randar::ShaderProgram::attach(randar::Shader& shader)
+{
+    this->shaders[shader.type()] = &shader;
+    this->inSync = false;
 }
 
 // Checks if a uniform is used by the program.
 bool randar::ShaderProgram::hasUniform(const std::string& name)
 {
-    if (this->gpu) {
-        if (!this->uniformLocations.count(name)) {
-            this->uniformLocations[name] = this->gpu->getUniformLocation(*this, name);
-        }
+    if (!this->isInitialized()) {
+        throw std::runtime_error("Shader program is not initialized");
+    }
+
+    if (!this->uniformLocations.count(name)) {
+        this->use();
+        int location = ::glGetUniformLocation(this->glName, name.c_str());
+
+        this->ctx->check("Cannot query uniform location");
+        this->uniformLocations[name] = location;
     }
 
     return this->uniformLocations[name] >= 0;
@@ -70,27 +145,32 @@ bool randar::ShaderProgram::hasUniform(const std::string& name)
 // Sets a uniform to a 4x4 matrix.
 void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4& matrix)
 {
-    if (this->gpu) {
-        if (this->hasUniform(name)) {
-            this->gpu->setUniform(*this, this->uniformLocations[name], matrix);
-        }
+    if (!this->isInitialized()) {
+        throw std::runtime_error("Shader program is not initialized");
+    }
+
+    if (this->hasUniform(name)) {
+        this->use();
+
+        ::glUniformMatrix4fv(
+            this->uniformLocations[name],
+            1,
+            GL_FALSE,
+            &matrix[0][0]
+        );
     }
 }
 
 // Sets a uniform to an integer.
 void randar::ShaderProgram::setUniform(const std::string& name, int integer)
 {
-    if (this->gpu) {
-        if (this->hasUniform(name)) {
-            this->gpu->setUniform(*this, this->uniformLocations[name], integer);
-        }
+    if (!this->isInitialized()) {
+        throw std::runtime_error("Shader program is not initialized");
     }
-}
 
-// Assignment operator.
-randar::ShaderProgram& randar::ShaderProgram::operator =(const randar::ShaderProgram& other)
-{
-    this->gpu = other.gpu;
-    this->set(other.vertexShader, other.fragmentShader);
-    return *this;
+    if (this->hasUniform(name)) {
+        this->use();
+
+        ::glUniform1i(this->uniformLocations[name], integer);
+    }
 }
