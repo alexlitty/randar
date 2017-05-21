@@ -52,8 +52,8 @@ randar::GraphicsContext::GraphicsContext()
     };
 
     int ctxAttribs[] = {
-        //GLX_CONTEXT_MAJOR_VERSION, 3,
-        //GLX_CONTEXT_MINOR_VERSION, 3,
+        GLX_CONTEXT_MAJOR_VERSION_ARB, 4,
+        GLX_CONTEXT_MINOR_VERSION_ARB, 5,
         None
     };
 
