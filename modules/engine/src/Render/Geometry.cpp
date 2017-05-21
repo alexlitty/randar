@@ -48,6 +48,13 @@ void randar::Geometry::sync()
     this->indices.sync();
 }
 
+// Clears vertices and indices of the geometry.
+void randar::Geometry::clear()
+{
+    this->vertices.clear();
+    this->indices.clear();
+}
+
 // Adds a vertex to the geometry's available vertices.
 uint32_t randar::Geometry::useVertex(const randar::Vertex& vertex)
 {

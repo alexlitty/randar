@@ -91,6 +91,11 @@ namespace randar
         void sync();
 
         /**
+         * Clears the vertex buffer.
+         */
+        void clear();
+
+        /**
          * Appends a new vertex.
          */
         void append(const Vertex& vertex);

@@ -80,6 +80,15 @@ void randar::VertexBuffer::sync()
     this->colorBuffer.sync();
 }
 
+// Clears the vertex buffer.
+void randar::VertexBuffer::clear()
+{
+    this->vertices.clear();
+
+    this->positionBuffer.clear();
+    this->colorBuffer.clear();
+}
+
 // Appends a new vertex.
 void randar::VertexBuffer::append(const randar::Vertex& vertex)
 {

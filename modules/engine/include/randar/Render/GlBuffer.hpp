@@ -162,6 +162,15 @@ namespace randar
         }
 
         /**
+         * Clears the data in this buffer.
+         */
+        void clear()
+        {
+            this->data.clear();
+            this->inSync = false;
+        }
+
+        /**
          * Sets the data for this buffer.
          *
          * Copies the given vector. In the future, we should allow adoption of

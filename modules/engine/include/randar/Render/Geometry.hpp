@@ -63,6 +63,13 @@ namespace randar
         void sync();
 
         /**
+         * Clears vertices and indices of the geometry.
+         *
+         * Primitive remains unchanged.
+         */
+        void clear();
+
+        /**
          * Adds a vertex to the geometry's available vertices.
          *
          * Returns an index that identifies the vertex in this geometry's
