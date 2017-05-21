@@ -78,8 +78,6 @@ void randar::Geometry::append(const randar::Vertex& vertex)
 void randar::Geometry::drawTo(Framebuffer &fb)
 {
     this->sync();
-    this->vertices.bind();
-    this->indices.bind();
 
     GLenum glPrimitive;
     switch (this->primitive) {
@@ -97,6 +95,8 @@ void randar::Geometry::drawTo(Framebuffer &fb)
     }
 
     fb.bind();
+    this->vertices.bind();
+    this->indices.bind();
     ::glDrawElements(glPrimitive, this->indices.count(), GL_UNSIGNED_INT, 0);
     this->ctx->check("Failed to draw geometry to framebuffer");
 }

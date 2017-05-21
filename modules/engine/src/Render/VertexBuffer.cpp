@@ -30,12 +30,12 @@ void randar::VertexBuffer::initialize()
     this->colorBuffer.initialize();
 
     this->bind();
-    this->positionBuffer.bind();
     ::glEnableVertexAttribArray(0);
+    this->positionBuffer.bind();
     ::glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-    this->colorBuffer.bind();
     ::glEnableVertexAttribArray(1);
+    this->colorBuffer.bind();
     ::glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, 0, nullptr);
 
     this->ctx->check("Cannot assign vertex attribute pointers");
