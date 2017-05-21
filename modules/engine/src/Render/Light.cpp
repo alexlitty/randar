@@ -1,4 +1,4 @@
-#include <randar/Render/Light.hpp>
+/*#include <randar/Render/Light.hpp>
 #include <randar/Engine/Gpu.hpp>
 
 randar::Light::Light()
@@ -7,4 +7,4 @@ randar::Light::Light()
   shaderProgram(this->vertexShader, this->fragmentShader)
 {
 
-}
+}*/
