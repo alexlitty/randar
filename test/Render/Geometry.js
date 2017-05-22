@@ -76,19 +76,39 @@ describe('Geometry', function() {
     });
 
     it('accepts shape by appending vertices', function() {
-        geo.append(randar.vertex(4, 5, 6));
-        geo.append(randar.vertex(9, 7, 4));
-        geo.append(randar.vertex(4, 5, 6));
+        let vertices = [
+            randar.vertex(4, 5, 6),
+            randar.vertex(9, 7, 4)
+        ];
+
+        geo.append(vertices[0]);
+        geo.append(vertices[1]);
+        geo.append(vertices[0]);
 
         assert.equal(geo.vertices.count(), 2);
         assert.equal(geo.indices.count(), 3);
 
         geo.sync();
         assert.equal(geo.vertices.count(), 2);
-        assert.equal(geo.indices.count(), 3);
-
         assert.equal(geo.vertices.find(randar.vertex(4, 5, 6)), 0);
         assert.equal(geo.vertices.find(randar.vertex(9, 7, 4)), 1);
+
+        for (let i = 0; i < vertices.length; i++) {
+            let vertex = geo.vertices.query(i);
+            assert.equal(vertex.position.x, vertices[i].position.x);
+            assert.equal(vertex.position.y, vertices[i].position.y);
+            assert.equal(vertex.position.z, vertices[i].position.z);
+
+            assert.equal(vertex.color.r(), vertices[i].color.r());
+            assert.equal(vertex.color.g(), vertices[i].color.g());
+            assert.equal(vertex.color.b(), vertices[i].color.b());
+            assert.equal(vertex.color.a(), vertices[i].color.a());
+        }
+
+        assert.equal(geo.indices.count(), 3);
+        assert.equal(geo.indices.query(0), 0);
+        assert.equal(geo.indices.query(1), 1);
+        assert.equal(geo.indices.query(2), 0);
     });
 
     it('draws to off-screen framebuffer', function() {
