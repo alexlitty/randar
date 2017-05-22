@@ -145,7 +145,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
     static std::map<ShaderType, std::string> codes = {
         {
             ShaderType::VERTEX,
-            R"SHADER(#version 330 core
+            R"SHADER(#version 450 core
                 layout(location = 0) in vec3 vertexPosition;
                 layout(location = 1) in vec4 vertexColor;
                 out vec4 fragmentColor;
@@ -160,7 +160,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
 
         {
             ShaderType::FRAGMENT,
-            R"SHADER(#version 330 core
+            R"SHADER(#version 450 core
                 in vec4 fragmentColor;
                 out vec4 color;
 
