@@ -1,11 +1,13 @@
 #ifndef RANDAR_SYSTEM_GRAPHICS_CONTEXT_HPP
 #define RANDAR_SYSTEM_GRAPHICS_CONTEXT_HPP
 
-#include <stdexcept>
+#include <map>
 #include <set>
+#include <stdexcept>
 #include <vector>
 #include <GL/glew.h>
 #include <GL/glx.h>
+#include <randar/Render/ShaderType.hpp>
 
 namespace randar
 {
@@ -17,6 +19,9 @@ namespace randar
 
     class VertexBuffer;
     class Geometry;
+
+    class Shader;
+    class ShaderProgram;
 
     class Renderbuffer;
     class Framebuffer;
@@ -83,6 +88,14 @@ namespace randar
          * enables windowless rendering. It is not used otherwise.
          */
         ::GLXPbuffer glxPixelBuffer;
+
+        /**
+         * Default shaders and shader program for this context.
+         *
+         * Created automatically as necessary.
+         */
+        std::map<ShaderType, Shader*> dShaders;
+        ShaderProgram* dShaderProgram = nullptr;
 
     public:
         /**
@@ -197,6 +210,12 @@ namespace randar
             const std::string& type = "rgba");
 
         randar::Window& window(uint32_t width, uint32_t height);
+
+        /**
+         * Default resources.
+         */
+        Shader& defaultShader(ShaderType type);
+        ShaderProgram& defaultShaderProgram();
 
         /**
          * Allow Randar windows to manipulate the ongoing list of associated

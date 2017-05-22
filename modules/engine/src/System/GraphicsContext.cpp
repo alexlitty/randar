@@ -3,6 +3,7 @@
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/Geometry.hpp>
+#include <randar/Render/ShaderProgram.hpp>
 #include <randar/System/Window.hpp>
 
 // Allows us to pass attributes while creating a context.
@@ -143,6 +144,12 @@ randar::GraphicsContext::~GraphicsContext()
     for (auto resource : this->resources) {
         delete resource;
     }
+
+    for (auto item : this->dShaders) {
+        delete item.second;
+    }
+
+    delete this->dShaderProgram;
 
     ::glXDestroyPbuffer(this->display, this->glxPixelBuffer);
     ::glXDestroyContext(this->display, this->ctx);
@@ -337,4 +344,29 @@ randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
     randar::Window* w = new randar::Window(*this, width, height);
     this->associate(*w);
     return *w;
+}
+
+// Default resources.
+randar::Shader& randar::GraphicsContext::defaultShader(randar::ShaderType type)
+{
+    if (!this->dShaders.count(type)) {
+        this->dShaders[type] = new Shader(*this);
+        this->dShaders[type]->initialize(
+            type,
+            Shader::defaultCode(type)
+        );
+    }
+
+    return *this->dShaders[type];
+}
+
+randar::ShaderProgram& randar::GraphicsContext::defaultShaderProgram()
+{
+    if (!this->dShaderProgram) {
+        this->dShaderProgram = new ShaderProgram(*this);
+        this->dShaderProgram->attach(this->defaultShader(ShaderType::VERTEX));
+        this->dShaderProgram->attach(this->defaultShader(ShaderType::FRAGMENT));
+    }
+
+    return *this->dShaderProgram;
 }
