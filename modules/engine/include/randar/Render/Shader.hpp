@@ -84,6 +84,11 @@ namespace randar
          * Retrieves the OpenGL shader type.
          */
         GLenum glType() const;
+
+        /**
+         * Generates the code for a default shader.
+         */
+        static std::string defaultCode(Shader::Type type);
     };
 }
 

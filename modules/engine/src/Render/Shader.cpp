@@ -1,3 +1,4 @@
+#include <map>
 #include <randar/Render/Shader.hpp>
 #include <randar/Utility/String.hpp>
 
@@ -136,4 +137,44 @@ GLenum randar::Shader::glType() const
         default:
             throw std::runtime_error("Shader has invalid type");
     }
+}
+
+// Generates the code for a default shader.
+std::string randar::Shader::defaultCode(randar::Shader::Type type)
+{
+    static std::map<Shader::Type, std::string> codes = {
+        {
+            Shader::Type::Vertex,
+            R"SHADER(#version 330 core
+                layout(location = 0) in vec3 vertexPosition;
+                layout(location = 1) in vec4 vertexColor;
+                out vec4 fragmentColor;
+
+                void main()
+                {
+                    gl_Position = vec4(vertexPosition, 1);
+                    fragmentColor = vertexColor;
+                }
+            )SHADER"
+        },
+
+        {
+            Shader::Type::Fragment,
+            R"SHADER(#version 330 core
+                in vec4 fragmentColor;
+                out vec4 color;
+
+                void main()
+                {
+                    color = fragmentColor;
+                }
+            )SHADER"
+        }
+    };
+
+    if (!codes.count(type)) {
+        throw std::runtime_error("Default code not available for shader type");
+    }
+
+    return codes[type];
 }
