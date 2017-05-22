@@ -48,8 +48,8 @@ void randar::Framebuffer::bind()
         } else {
             const Viewport &viewport = this->camera.viewport;
             ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
-            this->ctx->check("Cannot update framebuffer viewport");
         }
+        this->ctx->check("Cannot update framebuffer viewport");
     }
 }
 
