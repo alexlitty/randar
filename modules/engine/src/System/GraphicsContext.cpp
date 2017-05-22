@@ -121,9 +121,6 @@ randar::GraphicsContext::GraphicsContext()
     }
 
     // Configure OpenGL.
-    ::glEnable(GL_VERTEX_ARRAY);
-    this->check("Cannot enable GL vertex arrays");
-
     ::glEnable(GL_DEPTH_TEST);
     this->check("Cannot enable GL depth test");
 
