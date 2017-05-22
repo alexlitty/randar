@@ -1,3 +1,11 @@
+function assertColor(color, other) {
+    assert.equal(color.r().toFixed(2), other.r().toFixed(2));
+    assert.equal(color.g().toFixed(2), other.g().toFixed(2));
+    assert.equal(color.b().toFixed(2), other.b().toFixed(2));
+    assert.equal(color.a().toFixed(2), other.a().toFixed(2));
+}
+
+
 describe('Geometry', function() {
     let ctx;
     let geo;
@@ -112,15 +120,33 @@ describe('Geometry', function() {
     });
 
     it('draws to off-screen framebuffer', function() {
-        geo.append(randar.vertex(0.5, -0.5, -0.5));
-        geo.append(randar.vertex(0.5, 0.5, -0.5));
-        geo.append(randar.vertex(-0.5, 0.5, -0.5));
-
         let fb      = ctx.framebuffer();
         let texture = ctx.texture(64, 64);
-        fb.attach(texture);
+        let image   = randar.image();
+        let pixel;
 
+        let bgColor = randar.color(0.2, 0, 0.2, 1);
+        let fgColor = randar.color(1, 1, 1, 1);
+
+        geo.append(randar.vertex(randar.position(-1, 1, 0), fgColor));
+        geo.primitive = randar.Primitive_Point;
+
+        fb.attach(texture);
+        fb.clear(randar.color(0.2, 0, 0.2));
         geo.drawTo(fb);
+
+        fb.read(image);
+        for (let x = 0; x < texture.getWidth(); x++) {
+            for (let y = 0; y < texture.getHeight(); y++) {
+                pixel = image.getPixel(x, y);
+
+                if (x == 0 && y == 0) {
+                    assertColor(pixel, fgColor);
+                } else {
+                    assertColor(pixel, bgColor);
+                }
+            }
+        }
     });
 
     it('draws to default framebuffer', function() {
