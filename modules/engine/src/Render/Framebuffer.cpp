@@ -43,9 +43,13 @@ void randar::Framebuffer::bind()
     this->ctx->check("Cannot bind framebuffer");
 
     if (this->hasDimensions()) {
-        const Viewport &viewport = this->camera.viewport;
-        ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
-        this->ctx->check("Cannot update framebuffer viewport");
+        if (this->isDefaultFramebuffer) {
+            ::glViewport(0, 0, this->getWidth(), this->getHeight());
+        } else {
+            const Viewport &viewport = this->camera.viewport;
+            ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
+            this->ctx->check("Cannot update framebuffer viewport");
+        }
     }
 }
 
