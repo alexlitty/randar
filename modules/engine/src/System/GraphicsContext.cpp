@@ -15,6 +15,19 @@ typedef GLXContext (*glXCreateContextAttribsARBProc)(
     const int*
 );
 
+// OpenGL debug message handler.
+void graphicsContextDebugHandler(
+    GLenum source,
+    GLenum type,
+    GLuint id,
+    GLenum severity,
+    GLsizei length,
+    const GLchar* message,
+    const void* userParam)
+{
+    std::cout << std::string(message, length) << std::endl;
+}
+
 // Constructor.
 randar::GraphicsContext::GraphicsContext()
 {
@@ -120,7 +133,21 @@ randar::GraphicsContext::GraphicsContext()
         throw std::runtime_error("Failed to initialize GLEW");
     }
 
-    // Configure OpenGL.
+    // Enable OpenGL debug mode, ignoring non-errors.
+    ::glEnable(GL_DEBUG_OUTPUT);
+    ::glDebugMessageControl(
+        GL_DONT_CARE,
+        GL_DONT_CARE,
+        GL_DEBUG_SEVERITY_NOTIFICATION,
+        0,
+        nullptr,
+        GL_FALSE
+    );
+
+    ::glDebugMessageCallback(graphicsContextDebugHandler, nullptr);
+    this->check("Cannot enable OpenGL debug mode");
+
+    // Enable basic OpenGL behaviors.
     ::glEnable(GL_DEPTH_TEST);
     this->check("Cannot enable GL depth test");
 
