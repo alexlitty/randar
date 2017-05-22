@@ -3,6 +3,7 @@
 
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Primitive.hpp>
+#include <randar/Render/ShaderProgram.hpp>
 #include <randar/Render/VertexBuffer.hpp>
 
 namespace randar
@@ -97,7 +98,11 @@ namespace randar
 
         /**
          * Draws the geometry to a framebuffer.
+         *
+         * If a shader program isn't specified, a default shader program will
+         * be used.
          */
+        void drawTo(Framebuffer& fb, ShaderProgram& program);
         void drawTo(Framebuffer& fb);
     };
 }

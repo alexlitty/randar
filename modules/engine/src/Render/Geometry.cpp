@@ -75,7 +75,7 @@ void randar::Geometry::append(const randar::Vertex& vertex)
 }
 
 // Draws the geometry to a framebuffer.
-void randar::Geometry::drawTo(Framebuffer &fb)
+void randar::Geometry::drawTo(randar::Framebuffer& fb, randar::ShaderProgram& program)
 {
     this->sync();
 
@@ -97,6 +97,13 @@ void randar::Geometry::drawTo(Framebuffer &fb)
     fb.bind();
     this->vertices.bind();
     this->indices.bind();
+    program.use();
+
     ::glDrawElements(glPrimitive, this->indices.count(), GL_UNSIGNED_INT, 0);
     this->ctx->check("Failed to draw geometry to framebuffer");
+}
+
+void randar::Geometry::drawTo(randar::Framebuffer& fb)
+{
+    this->drawTo(fb, fb.context().defaultShaderProgram());
 }
