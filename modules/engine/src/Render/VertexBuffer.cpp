@@ -26,17 +26,14 @@ void randar::VertexBuffer::initialize()
         throw std::runtime_error("Failed to create vertex array");
     }
 
-    this->positionBuffer.initialize();
-    this->colorBuffer.initialize();
-
-    this->bind();
+    ::glBindVertexArray(this->vertexArrayName);
     ::glEnableVertexAttribArray(0);
     this->positionBuffer.bind();
     ::glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     ::glEnableVertexAttribArray(1);
     this->colorBuffer.bind();
-    ::glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, 0, nullptr);
+    ::glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     this->ctx->check("Cannot assign vertex attribute pointers");
 }
