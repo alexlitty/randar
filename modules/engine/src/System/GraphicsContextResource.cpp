@@ -26,3 +26,13 @@ void randar::GraphicsContextResource::bindContext()
 
     this->ctx->use();
 }
+
+// Gets the context associated with this resource.
+randar::GraphicsContext& randar::GraphicsContextResource::context()
+{
+    if (!this->ctx) {
+        throw std::runtime_error("No graphics context assigned");
+    }
+
+    return *this->ctx;
+}

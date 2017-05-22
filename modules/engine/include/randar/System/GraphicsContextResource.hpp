@@ -86,6 +86,13 @@ namespace randar
          * Throws an exception if the context is not available.
          */
         void bindContext();
+
+        /**
+         * Gets the context associated with this resource.
+         *
+         * Throws an exception if no context is associated.
+         */
+        GraphicsContext& context();
     };
 }
 
