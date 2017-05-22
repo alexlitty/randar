@@ -113,7 +113,7 @@ uint32_t randar::Image::getPixelIndex(uint32_t x, uint32_t y) const
     }
 
     if (this->internalLayout == Image::LAYOUT::FLIP_VERTICAL) {
-        y = y;
+        y = (this->getHeight() - y - 1);
     }
 
     return ((y * this->getWidth()) + x) * 4;
