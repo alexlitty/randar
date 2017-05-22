@@ -160,6 +160,12 @@ namespace randar
          */
         uint32_t rawSize() const;
     };
+
+    /**
+     * Node.js helpers for intuitive image creation.
+     */
+    Image image();
+    Image image(uint32_t width, uint32_t height);
 }
 
 #endif

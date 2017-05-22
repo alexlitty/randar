@@ -184,3 +184,14 @@ uint32_t randar::Image::rawSize() const
 {
     return this->rawCount() * sizeof(float);
 }
+
+// Node.js helpers for intuitive image creation.
+randar::Image randar::image()
+{
+    return std::move(randar::Image());
+}
+
+randar::Image randar::image(uint32_t width, uint32_t height)
+{
+    return std::move(randar::Image(width, height));
+}
