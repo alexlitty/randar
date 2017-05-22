@@ -16,11 +16,11 @@ randar::ShaderProgram::~ShaderProgram()
 // Whether this program is complete and linkable.
 bool randar::ShaderProgram::isComplete() const
 {
-    if (!this->shaders.count(Shader::Type::Vertex)) {
+    if (!this->shaders.count(ShaderType::VERTEX)) {
         return false;
     }
 
-    if (!this->shaders.count(Shader::Type::Fragment)) {
+    if (!this->shaders.count(ShaderType::FRAGMENT)) {
         return false;
     }
 

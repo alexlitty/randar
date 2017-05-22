@@ -16,7 +16,7 @@ namespace randar
         /**
          * Shaders used by this program.
          */
-        std::map<Shader::Type, Shader*> shaders;
+        std::map<ShaderType, Shader*> shaders;
 
         /**
          * Uniforms used by this program mapped against their locations.

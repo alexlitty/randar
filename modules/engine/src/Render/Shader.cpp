@@ -75,7 +75,7 @@ void randar::Shader::initialize()
 }
 
 void randar::Shader::initialize(
-    randar::Shader::Type newType,
+    randar::ShaderType newType,
     const std::string& newCode)
 {
     this->shaderType = newType;
@@ -87,13 +87,13 @@ void randar::Shader::initialize(
     std::string newType,
     const std::string& newCode)
 {
-    Shader::Type randarType;
+    ShaderType randarType;
 
     newType = randar::toLowercase(newType);
     if (newType == "vertex") {
-        randarType = Shader::Type::Vertex;
+        randarType = ShaderType::VERTEX;
     } else if (newType == "fragment") {
-        randarType = Shader::Type::Fragment;
+        randarType = ShaderType::FRAGMENT;
     } else {
         throw std::runtime_error("Invalid shader type");
     }
@@ -120,7 +120,7 @@ bool randar::Shader::isInitialized() const
 }
 
 // Retrieves the shader type.
-randar::Shader::Type randar::Shader::type() const
+randar::ShaderType randar::Shader::type() const
 {
     return this->shaderType;
 }
@@ -128,10 +128,10 @@ randar::Shader::Type randar::Shader::type() const
 GLenum randar::Shader::glType() const
 {
     switch (this->shaderType) {
-        case Shader::Type::Vertex:
+        case ShaderType::VERTEX:
             return GL_VERTEX_SHADER;
 
-        case Shader::Type::Fragment:
+        case ShaderType::FRAGMENT:
             return GL_FRAGMENT_SHADER;
 
         default:
@@ -140,11 +140,11 @@ GLenum randar::Shader::glType() const
 }
 
 // Generates the code for a default shader.
-std::string randar::Shader::defaultCode(randar::Shader::Type type)
+std::string randar::Shader::defaultCode(randar::ShaderType type)
 {
-    static std::map<Shader::Type, std::string> codes = {
+    static std::map<ShaderType, std::string> codes = {
         {
-            Shader::Type::Vertex,
+            ShaderType::VERTEX,
             R"SHADER(#version 330 core
                 layout(location = 0) in vec3 vertexPosition;
                 layout(location = 1) in vec4 vertexColor;
@@ -159,7 +159,7 @@ std::string randar::Shader::defaultCode(randar::Shader::Type type)
         },
 
         {
-            Shader::Type::Fragment,
+            ShaderType::FRAGMENT,
             R"SHADER(#version 330 core
                 in vec4 fragmentColor;
                 out vec4 color;

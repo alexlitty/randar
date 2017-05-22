@@ -1,6 +1,7 @@
 #ifndef RANDAR_RENDER_SHADER_HPP
 #define RANDAR_RENDER_SHADER_HPP
 
+#include <randar/Render/ShaderType.hpp>
 #include <randar/System/GraphicsContextResource.hpp>
 #include <randar/System/GlNamedResource.hpp>
 
@@ -10,17 +11,8 @@ namespace randar
     : virtual public GraphicsContextResource,
       virtual public GlNamedResource
     {
-    public:
-        /**
-         * Available shader types.
-         */
-        enum class Type {
-            Vertex,
-            Fragment
-        };
-
     protected:
-        Shader::Type shaderType = Shader::Type::Vertex;
+        ShaderType shaderType = ShaderType::VERTEX;
         std::string shaderCode;
 
     public:
@@ -60,7 +52,7 @@ namespace randar
          * Throws an exception if the shader could not be initialized.
          */
         void initialize();
-        void initialize(Shader::Type newType, const std::string& newCode);
+        void initialize(ShaderType newType, const std::string& newCode);
         void initialize(std::string newType, const std::string& newCode);
 
         /**
@@ -78,7 +70,7 @@ namespace randar
         /**
          * Retrieves the Randar shader type.
          */
-        Shader::Type type() const;
+        ShaderType type() const;
 
         /**
          * Retrieves the OpenGL shader type.
@@ -88,7 +80,7 @@ namespace randar
         /**
          * Generates the code for a default shader.
          */
-        static std::string defaultCode(Shader::Type type);
+        static std::string defaultCode(ShaderType type);
     };
 }
 
