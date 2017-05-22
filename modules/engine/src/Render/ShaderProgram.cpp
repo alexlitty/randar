@@ -105,7 +105,7 @@ bool randar::ShaderProgram::isInitialized() const
 void randar::ShaderProgram::use()
 {
     if (!this->isInitialized()) {
-        throw std::runtime_error("Shader program is not initialized");
+        this->initialize();
     }
 
     if (!this->inSync) {
