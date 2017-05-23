@@ -76,6 +76,9 @@ randar::GraphicsContext::GraphicsContext()
         throw std::runtime_error("Cannot create X display connection");
     }
 
+    // Unassign any active context.
+    ::glXMakeCurrent(this->display, None, NULL);
+
     // Find a proper framebuffer configuration.
     int fbCount = 0;
     this->fbConfigs = ::glXChooseFBConfig(
