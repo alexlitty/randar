@@ -125,14 +125,14 @@ describe('Geometry', function() {
         let image   = randar.image();
         let pixel;
 
-        let bgColor = randar.color(0.2, 0, 0.2, 1);
-        let fgColor = randar.color(1, 1, 1, 1);
+        let bgColor = randar.color(0.2, 0, 0.2);
+        let fgColor = randar.color(1, 1, 1);
 
-        geo.append(randar.vertex(randar.position(-1, 1, 0), fgColor));
         geo.primitive = randar.Primitive_Point;
+        geo.append(randar.vertex(randar.position(-1, 1, 0), fgColor));
 
         fb.attach(texture);
-        fb.clear(randar.color(0.2, 0, 0.2));
+        fb.clear(bgColor);
         geo.drawTo(fb);
 
         fb.read(image);
@@ -145,6 +145,36 @@ describe('Geometry', function() {
                 } else {
                     assertColor(pixel, bgColor);
                 }
+            }
+        }
+
+        geo.primitive = randar.Primitive_Triangle;
+        geo.append(randar.vertex(randar.position(1, 1, 0), fgColor));
+        geo.append(randar.vertex(randar.position(1, -1, 0), fgColor));
+
+        fb.clear(bgColor);
+        fb.read(image);
+        for (let x = 0; x < texture.getWidth(); x++) {
+            for (let y = 0; y < texture.getHeight(); y++) {
+                assertColor(image.getPixel(x, y), bgColor);
+            }
+        }
+
+        geo.drawTo(fb);
+        fb.read(image);
+        for (let x = 0; x < texture.getWidth(); x++) {
+            assertColor(image.getPixel(x, 0), fgColor);
+
+            if (x < 60) {
+                assertColor(image.getPixel(x, 63), bgColor);
+            }
+        }
+
+        for (let y = 0; y < texture.getHeight(); y++) {
+            assertColor(image.getPixel(63, y), fgColor);
+
+            if (y > 4) {
+                assertColor(image.getPixel(0, y), bgColor);
             }
         }
     });
