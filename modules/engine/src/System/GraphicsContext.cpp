@@ -150,16 +150,24 @@ randar::GraphicsContext::GraphicsContext()
 // Destructor.
 randar::GraphicsContext::~GraphicsContext()
 {
-    for (auto resource : this->resources) {
+    // Destroy resources owned by this context.
+    for (auto resource : this->ownedResources) {
+        this->resources.erase(resource);
         delete resource;
     }
 
+    // Unassociate resources associated, but not owned, by this context.
+    for (auto resource : this->resources) {
+        resource->unassociateContext();
+    }
+
+    // Destroy default resources.
     for (auto item : this->dShaders) {
         delete item.second;
     }
-
     delete this->dShaderProgram;
 
+    // Destroy GLX objects and free X resources.
     ::glXDestroyContext(this->display, this->ctx);
     ::XFree(this->visual);
     ::XCloseDisplay(this->display);
@@ -266,14 +274,12 @@ void randar::GraphicsContext::check(const std::string& message)
 void randar::GraphicsContext::associate(randar::GraphicsContextResource& r)
 {
     if (this->resources.count(&r)) {
-        throw std::runtime_error("Context is already associated with resource");
+        return;
     }
 
     if (r.ctx != this) {
         throw std::runtime_error(
-            "Resource is already associated with "
-            + std::string(r.ctx == this ? "this" : "another")
-            + " context"
+            "Resource is already associated with another context"
         );
     }
 
@@ -282,9 +288,7 @@ void randar::GraphicsContext::associate(randar::GraphicsContextResource& r)
 
 void randar::GraphicsContext::unassociate(randar::GraphicsContextResource& r)
 {
-    if (!this->resources.erase(&r)) {
-        throw std::runtime_error("Resource is not associated with context");
-    }
+    this->resources.erase(&r);
 }
 
 // Checks if a resource is associated with the context.

@@ -89,9 +89,19 @@ namespace randar
 
     public:
         /**
-         * A list of objects that depend on this context.
+         * Resources which are associated with this context.
+         *
+         * These resources may exist after the lifetime of the context, to be
+         * used on other contexts or for other non-rendering purposes.
          */
         std::set<GraphicsContextResource*> resources;
+
+        /**
+         * Resources which are owned by this context.
+         *
+         * Owned resources are always associated with this context.
+         */
+        std::set<GraphicsContextResource*> ownedResources;
 
         /**
          * Disable assignment.

@@ -81,11 +81,15 @@ namespace randar
         virtual ~GraphicsContextResource();
 
         /**
-         * Binds the associated context for further operations.
+         * Associates the resource with a context.
          *
-         * Throws an exception if the context is not available.
+         * If an association already exists with a different context, it is
+         * unassociated with the old context first.
+         *
+         * If the context is already associated with the resource, nothing
+         * happens.
          */
-        void bindContext();
+        void context(GraphicsContext& context);
 
         /**
          * Gets the context associated with this resource.
@@ -93,6 +97,28 @@ namespace randar
          * Throws an exception if no context is associated.
          */
         GraphicsContext& context();
+
+        /**
+         * Unassociates the resource from its associated context.
+         *
+         * If the resource is not associated with a context, nothing happens. If
+         * the resource is, it is uninitialized before unassociation.
+         */
+        void unassociateContext();
+
+        /**
+         * Binds the associated context for further operations.
+         *
+         * Throws an exception if the context is not available.
+         */
+        void bindContext();
+
+        /**
+         * Uninitializes the resource, if applicable.
+         *
+         * By default nothing happens.
+         */
+        virtual void uninitialize();
     };
 }
 
