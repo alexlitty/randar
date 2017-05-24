@@ -38,7 +38,7 @@ void randar::Quaternion::set(float ix, float iy, float iz, float iw, bool update
     this->normalize();
 
     if (updateAxis) {
-        this->axis = this->getAxis();
+        this->ax = this->axis();
     }
 }
 
@@ -54,27 +54,27 @@ void randar::Quaternion::set(const Vector3& newAxis, const Angle& newAngle)
         false
     );
 
-    this->axis = newAxis;
+    this->ax = newAxis;
 }
 
-void randar::Quaternion::setAxis(const Vector3& newAxis)
+void randar::Quaternion::axis(const Vector3& newAxis)
 {
-    this->set(newAxis, this->getAngle());
+    this->set(newAxis, this->angle());
 }
 
-void randar::Quaternion::setAngle(const Angle& newAngle)
+void randar::Quaternion::angle(const Angle& newAngle)
 {
-    this->set(this->axis, newAngle);
+    this->set(this->ax, newAngle);
 }
 
 // Relatively sets the rotation represented by this quaternion.
 void randar::Quaternion::rotate(const Angle& deltaAngle)
 {
-    this->setAngle(this->getAngle() + deltaAngle);
+    this->angle(this->angle() + deltaAngle);
 }
 
 // Gets information about the represented rotation.
-randar::Vector3 randar::Quaternion::getAxis() const
+randar::Vector3 randar::Quaternion::axis() const
 {
     float d = std::sqrt(1 - (this->w * this->w));
 
@@ -90,7 +90,7 @@ randar::Vector3 randar::Quaternion::getAxis() const
     ).normalized();
 }
 
-randar::Angle randar::Quaternion::getAngle() const
+randar::Angle randar::Quaternion::angle() const
 {
     return 2.0f * std::acos(this->w);
 }
@@ -116,11 +116,11 @@ void randar::Quaternion::normalize()
 // Transforms a single point.
 randar::Vector3 randar::Quaternion::transform(randar::Vector3 vector) const
 {
-    return vector *= this->getMatrix();
+    return vector *= this->matrix();
 }
 
 // Retrieves a matrix for transforming.
-glm::mat4 randar::Quaternion::getMatrix() const
+glm::mat4 randar::Quaternion::matrix() const
 {
     float values[16] = {
         1-2*y*y-2*z*z, 2*x*y - 2*z*w, 2*x*z + 2*y*w, 0,
@@ -154,13 +154,4 @@ randar::Quaternion randar::operator *(randar::Quaternion lhs, const randar::Quat
 randar::Quaternion::operator btQuaternion() const
 {
     return btQuaternion(this->x, this->y, this->z, this->w);
-}
-
-// Converts to JSON.
-Json randar::Quaternion::toJson() const
-{
-    return {
-        { "axis",  this->getAxis().toJson()     },
-        { "angle", this->getAngle().toRadians() }
-    };
 }

@@ -8,9 +8,9 @@ namespace randar
 {
     class Transform
     {
-    protected:
-        Vector3 position;
-        Quaternion rotation;
+    private:
+        Vector3 pos;
+        Quaternion rot;
 
     public:
         virtual ~Transform();
@@ -23,7 +23,7 @@ namespace randar
         /**
          * Absolutely sets the position.
          */
-        void setPosition(const Vector3& newPosition);
+        void position(const Vector3& newPosition);
 
         /**
          * Relatively sets the position.
@@ -35,29 +35,29 @@ namespace randar
         /**
          * Retrieves the position.
          */
-        Vector3 getPosition() const;
+        Vector3 position() const;
 
         /**
          * Sets the rotation.
          */
-        void setRotation(const Quaternion& quaternion);
-        void setRotation(const Vector3& axis, const Angle& angle);
+        void rotation(const Quaternion& quaternion);
+        void rotation(const Vector3& axis, const Angle& angle);
 
         /**
          * Retrieves the rotation.
          */
-        Quaternion getRotation() const;
+        Quaternion rotation() const;
 
         /**
          * Sets and retrieves the axis of rotation.
          */
-        void setRotationAxis(const Vector3& axis);
-        Vector3 getRotationAxis() const;
+        void rotationAxis(const Vector3& axis);
+        Vector3 rotationAxis() const;
 
         /**
          * Absolutely sets the angle of rotation.
          */
-        void setAngle(const Angle& angle);
+        void angle(const Angle& angle);
 
         /**
          * Relatively sets the angle of rotation.
@@ -67,7 +67,7 @@ namespace randar
         /**
          * Retrieves the angle of rotation.
          */
-        Angle getAngle() const;
+        Angle angle() const;
 
         /**
          * Applies another transform to this transform.
@@ -82,17 +82,12 @@ namespace randar
         /**
          * Retrieves the current transformation matrix.
          */
-        glm::mat4 getTransformMatrix() const;
+        glm::mat4 transformMatrix() const;
 
         /**
          * Converts to physics transformation.
          */
         operator btTransform() const;
-
-        /**
-         * Returns a JSON representation of this transform.
-         */
-        Json toJson() const;
     };
 }
 

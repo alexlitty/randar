@@ -8,93 +8,93 @@ randar::Transform::~Transform()
 // Sets this transformation from a physical transformation.
 void randar::Transform::set(const btTransform& transform)
 {
-    this->setPosition(transform.getOrigin());
-    this->setRotation(transform.getRotation());
+    this->position(transform.getOrigin());
+    this->rotation(transform.getRotation());
 }
 
 // Absolutely sets the position.
-void randar::Transform::setPosition(const randar::Vector3& newPosition)
+void randar::Transform::position(const randar::Vector3& newPosition)
 {
-    this->position = newPosition;
+    this->pos = newPosition;
     this->onTransform();
 }
 
 // Relatively sets the position.
 void randar::Transform::move(const randar::Vector3& movement)
 {
-    this->setPosition(
-        this->getPosition() + movement
+    this->position(
+        this->position() + movement
     );
 }
 
 void randar::Transform::move(const randar::Quaternion& angularMovement)
 {
-    this->setPosition(
-        angularMovement.transform(this->getPosition())
+    this->position(
+        angularMovement.transform(this->position())
     );
 }
 
 // Retrieves the position.
-randar::Vector3 randar::Transform::getPosition() const
+randar::Vector3 randar::Transform::position() const
 {
-    return this->position;
+    return this->pos;
 }
 
 // Sets the rotation.
-void randar::Transform::setRotation(const randar::Quaternion& quaternion)
+void randar::Transform::rotation(const randar::Quaternion& quaternion)
 {
-    this->rotation = quaternion;
+    this->rot = quaternion;
     this->onTransform();
 }
 
-void randar::Transform::setRotation(const randar::Vector3& axis, const randar::Angle& angle)
+void randar::Transform::rotation(const randar::Vector3& axis, const randar::Angle& angle)
 {
-    this->rotation.set(axis, angle);
+    this->rot.set(axis, angle);
     this->onTransform();
 }
 
 // Retrieves the rotation.
-randar::Quaternion randar::Transform::getRotation() const
+randar::Quaternion randar::Transform::rotation() const
 {
-    return this->rotation;
+    return this->rot;
 }
 
 // Sets and retrieves the axis of rotation.
-void randar::Transform::setRotationAxis(const randar::Vector3& axis)
+void randar::Transform::rotationAxis(const randar::Vector3& axis)
 {
-    this->rotation.setAxis(axis);
+    this->rotation().axis(axis);
     this->onTransform();
 }
 
-randar::Vector3 randar::Transform::getRotationAxis() const
+randar::Vector3 randar::Transform::rotationAxis() const
 {
-    return this->rotation.getAxis();
+    return this->rotation().axis();
 }
 
 // Absolutely sets the angle of rotation.
-void randar::Transform::setAngle(const randar::Angle& angle)
+void randar::Transform::angle(const randar::Angle& angle)
 {
-    this->rotation.setAngle(angle);
+    this->rotation().angle(angle);
     this->onTransform();
 }
 
 // Relatively sets the angle of rotation.
 void randar::Transform::rotate(const randar::Angle& angle)
 {
-    this->rotation.setAngle(this->rotation.getAngle() + angle);
+    this->rotation().angle(this->rotation().angle() + angle);
     this->onTransform();
 }
 
 // Retrieves the angle of rotation.
-randar::Angle randar::Transform::getAngle() const
+randar::Angle randar::Transform::angle() const
 {
-    return this->rotation.getAngle();
+    return this->rotation().angle();
 }
 
 // Applies another transform to this transform.
 void randar::Transform::apply(const randar::Transform& other)
 {
-    this->move(other.getPosition());
+    this->move(other.position());
     // @@@ - Also rotate
 }
 
@@ -105,22 +105,14 @@ void randar::Transform::onTransform()
 }
 
 // Retrieves the current transformation matrix.
-glm::mat4 randar::Transform::getTransformMatrix() const
+glm::mat4 randar::Transform::transformMatrix() const
 {
-    glm::vec3 glmPosition(this->position.x, this->position.y, this->position.z);
-    return glm::translate(this->rotation.getMatrix(), glmPosition);
+    glm::vec3 glmPosition(this->position().x, this->position().y, this->position().z);
+    return glm::translate(this->rotation().matrix(), glmPosition);
 }
 
 // Converts to physics transformation.
 randar::Transform::operator btTransform() const
 {
-    return btTransform(this->getRotation(), this->getPosition());
-}
-
-Json randar::Transform::toJson() const
-{
-    return {
-        { "position", this->position.toJson() },
-        { "rotation", this->rotation.toJson() }
-    };
+    return btTransform(this->rotation(), this->position());
 }

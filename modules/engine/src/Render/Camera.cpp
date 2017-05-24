@@ -30,7 +30,7 @@ void randar::Camera::updateMatrices()
         );
 
         this->view = glm::lookAt(
-            glm::vec3(this->position.x, this->position.y, this->position.z),
+            glm::vec3(this->position().x, this->position().y, this->position().z),
             glm::vec3(this->target.x, this->target.y, this->target.z),
 
             // @todo - make this based on rotation

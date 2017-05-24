@@ -16,7 +16,7 @@ namespace randar
         float z;
         float w;
 
-        Vector3 axis;
+        Vector3 ax;
 
     public:
         /**
@@ -44,8 +44,8 @@ namespace randar
          */
         void set(float ix, float iy, float iz, float iw, bool updateAxis = true);
         void set(const Vector3& newAxis, const Angle& newAngle);
-        void setAxis(const Vector3& newAxis);
-        void setAngle(const Angle& newAngle);
+        void axis(const Vector3& newAxis);
+        void angle(const Angle& newAngle);
 
         /**
          * Relatively sets the rotation represented by this quaternion.
@@ -55,8 +55,8 @@ namespace randar
         /**
          * Gets information about the represented rotation.
          */
-        Vector3 getAxis() const;
-        Angle getAngle() const;
+        Vector3 axis() const;
+        Angle angle() const;
 
         /**
          * Converts this quaternion to a unit quaternion.
@@ -71,7 +71,7 @@ namespace randar
         /**
          * Retrieves a matrix for transforming.
          */
-        glm::mat4 getMatrix() const;
+        glm::mat4 matrix() const;
 
         /**
          * Combination assignment operator.
@@ -82,11 +82,6 @@ namespace randar
          * Converts to physics quaternion.
          */
         operator btQuaternion() const;
-
-        /**
-         * Converts to JSON.
-         */
-        Json toJson() const;
     };
 
     /**

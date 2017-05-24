@@ -25,6 +25,6 @@ Json randar::TransformAction::toJson() const
         { "frame", this->frames.getStart().get() },
         { "duration", this->frames.count() },
 
-        { "transform", this->transform.toJson() }
+//        { "transform", this->transform.toJson() }
     };
 }
