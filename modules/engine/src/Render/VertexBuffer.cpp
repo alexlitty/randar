@@ -1,6 +1,6 @@
 #include <randar/Render/VertexBuffer.hpp>
 
-// Constructor.
+// Constructors.
 randar::VertexBuffer::VertexBuffer()
 : randar::GraphicsContextResource(nullptr)
 {
@@ -11,6 +11,27 @@ randar::VertexBuffer::VertexBuffer(randar::GraphicsContext& context)
 : randar::GraphicsContextResource(&context)
 {
     this->initialize();
+}
+
+// Assignment.
+randar::VertexBuffer::VertexBuffer(const randar::VertexBuffer& other)
+: randar::GraphicsContextResource(nullptr)
+{
+    *this = other;
+}
+
+randar::VertexBuffer& randar::VertexBuffer::operator =(const randar::VertexBuffer& other)
+{
+    this->unassociateContext();
+    if (other.ctx) {
+        this->context(*other.ctx);
+    }
+
+    this->vertices = other.vertices;
+    this->positionBuffer = other.positionBuffer;
+    this->colorBuffer = other.colorBuffer;
+
+    return *this;
 }
 
 // Destructor.

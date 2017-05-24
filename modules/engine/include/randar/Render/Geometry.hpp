@@ -22,16 +22,16 @@ namespace randar
         Primitive primitive = randar::Primitive::Triangle;
 
         /**
-         * Disable assignment.
-         */
-        Geometry(const Geometry& other) = delete;
-        Geometry& operator =(const Geometry& other) = delete;
-
-        /**
          * Constructors.
          */
         Geometry();
         Geometry(GraphicsContext& context);
+
+        /**
+         * Assignment.
+         */
+        Geometry(const Geometry& other);
+        Geometry& operator =(const Geometry& other);
 
         /**
          * Destructor.

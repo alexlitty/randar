@@ -39,12 +39,6 @@ namespace randar
 
     public:
         /**
-         * Disable assignment.
-         */
-        GlBuffer(const GlBuffer& other) = delete;
-        GlBuffer& operator =(const GlBuffer& other) = delete;
-
-        /**
          * Constructors.
          */
         GlBuffer()
@@ -59,6 +53,28 @@ namespace randar
           inSync(false)
         {
 
+        }
+
+        /**
+         * Assignment.
+         */
+        GlBuffer(const GlBuffer& other)
+        : GraphicsContextResource(nullptr)
+        {
+            *this = other;
+        }
+
+        GlBuffer& operator =(const GlBuffer& other)
+        {
+            this->unassociateContext();
+            if (other.ctx) {
+                this->context(*other.ctx);
+            }
+
+            this->inSync = false;
+            this->data = other.data;
+
+            return *this;
         }
 
         /**

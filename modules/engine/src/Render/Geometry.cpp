@@ -15,6 +15,28 @@ randar::Geometry::Geometry(randar::GraphicsContext& context)
     this->initialize();
 }
 
+// Assignment.
+randar::Geometry::Geometry(const randar::Geometry& other)
+: randar::GraphicsContextResource(nullptr)
+{
+    *this = other;
+}
+
+randar::Geometry& randar::Geometry::operator =(const randar::Geometry& other)
+{
+    this->unassociateContext();
+    if (other.ctx) {
+        this->context(*other.ctx);
+    }
+
+    this->vertices = other.vertices;
+    this->indices = other.indices;
+    this->primitive = other.primitive;
+
+    return *this;
+}
+
+// Destructor.
 randar::Geometry::~Geometry()
 {
     this->uninitialize();
@@ -82,6 +104,10 @@ void randar::Geometry::append(const randar::Vertex& vertex)
 // Draws the geometry to a framebuffer.
 void randar::Geometry::drawTo(randar::Framebuffer& fb, randar::ShaderProgram& program)
 {
+    if (!this->ctx || this->ctx != &fb.context()) {
+        this->initialize(fb.context());
+    }
+
     this->sync();
 
     GLenum glPrimitive;

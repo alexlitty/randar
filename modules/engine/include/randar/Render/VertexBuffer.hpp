@@ -38,16 +38,16 @@ namespace randar
 
     public:
         /**
-         * Disable assignment.
-         */
-        VertexBuffer(const VertexBuffer& other) = delete;
-        VertexBuffer& operator =(const VertexBuffer& other) = delete;
-
-        /**
          * Constructors.
          */
         VertexBuffer();
         VertexBuffer(GraphicsContext& context);
+
+        /**
+         * Assignment.
+         */
+        VertexBuffer(const VertexBuffer& other);
+        VertexBuffer& operator =(const VertexBuffer& other);
 
         /**
          * Destructor.
