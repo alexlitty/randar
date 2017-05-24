@@ -27,7 +27,6 @@ namespace randar
          */
         void readMotionState();
         void writeMotionState();
-        virtual void onTransform() override;
     };
 }
 

@@ -5,11 +5,6 @@ randar::Camera::Camera()
     this->updateMatrices();
 }
 
-void randar::Camera::onTransform()
-{
-    this->updateMatrices();
-}
-
 void randar::Camera::updateMatrices()
 {
     if (this->isOrtho) {

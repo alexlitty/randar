@@ -27,7 +27,6 @@ namespace randar
         /**
          * Updates the view and projection matrices.
          */
-        virtual void onTransform() override;
         void updateMatrices();
 
     public:

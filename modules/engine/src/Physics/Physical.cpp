@@ -73,8 +73,3 @@ void randar::Physical::writeMotionState()
 
     this->motionState->setWorldTransform(*this);
 }
-
-void randar::Physical::onTransform()
-{
-    this->writeMotionState();
-}

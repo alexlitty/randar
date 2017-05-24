@@ -13,7 +13,7 @@ namespace randar
         Quaternion rot;
 
     public:
-        virtual ~Transform();
+        ~Transform();
 
         /**
          * Sets this transformation from a physical transformation.
@@ -76,8 +76,10 @@ namespace randar
 
         /**
          * Function called when a transformation occurs.
+         *
+         * @@@ deprecating this
          */
-        virtual void onTransform();
+        void onTransform();
 
         /**
          * Retrieves the current transformation matrix.
