@@ -131,8 +131,11 @@ void randar::Geometry::drawTo(
     this->vertices.bind();
     this->indices.bind();
     program.use();
-
     fb.bind();
+
+    glm::mat4 mvp = transform.transformMatrix();
+    program.setUniform("mvp", mvp);
+
     ::glDrawElements(glPrimitive, this->indices.count(), GL_UNSIGNED_INT, nullptr);
     this->ctx->check("Failed to draw geometry to framebuffer");
 }
