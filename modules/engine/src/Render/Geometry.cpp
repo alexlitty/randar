@@ -102,7 +102,10 @@ void randar::Geometry::append(const randar::Vertex& vertex)
 }
 
 // Draws the geometry to a framebuffer.
-void randar::Geometry::drawTo(randar::Framebuffer& fb, randar::ShaderProgram& program)
+void randar::Geometry::drawTo(
+    randar::Framebuffer& fb,
+    randar::Transform& transform,
+    randar::ShaderProgram& program)
 {
     if (!this->ctx || this->ctx != &fb.context()) {
         this->initialize(fb.context());

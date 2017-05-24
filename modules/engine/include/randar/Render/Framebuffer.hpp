@@ -167,6 +167,7 @@ namespace randar
         /**
          * Draws geometry to the framebuffer.
          */
+        void draw(Geometry& geometry, Transform& transform, ShaderProgram& program);
         void draw(Geometry& geometry, ShaderProgram& program);
         void draw(Geometry& geometry);
     };

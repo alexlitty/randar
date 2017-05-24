@@ -265,9 +265,17 @@ void randar::Framebuffer::read(randar::Image& image)
 // Draws geometry to the framebuffer.
 void randar::Framebuffer::draw(
     randar::Geometry& geometry,
+    randar::Transform& transform,
     randar::ShaderProgram& program)
 {
-    geometry.drawTo(*this, program);
+    geometry.drawTo(*this, transform, program);
+}
+
+void randar::Framebuffer::draw(
+    randar::Geometry& geometry,
+    randar::ShaderProgram& program)
+{
+    this->draw(geometry, Transform::Identity, program);
 }
 
 void randar::Framebuffer::draw(randar::Geometry& geometry)
