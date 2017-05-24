@@ -116,3 +116,6 @@ randar::Transform::operator btTransform() const
 {
     return btTransform(this->rotation(), this->position());
 }
+
+// An identity transformation.
+randar::Transform randar::Transform::Identity;

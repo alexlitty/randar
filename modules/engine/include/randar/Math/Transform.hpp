@@ -88,6 +88,11 @@ namespace randar
          * Converts to physics transformation.
          */
         operator btTransform() const;
+
+        /**
+         * An identity transformation.
+         */
+        static Transform Identity;
     };
 }
 
