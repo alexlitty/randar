@@ -133,7 +133,9 @@ void randar::Geometry::drawTo(
     program.use();
     fb.bind();
 
-    glm::mat4 mvp = transform.transformMatrix();
+    glm::mat4 mvp = fb.camera.projectionMatrix()
+                  * fb.camera.viewMatrix()
+                  * transform.transformMatrix();
     program.setUniform("mvp", mvp);
 
     ::glDrawElements(glPrimitive, this->indices.count(), GL_UNSIGNED_INT, nullptr);
