@@ -11,6 +11,7 @@
 namespace randar
 {
     class Geometry;
+    class Model;
 
     /**
      * An OpenGL framebuffer.
@@ -165,8 +166,9 @@ namespace randar
         void read(Image& image);
 
         /**
-         * Draws geometry to the framebuffer.
+         * Draws to the framebuffer.
          */
+        void draw(Model& model);
         void draw(Geometry& geometry, Transform& transform, ShaderProgram& program);
         void draw(Geometry& geometry, ShaderProgram& program);
         void draw(Geometry& geometry);

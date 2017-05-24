@@ -2,12 +2,15 @@
 
 // Constructors.
 randar::Model::Model()
+: geo(nullptr),
+  program(nullptr)
 {
 
 }
 
 // Assignment.
 randar::Model::Model(const randar::Model& other)
+: randar::Model::Model()
 {
     *this = other;
 }
@@ -65,21 +68,6 @@ randar::ShaderProgram& randar::Model::shaderProgram()
 bool randar::Model::hasShaderProgram() const
 {
     return this->program != nullptr;
-}
-
-// Draws the geometry to a framebuffer.
-void randar::Model::drawTo(randar::Framebuffer& fb)
-{
-    if (!this->hasGeometry()) {
-        throw std::runtime_error("Cannot draw model without geometry");
-    }
-
-    ShaderProgram* drawProgram = this->program;
-    if (!drawProgram) {
-        drawProgram = &fb.context().defaultShaderProgram();
-    }
-
-    fb.draw(this->geometry(), *this, *drawProgram);
 }
 
 // Node.js helper for intuitive model creation.

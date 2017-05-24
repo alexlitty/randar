@@ -6,11 +6,11 @@
 
 namespace randar
 {
-    class Model : virtual public Transform
+    class Model : public Transform
     {
     protected:
-        Geometry* geo = nullptr;
-        ShaderProgram* program = nullptr;
+        Geometry* geo;
+        ShaderProgram* program;
 
     public:
         /**
@@ -42,11 +42,6 @@ namespace randar
         void shaderProgram(ShaderProgram& newProgram);
         ShaderProgram& shaderProgram();
         bool hasShaderProgram() const;
-
-        /**
-         * Draws the geometry to a framebuffer.
-         */
-        void drawTo(Framebuffer& fb);
     };
 
     /**

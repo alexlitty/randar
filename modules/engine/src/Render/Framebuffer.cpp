@@ -1,5 +1,5 @@
 #include <randar/Render/Framebuffer.hpp>
-#include <randar/Render/Geometry.hpp>
+#include <randar/Render/Model.hpp>
 #include <randar/Engine/Gpu.hpp>
 
 // Constructs an off-screen framebuffer.
@@ -262,7 +262,23 @@ void randar::Framebuffer::read(randar::Image& image)
     );
 }
 
-// Draws geometry to the framebuffer.
+// Draws to the framebuffer.
+void randar::Framebuffer::draw(randar::Model& model)
+{
+    if (!model.hasGeometry()) {
+        throw std::runtime_error("Cannot draw model without geometry");
+    }
+
+    ShaderProgram* drawProgram;
+    if (model.hasShaderProgram()) {
+        drawProgram = &model.shaderProgram();
+    } else {
+        drawProgram = &this->ctx->defaultShaderProgram();
+    }
+
+    this->draw(model.geometry(), model, *drawProgram);
+}
+
 void randar::Framebuffer::draw(
     randar::Geometry& geometry,
     randar::Transform& transform,

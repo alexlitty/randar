@@ -8,7 +8,7 @@
 
 namespace randar
 {
-    class Geometry : virtual public GraphicsContextResource
+    class Geometry : public GraphicsContextResource
     {
     public:
         VertexBuffer vertices;
