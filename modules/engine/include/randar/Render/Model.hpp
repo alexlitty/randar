@@ -48,6 +48,11 @@ namespace randar
          */
         void drawTo(Framebuffer& fb);
     };
+
+    /**
+     * Node.js helper for intuitive model creation.
+     */
+    Model model();
 }
 
 #endif

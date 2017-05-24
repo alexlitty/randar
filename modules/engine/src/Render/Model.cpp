@@ -81,3 +81,9 @@ void randar::Model::drawTo(randar::Framebuffer& fb)
 
     fb.draw(this->geometry(), *this, *drawProgram);
 }
+
+// Node.js helper for intuitive model creation.
+randar::Model randar::model()
+{
+    return randar::Model();
+}
