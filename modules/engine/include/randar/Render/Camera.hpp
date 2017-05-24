@@ -14,44 +14,44 @@ namespace randar
         float orthoBottom = 0;
         float orthoTop = 1;
 
-        Angle fieldOfView = 45.0f;
+        Angle fov = 45.0f;
         float aspectRatio = 4.0f / 3.0f;
         float nearZ = 0.1f;
         float farZ = 100.0f;
 
-        Vector3 target;
+        Vector3 targ;
 
-        glm::mat4 view;
-        glm::mat4 projection;
+        mutable glm::mat4 view;
+        mutable glm::mat4 proj;
 
         /**
          * Updates the view and projection matrices.
          */
-        void updateMatrices();
+        void updateMatrices() const;
 
     public:
         Viewport viewport;
         Camera();
 
-        void setOrtho();
-        void setOrtho(float left, float right, float bottom, float top);
-        void disableOrtho();
+        void ortho();
+        void ortho(float left, float right, float bottom, float top);
+        void projection();
 
         /**
          * Sets and retrieves the position that the camera is pointed at.
          */
-        void setTarget(Vector3 newTarget);
-        Vector3 getTarget() const;
+        void target(Vector3 newTarget);
+        Vector3 target() const;
 
-        void setFieldOfView(float newFieldOfView);
+        void fieldOfView(float newFieldOfView);
 
         /**
          * Moves the camera perpendicularly.
          */
         void pan(float x, float y);
 
-        glm::mat4 getViewMatrix() const;
-        glm::mat4 getProjectionMatrix() const;
+        glm::mat4 viewMatrix() const;
+        glm::mat4 projectionMatrix() const;
     };
 }
 

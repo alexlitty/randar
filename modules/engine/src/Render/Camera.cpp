@@ -5,10 +5,10 @@ randar::Camera::Camera()
 
 }
 
-void randar::Camera::updateMatrices()
+void randar::Camera::updateMatrices() const
 {
     if (this->isOrtho) {
-        this->projection = glm::ortho(
+        this->proj = glm::ortho(
             this->orthoLeft,
             this->orthoRight,
             this->orthoBottom,
@@ -17,8 +17,8 @@ void randar::Camera::updateMatrices()
 
         this->view = glm::mat4();
     } else {
-        this->projection = glm::perspective(
-            this->fieldOfView.toRadians(),
+        this->proj = glm::perspective(
+            this->fov.toRadians(),
             this->aspectRatio,
             this->nearZ,
             this->farZ
@@ -26,7 +26,7 @@ void randar::Camera::updateMatrices()
 
         this->view = glm::lookAt(
             glm::vec3(this->position().x, this->position().y, this->position().z),
-            glm::vec3(this->target.x, this->target.y, this->target.z),
+            glm::vec3(this->targ.x, this->targ.y, this->targ.z),
 
             // @todo - make this based on rotation
             glm::vec3(0, 1, 0)
@@ -34,9 +34,9 @@ void randar::Camera::updateMatrices()
     }
 }
 
-void randar::Camera::setOrtho()
+void randar::Camera::ortho()
 {
-    this->setOrtho(
+    this->ortho(
         this->viewport.x1,
         this->viewport.x2,
         this->viewport.y2,
@@ -44,7 +44,7 @@ void randar::Camera::setOrtho()
     );
 }
 
-void randar::Camera::setOrtho(float left, float right, float bottom, float top)
+void randar::Camera::ortho(float left, float right, float bottom, float top)
 {
     this->isOrtho = true;
     this->orthoLeft = left;
@@ -53,19 +53,19 @@ void randar::Camera::setOrtho(float left, float right, float bottom, float top)
     this->orthoTop = top;
 }
 
-void randar::Camera::disableOrtho()
+void randar::Camera::projection()
 {
     this->isOrtho = false;
 }
 
-void randar::Camera::setTarget(randar::Vector3 newTarget)
+void randar::Camera::target(randar::Vector3 newTarget)
 {
-    this->target = newTarget;
+    this->targ = newTarget;
 }
 
-randar::Vector3 randar::Camera::getTarget() const
+randar::Vector3 randar::Camera::target() const
 {
-    return this->target;
+    return this->targ;
 }
 
 void randar::Camera::pan(float x, float y)
@@ -73,17 +73,17 @@ void randar::Camera::pan(float x, float y)
     Vector3 movement(x, y);
 
     this->move(movement);
-    this->target += movement;
+    this->targ += movement;
 }
 
-glm::mat4 randar::Camera::getViewMatrix() const
+glm::mat4 randar::Camera::viewMatrix() const
 {
     this->updateMatrices();
     return this->view;
 }
 
-glm::mat4 randar::Camera::getProjectionMatrix() const
+glm::mat4 randar::Camera::projectionMatrix() const
 {
     this->updateMatrices();
-    return this->projection;
+    return this->proj;
 }
