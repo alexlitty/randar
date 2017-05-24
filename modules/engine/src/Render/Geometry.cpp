@@ -94,11 +94,11 @@ void randar::Geometry::drawTo(randar::Framebuffer& fb, randar::ShaderProgram& pr
             break;
     }
 
-    fb.bind();
     this->vertices.bind();
     this->indices.bind();
     program.use();
 
+    fb.bind();
     ::glDrawElements(glPrimitive, this->indices.count(), GL_UNSIGNED_INT, nullptr);
     this->ctx->check("Failed to draw geometry to framebuffer");
 }
