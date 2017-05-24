@@ -80,16 +80,6 @@ namespace randar
         ::GLXContext ctx;
 
         /**
-         * GLX pixel buffer associated with this context.
-         *
-         * Not to be confused with OpenGL's pixel buffer objects.
-         *
-         * This is created to initialize our OpenGL context in a way that
-         * enables windowless rendering. It is not used otherwise.
-         */
-        ::GLXPbuffer glxPixelBuffer;
-
-        /**
          * Default shaders and shader program for this context.
          *
          * Created automatically as necessary.

@@ -45,7 +45,7 @@ randar::GraphicsContext::GraphicsContext()
         GLX_X_RENDERABLE, true,
         GLX_X_VISUAL_TYPE, GLX_TRUE_COLOR,
 
-        GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT | GLX_PBUFFER_BIT,
+        GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT,
         GLX_RENDER_TYPE, GLX_RGBA_BIT,
         GLX_DOUBLEBUFFER, true,
 
@@ -55,12 +55,6 @@ randar::GraphicsContext::GraphicsContext()
         GLX_ALPHA_SIZE, 8,
         GLX_DEPTH_SIZE, 24,
         GLX_STENCIL_SIZE, 8,
-        None
-    };
-
-    int pbAttribs[] = {
-        GLX_PBUFFER_WIDTH, 1,
-        GLX_PBUFFER_HEIGHT, 1,
         None
     };
 
@@ -96,17 +90,6 @@ randar::GraphicsContext::GraphicsContext()
     this->visual = ::glXGetVisualFromFBConfig(this->display, fbConfigs[0]);
     if (!this->visual) {
         throw std::runtime_error("Failed to get X visual information");
-    }
-
-    // Create the GLX pixel buffer.
-    this->glxPixelBuffer = ::glXCreatePbuffer(
-        this->display,
-        fbConfigs[0],
-        pbAttribs
-    );
-
-    if (!this->glxPixelBuffer) {
-        throw std::runtime_error("Failed to initialize GLX pixel buffer");
     }
 
     // Create the context.
@@ -177,7 +160,6 @@ randar::GraphicsContext::~GraphicsContext()
 
     delete this->dShaderProgram;
 
-    ::glXDestroyPbuffer(this->display, this->glxPixelBuffer);
     ::glXDestroyContext(this->display, this->ctx);
     ::XFree(this->visual);
     ::XCloseDisplay(this->display);
@@ -206,7 +188,7 @@ void randar::GraphicsContext::use()
 
     bool success = ::glXMakeCurrent(
         this->display,
-        this->glxPixelBuffer,
+        None,
         this->ctx
     );
 

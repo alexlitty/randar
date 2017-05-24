@@ -24,7 +24,7 @@ namespace randar
         bool renderable = true;
 
         int visualType   = GLX_TRUE_COLOR;
-        int drawableType = GLX_WINDOW_BIT | GLX_PBUFFER_BIT;
+        int drawableType = GLX_WINDOW_BIT;
 
         bool doublebuffer = true;
 
