@@ -150,9 +150,11 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 layout(location = 1) in vec4 vertexColor;
                 out vec4 fragmentColor;
 
+                uniform mat4 mvp;
+
                 void main()
                 {
-                    gl_Position = vec4(vertexPosition, 1);
+                    gl_Position = mvp * vec4(vertexPosition, 1);
                     fragmentColor = vertexColor;
                 }
             )SHADER"
