@@ -5,6 +5,47 @@ function assertColor(color, other) {
     assert.equal(color.a().toFixed(2), other.a().toFixed(2));
 }
 
+function testGeoDraw(randar, geo, fb, win) {
+    let image = randar.image();
+    let pixel;
+
+    let bgColor = randar.color(0.2, 0, 0.2);
+    let fgColor = randar.color(1, 1, 1);
+
+    geo.primitive = randar.Primitive_Triangle;
+    geo.append(randar.vertex(randar.position(-1, 1, 0), fgColor));
+    geo.append(randar.vertex(randar.position(1, 1, 0), fgColor));
+    geo.append(randar.vertex(randar.position(1, -1, 0), fgColor));
+
+    fb.clear(bgColor);
+    fb.read(image);
+    for (let x = 0; x < fb.getWidth(); x++) {
+        for (let y = 0; y < fb.getHeight(); y++) {
+            assertColor(image.getPixel(x, y), bgColor);
+        }
+    }
+    if (win) { win.present(); }
+
+    fb.clear(bgColor);
+    geo.drawTo(fb);
+    fb.read(image);
+    for (let x = 0; x < fb.getWidth(); x++) {
+        assertColor(image.getPixel(x, 0), fgColor);
+
+        if (x < fb.getWidth() - 4) {
+            assertColor(image.getPixel(x, fb.getHeight() - 1), bgColor);
+        }
+    }
+
+    for (let y = 0; y < fb.getHeight(); y++) {
+        assertColor(image.getPixel(fb.getWidth() - 1, y), fgColor);
+
+        if (y > 4) {
+            assertColor(image.getPixel(0, y), bgColor);
+        }
+    }
+    if (win) { win.present(); }
+}
 
 describe('Geometry', function() {
     let ctx;
@@ -122,77 +163,15 @@ describe('Geometry', function() {
     it('draws to off-screen framebuffer', function() {
         let fb      = ctx.framebuffer();
         let texture = ctx.texture(64, 64);
-        let image   = randar.image();
-        let pixel;
-
-        let bgColor = randar.color(0.2, 0, 0.2);
-        let fgColor = randar.color(1, 1, 1);
-
-        geo.primitive = randar.Primitive_Point;
-        geo.append(randar.vertex(randar.position(-1, 1, 0), fgColor));
-
         fb.attach(texture);
-        fb.clear(bgColor);
-        geo.drawTo(fb);
 
-        fb.read(image);
-        for (let x = 0; x < texture.getWidth(); x++) {
-            for (let y = 0; y < texture.getHeight(); y++) {
-                pixel = image.getPixel(x, y);
-
-                if (x == 0 && y == 0) {
-                    assertColor(pixel, fgColor);
-                } else {
-                    assertColor(pixel, bgColor);
-                }
-            }
-        }
-
-        geo.primitive = randar.Primitive_Triangle;
-        geo.append(randar.vertex(randar.position(1, 1, 0), fgColor));
-        geo.append(randar.vertex(randar.position(1, -1, 0), fgColor));
-
-        fb.clear(bgColor);
-        fb.read(image);
-        for (let x = 0; x < texture.getWidth(); x++) {
-            for (let y = 0; y < texture.getHeight(); y++) {
-                assertColor(image.getPixel(x, y), bgColor);
-            }
-        }
-
-        geo.drawTo(fb);
-        fb.read(image);
-        for (let x = 0; x < texture.getWidth(); x++) {
-            assertColor(image.getPixel(x, 0), fgColor);
-
-            if (x < 60) {
-                assertColor(image.getPixel(x, 63), bgColor);
-            }
-        }
-
-        for (let y = 0; y < texture.getHeight(); y++) {
-            assertColor(image.getPixel(63, y), fgColor);
-
-            if (y > 4) {
-                assertColor(image.getPixel(0, y), bgColor);
-            }
-        }
+        testGeoDraw(randar, geo, fb);
     });
 
     it('draws to default framebuffer', function() {
         this.timeout(10000);
 
-        geo.append(randar.vertex(0.5, -0.5, 0.5));
-        geo.append(randar.vertex(0.5, 0.5, 0.5));
-        geo.append(randar.vertex(-0.5, 0.5, 0.5));
-
         let win = ctx.window(256, 256);
-        let fb = win.framebuffer();
-
-        for (let i = 0; i < 100; i++) {
-            fb.clear(randar.color(0.3, 0.3, 0.6));
-            geo.drawTo(fb);
-            win.present();
-        }
+        testGeoDraw(randar, geo, win.framebuffer(), win);
     });
 });
