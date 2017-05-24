@@ -45,11 +45,15 @@ namespace randar
         GlBuffer& operator =(const GlBuffer& other) = delete;
 
         /**
-         * Constructor.
-         *
-         * Does not initialize the buffer. It will be initialized automatically
-         * as necessary.
+         * Constructors.
          */
+        GlBuffer()
+        : GraphicsContextResource(nullptr),
+          inSync(false)
+        {
+
+        }
+
         GlBuffer(GraphicsContext& context)
         : GraphicsContextResource(&context),
           inSync(false)
@@ -64,19 +68,21 @@ namespace randar
          */
         ~GlBuffer()
         {
-            this->uninitialize();
+            this->unassociateContext();
         }
 
         /**
          * Initializes the buffer.
          *
          * Any local data available is immediately synced to the buffer.
-         *
-         * Nothing happens if the buffer is already initialized. Throws an
-         * exception if the buffer could not be initialized.
          */
-        void initialize()
+        using GraphicsContextResource::initialize;
+        virtual void initialize() override
         {
+            if (!this->ctx) {
+                throw std::runtime_error("GlBuffer not assigned to a context");
+            }
+
             if (!this->isInitialized()) {
                 this->bindContext();
 
@@ -85,10 +91,10 @@ namespace randar
                 if (!this->glName) {
                     throw std::runtime_error("Failed to create OpenGL buffer");
                 }
-
-                this->inSync = false;
-                this->sync();
             }
+
+            this->inSync = false;
+            this->sync();
         };
 
         /**
@@ -97,7 +103,7 @@ namespace randar
          * Nothing happens if the buffer is not initialized or the associated
          * graphics context is no longer available. Never throws an exception.
          */
-        void uninitialize()
+        virtual void uninitialize() override
         {
             if (this->isInitialized()) {
                 this->bindContext();
@@ -114,7 +120,7 @@ namespace randar
          */
         bool isInitialized() const
         {
-            return this->ctx && this->glName;
+            return this->ctx && (this->glName > 0);
         }
 
         /**

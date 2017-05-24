@@ -1,5 +1,12 @@
 #include <randar/Render/Geometry.hpp>
 
+// Constructors.
+randar::Geometry::Geometry()
+: randar::GraphicsContextResource(nullptr)
+{
+
+}
+
 randar::Geometry::Geometry(randar::GraphicsContext& context)
 : randar::GraphicsContextResource(&context),
   vertices(context),
@@ -17,20 +24,18 @@ randar::Geometry::~Geometry()
 void randar::Geometry::initialize()
 {
     if (!this->ctx) {
-        throw std::runtime_error("Context no longer available");
+        throw std::runtime_error("Geometry not assigned to a context");
     }
 
-    this->vertices.initialize();
-    this->indices.initialize();
+    this->vertices.initialize(*this->ctx);
+    this->indices.initialize(*this->ctx);
 }
 
 // Uninitializes the geometry from a context.
 void randar::Geometry::uninitialize()
 {
-    if (this->isInitialized()) {
-        this->vertices.uninitialize();
-        this->indices.uninitialize();
-    }
+    this->vertices.uninitialize();
+    this->indices.uninitialize();
 }
 
 // Whether the geometry is initialized on a context.

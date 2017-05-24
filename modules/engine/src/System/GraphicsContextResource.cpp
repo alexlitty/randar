@@ -57,6 +57,19 @@ void randar::GraphicsContextResource::bindContext()
     this->ctx->use();
 }
 
+// Initializes the resource, if applicable.
+void randar::GraphicsContextResource::initialize()
+{
+
+}
+
+void randar::GraphicsContextResource::initialize(randar::GraphicsContext& context)
+{
+    this->unassociateContext();
+    this->context(context);
+    this->initialize();
+}
+
 // Uninitializes the resource, if applicable.
 void randar::GraphicsContextResource::uninitialize()
 {

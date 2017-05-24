@@ -44,10 +44,9 @@ namespace randar
         VertexBuffer& operator =(const VertexBuffer& other) = delete;
 
         /**
-         * Constructor.
-         *
-         * Immediately initializes an empty vertex buffer on a context.
+         * Constructors.
          */
+        VertexBuffer();
         VertexBuffer(GraphicsContext& context);
 
         /**
@@ -63,14 +62,15 @@ namespace randar
          * Nothing happens if already initialized. Throws an exception if
          * initialization fails.
          */
-        void initialize();
+        using GraphicsContextResource::initialize;
+        virtual void initialize() override;
 
         /**
          * Uninitializes the vertex buffer from a context.
          *
          * Nothing happens if not initialized. Never throws an exception.
          */
-        void uninitialize();
+        virtual void uninitialize() override;
 
         /**
          * Whether the vertex buffer is initialized on a context.

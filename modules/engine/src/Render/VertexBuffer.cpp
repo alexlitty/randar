@@ -1,10 +1,14 @@
 #include <randar/Render/VertexBuffer.hpp>
 
 // Constructor.
+randar::VertexBuffer::VertexBuffer()
+: randar::GraphicsContextResource(nullptr)
+{
+
+}
+
 randar::VertexBuffer::VertexBuffer(randar::GraphicsContext& context)
-: randar::GraphicsContextResource(&context),
-  positionBuffer(context),
-  colorBuffer(context)
+: randar::GraphicsContextResource(&context)
 {
     this->initialize();
 }
@@ -18,7 +22,13 @@ randar::VertexBuffer::~VertexBuffer()
 // Initializes the vertex buffer on a context.
 void randar::VertexBuffer::initialize()
 {
+    if (!this->ctx) {
+        throw std::runtime_error("Vertex buffer not assigned to a context");
+    }
+
     this->bindContext();
+    this->positionBuffer.initialize(*this->ctx);
+    this->colorBuffer.initialize(*this->ctx);
 
     ::glGenVertexArrays(1, &this->vertexArrayName);
     this->ctx->check("Cannot create vertex array");
@@ -44,10 +54,10 @@ void randar::VertexBuffer::uninitialize()
     if (this->isInitialized()) {
         this->bindContext();
         ::glDeleteVertexArrays(1, &this->vertexArrayName);
-
-        this->positionBuffer.uninitialize();
-        this->colorBuffer.uninitialize();
     }
+
+    this->positionBuffer.uninitialize();
+    this->colorBuffer.uninitialize();
 }
 
 // Whether the vertex buffer is initialized on a context.
@@ -63,7 +73,7 @@ bool randar::VertexBuffer::isInitialized() const
 void randar::VertexBuffer::bind()
 {
     if (!this->isInitialized()) {
-        throw std::runtime_error("Cannot bind uninitialized vertex buffer");
+        this->initialize();
     }
 
     this->bindContext();

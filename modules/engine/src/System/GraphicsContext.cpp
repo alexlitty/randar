@@ -307,7 +307,7 @@ unsigned int randar::GraphicsContext::resourceCount() const
 randar::FloatArrayBuffer& randar::GraphicsContext::floatArrayBuffer()
 {
     randar::FloatArrayBuffer *fab = new FloatArrayBuffer(*this);
-    this->associate(*fab);
+    this->ownedResources.insert(fab);
     return *fab;
 }
 

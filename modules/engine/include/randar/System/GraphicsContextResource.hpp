@@ -114,6 +114,14 @@ namespace randar
         void bindContext();
 
         /**
+         * Initializes the resource, if applicable.
+         *
+         * By default nothing happens.
+         */
+        virtual void initialize();
+        virtual void initialize(GraphicsContext& context);
+
+        /**
          * Uninitializes the resource, if applicable.
          *
          * By default nothing happens.

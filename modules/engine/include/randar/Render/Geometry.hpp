@@ -28,8 +28,9 @@ namespace randar
         Geometry& operator =(const Geometry& other) = delete;
 
         /**
-         * Constructor.
+         * Constructors.
          */
+        Geometry();
         Geometry(GraphicsContext& context);
 
         /**
@@ -39,11 +40,9 @@ namespace randar
 
         /**
          * Initializes the geometry on a context.
-         *
-         * Nothing happens if the geometry is already initialized. Throws an
-         * exception if initialization fails.
          */
-        void initialize();
+        using GraphicsContextResource::initialize;
+        virtual void initialize() override;
 
         /**
          * Uninitializes the geometry from a context.
@@ -51,7 +50,7 @@ namespace randar
          * Nothing happens if the geometry is not initialized. No exceptions are
          * thrown upon failure.
          */
-        void uninitialize();
+        virtual void uninitialize() override;
 
         /**
          * Whether the geometry is initialized on a context.
