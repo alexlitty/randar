@@ -200,6 +200,10 @@ void randar::GraphicsContext::use()
 {
     this->check("Uncaught GL error");
 
+    if (::glXGetCurrentContext() == this->ctx) {
+        return;
+    }
+
     bool success = ::glXMakeCurrent(
         this->display,
         this->glxPixelBuffer,
@@ -217,6 +221,10 @@ void randar::GraphicsContext::use(randar::Window& window)
 {
     if (this != &window.context()) {
         throw std::runtime_error("Window is not associated with this context");
+    }
+
+    if (::glXGetCurrentDrawable() == window.glx()) {
+        return;
     }
 
     bool success = ::glXMakeCurrent(
