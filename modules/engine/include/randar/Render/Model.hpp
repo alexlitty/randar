@@ -14,15 +14,15 @@ namespace randar
 
     public:
         /**
-         * Disable assignment.
-         */
-        Model(const Model& other) = delete;
-        Model& operator =(const Model& other) = delete;
-
-        /**
          * Constructors.
          */
         Model();
+
+        /**
+         * Assignment.
+         */
+        Model(const Model& other);
+        Model& operator =(const Model& other);
 
         /**
          * Destructor.

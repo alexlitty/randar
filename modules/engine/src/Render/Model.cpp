@@ -6,6 +6,23 @@ randar::Model::Model()
 
 }
 
+// Assignment.
+randar::Model::Model(const randar::Model& other)
+{
+    *this = other;
+}
+
+randar::Model& randar::Model::operator =(const randar::Model& other)
+{
+    this->geo = other.geo;
+    this->program = other.program;
+
+    this->position(other.position());
+    this->rotation(other.rotation());
+
+    return *this;
+}
+
 // Destructor.
 randar::Model::~Model()
 {
