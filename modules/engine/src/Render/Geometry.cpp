@@ -102,8 +102,3 @@ void randar::Geometry::drawTo(randar::Framebuffer& fb, randar::ShaderProgram& pr
     ::glDrawElements(glPrimitive, this->indices.count(), GL_UNSIGNED_INT, nullptr);
     this->ctx->check("Failed to draw geometry to framebuffer");
 }
-
-void randar::Geometry::drawTo(randar::Framebuffer& fb)
-{
-    this->drawTo(fb, fb.context().defaultShaderProgram());
-}

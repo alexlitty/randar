@@ -27,7 +27,7 @@ function testGeoDraw(randar, geo, fb, win) {
     if (win) { win.present(); }
 
     fb.clear(bgColor);
-    geo.drawTo(fb);
+    fb.draw(geo);
     fb.read(image);
     for (let x = 0; x < fb.getWidth(); x++) {
         assertColor(image.getPixel(x, 0), fgColor);
@@ -173,5 +173,6 @@ describe('Geometry', function() {
 
         let win = ctx.window(256, 256);
         testGeoDraw(randar, geo, win.framebuffer(), win);
+        win.close();
     });
 });

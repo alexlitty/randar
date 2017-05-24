@@ -1,4 +1,5 @@
 #include <randar/Render/Framebuffer.hpp>
+#include <randar/Render/Geometry.hpp>
 #include <randar/Engine/Gpu.hpp>
 
 // Constructs an off-screen framebuffer.
@@ -259,4 +260,17 @@ void randar::Framebuffer::read(randar::Image& image)
         GL_FLOAT,
         image.raw()
     );
+}
+
+// Draws geometry to the framebuffer.
+void randar::Framebuffer::draw(
+    randar::Geometry& geometry,
+    randar::ShaderProgram& program)
+{
+    geometry.drawTo(*this, program);
+}
+
+void randar::Framebuffer::draw(randar::Geometry& geometry)
+{
+    this->draw(geometry, this->ctx->defaultShaderProgram());
 }

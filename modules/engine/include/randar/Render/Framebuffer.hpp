@@ -10,6 +10,8 @@
 
 namespace randar
 {
+    class Geometry;
+
     /**
      * An OpenGL framebuffer.
      *
@@ -161,6 +163,12 @@ namespace randar
          * Reads the contents of the framebuffer.
          */
         void read(Image& image);
+
+        /**
+         * Draws geometry to the framebuffer.
+         */
+        void draw(Geometry& geometry, ShaderProgram& program);
+        void draw(Geometry& geometry);
     };
 }
 

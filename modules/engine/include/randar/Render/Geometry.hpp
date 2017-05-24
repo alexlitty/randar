@@ -98,12 +98,8 @@ namespace randar
 
         /**
          * Draws the geometry to a framebuffer.
-         *
-         * If a shader program isn't specified, a default shader program will
-         * be used.
          */
         void drawTo(Framebuffer& fb, ShaderProgram& program);
-        void drawTo(Framebuffer& fb);
     };
 }
 
