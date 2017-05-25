@@ -26,6 +26,7 @@ cat << "EOF"
 
 
       run/help ........ Shows this sappy inspiration.
+      run/count ....... Count total lines of code.
       run/install ..... Installs the suite.
       run/uninstall ... Don't do this.
       run/build ....... Builds all modules.
