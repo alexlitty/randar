@@ -114,6 +114,23 @@ namespace randar
         void bindContext();
 
         /**
+         * Whether this resource has an assigned context.
+         */
+        bool hasContext() const;
+
+        /**
+         * Checks if this resource has an assigned context.
+         *
+         * Throws an exception if no context is assigned.
+         */
+        void ensureContext() const;
+
+        /**
+         * Whether this resource and another resource use the same context.
+         */
+        bool sameContext(GraphicsContextResource& resource) const;
+
+        /**
          * Initializes the resource, if applicable.
          *
          * By default nothing happens.

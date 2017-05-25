@@ -57,6 +57,27 @@ void randar::GraphicsContextResource::bindContext()
     this->ctx->use();
 }
 
+// Whether this resource has an assigned context.
+bool randar::GraphicsContextResource::hasContext() const
+{
+    return this->ctx != nullptr;
+}
+
+// Checks if this resource has an assigned context.
+void randar::GraphicsContextResource::ensureContext() const
+{
+    if (!this->hasContext()) {
+        throw std::runtime_error("No context assigned");
+    }
+}
+
+// Whether this resource and another resource use the same context.
+bool randar::GraphicsContextResource::sameContext(
+    randar::GraphicsContextResource& resource) const
+{
+    return resource.hasContext() && this->ctx == &resource.context();
+}
+
 // Initializes the resource, if applicable.
 void randar::GraphicsContextResource::initialize()
 {
