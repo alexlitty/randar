@@ -8,6 +8,10 @@ describe('Model', function() {
         win = ctx.window(400, 400);
         fb  = win.framebuffer();
 
+        fb.camera.projection();
+    });
+
+    beforeEach(function() {
         fb.camera.position(randar.vector(0, 0, 1));
         fb.camera.target(randar.vector(0, 0, 0));
     });
