@@ -1,0 +1,20 @@
+#!/bin/bash
+RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
+RANDAR_CODE_PATHS="\
+${RANDAR_PATH}/modules/adapter
+${RANDAR_PATH}/modules/engine/include/randar \
+${RANDAR_PATH}/modules/engine/src \
+${RANDAR_PATH}/modules/ui \
+${RANDAR_PATH}/modules/wrapper \
+${RANDAR_PATH}/run \
+${RANDAR_PATH}/test"
+
+find ${RANDAR_CODE_PATHS} -type f | grep -v \
+-e ".cxx$" \
+-e ".d$" \
+-e ".o$" \
+-e ".gypi$" \
+-e ".node$" \
+-e ".mk$" \
+-e "Makefile$" \
+| xargs cloc
