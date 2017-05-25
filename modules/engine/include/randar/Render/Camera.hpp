@@ -6,9 +6,17 @@
 
 namespace randar
 {
+    enum class CameraType
+    {
+        NONE,
+        ORTHO,
+        PROJECTION
+    };
+
     class Camera : public Transform
     {
-        bool isOrtho = false;
+        CameraType type = CameraType::NONE;
+
         float orthoLeft = 0;
         float orthoRight = 1;
         float orthoBottom = 0;

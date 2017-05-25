@@ -7,30 +7,39 @@ randar::Camera::Camera()
 
 void randar::Camera::updateMatrices() const
 {
-    if (this->isOrtho) {
-        this->proj = glm::ortho(
-            this->orthoLeft,
-            this->orthoRight,
-            this->orthoBottom,
-            this->orthoTop
-        );
+    switch (this->type) {
+        case CameraType::ORTHO:
+            this->proj = glm::ortho(
+                this->orthoLeft,
+                this->orthoRight,
+                this->orthoBottom,
+                this->orthoTop
+            );
 
-        this->view = glm::mat4();
-    } else {
-        this->proj = glm::perspective(
-            this->fov.toRadians(),
-            this->aspectRatio,
-            this->nearZ,
-            this->farZ
-        );
+            this->view = glm::mat4();
+            break;
 
-        this->view = glm::lookAt(
-            glm::vec3(this->position().x, this->position().y, this->position().z),
-            glm::vec3(this->targ.x, this->targ.y, this->targ.z),
+        case CameraType::PROJECTION:
+            this->proj = glm::perspective(
+                this->fov.toRadians(),
+                this->aspectRatio,
+                this->nearZ,
+                this->farZ
+            );
 
-            // @todo - make this based on rotation
-            glm::vec3(0, 1, 0)
-        );
+            this->view = glm::lookAt(
+                glm::vec3(this->position().x, this->position().y, this->position().z),
+                glm::vec3(this->targ.x, this->targ.y, this->targ.z),
+
+                // @todo - make this based on rotation
+                glm::vec3(0, 1, 0)
+            );
+            break;
+
+        default:
+            this->proj = glm::mat4();
+            this->view = glm::mat4();
+            break;
     }
 }
 
@@ -46,7 +55,8 @@ void randar::Camera::ortho()
 
 void randar::Camera::ortho(float left, float right, float bottom, float top)
 {
-    this->isOrtho = true;
+    this->type = CameraType::ORTHO;
+
     this->orthoLeft = left;
     this->orthoRight = right;
     this->orthoBottom = bottom;
@@ -55,7 +65,7 @@ void randar::Camera::ortho(float left, float right, float bottom, float top)
 
 void randar::Camera::projection()
 {
-    this->isOrtho = false;
+    this->type = CameraType::PROJECTION;
 }
 
 void randar::Camera::target(randar::Vector3 newTarget)
