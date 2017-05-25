@@ -5,7 +5,7 @@
 #define IQM_MAGIC "INTERQUAKEMODEL"
 #define IQM_VERSION 2
 
-#include <GL/glew.h>
+#include <randar/Utility/Gl.hpp>
 
 enum
 {

@@ -2,8 +2,7 @@
 #define RANDAR_SYSTEM_FB_CONFIG_HPP
 
 #include <vector>
-#include <GL/glew.h>
-#include <GL/glx.h>
+#include <randar/Utility/Gl.hpp>
 
 namespace randar
 {

@@ -5,9 +5,8 @@
 #include <set>
 #include <stdexcept>
 #include <vector>
-#include <GL/glew.h>
-#include <GL/glx.h>
 #include <randar/Render/ShaderType.hpp>
+#include <randar/Utility/Gl.hpp>
 
 namespace randar
 {
