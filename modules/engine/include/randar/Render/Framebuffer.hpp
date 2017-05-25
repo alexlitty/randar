@@ -7,6 +7,7 @@
 #include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/System/Window.hpp>
+#include <randar/Utility/Timer.hpp>
 
 namespace randar
 {
@@ -67,6 +68,20 @@ namespace randar
          */
         Camera camera;
 
+        /**
+         * Desired frames per second to throttle drawing at.
+         *
+         * 0 indicates no throttling desired.
+         */
+        uint16_t fps;
+
+    protected:
+        /**
+         * Tracks the last time the framebuffer was presented.
+         */
+        Timer throttleTimer;
+
+    public:
         /**
          * Disabling copying.
          */
@@ -165,6 +180,7 @@ namespace randar
          */
         void read(Image& image);
 
+    public:
         /**
          * Draws to the framebuffer.
          */
@@ -172,6 +188,11 @@ namespace randar
         void draw(Geometry& geometry, Transform& transform, ShaderProgram& program);
         void draw(Geometry& geometry, ShaderProgram& program);
         void draw(Geometry& geometry);
+
+        /**
+         * Waits until enough time has elapsed to meet the desired fps.
+         */
+        void throttle();
     };
 }
 

@@ -8,7 +8,8 @@ randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
   isDefaultFramebuffer(false),
   texture(nullptr),
   depthBuffer(nullptr),
-  window(nullptr)
+  window(nullptr),
+  fps(0)
 {
     this->reset();
 }
@@ -20,7 +21,8 @@ randar::Framebuffer::Framebuffer(randar::Window& initWindow)
   isDefaultFramebuffer(true),
   texture(nullptr),
   depthBuffer(nullptr),
-  window(&initWindow)
+  window(&initWindow),
+  fps(0)
 {
 
 }
@@ -325,4 +327,13 @@ void randar::Framebuffer::draw(
 void randar::Framebuffer::draw(randar::Geometry& geometry)
 {
     this->draw(geometry, this->ctx->defaultShaderProgram());
+}
+
+// Waits until enough time has elapsed to meet the desired fps.
+void randar::Framebuffer::throttle()
+{
+    if (this->fps) {
+        this->throttleTimer.wait((1.0f / static_cast<float>(this->fps)) * 1000 * 1000);
+    }
+    this->throttleTimer.reset();
 }
