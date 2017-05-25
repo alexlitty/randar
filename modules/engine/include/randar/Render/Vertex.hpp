@@ -3,11 +3,11 @@
 
 #include <cstdint>
 #include <map>
-#include <GL/glew.h>
 #include <randar/Math/Vector3.hpp>
 #include <randar/Render/Color.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/Joint.hpp>
+#include <randar/Utility/Gl.hpp>
 
 namespace randar
 {

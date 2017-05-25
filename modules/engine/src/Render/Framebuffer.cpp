@@ -284,7 +284,35 @@ void randar::Framebuffer::draw(
     randar::Transform& transform,
     randar::ShaderProgram& program)
 {
-    geometry.drawTo(*this, transform, program);
+    this->ensureContext();
+
+    // Force the geometry onto the current context.
+    if (!this->sameContext(geometry)) {
+        geometry.initialize(this->context());
+    }
+
+    // Ensure any new geometry data is synced.
+    geometry.sync();
+
+    // Fill basic shader program uniforms.
+    glm::mat4 mvp = this->camera.projectionMatrix()
+                  * this->camera.viewMatrix()
+                  * transform.transformMatrix();
+    program.setUniform("mvp", mvp);
+
+    // Bind required resources for drawing.
+    program.use();
+    geometry.vertices.bind();
+    geometry.indices.bind();
+    this->bind();
+
+    // Draw the geometry.
+    ::glDrawElements(
+        openglPrimitive(geometry.primitive),
+        geometry.indices.count(),
+        GL_UNSIGNED_INT,
+        nullptr);
+    this->ctx->check("Failed to draw geometry");
 }
 
 void randar::Framebuffer::draw(

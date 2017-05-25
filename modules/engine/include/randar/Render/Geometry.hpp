@@ -94,11 +94,6 @@ namespace randar
          * This is the preferred way to append a vertex to geometry.
          */
         void append(const Vertex& vertex);
-
-        /**
-         * Draws the geometry to a framebuffer.
-         */
-        void drawTo(Framebuffer& fb, Transform& transform, ShaderProgram& program);
     };
 }
 
