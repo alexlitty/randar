@@ -127,10 +127,6 @@ void randar::ShaderProgram::attach(randar::Shader& shader)
 // Checks if a uniform is used by the program.
 bool randar::ShaderProgram::hasUniform(const std::string& name)
 {
-    if (!this->isInitialized()) {
-        throw std::runtime_error("Shader program is not initialized");
-    }
-
     if (!this->uniformLocations.count(name)) {
         this->use();
         int location = ::glGetUniformLocation(this->glName, name.c_str());
@@ -145,10 +141,6 @@ bool randar::ShaderProgram::hasUniform(const std::string& name)
 // Sets a uniform to a 4x4 matrix.
 void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4& matrix)
 {
-    if (!this->isInitialized()) {
-        throw std::runtime_error("Shader program is not initialized");
-    }
-
     if (this->hasUniform(name)) {
         this->use();
 
@@ -164,10 +156,6 @@ void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4&
 // Sets a uniform to an integer.
 void randar::ShaderProgram::setUniform(const std::string& name, int integer)
 {
-    if (!this->isInitialized()) {
-        throw std::runtime_error("Shader program is not initialized");
-    }
-
     if (this->hasUniform(name)) {
         this->use();
 
