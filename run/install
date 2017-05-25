@@ -3,6 +3,7 @@ RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 CMD_SYSTEM_INSTALL="sudo apt-get install"
 CMD_NPM_INSTALL="npm install --loglevel http"
 
+OPTIONAL_DEP="cloc"
 NODE_DEP="nodejs-dev"
 NPM_DEP="npm"
 ENGINE_DEP="g++ libglew-dev libglm-dev libbullet-dev libpng-dev"
@@ -17,6 +18,10 @@ function isCommand {
     command -v ${1} > /dev/null 2>&1 || return 1
     return 0
 }
+
+# Optional dependencies.
+${CMD_SYSTEM_INSTALL} ${OPTIONAL_DEP} || echo \
+"Optional dependencies will not be installed."
 
 # Creates a symlink if the node command is not available but nodejs is. Returns
 # 0 if the node command was already available or is now available, 1 otherwise.
@@ -78,6 +83,7 @@ ${RANDAR_PATH}/run/build || exit
 
 # :)
 clear
+echo
 echo "         Installed and built successfully."
 echo
 ${RANDAR_PATH}/run/help
