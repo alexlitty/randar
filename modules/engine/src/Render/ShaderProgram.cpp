@@ -139,7 +139,7 @@ bool randar::ShaderProgram::hasUniform(const std::string& name)
 }
 
 // Sets a uniform to a 4x4 matrix.
-void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4& matrix)
+void randar::ShaderProgram::uniform(const std::string& name, const glm::mat4& matrix)
 {
     if (this->hasUniform(name)) {
         this->use();
@@ -154,7 +154,7 @@ void randar::ShaderProgram::setUniform(const std::string& name, const glm::mat4&
 }
 
 // Sets a uniform to an integer.
-void randar::ShaderProgram::setUniform(const std::string& name, int integer)
+void randar::ShaderProgram::uniform(const std::string& name, int integer)
 {
     if (this->hasUniform(name)) {
         this->use();

@@ -298,7 +298,7 @@ void randar::Framebuffer::draw(
     glm::mat4 mvp = this->camera.projectionMatrix()
                   * this->camera.viewMatrix()
                   * transform.transformMatrix();
-    program.setUniform("mvp", mvp);
+    program.uniform("mvp", mvp);
 
     // Bind required resources for drawing.
     program.use();
