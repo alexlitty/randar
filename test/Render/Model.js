@@ -9,6 +9,7 @@ describe('Model', function() {
         fb  = win.framebuffer();
 
         fb.camera.projection();
+        fb.fps = 24;
     });
 
     beforeEach(function() {
