@@ -2,6 +2,8 @@
 #define RANDAR_RENDER_IMAGE_HPP
 
 #include <vector>
+#include <png++/png.hpp>
+#include <randar/Filesystem/Directory.hpp>
 #include <randar/Math/Dimensional2.hpp>
 #include <randar/Render/Color.hpp>
 
@@ -159,6 +161,14 @@ namespace randar
          * Calculates the expected byte size of the raw image data.
          */
         uint32_t rawSize() const;
+
+        /**
+         * Saves the image to a file.
+         *
+         * Default filetype is png for now.
+         */
+        void save(randar::File file);
+        void save(const std::string& filename);
     };
 
     /**

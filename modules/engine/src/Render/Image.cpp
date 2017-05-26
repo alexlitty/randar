@@ -185,6 +185,34 @@ uint32_t randar::Image::rawSize() const
     return this->rawCount() * sizeof(float);
 }
 
+// Saves the image to a file.
+void randar::Image::save(randar::File file)
+{
+    png::image<png::rgba_pixel> result(this->getWidth(), this->getHeight());
+
+    randar::Color color;
+    for (uint32_t x = 0; x < this->getWidth(); x++) {
+        for (uint32_t y = 0; y < this->getHeight(); y++) {
+            color = this->getPixel(x, y);
+
+            result[x][y] = png::rgba_pixel(
+                color.rInt(),
+                color.gInt(),
+                color.bInt(),
+                color.aInt()
+            );
+        }
+    }
+
+    file.directory().create();
+    result.write(file.toString());
+}
+
+void randar::Image::save(const std::string& filename)
+{
+    return this->save(randar::File(filename));
+}
+
 // Node.js helpers for intuitive image creation.
 randar::Image randar::image()
 {
