@@ -38,7 +38,6 @@ namespace randar
          * Converts to a platform-appropriate string.
          */
         virtual std::string toString() const;
-        operator std::string() const;
 
         /**
          * Assignment operator, to a string path.

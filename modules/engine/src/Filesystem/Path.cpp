@@ -44,11 +44,6 @@ std::string randar::Path::toString() const
     return randar::join(this->parts, '/');
 }
 
-randar::Path::operator std::string() const
-{
-    return this->toString();
-}
-
 // Assignment operator, to a UNIX-style string path.
 randar::Path& randar::Path::operator =(const std::string& path)
 {
