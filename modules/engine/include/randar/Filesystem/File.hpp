@@ -29,6 +29,11 @@ namespace randar
          * extension.
          */
         std::string basename() const;
+
+        /**
+         * Retrieves the directory containing this file.
+         */
+        Directory directory() const;
     };
 }
 

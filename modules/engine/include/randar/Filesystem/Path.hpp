@@ -7,6 +7,7 @@ namespace randar
 {
     class Path
     {
+    protected:
         std::vector<std::string> parts;
 
     public:

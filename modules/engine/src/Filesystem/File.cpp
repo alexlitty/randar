@@ -1,4 +1,5 @@
 #include <regex>
+#include <randar/Filesystem/Directory.hpp>
 #include <randar/Filesystem/File.hpp>
 #include <randar/Utility/String.hpp>
 
@@ -26,4 +27,20 @@ std::string randar::File::basename() const
     }
 
     return matches[1];
+}
+
+// Retrieves the directory containing this file.
+randar::Directory randar::File::directory() const
+{
+    if (this->parts.size() == 0) {
+        return randar::Directory("..");
+    }
+
+    if (this->parts.size() == 1) {
+        return randar::Directory(".");
+    }
+
+    randar::File tmp(*this);
+    tmp.parts.pop_back();
+    return randar::Directory(tmp.toString());
 }
