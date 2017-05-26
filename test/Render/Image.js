@@ -256,4 +256,18 @@ describe('Image', function() {
             assert.throws(() => image.resize(-Infinity, 19));
         });
     });
+
+    describe('i/o', function() {
+        it('saves to file', function() {
+            let image = randar.image(64, 64);
+
+            for (let x = 0; x < image.getWidth(); x++) {
+                for (let y = 0; y < image.getHeight(); y++) {
+                    image.setPixel(x, y, 0.5, 0.4, 0.3);
+                }
+            }
+
+            image.save(randar.tmp.file("test.png"));
+        });
+    });
 });
