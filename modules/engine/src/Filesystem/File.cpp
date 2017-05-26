@@ -3,7 +3,7 @@
 #include <randar/Utility/String.hpp>
 
 // Retrieves the file extension.
-std::string randar::File::getExtension() const
+std::string randar::File::extension() const
 {
     std::smatch matches;
 
@@ -16,7 +16,7 @@ std::string randar::File::getExtension() const
 }
 
 // Retrieves the file base name.
-std::string randar::File::getBaseName() const
+std::string randar::File::basename() const
 {
     std::smatch matches;
 

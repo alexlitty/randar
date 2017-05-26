@@ -5,6 +5,8 @@
 
 namespace randar
 {
+    class Directory;
+
     class File : public Path
     {
     public:
@@ -18,7 +20,7 @@ namespace randar
          *
          * Always returned in lowercase.
          */
-        std::string getExtension() const;
+        std::string extension() const;
 
         /**
          * Retrieves the file base name.
@@ -26,7 +28,7 @@ namespace randar
          * The base name is the path of the file without directory and
          * extension.
          */
-        std::string getBaseName() const;
+        std::string basename() const;
     };
 }
 
