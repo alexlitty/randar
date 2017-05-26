@@ -6,7 +6,7 @@ CMD_NPM_INSTALL="npm install --loglevel http"
 OPTIONAL_DEP="cloc"
 NODE_DEP="nodejs-dev"
 NPM_DEP="npm"
-ENGINE_DEP="g++ libglew-dev libglm-dev libbullet-dev libpng-dev"
+ENGINE_DEP="g++ libglew-dev libglm-dev libbullet-dev libpng++-dev"
 SWIG_DEP="pkg-config autoconf automake libtool libpcre++-dev bison"
 
 function js {
