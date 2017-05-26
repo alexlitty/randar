@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <bullet3/btBulletDynamicsCommon.h>
-#include <randar/Math.hpp>
+#include <randar/Math/Vector3.hpp>
 #include <randar/Physics/Physical.hpp>
 
 namespace randar

@@ -1,7 +1,7 @@
 #ifndef RANDAR_RENDER_CAMERA_HPP
 #define RANDAR_RENDER_CAMERA_HPP
 
-#include <randar/Math.hpp>
+#include <randar/Math/Transform.hpp>
 #include <randar/Render/Viewport.hpp>
 
 namespace randar
