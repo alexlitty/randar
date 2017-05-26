@@ -4,6 +4,7 @@ before(function() {
      * exclusively run with Mocha's .only.
      */
     global.assert  = require('assert');
+    global.fs      = require('fs');
     global.os      = require('os');
     global.path    = require('path');
 
