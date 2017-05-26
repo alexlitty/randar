@@ -11,9 +11,16 @@ namespace randar
     {
     public:
         /**
-         * Inherit constructors.
+         * Constructors.
          */
-        using Path::Path;
+        File();
+        File(const std::string& path);
+
+        /**
+         * Assignment.
+         */
+        File(const randar::Path& path);
+        File(const randar::File& other);
 
         /**
          * Retrieves the file extension.

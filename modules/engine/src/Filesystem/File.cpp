@@ -3,6 +3,32 @@
 #include <randar/Filesystem/File.hpp>
 #include <randar/Utility/String.hpp>
 
+// Constructors.
+randar::File::File()
+: randar::Path()
+{
+
+}
+
+randar::File::File(const std::string& path)
+: randar::Path(path)
+{
+
+}
+
+// Assignment.
+randar::File::File(const randar::Path& path)
+: randar::Path(path)
+{
+
+}
+
+randar::File::File(const randar::File& other)
+: randar::Path(other)
+{
+
+}
+
 // Retrieves the file extension.
 std::string randar::File::extension() const
 {
@@ -32,15 +58,5 @@ std::string randar::File::basename() const
 // Retrieves the directory containing this file.
 randar::Directory randar::File::directory() const
 {
-    if (this->parts.size() == 0) {
-        return randar::Directory("..");
-    }
-
-    if (this->parts.size() == 1) {
-        return randar::Directory(".");
-    }
-
-    randar::File tmp(*this);
-    tmp.parts.pop_back();
-    return randar::Directory(tmp.toString());
+    return randar::Directory(this->parent());
 }

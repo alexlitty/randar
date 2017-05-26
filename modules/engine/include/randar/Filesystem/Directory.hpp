@@ -9,21 +9,16 @@ namespace randar
     {
     public:
         /**
-         * Inherit constructors and operators.
-         */
-        using Path::Path;
-        using Path::operator =;
-
-        /**
-         * A static directory of temporary files.
-         */
-        static Directory Temp;
-
-        /**
          * Constructors.
          */
         Directory();
         Directory(const std::string& path);
+
+        /**
+         * Assignment.
+         */
+        Directory(const randar::Path& path);
+        Directory(const randar::Directory& other);
 
         /**
          * Creates the directory on the filesystem.
@@ -38,25 +33,32 @@ namespace randar
         /**
          * Retrieves a subdirectory instance.
          */
-        Directory getSubdirectory(const std::string& subdirectory) const;
+        Directory subdirectory(const std::string& subdirectory) const;
 
         /**
          * Retrieves a file in this directory.
          */
-        File getFile(const std::string& filename) const;
-        File getFile(
+        File file(const std::string& filename) const;
+        File file(
             const std::string& basename,
             const std::string& extension) const;
 
         /**
          * Retrieves a list of files in this directory.
          */
-        std::vector<File> getFiles() const;
+        std::vector<File> files() const;
 
         /**
-         * Converts to a platform-appropriate string.
+         * Current working directory.
+         *
+         * Throws an exception if it cannot be found.
          */
-        virtual std::string toString() const override;
+        static Directory current();
+
+        /**
+         * Default temporary directory.
+         */
+        static Directory Temp;
     };
 }
 

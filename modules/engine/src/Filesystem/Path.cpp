@@ -1,16 +1,4 @@
-#include <algorithm>
 #include <randar/Filesystem/Path.hpp>
-
-#if defined __linux__
-
-#include <limits.h>
-#include <unistd.h>
-
-#elif defined _WIN32
-
-#include <Windows.h>
-
-#endif
 
 // Default constructor.
 randar::Path::Path()
@@ -32,53 +20,61 @@ randar::Path::Path(const randar::Path& other)
 
 }
 
+randar::Path& randar::Path::operator =(const randar::Path& other)
+{
+    this->parts = other.parts;
+    return *this;
+}
+
 // Destructor.
 randar::Path::~Path()
 {
 
 }
 
+// Retrieves the path for the parent node.
+randar::Path randar::Path::parent() const
+{
+    randar::Path path(*this);
+    if (path.parts.size() == 0) {
+        return path;
+    }
+
+    path.parts.pop_back();
+    return path;
+}
+
+// Retrieves the path for a child node.
+randar::Path randar::Path::child(const std::string& name) const
+{
+    randar::Path path(*this);
+    path.parts.push_back(name);
+    return path;
+}
+
 // Converts to a platform-appropriate string.
 std::string randar::Path::toString() const
 {
+    if (this->parts.size() == 0) {
+        return ".";
+    }
+
     return randar::join(this->parts, '/');
 }
 
-// Assignment operator, to a UNIX-style string path.
-randar::Path& randar::Path::operator =(const std::string& path)
-{
-    if (path == "") {
-        this->parts.clear();
-        this->parts.push_back(".");
-    }
-
-    else {
-        randar::split(path, "/\\", this->parts);
-    }
-
-    return *this;
-}
-
+// Maximum path size specified by the platform.
 #if defined (__linux__)
-std::string randar::Path::getCwd()
-{
-    char result[PATH_MAX];
-    ssize_t count = ::readlink("/proc/self/exe", result, PATH_MAX);
-    std::string programPath = std::string(result, (count > 0) ? count : 0);
 
-    auto pos = programPath.find_last_of("/");
-    return programPath.substr(0, pos + 1);
-}
+    // PATH_MAX may be ridiculously large on Linux. We need to keep it within a
+    // reasonable size since this value is used to construct char arrays.
+    uint16_t randar::Path::max = std::min<uint16_t>(
+        PATH_MAX, 4096
+    );
+
 #elif defined (_WIN32)
-std::string randar::Path::getCwd()
-{
-    char buffer[MAX_PATH];
-    ::GetModuleFileName(NULL, buffer, MAX_PATH);
-    std::string path(buffer);
-    auto pos = path.find_last_of("\\/");
-    
-    return path.substr(0, pos + 1);
-}
+
+    uint16_t randar::Path::max = static_cast<uint16_t>(MAX_PATH);
+
 #else
-#error "Unimplemented randar::Path::getCwd()"
+#error "Unimplemented randar::Path::max"
 #endif

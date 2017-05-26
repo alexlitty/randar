@@ -2,9 +2,6 @@
 #include <randar/Filesystem/Directory.hpp>
 #include <randar/System/Execute.hpp>
 
-// A static directory of temporary files.
-randar::Directory randar::Directory::Temp("/tmp/randar");
-
 // Constructors.
 randar::Directory::Directory()
 : randar::Path()
@@ -14,6 +11,19 @@ randar::Directory::Directory()
 
 randar::Directory::Directory(const std::string& path)
 : randar::Path(path)
+{
+
+}
+
+// Assignment.
+randar::Directory::Directory(const randar::Path& path)
+: randar::Path(path)
+{
+
+}
+
+randar::Directory::Directory(const randar::Directory& other)
+: randar::Path(other)
 {
 
 }
@@ -29,26 +39,26 @@ void randar::Directory::create()
 }
 
 // Retrieves a subdirectory instance.
-randar::Directory randar::Directory::getSubdirectory(const std::string& subdirectory) const
+randar::Directory randar::Directory::subdirectory(const std::string& subdirectory) const
 {
-    return Directory(this->toString() + subdirectory);
+    return this->child(subdirectory);
 }
 
 // Retrieves a file in this directory.
-randar::File randar::Directory::getFile(const std::string& filename) const
+randar::File randar::Directory::file(const std::string& filename) const
 {
-    return File(this->toString() + filename);
+    return this->child(filename);
 }
 
-randar::File randar::Directory::getFile(
+randar::File randar::Directory::file(
     const std::string& basename,
     const std::string& extension) const
 {
-    return this->getFile(basename + "." + extension);
+    return this->file(basename + "." + extension);
 }
 
 // Retrieves a list of files in this directory.
-std::vector<randar::File> randar::Directory::getFiles() const
+std::vector<randar::File> randar::Directory::files() const
 {
     std::vector<randar::File> results;
 
@@ -60,9 +70,7 @@ std::vector<randar::File> randar::Directory::getFiles() const
         ::tinydir_readfile(&handle, &file);
 
         if (!file.is_dir) {
-            results.push_back(
-                randar::File(this->toString() + std::string(file.name))
-            );
+            results.push_back(this->file(file.name));
         }
 
         ::tinydir_next(&handle);
@@ -72,8 +80,30 @@ std::vector<randar::File> randar::Directory::getFiles() const
     return results;
 }
 
-// Converts to a platform-appropriate string.
-std::string randar::Directory::toString() const
+// Current working directory.
+randar::Directory randar::Directory::current()
 {
-    return randar::Path::toString() + "/";
+    char buffer[randar::Path::max];
+
+#if defined (__linux__)
+
+    ssize_t count = ::readlink("/proc/self/exe", buffer, randar::Path::max);
+    if (count < 0) {
+        throw std::runtime_error("Failed to get current directory");
+    }
+    std::string path(buffer, count);
+
+#elif defined (_WIN32)
+
+    ::GetModuleFileName(NULL, buffer, randar::Path::max);
+    std::string path(buffer);
+
+#else
+#error "Unimplemented randar::Directory::current"
+#endif
+
+    return randar::Directory(path);
 }
+
+// Default temporary directory.
+randar::Directory randar::Directory::Temp("/tmp/randar");
