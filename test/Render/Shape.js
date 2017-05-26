@@ -1,4 +1,6 @@
 describe('Shape', function() {
+    this.timeout(4000);
+
     let ctx;
     let win;
     let fb;
