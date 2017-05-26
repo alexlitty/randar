@@ -1,9 +1,32 @@
 #include <tinydir.h>
 #include <randar/Filesystem/Directory.hpp>
+#include <randar/System/Execute.hpp>
 
 // A static directory of temporary files.
-// @todo - Make this portable.
-randar::Directory randar::Directory::Temp("/tmp");
+randar::Directory randar::Directory::Temp("/tmp/randar");
+
+// Constructors.
+randar::Directory::Directory()
+: randar::Path()
+{
+
+}
+
+randar::Directory::Directory(const std::string& path)
+: randar::Path(path)
+{
+
+}
+
+// Creates the directory on the filesystem.
+void randar::Directory::create()
+{
+    if (randar::execute("mkdir -p " + this->toString()) != 0) {
+        throw std::runtime_error(
+            "Failed to create directory: " + this->toString()
+        );
+    }
+}
 
 // Retrieves a subdirectory instance.
 randar::Directory randar::Directory::getSubdirectory(const std::string& subdirectory) const

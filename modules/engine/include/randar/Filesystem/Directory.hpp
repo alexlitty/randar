@@ -20,6 +20,22 @@ namespace randar
         static Directory Temp;
 
         /**
+         * Constructors.
+         */
+        Directory();
+        Directory(const std::string& path);
+
+        /**
+         * Creates the directory on the filesystem.
+         *
+         * Parent directories are also created if they do not exist.
+         *
+         * Nothing happens if the directory already exists. Throws an exception
+         * if the directory could not be created.
+         */
+        void create();
+
+        /**
          * Retrieves a subdirectory instance.
          */
         Directory getSubdirectory(const std::string& subdirectory) const;
