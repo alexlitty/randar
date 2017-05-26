@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include <set>
-#include <randar/Filesystem/Directory.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/Scene/Scene.hpp>
 #include <randar/Utility/Map.hpp>
