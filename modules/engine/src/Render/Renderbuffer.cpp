@@ -1,5 +1,4 @@
 #include <randar/Render/Renderbuffer.hpp>
-#include <randar/Engine/Gpu.hpp>
 
 // Constructor.
 randar::Renderbuffer::Renderbuffer(

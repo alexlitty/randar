@@ -1,6 +1,5 @@
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Model.hpp>
-#include <randar/Engine/Gpu.hpp>
 
 // Constructs an off-screen framebuffer.
 randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)

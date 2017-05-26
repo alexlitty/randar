@@ -3,7 +3,6 @@
 
 #include <limits>
 #include <stdexcept>
-#include <randar/Engine/Stringable.hpp>
 #include <randar/Math/Vector2.hpp>
 
 namespace randar
@@ -12,7 +11,7 @@ namespace randar
      * Base class for two-dimensional objects.
      */
     template <typename T>
-    class Dimensional2 : virtual public Stringable
+    class Dimensional2
     {
     protected:
         T width;
@@ -133,7 +132,7 @@ namespace randar
         /**
          * Describes the dimensions of this object as a string.
          */
-        virtual std::string toString() const
+        std::string toString() const
         {
             return std::to_string(this->width) + "x" + std::to_string(this->height);
         }
