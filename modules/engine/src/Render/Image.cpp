@@ -186,7 +186,7 @@ uint32_t randar::Image::rawSize() const
 }
 
 // Saves the image to a file.
-void randar::Image::save(randar::File file)
+void randar::Image::save(const std::string& filename)
 {
     png::image<png::rgba_pixel> result(this->getWidth(), this->getHeight());
 
@@ -204,13 +204,7 @@ void randar::Image::save(randar::File file)
         }
     }
 
-    file.directory().create();
-    result.write(file.toString());
-}
-
-void randar::Image::save(const std::string& filename)
-{
-    return this->save(randar::File(filename));
+    result.write(filename);
 }
 
 // Node.js helpers for intuitive image creation.

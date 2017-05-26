@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <png++/png.hpp>
-#include <randar/Filesystem/Directory.hpp>
 #include <randar/Math/Dimensional2.hpp>
 #include <randar/Render/Color.hpp>
 
@@ -167,7 +166,6 @@ namespace randar
          *
          * Default filetype is png for now.
          */
-        void save(randar::File file);
         void save(const std::string& filename);
     };
 
