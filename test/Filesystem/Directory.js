@@ -1,4 +1,4 @@
-describe.only('Directory', function() {
+describe('Directory', function() {
     it('temporary directory is provided', function() {
         let tmp = randar.Directory.Temp.toString();
         assert(tmp.length);
