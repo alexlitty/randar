@@ -83,7 +83,7 @@ describe('Framebuffer', function() {
             win.close();
         });
 
-        it('clears with black by default', function() {
+        it('clears with purple by default', function() {
             let win = ctx.window(200, 200);
             let fb  = win.framebuffer();
 
@@ -91,7 +91,7 @@ describe('Framebuffer', function() {
             win.present();
 
             fb.clear();
-            assertCleared(fb, new randar.Color(0, 0, 0, 1));
+            assertCleared(fb, new randar.Color(0.29, 0.00, 0.29, 1));
 
             win.close();
         });

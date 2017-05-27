@@ -6,7 +6,7 @@ function assertColor(color, other) {
 }
 
 function testGeoDraw(randar, geo, fb, win) {
-    let image = randar.image();
+    let image;
     let pixel;
 
     let bgColor = randar.color(0.2, 0, 0.2);
@@ -18,7 +18,7 @@ function testGeoDraw(randar, geo, fb, win) {
     geo.append(randar.vertex(randar.position(1, -1, 0), fgColor));
 
     fb.clear(bgColor);
-    fb.read(image);
+    image = fb.image();
     for (let x = 0; x < fb.getWidth(); x++) {
         for (let y = 0; y < fb.getHeight(); y++) {
             assertColor(image.getPixel(x, y), bgColor);
@@ -28,7 +28,7 @@ function testGeoDraw(randar, geo, fb, win) {
 
     fb.clear(bgColor);
     fb.draw(geo);
-    fb.read(image);
+    image = fb.image();
     for (let x = 0; x < fb.getWidth(); x++) {
         assertColor(image.getPixel(x, 0), fgColor);
 
