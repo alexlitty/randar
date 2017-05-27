@@ -83,9 +83,9 @@ namespace randar
         virtual void resize(uint32_t newWidth, uint32_t newHeight) override;
 
         /**
-         * Reads the contents of the texture.
+         * Retrieves an image of the texture.
          */
-        void read(Image& image);
+        Image image();
     };
 }
 

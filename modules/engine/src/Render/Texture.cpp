@@ -131,12 +131,13 @@ void randar::Texture::resize(uint32_t newWidth, uint32_t newHeight)
 }
 
 // Reads the contents of the texture.
-void randar::Texture::read(randar::Image& image)
+randar::Image randar::Texture::image()
 {
+    Image result;
     this->bind();
 
-    image.resize(this->getWidth(), this->getHeight());
-    image.layout(Image::LAYOUT::FLIP_VERTICAL);
+    result.resize(this->getWidth(), this->getHeight());
+    result.layout(Image::LAYOUT::FLIP_VERTICAL);
 
     if (this->type == "rgba") {
         ::glGetTexImage(
@@ -144,7 +145,7 @@ void randar::Texture::read(randar::Image& image)
             0,
             GL_RGBA,
             GL_FLOAT,
-            image.raw()
+            result.raw()
         );
     }
 
@@ -153,4 +154,5 @@ void randar::Texture::read(randar::Image& image)
     }
 
     this->ctx->check("Cannot read texture");
+    return result;
 }
