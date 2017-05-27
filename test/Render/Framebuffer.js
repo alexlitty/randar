@@ -6,10 +6,8 @@ function assertColor(color, expectedColor, msg) {
 }
 
 function assertCleared(readable, expectedColor) {
-    let image = new randar.Image();
-    readable.read(image);
+    let image = readable.image();
 
-    image.layout(randar.Image.LAYOUT_NORMAL);
     assert(image.hasDimensions());
     assert.equal(image.getWidth(), readable.getWidth());
     assert.equal(image.getHeight(), readable.getHeight());
