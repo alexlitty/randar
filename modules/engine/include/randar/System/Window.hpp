@@ -30,6 +30,7 @@ namespace randar
         using Canvas::clear;
         using Canvas::draw;
         using Canvas::image;
+        using Canvas::fps;
     
     protected:
         /**

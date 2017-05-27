@@ -19,19 +19,18 @@ namespace randar
          */
         Timer throttleTimer;
 
-    public:
         /**
          * Desired frames per second to throttle at.
          *
          * Zero indicates no throttling desired.
          */
-        uint16_t fps;
+        uint16_t canvasFps;
 
         /**
          * Camera used while drawing to the canvas.
          */
-        Camera camera;
-
+        Camera canvasCamera;
+    public:
         /**
          * Constructor.
          */
@@ -41,6 +40,17 @@ namespace randar
          * Destructor.
          */
         virtual ~Canvas();
+
+        /**
+         * Sets and retrieves the desired fps.
+         */
+        void fps(uint16_t newFps);
+        uint16_t fps() const;
+
+        /**
+         * Retrieves a reference to the canvas camera.
+         */
+        Camera& camera();
 
         /**
          * Retrieves the underlying framebuffer used for drawing.

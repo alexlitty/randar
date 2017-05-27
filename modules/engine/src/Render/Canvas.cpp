@@ -3,7 +3,7 @@
 
 // Constructor.
 randar::Canvas::Canvas(uint16_t initFps)
-: fps(initFps)
+: canvasFps(initFps)
 {
 
 }
@@ -12,6 +12,23 @@ randar::Canvas::Canvas(uint16_t initFps)
 randar::Canvas::~Canvas()
 {
 
+}
+
+// Sets and retrieves the desired fps.
+void randar::Canvas::fps(uint16_t newFps)
+{
+    this->canvasFps = newFps;
+}
+
+uint16_t randar::Canvas::fps() const
+{
+    return this->canvasFps;
+}
+
+// Retrieves a reference to the canvas camera.
+randar::Camera& randar::Canvas::camera()
+{
+    return this->canvasCamera;
 }
 
 // Clears the canvas with a color.
@@ -52,8 +69,8 @@ void randar::Canvas::draw(
     geometry.sync();
 
     // Fill basic shader program uniforms.
-    glm::mat4 mvp = this->camera.projectionMatrix()
-                  * this->camera.viewMatrix()
+    glm::mat4 mvp = this->camera().projectionMatrix()
+                  * this->camera().viewMatrix()
                   * transform.transformMatrix();
     program.uniform("mvp", mvp);
 
@@ -118,9 +135,9 @@ randar::Image randar::Canvas::image()
 void randar::Canvas::present()
 {
     // Throttle execution to meet desired fps.
-    if (this->fps) {
+    if (this->canvasFps) {
         this->throttleTimer.wait(
-            (1.0f / static_cast<float>(this->fps)) * 1000 * 1000
+            (1.0f / static_cast<float>(this->canvasFps)) * 1000 * 1000
         );
     }
     this->throttleTimer.reset();

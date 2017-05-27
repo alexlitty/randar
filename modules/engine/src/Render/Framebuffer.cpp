@@ -48,7 +48,7 @@ void randar::Framebuffer::bind()
         if (this->isDefaultFramebuffer) {
             ::glViewport(0, 0, this->getWidth(), this->getHeight());
         } else {
-            const Viewport &viewport = this->camera.viewport;
+            const Viewport &viewport = this->camera().viewport;
             ::glViewport(viewport.x1, viewport.y1, viewport.x2, viewport.y2);
         }
         this->ctx->check("Cannot update framebuffer viewport");
@@ -201,7 +201,7 @@ void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
     }
 
     Dimensional2<uint32_t>::resize(newWidth, newHeight);
-    this->camera.viewport = Viewport(0, 0, newWidth, newHeight);
+    this->camera().viewport = Viewport(0, 0, newWidth, newHeight);
 
     if (this->texture) {
         this->texture->resize(newWidth, newHeight);

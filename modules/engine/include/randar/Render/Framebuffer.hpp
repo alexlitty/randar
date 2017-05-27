@@ -49,6 +49,7 @@ namespace randar
         using Dimensional2<uint32_t>::hasDimensions;
         using Dimensional2<uint32_t>::isWithinDimensions;
         using GlNamedResource::getGlName;
+        using Canvas::fps;
         using Canvas::camera;
         using Canvas::clear;
         using Canvas::draw;
