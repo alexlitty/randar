@@ -1,20 +1,20 @@
 describe('Model', function() {
     let ctx;
     let win;
-    let fb;
+    let camera;
 
     before(function() {
-        ctx = new randar.GraphicsContext();
-        win = ctx.window(400, 400);
-        fb  = win.framebuffer();
+        ctx    = new randar.GraphicsContext();
+        win    = ctx.window(400, 400);
+        camera = win.camera();
 
         win.fps(24);
-        fb.camera().projection();
+        camera.projection();
     });
 
     beforeEach(function() {
-        fb.camera().position(randar.vector(0, 0, 1));
-        fb.camera().target(randar.vector(0, 0, 0));
+        camera.position(randar.vector(0, 0, 1));
+        camera.target(randar.vector(0, 0, 0));
     });
 
     after(function() {
@@ -31,8 +31,8 @@ describe('Model', function() {
         for (let i = 0; i < 120; i++) {
             model.move(randar.vector(0.02, 0.01, -0.05));
 
-            fb.clear(randar.color(0.3, 0.3, 0));
-            fb.draw(model);
+            win.clear(randar.color(0.3, 0.3, 0));
+            win.draw(model);
             win.present();
         }
     });
