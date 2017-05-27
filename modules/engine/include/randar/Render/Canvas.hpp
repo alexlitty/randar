@@ -54,7 +54,7 @@ namespace randar
          * black; Buggy rendering behavior usually shows up as black, making
          * it less likely the behavior is seen.
          */
-        void clear(const Color& color = Color(0.3, 0.0, 0.3));
+        void clear(const Color& color = Color(0.29, 0.00, 0.29));
 
         /**
          * Draws geometry to the canvas.
