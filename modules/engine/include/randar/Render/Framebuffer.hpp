@@ -2,8 +2,7 @@
 #define RANDAR_RENDER_FRAMEBUFFER_HPP
 
 #include <randar/Math/Dimensional2.hpp>
-#include <randar/Render/Camera.hpp>
-#include <randar/Render/Image.hpp>
+#include <randar/Render/Canvas.hpp>
 #include <randar/Render/Renderbuffer.hpp>
 #include <randar/Render/Texture.hpp>
 #include <randar/System/Window.hpp>
@@ -31,7 +30,8 @@ namespace randar
     class Framebuffer :
         virtual public GraphicsContextResource,
         virtual public GlNamedResource,
-        virtual public Dimensional2<uint32_t>
+        virtual public Dimensional2<uint32_t>,
+        virtual public Canvas
     {
         /**
          * Let windows construct default framebuffers.
@@ -40,7 +40,7 @@ namespace randar
 
     public:
         /**
-         * Help swig identify inherited methods.
+         * Help swig identify inherited items.
          */
         using Dimensional2<uint32_t>::getWidth;
         using Dimensional2<uint32_t>::getHeight;
@@ -49,6 +49,10 @@ namespace randar
         using Dimensional2<uint32_t>::hasDimensions;
         using Dimensional2<uint32_t>::isWithinDimensions;
         using GlNamedResource::getGlName;
+        using Canvas::camera;
+        using Canvas::clear;
+        using Canvas::draw;
+        using Canvas::image;
 
     protected:
         bool isDefaultFramebuffer;
@@ -58,28 +62,9 @@ namespace randar
         /**
          * Window this framebuffer is associated with.
          *
-         * If this is present, this is the default framebuffer for the window.
+         * If a window is present, this framebuffer is its default framebuffer.
          */
         randar::Window *window;
-
-    public:
-        /**
-         * Camera used to view this framebuffer.
-         */
-        Camera camera;
-
-        /**
-         * Desired frames per second to throttle drawing at.
-         *
-         * 0 indicates no throttling desired.
-         */
-        uint16_t fps;
-
-    protected:
-        /**
-         * Tracks the last time the framebuffer was presented.
-         */
-        Timer throttleTimer;
 
     public:
         /**
@@ -154,11 +139,6 @@ namespace randar
         void attach(Texture& texture);
 
         /**
-         * Clears the framebuffer with an optional color.
-         */
-        void clear(const Color& color = Color());
-
-        /**
          * Resizes this framebuffer and its dependencies.
          */
         virtual void resize(uint32_t newWidth, uint32_t newHeight) override;
@@ -175,24 +155,13 @@ namespace randar
         Texture& getTexture();
         Renderbuffer& getDepthBuffer();
 
+    protected:
         /**
-         * Reads the contents of the framebuffer.
+         * Gets the framebuffer.
+         *
+         * Implemented for the Canvas class.
          */
-        void read(Image& image);
-
-    public:
-        /**
-         * Draws to the framebuffer.
-         */
-        void draw(Model& model);
-        void draw(Geometry& geometry, Transform& transform, ShaderProgram& program);
-        void draw(Geometry& geometry, ShaderProgram& program);
-        void draw(Geometry& geometry);
-
-        /**
-         * Waits until enough time has elapsed to meet the desired fps.
-         */
-        void throttle();
+        virtual Framebuffer& framebuffer() override;
     };
 }
 

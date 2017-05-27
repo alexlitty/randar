@@ -115,10 +115,6 @@ randar::Framebuffer& randar::Window::framebuffer()
 // Presents the contents of the default framebuffer.
 void randar::Window::present()
 {
-    if (!this->fb) {
-        throw std::runtime_error("Default framebuffer not available");
-    }
-
-    this->fb->throttle();
+    randar::Canvas::present();
     ::glXSwapBuffers(this->ctx->display, this->glxWindow);
 }

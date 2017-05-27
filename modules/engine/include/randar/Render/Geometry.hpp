@@ -1,7 +1,6 @@
 #ifndef RANDAR_RENDER_GEOMETRY_HPP
 #define RANDAR_RENDER_GEOMETRY_HPP
 
-#include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/Primitive.hpp>
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/Render/VertexBuffer.hpp>

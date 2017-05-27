@@ -4,11 +4,11 @@
 // Constructs an off-screen framebuffer.
 randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
 : randar::GraphicsContextResource(&context),
+  randar::Canvas(0),
   isDefaultFramebuffer(false),
   texture(nullptr),
   depthBuffer(nullptr),
-  window(nullptr),
-  fps(0)
+  window(nullptr)
 {
     this->reset();
 }
@@ -17,11 +17,11 @@ randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
 randar::Framebuffer::Framebuffer(randar::Window& initWindow)
 : randar::GraphicsContextResource(&initWindow.context()),
   randar::Dimensional2<uint32_t>(initWindow.getWidth(), initWindow.getHeight()),
+  randar::Canvas(0),
   isDefaultFramebuffer(true),
   texture(nullptr),
   depthBuffer(nullptr),
-  window(&initWindow),
-  fps(0)
+  window(&initWindow)
 {
 
 }
@@ -193,14 +193,6 @@ void randar::Framebuffer::attach(randar::Texture& texture)
     this->check();
 }
 
-// Clears the framebuffer with an optional color.
-void randar::Framebuffer::clear(const randar::Color& color)
-{
-    this->bind();
-    ::glClearColor(color.r(), color.g(), color.b(), color.a());
-    ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
 // Resizes this framebuffer and its dependencies.
 void randar::Framebuffer::resize(uint32_t newWidth, uint32_t newHeight)
 {
@@ -244,95 +236,8 @@ randar::Renderbuffer& randar::Framebuffer::getDepthBuffer()
     return *this->depthBuffer;
 }
 
-// Reads the contents of the framebuffer.
-void randar::Framebuffer::read(randar::Image& image)
+// Gets the framebuffer.
+randar::Framebuffer& randar::Framebuffer::framebuffer()
 {
-    this->bind();
-
-    image.resize(this->getWidth(), this->getHeight());
-    image.layout(Image::LAYOUT::FLIP_VERTICAL);
-
-    ::glReadPixels(
-        0,
-        0,
-        image.getWidth(),
-        image.getHeight(),
-        GL_RGBA,
-        GL_FLOAT,
-        image.raw()
-    );
-}
-
-// Draws to the framebuffer.
-void randar::Framebuffer::draw(randar::Model& model)
-{
-    if (!model.hasGeometry()) {
-        throw std::runtime_error("Cannot draw model without geometry");
-    }
-
-    ShaderProgram* drawProgram;
-    if (model.hasShaderProgram()) {
-        drawProgram = &model.shaderProgram();
-    } else {
-        drawProgram = &this->ctx->defaultShaderProgram();
-    }
-
-    this->draw(model.geometry(), model, *drawProgram);
-}
-
-void randar::Framebuffer::draw(
-    randar::Geometry& geometry,
-    randar::Transform& transform,
-    randar::ShaderProgram& program)
-{
-    this->ensureContext();
-
-    // Force the geometry onto the current context.
-    if (!this->sameContext(geometry)) {
-        geometry.initialize(this->context());
-    }
-
-    // Ensure any new geometry data is synced.
-    geometry.sync();
-
-    // Fill basic shader program uniforms.
-    glm::mat4 mvp = this->camera.projectionMatrix()
-                  * this->camera.viewMatrix()
-                  * transform.transformMatrix();
-    program.uniform("mvp", mvp);
-
-    // Bind required resources for drawing.
-    program.use();
-    geometry.vertices.bind();
-    geometry.indices.bind();
-    this->bind();
-
-    // Draw the geometry.
-    ::glDrawElements(
-        openglPrimitive(geometry.primitive),
-        geometry.indices.count(),
-        GL_UNSIGNED_INT,
-        nullptr);
-    this->ctx->check("Failed to draw geometry");
-}
-
-void randar::Framebuffer::draw(
-    randar::Geometry& geometry,
-    randar::ShaderProgram& program)
-{
-    this->draw(geometry, Transform::Identity, program);
-}
-
-void randar::Framebuffer::draw(randar::Geometry& geometry)
-{
-    this->draw(geometry, this->ctx->defaultShaderProgram());
-}
-
-// Waits until enough time has elapsed to meet the desired fps.
-void randar::Framebuffer::throttle()
-{
-    if (this->fps) {
-        this->throttleTimer.wait((1.0f / static_cast<float>(this->fps)) * 1000 * 1000);
-    }
-    this->throttleTimer.reset();
+    return *this;
 }

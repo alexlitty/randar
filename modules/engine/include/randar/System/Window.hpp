@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <randar/Math/Dimensional2.hpp>
+#include <randar/Render/Canvas.hpp>
 #include <randar/System/GraphicsContextResource.hpp>
 
 namespace randar
@@ -18,92 +19,102 @@ namespace randar
      */
     class Window
     : virtual public GraphicsContextResource,
-      virtual public Dimensional2<uint32_t>
+      virtual public Dimensional2<uint32_t>,
+      virtual public Canvas
     {
-        protected:
-            /**
-             * Raw window handle.
-             */
-            ::Window handle;
-            
-            /**
-             * GLX's wrapper handle for the raw window.
-             */
-            ::GLXWindow glxWindow;
+    public:
+        /**
+         * Help swig identify inherited items.
+         */
+        using Canvas::camera;
+        using Canvas::clear;
+        using Canvas::draw;
+        using Canvas::image;
+    
+    protected:
+        /**
+         * Raw window handle.
+         */
+        ::Window handle;
+        
+        /**
+         * GLX's wrapper handle for the raw window.
+         */
+        ::GLXWindow glxWindow;
 
-            /**
-             * The default framebuffer, provided for convenience.
-             */
-            std::unique_ptr<Framebuffer> fb;
+        /**
+         * Default framebuffer.
+         */
+        std::unique_ptr<Framebuffer> fb;
 
-        public:
-            /**
-             * Disable assignment.
-             */
-            Window(const Window& other) = delete;
-            Window& operator =(const Window& other) = delete;
+    public:
+        /**
+         * Constructor.
+         */
+        Window(GraphicsContext& context, uint32_t width, uint32_t height);
 
-            /**
-             * Constructor.
-             */
-            Window(GraphicsContext& context, uint32_t width, uint32_t height);
+        /**
+         * Disable assignment.
+         */
+        Window(const Window& other) = delete;
+        Window& operator =(const Window& other) = delete;
 
-            /**
-             * Destructor.
-             */
-            virtual ~Window();
+        /**
+         * Destructor.
+         */
+        virtual ~Window();
 
-            /**
-             * Whether the window is initialized and open.
-             */
-            bool isInitialized() const;
+        /**
+         * Whether the window is initialized and open.
+         */
+        bool isInitialized() const;
 
-            /**
-             * Closes the window.
-             *
-             * Nothing happens if the window is not open or initialized.
-             *
-             * Once closed, a window may not be re-initialized again. A new
-             * Window object must be created.
-             */
-            void close();
+        /**
+         * Closes the window.
+         *
+         * Once closed, a window may not be re-initialized again. A new
+         * Window object must be created.
+         */
+        void close();
 
-            /**
-             * Retrieves the associated context.
-             */
-            GraphicsContext& context();
+        /**
+         * Retrieves the associated context.
+         */
+        GraphicsContext& context();
 
-            /**
-             * Retrieves the native window handle.
-             */
-            ::Window native();
+        /**
+         * Retrieves the native window handle.
+         */
+        ::Window native();
 
-            /**
-             * Retrieves the GLX window handle.
-             */
-            ::GLXWindow glx();
+        /**
+         * Retrieves the GLX window handle.
+         */
+        ::GLXWindow glx();
 
-            /**
-             * Binds the window for further operations.
-             */
-            void bind();
+        /**
+         * Binds the window for further operations.
+         */
+        void bind();
 
-            /**
-             * Retrieves an internal instance of the default framebuffer.
-             */
-            Framebuffer& framebuffer();
+        /**
+         * Retrieves an internal instance of the default framebuffer.
+         */
+        virtual Framebuffer& framebuffer() override;
 
-            /**
-             * Presents the contents of the default framebuffer.
-             *
-             * This swaps the window's low-level back and front buffers -- not
-             * to be confused with Randar's framebuffers. This is a platform
-             * specific operation you needn't worry much about.
-             *
-             * Even though the low-level buffers are swapped, the contents of
-             * the default framebuffer after this operation are undefined.
-             */
-            void present();
+        /**
+         * Presents the contents of the default framebuffer.
+         *
+         * See Canvas::present.
+         *
+         * This swaps the window's back and front framebuffers. This is a
+         * platform specific operation you needn't worry much about -- Just
+         * make sure you call this to display renderings to the window.
+         *
+         * The swap isn't a true "swap." The contents of the default framebuffer
+         * after this operation are undefined.
+         */
+        virtual void present() override;
     };
 }
 
