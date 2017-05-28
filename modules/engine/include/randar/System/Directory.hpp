@@ -21,7 +21,17 @@ namespace randar
     void removeDirectory(randar::Path directory);
 
     /**
-     * Creates a returns a dedicated temporary directory.
+     * Returns the platform-specific temporary directory.
+     */
+    randar::Path platformTempDirectory();
+
+    /**
+     * Creates and returns a global temporary directory.
+     */
+    randar::Path globalTempDirectory();
+
+    /**
+     * Creates and returns a dedicated temporary directory.
      */
     randar::Path tempDirectory();
 }

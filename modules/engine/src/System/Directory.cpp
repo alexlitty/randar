@@ -5,7 +5,7 @@
 // Creates a directory.
 void randar::createDirectory(randar::Path directory)
 {
-    if (!randar::execute("mkdir -p " + directory.toString())) {
+    if (randar::execute("mkdir -p " + directory.toString())) {
         throw std::runtime_error(
             "Failed to create directory: " + directory.toString()
         );
@@ -15,23 +15,35 @@ void randar::createDirectory(randar::Path directory)
 // Removes a directory.
 void randar::removeDirectory(randar::Path directory)
 {
-    if (!randar::execute("rmdir -R " + directory.toString())) {
+    if (randar::execute("rm -R " + directory.toString())) {
         throw std::runtime_error(
             "Failed to remove directory: " + directory.toString()
         );
     }
 }
 
+// Returns the platform-specific temporary directory.
+randar::Path randar::platformTempDirectory()
+{
+    return randar::Path("/tmp");
+}
+
+// Creates and returns a global temporary directory.
+randar::Path randar::globalTempDirectory()
+{
+    randar::Path dir = randar::platformTempDirectory().child("randar");
+    randar::createDirectory(dir);
+    return dir;
+}
+
 // Creates and returns a dedicated temporary directory.
-#include <iostream>
 randar::Path randar::tempDirectory()
 {
-    static std::string tempBase = "/tmp/randar";
+    std::string command = "mktemp -d -p "
+                        + randar::globalTempDirectory().toString();
 
     std::string output;
-    int result = randar::execute("mktemp -d -p " + tempBase, output);
-
-    if (result != 0) {
+    if (randar::execute(command, output)) {
         std::string msg = "Failed to create temporary directory";
         if (!output.empty()) {
             msg += ": " + randar::trim(output);
