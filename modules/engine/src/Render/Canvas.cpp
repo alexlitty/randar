@@ -1,3 +1,4 @@
+#include <randar/Render/Camcorder.hpp>
 #include <randar/Render/Canvas.hpp>
 #include <randar/Render/Framebuffer.hpp>
 
@@ -148,4 +149,10 @@ void randar::Canvas::present()
     for (auto watcher : this->watchers) {
         watcher->onCanvasPresent();
     }
+}
+
+// Gets a new camcorder for this canvas.
+randar::Camcorder randar::Canvas::camcorder()
+{
+    return randar::Camcorder(*this);
 }

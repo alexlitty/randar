@@ -9,6 +9,7 @@
 
 namespace randar
 {
+    class Camcorder;
     class Framebuffer;
 
     /**
@@ -119,6 +120,11 @@ namespace randar
          * seamless throttling and recording.
          */
         virtual void present();
+
+        /**
+         * Gets a new camcorder for this canvas.
+         */
+        Camcorder camcorder();
 
         /**
          * Let CanvasWatcher objects modify the internal watchers list.

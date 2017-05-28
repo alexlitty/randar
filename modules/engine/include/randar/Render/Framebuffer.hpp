@@ -54,6 +54,7 @@ namespace randar
         using Canvas::clear;
         using Canvas::draw;
         using Canvas::image;
+        using Canvas::camcorder;
 
     protected:
         bool isDefaultFramebuffer;

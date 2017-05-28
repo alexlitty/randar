@@ -31,6 +31,7 @@ namespace randar
         using Canvas::draw;
         using Canvas::image;
         using Canvas::fps;
+        using Canvas::camcorder;
     
     protected:
         /**
