@@ -1,5 +1,6 @@
 #include <randar/Render/Canvas.hpp>
 #include <randar/Render/Camcorder.hpp>
+#include <randar/System/Directory.hpp>
 #include <randar/System/Execute.hpp>
 
 // Constructors.
@@ -11,6 +12,29 @@ randar::Camcorder::Camcorder()
 randar::Camcorder::Camcorder(randar::Canvas& canvas)
 {
     this->watch(canvas);
+}
+
+// Assignment.
+randar::Camcorder::Camcorder(const randar::Camcorder& other)
+{
+    *this = other;
+}
+
+randar::Camcorder& randar::Camcorder::operator =(const randar::Camcorder& other)
+{
+    if (other.isWatching()) {
+        this->watch(other.canvas());
+        this->_imagesDirectory = other._imagesDirectory;
+        this->imagePaths = other.imagePaths;
+    }
+
+    return *this;
+}
+
+randar::Camcorder::Camcorder(randar::Camcorder&& other)
+{
+    *this = other;
+    other.unwatch();
 }
 
 // Destructor.
@@ -38,9 +62,19 @@ void randar::Camcorder::push(randar::Image& image)
         basename = "0" + basename;
     }
 
+    if (this->_imagesDirectory.toString() == ".") {
+        this->_imagesDirectory = randar::tempDirectory();
+    }
+
     randar::Path imagePath = this->_imagesDirectory.child(basename);
     image.save(imagePath.toString());
     this->imagePaths.push_back(imagePath);
+}
+
+// Counts the images in the sequence.
+uint32_t randar::Camcorder::count() const
+{
+    return this->imagePaths.size();
 }
 
 // Saves the image sequence to a video.

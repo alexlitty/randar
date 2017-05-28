@@ -29,6 +29,13 @@ namespace randar
         Camcorder(Canvas& canvas);
 
         /**
+         * Assignment.
+         */
+        Camcorder(const Camcorder& other);
+        Camcorder& operator =(const Camcorder& other);
+        Camcorder(Camcorder&& other);
+
+        /**
          * Destructor.
          */
         virtual ~Camcorder();
@@ -45,6 +52,11 @@ namespace randar
         void push(Image& image);
 
         /**
+         * Counts the images in the sequence.
+         */
+        uint32_t count() const;
+
+        /**
          * Saves the image sequence to a video.
          */
         void toVideo(const std::string& filename);
@@ -52,7 +64,7 @@ namespace randar
         /**
          * Listens for new frames to capture.
          */
-        void onCanvasPresent();
+        virtual void onCanvasPresent() override;
     };
 
     /**
