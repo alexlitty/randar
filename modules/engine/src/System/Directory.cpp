@@ -23,17 +23,19 @@ void randar::removeDirectory(randar::Path directory)
 }
 
 // Creates and returns a dedicated temporary directory.
+#include <iostream>
 randar::Path randar::tempDirectory()
 {
     static std::string tempBase = "/tmp/randar";
 
     std::string output;
-    if (!randar::execute("mktemp -d -p " + tempBase, output)) {
+    int result = randar::execute("mktemp -d -p " + tempBase, output);
+
+    if (result != 0) {
         std::string msg = "Failed to create temporary directory";
         if (!output.empty()) {
             msg += ": " + randar::trim(output);
         }
-
         throw std::runtime_error(msg);
     }
 
