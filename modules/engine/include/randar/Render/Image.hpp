@@ -5,6 +5,7 @@
 #include <png++/png.hpp>
 #include <randar/Math/Dimensional2.hpp>
 #include <randar/Render/Color.hpp>
+#include <randar/System/Path.hpp>
 
 namespace randar
 {
@@ -166,7 +167,8 @@ namespace randar
          *
          * Default filetype is png for now.
          */
-        void save(const std::string& filename);
+        void save(const std::string& filepath);
+        void save(const randar::Path& filepath);
     };
 
     /**

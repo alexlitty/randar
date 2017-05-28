@@ -1,6 +1,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <randar/Render/Image.hpp>
+#include <randar/System/Directory.hpp>
 
 // Default constructor.
 randar::Image::Image()
@@ -186,7 +187,12 @@ uint32_t randar::Image::rawSize() const
 }
 
 // Saves the image to a file.
-void randar::Image::save(const std::string& filename)
+void randar::Image::save(const std::string& filepath)
+{
+    this->save(randar::Path(filepath));
+}
+
+void randar::Image::save(const randar::Path& filepath)
 {
     png::image<png::rgba_pixel> result(this->getWidth(), this->getHeight());
 
@@ -204,7 +210,8 @@ void randar::Image::save(const std::string& filename)
         }
     }
 
-    result.write(filename);
+    randar::createDirectory(filepath.parent());
+    result.write(filepath.toString());
 }
 
 // Node.js helpers for intuitive image creation.
