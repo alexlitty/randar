@@ -28,7 +28,7 @@ describe('Model', function() {
         let geo   = randar.sphere(1);
         model.geometry(geo);
 
-        for (let i = 0; i < 120; i++) {
+        for (let i = 0; i < 30; i++) {
             model.move(randar.vector(0.02, 0.01, -0.05));
 
             win.clear(randar.color(0.3, 0.3, 0));
