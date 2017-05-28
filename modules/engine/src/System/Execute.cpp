@@ -1,16 +1,33 @@
 #include <randar/System/Execute.hpp>
 
 // Executes a command on the system.
-int randar::execute(std::string command)
+int randar::execute(const std::string& command)
 {
-    int cmd = std::system(command.c_str());
-    if (cmd < 0) {
-        throw std::runtime_error("Execution failed: " + command);
+    std::string discardedOutput;
+    return randar::execute(command, discardedOutput);
+}
+
+int randar::execute(const std::string& command, std::string& output)
+{
+    output = "";
+    char outputBuffer[128];
+
+    // Execute command.
+    FILE *fp = ::popen(command.c_str(), "r");
+    if (fp == nullptr) {
+        throw std::runtime_error("Failed to open pipe: " + command);
     }
 
-    if (!WIFEXITED(cmd)) {
-        throw std::runtime_error("Abnormal exit: " + command);
+    // Get output.
+    while (::fgets(outputBuffer, 128, fp) != nullptr) {
+        output += std::string(outputBuffer);
     }
 
-    return WEXITSTATUS(cmd);
+    // Close pipe, check exit code.
+    int code = ::pclose(fp);
+    if (code == -1) {
+        throw std::runtime_error("Failed to execute command: " + command);
+    }
+
+    return code;
 }
