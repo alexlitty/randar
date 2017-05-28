@@ -12,6 +12,13 @@ namespace randar
     bool isInteger(const std::string& str);
 
     /**
+     * Trims whitespace off a string.
+     *
+     * Whitespace includes spaces, newlines, carriage returns, and tabs.
+     */
+    std::string trim(std::string str);
+
+    /**
      * Converts a string to lowercase.
      */
     std::string toLowercase(const std::string& str);

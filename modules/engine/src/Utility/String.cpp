@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <locale>
 #include <set>
 #include <sstream>
@@ -17,6 +18,16 @@ bool randar::isInteger(const std::string& str)
     }
 
     return true;
+}
+
+// Trims whitespace off a string.
+std::string randar::trim(std::string str)
+{
+    static std::string whitespace = " \n\r\t";
+
+    str.erase(0, str.find_first_not_of(whitespace));
+    str.erase(str.find_last_not_of(whitespace)+1);
+    return str;
 }
 
 // Converts a string to lowercase.
