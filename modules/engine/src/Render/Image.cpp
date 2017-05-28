@@ -195,7 +195,7 @@ void randar::Image::save(const std::string& filename)
         for (uint32_t y = 0; y < this->getHeight(); y++) {
             color = this->getPixel(x, y);
 
-            result[x][y] = png::rgba_pixel(
+            result[y][x] = png::rgba_pixel(
                 color.rInt(),
                 color.gInt(),
                 color.bInt(),
