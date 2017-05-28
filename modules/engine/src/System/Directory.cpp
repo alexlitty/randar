@@ -29,7 +29,12 @@ randar::Path randar::tempDirectory()
 
     std::string output;
     if (!randar::execute("mktemp -d -p " + tempBase, output)) {
-        throw std::runtime_error("Failed to create temporary directory");
+        std::string msg = "Failed to create temporary directory";
+        if (!output.empty()) {
+            msg += randar::trim(output);
+        }
+
+        throw std::runtime_error(msg);
     }
 
     return randar::Path(randar::trim(output));
