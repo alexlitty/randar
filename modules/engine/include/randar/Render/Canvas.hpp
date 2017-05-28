@@ -1,7 +1,9 @@
 #ifndef RANDAR_RENDER_CANVAS_HPP
 #define RANDAR_RENDER_CANVAS_HPP
 
+#include <set>
 #include <randar/Render/Camera.hpp>
+#include <randar/Render/CanvasWatcher.hpp>
 #include <randar/Render/Model.hpp>
 #include <randar/Utility/Timer.hpp>
 
@@ -14,6 +16,11 @@ namespace randar
      */
     class Canvas
     {
+        /**
+         * Objects watching this canvas for presentations.
+         */
+        std::set<CanvasWatcher*> watchers;
+
         /**
          * Timer used for fps throttling.
          */
@@ -30,6 +37,7 @@ namespace randar
          * Camera used while drawing to the canvas.
          */
         Camera canvasCamera;
+
     public:
         /**
          * Constructor.
@@ -111,6 +119,11 @@ namespace randar
          * seamless throttling and recording.
          */
         virtual void present();
+
+        /**
+         * Let CanvasWatcher objects modify the internal watchers list.
+         */
+        friend CanvasWatcher;
     };
 }
 

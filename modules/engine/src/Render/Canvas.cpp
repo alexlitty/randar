@@ -11,7 +11,9 @@ randar::Canvas::Canvas(uint16_t initFps)
 // Destructor.
 randar::Canvas::~Canvas()
 {
-
+    for (auto watcher : this->watchers) {
+        watcher->unwatch();
+    }
 }
 
 // Sets and retrieves the desired fps.
@@ -141,4 +143,9 @@ void randar::Canvas::present()
         );
     }
     this->throttleTimer.reset();
+
+    // Notify watchers.
+    for (auto watcher : this->watchers) {
+        watcher->onCanvasPresent();
+    }
 }
