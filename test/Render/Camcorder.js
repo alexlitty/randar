@@ -1,4 +1,4 @@
-describe.only('Camcorder', function() {
+describe('Camcorder', function() {
     let ctx;
     let win;
 
@@ -12,17 +12,20 @@ describe.only('Camcorder', function() {
     });
 
     it('saves to video', function() {
-        this.timeout(30000);
+        this.timeout(20000);
         let camcorder = win.camcorder();
 
         let color = randar.color();
-        for (let channel = 0; channel <= 255; channel++) {
-            color.rInt(channel);
-            color.bInt(channel);
+        let i = 0;
+        for (let i = 0; i <= 48; i++) {
+            color.rInt(i * 5);
+            color.bInt(i * 5);
 
             win.clear(color);
             win.present();
-            assert.equal(camcorder.count(), channel + 1);
+            assert.equal(camcorder.count(), i + 1);
         }
+
+        camcorder.save(randar.globalTempDirectory().child('test.mp4'));
     });
 });
