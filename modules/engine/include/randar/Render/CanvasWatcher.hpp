@@ -39,7 +39,7 @@ namespace randar
         /**
          * Retrieves the canvas being watched.
          */
-        Canvas& canvas();
+        Canvas& canvas() const;
 
         /**
          * Invoked when the canvas presents a frame.

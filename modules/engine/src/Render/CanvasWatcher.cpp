@@ -39,7 +39,7 @@ bool randar::CanvasWatcher::isWatching() const
 }
 
 // Retrieves the canvas being watched.
-randar::Canvas& randar::CanvasWatcher::canvas()
+randar::Canvas& randar::CanvasWatcher::canvas() const
 {
     if (!this->isWatching()) {
         throw std::runtime_error("No canvas is being watched");
