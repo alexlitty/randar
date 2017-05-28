@@ -1,4 +1,4 @@
-describe.only('Directory', function() {
+describe('Directory', function() {
     let tmp;
 
     it('returns platform-specific temporary directory', function() {
