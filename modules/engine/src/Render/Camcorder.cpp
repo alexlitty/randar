@@ -78,9 +78,32 @@ uint32_t randar::Camcorder::count() const
 }
 
 // Saves the image sequence to a video.
-void randar::Camcorder::toVideo(const std::string& filename)
+void randar::Camcorder::save(const randar::Path& filepath)
 {
+    uint16_t fps = this->canvas().fps();
+    if (!fps) {
+        fps = 24;
+    }
 
+    randar::createDirectory(filepath.parent());
+    randar::Path imageWildcard = this->_imagesDirectory.child("%8d.png");
+
+    std::string cmd = std::string("ffmpeg")
+                    + " -r " + std::to_string(fps)
+                    + " -start_number 0"
+                    + " -i " + imageWildcard.toString()
+                    + " -c:v libx264"
+                    + " -vf \"fps=24,format=yuv420p\""
+                    + " " + filepath.toString();
+
+    std::string output;
+    if (randar::execute(cmd, output)) {
+        std::string msg = "Failed to generate video";
+        if (!output.empty()) {
+            msg += ": " + output;
+        }
+        throw std::runtime_error(msg);
+    }
 }
 
 // Listens for new frames to capture.

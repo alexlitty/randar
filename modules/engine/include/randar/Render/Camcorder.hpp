@@ -59,7 +59,7 @@ namespace randar
         /**
          * Saves the image sequence to a video.
          */
-        void toVideo(const std::string& filename);
+        void save(const randar::Path& filepath);
 
         /**
          * Listens for new frames to capture.
