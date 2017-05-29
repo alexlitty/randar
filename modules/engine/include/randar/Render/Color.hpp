@@ -44,7 +44,6 @@ namespace randar
          *
          * No constructor is provided for initializing the color using 8-bit
          * integers, for intuitive Node.js compatibility.
-         *
          */
         Color(float rInit, float gInit, float bInit, float aInit = 1.0f);
 
@@ -110,6 +109,12 @@ namespace randar
         uint8_t gInt() const;
         uint8_t bInt() const;
         uint8_t aInt() const;
+
+        /**
+         * Randomly varies this color by the channels of another color.
+         */
+        void vary(const Color& other, bool varyAlpha = false);
+        Color varied(const Color& other, bool varyAlpha = false) const;
 
         /**
          * Randomizes the red, green, and blue channels in this color.

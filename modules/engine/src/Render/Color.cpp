@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <randar/Math/Random.hpp>
 #include <randar/Render/Color.hpp>
 #include <randar/Utility/Clamp.hpp>
@@ -136,13 +137,49 @@ uint8_t randar::Color::aInt() const
     return this->a() * 255.0f;
 }
 
+// Randomly varies this color by the channels of another color.
+void randar::Color::vary(const randar::Color& other, bool varyAlpha)
+{
+    this->r(randar::randomFloat(
+        std::min(0.0f, this->r() - other.r()),
+        std::max(1.0f, this->r() + other.r())
+    ));
+
+    this->g(randar::randomFloat(
+        std::min(0.0f, this->g() - other.g()),
+        std::max(1.0f, this->g() + other.g())
+    ));
+
+    this->b(randar::randomFloat(
+        std::min(0.0f, this->b() - other.b()),
+        std::max(1.0f, this->b() + other.b())
+    ));
+
+    if (varyAlpha) {
+        this->a(randar::randomFloat(
+            std::min(0.0f, this->a() - other.a()),
+            std::max(1.0f, this->a() + other.a())
+        ));
+    }
+}
+
+randar::Color randar::Color::varied(const randar::Color& other, bool varyAlpha) const
+{
+    randar::Color result;
+    result.vary(other, varyAlpha);
+    return result;
+}
+
 // Randomizes the red, green, and blue channels in this color.
 void randar::Color::randomize(bool randomizeAlpha)
 {
-    this->rInt(randar::randomFloat());
-    this->gInt(randar::randomFloat());
-    this->bInt(randar::randomFloat());
-    this->aInt(randar::randomFloat());
+    this->r(randar::randomFloat());
+    this->g(randar::randomFloat());
+    this->b(randar::randomFloat());
+
+    if (randomizeAlpha) {
+        this->a(randar::randomFloat());
+    }
 }
 
 // Color comparison operator.
