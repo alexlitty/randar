@@ -141,31 +141,31 @@ uint8_t randar::Color::aInt() const
 void randar::Color::vary(const randar::Color& other, bool varyAlpha)
 {
     this->r(randar::randomFloat(
-        std::min(0.0f, this->r() - other.r()),
-        std::max(1.0f, this->r() + other.r())
+        this->r() - other.r(),
+        this->r() + other.r()
     ));
 
     this->g(randar::randomFloat(
-        std::min(0.0f, this->g() - other.g()),
-        std::max(1.0f, this->g() + other.g())
+        this->g() - other.g(),
+        this->g() + other.g()
     ));
 
     this->b(randar::randomFloat(
-        std::min(0.0f, this->b() - other.b()),
-        std::max(1.0f, this->b() + other.b())
+        this->b() - other.b(),
+        this->b() + other.b()
     ));
 
     if (varyAlpha) {
         this->a(randar::randomFloat(
-            std::min(0.0f, this->a() - other.a()),
-            std::max(1.0f, this->a() + other.a())
+            this->a() - other.a(),
+            this->a() + other.a()
         ));
     }
 }
 
 randar::Color randar::Color::varied(const randar::Color& other, bool varyAlpha) const
 {
-    randar::Color result;
+    randar::Color result(*this);
     result.vary(other, varyAlpha);
     return result;
 }
