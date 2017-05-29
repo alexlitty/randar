@@ -10,7 +10,7 @@ void randar::seedRandomWithTime()
 // Generates a random float within [0, 1].
 float randar::randomFloat()
 {
-    return std::rand();
+    return randar::randomFloat(0.0f, 1.0f);
 }
 
 // Generates a random float.
