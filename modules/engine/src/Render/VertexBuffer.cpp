@@ -28,8 +28,16 @@ randar::VertexBuffer& randar::VertexBuffer::operator =(const randar::VertexBuffe
     }
 
     this->vertices = other.vertices;
+
     this->positionBuffer = other.positionBuffer;
     this->colorBuffer = other.colorBuffer;
+    this->normalBuffer = other.normalBuffer;
+
+    this->textureIdBuffer = other.textureIdBuffer;
+    this->textureCoordinateBuffer = other.textureCoordinateBuffer;
+
+    this->jointIndexBuffer = other.jointIndexBuffer;
+    this->jointWeightBuffer = other.jointWeightBuffer;
 
     return *this;
 }
@@ -48,8 +56,16 @@ void randar::VertexBuffer::initialize()
     }
 
     this->bindContext();
+
     this->positionBuffer.initialize(*this->ctx);
     this->colorBuffer.initialize(*this->ctx);
+    this->normalBuffer.initialize(*this->ctx);
+
+    this->textureIdBuffer.initialize(*this->ctx);
+    this->textureCoordinateBuffer.initialize(*this->ctx);
+
+    this->jointIndexBuffer.initialize(*this->ctx);
+    this->jointWeightBuffer.initialize(*this->ctx);
 
     ::glGenVertexArrays(1, &this->vertexArrayName);
     this->ctx->check("Cannot create vertex array");
@@ -66,6 +82,26 @@ void randar::VertexBuffer::initialize()
     this->colorBuffer.bind();
     ::glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
 
+    ::glEnableVertexAttribArray(2);
+    this->normalBuffer.bind();
+    ::glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+    ::glEnableVertexAttribArray(3);
+    this->textureIdBuffer.bind();
+    ::glVertexAttribPointer(3, 1, GL_SHORT, GL_FALSE, 0, nullptr);
+
+    ::glEnableVertexAttribArray(4);
+    this->textureCoordinateBuffer.bind();
+    ::glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+    ::glEnableVertexAttribArray(5);
+    this->jointIndexBuffer.bind();
+    ::glVertexAttribPointer(5, 4, GL_UNSIGNED_SHORT, GL_FALSE, 0, nullptr);
+
+    ::glEnableVertexAttribArray(6);
+    this->jointWeightBuffer.bind();
+    ::glVertexAttribPointer(6, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, nullptr);
+
     this->ctx->check("Cannot assign vertex attribute pointers");
 }
 
@@ -79,15 +115,20 @@ void randar::VertexBuffer::uninitialize()
 
     this->positionBuffer.uninitialize();
     this->colorBuffer.uninitialize();
+    this->normalBuffer.uninitialize();
+
+    this->textureIdBuffer.uninitialize();
+    this->textureCoordinateBuffer.uninitialize();
+
+    this->jointIndexBuffer.uninitialize();
+    this->jointWeightBuffer.uninitialize();
 }
 
 // Whether the vertex buffer is initialized on a context.
 bool randar::VertexBuffer::isInitialized() const
 {
     return this->ctx
-        && this->vertexArrayName
-        && this->positionBuffer.isInitialized()
-        && this->colorBuffer.isInitialized();
+        && this->vertexArrayName;
 }
 
 // Binds the vertex buffer for further operations.
@@ -106,6 +147,13 @@ void randar::VertexBuffer::sync()
 {
     this->positionBuffer.sync();
     this->colorBuffer.sync();
+    this->normalBuffer.sync();
+
+    this->textureIdBuffer.sync();
+    this->textureCoordinateBuffer.sync();
+
+    this->jointIndexBuffer.sync();
+    this->jointWeightBuffer.sync();
 }
 
 // Clears the vertex buffer.
@@ -115,6 +163,13 @@ void randar::VertexBuffer::clear()
 
     this->positionBuffer.clear();
     this->colorBuffer.clear();
+    this->normalBuffer.clear();
+
+    this->textureIdBuffer.clear();
+    this->textureCoordinateBuffer.clear();
+
+    this->jointIndexBuffer.clear();
+    this->jointWeightBuffer.clear();
 }
 
 // Appends a new vertex.
@@ -130,6 +185,28 @@ void randar::VertexBuffer::append(const randar::Vertex& vertex)
     this->colorBuffer.append(vertex.color.g());
     this->colorBuffer.append(vertex.color.b());
     this->colorBuffer.append(vertex.color.a());
+
+    this->normalBuffer.append(vertex.normal.x);
+    this->normalBuffer.append(vertex.normal.y);
+    this->normalBuffer.append(vertex.normal.z);
+
+    this->textureIdBuffer.append(vertex.textureId);
+
+    this->textureCoordinateBuffer.append(vertex.textureCoordinate.u());
+    this->textureCoordinateBuffer.append(vertex.textureCoordinate.v());
+
+    uint8_t i = 0;
+    for (auto item : vertex.jointWeights) {
+        this->jointIndexBuffer.append(item.first);
+        this->jointWeightBuffer.append(item.second);
+        i++;
+    }
+
+    while (i < 3) {
+        this->jointIndexBuffer.append(0);
+        this->jointWeightBuffer.append(0);
+        i++;
+    }
 }
 
 // Retrieves the vertex at the desired index.
@@ -147,8 +224,9 @@ randar::Vertex randar::VertexBuffer::query(uint32_t index)
 {
     uint32_t positionIndex = index * 3;
     uint32_t colorIndex    = index * 4;
+    uint32_t normalIndex   = index * 3;
 
-    return Vertex(
+    randar::Vertex vertex(
         Vector3(
             this->positionBuffer.query(positionIndex),
             this->positionBuffer.query(positionIndex + 1),
@@ -162,6 +240,24 @@ randar::Vertex randar::VertexBuffer::query(uint32_t index)
             this->colorBuffer.query(colorIndex + 3)
         )
     );
+
+    vertex.normal = Vector3(
+        this->normalBuffer.query(normalIndex),
+        this->normalBuffer.query(normalIndex + 1),
+        this->normalBuffer.query(normalIndex + 2)
+    );
+
+    vertex.textureId = this->textureIdBuffer.query(index);
+    vertex.textureCoordinate.u(this->textureCoordinateBuffer.query(index * 2));
+    vertex.textureCoordinate.v(this->textureCoordinateBuffer.query((index * 2)+1));
+
+    for (uint8_t i = 0; i < 4; i++) {
+        uint8_t jointIndex = (index * 4) + i;
+        vertex.jointWeights[this->jointIndexBuffer.query(jointIndex)] =
+            this->jointWeightBuffer.query(jointIndex);
+    }
+
+    return vertex;
 }
 
 // Whether this collection contains a vertex.

@@ -20,7 +20,8 @@ namespace randar
          */
         Vector3 position;
         Color color;
-        
+        Vector3 normal;
+
         /**
          * Texture information, where a textureId of -1 indicates no texture.
          *
@@ -35,7 +36,7 @@ namespace randar
          *
          * Total joint weights must equal 255.
          */
-        std::map<unsigned char, unsigned char> jointWeights;
+        std::map<uint16_t, uint8_t> jointWeights;
 
         /**
          * Constructors.

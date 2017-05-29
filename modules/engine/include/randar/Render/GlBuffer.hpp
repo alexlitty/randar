@@ -265,10 +265,16 @@ namespace randar
     };
 
     typedef GlBuffer<GL_ARRAY_BUFFER, float> FloatArrayBuffer;
+    typedef GlBuffer<GL_ARRAY_BUFFER, uint8_t> UCharArrayBuffer;
+    typedef GlBuffer<GL_ARRAY_BUFFER, int16_t> ShortArrayBuffer;
+    typedef GlBuffer<GL_ARRAY_BUFFER, uint16_t> UShortArrayBuffer;
     typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer;
 
     #ifdef SWIG
         %template(FloatArrayBuffer) GlBuffer<GL_ARRAY_BUFFER, float>;
+        %template(UCharArrayBuffer) GlBuffer<GL_ARRAY_BUFFER, uint8_t>;
+        %template(ShortArrayBuffer) GlBuffer<GL_ARRAY_BUFFER, int16_t>;
+        %template(UShortArrayBuffer) GlBuffer<GL_ARRAY_BUFFER, uint16_t>;
         %template(IndexBuffer) GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int>;
     #endif
 }

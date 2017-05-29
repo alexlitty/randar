@@ -35,6 +35,13 @@ namespace randar
          */
         FloatArrayBuffer positionBuffer;
         FloatArrayBuffer colorBuffer;
+        FloatArrayBuffer normalBuffer;
+
+        ShortArrayBuffer textureIdBuffer;
+        FloatArrayBuffer textureCoordinateBuffer;
+
+        UShortArrayBuffer jointIndexBuffer;
+        UCharArrayBuffer jointWeightBuffer;
 
     public:
         /**
