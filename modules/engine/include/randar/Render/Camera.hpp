@@ -25,7 +25,7 @@ namespace randar
         Angle fov = 45.0f;
         float aspectRatio = 4.0f / 3.0f;
         float nearZ = 0.1f;
-        float farZ = 100.0f;
+        float farZ = 1000.0f;
 
         Vector3 targ;
 
