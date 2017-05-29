@@ -1,4 +1,4 @@
-describe.only('Random', function() {
+describe('Random', function() {
     it('generates random floats between [0, 1]', function() {
         for (let i = 0; i < 1000; i++) {
             let result = randar.randomFloat();

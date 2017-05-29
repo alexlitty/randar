@@ -110,7 +110,7 @@ describe('Color', function() {
         });
     });
 
-    it.only('varies', function() {
+    it('varies', function() {
         let color = randar.color(0.5, 0.5, 0.5);
 
         for (let i = 0; i < 1000; i++) {
