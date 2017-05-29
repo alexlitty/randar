@@ -89,6 +89,7 @@ void randar::Camcorder::save(const randar::Path& filepath)
     randar::Path imageWildcard = this->_imagesDirectory.child("%8d.png");
 
     std::string cmd = std::string("ffmpeg")
+                    + " -y"
                     + " -r " + std::to_string(fps)
                     + " -start_number 0"
                     + " -i " + imageWildcard.toString()
