@@ -30,8 +30,13 @@ namespace randar
         /**
          * Samples a color from the palette.
          */
-        virtual Color color() override;
+        virtual Color color() const override;
     };
+
+    /**
+     * Node.js helper.
+     */
+    VaryingPalette varyingPalette(const Color& base, const Color& vary);
 }
 
 #endif

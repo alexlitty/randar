@@ -20,7 +20,7 @@ namespace randar
         /**
          * Samples a color randomly from the palette.
          */
-        virtual Color color() = 0;
+        virtual Color color() const = 0;
     };
 }
 
