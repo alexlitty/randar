@@ -61,9 +61,19 @@ namespace randar
          *
          * Used for alternative coordinate systems, such as texture coordinates.
          */
+        void u(T newU)
+        {
+            this->x = newU;
+        }
+
         float u() const
         {
             return this->x;
+        }
+
+        void v(T newV)
+        {
+            this->y = newV;
         }
 
         float v() const
