@@ -1,29 +1,29 @@
-/*#include <stdio.h>
-#include <randar/Project/ResourceRepository.hpp>
-#include <randar/Utility/iqm.hpp>
+#include <stdio.h>
+#include <randar/IO/Iqm.hpp>
 
-// Imports an IQM file.
-void randar::ResourceRepository::importIqm(const randar::File& file)
+void randar::importIqm(const randar::Path& path, randar::Geometry& geo)
 {
-    FILE *f = ::fopen(file.toString().c_str(), "rb");
+    geo.clear();
+
+    FILE *f = ::fopen(path.toString().c_str(), "rb");
     if (!f) { throw std::runtime_error("Cannot open file"); }
 
     // Read header.
     iqm::header header;
     if (::fread(&header, 1, sizeof(header), f) != sizeof(header)) {
-        throw std::runtime_error("Corrupted header - Too short");
+        throw std::runtime_error("Corrupted header: Too short");
     }
 
     // Invalid magic string.
     if (std::string(header.magic) != std::string(IQM_MAGIC)) {
-        throw std::runtime_error("Corrupted header - Magic string");
+        throw std::runtime_error("Corrupted header: Magic string");
     }
 
     // Incompatible file version.
     iqm::lilswap(&header.version, (sizeof(header) - sizeof(header.magic))/sizeof(unsigned int));
     if (header.version != IQM_VERSION) {
         throw std::runtime_error(
-              "Detected version " + std::to_string(header.version)
+              "Detected IQM version " + std::to_string(header.version)
             + ", but only version " + std::to_string(IQM_VERSION)
             + " is supported"
         );
@@ -37,7 +37,7 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
     // Load data into buffer.
     unsigned char *buffer = new unsigned char[header.filesize];
     if (::fread(buffer + sizeof(header), 1, header.filesize - sizeof(header), f) != header.filesize - sizeof(header)) {
-        throw std::runtime_error("Corrupted header - Filesize");
+        throw std::runtime_error("Corrupted header: Filesize");
     }
     ::fclose(f);
 
@@ -70,9 +70,6 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
         }
     }
 
-    // Create model.
-    Model *model = new Model;
-
     // Read meshes.
     //iqm::mesh *meshes = reinterpret_cast<iqm::mesh*>(&buffer[header.ofs_meshes]);
     for (unsigned int i = 0; i < header.num_meshes; i++) {
@@ -87,9 +84,9 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
 
         Vertex vertex;
         vertex.position = Vector3(data.position[0], data.position[1], data.position[2]);
-        vertex.textureCoordinate.u = data.texcoord[0];
-        vertex.textureCoordinate.v = data.texcoord[1];
-        model->vertices.push_back(vertex);
+        vertex.textureCoordinate.u(data.texcoord[0]);
+        vertex.textureCoordinate.v(data.texcoord[1]);
+        geo.vertices.append(vertex);
     }
 
     // Read triangles.
@@ -98,12 +95,10 @@ void randar::ResourceRepository::importIqm(const randar::File& file)
         iqm::triangle &triangle = triangles[i];
 
         for (unsigned int i = 0; i < 3; i++) {
-            model->faceIndices.push_back(triangle.vertex[i]);
+            geo.indices.append(triangle.vertex[i]);
         }
     }
 
     // IQMs have no explicit texture data. For now, assume each mesh has a single texture.
-    model->meshTextures.push_back(nullptr);
-
-    this->addModel(model);
-}*/
+    //model->meshTextures.push_back(nullptr);
+}

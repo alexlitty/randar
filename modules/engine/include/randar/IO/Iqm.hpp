@@ -5,7 +5,13 @@
 #define IQM_MAGIC "INTERQUAKEMODEL"
 #define IQM_VERSION 2
 
-#include <randar/Utility/Gl.hpp>
+#include <randar/Render/Geometry.hpp>
+#include <randar/System/Path.hpp>
+
+namespace randar
+{
+    void importIqm(const randar::Path& path, randar::Geometry& geo);
+}
 
 enum
 {
