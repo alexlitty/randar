@@ -109,4 +109,21 @@ describe('Color', function() {
             }
         });
     });
+
+    it.only('varies', function() {
+        let color = randar.color(0.5, 0.5, 0.5);
+
+        for (let i = 0; i < 1000; i++) {
+            let varied = color.varied(randar.color());
+            for (channel of rgb) {
+                assert.equal(color[channel](), varied[channel]());
+            }
+
+            varied = color.varied(randar.color(0.2, 0.2, 0.2));
+            for (channel of rgb) {
+                let value = varied[channel]();
+                assert(value >= 0.3 && value <= 0.7);
+            }
+        }
+    });
 });
