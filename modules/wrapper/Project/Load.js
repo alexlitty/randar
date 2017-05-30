@@ -8,70 +8,78 @@ module.exports = (randar) => {
             fs.readFileSync(this.directory().child('project.json').toString())
         );
 
-        for (let item of project.items) {
-            this.binItems[item.id] = {
-                id   : item.id,
+        // Load basic item information.
+        for (let itemId in project.items) {
+            let item = project.items[itemId];
+
+            this.binItems[itemId] = {
+                id   : itemId,
                 kind : item.kind,
                 name : item.name,
 
                 depended : [],
                 depends  : []
-            }
+            };
         }
 
-        for (let item of project.items) {
-            this.binItems[item.id].depended = item.depended.map((itemId) => {
-                if (!this.binItems[itemId]) {
-                    throw new Error('Corrupted item dependencies');
-                }
-                return this.binItems[itemId];
-            });
+        // Load basic folder information.
+        for (let folderId in project.folders) {
+            let folder = project.folders[folderId];
 
-            this.binItems[item.id].depends = item.depends.map((itemId) => {
-                if (!this.binItems[itemId]) {
-                    throw new Error('Corrupted item dependencies');
-                }
-                return this.binItems[itemId];
-            });
-        }
-
-        for (let folder of project.folders) {
-            this.binFolders[folder.id] = {
-                id   : folder.id,
+            this.binFolders[folderId] = {
+                id   : folderId,
                 name : folder.name
             };
         }
 
-        for (let folder of project.folders) {
-            if (folder.parentFolder) {
-                this.binFolders[folder.id].parentFolder = this.binFolders[folder.parentFolder];
-            }
+        // Expand item information.
+        for (let itemId in project.items) {
+            let item = project.items[itemId];
 
-            this.binFolders[folder.id].folders = folder.folders.map((folderId) => {
-                if (!this.binFolders[folderId]) {
-                    throw new Error('Corrupted folder structure');
+            this.binItems[itemId].depended = item.depended.map((otherItemId) => {
+                if (!this.binItems[otherItemId]) {
+                    throw new Error('Corrupted item dependencies');
                 }
-                return this.binFolders[folderId];
+                return this.binItems[otherItemId];
             });
 
-            this.binFolders[folder.id].items = folder.items.map((itemId) => {
+            this.binItems[itemId].depends = item.depends.map((otherItemId) => {
+                if (!this.binItems[otherItemId]) {
+                    throw new Error('Corrupted item dependencies');
+                }
+                return this.binItems[otherItemId];
+            });
+        }
+
+        // Expand folder information.
+        for (let folderId in project.folders) {
+            let folder = project.folders[folderId];
+
+            if (folder.parentFolder) {
+                this.binFolders[folderId].parentFolder = this.binFolders[folder.parentFolder];
+            }
+
+            this.binFolders[folderId].folders = folder.folders.map((subfolderId) => {
+                if (!this.binFolders[subfolderId]) {
+                    throw new Error('Corrupted folder structure');
+                }
+                return this.binFolders[subfolderId];
+            });
+
+            this.binFolders[folderId].items = folder.items.map((itemId) => {
                 if (!this.binItems[itemId]) {
                     throw new Error('Corrupted folder listing');
                 }
                 return this.binItems[itemId];
             });
 
-            this.binFolders[folder.id].items.forEach((item) => {
-                item.folder = this.binFolders[folder.id];
+            this.binFolders[folderId].items.forEach((item) => {
+                item.folder = this.binFolders[folderId];
             });
 
-            if (!this.binFolders[folder.id].parentFolder) {
-                this.bins[folder.id] = this.binFolders[folder.id];
+            if (!this.binFolders[folderId].parentFolder) {
+                this.bins[folderId] = this.binFolders[folderId];
             }
-        }
-
-        for (let item of this.binItems) {
-            this.loadBinItem(item);
         }
     }
 };

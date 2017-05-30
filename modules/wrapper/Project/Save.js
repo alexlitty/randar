@@ -6,8 +6,10 @@ module.exports = (randar) => {
             items   : {}
         };
 
-        for (let folder of this.binFolders) {
-            project.folders[folder.id] = {
+        for (let folderId in this.binFolders) {
+            let folder = this.binFolders[folderId];
+
+            project.folders[folderId] = {
                 name         : folder.name,
                 parentFolder : null,
                 folders      : [],
@@ -15,20 +17,22 @@ module.exports = (randar) => {
             };
 
             if (folder.parentFolder) {
-                project.folders[folder.id].parentFolder = folder.parentFolder.id;
+                project.folders[folderId].parentFolder = folder.parentFolder.id;
             }
 
-            for (let subfolder of folder.folders) {
-                project.folders[folder.id].folders.push(subfolder.id);
-            }
+            project.folders[folderId].folders = folder.folders.map((subfolder) => {
+                return subfolder.id;
+            });
 
-            for (let item of folder.items) {
-                project.folders[folder.id].items.push(item.id);
-            }
+            project.folders[folderId].items = folder.items.map((item) => {
+                return item.id;
+            });
         }
 
-        for (let item of project.binItems) {
-            project.items[item.id] = {
+        for (let itemId in this.binItems) {
+            let item = this.binItems[itemId];
+
+            project.items[itemId] = {
                 kind : item.kind,
                 name : item.name,
 
