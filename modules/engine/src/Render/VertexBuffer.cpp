@@ -202,7 +202,7 @@ void randar::VertexBuffer::append(const randar::Vertex& vertex)
         i++;
     }
 
-    while (i < 3) {
+    while (i < 4) {
         this->jointIndexBuffer.append(0);
         this->jointWeightBuffer.append(0);
         i++;
