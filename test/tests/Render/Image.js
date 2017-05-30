@@ -271,7 +271,7 @@ describe('Image', function() {
                 }
             }
 
-            image.save(randar.tmp.file("test.png"));
+            image.save(randar.globalTempDirectory().child("test.png"));
         });
     });
 });
