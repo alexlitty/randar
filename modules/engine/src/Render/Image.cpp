@@ -18,6 +18,13 @@ randar::Image::Image(uint32_t initWidth, uint32_t initHeight)
     this->resize(initWidth, initHeight);
 }
 
+// Import constructor.
+randar::Image::Image(const randar::Path& path)
+: randar::Image()
+{
+    this->load(path);
+}
+
 // Assignment.
 randar::Image::Image(const randar::Image& other)
 : randar::Image()
@@ -219,6 +226,27 @@ void randar::Image::save(const randar::Path& filepath)
     result.write(filepath.toString());
 }
 
+// Loads the image from a file.
+void randar::Image::load(const randar::Path& filepath)
+{
+    png::image<png::rgba_pixel> img(filepath.toString());
+    this->resize(img.get_width(), img.get_height());
+
+    for (uint32_t x = 0; x < this->getWidth(); x++) {
+        for (uint32_t y = 0; y < this->getHeight(); y++) {
+            png::rgba_pixel pixel = img[y][x];
+            randar::Color color;
+
+            color.rInt(pixel.red);
+            color.gInt(pixel.green);
+            color.bInt(pixel.blue);
+            color.aInt(pixel.alpha);
+
+            this->setPixel(x, y, color);
+        }
+    }
+}
+
 // Node.js helpers for intuitive image creation.
 randar::Image randar::image()
 {
@@ -228,4 +256,9 @@ randar::Image randar::image()
 randar::Image randar::image(uint32_t width, uint32_t height)
 {
     return std::move(randar::Image(width, height));
+}
+
+randar::Image randar::image(const randar::Path& path)
+{
+    return std::move(randar::Image(path));
 }

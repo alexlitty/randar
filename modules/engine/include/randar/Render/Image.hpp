@@ -64,6 +64,11 @@ namespace randar
         Image(uint32_t initWidth, uint32_t initHeight);
 
         /**
+         * Import constructor.
+         */
+        Image(const randar::Path& path);
+
+        /**
          * Assignment.
          */
         Image(const Image& other);
@@ -170,6 +175,11 @@ namespace randar
          */
         void save(const std::string& filepath);
         void save(const randar::Path& filepath);
+
+        /**
+         * Loads the image from a file.
+         */
+        void load(const randar::Path& filepath);
     };
 
     /**
@@ -177,6 +187,7 @@ namespace randar
      */
     Image image();
     Image image(uint32_t width, uint32_t height);
+    Image image(const randar::Path& path);
 }
 
 #endif
