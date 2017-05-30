@@ -24,6 +24,10 @@ function assertColor(actual, expected) {
 }
 
 describe('Image', function() {
+    it('reflects', function() {
+        assert.equal(randar.image().kind(), 'image');
+    });
+
     describe('construction', function() {
         it('default constructs dimensionless', function() {
             assertDimensions(new randar.Image(), 0, 0);

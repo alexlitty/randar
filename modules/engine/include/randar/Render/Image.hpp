@@ -64,9 +64,10 @@ namespace randar
         Image(uint32_t initWidth, uint32_t initHeight);
 
         /**
-         * Copy constructor.
+         * Assignment.
          */
         Image(const Image& other);
+        Image& operator =(const Image& other);
 
         /**
          * Destructor.
@@ -74,9 +75,9 @@ namespace randar
         ~Image();
 
         /**
-         * Assignment operator.
+         * Reflection.
          */
-        Image& operator =(const Image& other);
+        std::string kind() const;
 
         /**
          * Copies a data buffer into the image.

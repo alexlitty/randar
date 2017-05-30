@@ -18,11 +18,18 @@ randar::Image::Image(uint32_t initWidth, uint32_t initHeight)
     this->resize(initWidth, initHeight);
 }
 
-// Copy constructor.
+// Assignment.
 randar::Image::Image(const randar::Image& other)
 : randar::Image()
 {
     *this = other;
+}
+
+randar::Image& randar::Image::operator =(const randar::Image& other)
+{
+    this->copy(other.data, other.getWidth(), other.getHeight());
+    this->internalLayout = other.internalLayout;
+    return *this;
 }
 
 // Destructor.
@@ -31,12 +38,10 @@ randar::Image::~Image()
     this->freeData();
 }
 
-// Assignment operator.
-randar::Image& randar::Image::operator =(const randar::Image& other)
+// Reflection.
+std::string randar::Image::kind() const
 {
-    this->copy(other.data, other.getWidth(), other.getHeight());
-    this->internalLayout = other.internalLayout;
-    return *this;
+    return "image";
 }
 
 // Copies a data buffer into the image.
