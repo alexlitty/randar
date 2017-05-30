@@ -33,6 +33,8 @@ module.exports = (randar) => {
         };
 
         this.moveBinItem(this.binItems[id], folder);
+
+        return this.binItems[id];
     };
 
     /**

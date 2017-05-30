@@ -4,7 +4,7 @@ module.exports = (randar) => {
             return;
         }
 
-        let itemDirectory = this.binItemDirectory();
+        let itemDirectory = this.binItemDirectory(item);
 
         // Sanity check.
         if (!item.object) {

@@ -1,6 +1,6 @@
 module.exports = (randar) => {
     randar.Project.prototype.loadBinItem = function(item) {
-        let itemDirectory = this.binItemDirectory();
+        let itemDirectory = this.binItemDirectory(item);
 
         if (!item.kind) {
             throw new Error('Incompatible object');

@@ -3,7 +3,7 @@ module.exports = (randar) => {
      * Adds a bin to the project.
      */
     randar.Project.prototype.addBin = function(name) {
-        this.addBinFolder(name, null);
+        return this.addBinFolder(name, null);
     }
 
     /**
@@ -36,6 +36,8 @@ module.exports = (randar) => {
         if (!parentFolder) {
             this.bins[folder.id] = folder;
         }
+
+        return this.binFolders[folder.id];
     };
 
     /**

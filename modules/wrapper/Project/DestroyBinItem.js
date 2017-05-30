@@ -10,7 +10,7 @@ module.exports = (randar) => {
         }
 
         try {
-            randar.removeDirectory(this.binItemDirectory());
+            randar.removeDirectory(this.binItemDirectory(item));
         } catch (e) { }
     };
 };
