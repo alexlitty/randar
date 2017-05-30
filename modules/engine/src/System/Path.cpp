@@ -82,8 +82,13 @@ std::string randar::Path::toString() const
     return randar::join(this->nodes, '/');
 }
 
-// Node.js helper for intuitive path creation.
+// Node.js helpers for intuitive path creation.
 randar::Path randar::path(const std::string& str)
 {
     return randar::Path(str);
+}
+
+randar::Path randar::path(const randar::Path& other)
+{
+    return randar::Path(other);
 }

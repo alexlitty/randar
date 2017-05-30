@@ -49,9 +49,10 @@ namespace randar
     };
 
     /**
-     * Node.js helper for intuitive path creation.
+     * Node.js helpers for intuitive path creation.
      */
     randar::Path path(const std::string& str = "");
+    randar::Path path(const randar::Path& other);
 }
 
 #endif
