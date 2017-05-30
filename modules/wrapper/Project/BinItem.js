@@ -21,6 +21,7 @@ module.exports = (randar) => {
         }
 
         this.binItems[id] = {
+            kind   : object.kind(),
             object : object,
             name   : name,
             id     : id,
@@ -46,6 +47,7 @@ module.exports = (randar) => {
             throw new Error('Other bin items depend on this item');
         }
 
+        this.destroyBinItem(item);
         this.moveBinItem(item, null);
         delete this.binItems[item.id];
     }
@@ -75,4 +77,12 @@ module.exports = (randar) => {
         item.depends.push(otherItem);
         otherItem.depended.push(item);
     }
+
+    /**
+     * Require additional functionality.
+     */
+    require('./BinItemDirectory.js')(randar);
+    require('./SaveBinItem.js')(randar);
+    require('./LoadBinItem.js')(randar);
+    require('./DestroyBinItem.js')(randar);
 };
