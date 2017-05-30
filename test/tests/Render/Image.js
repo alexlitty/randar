@@ -17,10 +17,10 @@ function assertDimensions(image, width, height) {
 }
 
 function assertColor(actual, expected) {
-    assert.equal(actual.r(), expected.r());
-    assert.equal(actual.g(), expected.g());
-    assert.equal(actual.b(), expected.b());
-    assert.equal(actual.a(), expected.a());
+    assert.equal(actual.r().toFixed(2), expected.r().toFixed(2));
+    assert.equal(actual.g().toFixed(2), expected.g().toFixed(2));
+    assert.equal(actual.b().toFixed(2), expected.b().toFixed(2));
+    assert.equal(actual.a().toFixed(2), expected.a().toFixed(2));
 }
 
 describe('Image', function() {
@@ -261,17 +261,40 @@ describe('Image', function() {
         });
     });
 
-    describe('i/o', function() {
+    describe.only('i/o', function() {
+        let pngFilepath;
+        let pngWidth  = 64;
+        let pngHeight = 86;
+        let pngColor;
+
+        before(function() {
+            pngFilepath = randar.globalTempDirectory().child("test.png");
+            pngColor    = randar.color(0.5, 0.0, 0.4);
+        });
+
         it('saves to file', function() {
-            let image = randar.image(64, 64);
+            let image = randar.image(pngWidth, pngHeight);
 
             for (let x = 0; x < image.getWidth(); x++) {
                 for (let y = 0; y < image.getHeight(); y++) {
-                    image.setPixel(x, y, 0.5, 0.4, 0.3);
+                    image.setPixel(x, y, pngColor);
                 }
             }
 
-            image.save(randar.globalTempDirectory().child("test.png"));
+            image.save(pngFilepath);
+        });
+
+        it('loads from file', function() {
+            let = image = randar.image(pngFilepath);
+
+            assert.equal(image.getWidth(), pngWidth);
+            assert.equal(image.getHeight(), pngHeight);
+
+            for (let x = 0; x < image.getWidth(); x++) {
+                for (let y = 0; y < image.getHeight(); y++) {
+                    assertColor(image.getPixel(x, y), pngColor);
+                }
+            }
         });
     });
 });
