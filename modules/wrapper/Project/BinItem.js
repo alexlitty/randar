@@ -26,7 +26,9 @@ module.exports = (randar) => {
             id     : id,
 
             depended : [],
-            depends  : []
+            depends  : [],
+
+            dirty : true
         };
 
         this.moveBinItem(this.binItems[id], folder);
