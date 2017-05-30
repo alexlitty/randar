@@ -1,5 +1,6 @@
 #include <randar/Filesystem/BinaryFileWriter.hpp>
 #include <randar/IO/Randar.hpp>
+#include <randar/System/Directory.hpp>
 
 void randar::exportGeometry(const randar::Path& path, randar::Geometry& geo)
 {
@@ -7,6 +8,7 @@ void randar::exportGeometry(const randar::Path& path, randar::Geometry& geo)
     uint32_t vertexCount = geo.vertices.count();
     uint32_t indexCount = geo.indices.count();
 
+    randar::createDirectory(path.parent());
     BinaryFileWriter stream(path.toString());
 
     // Basic geometry information.

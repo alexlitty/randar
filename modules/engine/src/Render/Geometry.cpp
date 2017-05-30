@@ -1,3 +1,4 @@
+#include <randar/IO/Randar.hpp>
 #include <randar/Render/Geometry.hpp>
 
 // Constructors.
@@ -112,4 +113,21 @@ uint32_t randar::Geometry::useVertex(const randar::Vertex& vertex)
 void randar::Geometry::append(const randar::Vertex& vertex)
 {
     this->indices.append(this->useVertex(vertex));
+}
+
+// Saves and loads the geometry from disk.
+void randar::Geometry::save(const randar::Path& path)
+{
+    randar::exportGeometry(path, *this);
+}
+
+void randar::Geometry::load(const randar::Path& path)
+{
+    randar::importGeometry(path, *this);
+}
+
+// Node.js helper.
+randar::Geometry randar::geometry()
+{
+    return randar::Geometry();
 }

@@ -99,7 +99,18 @@ namespace randar
          * This is the preferred way to append a vertex to geometry.
          */
         void append(const Vertex& vertex);
+
+        /**
+         * Saves and loads the geometry from disk.
+         */
+        void save(const randar::Path& filepath);
+        void load(const randar::Path& filepath);
     };
+
+    /**
+     * Node.js helper.
+     */
+    Geometry geometry();
 }
 
 #endif
