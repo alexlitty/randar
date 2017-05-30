@@ -36,10 +36,23 @@ randar::Geometry& randar::Geometry::operator =(const randar::Geometry& other)
     return *this;
 }
 
+randar::Geometry randar::Geometry::copy()
+{
+    randar::Geometry geo;
+    geo = *this;
+    return geo;
+}
+
 // Destructor.
 randar::Geometry::~Geometry()
 {
     this->uninitialize();
+}
+
+// Identifiers the Randar object type.
+std::string randar::Geometry::kind() const
+{
+    return "geometry";
 }
 
 // Initializes the geometry on a context.

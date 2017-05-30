@@ -56,6 +56,10 @@ describe('Geometry', function() {
         geo = ctx.geometry();
     });
 
+    it('reports correct type', function() {
+        assert.equal(geo.kind(), 'geometry');
+    });
+
     it('constructs initialized and empty', function() {
         assert.equal(geo.vertices.count(), 0);
         assert.equal(geo.indices.count(), 0);

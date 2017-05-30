@@ -31,11 +31,17 @@ namespace randar
          */
         Geometry(const Geometry& other);
         Geometry& operator =(const Geometry& other);
+        Geometry copy();
 
         /**
          * Destructor.
          */
         ~Geometry();
+
+        /**
+         * Identifies the Randar object type.
+         */
+        std::string kind() const;
 
         /**
          * Initializes the geometry on a context.
