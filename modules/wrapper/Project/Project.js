@@ -13,8 +13,11 @@ module.exports = (randar) => {
      *
      * Project directories default to the current working directory.
      */
-    randar.Project = function() {
+    randar.Project = function(dir) {
         this.clear();
+        if (dir) {
+            this.load(dir);
+        }
     };
 
     /**
@@ -40,7 +43,7 @@ module.exports = (randar) => {
     /**
      * Creation helper function.
      */
-    randar.project = function() {
-        return new randar.Project();
+    randar.project = function(dir) {
+        return new randar.Project(dir);
     };
 };
