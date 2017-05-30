@@ -261,7 +261,7 @@ describe('Image', function() {
         });
     });
 
-    describe.only('i/o', function() {
+    describe('i/o', function() {
         let pngFilepath;
         let pngWidth  = 64;
         let pngHeight = 86;
