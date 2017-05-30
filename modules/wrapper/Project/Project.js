@@ -24,7 +24,7 @@ module.exports = (randar) => {
      * Sets or retrieves the project directory.
      */
     randar.Project.prototype.directory = function(newDirectory) {
-        if (typeof newDirectory === 'undefined') {
+        if (!arguments.length) {
             return this._directory;
         } else {
             this._directory = randar.path(newDirectory);
