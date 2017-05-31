@@ -1,4 +1,4 @@
-randar.component('bin-dialog', {
+ui.component('bin-dialog', {
     computed: {
         bin: function() {
             return {

@@ -3,7 +3,7 @@
  *
  * Indicates an action. Also used to create the timeline headers.
  */
-randar.component('timeline-marker', {
+ui.component('timeline-marker', {
     props: {
         markerId    : Number,
         zoom        : Number,

@@ -5,13 +5,13 @@ const _        = require('underscore');
 const interact = require('interactjs');
 const Vue      = require('vue/dist/vue.common.js');
 
-require(path.join(app.getAppPath(), 'js', 'randar'));
+require(path.join(app.getAppPath(), 'js', 'ui'));
 
 /**
  * Initialize the interface.
  */
 window.addEventListener('DOMContentLoaded', () => {
-    randar.browser.setSize(screen.width, screen.height);
+    ui.browser.setSize(screen.width, screen.height);
 
     document.body.addEventListener('contextmenu', function(event) {
         event.preventDefault();
@@ -63,16 +63,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     new Vue({
         el: document.getElementById('randar'),
-        data: randar,
-        methods: randar.common.methods,
+        data: ui,
+        methods: ui.common.methods,
         watch: {
             focusedResources: function(value) {
                 if (!value.length) {
-                    randar.engine.setMonitorTarget();
+                    ui.engine.setMonitorTarget();
                 }
 
                 else {
-                    randar.engine.setMonitorTarget(
+                    ui.engine.setMonitorTarget(
                         value[0].resourceType,
                         value[0].id
                     );

@@ -3,19 +3,19 @@
  */
 var common = {
     computed: {
-        randar    : function() { return randar; },
+        ui    : function() { return ui; },
 
-        project   : function() { return randar.project; },
-        resources : function() { return randar.resources; },
-        target    : function() { return randar.target; },
+        project   : function() { return ui.project; },
+        resources : function() { return ui.resources; },
+        target    : function() { return ui.target; },
 
-        scenes   : function() { return randar.resources.scenes; },
-        models   : function() { return randar.resources.models; },
-        textures : function() { return randar.resources.textures; },
-        shaders  : function() { return randar.resources.shaders; },
+        scenes   : function() { return ui.resources.scenes; },
+        models   : function() { return ui.resources.models; },
+        textures : function() { return ui.resources.textures; },
+        shaders  : function() { return ui.resources.shaders; },
 
-        overlays         : function() { return randar.overlays; },
-        focusedResources : function() { return randar.focusedResources; }
+        overlays         : function() { return ui.overlays; },
+        focusedResources : function() { return ui.focusedResources; }
     },
 
     methods: {
@@ -42,26 +42,26 @@ var common = {
          * Settings targeting.
          */
         isSettingsSelected: function() {
-            return randar.target.settings;
+            return ui.target.settings;
         },
 
         selectSettings: function() {
-            randar.target.settings = true;
+            ui.target.settings = true;
         },
 
         unselectSettings: function() {
-            randar.target.settings = false;
+            ui.target.settings = false;
         },
 
         /**
          * Resource category targeting.
          */
         isResourceCategorySelected: function() {
-            return !_.isNull(randar.target.resource.category);
+            return !_.isNull(ui.target.resource.category);
         },
 
         setTargetResourceCategory: function(category) {
-            randar.target.resource.category = category;
+            ui.target.resource.category = category;
         },
 
         /**
@@ -69,16 +69,16 @@ var common = {
          */
         isResourceSelected: function() {
             return this.isResourceCategorySelected()
-                && !_.isNull(randar.target.resource.id);
+                && !_.isNull(ui.target.resource.id);
         },
 
         setTargetResource: function(category, id) {
-            randar.target.resource.category = category;
-            randar.target.resource.id       = id;
+            ui.target.resource.category = category;
+            ui.target.resource.id       = id;
         },
 
         clearTargetResource: function() {
-            randar.target.resource.id = null;
+            ui.target.resource.id = null;
         },
 
         /**
@@ -87,11 +87,11 @@ var common = {
          * If the resource does not have a dialog, it is created.
          */
         focusResourceDialog: function(resource) {
-            if (!randar.resourcesWithDialogs.includes(resource)) {
-                randar.resourcesWithDialogs.push(resource);
+            if (!ui.resourcesWithDialogs.includes(resource)) {
+                ui.resourcesWithDialogs.push(resource);
             }
 
-            randar.focusedResources = [resource];
+            ui.focusedResources = [resource];
         },
 
         /**
@@ -103,7 +103,7 @@ var common = {
                 this.$set(resource, prop, patch[prop]);
             }
 
-            randar.engine.patchResource(resource.resourceType, resource.id, patch);
+            ui.engine.patchResource(resource.resourceType, resource.id, patch);
         }
     }
 };

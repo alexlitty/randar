@@ -1,7 +1,7 @@
 /**
  * A timeline for scene editing.
  */
-randar.component('scene-dialog', {
+ui.component('scene-dialog', {
     props: {
         scene: Object
     },

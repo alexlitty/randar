@@ -1,4 +1,4 @@
-randar.component('overlay', {
+ui.component('overlay', {
     props: {
         name: String
     },

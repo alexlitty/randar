@@ -1,4 +1,4 @@
-randar.component('bin-folder', {
+ui.component('bin-folder', {
     props: {
         root   : Boolean,
         folder : Object

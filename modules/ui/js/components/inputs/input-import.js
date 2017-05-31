@@ -1,7 +1,7 @@
-randar.component('input-import', {
+ui.component('input-import', {
     methods: {
         onClick: function() {
-            randar.importResource();
+            ui.importResource();
         }
     },
 

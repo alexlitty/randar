@@ -1,7 +1,7 @@
 /**
  * A button to navigate to the previous panel.
  */
-randar.component('back-button', {
+ui.component('back-button', {
     props: {
         action: Function
     },

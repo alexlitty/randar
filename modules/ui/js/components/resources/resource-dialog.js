@@ -1,4 +1,4 @@
-randar.component('resource-dialog', {
+ui.component('resource-dialog', {
     props: {
         resource: Object
     },
@@ -12,7 +12,7 @@ randar.component('resource-dialog', {
 
     computed: {
         isFocused: function() {
-            return this.randar.focusedResources.includes(this.resource);
+            return this.ui.focusedResources.includes(this.resource);
         }
     },
 

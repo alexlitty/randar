@@ -1,7 +1,7 @@
 /**
  * A table of resource metadata.
  */
-randar.component('resource-meta', {
+ui.component('resource-meta', {
     props: {
         resource: Object
     },

@@ -41,7 +41,7 @@ function combine() {
 /**
  * A component in our app.
  *
- * This is made available as randar.component for easy access.
+ * This is made available as ui.component for easy access.
  *
  * Essentially, this is a wrapper that initializes a new component into Vue
  * and extends it from the common component.
@@ -58,7 +58,7 @@ function component(name) {
 
     var result = combine.apply(
         this,
-        [randar.common].concat(
+        [ui.common].concat(
             [].slice.apply(arguments).slice(1)
         )
     );

@@ -1,4 +1,4 @@
-randar.component('menu-bar', {
+ui.component('menu-bar', {
     data: function() {
         return {
             activeItem: null

@@ -1,14 +1,14 @@
 /**
  * An editor for models.
  */
-randar.component('editor-model', {
+ui.component('editor-model', {
     props: {
         model: Object
     },
 
     methods: {
         assignMeshTexture: function(category, textureId) {
-            randar.engine.setModelMeshTexture(
+            ui.engine.setModelMeshTexture(
                 this.model.id,
                 this.target.textureSlotId,
                 textureId

@@ -1,7 +1,7 @@
 /**
  * A list of resources in a particular category.
  */
-randar.component('resource-list', {
+ui.component('resource-list', {
     props: {
         category: String
     },

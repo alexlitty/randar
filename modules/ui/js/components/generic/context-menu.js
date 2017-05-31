@@ -1,4 +1,4 @@
-randar.component('context-menu', {
+ui.component('context-menu', {
     props: {
         groups : Array
     },

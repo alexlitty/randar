@@ -1,8 +1,8 @@
-randar.component('resource-dialog-area', {
+ui.component('resource-dialog-area', {
     data: function() {
         return {
-            resources        : randar.resourcesWithDialogs,
-            focusedResources : randar.focusedResources
+            resources        : ui.resourcesWithDialogs,
+            focusedResources : ui.focusedResources
         };
     },
 

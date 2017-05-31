@@ -1,7 +1,7 @@
 /**
  * An input to select a resource.
  */
-randar.component('input-resource', {
+ui.component('input-resource', {
     props: {
         category: String
     },

@@ -3,7 +3,7 @@ const glob = require('glob');
 /**
  * Central object that organizes Randar UI functionality.
  */
-global.randar = {
+global.ui = {
     common: require('./components/common'),
 
     /**
@@ -14,7 +14,7 @@ global.randar = {
     /**
      * Close the UI and exit the program.
      */
-    exit: () => randar.browser.close(),
+    exit: () => ui.browser.close(),
 
     /**
      * Methods that bridge engine and UI functionality.
@@ -52,7 +52,7 @@ global.randar = {
      * Handles an engine log message.
      */
     onEngineLog: function(message) {
-        randar.log('[' + message.level + '] ' + message.contents);
+        ui.log('[' + message.level + '] ' + message.contents);
     },  
 
     /** 
@@ -72,11 +72,11 @@ global.randar = {
     receiveData: function(data) {
         for (type in data) {
             if (type == "name") {
-                randar.project.name = data[type];
+                ui.project.name = data[type];
             }   
 
             else if (_.isString(data[type])) {
-                randar.resources[type] = data[type];
+                ui.resources[type] = data[type];
             }   
 
             else {
@@ -85,7 +85,7 @@ global.randar = {
                         data[type][item].id = item;
                         data[type][item].resourceType = type;
                         Vue.set(
-                            randar.resources[type],
+                            ui.resources[type],
                             item,
                             data[type][item]
                         );
@@ -143,9 +143,9 @@ global.randar = {
 };
 
 /**
- * Add the component helper after randar.common is available.
+ * Add the component helper after ui.common is available.
  */
-randar.component = require('./components/component');
+ui.component = require('./components/component');
 
 /**
  * Initialize all available components, directives, and filters.

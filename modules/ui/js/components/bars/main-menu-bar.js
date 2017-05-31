@@ -1,4 +1,4 @@
-randar.component('main-menu-bar', {
+ui.component('main-menu-bar', {
     data: function() {
         return {
             items: [
@@ -7,7 +7,7 @@ randar.component('main-menu-bar', {
                     contextMenu: [
                         [
                             { text: 'Save Project', action: function() {
-                                randar.engine.saveProject();
+                                ui.engine.saveProject();
                             }}
                         ],
 
@@ -18,13 +18,13 @@ randar.component('main-menu-bar', {
 
                         [
                             { text: 'Toggle DevTools', action: function() {
-                                randar.browser.toggleDevTools();
+                                ui.browser.toggleDevTools();
                             }}
                         ],
 
                         [
                             { text: 'Close', action: function() {
-                                randar.exit();
+                                ui.exit();
                             }}
                         ]
                     ]
@@ -35,13 +35,13 @@ randar.component('main-menu-bar', {
                     contextMenu: [
                         [
                             { text: 'Create scene', action: function() {
-                                randar.engine.createResource('scenes');
+                                ui.engine.createResource('scenes');
                             }}
                         ],
 
                         [
                             { text: 'Import resource', action: function() {
-                                randar.importResource();
+                                ui.importResource();
                             }}
                         ]
                     ]
@@ -65,7 +65,7 @@ randar.component('main-menu-bar', {
         },
 
         onClose: function() {
-            randar.exit();
+            ui.exit();
         }
     },
 
