@@ -5,16 +5,18 @@ ui.component('main-menu-bar', {
                 {
                     text: 'Randar',
                     contextMenu: [
-                        [
+                        /*[
                             { text: 'Save Project', action: function() {
-                                ui.engine.saveProject();
+                                if (ui.project.directory().toString() !== '.') {
+                                    ui.project.save();
+                                }
                             }}
                         ],
 
                         [
                             { text: 'New Project'  },
                             { text: 'Open Project' }
-                        ],
+                        ],*/
 
                         [
                             { text: 'Toggle DevTools', action: function() {
@@ -25,23 +27,6 @@ ui.component('main-menu-bar', {
                         [
                             { text: 'Close', action: function() {
                                 ui.exit();
-                            }}
-                        ]
-                    ]
-                },
-
-                {
-                    text: 'Project',
-                    contextMenu: [
-                        [
-                            { text: 'Create scene', action: function() {
-                                ui.engine.createResource('scenes');
-                            }}
-                        ],
-
-                        [
-                            { text: 'Import resource', action: function() {
-                                ui.importResource();
                             }}
                         ]
                     ]
