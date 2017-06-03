@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "async": "^2.3.0",
+    "electron": "^1.6.10",
     "follow-redirects": "^1.2.3",
     "interactjs": "^1.2.8",
     "less": "^2.7.2",
