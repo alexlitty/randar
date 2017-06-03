@@ -1,0 +1,1 @@
+const randar = require('../../wrapper');
