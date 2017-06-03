@@ -14,6 +14,7 @@ var p = { };
 global.RANDAR_PATH = p;
 
 p.ROOT           = path.join('..', '..');
+p.LIB            = path.join(p.ROOT, 'lib');
 p.MODULES        = path.join(p.ROOT, 'modules');
 p.ENGINE         = path.join(p.MODULES, 'engine');
 p.ENGINE_INCLUDE = path.join(p.ENGINE, 'include', 'randar');
