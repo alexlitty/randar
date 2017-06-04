@@ -1,9 +1,14 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, globalShortcut} = require('electron');
 
 const fs   = require('fs');
 const ipc  = require('node-ipc');
 const path = require('path');
 const url  = require('url');
+
+/**
+ * Global reference to project information.
+ */
+global.project = { };
 
 /**
  * Global list of open browsers.
@@ -42,7 +47,12 @@ function createBrowserWindow(id, type) {
 }
 
 app.on('ready', () => {
-    process.send({ e: 'ready' });
+    globalShortcut.register('F12', () => {
+        let bw = BrowserWindow.getFocusedWindow();
+        if (bw) {
+            bw.toggleDevTools();
+        }
+    });
 
     process.on('message', function(data) {
         if (data.e === 'browser.open') {
@@ -53,4 +63,6 @@ app.on('ready', () => {
             delete browsers[data.id];
         }
     });
+
+    process.send({ e: 'ready' });
 });
