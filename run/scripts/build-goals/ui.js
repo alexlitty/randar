@@ -2,7 +2,7 @@ require('../init');
 const less = require('less');
 
 function publish(filename, contents, done) {
-    const filepath = path.join(RANDAR_PATH.UI, 'build', filename);
+    const filepath = path.join(RANDAR_PATH.UI, 'browser-client', 'build', filename);
 
     mkdirp(path.dirname(filepath));
     fs.writeFile(filepath, contents, function(err) {
@@ -17,7 +17,7 @@ function publish(filename, contents, done) {
 var tasks = [
     {
         description : 'html',
-        files       : 'modules/ui/html/**/*.html',
+        files       : 'modules/ui/browser-client/html/**/*.html',
 
         run: function(filenames, done) {
             filenames.forEach(filename => {
@@ -32,7 +32,7 @@ var tasks = [
 
     {
         description : 'less',
-        files       : 'modules/ui/less/**/*.less',
+        files       : 'modules/ui/browser-client/less/**/*.less',
 
         run: function(filenames, done) {
             async.parallel(

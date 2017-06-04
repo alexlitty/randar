@@ -14,10 +14,6 @@ let browsers = { };
  * Creates a new browser window.
  */
 function createBrowserWindow(id, type) {
-    if (type === 'main') {
-        type = 'ui';
-    }
-
     win = new BrowserWindow({
         minWidth  : 600,
         minHeight : 480,
