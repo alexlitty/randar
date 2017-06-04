@@ -8,7 +8,10 @@ const url  = require('url');
 /**
  * Global reference to project information.
  */
-global.project = { };
+global.project = {
+    folders : { },
+    items   : { }
+};
 
 /**
  * Global list of open browsers.
