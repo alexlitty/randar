@@ -14,6 +14,16 @@ global.project = {
 };
 
 /**
+ * Emits an event to the master Randar process.
+ */
+global.emit = function(name, data) {
+    data = data || { };
+    data.e = name;
+
+    process.send(data);
+}
+
+/**
  * Global list of open browsers.
  */
 let browsers = { };
@@ -40,7 +50,7 @@ function createBrowserWindow(id, type) {
     });
 
     win.on('closed', () => {
-        win = null;
+        delete browsers[id];
     });
 
     let filepath = path.join(__dirname, 'build', `${type}.html`);

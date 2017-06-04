@@ -18,7 +18,7 @@ global.ui = {
     /**
      * Electron's BrowserWindow instance for this window.
      */
-    browser: require('electron').remote.getCurrentWindow(),
+    browser: remote.getCurrentWindow(),
 
     /**
      * Close the window.
@@ -33,7 +33,12 @@ global.ui = {
     /**
      * Dedicated area for page information.
      */
-    page: { }
+    page: { },
+
+    /**
+     * Emits an event to the master Randar process.
+     */
+    emit: remote.getGlobal('emit')
 };
 
 ui.common    = require(path.join(ui.paths.js, 'components', 'common'));

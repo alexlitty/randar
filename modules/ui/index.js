@@ -30,6 +30,10 @@ randar.ui.clients.browsers.on('message', (data) => {
     if (data.e === 'ready') {
         randar.ui.views.push(new randar.ui.View('main'));
     }
+
+    else {
+        console.warn('Ignoring unknown event:', data);
+    }
 });
     
 randar.ui.clients.browsers.on('close', () => {
