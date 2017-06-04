@@ -20,7 +20,7 @@ let electronPath = path.resolve(path.join(
 ));
 
 randar.ui.clients = {
-    browsers : spawn(electronPath, ['./browser-client'], {
+    browsers : spawn(electronPath, ['./browser-client', '--enable-transparent-visuals', '--disable-gpu'], {
         cwd   : __dirname,
         stdio : ['inherit', 'inherit', 'inherit', 'ipc']
     })

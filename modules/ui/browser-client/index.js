@@ -32,7 +32,7 @@ function createBrowserWindow(id, type) {
         show  : false,
         frame : false,
 
-        backgroundColor: '#111'
+        transparent: true
     });
 
     win.on('ready-to-show', () => {
