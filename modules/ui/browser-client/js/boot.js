@@ -28,7 +28,12 @@ global.ui = {
     /**
      * Project information.
      */
-    project: remote.getGlobal('project')
+    project: remote.getGlobal('project'),
+
+    /**
+     * Dedicated area for page information.
+     */
+    page: { }
 };
 
 ui.common    = require(path.join(ui.paths.js, 'components', 'common'));
@@ -48,12 +53,17 @@ for (dir of ['components', 'directives', 'filters']) {
  * Initialize the page.
  */
 window.addEventListener('DOMContentLoaded', () => {
-    //ui.browser.setSize(screen.width, 32);
-
     document.body.addEventListener('contextmenu', function(event) {
         event.preventDefault();
         return false;
     });
+
+    let basename = location.href.split(/[\\/]/).pop().replace('.html', '');
+    require(path.join(ui.paths.js, 'pages', basename));
+
+    if (ui.page.init) {
+        ui.page.init();
+    }
 
     new Vue({
         el: document.getElementById('randar'),
