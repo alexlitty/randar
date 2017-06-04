@@ -5,7 +5,7 @@ const _        = require('underscore');
 const interact = require('interactjs');
 const Vue      = require('vue/dist/vue.common.js');
 
-require(path.join(app.getAppPath(), 'js', 'ui'));
+require(path.join(__dirname, '..', 'js', 'ui'));
 
 /**
  * Initialize the interface.

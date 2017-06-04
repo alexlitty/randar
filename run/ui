@@ -1,4 +1,4 @@
 #!/bin/bash
 RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 
-${RANDAR_PATH}/node_modules/electron/dist/electron ${RANDAR_PATH}/modules/ui
+node ${RANDAR_PATH}/modules/ui
