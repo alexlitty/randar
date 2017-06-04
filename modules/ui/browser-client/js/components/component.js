@@ -34,8 +34,6 @@ function combine() {
         if (component.template) {
             result.template = component.template;
         }
-        console.log('component: ', component);
-        console.log('result: ', result);
     }
 
     return result;
