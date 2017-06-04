@@ -34,14 +34,15 @@ function combine() {
         if (component.template) {
             result.template = component.template;
         }
+        console.log('component: ', component);
+        console.log('result: ', result);
     }
+
     return result;
 }
 
 /**
  * A component in our app.
- *
- * This is made available as ui.component for easy access.
  *
  * Essentially, this is a wrapper that initializes a new component into Vue
  * and extends it from the common component.
