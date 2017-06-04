@@ -1,4 +1,5 @@
 #!/bin/bash
 RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 
+${RANDAR_PATH}/run/build ui
 node ${RANDAR_PATH}/modules/ui
