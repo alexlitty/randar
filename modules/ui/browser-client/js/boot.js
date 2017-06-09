@@ -16,6 +16,11 @@ global.ui = {
     },
 
     /**
+     * Parameters passed through the query string.
+     */
+    params: new URLSearchParams(window.location.search),
+
+    /**
      * Electron's BrowserWindow instance for this window.
      */
     browser: remote.getCurrentWindow(),
