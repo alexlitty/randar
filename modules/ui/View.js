@@ -12,6 +12,7 @@ randar.ui.View = function(type) {
 
     if (this.type === 'main') {
         this.browsers.push('main');
+        this.browsers.push('bins');
     }
 
     else if (this.type === 'about') {
