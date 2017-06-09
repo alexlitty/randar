@@ -69,6 +69,9 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     let basename = location.href.split(/[\\/]/).pop().replace('.html', '');
+    if (basename.indexOf('?') > -1) {
+        basename = basename.slice(0, basename.indexOf('?'));
+    }
     require(path.join(ui.paths.js, 'pages', basename));
 
     if (ui.page.init) {
