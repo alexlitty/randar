@@ -32,7 +32,7 @@ let browsers = { };
  * Creates a new browser window.
  */
 function createBrowserWindow(id, type) {
-    win = new BrowserWindow({
+    let win = new BrowserWindow({
         minWidth  : 600,
         minHeight : 480,
 
