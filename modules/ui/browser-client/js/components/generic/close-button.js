@@ -6,6 +6,6 @@ ui.component('close-button', {
     },
 
     template: `
-        <div class="close-button">x</div>
+        <div class="close-button" @click="onClick()">x</div>
     `
 });
