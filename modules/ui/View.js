@@ -14,6 +14,14 @@ randar.ui.View = function(type) {
         this.browsers.push('main');
     }
 
+    else if (this.type === 'about') {
+        this.browsers.push('about');
+    }
+
+    else {
+        console.warn('Creating unknown View type:', type);
+    }
+
     this.browsers = this.browsers.map((browserType) => {
         return new randar.ui.Browser(browserType);
     });

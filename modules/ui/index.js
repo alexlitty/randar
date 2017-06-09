@@ -31,6 +31,10 @@ randar.ui.clients.browsers.on('message', (data) => {
         randar.ui.views.push(new randar.ui.View('main'));
     }
 
+    else if (data.e === 'view.open') {
+        randar.ui.views.push(new randar.ui.View(data.type));
+    }
+
     else {
         console.warn('Ignoring unknown event:', data);
     }

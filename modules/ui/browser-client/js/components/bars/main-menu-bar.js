@@ -46,6 +46,7 @@ ui.component('main-menu-bar', {
 
     methods: {
         showAbout: function() {
+            ui.emit('view.open', { type: 'about' });
         },
 
         onClose: function() {
