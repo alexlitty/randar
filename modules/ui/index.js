@@ -32,7 +32,7 @@ randar.ui.clients.browsers.on('message', (data) => {
     }
 
     else if (data.e === 'view.open') {
-        randar.ui.views.push(new randar.ui.View(data.type));
+        randar.ui.views.push(new randar.ui.View(data.type, data.params || { }));
     }
 
     else {

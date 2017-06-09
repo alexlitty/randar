@@ -4,7 +4,7 @@
  * Each view is composed of browsers and preview windows. Browsers allow user
  * interaction, preview windows provide engine renderings.
  */
-randar.ui.View = function(type) {
+randar.ui.View = function(type, params) {
     this.type = type;
 
     this.browsers = [];
@@ -19,12 +19,16 @@ randar.ui.View = function(type) {
         this.browsers.push('about');
     }
 
+    else if (this.type === 'new-entity') {
+        this.browsers.push('new-entity');
+    }
+
     else {
         console.warn('Creating unknown View type:', type);
     }
 
     this.browsers = this.browsers.map((browserType) => {
-        return new randar.ui.Browser(browserType);
+        return new randar.ui.Browser(browserType, params);
     });
 }
 

@@ -3,8 +3,9 @@
  *
  * Requests a new browser be opened.
  */
-randar.ui.Browser = function(type) {
-    this.type = type;
+randar.ui.Browser = function(type, params) {
+    this.type   = type;
+    this.params = params;
 
     this.id = 0;
     while (randar.ui.Browser.list[this.id]) {
@@ -12,9 +13,10 @@ randar.ui.Browser = function(type) {
     }
 
     randar.ui.clients.browsers.send({
-        e    : 'browser.open',
-        id   : this.id,
-        type : this.type
+        e      : 'browser.open',
+        id     : this.id,
+        type   : this.type,
+        params : this.params
     });
 }
 
