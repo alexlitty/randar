@@ -31,7 +31,7 @@ let browsers = { };
 /**
  * Creates a new browser window.
  */
-function createBrowserWindow(id, type) {
+function createBrowserWindow(id, type, params) {
     let win = new BrowserWindow({
         minWidth  : 32,
         minHeight : 32,
@@ -50,9 +50,12 @@ function createBrowserWindow(id, type) {
         delete browsers[id];
     });
 
-    let filepath = path.join(__dirname, 'build', `${type}.html`);
-    win.loadURL(`file://${filepath}`);
+    let filepath = path.join(__dirname, 'build', `${type}.html`) + '?';
+    for (paramId in params) {
+        filepath += `${paramId}=${params[paramId]}&`;
+    }
 
+    win.loadURL(`file://${filepath}`);
     browsers[id] = win;
 }
 
@@ -66,7 +69,7 @@ app.on('ready', () => {
 
     process.on('message', function(data) {
         if (data.e === 'browser.open') {
-            createBrowserWindow(data.id, data.type);
+            createBrowserWindow(data.id, data.type, data.params || { });
         }
 
         else if (data.e === 'browser.close') {
