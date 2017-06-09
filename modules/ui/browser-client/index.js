@@ -33,11 +33,8 @@ let browsers = { };
  */
 function createBrowserWindow(id, type) {
     let win = new BrowserWindow({
-        minWidth  : 600,
-        minHeight : 480,
-
-        width  : 600,
-        height : 480,
+        minWidth  : 32,
+        minHeight : 32,
 
         show  : false,
         frame : false,
