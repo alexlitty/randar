@@ -24,9 +24,11 @@ var tasks = [
                 publish(
                     path.basename(filename),
                     fs.readFileSync(filename),
-                    done
+                    function() { }
                 );
             });
+
+            done();
         }
     },
 
