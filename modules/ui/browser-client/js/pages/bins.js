@@ -1,4 +1,4 @@
 ui.page.init = () => {
-    ui.browser.setPosition(0, 64);
-    ui.browser.setSize(128, 512);
+    ui.browser.setPosition(0, 128);
+    ui.browser.setSize(156, 512);
 }
