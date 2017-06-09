@@ -21,9 +21,23 @@ var tasks = [
 
         run: function(filenames, done) {
             filenames.forEach(filename => {
+                let template = `
+                    <html>
+                        <head>
+                            <link href="ui.css" rel="stylesheet">
+                            <script src="../js/boot.js"></script>
+                        </head>
+                        <body>
+                            <main id="randar">
+                                {CONTENT}
+                            </main>
+                        </body>
+                    </html>
+                `;
+
                 publish(
                     path.basename(filename),
-                    fs.readFileSync(filename),
+                    template.replace('{CONTENT}', fs.readFileSync(filename)),
                     function() { }
                 );
             });
