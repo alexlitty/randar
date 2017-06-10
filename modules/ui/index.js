@@ -5,7 +5,8 @@ const spawn  = require('child_process').spawn;
 global.randar = require('../wrapper');
 
 randar.ui = {
-    views: [ ]
+    views   : [ ],
+    project : randar.project()
 };
 
 require('./Browser.js');
