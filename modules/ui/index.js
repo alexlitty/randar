@@ -1,46 +1,81 @@
-const path   = require('path');
-const spawn  = require('child_process').spawn;
+const {app, BrowserWindow, globalShortcut} = require('electron');
 
-// Prepare Randar and UI functionality.
-global.randar = require('../wrapper');
+const fs   = require('fs');
+const ipc  = require('node-ipc');
+const path = require('path');
+const url  = require('url');
 
-randar.ui = {
-    views   : [ ],
-    project : randar.project()
+/**
+ * Global reference to project information.
+ */
+global.project = {
+    folders : { },
+    items   : { }
 };
 
-require('./Browser.js');
-require('./View.js');
+/**
+ * Emits an event to the master Randar process.
+ */
+global.emit = function(name, data) {
+    data = data || { };
+    data.e = name;
 
-// List of open views.
-let views = [ ];
+    process.send(data);
+}
 
-// Start browser client.
-let electronPath = path.resolve(path.join(
-    __dirname, '..', '..', 'node_modules', 'electron', 'dist', 'electron'
-));
+/**
+ * Global list of open browsers.
+ */
+let browsers = { };
 
-randar.ui.clients = {
-    browsers : spawn(electronPath, ['./browser-client', '--enable-transparent-visuals', '--disable-gpu'], {
-        cwd   : __dirname,
-        stdio : ['inherit', 'inherit', 'inherit', 'ipc']
-    })
-};
+/**
+ * Creates a new browser window.
+ */
+function createBrowserWindow(id, type, params) {
+    let win = new BrowserWindow({
+        minWidth  : 32,
+        minHeight : 32,
 
-randar.ui.clients.browsers.on('message', (data) => {
-    if (data.e === 'ready') {
-        randar.ui.views.push(new randar.ui.View('main'));
+        show  : false,
+        frame : false,
+
+        transparent: true
+    });
+
+    win.on('ready-to-show', () => {
+        win.show();
+    });
+
+    win.on('closed', () => {
+        delete browsers[id];
+    });
+
+    let filepath = path.join(__dirname, 'build', `${type}.html`) + '?';
+    for (paramId in params) {
+        filepath += `${paramId}=${params[paramId]}&`;
     }
 
-    else if (data.e === 'view.open') {
-        randar.ui.views.push(new randar.ui.View(data.type, data.params || { }));
-    }
+    win.loadURL(`file://${filepath}`);
+    browsers[id] = win;
+}
 
-    else {
-        console.warn('Ignoring unknown event:', data);
-    }
-});
-    
-randar.ui.clients.browsers.on('close', () => {
-    process.exit(0);
+app.on('ready', () => {
+    globalShortcut.register('F12', () => {
+        let bw = BrowserWindow.getFocusedWindow();
+        if (bw) {
+            bw.toggleDevTools();
+        }
+    });
+
+    process.on('message', function(data) {
+        if (data.e === 'browser.open') {
+            createBrowserWindow(data.id, data.type, data.params || { });
+        }
+
+        else if (data.e === 'browser.close') {
+            delete browsers[data.id];
+        }
+    });
+
+    process.send({ e: 'ready' });
 });
