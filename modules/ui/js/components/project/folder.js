@@ -3,6 +3,17 @@ ui.component('project-folder', {
         folder: Object
     },
 
+    data: function() {
+        return {
+            enableNewMenu : false,
+            newMenuGroups : [
+                [
+                    { text: 'Testing!' }
+                ]
+            ]
+        }
+    },
+
     computed: {
         test : function() {
             this.$forceUpdate();
@@ -13,14 +24,41 @@ ui.component('project-folder', {
         }
     },
 
-    template: `
-        <div class="bin-folder">
-            {{ folder.name }}
+    methods: {
+        onClickNew: function() {
+            this.enableNewMenu = true;
+        },
 
-            <project-folder
-                v-for="subfolder in folder.folders"
-                :key="subfolder.id">
-            </project-folder>
+        onNewMenuClose: function() {
+            this.enableNewMenu = false;
+        }
+    },
+
+    template: `
+        <div class="folder">
+            <div class="data">
+                {{ folder.name }}
+            </div>
+
+            <div class="new" @click="onClickNew">
+                +
+
+                <context-menu
+                    v-if="enableNewMenu"
+                    :groups="newMenuGroups"
+                    @close="onNewMenuClose">
+                </context-menu>
+            </div>
+
+            <div class="subfolders">
+                <project-folder
+                    v-for="subfolder in folder.folders"
+                    :key="subfolder.id">
+                </project-folder>
+            </div>
+
+            <div class="items">
+            </div>
         </div>
     `
 });
