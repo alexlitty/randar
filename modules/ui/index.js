@@ -20,14 +20,19 @@ let browsers = [ ];
  * Creates a new browser window.
  */
 global.createBrowserWindow = (type, params) => {
-    let win = new BrowserWindow({
+    let options = {
         minWidth  : 32,
         minHeight : 32,
 
         show  : false,
-        frame : false,
-    });
+        frame : false
+    };
 
+    if (browsers.length) {
+        options.parent = browsers[0];
+    }
+
+    let win = new BrowserWindow(options);
     win.on('ready-to-show', () => {
         win.show();
     });
