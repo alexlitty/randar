@@ -4,7 +4,9 @@ const interact = require('interactjs');
 const path     = require('path');
 const Vue      = require('vue/dist/vue.common.js');
 
-const remote = require('electron').remote;
+const nativeDialog = require('electron').remote.dialog;
+const remote       = require('electron').remote;
+
 const randar = require('../../wrapper');
 
 /**
@@ -14,6 +16,8 @@ global.ui = {
     paths: {
         js: path.join(__dirname, '..', 'js')
     },
+
+    nativeDialog: nativeDialog,
 
     /**
      * Parameters passed through the query string.

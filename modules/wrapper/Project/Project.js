@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 module.exports = (randar) => {
     /**
      * A Randar Project, in all its glory.

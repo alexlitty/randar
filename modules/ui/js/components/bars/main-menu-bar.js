@@ -5,18 +5,42 @@ ui.component('main-menu-bar', {
                 {
                     text: 'Randar',
                     contextMenu: [
-                        /*[
+                        [
                             { text: 'Save Project', action: function() {
-                                if (ui.project.directory().toString() !== '.') {
-                                    ui.project.save();
+                                if (this.project.onDisk) {
+                                    this.project.save();
                                 }
-                            }}
+
+                                ui.nativeDialog.showOpenDialog({
+                                    title      : 'Save project to directory',
+                                    properties : ['openDirectory']
+                                }, function(filepaths) {
+                                    if (filepaths && filepaths.length) {
+                                        let dir = randar.path(filepaths[0]);
+                                        this.project.directory(dir);
+                                        this.project.save();
+                                    }
+                                }.bind(this));
+                            }.bind(this)}
                         ],
 
                         [
-                            { text: 'New Project'  },
-                            { text: 'Open Project' }
-                        ],*/
+                            { text: 'New Project', action: function() {
+                                this.project.clear();
+                            }.bind(this)},
+
+                            { text: 'Open Project', action: function() {
+                                ui.nativeDialog.showOpenDialog({
+                                    title      : 'Load project directory',
+                                    properties : ['openDirectory']
+                                }, function(filepaths) {
+                                    if (filepaths && filepaths.length) {
+                                        let dir = randar.path(filepaths[0]);
+                                        this.project.load(dir);
+                                    }
+                                }.bind(this));
+                            }.bind(this)}
+                        ],
 
                         [
                             { text: 'Toggle DevTools', action: function() {
