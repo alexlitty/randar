@@ -20,9 +20,6 @@ ui.component('project-bins', {
     methods: {
         onClose: function() {
             ui.exit();
-        },
-
-        createBin: function() {
         }
     },
 
@@ -31,7 +28,10 @@ ui.component('project-bins', {
             <menu-bar :items="menuItems" :onClose="onClose"></menu-bar>
 
             <div v-if="project.hasBins()">
-                <project-folder v-for="(bin, binId) in project.bins" :folderId="binId">
+                <project-folder
+                    v-for="bin in project.bins"
+                    :key="bin.id"
+                    :folderId="binId">
                 </project-folder>
             </div>
 
