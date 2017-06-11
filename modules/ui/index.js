@@ -1,4 +1,5 @@
 const {app, BrowserWindow, globalShortcut} = require('electron');
+const randar = require('../wrapper');
 
 const fs   = require('fs');
 const ipc  = require('node-ipc');
@@ -12,16 +13,6 @@ global.project = {
     folders : { },
     items   : { }
 };
-
-/**
- * Emits an event to the master Randar process.
- */
-global.emit = function(name, data) {
-    data = data || { };
-    data.e = name;
-
-    process.send(data);
-}
 
 /**
  * Global list of open browsers.
@@ -77,5 +68,5 @@ app.on('ready', () => {
         }
     });
 
-    process.send({ e: 'ready' });
+    createBrowserWindow(0, 'main', { });
 });
