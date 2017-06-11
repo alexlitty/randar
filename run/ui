@@ -2,4 +2,4 @@
 RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 
 ${RANDAR_PATH}/run/build ui
-node ${RANDAR_PATH}/modules/ui
+${RANDAR_PATH}/node_modules/.bin/electron ${RANDAR_PATH}/modules/ui
