@@ -63,4 +63,18 @@ module.exports = (randar) => {
             delete this.project.bins[this.id];
         }
     };
+
+    /**
+     * Whether this folder has any subfolders.
+     */
+    randar.Project.Folder.prototype.hasFolders = function() {
+        return !!Object.keys(this.folders).length;
+    };
+
+    /**
+     * Whether this folder has any items.
+     */
+    randar.Project.folder.prototype.hasItems = function() {
+        return !!Object.keys(this.items).length;
+    };
 };

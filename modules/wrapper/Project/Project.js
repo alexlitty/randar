@@ -199,6 +199,13 @@ module.exports = (randar) => {
     };
 
     /**
+     * Whether the project has any bins.
+     */
+    randar.Project.prototype.hasBins = function() {
+        return !!Object.keys(this.bins).length;
+    };
+
+    /**
      * Require folder and item functionality.
      */
     require('./Folder.js')(randar);
