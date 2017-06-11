@@ -7,9 +7,8 @@ ui.component('project-bins', {
                     contextMenu: [
                         [
                             { text: 'New bin', action: function() {
-                                ui.emit('view.open', {
-                                    type   : 'new-entity',
-                                    params : { type: 'bin' }
+                                ui.createBrowserWindow('new-entity', {
+                                    type: 'bin'
                                 });
                             }}
                         ]

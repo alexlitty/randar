@@ -17,20 +17,18 @@ global.project = {
 /**
  * Global list of open browsers.
  */
-let browsers = { };
+let browsers = [ ];
 
 /**
  * Creates a new browser window.
  */
-function createBrowserWindow(id, type, params) {
+global.createBrowserWindow = (type, params) => {
     let win = new BrowserWindow({
         minWidth  : 32,
         minHeight : 32,
 
         show  : false,
         frame : false,
-
-        transparent: true
     });
 
     win.on('ready-to-show', () => {
@@ -38,7 +36,10 @@ function createBrowserWindow(id, type, params) {
     });
 
     win.on('closed', () => {
-        delete browsers[id];
+        let idx = browsers.indexOf(win);
+        if (idx > -1) {
+            browsers.slice(idx, 1);
+        }
     });
 
     let filepath = path.join(__dirname, 'build', `${type}.html`) + '?';
@@ -47,7 +48,7 @@ function createBrowserWindow(id, type, params) {
     }
 
     win.loadURL(`file://${filepath}`);
-    browsers[id] = win;
+    browsers.push(win);
 }
 
 app.on('ready', () => {
@@ -58,15 +59,6 @@ app.on('ready', () => {
         }
     });
 
-    process.on('message', function(data) {
-        if (data.e === 'browser.open') {
-            createBrowserWindow(data.id, data.type, data.params || { });
-        }
-
-        else if (data.e === 'browser.close') {
-            delete browsers[data.id];
-        }
-    });
-
-    createBrowserWindow(0, 'main', { });
+    createBrowserWindow('main', { });
+    createBrowserWindow('bins', { });
 });

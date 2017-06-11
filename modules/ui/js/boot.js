@@ -11,6 +11,8 @@ const Vue      = require('vue/dist/vue.common.js');
  * Common functionality for all pages.
  */
 global.ui = {
+    createBrowserWindow: remote.getGlobal('createBrowserWindow'),
+
     paths: {
         js: path.join(__dirname, '..', 'js')
     },
