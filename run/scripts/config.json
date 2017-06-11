@@ -1,6 +1,6 @@
 {
     "requirements": {
-        "node": "v6.10.3",
+        "node": "v7.10.0",
         "swig": "3.0.12"
     }
 }
