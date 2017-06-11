@@ -1,15 +1,9 @@
 const {app, BrowserWindow, globalShortcut} = require('electron');
-const randar = require('../wrapper');
 
 const fs   = require('fs');
 const ipc  = require('node-ipc');
 const path = require('path');
 const url  = require('url');
-
-/**
- * Global reference to project information.
- */
-global.project = randar.project();
 
 /**
  * Global list of open browsers.
