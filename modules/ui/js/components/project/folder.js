@@ -8,7 +8,9 @@ ui.component('project-folder', {
             enableNewMenu : false,
             newMenuGroups : [
                 [
-                    { text: 'Testing!' }
+                    { text: 'Folder', action: function() {
+                        this.project.newFolder('Untitled folder', this.folder.id);
+                    }.bind(this)}
                 ]
             ]
         }
