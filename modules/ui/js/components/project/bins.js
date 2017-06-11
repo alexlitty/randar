@@ -7,9 +7,7 @@ ui.component('project-bins', {
                     contextMenu: [
                         [
                             { text: 'New bin', action: function() {
-                                ui.createBrowserWindow('new-entity', {
-                                    type: 'bin'
-                                });
+                                ui.project.newFolder('Untitled bin', null);
                             }}
                         ]
                     ]
