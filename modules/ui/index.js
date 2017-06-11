@@ -62,5 +62,4 @@ app.on('ready', () => {
     });
 
     createBrowserWindow('main', { });
-    createBrowserWindow('bins', { });
 });

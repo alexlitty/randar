@@ -46,7 +46,7 @@ ui.component('main-menu-bar', {
 
     methods: {
         showAbout: function() {
-            ui.createBrowserWindow('about');
+            //ui.createBrowserWindow('about');
         },
 
         onClose: function() {

@@ -1,21 +1,16 @@
-const ipc      = require('electron').ipcRenderer;
-const remote   = require('electron').remote;
-
 const _        = require('underscore');
 const glob     = require('glob');
 const interact = require('interactjs');
 const path     = require('path');
 const Vue      = require('vue/dist/vue.common.js');
 
-const randar   = require('../../wrapper');
+const remote = require('electron').remote;
+const randar = require('../../wrapper');
 
 /**
  * Common functionality for all pages.
  */
 global.ui = {
-    remote : remote,
-    createBrowserWindow: remote.getGlobal('createBrowserWindow'),
-
     paths: {
         js: path.join(__dirname, '..', 'js')
     },
@@ -43,12 +38,7 @@ global.ui = {
     /**
      * Dedicated area for page information.
      */
-    page: { },
-
-    /**
-     * Emits an event to the master Randar process.
-     */
-    emit: remote.getGlobal('emit')
+    page: { }
 };
 
 ui.common    = require(path.join(ui.paths.js, 'components', 'common'));
