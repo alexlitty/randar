@@ -74,7 +74,7 @@ module.exports = (randar) => {
     /**
      * Whether this folder has any items.
      */
-    randar.Project.folder.prototype.hasItems = function() {
+    randar.Project.Folder.prototype.hasItems = function() {
         return !!Object.keys(this.items).length;
     };
 };

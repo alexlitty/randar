@@ -8,13 +8,12 @@ ui.component('project-bins', {
                         [
                             { text: 'New bin', action: function() {
                                 ui.project.newFolder('Untitled bin', null);
-                            }}
+                                this.$forceUpdate();
+                            }.bind(this)}
                         ]
                     ]
                 }
-            ],
-
-            bins: ui.project.bins
+            ]
         }
     },
 
@@ -31,8 +30,8 @@ ui.component('project-bins', {
         <div class="dialog bins">
             <menu-bar :items="menuItems" :onClose="onClose"></menu-bar>
 
-            <div v-if="bins && bins.length">
-                <project-folder v-for="(bin, binId) in bins" :folderId="binId">
+            <div v-if="project.hasBins()">
+                <project-folder v-for="(bin, binId) in project.bins" :folderId="binId">
                 </project-folder>
             </div>
 

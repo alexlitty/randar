@@ -5,14 +5,15 @@ ui.component('project-folder', {
 
     data: function() {
         return {
-            folders : ui.project.folders[folderId].folderIds,
-            items   : ui.project.folders[folderId].itemIds
+            folder : ui.project.folders[folderId]
         }
     },
 
     template: `
         <div class="bin-folder">
-            <project-folder v-for="item in items"></project-folder>
+            {{ folder.name }}
+
+            <project-folder v-for="(subfolder, subfolderId) in folder.folders"></project-folder>
         </div>
     `
 });
