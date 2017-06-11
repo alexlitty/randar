@@ -7,7 +7,7 @@ ui.component('project-bins', {
                     contextMenu: [
                         [
                             { text: 'New bin', action: function() {
-                                ui.project.newFolder('Untitled bin', null);
+                                this.project.newFolder('Untitled bin', null);
                                 this.$forceUpdate();
                             }.bind(this)}
                         ]
@@ -31,7 +31,7 @@ ui.component('project-bins', {
                 <project-folder
                     v-for="bin in project.bins"
                     :key="bin.id"
-                    :folderId="binId">
+                    :folder="bin">
                 </project-folder>
             </div>
 

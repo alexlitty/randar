@@ -4,7 +4,7 @@
 let common = {
     computed: {
         ui        : function() { return ui; },
-        project   : function() { return ui.project; },
+        project   : function() { return ui.project; }
     },
 
     methods: {

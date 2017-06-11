@@ -7,10 +7,13 @@ const interact = require('interactjs');
 const path     = require('path');
 const Vue      = require('vue/dist/vue.common.js');
 
+const randar   = require('../../wrapper');
+
 /**
  * Common functionality for all pages.
  */
 global.ui = {
+    remote : remote,
     createBrowserWindow: remote.getGlobal('createBrowserWindow'),
 
     paths: {
@@ -35,7 +38,7 @@ global.ui = {
     /**
      * Project information.
      */
-    project: remote.getGlobal('project'),
+    project: randar.project(),
 
     /**
      * Dedicated area for page information.
