@@ -13,10 +13,7 @@ ui.component('new-entity', {
 
         onSubmit: function() {
             if (this.type === 'bin') {
-                ui.emit('project.folder.create', {
-                    parentId : null,
-                    name     : this.name
-                });
+                ui.project.newFolder(this.name, null);
             }
 
             ui.exit();

@@ -9,10 +9,7 @@ const url  = require('url');
 /**
  * Global reference to project information.
  */
-global.project = {
-    folders : { },
-    items   : { }
-};
+global.project = randar.project();
 
 /**
  * Global list of open browsers.
