@@ -9,7 +9,19 @@ ui.component('project-folder', {
             newMenuGroups : [
                 [
                     { text: 'Folder', action: function() {
-                        this.project.newFolder('Untitled folder', this.folder.id);
+                        this.project.newFolder('Untitled folder', this.folder);
+                        this.$forceUpdate();
+                    }.bind(this)}
+                ],
+
+                [
+                    { text: 'Geometry', action: function() {
+                        this.project.newItem(
+                            this.folder.id,
+                            'geometry',
+                            'Untitled geometry'
+                        );
+                        this.$forceUpdate();
                     }.bind(this)}
                 ]
             ]
@@ -55,7 +67,8 @@ ui.component('project-folder', {
             <div class="subfolders">
                 <project-folder
                     v-for="subfolder in folder.folders"
-                    :key="subfolder.id">
+                    :key="subfolder.id"
+                    :folder="subfolder">
                 </project-folder>
             </div>
 
