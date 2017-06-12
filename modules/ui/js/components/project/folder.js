@@ -10,18 +10,16 @@ ui.component('project-folder', {
                 [
                     { text: 'Folder', action: function() {
                         this.project.newFolder('Untitled folder', this.folder);
-                        this.$forceUpdate();
                     }.bind(this)}
                 ],
 
                 [
                     { text: 'Geometry', action: function() {
                         this.project.newItem(
-                            this.folder.id,
+                            this.folder,
                             'geometry',
                             'Untitled geometry'
                         );
-                        this.$forceUpdate();
                     }.bind(this)}
                 ]
             ]
