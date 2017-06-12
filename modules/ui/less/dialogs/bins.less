@@ -12,28 +12,33 @@
             border-bottom    : 1px solid #111;
 
             padding: 8px;
-        }
 
-        .new {
-            display: none;
-        }
-
-        &:hover {
             .new {
-                .clickable;
+                display: none;
+            }
 
-                display  : inline-block;
-                position : absolute;
-                top      : 0;
-                right    : 0;
+            &:hover {
+                .new {
+                    .clickable;
 
-                padding : 8px;
+                    display  : inline-block;
+                    position : absolute;
+                    top      : 0;
+                    right    : 0;
+
+                    padding : 8px;
+                }
             }
         }
 
         .subfolders {
             border-left : 1px solid #111;
             margin-left : 8px;
+        }
+
+        menu.context {
+            top   : 32px;
+            left  : calc(100% - 24px);
         }
     }
 }

@@ -43,6 +43,7 @@ ui.component('project-folder', {
 
         onNewMenuClose: function() {
             this.enableNewMenu = false;
+            this.$forceUpdate();
         }
     },
 
@@ -50,16 +51,10 @@ ui.component('project-folder', {
         <div class="folder">
             <div class="data">
                 {{ folder.name }}
-            </div>
 
-            <div class="new" @click="onClickNew">
-                +
-
-                <context-menu
-                    v-if="enableNewMenu"
-                    :groups="newMenuGroups"
-                    @close="onNewMenuClose">
-                </context-menu>
+                <div class="new" @click="onClickNew">
+                    +
+                </div>
             </div>
 
             <div class="subfolders">
@@ -72,6 +67,13 @@ ui.component('project-folder', {
 
             <div class="items">
             </div>
+
+            <context-menu
+                v-if="enableNewMenu"
+                :groups="newMenuGroups"
+                @close="onNewMenuClose">
+            </context-menu>
+
         </div>
     `
 });
