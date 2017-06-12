@@ -27,6 +27,8 @@ namespace randar
     class Texture;
     class Window;
 
+    class Monitor;
+
     /**
      * A wrapper for OpenGL contexts.
      *
@@ -209,6 +211,8 @@ namespace randar
             const std::string& type = "rgba");
 
         randar::Window& window(uint32_t width, uint32_t height);
+
+        randar::Monitor& monitor(randar::Geometry& geometry);
 
         /**
          * Default resources.

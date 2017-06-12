@@ -4,6 +4,7 @@
 #include <randar/Render/Texture.hpp>
 #include <randar/Render/Geometry.hpp>
 #include <randar/Render/ShaderProgram.hpp>
+#include <randar/System/Monitor.hpp>
 #include <randar/System/Window.hpp>
 
 // Allows us to pass attributes while creating a context.
@@ -364,6 +365,13 @@ randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
     randar::Window* w = new randar::Window(*this, width, height);
     this->associate(*w);
     return *w;
+}
+
+randar::Monitor& randar::GraphicsContext::monitor(randar::Geometry& geo)
+{
+    randar::Monitor* m = new randar::Monitor(*this, geo);
+    this->associate(*m);
+    return *m;
 }
 
 // Default resources.
