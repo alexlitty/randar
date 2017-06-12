@@ -28,6 +28,12 @@ randar::Monitor::~Monitor()
     delete this->win;
 }
 
+// Retrieves the window used by the monitor.
+randar::Window& randar::Monitor::window()
+{
+    return *this->win;
+}
+
 // Presents the monitor to the screen.
 void randar::Monitor::present()
 {

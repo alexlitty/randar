@@ -42,6 +42,13 @@ namespace randar
         ~Monitor();
 
         /**
+         * Retrieves the window used by the monitor.
+         *
+         * Throws an error if no window exists -- but that shouldn't ever occur.
+         */
+        randar::Window& window();
+
+        /**
          * Presents the monitor to the screen.
          */
         void present();
