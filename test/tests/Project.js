@@ -1,4 +1,4 @@
-describe.only('Project', function() {
+describe('Project', function() {
     let tmpDir;
 
     before(function() {
