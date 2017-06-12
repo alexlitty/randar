@@ -52,6 +52,22 @@
         > .data {
             .clickable;
             background-color: #555;
+
+            &:before {
+                color : #ccc;
+            }
+
+            &.geometry:before {
+                content: '\25CC'
+            }
+
+            &.model:before {
+                content: '\25CD';
+            }
+
+            &.texture:before {
+                content: '\25A8';
+            }
         }
     }
 }
