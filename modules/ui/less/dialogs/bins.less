@@ -4,41 +4,50 @@
     width  : 156px;
     height : 512px;
 
+    .contents {
+        border-left : 1px solid #111;
+        margin-left : 8px;
+    }
+
+    .data {
+        border-bottom : 1px solid #111;
+        padding       : 8px;
+
+        .new {
+            display: none;
+        }
+
+        &:hover {
+            .new {
+                .clickable;
+
+                display  : inline-block;
+                position : absolute;
+                top      : 0;
+                right    : 0;
+
+                padding : 8px;
+            }
+        }
+    }
+
     .folder {
         position: relative;
 
-        .data {
+        > .data {
             background-color : #222;
-            border-bottom    : 1px solid #111;
-
-            padding: 8px;
-
-            .new {
-                display: none;
-            }
-
-            &:hover {
-                .new {
-                    .clickable;
-
-                    display  : inline-block;
-                    position : absolute;
-                    top      : 0;
-                    right    : 0;
-
-                    padding : 8px;
-                }
-            }
-        }
-
-        .subfolders {
-            border-left : 1px solid #111;
-            margin-left : 8px;
         }
 
         menu.context {
             top   : 32px;
             left  : calc(100% - 24px);
+        }
+    }
+
+    .item {
+        > .data {
+            .clickable;
+            background-color: #555;
         }
     }
 }

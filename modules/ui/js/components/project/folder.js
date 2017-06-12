@@ -57,15 +57,18 @@ ui.component('project-folder', {
                 </div>
             </div>
 
-            <div class="subfolders">
+            <div class="contents">
                 <project-folder
                     v-for="subfolder in folder.folders"
                     :key="subfolder.id"
                     :folder="subfolder">
                 </project-folder>
-            </div>
 
-            <div class="items">
+                <project-item
+                    v-for="item in folder.items"
+                    :key="item.id"
+                    :item="item">
+                </project-item>
             </div>
 
             <context-menu
