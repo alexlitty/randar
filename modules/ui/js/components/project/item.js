@@ -5,7 +5,7 @@ ui.component('project-item', {
 
     template: `
         <div class="item">
-            <div class="data" :class="item.type">
+            <div class="data" :class="item.kind">
                 {{ item.name }}
             </div>
         </div>
