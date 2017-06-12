@@ -42,7 +42,12 @@ global.ui = {
     /**
      * Dedicated area for page information.
      */
-    page: { }
+    page: { },
+
+    /**
+     * General-use graphics context.
+     */
+    ctx: new randar.GraphicsContext()
 };
 
 ui.common    = require(path.join(ui.paths.js, 'components', 'common'));
