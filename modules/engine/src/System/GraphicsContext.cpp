@@ -120,7 +120,7 @@ randar::GraphicsContext::GraphicsContext()
 
     // Ensure we've created a direct rendering context.
     if (!::glXIsDirect(this->display, this->ctx)) {
-        throw std::runtime_error("Unable to create direct context");
+        throw std::runtime_error("Graphics context is not direct");
     }
 
     // Immediately enable off-screen rendering.
@@ -147,6 +147,14 @@ randar::GraphicsContext::GraphicsContext()
 
     ::glDebugMessageCallback(graphicsContextDebugHandler, nullptr);
     this->check("Cannot enable OpenGL debug mode");
+
+    // Ensure the context is responsive.
+    try {
+        this->version();
+    } catch (std::runtime_error& e) {
+        this->check("Failed to query graphics context version");
+        throw std::runtime_error("Corrupted graphics context");
+    }
 
     // Enable basic OpenGL behaviors.
     ::glEnable(GL_DEPTH_TEST);
@@ -193,7 +201,7 @@ std::string randar::GraphicsContext::version()
 {
     this->use();
 
-    GLubyte* str = ::glGetString(GL_VERSION);
+    const GLubyte* str = ::glGetString(GL_VERSION);
     this->check("Cannot retrieve OpenGL version");
 
     if (!str) {
