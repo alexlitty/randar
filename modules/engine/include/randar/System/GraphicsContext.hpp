@@ -109,6 +109,7 @@ namespace randar
          */
         GraphicsContext(const GraphicsContext& other) = delete;
         GraphicsContext& operator =(const GraphicsContext& other) = delete;
+        GraphicsContext(GraphicsContext&& other) = delete;
 
         /**
          * Constructor.
