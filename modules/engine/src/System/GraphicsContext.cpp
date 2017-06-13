@@ -16,6 +16,13 @@ typedef GLXContext (*glXCreateContextAttribsARBProc)(
     const int*
 );
 
+// X error handler.
+static int xErrorHandler(Display *dpy, XErrorEvent *ev)
+{
+    throw std::runtime_error("X error");
+    return 0;
+}
+
 // OpenGL debug message handler.
 void graphicsContextDebugHandler(
     GLenum source,
@@ -32,6 +39,9 @@ void graphicsContextDebugHandler(
 // Constructor.
 randar::GraphicsContext::GraphicsContext()
 {
+    // Register the X error handler.
+    ::XSetErrorHandler(xErrorHandler);
+
     // Load extensions.
     glXCreateContextAttribsARBProc glXCreateContextAttribsARB =
         (glXCreateContextAttribsARBProc)glXGetProcAddressARB(
@@ -102,12 +112,12 @@ randar::GraphicsContext::GraphicsContext()
         ctxAttribs
     );
 
+    // Wait for X to throw any errors available.
+    ::XSync(this->display, false);
+
     if (!this->ctx) {
         throw std::runtime_error("Failed to create graphics context");
     }
-
-    // Wait for X to throw any errors available.
-    ::XSync(this->display, false);
 
     // Immediately enable off-screen rendering.
     this->use();
