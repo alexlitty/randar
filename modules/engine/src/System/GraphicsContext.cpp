@@ -114,9 +114,13 @@ randar::GraphicsContext::GraphicsContext()
 
     // Wait for X to throw any errors available.
     ::XSync(this->display, false);
-
     if (!this->ctx) {
         throw std::runtime_error("Failed to create graphics context");
+    }
+
+    // Ensure we've created a direct rendering context.
+    if (!::glXIsDirect(this->display, this->ctx)) {
+        throw std::runtime_error("Unable to create direct context");
     }
 
     // Immediately enable off-screen rendering.
