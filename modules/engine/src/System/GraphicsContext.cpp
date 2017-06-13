@@ -191,7 +191,7 @@ void randar::GraphicsContext::use()
 {
     this->check("Uncaught GL error");
 
-    if (::glXGetCurrentContext() == this->ctx) {
+    if (this->isCurrent()) {
         return;
     }
 
@@ -214,7 +214,7 @@ void randar::GraphicsContext::use(randar::Window& window)
         throw std::runtime_error("Window is not associated with this context");
     }
 
-    if (::glXGetCurrentDrawable() == window.glx()) {
+    if (this->isCurrent(window)) {
         return;
     }
 
@@ -269,6 +269,17 @@ void randar::GraphicsContext::check(const std::string& message)
     }
 
     throw std::runtime_error(message + ": " + description);
+}
+
+// Whether the context is current.
+bool randar::GraphicsContext::isCurrent()
+{
+    return ::glXGetCurrentContext() == this->ctx;
+}
+
+bool randar::GraphicsContext::isCurrent(randar::Window& window)
+{
+    return ::glXGetCurrentDrawable() == window.glx();
 }
 
 // Associates and unassociates a resources with this context.

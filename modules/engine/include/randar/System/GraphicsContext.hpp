@@ -171,6 +171,12 @@ namespace randar
         void check(const std::string& message);
 
         /**
+         * Whether the context is current.
+         */
+        bool isCurrent();
+        bool isCurrent(randar::Window& window);
+
+        /**
          * Associates and unassociates a resource with this context.
          */
         void associate(GraphicsContextResource& resource);
