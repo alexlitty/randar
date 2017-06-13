@@ -192,12 +192,15 @@ randar::GraphicsContext::~GraphicsContext()
 std::string randar::GraphicsContext::version()
 {
     this->use();
-    std::string version(reinterpret_cast<const char*>(
-        ::glGetString(GL_VERSION)
-    ));
 
+    GLubyte* str = ::glGetString(GL_VERSION);
     this->check("Cannot retrieve OpenGL version");
-    return version;
+
+    if (!str) {
+        throw std::runtime_error("Empty context response");
+    }
+
+    return std::string(reinterpret_cast<const char*>(str));
 }
 
 // Makes this context current without considering a window.
