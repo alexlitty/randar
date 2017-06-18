@@ -6,6 +6,7 @@
 #include <randar/Render/ShaderProgram.hpp>
 #include <randar/System/Monitor.hpp>
 #include <randar/System/Window.hpp>
+#include <randar/System/FbConfig.hpp>
 
 // Allows us to pass attributes while creating a context.
 typedef GLXContext (*glXCreateContextAttribsARBProc)(
@@ -97,7 +98,21 @@ randar::GraphicsContext::GraphicsContext()
         throw std::runtime_error("No proper framebuffers available");
     }
 
-    // Get the visual from our chosen framebuffer.
+    // Check framebuffer configuration.
+    FbConfig fbc(this->display, fbConfigs[0]);
+    if (!fbc.renderable) {
+        throw std::runtime_error("No renderable framebuffer config available");
+    }
+
+    if (!fbc.doublebuffer) {
+        throw std::runtime_error("Double buffering not available");
+    }
+
+    if (fbc.visualType != GLX_TRUE_COLOR) {
+        throw std::runtime_error("True color visual not available");
+    }
+
+    // Get the visual from our chosen configuration.
     this->visual = ::glXGetVisualFromFBConfig(this->display, fbConfigs[0]);
     if (!this->visual) {
         throw std::runtime_error("Failed to get X visual information");
@@ -126,6 +141,9 @@ randar::GraphicsContext::GraphicsContext()
     // Immediately enable off-screen rendering.
     this->use();
     this->check("Cannot create graphics context");
+    if (!this->isCurrent()) {
+        throw std::runtime_error("Failed to make context current");
+    }
 
     // Initialize GLEW.
     ::glewExperimental = true;
@@ -149,6 +167,7 @@ randar::GraphicsContext::GraphicsContext()
     this->check("Cannot enable OpenGL debug mode");
 
     // Ensure the context is responsive.
+    this->sync();
     try {
         this->version();
     } catch (std::runtime_error& e) {
