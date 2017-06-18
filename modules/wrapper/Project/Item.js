@@ -90,7 +90,7 @@ module.exports = (randar) => {
      * Saves the item to disk.
      */
     randar.Project.Item.prototype.save = function() {
-        if (!this.dirty || !this.isLoaded()) {
+        if (!this.dirty) {
             return;
         }
 
