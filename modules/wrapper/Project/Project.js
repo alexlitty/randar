@@ -98,9 +98,17 @@ module.exports = (randar) => {
         this.clear();
         this.directory(dir);
 
-        let json = JSON.parse(
-            fs.readFileSync(this.directory().child('project.json').toString())
-        );
+        try {
+            let json = JSON.parse(
+                fs.readFileSync(this.directory().child('project.json').toString())
+            );
+        } catch (e) {
+            console.error(
+                `Cannot load project at "${this.directory().toString()}": `
+                + e.message
+            );
+            return false;
+        }
 
         // Project information.
         this.name = json.name;
@@ -138,6 +146,7 @@ module.exports = (randar) => {
         }
 
         this.onDisk = true;
+        return true;
     }
 
     /**
