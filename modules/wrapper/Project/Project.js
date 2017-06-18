@@ -98,8 +98,9 @@ module.exports = (randar) => {
         this.clear();
         this.directory(dir);
 
+        let json;
         try {
-            let json = JSON.parse(
+            json = JSON.parse(
                 fs.readFileSync(this.directory().child('project.json').toString())
             );
         } catch (e) {
