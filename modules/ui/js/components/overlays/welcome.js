@@ -29,6 +29,10 @@ ui.component('overlay-welcome', {
                     <header>RANDAR</header>
                 </div>
 
+                <div class="sass">
+                    "Home of terrible welcome dialogs"
+                </div>
+
                 <div v-if="!startingNewProject">
                     <div class="button" @click="onNew">New Project</div>
                     <div class="button" @click="onLoad">Load Project</div>
