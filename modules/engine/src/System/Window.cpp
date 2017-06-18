@@ -74,6 +74,19 @@ void randar::Window::close()
     }
 }
 
+// Checks if the window is still open.
+bool randar::Window::isOpen()
+{
+    if (!this->isInitialized()) {
+        return false;
+    }
+
+    ::XWindowAttributes attributes;
+    ::XGetWindowAttributes(this->ctx->display, this->handle, &attributes);
+
+    return attributes.map_state != IsUnmapped;
+}
+
 // Retrieves the associated context.
 randar::GraphicsContext& randar::Window::context()
 {

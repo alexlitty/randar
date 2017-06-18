@@ -80,6 +80,11 @@ namespace randar
         void close();
 
         /**
+         * Checks if the window is still open.
+         */
+        bool isOpen();
+
+        /**
          * Retrieves the associated context.
          */
         GraphicsContext& context();
