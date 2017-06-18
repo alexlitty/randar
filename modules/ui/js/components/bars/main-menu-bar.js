@@ -7,38 +7,11 @@ ui.component('main-menu-bar', {
                     contextMenu: [
                         [
                             { text: 'Save Project', action: function() {
-                                if (this.project.onDisk) {
-                                    this.project.save();
-                                }
-
-                                ui.nativeDialog.showOpenDialog({
-                                    title      : 'Save project to directory',
-                                    properties : ['openDirectory']
-                                }, function(filepaths) {
-                                    if (filepaths && filepaths.length) {
-                                        let dir = randar.path(filepaths[0]);
-                                        this.project.directory(dir);
-                                        this.project.save();
-                                    }
-                                }.bind(this));
-                            }.bind(this)}
-                        ],
-
-                        [
-                            { text: 'New Project', action: function() {
-                                this.project.clear();
+                                ui.saveProject();
                             }.bind(this)},
 
                             { text: 'Open Project', action: function() {
-                                ui.nativeDialog.showOpenDialog({
-                                    title      : 'Load project directory',
-                                    properties : ['openDirectory']
-                                }, function(filepaths) {
-                                    if (filepaths && filepaths.length) {
-                                        let dir = randar.path(filepaths[0]);
-                                        this.project.load(dir);
-                                    }
-                                }.bind(this));
+                                ui.loadProject();
                             }.bind(this)}
                         ],
 

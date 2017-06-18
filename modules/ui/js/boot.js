@@ -47,6 +47,58 @@ global.ui = {
     page: { },
 
     /**
+     * Saves the project.
+     */
+    saveProject: (cb) => {
+        if (ui.project.onDisk) {
+            ui.project.save();
+            return;
+        }
+
+        ui.nativeDialog.showOpenDialog({
+            title      : 'Save project',
+            properties : ['openDirectory']
+        }, function(filepaths) {
+            if (filepaths && filepaths.length) {
+                let dir = randar.path(filepaths[0]);
+                ui.project.directory(dir);
+                ui.project.save();
+
+                if (cb) {
+                    cb(true);
+                }
+            }
+
+            else if (cb) {
+                cb(false);
+            }
+        });
+    },
+
+    /**
+     * Loads a project.
+     */
+    loadProject: (cb) => {
+        ui.nativeDialog.showOpenDialog({
+            title      : 'Load project',
+            properties : ['openDirectory']
+        }, function(filepaths) {
+            if (filepaths && filepaths.length) {
+                let dir = randar.path(filepaths[0]);
+                let result = ui.project.load(dir);
+
+                if (cb) {
+                    cb(result);
+                }
+            }
+            
+            else if (cb) {
+                cb(false);
+            }
+        });
+    },
+
+    /**
      * List of available monitor processes.
      */
     monitorProcesses: { },
