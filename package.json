@@ -21,6 +21,7 @@
     "follow-redirects": "^1.2.3",
     "interactjs": "^1.2.8",
     "less": "^2.7.2",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
     "progress": "^2.0.0",
