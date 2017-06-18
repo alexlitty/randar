@@ -48,6 +48,10 @@ randar::Window::Window(
     );
 
     this->fb.reset(new Framebuffer(*this));
+
+    while (!this->isOpen()) {
+
+    }
 }
 
 // Destructor.
