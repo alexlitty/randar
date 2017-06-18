@@ -26,6 +26,6 @@ let ctx = new randar.GraphicsContext();
 let monitor = ctx.monitor(item.object());
 
 monitor.window().fps(24);
-while (true) {
+while (monitor.window().isOpen()) {
     monitor.present();
 }
