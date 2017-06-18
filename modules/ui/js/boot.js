@@ -2,6 +2,7 @@ const _        = require('underscore');
 const glob     = require('glob');
 const interact = require('interactjs');
 const path     = require('path');
+const spawn    = require('child_process').spawn;
 const Vue      = require('vue/dist/vue.common.js');
 
 const nativeDialog = require('electron').remote.dialog;
@@ -14,7 +15,8 @@ const randar = require('../../wrapper');
  */
 global.ui = {
     paths: {
-        js: path.join(__dirname, '..', 'js')
+        modules : path.join(__dirname, '..', '..'),
+        js      : path.join(__dirname, '..', 'js')
     },
 
     nativeDialog: nativeDialog,
@@ -47,7 +49,36 @@ global.ui = {
     /**
      * General-use graphics context.
      */
-    ctx: new randar.GraphicsContext()
+    ctx: new randar.GraphicsContext(),
+
+    /**
+     * List of available monitor processes.
+     */
+    monitorProcesses: { },
+
+    /**
+     * Creates an item monitor.
+     */
+    monitor: (item) => {
+        if (ui.monitorProcesses[item.id]) {
+            return;
+        }
+
+        ui.project.save();
+        let proc = spawn('node',
+            [
+                path.join(ui.paths.modules, 'monitor'),
+                '--project', ui.project.directory().toString(),
+                '--item', item.id
+            ]
+        );
+
+        proc.on('close', () => {
+            delete ui.monitorProcesses[item.id];
+        });
+
+        ui.monitorProcesses[item.id] = proc;
+    }
 };
 
 ui.common    = require(path.join(ui.paths.js, 'components', 'common'));
