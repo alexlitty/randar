@@ -1,6 +1,8 @@
 <main-menu-bar></main-menu-bar>
 <project-bins></project-bins>
 
+<overlay-welcome v-if="!project.onDisk"></overlay-welcome>
+
 <!--<div class="overlay-area">
     <overlay name="about" class="about">
         <div><strong>Randar</strong> &bull; Film Creation Suite</div>
