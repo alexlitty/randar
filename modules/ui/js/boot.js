@@ -47,11 +47,6 @@ global.ui = {
     page: { },
 
     /**
-     * General-use graphics context.
-     */
-    ctx: new randar.GraphicsContext(),
-
-    /**
      * List of available monitor processes.
      */
     monitorProcesses: { },
