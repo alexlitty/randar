@@ -41,7 +41,7 @@ ui.component('menu-bar', {
     },
 
     template: `
-        <menu class="bar">
+        <menu class="bar drag-handle">
             <menuitem v-if="text">
                 <div class="text">
                     {{ text }}
