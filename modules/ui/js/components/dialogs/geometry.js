@@ -3,6 +3,25 @@ ui.component('dialog-geometry', {
         item: Object
     },
 
+    data: function() {
+        return {
+            appendShape: 'triangle',
+            appendMenuItems: [
+                { text: 'Append', contextMenu: [
+                    [
+                        { text: 'Triangle', action: function() {
+                            this.appendShape = 'triangle';
+                        }.bind(this)}
+                    ]
+                ]}
+            ],
+
+            appendedTriangle: [
+                { position: { x: 0, y: 0, z: 0 } }
+            ]
+        }
+    },
+
     computed: {
         geo: function() {
             return this.item.object()
@@ -12,6 +31,21 @@ ui.component('dialog-geometry', {
     methods: {
         onClose: function() {
             this.$emit('close');
+        },
+
+        onAppend: function() {
+            if (this.appendShape === 'triangle') {
+                for (let i = 0; i < 1; i++) {
+                    let position = this.appendedTriangle[i].position;
+
+                    this.geo.append(
+                        this.randar.vertex(this.randar.toVector(position))
+                    );
+                }
+            }
+
+            this.item.dirty = true;
+            this.project.save();
         }
     },
 
@@ -28,6 +62,14 @@ ui.component('dialog-geometry', {
                     {{ geo.indices.count() / 3 }} Triangles
                 </div>
             </div>
+
+            <menu-bar :items="appendMenuItems"></menu-bar>
+
+            <div v-if="appendShape === 'triangle'">
+                <input-vertex v-model="appendedTriangle[0]"></input-vertex>
+            </div>
+
+            <div class="button" @click="onAppend">Append</div>
         </div>
     `
 });
