@@ -1,5 +1,6 @@
 const randar = require('../adapter');
 
-require('./Project/Project.js')(randar);
+require('./toVector')(randar);
+require('./Project/Project')(randar);
 
 module.exports = randar;
