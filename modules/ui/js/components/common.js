@@ -3,6 +3,7 @@
  */
 let common = {
     computed: {
+        randar    : function() { return ui.randar; },
         ui        : function() { return ui; },
         project   : function() { return ui.project; },
 

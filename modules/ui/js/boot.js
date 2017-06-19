@@ -14,6 +14,8 @@ const randar = require('../../wrapper');
  * Common functionality for all pages.
  */
 global.ui = {
+    randar: randar,
+
     paths: {
         modules : path.join(__dirname, '..', '..'),
         js      : path.join(__dirname, '..', 'js')
