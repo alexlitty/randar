@@ -6,6 +6,7 @@ ui.component('menu-bar', {
     },
 
     props: {
+        text: String,
         items: Array,
         onClose: Function
     },
@@ -41,6 +42,12 @@ ui.component('menu-bar', {
 
     template: `
         <menu class="bar">
+            <menuitem v-if="text">
+                <div class="text">
+                    {{ text }}
+                </div>
+            </menuitem>
+
             <menuitem v-for="item in items" :class="activeItem === item ? 'active' : ''">
                 <div class="text"
                  @click="onItemFocus(item)"
