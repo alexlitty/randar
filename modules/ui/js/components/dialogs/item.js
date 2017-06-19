@@ -11,7 +11,7 @@ ui.component('dialog-item', {
 
     template: `
         <div v-if="item.kind === 'geometry'">
-            <dialog-geometry :geometry="item.object()" @close="onClose">
+            <dialog-geometry :item="item" @close="onClose">
             </dialog-geometry>
         </div>
     `

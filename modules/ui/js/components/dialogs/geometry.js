@@ -1,5 +1,7 @@
 ui.component('dialog-geometry', {
-    props: ['geometry'],
+    props: {
+        item: Object
+    },
 
     methods: {
         onClose: function() {
@@ -9,7 +11,7 @@ ui.component('dialog-geometry', {
 
     template: `
         <div class="dialog geometry">
-            <menu-bar :onClose="onClose"></menu-bar>
+            <menu-bar :text="item.name" :onClose="onClose"></menu-bar>
         </div>
     `
 });
