@@ -1,6 +1,11 @@
 <main-menu-bar></main-menu-bar>
 <project-bins></project-bins>
 
+<dialog-item v-for="(item, itemId) in itemDialogs"
+             :key="itemId"
+             :item="item">
+</dialog-item>
+
 <overlay-welcome v-if="!project.onDisk"></overlay-welcome>
 
 <!--<div class="overlay-area">

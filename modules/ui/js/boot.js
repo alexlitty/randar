@@ -125,7 +125,12 @@ global.ui = {
         });
 
         ui.monitorProcesses[item.id] = proc;
-    }
+    },
+
+    /**
+     * Available geometry dialogs.
+     */
+    itemDialogs: { }
 };
 
 ui.common    = require(path.join(ui.paths.js, 'components', 'common'));
