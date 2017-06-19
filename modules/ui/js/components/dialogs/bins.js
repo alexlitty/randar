@@ -24,8 +24,11 @@ ui.component('project-bins', {
     },
 
     template: `
-        <div class="dialog bins">
-            <menu-bar :items="menuItems" :onClose="onClose"></menu-bar>
+        <div class="dialog draggable bins">
+            <menu-bar
+             :items="menuItems"
+             :onClose="onClose">
+            </menu-bar>
 
             <div v-if="project.hasBins()">
                 <project-folder

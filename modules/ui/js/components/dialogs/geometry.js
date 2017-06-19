@@ -10,7 +10,7 @@ ui.component('dialog-geometry', {
     },
 
     template: `
-        <div class="dialog geometry">
+        <div class="dialog draggable geometry">
             <menu-bar :text="item.name" :onClose="onClose"></menu-bar>
         </div>
     `
