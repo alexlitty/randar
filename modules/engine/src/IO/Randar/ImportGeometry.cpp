@@ -31,11 +31,12 @@ void randar::importGeometry(const randar::Path& path, randar::Geometry& geo)
         stream.read(vertex.position.y);
         stream.read(vertex.position.z);
         
-        float r, g, b;
+        float r, g, b, a;
         stream.read(r);
         stream.read(g);
         stream.read(b);
-        vertex.color.set(r, g, b);
+        stream.read(a);
+        vertex.color.set(r, g, b, a);
 
         stream.read(vertex.normal.x);
         stream.read(vertex.normal.y);
