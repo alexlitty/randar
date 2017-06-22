@@ -92,6 +92,8 @@ global.ui = {
                 if (cb) {
                     cb(result);
                 }
+
+                localStorage.setItem('project-path', dir.toString());
             }
             
             else if (cb) {
@@ -208,6 +210,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (ui.page.init) {
         ui.page.init();
+    }
+
+    let projectPath = localStorage.getItem('project-path');
+    if (projectPath) {
+        try {
+            let dir = randar.path(projectPath);
+            let result = ui.project.load(dir);
+        } catch (e) {
+
+        }
     }
 
     new Vue({
