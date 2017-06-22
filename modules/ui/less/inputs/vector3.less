@@ -1,7 +1,15 @@
 .input.vector3 {
-    display : inline-block;
+    display : flex;
 
     .input.text {
-        width: 64px;
+        margin-right: 4px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        input {
+            width: 64px;
+        }
     }
 }
