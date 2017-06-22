@@ -1,10 +1,23 @@
+@import '../generic/clickable';
+
 .input.text {
-    background-color : #666;
-    border           : 0;
+    .clickable;
 
-    padding : 6px;
-    margin  : 2px;
+    position : relative;
+    display  : inline-block;
 
-    font-size : 14px;
-    color     : #111;
+    input {
+        width    : 100%;
+        position : relative;
+        display  : inline-block;
+
+        border  : 0;
+        margin  : 2px;
+        padding : 6px;
+
+        background-color : #666;
+
+        font-size : 14px;
+        color     : #111;
+    }
 }
