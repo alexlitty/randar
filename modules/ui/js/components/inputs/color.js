@@ -3,6 +3,15 @@ ui.component('input-color', {
         value: Object,
     },
 
+    computed: {
+        previewColor: function() {
+            return 'rgba(' + this.value.r +
+                   ',' + this.value.g +
+                   ',' + this.value.b +
+                   ',' + (this.value.a / 255) + ')';
+        }
+    },
+
     methods: {
         onUpdateR: function(newR) {
             this.value.r = newR;
@@ -15,7 +24,7 @@ ui.component('input-color', {
         },
 
         onUpdateB: function(newB) {
-            this.value.b = newR;
+            this.value.b = newB;
             this.$emit('input', this.value)
         },
 
@@ -27,6 +36,7 @@ ui.component('input-color', {
 
     template: `
         <div class="input color">
+            <div class="preview" :style="{ backgroundColor: previewColor }">&nbsp;</div>
             <input-text :value.sync="value.r" :label="'r'" @input="onUpdateR"></input-text>
             <input-text :value.sync="value.g" :label="'g'" @input="onUpdateG"></input-text>
             <input-text :value.sync="value.b" :label="'b'" @input="onUpdateB"></input-text>
