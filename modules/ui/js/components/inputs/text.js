@@ -1,6 +1,7 @@
 ui.component('input-text', {
     props: {
-        value: { validator: () => true }
+        value: { validator: () => true },
+        label: { validator: () => true }
     },
 
     methods: {
@@ -10,6 +11,11 @@ ui.component('input-text', {
     },
 
     template: `
-        <input class="input text" type="text" :value.sync="value" @input="onInput">
+        <div class="input text">
+            <div v-if="label" class="label">
+                {{ label }}
+            </div>
+            <input class="input text" type="text" :value.sync="value" @input="onInput">
+        </div>
     `
 });

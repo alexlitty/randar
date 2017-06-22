@@ -4,15 +4,32 @@
     .clickable;
 
     position : relative;
-    display  : inline-block;
+    display  : flex;
+
+    margin : 2px 0;
+
+    .label {
+        display         : flex;
+        align-items     : center;
+        justify-content : center;
+
+        min-width: 8px;
+
+        padding : 0 2px;
+        border  : 1px solid #666;
+
+        background-color : #111;
+
+        font-size : 14px;
+        color     : #eee;
+    }
 
     input {
-        width    : 100%;
         position : relative;
         display  : inline-block;
 
         border  : 0;
-        margin  : 2px;
+        margin  : 0;
         padding : 6px;
 
         background-color : #666;
