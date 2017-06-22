@@ -17,7 +17,10 @@ ui.component('dialog-geometry', {
             ],
 
             appendedTriangle: [
-                { position: { x: 0, y: 0, z: 0 } }
+                {
+                    position : { x: 0, y: 0, z: 0 },
+                    color    : { r: 255, g: 255, b: 255, a: 255 }
+                }
             ]
         }
     },
