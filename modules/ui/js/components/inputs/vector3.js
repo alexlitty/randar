@@ -22,9 +22,9 @@ ui.component('input-vector3', {
 
     template: `
         <div class="input vector3">
-            <input-text :value.sync="value.x" @input="onUpdateX"></input-text>
-            <input-text :value.sync="value.y" @input="onUpdateY"></input-text>
-            <input-text :value.sync="value.z" @input="onUpdateZ"></input-text>
+            <input-text :value.sync="value.x" :label="'x'" @input="onUpdateX"></input-text>
+            <input-text :value.sync="value.y" :label="'y'" @input="onUpdateY"></input-text>
+            <input-text :value.sync="value.z" :label="'z'" @input="onUpdateZ"></input-text>
         </div>
     `
 });
