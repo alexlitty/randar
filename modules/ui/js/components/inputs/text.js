@@ -15,7 +15,7 @@ ui.component('input-text', {
             <div v-if="label" class="label">
                 {{ label }}
             </div>
-            <input class="input text" type="text" :value.sync="value" @input="onInput">
+            <input type="text" :value.sync="value" @input="onInput">
         </div>
     `
 });
