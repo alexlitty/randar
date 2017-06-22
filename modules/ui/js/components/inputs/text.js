@@ -10,6 +10,6 @@ ui.component('input-text', {
     },
 
     template: `
-        <input type="text" :value.sync="value" @input="onInput">
+        <input class="input text" type="text" :value.sync="value" @input="onInput">
     `
 });
