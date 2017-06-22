@@ -46,6 +46,7 @@ ui.component('dialog-geometry', {
 
             this.item.dirty = true;
             this.project.save();
+            this.$forceUpdate();
         }
     },
 
