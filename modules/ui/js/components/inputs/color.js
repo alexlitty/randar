@@ -27,10 +27,10 @@ ui.component('input-color', {
 
     template: `
         <div class="input color">
-            <input-text :value.sync="value.r" @input="onUpdateR"></input-text>
-            <input-text :value.sync="value.g" @input="onUpdateG"></input-text>
-            <input-text :value.sync="value.b" @input="onUpdateB"></input-text>
-            <input-text :value.sync="value.a" @input="onUpdateA"></input-text>
+            <input-text :value.sync="value.r" :label="'r'" @input="onUpdateR"></input-text>
+            <input-text :value.sync="value.g" :label="'g'" @input="onUpdateG"></input-text>
+            <input-text :value.sync="value.b" :label="'b'" @input="onUpdateB"></input-text>
+            <input-text :value.sync="value.a" :label="'a'" @input="onUpdateA"></input-text>
         </div>
     `
 });
