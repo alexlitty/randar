@@ -19,7 +19,7 @@ ui.component('dialog-geometry', {
             appendedTriangle: [
                 {
                     position : { x: 0, y: 0, z: 0 },
-                    color    : { r: 255, g: 255, b: 255, a: 255 }
+                    color    : { rInt: 255, gInt: 255, bInt: 255, aInt: 255 }
                 }
             ]
         }
@@ -39,11 +39,9 @@ ui.component('dialog-geometry', {
         onAppend: function() {
             if (this.appendShape === 'triangle') {
                 for (let i = 0; i < 1; i++) {
-                    let position = this.appendedTriangle[i].position;
-
-                    this.geo.append(
-                        this.randar.vertex(this.randar.toVector(position))
-                    );
+                    let vertex = this.randar.toVertex(this.appendedTriangle[i])
+                    console.log(vertex);
+                    this.geo.append(vertex);
                 }
             }
 
