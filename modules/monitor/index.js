@@ -1,4 +1,6 @@
-const args   = require('minimist')(process.argv.slice(2));
+const args  = require('minimist')(process.argv.slice(2));
+const watch = require('watch');
+
 const randar = require('../wrapper');
 
 if (!args.project || !args.project.length) {
@@ -25,7 +27,15 @@ if (!item) {
 let ctx = new randar.GraphicsContext();
 let monitor = ctx.monitor(item.object());
 
+watch.watchTree(item.directory().toString(), () => {
+    item.load();
+});
+
 monitor.window().fps(24);
-while (monitor.window().isOpen()) {
-    monitor.present();
-}
+
+(function present() {
+    if (monitor.window().isOpen()) {
+        monitor.present();
+        setTimeout(present, 0);
+    }
+})()
