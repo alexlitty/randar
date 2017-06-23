@@ -4,6 +4,13 @@ ui.component('dialog-geometry', {
     },
 
     data: function() {
+        function generateVertexData() {
+            return {
+                position : { x: 0, y: 0, z: 0 },
+                color    : { rInt: 255, gInt: 255, bInt: 255, aInt: 255 }
+            }
+        };
+
         return {
             appendShape: 'triangle',
             appendMenuItems: [
@@ -17,10 +24,9 @@ ui.component('dialog-geometry', {
             ],
 
             appendedTriangle: [
-                {
-                    position : { x: 0, y: 0, z: 0 },
-                    color    : { rInt: 255, gInt: 255, bInt: 255, aInt: 255 }
-                }
+                generateVertexData(),
+                generateVertexData(),
+                generateVertexData()
             ]
         }
     },
@@ -38,9 +44,8 @@ ui.component('dialog-geometry', {
 
         onAppend: function() {
             if (this.appendShape === 'triangle') {
-                for (let i = 0; i < 1; i++) {
+                for (let i = 0; i < 3; i++) {
                     let vertex = this.randar.toVertex(this.appendedTriangle[i])
-                    console.log(vertex);
                     this.geo.append(vertex);
                 }
             }
@@ -68,7 +73,14 @@ ui.component('dialog-geometry', {
             <menu-bar :items="appendMenuItems"></menu-bar>
 
             <div v-if="appendShape === 'triangle'">
+                <div>Vertex #1</div>
                 <input-vertex v-model="appendedTriangle[0]"></input-vertex>
+
+                <div>Vertex #2</div>
+                <input-vertex v-model="appendedTriangle[1]"></input-vertex>
+
+                <div>Vertex #3</div>
+                <input-vertex v-model="appendedTriangle[2]"></input-vertex>
             </div>
 
             <div class="button" @click="onAppend">Append</div>
