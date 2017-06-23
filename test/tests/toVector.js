@@ -1,4 +1,4 @@
-describe.only('toVector', function() {
+describe('toVector', function() {
     it('converts from numbers', function() {
         let vector = randar.toVector({
             x : 100,
