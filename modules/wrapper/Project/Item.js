@@ -115,8 +115,6 @@ module.exports = (randar) => {
      * If the item does not exist on disk, an empty resource is loaded.
      */
     randar.Project.Item.prototype.load = function() {
-        this.unload();
-
         if (this.kind === 'geometry') {
             this.object(randar.geometry());
 
