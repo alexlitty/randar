@@ -29,5 +29,7 @@ module.exports = (randar) => {
         if (obj.jointWeights) {
             // @@@
         }
+
+        return vertex;
     };
 };
