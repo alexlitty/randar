@@ -66,8 +66,18 @@ module.exports = (randar) => {
         }
 
         else {
-            if (!this.isLoaded()) {
-                this.load();
+            if (!this._object) {
+                if (this.kind === 'geometry') {
+                    this.object(randar.geometry());
+                } else if (this.kind === 'image') {
+                    this.object(randar.image());
+                } else {
+                    throw new Error('Item kind initialization not implemented');
+                }
+
+                if (this.isOnDisk()) {
+                    this.load();
+                }
             }
             return this._object;
         }
@@ -116,16 +126,13 @@ module.exports = (randar) => {
      */
     randar.Project.Item.prototype.load = function() {
         if (this.kind === 'geometry') {
-            this.object(randar.geometry());
-
             if (this.isOnDisk()) {
+                console.log(this.object().getCPtr());
                 this.object().load(this.directory().child('item.rGeometry'));
             }
         }
 
         else if (this.kind === 'image') {
-            this.object(randar.image());
-
             if (this.isOnDisk()) {
                 this.object().load(this.directory().child('item.png'));
             }
