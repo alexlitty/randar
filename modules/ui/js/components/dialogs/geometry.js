@@ -52,6 +52,7 @@ ui.component('dialog-geometry', {
 
             this.item.dirty = true;
             this.project.save();
+            ui.sendMonitorCommand(this.item, 'reload');
             this.$forceUpdate();
         }
     },
