@@ -13,24 +13,23 @@ if (typeof args.item === 'undefined') {
     process.exit(1);
 }
 
-let project = randar.project();
+global.project = randar.project();
 if (!project.load(args.project)) {
     process.exit(1);
 }
 
-let item = project.items[args.item];
+global.item = project.items[args.item];
 if (!item) {
     console.error('Item does not exist');
     process.exit(1);
 }
 
-let ctx = new randar.GraphicsContext();
-let monitor = ctx.monitor(item.object());
+global.ctx = new randar.GraphicsContext();
+global.monitor = ctx.monitor(item.object());
 
 process.on('message', (data) => {
-    data = JSON.parse(data);
-
     if (data.cmd === 'reload') {
+        console.log('reloading');
         item.load();
     }
 
@@ -39,10 +38,12 @@ process.on('message', (data) => {
     }
 });
 
-monitor.window().fps(24);
-(function present() {
+function present() {
     if (monitor.window().isOpen()) {
         monitor.present();
         setTimeout(present, 0);
     }
-})()
+}
+
+monitor.window().fps(24);
+present();
