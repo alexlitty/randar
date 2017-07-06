@@ -124,6 +124,14 @@ global.ui = {
             ]
         );
 
+        proc.stdout.on('data', (data) => {
+            console.log(data.toString());
+        });
+
+        proc.stderr.on('data', (data) => {
+            console.error(data.toString());
+        });
+
         proc.on('close', () => {
             delete ui.monitorProcesses[item.id];
         });
