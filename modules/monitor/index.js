@@ -27,12 +27,19 @@ if (!item) {
 let ctx = new randar.GraphicsContext();
 let monitor = ctx.monitor(item.object());
 
-watch.watchTree(item.directory().toString(), () => {
-    item.load();
+process.on('message', (data) => {
+    data = JSON.parse(data);
+
+    if (data.cmd === 'reload') {
+        item.load();
+    }
+
+    else {
+        console.error('Ignoring unknown command:', data.cmd);
+    }
 });
 
 monitor.window().fps(24);
-
 (function present() {
     if (monitor.window().isOpen()) {
         monitor.present();
