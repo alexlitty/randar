@@ -121,7 +121,11 @@ global.ui = {
                 path.join(ui.paths.modules, 'monitor'),
                 '--project', ui.project.directory().toString(),
                 '--item', item.id
-            ]
+            ],
+
+            {
+                stdio: ['pipe', 'pipe', 'pipe', 'ipc']
+            }
         );
 
         proc.stdout.on('data', (data) => {
@@ -137,6 +141,16 @@ global.ui = {
         });
 
         ui.monitorProcesses[item.id] = proc;
+    },
+
+    /**
+     * Sends a command to an item monitor.
+     */
+    sendMonitorCommand: (item, cmd) => {
+        let proc = ui.monitorProcesses[item.id];
+        if (proc) {
+            proc.send({ cmd: cmd });
+        }
     },
 
     /**
