@@ -15,7 +15,7 @@ randar::CameraInputController::~CameraInputController()
 }
 
 // Performs camera input handling.
-void handleInput()
+void randar::CameraInputController::handleInput()
 {
 
 }
