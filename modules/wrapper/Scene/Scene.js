@@ -1,5 +1,35 @@
 const _ = require('underscore');
 
+function assertAction(action) {
+    if (!_.isNumber(action.frame) || action.frame < 0) {
+        throw new Error('Invalid frame index');
+    }
+
+    if (!_.isNumber(action.frameCount) || action.frameCount <= 0) {
+        throw new Error('Invalid frame count');
+    }
+
+    if (action.kind === 'transform') {
+        if (!_.isNumber(action.modelItemId)) {
+            throw new Error('Invalid model item');
+        }
+
+        if (!action.translation) {
+            throw new Error('Invalid translation');
+        }
+
+        for (let axis of ['x', 'y', 'z']) {
+            if (!_.isNumber(action.translation[axis])) {
+                throw new Error(`Invalid ${axis} translation`);
+            }
+        }
+    }
+
+    else {
+        throw new Error('Invalid action kind');
+    }
+}
+
 module.exports = (randar) => {
     randar.Scene = function() {
         // Models in the scene.
@@ -10,6 +40,29 @@ module.exports = (randar) => {
 
         // Compiled frame states. Generated on-the-fly from actions as required.
         this.frameStates = [];
+    }
+
+    randar.scene = function() {
+        return (new randar.Scene());
+    }
+
+    /**
+     * Calculates the number of frames in this scene.
+     */
+    randar.Scene.prototype.calculateFrameCount = function() {
+        let finalFrame = 0;
+
+        for (actionIndex in this.actions) {
+            let action = this.actions[actionIndex];
+            assertAction(action);
+
+            let frameEnd = action.frame + action.frameCount - 1;
+            if (frameEnd > finalFrame) {
+                finalFrame = frameEnd;
+            }
+        }
+
+        return finalFrame + 1;
     }
 
     /**
@@ -45,17 +98,9 @@ module.exports = (randar) => {
         let frame = JSON.parse(JSON.stringify(previousFrame));
 
         // Apply actions to the frame.
-        for (actionId in this.actions) {
-            let action = this.actions[actionId];
-
-            // Validate the target frames.
-            if (!_.isNumber(action.frame)) {
-                throw new Error('Action has no frame defined:', action);
-            }
-
-            if (!_.isNumber(action.frameCount) || action.frameCount <= 0) {
-                throw new Error('Action has invalid frame count:' action);
-            }
+        for (actionIndex in this.actions) {
+            let action = this.actions[actionIndex];
+            assertAction(action);
 
             // Action does not apply to this frame.
             if (action.frame !== frameIndex) {
@@ -64,20 +109,9 @@ module.exports = (randar) => {
 
             // Apply transformation.
             if (action.kind === 'transform') {
-                if (!action.modelItem) {
-                    throw new Error('Transform action has no model item:', action);
-                }
-
-                if (!action.translation) {
-                    throw new Error('Transform action has no translation:', action);
-                }
-
-                for (let axis in ['x', 'y', 'z']) {
-                    if (!_.isNumber(action.translation[axis])) {
-                        throw new Error(`Transform action has invalid ${axis} translation:`, action);
-                    }
-
-                    frame[action.modelItem][axis] += action.translation[axis];
+                let transform = frame.modelItems[action.modelItemId].transform;
+                for (let axis of ['x', 'y', 'z']) {
+                    transform.position[axis] += action.translation[axis];
                 }
             }
         }
@@ -89,7 +123,7 @@ module.exports = (randar) => {
      * Compiles all frame states.
      */
     randar.Scene.prototype.compile = function() {
-        let finalFrameIndex = 1000;
+        let finalFrameIndex = this.calculateFrameCount() - 1;
 
         for (let i = 0; i <= finalFrameIndex; i++) {
             this.compileFrame(i);
