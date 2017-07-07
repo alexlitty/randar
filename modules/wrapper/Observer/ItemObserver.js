@@ -26,6 +26,8 @@ module.exports = (randar) => {
 
             // Initialize the camera.
             this.window.camera().projection();
+            this.window.camera().target(randar.vector(0, 0, 0));
+            this.window.camera().position(randar.vector(0, 0, -5));
         }
     }
 
