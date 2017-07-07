@@ -129,4 +129,26 @@ module.exports = (randar) => {
             this.compileFrame(i);
         }
     }
+
+    /**
+     * Draws a frame.
+     *
+     * Assumes the frame state is up-to-date.
+     */
+    randar.Scene.prototype.drawFrame = function(canvas, frameIndex) {
+        let state = this.frameStates[frameIndex];
+        if (!state) {
+            throw new Error('Frame does not exist');
+        }
+
+        canvas.clear();
+        for (let modelItemIndex in this.modelItems) {
+            let modelItem = this.modelItems[modelItemIndex];
+
+            let transform = randar.transform();
+            transform.position(randar.toVector(state.modelItems[modelItem.id].transform.position));
+
+            canvas.draw(modelItem.object(), transform);
+        }
+    }
 }
