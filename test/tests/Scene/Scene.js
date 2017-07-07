@@ -1,6 +1,6 @@
 const _ = require('underscore');
 
-describe.only('Scene', function() {
+describe('Scene', function() {
     it('constructs an empty scene', function() {
         let scene = randar.scene();
 
@@ -131,5 +131,44 @@ describe.only('Scene', function() {
             assert.equal(transform.position.y, -27);
             assert.equal(transform.position.z, 3);
         });
+    });
+
+    it('draw frames to a canvas', function() {
+        this.timeout(30000);
+
+        let ctx    = new randar.GraphicsContext();
+        let win    = ctx.window(800, 600);
+        let camera = win.camera();
+
+        win.fps(24);
+        camera.projection();
+        camera.position(randar.vector(0, 0, -5));
+        camera.target(randar.vector(0, 0, 0));
+
+        let project = randar.project(path.join(__dirname, '..', '..', 'fixtures', 'project'));
+        let scene   = randar.scene();
+
+        scene.modelItems[0] = project.items[0];
+        scene.actions.push({
+            kind        : 'transform',
+            modelItemId : 0,
+            frame       : 0,
+            frameCount  : 48,
+            translation : {
+                x : 5,
+                y : 3,
+                z : 10
+            }
+        });
+
+        scene.compile();
+        assert.equal(scene.frameStates.length, 48);
+
+        for (let i = 0; i < scene.frameStates.length; i++) {
+            scene.drawFrame(win, i);
+            win.present();
+        }
+
+        win.close();
     });
 });
