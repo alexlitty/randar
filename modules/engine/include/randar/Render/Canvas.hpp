@@ -83,6 +83,7 @@ namespace randar
          */
         void draw(Geometry& geometry);
         void draw(Geometry& geometry, ShaderProgram& program);
+        void draw(Geometry& geometry, Transform& transform);
         void draw(
             Geometry& geometry,
             Transform& transform,
