@@ -103,7 +103,7 @@ module.exports = (randar) => {
             assertAction(action);
 
             // Action does not apply to this frame.
-            if (action.frame !== frameIndex) {
+            if (frameIndex < action.frame || frameIndex > (action.frame + action.frameCount - 1)) {
                 continue;
             }
 
@@ -111,7 +111,7 @@ module.exports = (randar) => {
             if (action.kind === 'transform') {
                 let transform = frame.modelItems[action.modelItemId].transform;
                 for (let axis of ['x', 'y', 'z']) {
-                    transform.position[axis] += action.translation[axis];
+                    transform.position[axis] += action.translation[axis] / action.frameCount;
                 }
             }
         }
