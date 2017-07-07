@@ -32,6 +32,15 @@ process.on('message', (data) => {
         item.load();
     }
 
+    if (data.cmd === 'setCamera') {
+        console.log('setting camera: ', {
+            position: randar.toVector(data.position),
+            target: randar.toVector(data.target)
+        });
+        observer.camera().position(randar.toVector(data.position));
+        observer.camera().target(randar.toVector(data.target));
+    }
+
     else {
         console.error('Ignoring unknown command:', data.cmd);
     }
