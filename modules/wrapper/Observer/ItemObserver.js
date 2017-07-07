@@ -25,10 +25,18 @@ module.exports = (randar) => {
             this._item = item;
 
             // Initialize the camera.
-            this.window.camera().projection();
-            this.window.camera().target(randar.vector(0, 0, 0));
-            this.window.camera().position(randar.vector(0, 0, -5));
+            this.camera().projection();
+            this.camera().projection();
+            this.camera().target(randar.vector(0, 0, 0));
+            this.camera().position(randar.vector(0, 0, -5));
         }
+    }
+
+    /**
+     * Gets the camera for the observer.
+     */
+    randar.ItemObserver.prototype.camera = function() {
+        return this.window.camera();
     }
 
     /**
