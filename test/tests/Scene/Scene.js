@@ -99,5 +99,37 @@ describe.only('Scene', function() {
             assert.equal(transform.position.y, 8);
             assert.equal(transform.position.z, 44);
         });
+
+        it('transforms over multiple frames', function() {
+            scene.actions.push({
+                kind        : 'transform',
+                modelItemId : 0,
+                frame       : 0,
+                frameCount  : 3,
+                translation : {
+                    x : 9,
+                    y : -27,
+                    z : 3
+                }
+            });
+
+            scene.compile();
+            assert.equal(scene.frameStates.length, 3);
+
+            let transform = scene.frameStates[0].modelItems[0].transform;
+            assert.equal(transform.position.x, 3);
+            assert.equal(transform.position.y, -9);
+            assert.equal(transform.position.z, 1);
+
+            transform = scene.frameStates[1].modelItems[0].transform;
+            assert.equal(transform.position.x, 6);
+            assert.equal(transform.position.y, -18);
+            assert.equal(transform.position.z, 2);
+
+            transform = scene.frameStates[2].modelItems[0].transform;
+            assert.equal(transform.position.x, 9);
+            assert.equal(transform.position.y, -27);
+            assert.equal(transform.position.z, 3);
+        });
     });
 });
