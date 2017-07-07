@@ -3,8 +3,12 @@ module.exports = (randar) => {
      * A human-friendly project item observer.
      */
     randar.ItemObserver = function(ctx, item) {
-        this.win = ctx.window(800, 600);
-        this.item(item);
+        this.window = ctx.window(800, 600);
+        this.window.fps(24);
+
+        if (item) {
+            this.item(item);
+        }
     }
 
     /**
@@ -19,6 +23,9 @@ module.exports = (randar) => {
         // Set the item.
         else {
             this._item = item;
+
+            // Initialize the camera.
+            this.window.camera().projection();
         }
     }
 
@@ -26,13 +33,13 @@ module.exports = (randar) => {
      * Runs a frame on the observer.
      */
     randar.ItemObserver.prototype.run = function() {
-        this.win.clear();
+        this.window.clear();
         this.draw();
-        this.win.present();
+        this.window.present();
     }
 
     /**
-     * Draws the item to the window.
+     * Draws the item to the windowdow.
      */
     randar.ItemObserver.prototype.draw = function() {
         let item = this.item();
@@ -50,7 +57,7 @@ module.exports = (randar) => {
         }
 
         if (object.kind() === 'geometry') {
-            this.win.draw(object);
+            this.window.draw(object);
         }
 
         else if (object.kind() === 'image') {
