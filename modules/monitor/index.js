@@ -25,11 +25,10 @@ if (!item) {
 }
 
 global.ctx = new randar.GraphicsContext();
-global.monitor = ctx.monitor(item.object());
+global.observer = new randar.ItemObserver(ctx, item);
 
 process.on('message', (data) => {
     if (data.cmd === 'reload') {
-        console.log('reloading');
         item.load();
     }
 
@@ -39,11 +38,9 @@ process.on('message', (data) => {
 });
 
 function present() {
-    if (monitor.window().isOpen()) {
-        monitor.present();
+    if (observer.window.isOpen()) {
+        observer.run();
         setTimeout(present, 0);
     }
 }
-
-monitor.window().fps(24);
 present();
