@@ -96,6 +96,9 @@ namespace randar
          */
         static Transform Identity;
     };
+
+    // Node.js helper.
+    Transform transform();
 }
 
 #endif

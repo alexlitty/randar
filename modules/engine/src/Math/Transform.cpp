@@ -113,3 +113,9 @@ randar::Transform::operator btTransform() const
 
 // An identity transformation.
 randar::Transform randar::Transform::Identity;
+
+// Node.js helper.
+randar::Transform randar::transform()
+{
+    return randar::Transform();
+}
