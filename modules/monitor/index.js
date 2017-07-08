@@ -33,12 +33,20 @@ process.on('message', (data) => {
     }
 
     if (data.cmd === 'setCamera') {
-        console.log('setting camera: ', {
-            position: randar.toVector(data.position),
-            target: randar.toVector(data.target)
-        });
         observer.camera().position(randar.toVector(data.position));
         observer.camera().target(randar.toVector(data.target));
+    }
+
+    else if (data.cmd === 'setFrame') {
+        let object = item.object();
+
+        if (object.kind() === 'scene') {
+            object.currentFrameIndex = data.frameIndex;
+        }
+
+        else {
+            throw new Error('Command not compatible with item');
+        }
     }
 
     else {
