@@ -1,6 +1,16 @@
 const _ = require('underscore');
 
-describe('Scene', function() {
+describe.only('Scene', function() {
+    let tmpDir;
+    let project;
+
+    before(function() {
+        tmpDir  = randar.tempDirectory();
+        project = randar.project(path.join(
+            __dirname, '..', '..', 'fixtures', 'project'
+        ));
+    });
+
     it('constructs an empty scene', function() {
         let scene = randar.scene();
 
@@ -145,7 +155,6 @@ describe('Scene', function() {
         camera.position(randar.vector(0, 0, -5));
         camera.target(randar.vector(0, 0, 0));
 
-        let project = randar.project(path.join(__dirname, '..', '..', 'fixtures', 'project'));
         let scene   = randar.scene();
 
         scene.modelItems[0] = project.items[0];
@@ -170,5 +179,35 @@ describe('Scene', function() {
         }
 
         win.close();
+    });
+
+    it('saves and loads', function() {
+        let scene = randar.scene();
+
+        scene.modelItems[0] = project.items[0];
+        scene.modelItems[1] = project.items[1];
+
+        scene.actions.push({
+            kind        : 'transform',
+            modelItemId : 0,
+            frame       : 0,
+            frameCount  : 24,
+            translation : {
+                x : 65.59,
+                y : 24.3,
+                z : -220.54
+            }
+        });
+
+        scene.compile();
+
+        let dir = tmpDir.child('scene');
+        scene.save(dir);
+
+        let otherScene = randar.scene();
+        otherScene.load(dir);
+
+        assert.equal(_.size(otherScene.modelItems), 2);
+        assert.equal(otherScene.actions.length, 1);
     });
 });
