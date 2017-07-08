@@ -40,6 +40,9 @@ module.exports = (randar) => {
 
         // Compiled frame states. Generated on-the-fly from actions as required.
         this.frameStates = [];
+
+        // Current frame to draw by default.
+        this.currentFrameIndex = 0;
     }
 
     randar.scene = function() {
@@ -138,11 +141,21 @@ module.exports = (randar) => {
      * Draws a frame.
      *
      * Assumes the frame state is up-to-date.
+     *
+     * The currentFrameIndex is used when no frameIndex is provided.
      */
     randar.Scene.prototype.drawFrame = function(canvas, frameIndex) {
         let state = this.frameStates[frameIndex];
         if (!state) {
             throw new Error('Frame does not exist');
+        }
+
+        if (!_.isNumber(frameIndex)) {
+            frameIndex = this.currentFrameIndex;
+        }
+
+        if (!_.isNumber(frameIndex) || frameIndex < 0) {
+            throw new Error('Invalid frame index');
         }
 
         canvas.clear();
