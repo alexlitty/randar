@@ -46,6 +46,10 @@ module.exports = (randar) => {
         return (new randar.Scene());
     }
 
+    randar.Scene.prototype.kind = function() {
+        return 'scene';
+    }
+
     /**
      * Calculates the number of frames in this scene.
      */
