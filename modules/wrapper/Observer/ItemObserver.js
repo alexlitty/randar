@@ -49,7 +49,7 @@ module.exports = (randar) => {
     }
 
     /**
-     * Draws the item to the windowdow.
+     * Draws the item to the window.
      */
     randar.ItemObserver.prototype.draw = function() {
         let item = this.item();
@@ -70,7 +70,8 @@ module.exports = (randar) => {
             this.window.draw(object);
         }
 
-        else if (object.kind() === 'image') {
+        else if (object.kind() === 'scene') {
+            object.drawFrame(this.window);
         }
 
         else {
