@@ -1,4 +1,5 @@
-const _ = require('underscore');
+const _      = require('underscore');
+const mkdirp = require('mkdirp');
 
 function assertAction(action) {
     if (!_.isNumber(action.frame) || action.frame < 0) {
@@ -32,6 +33,21 @@ function assertAction(action) {
 
 module.exports = (randar) => {
     randar.Scene = function() {
+        this.clear();
+    }
+
+    randar.scene = function() {
+        return (new randar.Scene());
+    }
+
+    randar.Scene.prototype.kind = function() {
+        return 'scene';
+    }
+
+    /**
+     * Clears the scene.
+     */
+    randar.Scene.prototype.clear = function() {
         // Models in the scene.
         this.modelItems = {};
 
@@ -43,14 +59,6 @@ module.exports = (randar) => {
 
         // Current frame to draw by default.
         this.currentFrameIndex = 0;
-    }
-
-    randar.scene = function() {
-        return (new randar.Scene());
-    }
-
-    randar.Scene.prototype.kind = function() {
-        return 'scene';
     }
 
     /**
@@ -167,5 +175,31 @@ module.exports = (randar) => {
 
             canvas.draw(modelItem.object(), transform);
         }
+    }
+
+    /**
+     * Saves the scene to disk.
+     *
+     * Frame states are not saved.
+     */
+    randar.Scene.prototype.save = function(directory) {
+        directory = directory.toString();
+
+        mkdirp.sync(directory);
+        fs.writeFileSync(path.join(directory, 'scene.json'), JSON.stringify({
+            modelItems : _.map(_.keys(this.modelItems), (key) => parseInt(key)),
+            actions    : this.actions
+        }));
+    }
+
+    /**
+     * Loads the scene from disk.
+     */
+    randar.Scene.prototype.load = function(directory) {
+        directory = directory.toString();
+
+        let data = JSON.parse(fs.readFileSync(path.join(directory, 'scene.json')));
+        this.modelItems = data.modelItems;
+        this.actions    = data.actions;
     }
 }
