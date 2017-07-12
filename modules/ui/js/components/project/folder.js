@@ -20,6 +20,14 @@ ui.component('project-folder', {
                             'geometry',
                             'Untitled geometry'
                         );
+                    }.bind(this)},
+
+                    { text: 'Scene', action: function() {
+                        this.project.newItem(
+                            this.folder,
+                            'scene',
+                            'Untitled scene'
+                        );
                     }.bind(this)}
                 ]
             ]
