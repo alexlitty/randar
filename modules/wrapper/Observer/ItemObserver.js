@@ -24,6 +24,11 @@ module.exports = (randar) => {
         else {
             this._item = item;
 
+            // Initialize scene items.
+            if (this._item.kind === 'scene') {
+                this._item.object().compile();
+            }
+
             // Initialize the camera.
             this.camera().projection();
             this.camera().projection();
