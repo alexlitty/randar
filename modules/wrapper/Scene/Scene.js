@@ -1,5 +1,7 @@
 const _      = require('underscore');
+const fs     = require('fs');
 const mkdirp = require('mkdirp');
+const path   = require('path');
 
 function assertAction(action) {
     if (!_.isNumber(action.frame) || action.frame < 0) {
@@ -153,11 +155,6 @@ module.exports = (randar) => {
      * The currentFrameIndex is used when no frameIndex is provided.
      */
     randar.Scene.prototype.drawFrame = function(canvas, frameIndex) {
-        let state = this.frameStates[frameIndex];
-        if (!state) {
-            throw new Error('Frame does not exist');
-        }
-
         if (!_.isNumber(frameIndex)) {
             frameIndex = this.currentFrameIndex;
         }
@@ -167,6 +164,12 @@ module.exports = (randar) => {
         }
 
         canvas.clear();
+
+        let state = this.frameStates[frameIndex];
+        if (!state) {
+            return;
+        }
+
         for (let modelItemIndex in this.modelItems) {
             let modelItem = this.modelItems[modelItemIndex];
 
