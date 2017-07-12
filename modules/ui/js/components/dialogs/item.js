@@ -14,5 +14,10 @@ ui.component('dialog-item', {
             <dialog-geometry :item="item" @close="onClose">
             </dialog-geometry>
         </div>
+
+        <div v-else-if="item.kind === 'scene'">
+            <dialog-scene :item="item" @close="onClose">
+            </dialog-scene>
+        </div>
     `
 });
