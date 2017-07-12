@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs   = require('fs');
 
 module.exports = (randar) => {
     /**
@@ -69,6 +69,8 @@ module.exports = (randar) => {
             if (!this._object) {
                 if (this.kind === 'geometry') {
                     this.object(randar.geometry());
+                } else if (this.kind === 'scene') {
+                    this.object(randar.scene());
                 } else if (this.kind === 'image') {
                     this.object(randar.image());
                 } else {
@@ -108,6 +110,10 @@ module.exports = (randar) => {
             this.object().save(this.directory().child('item.rGeometry'));
         }
 
+        else if (this.kind === 'scene') {
+            this.object().save(this.directory());
+        }
+
         else if (this.kind === 'image') {
             this.object().save(this.directory().child('item.png'));
         }
@@ -127,8 +133,13 @@ module.exports = (randar) => {
     randar.Project.Item.prototype.load = function() {
         if (this.kind === 'geometry') {
             if (this.isOnDisk()) {
-                console.log(this.object().getCPtr());
                 this.object().load(this.directory().child('item.rGeometry'));
+            }
+        }
+
+        else if (this.kind === 'scene') {
+            if (this.isOnDisk()) {
+                this.object().load(this.directory());
             }
         }
 
@@ -164,7 +175,11 @@ module.exports = (randar) => {
      * Whether the item is on disk.
      */
     randar.Project.Item.prototype.isOnDisk = function() {
-        return fs.existsSync(this.directory().toString());
+        if (this.kind === 'scene') {
+            return fs.existsSync(this.directory().child('scene.json').toString());
+        } else {
+            return fs.existsSync(this.directory().toString());
+        }
     };
 
     /**
