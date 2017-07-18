@@ -222,19 +222,52 @@ module.exports = (randar) => {
 
         mkdirp.sync(directory);
         fs.writeFileSync(path.join(directory, 'scene.json'), JSON.stringify({
-            modelItems : _.map(_.keys(this.modelItems), (key) => parseInt(key)),
-            actions    : this.actions
+            geometryItems : _.map(_.keys(this.geometryItems), (key) => parseInt(key)),
+            modelItems    : _.map(_.keys(this.modelItems), (key) => parseInt(key)),
+            actions       : this.actions
         }));
     }
 
     /**
      * Loads the scene from disk.
      */
-    randar.Scene.prototype.load = function(directory) {
+    randar.Scene.prototype.load = function(directory, project) {
+        this.clear();
         directory = directory.toString();
 
+        if (!project) {
+            throw new Error('Project must be provided');
+        }
+
         let data = JSON.parse(fs.readFileSync(path.join(directory, 'scene.json')));
-        this.modelItems = data.modelItems;
-        this.actions    = data.actions;
+        this.actions       = data.actions;
+
+        this.geometryItems = {};
+        for (let geometryItemId of data.geometryItems) {
+            let item = project.items[geometryItemId];
+            if (!item) {
+                throw new Error('Scene uses unavailable item');
+            }
+
+            if (item.kind !== 'geometry') {
+                throw new Error('Expected geometry project item');
+            }
+
+            this.geometryItems[geometryItemId] = item;
+        }
+
+        this.modelItems = {};
+        for (let modelItemId of data.modelItems) {
+            let item = project.items[modelItemId];
+            if (!item) {
+                throw new Error('Scene uses unavailable item');
+            }
+
+            if (item.kind !== 'model') {
+                throw new Error('Expected model project item');
+            }
+
+            this.modelItems[modelItemId] = item;
+        }
     }
 }
