@@ -120,6 +120,10 @@ module.exports = (randar) => {
             this.object().save(this.directory().child('item.rGeometry'));
         }
 
+        else if (this.kind === 'model') {
+            this.object().save(this.directory().child('item.rModel'));
+        }
+
         else if (this.kind === 'scene') {
             this.object().save(this.directory());
         }
