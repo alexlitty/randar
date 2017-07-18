@@ -37,6 +37,8 @@ module.exports = (randar) => {
         this.name = name;
         this.id   = id;
 
+        this.dependencies = {};
+
         this.dirty = true;
 
         this.move(folder);
@@ -69,6 +71,14 @@ module.exports = (randar) => {
             if (!this._object) {
                 if (this.kind === 'geometry') {
                     this.object(randar.geometry());
+                } else if (this.kind === 'model') {
+                    this.object(randar.model());
+
+                    if (this.itemDependencies.geometry) {
+                        this.object().geometry(
+                            this.itemDependencies.geometry.object()
+                        );
+                    }
                 } else if (this.kind === 'scene') {
                     this.object(randar.scene());
                 } else if (this.kind === 'image') {

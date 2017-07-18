@@ -53,6 +53,9 @@ module.exports = (randar) => {
         // Models in the scene.
         this.modelItems = {};
 
+        // Geometries in the scene.
+        this.geometryItems = {};
+
         // Actions in the scene. Frame states are built from these.
         this.actions = [];
 
@@ -98,12 +101,22 @@ module.exports = (randar) => {
         // If this is the first frame, initialize it.
         else {
             previousFrame = {
-                modelItems: {}
+                modelItems: {},
+                geometryItems: {}
             };
 
             for (modelItemIndex in this.modelItems) {
                 let modelItem = this.modelItems[modelItemIndex];
                 previousFrame.modelItems[modelItem.id] = {
+                    transform: {
+                        position: { x: 0, y: 0, z: 0 }
+                    }
+                };
+            }
+
+            for (geometryItemIndex in this.geometryItems) {
+                let geometryItem = this.geometryItems[geometryItemIndex];
+                previousFrame.geometryItems[geometryItem.id] = {
                     transform: {
                         position: { x: 0, y: 0, z: 0 }
                     }
@@ -126,7 +139,13 @@ module.exports = (randar) => {
 
             // Apply transformation.
             if (action.kind === 'transform') {
-                let transform = frame.modelItems[action.modelItemId].transform;
+                let transform;
+                if (_.isNumber(action.modelItemId)) {
+                    transform = frame.modelItems[action.modelItemId].transform;
+                } else if (_.isNumber(action.geometryItemId)) {
+                    transform = frame.geometryItems[action.geometryItemId].transform;
+                }
+
                 for (let axis of ['x', 'y', 'z']) {
                     transform.position[axis] += action.translation[axis] / action.frameCount;
                 }
@@ -170,11 +189,24 @@ module.exports = (randar) => {
             return;
         }
 
+        for (let geometryItemIndex in this.geometryItems) {
+            let geometryItem = this.geometryItems[geometryItemIndex];
+
+            let transform = randar.transform();
+            transform.position(
+                randar.toVector(state.geometryItems[geometryItem.id].transform.position)
+            );
+
+            canvas.draw(geometryItem.object(), transform);
+        }
+
         for (let modelItemIndex in this.modelItems) {
             let modelItem = this.modelItems[modelItemIndex];
 
             let transform = randar.transform();
-            transform.position(randar.toVector(state.modelItems[modelItem.id].transform.position));
+            transform.position(
+                randar.toVector(state.modelItems[modelItem.id].transform.position)
+            );
 
             canvas.draw(modelItem.object(), transform);
         }
