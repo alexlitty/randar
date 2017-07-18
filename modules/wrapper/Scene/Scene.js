@@ -13,8 +13,8 @@ function assertAction(action) {
     }
 
     if (action.kind === 'transform') {
-        if (!_.isNumber(action.modelItemId)) {
-            throw new Error('Invalid model item');
+        if (!_.isNumber(action.modelItemId) && !_.isNumber(action.geometryItemId)) {
+            throw new Error('Invalid transform target');
         }
 
         if (!action.translation) {
