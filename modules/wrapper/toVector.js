@@ -6,7 +6,7 @@ module.exports = (randar) => {
 
         // To vector3.
         let result = { };
-        if (typeof obj.x !== 'undefined' && obj.y !== 'undefined' && obj.z !== 'undefined') {
+        if (typeof obj.x !== 'undefined' && typeof obj.y !== 'undefined' && typeof obj.z !== 'undefined') {
             for (c of ['x', 'y', 'z']) {
                 if (typeof obj[c] === 'number') {
                     result[c] = obj[c];
@@ -25,7 +25,7 @@ module.exports = (randar) => {
             return randar.vector(result.x, result.y, result.z);
         }
 
-        else if (typeof obj.u !== 'undefined' && obj.v !== 'undefined') {
+        else if (typeof obj.u !== 'undefined' && typeof obj.v !== 'undefined') {
             for (c of ['u', 'v']) {
                 if (typeof obj[c] === 'number') {
                     result[c] = obj[c];
