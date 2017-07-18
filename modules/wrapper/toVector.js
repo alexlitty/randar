@@ -43,5 +43,9 @@ module.exports = (randar) => {
 
             return new randar.Vector2_float(result.u, result.v);
         }
+
+        else {
+            throw new Error('Invalid conversion to vector');
+        }
     };
 };
