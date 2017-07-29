@@ -1,8 +1,10 @@
 module.exports = (randar) => {
-    randar.generate.circle = function(geometry, radius, points) {
+    randar.generate.circle = function(radius, points) {
         if (points < 3) {
             throw new Error('Circles can only be generated with 3 or more points');
         }
+
+        let geometry = randar.geometry();
 
         let quat = randar.quaternion(
             randar.vector(0, 0, 1),
@@ -24,5 +26,7 @@ module.exports = (randar) => {
             vertex.position = outter;
             geometry.append(vertex);
         }
+
+        return geometry;
     }
 };

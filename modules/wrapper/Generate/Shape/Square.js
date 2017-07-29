@@ -1,5 +1,5 @@
 module.exports = (randar) => {
-    randar.generate.square = function(geometry, width) {
-        randar.generate.rectangle(geometry, width, width);
+    randar.generate.square = function(width) {
+        return randar.generate.rectangle(width, width);
     }
 }

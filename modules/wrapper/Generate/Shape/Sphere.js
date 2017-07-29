@@ -1,5 +1,5 @@
 module.exports = (randar) => {
-    randar.generate.sphere = function(geometry, radius, horizontalPoints, verticalPoints) {
+    randar.generate.sphere = function(radius, horizontalPoints, verticalPoints) {
         if (verticalPoints < 3) {
             throw new Error('Invalid number of vertical points');
         }
@@ -7,6 +7,8 @@ module.exports = (randar) => {
         if (horizontalPoints < 3) {
             throw new Error('Invalid number of horizontal points');
         }
+
+        let geometry = randar.geometry();
 
         let verticalQuat = randar.quaternion(
             randar.vector(0, 0, 1),
@@ -30,7 +32,7 @@ module.exports = (randar) => {
             let nextVector = baseVector;
             for (let j = 0; j < horizontalPoints; j++) {
                 nextVector = horizontalQuat.transform(nextVector);
-                row.push(randar.vertex(nextVector, randar.randomColor()));
+                row.push(randar.vertex(nextVector));
             }
 
             rows.push(row);
@@ -64,5 +66,7 @@ module.exports = (randar) => {
                 geometry.append(bottomRight);
             }
         }
+
+        return geometry;
     }
 }

@@ -1,12 +1,6 @@
 module.exports = (randar) => {
-    randar.generate.rectangle = function(geometry, width, height) {
-        if (width < 0) {
-            width = -1 * width;
-        }
-
-        if (height < 0) {
-            height = -1 * height;
-        }
+    randar.generate.rectangle = function(width, height) {
+        let geometry = randar.geometry();
 
         let wr = width / 2;
         let hr = height / 2;
@@ -23,5 +17,7 @@ module.exports = (randar) => {
         geometry.append(randar.vertex(topLeft));
         geometry.append(randar.vertex(bottomRight));
         geometry.append(randar.vertex(bottomLeft));
+
+        return geometry;
     }
 }
