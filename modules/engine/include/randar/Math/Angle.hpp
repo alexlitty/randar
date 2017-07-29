@@ -42,6 +42,11 @@ namespace randar
     Angle operator -(Angle lhs, const Angle& rhs);
     Angle operator *(Angle lhs, float rhs);
     Angle operator /(Angle lhs, float rhs);
+
+    /**
+     * Node.js helper.
+     */
+    Angle angle(float radians = 0.0f);
 }
 
 #endif

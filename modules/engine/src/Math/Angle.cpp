@@ -79,3 +79,9 @@ randar::Angle randar::operator /(randar::Angle lhs, float rhs)
 {
     return lhs /= rhs;
 }
+
+// Node.js helper.
+randar::Angle randar::angle(float radians)
+{
+    return randar::Angle(radians);
+}
