@@ -1,6 +1,6 @@
 const _ = require('underscore');
 
-describe.only('Scene', function() {
+describe('Scene', function() {
     let tmpDir;
     let project;
 
