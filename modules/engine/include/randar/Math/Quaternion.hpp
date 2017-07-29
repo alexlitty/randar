@@ -88,6 +88,12 @@ namespace randar
      * Combination operator.
      */
     Quaternion operator *(Quaternion lhs, const Quaternion& rhs);
+
+    /**
+     * Node.js helpers.
+     */
+    Quaternion quaternion();
+    Quaternion quaternion(const Vector3& axis, const Angle& angle);
 }
 
 #endif

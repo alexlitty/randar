@@ -155,3 +155,14 @@ randar::Quaternion::operator btQuaternion() const
 {
     return btQuaternion(this->x, this->y, this->z, this->w);
 }
+
+// Node.js helpers.
+randar::Quaternion randar::quaternion()
+{
+    return randar::Quaternion();
+}
+
+randar::Quaternion randar::quaternion(const randar::Vector3& axis, const randar::Angle& angle)
+{
+    return randar::Quaternion(axis, angle);
+}
