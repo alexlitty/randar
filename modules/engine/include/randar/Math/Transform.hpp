@@ -82,6 +82,11 @@ namespace randar
         void onTransform();
 
         /**
+         * Transforms a vector.
+         */
+        Vector3 transform(const Vector3& vector) const;
+
+        /**
          * Retrieves the current transformation matrix.
          */
         glm::mat4 transformMatrix() const;

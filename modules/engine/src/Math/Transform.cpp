@@ -98,6 +98,12 @@ void randar::Transform::onTransform()
 
 }
 
+// Transforms a vector.
+randar::Vector3 randar::Transform::transform(const randar::Vector3& vector) const
+{
+    return vector * this->transformMatrix();
+}
+
 // Retrieves the current transformation matrix.
 glm::mat4 randar::Transform::transformMatrix() const
 {
