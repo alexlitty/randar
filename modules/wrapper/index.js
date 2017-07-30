@@ -24,6 +24,7 @@ require('./Generate/Shape/Circle')(randar);
 require('./Generate/Shape/Sphere')(randar);
 
 require('./Generate/Shape/Cylinder')(randar);
+require('./Generate/Shape/Cone')(randar);
 
 // Miscellaneous.
 require('./Scene/Scene')(randar);
