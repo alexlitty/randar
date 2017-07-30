@@ -1,6 +1,7 @@
 #include <randar/Render/Camcorder.hpp>
 #include <randar/Render/Canvas.hpp>
 #include <randar/Render/Framebuffer.hpp>
+#include <randar/Render/DefaultTexture.hpp>
 
 // Constructor.
 randar::Canvas::Canvas(uint16_t initFps)
@@ -95,6 +96,23 @@ void randar::Canvas::draw(
                   * this->camera().viewMatrix()
                   * transform.transformMatrix();
     program.uniform("mvp", mvp);
+
+    // Fill texture uniforms.
+    std::string uniformName;
+    for (uint32_t currentTextureIndex = 0; true; currentTextureIndex++) {
+        uniformName = "geoTexture" + std::to_string(currentTextureIndex);
+        if (!program.hasUniform(uniformName)) {
+            break;
+        }
+
+        if (currentTextureIndex < textures.size()) {
+            program.uniform(uniformName, *textures[currentTextureIndex]);
+        } else {
+            program.uniform(uniformName, randar::getDefaultTexture(
+                this->framebuffer().context(), 2, 2, "rgba"
+            ));
+        }
+    }
 
     // Bind required resources for drawing.
     program.use();
