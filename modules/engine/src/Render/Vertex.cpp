@@ -71,6 +71,50 @@ void randar::Vertex::appendTo(GLfloat* array) const
     array[16] = textureCoordinate.v();
 }
 
+// Returns the vertex with a slight modification.
+randar::Vertex randar::Vertex::withPosition(const randar::Vector3& newPosition) const
+{
+    randar::Vertex vertex(*this);
+    vertex.position = newPosition;
+    return vertex;
+}
+
+randar::Vertex randar::Vertex::withColor(const randar::Color& newColor) const
+{
+    randar::Vertex vertex(*this);
+    vertex.color = newColor;
+    return vertex;
+}
+
+randar::Vertex randar::Vertex::withNormal(const randar::Vector3& newNormal) const
+{
+    randar::Vertex vertex(*this);
+    vertex.normal = newNormal;
+    return vertex;
+}
+
+randar::Vertex randar::Vertex::withTextureId(int8_t newTextureId) const
+{
+    randar::Vertex vertex(*this);
+    vertex.textureId = newTextureId;
+    return vertex;
+}
+
+randar::Vertex randar::Vertex::withUV(const randar::Vector2<float>& newUv) const
+{
+    randar::Vertex vertex(*this);
+    vertex.textureCoordinate = newUv;
+    return vertex;
+}
+
+randar::Vertex randar::Vertex::withUV(float u, float v) const
+{
+    randar::Vertex vertex(*this);
+    vertex.textureCoordinate.u(u);
+    vertex.textureCoordinate.v(v);
+    return vertex;
+}
+
 // Vertex comparison operator.
 bool randar::operator ==(const randar::Vertex& a, const randar::Vertex& b)
 {

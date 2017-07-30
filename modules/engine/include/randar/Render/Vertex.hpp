@@ -24,8 +24,6 @@ namespace randar
 
         /**
          * Texture information, where a textureId of -1 indicates no texture.
-         *
-         * textureId is local to a mesh.
          */
         int8_t textureId = -1;
         Vector2<float> textureCoordinate;
@@ -60,8 +58,23 @@ namespace randar
 
         /**
          * Appends this vertex to an ongoing array.
+         *
+         * @@ deprecating
          */
         void appendTo(GLfloat* array) const;
+
+        /**
+         * Returns the vertex with a slight modification.
+         *
+         * Useful while writing programmatically generated shapes.
+         */
+        Vertex withPosition(const randar::Vector3& newPosition) const;
+        Vertex withColor(const randar::Color& newColor) const;
+        Vertex withNormal(const randar::Vector3& newNormal) const;
+
+        Vertex withTextureId(int8_t newTextureId) const;
+        Vertex withUV(const randar::Vector2<float>& newUv) const;
+        Vertex withUV(float u, float v) const;
     };
 
     /**
