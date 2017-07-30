@@ -3,6 +3,7 @@
 
 #include <map>
 #include <randar/Render/Shader.hpp>
+#include <randar/Render/Texture.hpp>
 #include <randar/System/GraphicsContextResource.hpp>
 #include <randar/System/GlNamedResource.hpp>
 #include <randar/Utility/glm.hpp>
@@ -88,13 +89,11 @@ namespace randar
          */
         void attach(Shader& shader);
 
-    protected:
         /**
          * Checks if a uniform is used by the program.
          */
         bool hasUniform(const std::string& name);
 
-    public:
         /**
          * Sets the value of a uniform.
          *
@@ -102,6 +101,7 @@ namespace randar
          */
         void uniform(const std::string& name, const glm::mat4& matrix);
         void uniform(const std::string& name, int integer);
+        void uniform(const std::string& name, randar::Texture& texture);
     };
 }
 
