@@ -25,7 +25,7 @@ describe('Model', function() {
         this.timeout(10000);
 
         let model = randar.model();
-        let geo   = randar.sphere(1);
+        let geo   = randar.generate.sphere(1, 3, 3);
         model.geometry(geo);
 
         for (let i = 0; i < 30; i++) {
