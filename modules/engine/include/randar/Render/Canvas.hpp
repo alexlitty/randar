@@ -5,6 +5,7 @@
 #include <randar/Render/Camera.hpp>
 #include <randar/Render/CanvasWatcher.hpp>
 #include <randar/Render/Model.hpp>
+#include <randar/Render/TextureCollection.hpp>
 #include <randar/Utility/Timer.hpp>
 
 namespace randar
@@ -88,11 +89,18 @@ namespace randar
             Geometry& geometry,
             Transform& transform,
             ShaderProgram& program);
+        void draw(
+            Geometry& geometry,
+            TextureCollection& textures,
+            Transform& transform,
+            ShaderProgram& program);
 
         /**
          * Draws a model to the canvas.
          *
          * Nothing happens if the model has no geometry.
+         *
+         * @@ deprecating
          */
         void draw(Model& model);
 

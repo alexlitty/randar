@@ -70,6 +70,16 @@ void randar::Canvas::draw(
     randar::Transform& transform,
     randar::ShaderProgram& program)
 {
+    TextureCollection textures;
+    this->draw(geometry, textures, transform, program);
+}
+
+void randar::Canvas::draw(
+    randar::Geometry& geometry,
+    randar::TextureCollection& textures,
+    randar::Transform& transform,
+    randar::ShaderProgram& program)
+{
     this->framebuffer().ensureContext();
 
     // Force the geometry onto the current context.
