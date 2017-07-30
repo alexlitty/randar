@@ -23,6 +23,8 @@ require('./Generate/Shape/Cube')(randar);
 require('./Generate/Shape/Circle')(randar);
 require('./Generate/Shape/Sphere')(randar);
 
+require('./Generate/Shape/Cylinder')(randar);
+
 // Miscellaneous.
 require('./Scene/Scene')(randar);
 require('./Project/Project')(randar);
