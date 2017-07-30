@@ -1,5 +1,7 @@
 module.exports = (randar) => {
-    randar.generate.circle = function(radius, points) {
+    randar.generate.circle = function(radius, points, palette) {
+        palette = palette || randar.palette.Default;
+
         if (points < 3) {
             throw new Error('Circles can only be generated with 3 or more points');
         }
@@ -15,6 +17,7 @@ module.exports = (randar) => {
         let outter = randar.vector(radius, 0, 0);
 
         let vertex = randar.vertex();
+        vertex.color = palette.sample();
         for (let i = 0; i < points; i++) {
             vertex.position = center;
             geometry.append(vertex);

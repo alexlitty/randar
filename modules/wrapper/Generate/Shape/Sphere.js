@@ -1,5 +1,6 @@
 module.exports = (randar) => {
-    randar.generate.sphere = function(radius, horizontalPoints, verticalPoints) {
+    randar.generate.sphere = function(radius, horizontalPoints, verticalPoints, palette) {
+        palette = palette || randar.palette.Default;
         if (verticalPoints < 3) {
             throw new Error('Invalid number of vertical points');
         }
@@ -56,6 +57,8 @@ module.exports = (randar) => {
 
                 let topRight    = previousRow[j];
                 let bottomRight = row[j];
+
+                topLeft.color = topRight.color = bottomLeft.color = bottomRight.color = palette.sample();
 
                 geometry.append(topLeft);
                 geometry.append(bottomRight);

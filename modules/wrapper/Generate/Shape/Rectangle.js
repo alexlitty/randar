@@ -1,5 +1,6 @@
 module.exports = (randar) => {
-    randar.generate.rectangle = function(width, height) {
+    randar.generate.rectangle = function(width, height, palette) {
+        palette = palette || randar.palette.Default;
         let geometry = randar.geometry();
 
         let wr = width / 2;
@@ -10,13 +11,14 @@ module.exports = (randar) => {
         let bottomLeft  = randar.vector(-wr, hr, 0);
         let bottomRight = randar.vector(wr, hr, 0);
 
-        geometry.append(randar.vertex(topLeft));
-        geometry.append(randar.vertex(topRight));
-        geometry.append(randar.vertex(bottomRight));
+        let color = palette.sample();
+        geometry.append(randar.vertex(topLeft, color));
+        geometry.append(randar.vertex(topRight, color));
+        geometry.append(randar.vertex(bottomRight, color));
 
-        geometry.append(randar.vertex(topLeft));
-        geometry.append(randar.vertex(bottomRight));
-        geometry.append(randar.vertex(bottomLeft));
+        geometry.append(randar.vertex(topLeft, color));
+        geometry.append(randar.vertex(bottomRight, color));
+        geometry.append(randar.vertex(bottomLeft, color));
 
         return geometry;
     }
