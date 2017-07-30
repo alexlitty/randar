@@ -123,6 +123,13 @@ namespace randar
          * otherwise it is left unaltered. By default randomizeAlpha is false.
          */
         void randomize(bool randomizeAlpha = false);
+
+        /**
+         * Samples this color as if this was a single-color palette.
+         *
+         * Returns itself.
+         */
+        Color sample() const;
     };
 
     /**

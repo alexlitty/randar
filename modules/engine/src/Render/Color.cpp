@@ -199,6 +199,12 @@ randar::Color randar::randomColor()
     return color;
 }
 
+// Samples this color as if this was a single-color palette.
+randar::Color randar::Color::sample() const
+{
+    return *this;
+}
+
 // Node.js helpers for intuitive color creation.
 randar::Color randar::color()
 {
