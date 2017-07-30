@@ -4,6 +4,11 @@ describe('Shape', function() {
     let ctx;
     let win;
     let camera;
+    let cameraQuat;
+
+    function moveCamera() {
+        win.camera().position(cameraQuat.transform(win.camera().position()));
+    }
 
     before(function() {
         ctx = new randar.GraphicsContext();
@@ -11,6 +16,11 @@ describe('Shape', function() {
 
         camera = win.camera();
         camera.projection();
+
+        cameraQuat = randar.quaternion(
+            randar.vector(0, 1, 0),
+            randar.angle(0.025)
+        );
     });
 
     beforeEach(function() {
@@ -26,8 +36,9 @@ describe('Shape', function() {
         this.timeout(10000);
 
         for (let i = 0; i < 60; i++) {
-            let geo = randar.sphere(i);
+            let geo = randar.generate.sphere(i, 24, 24);
 
+            moveCamera();
             win.clear();
             win.draw(geo);
             win.present();
@@ -38,8 +49,9 @@ describe('Shape', function() {
         this.timeout(10000);
 
         for (let i = 0; i < 180; i++) {
-            let geo = randar.cuboid(i, i * 0.75, i * 0.5);
+            let geo = randar.generate.cuboid(i, i * 0.75, i * 0.5);
 
+            moveCamera();
             win.clear();
             win.draw(geo);
             win.present();
