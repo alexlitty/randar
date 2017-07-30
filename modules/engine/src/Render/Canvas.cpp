@@ -52,6 +52,16 @@ void randar::Canvas::draw(randar::Geometry& geometry)
     this->draw(geometry, this->framebuffer().context().defaultShaderProgram());
 }
 
+void randar::Canvas::draw(randar::Geometry& geometry, randar::TextureCollection& textures)
+{
+    this->draw(
+        geometry,
+        textures,
+        Transform::Identity,
+        this->framebuffer().context().defaultShaderProgram()
+    );
+}
+
 void randar::Canvas::draw(
     randar::Geometry& geometry,
     randar::ShaderProgram& program)
