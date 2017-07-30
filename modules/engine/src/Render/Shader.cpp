@@ -148,7 +148,12 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
             R"SHADER(#version 450 core
                 layout(location = 0) in vec3 vertexPosition;
                 layout(location = 1) in vec4 vertexColor;
+                layout(location = 2) in vec3 vertexNormal;
+                layout(location = 3) in int  vertexTextureId;
+                layout(location = 4) in vec2 vertexUV;
                 out vec4 fragmentColor;
+                out int  geoTextureId;
+                out vec2 uv;
 
                 uniform mat4 mvp;
 
@@ -156,6 +161,9 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 {
                     gl_Position = mvp * vec4(vertexPosition, 1);
                     fragmentColor = vertexColor;
+
+                    geoTextureId = vertexTextureId;
+                    uv = vertexUV;
                 }
             )SHADER"
         },
@@ -164,11 +172,21 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
             ShaderType::FRAGMENT,
             R"SHADER(#version 450 core
                 in vec4 fragmentColor;
+                flat in int  geoTextureId;
+                in vec2 uv;
                 out vec4 color;
+
+                uniform sampler2D geoTexture0;
 
                 void main()
                 {
-                    color = fragmentColor;
+                    if (geoTextureId == 0) {
+                        color = texture(geoTexture0, uv).rgba;
+                    }
+                    
+                    else {
+                        color = fragmentColor;
+                    }
                 }
             )SHADER"
         }
