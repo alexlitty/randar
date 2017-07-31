@@ -29,6 +29,8 @@ namespace randar
 
     class Monitor;
 
+    class Spotlight;
+
     /**
      * A wrapper for OpenGL contexts.
      *
@@ -220,6 +222,8 @@ namespace randar
         randar::Window& window(uint32_t width, uint32_t height);
 
         randar::Monitor& monitor(randar::Geometry& geometry);
+
+        randar::Spotlight& spotlight();
 
         /**
          * Default resources.
