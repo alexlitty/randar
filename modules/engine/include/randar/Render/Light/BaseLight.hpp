@@ -9,7 +9,7 @@ namespace randar
     {
     protected:
         Framebuffer framebuffer;
-        Texture map;
+        Texture lightmap;
 
     public:
         /**
@@ -24,12 +24,19 @@ namespace randar
         BaseLight(GraphicsContext& context);
 
         /**
-         * Generates and returns the light's map.
+         * Generates the lightmap of a world.
          */
-        virtual Texture& lightmap(randar::World& world) = 0;
+        virtual void generateMap(randar::World& world) = 0;
+
+        /**
+         * Returns the latest lightmap.
+         */
+        virtual Texture& map();
 
         /**
          * Returns the MVP matrix being used by the light.
+         *
+         * Includes a bias matrix that converts to texture coordinates.
          */
         virtual glm::mat4 matrix();
     };
