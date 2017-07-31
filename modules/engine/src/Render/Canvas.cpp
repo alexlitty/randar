@@ -2,6 +2,7 @@
 #include <randar/Render/Canvas.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/DefaultTexture.hpp>
+#include <randar/Render/Light/LightCollection.hpp>
 #include <randar/World/World.hpp>
 
 // Constructor.
@@ -143,6 +144,12 @@ void randar::Canvas::draw(
 // Draws a model to the canvas.
 void randar::Canvas::draw(randar::Model& model)
 {
+    static LightCollection lights;
+    this->draw(model, lights);
+}
+
+void randar::Canvas::draw(randar::Model& model, randar::LightCollection& lights)
+{
     if (!model.hasGeometry()) {
         return;
     }
@@ -154,15 +161,30 @@ void randar::Canvas::draw(randar::Model& model)
         program = &this->framebuffer().context().defaultShaderProgram();
     }
 
+    if (lights.size() > 0) {
+        program->uniform("lightMvp0", lights[0]->matrix());
+        program->uniform("lightTexture0", lights[0]->map());
+    }
+
     this->draw(model.geometry(), model, *program);
 }
 
 // Draws a world to the canvas.
-void randar::Canvas::draw(randar::World& world)
+void randar::Canvas::draw(randar::World& world, bool withLights)
 {
+    if (withLights) {
+        for (auto light : world.lights) {
+            light->generateMap(world);
+        }
+    }
+
     this->clear(world.backgroundColor);
     for (auto model : world.models) {
-        this->draw(*model);
+        if (withLights) {
+            this->draw(*model, world.lights);
+        } else {
+            this->draw(*model);
+        }
     }
 }
 

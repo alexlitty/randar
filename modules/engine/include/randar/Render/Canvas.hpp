@@ -14,6 +14,9 @@ namespace randar
     class Framebuffer;
     class World;
 
+    class BaseLight;
+    typedef std::vector<BaseLight*> LightCollection;
+
     /**
      * An object which can be drawn upon.
      */
@@ -107,10 +110,20 @@ namespace randar
          */
         void draw(Model& model);
 
+    protected:
+        /**
+         * Draws a model to the canvas with light hints.
+         *
+         * Do not call this directly. It is called when lightmaps have already
+         * been generated.
+         */
+        void draw(Model& model, LightCollection& lights);
+
+    public:
         /**
          * Draws a world to the canvas.
          */
-        void draw(World& world);
+        void draw(World& world, bool withLights = true);
 
         /**
          * Retrieves the contents of this canvas as an image.
