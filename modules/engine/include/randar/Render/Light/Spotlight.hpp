@@ -14,9 +14,9 @@ namespace randar
         Spotlight(GraphicsContext& context);
 
         /**
-         * Generates and returns the light's map.
+         * Generates the lightmap of a world.
          */
-        virtual Texture& lightmap(randar::World& world) override;
+        virtual void generateMap(randar::World& world) override;
     };
 }
 

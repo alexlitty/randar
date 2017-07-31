@@ -7,9 +7,8 @@ randar::Spotlight::Spotlight(randar::GraphicsContext& context)
 
 }
 
-// Generates and returns the light's map.
-randar::Texture& randar::Spotlight::lightmap(randar::World& world)
+// Generates the lightmap of a world.
+void randar::Spotlight::generateMap(randar::World& world)
 {
-    this->framebuffer.draw(world);
-    return this->map;
+    this->framebuffer.draw(world, false);
 }
