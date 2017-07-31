@@ -162,7 +162,7 @@ randar::Image randar::Texture::image()
 
         for (uint32_t x = 0; x < this->getWidth(); x++) {
             for (uint32_t y = 0; y < this->getHeight(); y++) {
-                float value = data[x * y];
+                float value = data[(y * this->getWidth()) + x];
                 result.setPixel(x, y, value, value, value);
             }
         }
