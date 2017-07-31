@@ -106,7 +106,7 @@ void randar::Texture::reset()
         ::glTexImage2D(
             GL_TEXTURE_2D,
             0,
-            GL_DEPTH_COMPONENT,
+            GL_DEPTH_COMPONENT16,
             this->getWidth(),
             this->getHeight(),
             0,
@@ -150,13 +150,24 @@ randar::Image randar::Texture::image()
     }
 
     else if (this->type == "depth") {
+        float* data = new float[this->getWidth() * this->getHeight()];
+
         ::glGetTexImage(
             GL_TEXTURE_2D,
             0,
-            GL_RGBA,
+            GL_DEPTH_COMPONENT,
             GL_FLOAT,
-            result.raw()
+            data
         );
+
+        for (uint32_t x = 0; x < this->getWidth(); x++) {
+            for (uint32_t y = 0; y < this->getHeight(); y++) {
+                float value = data[x * y];
+                result.setPixel(x, y, value, value, value);
+            }
+        }
+
+        delete[] data;
     }
 
     else {
