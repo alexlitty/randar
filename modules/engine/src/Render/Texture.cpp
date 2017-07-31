@@ -149,6 +149,16 @@ randar::Image randar::Texture::image()
         );
     }
 
+    else if (this->type === "depth") {
+        ::glGetTexImage(
+            GL_TEXTURE_2D,
+            0,
+            GL_RGBA,
+            GL_FLOAT,
+            result.raw()
+        );
+    }
+
     else {
         throw std::runtime_error("Reading invalid texture type");
     }
