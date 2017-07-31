@@ -156,6 +156,15 @@ void randar::Canvas::draw(randar::Model& model)
     this->draw(model.geometry(), model, *program);
 }
 
+// Draws a world to the canvas.
+void randar::Canvas::draw(randar::World& world)
+{
+    this->clear(world.backgroundColor);
+    for (auto model : world.models) {
+        this->draw(*model);
+    }
+}
+
 // Retrieves the contents of this canvas as an image.
 randar::Image randar::Canvas::image()
 {

@@ -7,6 +7,7 @@
 #include <randar/Render/Model.hpp>
 #include <randar/Render/TextureCollection.hpp>
 #include <randar/Utility/Timer.hpp>
+#include <randar/World/World.hpp>
 
 namespace randar
 {
@@ -103,10 +104,13 @@ namespace randar
          * Draws a model to the canvas.
          *
          * Nothing happens if the model has no geometry.
-         *
-         * @@ deprecating
          */
         void draw(Model& model);
+
+        /**
+         * Draws a world to the canvas.
+         */
+        void draw(World& world);
 
         /**
          * Retrieves the contents of this canvas as an image.
