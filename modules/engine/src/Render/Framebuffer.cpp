@@ -165,7 +165,7 @@ void randar::Framebuffer::attach(randar::Texture& texture)
             GL_TEXTURE_2D,
             texture.getGlName(),
             0);
-        this->ctx->check("Cannot attach texture");
+        this->ctx->check("Cannot attach rgba texture");
 
         GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
         ::glDrawBuffers(1, drawBuffers);
@@ -184,6 +184,18 @@ void randar::Framebuffer::attach(randar::Texture& texture)
             this->depthBuffer->getGlName()
         );
         this->ctx->check("Cannot attach renderbuffer");
+    }
+
+    else if (texture.type == "depth") {
+        ::glFramebufferTexture(
+            GL_FRAMEBUFFER,
+            GL_DEPTH_ATTACHMENT,
+            texture.getGlName(),
+            0);
+        this->ctx->check("Cannot attach depth texture");
+
+        ::glDrawBuffer(GL_NONE);
+        this->ctx->check("Cannot disable draw buffers");
     }
 
     else {
