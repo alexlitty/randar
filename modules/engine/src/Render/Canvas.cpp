@@ -2,6 +2,7 @@
 #include <randar/Render/Canvas.hpp>
 #include <randar/Render/Framebuffer.hpp>
 #include <randar/Render/DefaultTexture.hpp>
+#include <randar/World/World.hpp>
 
 // Constructor.
 randar::Canvas::Canvas(uint16_t initFps)

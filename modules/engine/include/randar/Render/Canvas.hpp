@@ -7,12 +7,12 @@
 #include <randar/Render/Model.hpp>
 #include <randar/Render/TextureCollection.hpp>
 #include <randar/Utility/Timer.hpp>
-#include <randar/World/World.hpp>
 
 namespace randar
 {
     class Camcorder;
     class Framebuffer;
+    class World;
 
     /**
      * An object which can be drawn upon.
