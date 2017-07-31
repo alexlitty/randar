@@ -149,7 +149,7 @@ randar::Image randar::Texture::image()
         );
     }
 
-    else if (this->type === "depth") {
+    else if (this->type == "depth") {
         ::glGetTexImage(
             GL_TEXTURE_2D,
             0,
