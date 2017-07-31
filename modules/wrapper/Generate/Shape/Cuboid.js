@@ -7,75 +7,77 @@ module.exports = (randar) => {
         let hr = height / 2;
         let dr = depth / 2;
 
-        let frontTopLeft     = randar.vector(-wr, -hr, -dr);
-        let frontTopRight    = randar.vector(wr, -hr, -dr);
-        let frontBottomLeft  = randar.vector(-wr, hr, -dr);
-        let frontBottomRight = randar.vector(wr, hr, -dr);
+        let vertex = randar.vertex();
 
-        let backTopLeft      = randar.vector(-wr, -hr, dr);
-        let backTopRight     = randar.vector(wr, -hr, dr);
-        let backBottomLeft   = randar.vector(-wr, hr, dr);
-        let backBottomRight  = randar.vector(wr, hr, dr);
+        let frontTopLeft     = vertex.withPosition(randar.vector(-wr, -hr, -dr));
+        let frontTopRight    = vertex.withPosition(randar.vector(wr, -hr, -dr));
+        let frontBottomLeft  = vertex.withPosition(randar.vector(-wr, hr, -dr));
+        let frontBottomRight = vertex.withPosition(randar.vector(wr, hr, -dr));
+
+        let backTopLeft      = vertex.withPosition(randar.vector(-wr, -hr, dr));
+        let backTopRight     = vertex.withPosition(randar.vector(wr, -hr, dr));
+        let backBottomLeft   = vertex.withPosition(randar.vector(-wr, hr, dr));
+        let backBottomRight  = vertex.withPosition(randar.vector(wr, hr, dr));
 
         // Front face.
         let color = palette.sample();
-        geometry.append(randar.vertex(frontTopLeft, color));
-        geometry.append(randar.vertex(frontTopRight, color)); 
-        geometry.append(randar.vertex(frontBottomRight, color));
+        geometry.append(frontTopLeft.withColor(color));
+        geometry.append(frontTopRight.withColor(color)); 
+        geometry.append(frontBottomRight.withColor(color));
 
-        geometry.append(randar.vertex(frontTopLeft, color));
-        geometry.append(randar.vertex(frontBottomRight, color));
-        geometry.append(randar.vertex(frontBottomLeft, color));
+        geometry.append(frontTopLeft.withColor(color));
+        geometry.append(frontBottomRight.withColor(color));
+        geometry.append(frontBottomLeft.withColor(color));
 
         // Back face.
         color = palette.sample();
-        geometry.append(randar.vertex(backTopLeft, color));
-        geometry.append(randar.vertex(backTopRight, color));
-        geometry.append(randar.vertex(backBottomRight, color));
+        geometry.append(backTopLeft.withColor(color));
+        geometry.append(backTopRight.withColor(color));
+        geometry.append(backBottomRight.withColor(color));
 
-        geometry.append(randar.vertex(backTopLeft, color));
-        geometry.append(randar.vertex(backBottomRight, color));
-        geometry.append(randar.vertex(backBottomLeft, color));
+        geometry.append(backTopLeft.withColor(color));
+        geometry.append(backBottomRight.withColor(color));
+        geometry.append(backBottomLeft.withColor(color));
 
         // Left face.
         color = palette.sample();
-        geometry.append(randar.vertex(frontTopLeft, color));
-        geometry.append(randar.vertex(backTopLeft, color));
-        geometry.append(randar.vertex(backBottomLeft, color));
+        geometry.append(frontTopLeft.withColor(color));
+        geometry.append(backTopLeft.withColor(color));
+        geometry.append(backBottomLeft.withColor(color));
 
-        geometry.append(randar.vertex(frontTopLeft, color));
-        geometry.append(randar.vertex(backBottomLeft, color));
-        geometry.append(randar.vertex(frontBottomLeft, color));
+        geometry.append(frontTopLeft.withColor(color));
+        geometry.append(backBottomLeft.withColor(color));
+        geometry.append(frontBottomLeft.withColor(color));
 
         // Right face.
         color = palette.sample();
-        geometry.append(randar.vertex(frontTopRight, color));
-        geometry.append(randar.vertex(backTopRight, color));
-        geometry.append(randar.vertex(backBottomRight, color));
+        geometry.append(frontTopRight.withColor(color));
+        geometry.append(backTopRight.withColor(color));
+        geometry.append(backBottomRight.withColor(color));
 
-        geometry.append(randar.vertex(frontTopRight, color));
-        geometry.append(randar.vertex(backBottomRight, color));
-        geometry.append(randar.vertex(frontBottomRight, color));
+        geometry.append(frontTopRight.withColor(color));
+        geometry.append(backBottomRight.withColor(color));
+        geometry.append(frontBottomRight.withColor(color));
 
         // Top face.
         color = palette.sample();
-        geometry.append(randar.vertex(frontTopLeft, color));
-        geometry.append(randar.vertex(frontTopRight, color));
-        geometry.append(randar.vertex(backTopRight, color));
+        geometry.append(frontTopLeft.withColor(color));
+        geometry.append(frontTopRight.withColor(color));
+        geometry.append(backTopRight.withColor(color));
         
-        geometry.append(randar.vertex(frontTopLeft, color));
-        geometry.append(randar.vertex(backTopRight, color));
-        geometry.append(randar.vertex(backTopLeft, color));
+        geometry.append(frontTopLeft.withColor(color));
+        geometry.append(backTopRight.withColor(color));
+        geometry.append(backTopLeft.withColor(color));
 
         // Bottom face.
         color = palette.sample();
-        geometry.append(randar.vertex(frontBottomLeft, color));
-        geometry.append(randar.vertex(frontBottomRight, color));
-        geometry.append(randar.vertex(backBottomRight, color));
+        geometry.append(frontBottomLeft.withColor(color));
+        geometry.append(frontBottomRight.withColor(color));
+        geometry.append(backBottomRight.withColor(color));
         
-        geometry.append(randar.vertex(frontBottomLeft, color));
-        geometry.append(randar.vertex(backBottomRight, color));
-        geometry.append(randar.vertex(backBottomLeft, color));
+        geometry.append(frontBottomLeft.withColor(color));
+        geometry.append(backBottomRight.withColor(color));
+        geometry.append(backBottomLeft.withColor(color));
 
         return geometry;
     }
