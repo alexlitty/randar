@@ -83,6 +83,13 @@ void randar::Texture::bind()
     this->ctx->check("Cannot bind texture");
 }
 
+// Sets the texture as active for further operations.
+void randar::Texture::active(uint16_t index)
+{
+    ::glActiveTexture(GL_TEXTURE0 + index);
+    this->bind();
+}
+
 // Resets the texture with arbitrary data.
 void randar::Texture::reset()
 {

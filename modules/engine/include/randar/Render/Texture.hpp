@@ -71,6 +71,13 @@ namespace randar
         void bind();
 
         /**
+         * Sets the texture as active for further operations.
+         *
+         * Internal use only.
+         */
+        void active(uint16_t index);
+
+        /**
          * Resets the texture with arbitrary data.
          *
          * Implicitly lets the GPU know the current size of the texture.
