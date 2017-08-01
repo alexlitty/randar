@@ -99,8 +99,21 @@ namespace randar
 
         void draw(
             Geometry& geometry,
+            Transform& transform,
+            LightCollection& lights,
+            ShaderProgram& program);
+
+        void draw(
+            Geometry& geometry,
             TextureCollection& textures,
             Transform& transform,
+            ShaderProgram& program);
+
+        void draw(
+            Geometry& geometry,
+            TextureCollection& textures,
+            Transform& transform,
+            LightCollection& lights,
             ShaderProgram& program);
 
         /**

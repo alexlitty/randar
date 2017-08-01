@@ -89,8 +89,29 @@ void randar::Canvas::draw(
 
 void randar::Canvas::draw(
     randar::Geometry& geometry,
+    randar::Transform& transform,
+    randar::LightCollection& lights,
+    randar::ShaderProgram& program)
+{
+    TextureCollection textures;
+    this->draw(geometry, textures, transform, lights, program);
+}
+
+void randar::Canvas::draw(
+    randar::Geometry& geometry,
     randar::TextureCollection& textures,
     randar::Transform& transform,
+    randar::ShaderProgram& program)
+{
+    LightCollection lights;
+    this->draw(geometry, textures, transform, lights, program);
+}
+
+void randar::Canvas::draw(
+    randar::Geometry& geometry,
+    randar::TextureCollection& textures,
+    randar::Transform& transform,
+    randar::LightCollection& lights,
     randar::ShaderProgram& program)
 {
     this->framebuffer().ensureContext();
@@ -110,6 +131,16 @@ void randar::Canvas::draw(
     program.uniform("mvp", mvp);
 
     // Fill texture uniforms.
+    uint16_t textureIndex = 0;
+
+    if (lights.size() > 0) {
+        program.uniform("lightMatrix0", lights[0]->matrix());
+
+        lights[0]->map().active(textureIndex);
+        program.uniform("lightmap0", textureIndex);
+        textureIndex++;
+    }
+
     std::string uniformName;
     for (uint32_t currentTextureIndex = 0; true; currentTextureIndex++) {
         uniformName = "geoTexture" + std::to_string(currentTextureIndex);
@@ -117,13 +148,18 @@ void randar::Canvas::draw(
             break;
         }
 
+        randar::Texture* currentTexture;
         if (currentTextureIndex < textures.size()) {
-            program.uniform(uniformName, *textures[currentTextureIndex]);
+            currentTexture = textures[currentTextureIndex];
         } else {
-            program.uniform(uniformName, randar::getDefaultTexture(
+            currentTexture = &randar::getDefaultTexture(
                 this->framebuffer().context(), 2, 2, "rgba"
-            ));
+            );
         }
+
+        currentTexture->active(textureIndex);
+        program.uniform(uniformName, textureIndex);
+        textureIndex++;
     }
 
     // Bind required resources for drawing.
@@ -139,6 +175,12 @@ void randar::Canvas::draw(
         GL_UNSIGNED_INT,
         nullptr);
     this->framebuffer().context().check("Failed to draw");
+
+    // Reset bound textures.
+    for (uint16_t i = 0; i < textureIndex; i++) {
+        ::glActiveTexture(GL_TEXTURE0 + textureIndex);
+        ::glBindTexture(GL_TEXTURE_2D, 0);
+    }
 }
 
 // Draws a model to the canvas.
@@ -159,11 +201,6 @@ void randar::Canvas::draw(randar::Model& model, randar::LightCollection& lights)
         program = &model.shaderProgram();
     } else {
         program = &this->framebuffer().context().defaultShaderProgram();
-    }
-
-    if (lights.size() > 0) {
-        program->uniform("lightMvp0", lights[0]->matrix());
-        program->uniform("lightTexture0", lights[0]->map());
     }
 
     this->draw(model.geometry(), model, *program);
