@@ -162,12 +162,3 @@ void randar::ShaderProgram::uniform(const std::string& name, int integer)
         ::glUniform1i(this->uniformLocations[name], integer);
     }
 }
-
-// Sets a uniform to a texture.
-void randar::ShaderProgram::uniform(const std::string& name, randar::Texture& texture)
-{
-    if (this->hasUniform(name)) {
-        this->use();
-        ::glUniform1i(this->uniformLocations[name], texture.getGlName());
-    }
-}

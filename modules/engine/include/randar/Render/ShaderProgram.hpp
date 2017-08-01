@@ -32,6 +32,11 @@ namespace randar
          */
         bool inSync = false;
 
+        /**
+         * Next texture index to bind uniforms to.
+         */
+        uint16_t textureIndex = 0;
+
     public:
         /**
          * Disable assignment.
@@ -101,7 +106,6 @@ namespace randar
          */
         void uniform(const std::string& name, const glm::mat4& matrix);
         void uniform(const std::string& name, int integer);
-        void uniform(const std::string& name, randar::Texture& texture);
     };
 }
 
