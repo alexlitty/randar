@@ -58,6 +58,11 @@ namespace randar
          */
         void pan(float x, float y);
 
+        /**
+         * Sets the near and far Z.
+         */
+        void range(float newNearZ, float newFarZ);
+
         glm::mat4 viewMatrix() const;
         glm::mat4 projectionMatrix() const;
     };

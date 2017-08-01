@@ -13,7 +13,9 @@ void randar::Camera::updateMatrices() const
                 this->orthoLeft,
                 this->orthoRight,
                 this->orthoBottom,
-                this->orthoTop
+                this->orthoTop,
+                this->nearZ,
+                this->farZ
             );
 
             this->view = glm::mat4();
@@ -84,6 +86,13 @@ void randar::Camera::pan(float x, float y)
 
     this->move(movement);
     this->targ += movement;
+}
+
+// Sets the near and far Z.
+void randar::Camera::range(float newNearZ, float newFarZ)
+{
+    this->nearZ = newNearZ;
+    this->farZ  = newFarZ;
 }
 
 glm::mat4 randar::Camera::viewMatrix() const
