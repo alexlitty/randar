@@ -18,7 +18,14 @@ void randar::Camera::updateMatrices() const
                 this->farZ
             );
 
-            this->view = glm::mat4();
+            //this->view = glm::mat4();
+            this->view = glm::lookAt(
+                glm::vec3(this->position().x, this->position().y, this->position().z),
+                glm::vec3(this->targ.x, this->targ.y, this->targ.z),
+
+                // @todo - make this based on rotation
+                glm::vec3(0, 1, 0)
+            );
             break;
 
         case CameraType::PROJECTION:
