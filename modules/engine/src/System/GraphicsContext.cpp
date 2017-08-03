@@ -188,6 +188,9 @@ randar::GraphicsContext::GraphicsContext()
 
     ::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     this->check("Cannot set GL blending function");
+
+    ::glDisable(GL_CULL_FACE);
+    this->check("Cannot disable face culling");
 }
 
 // Destructor.
