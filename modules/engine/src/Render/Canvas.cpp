@@ -203,7 +203,7 @@ void randar::Canvas::draw(randar::Model& model, randar::LightCollection& lights)
         program = &this->framebuffer().context().defaultShaderProgram();
     }
 
-    this->draw(model.geometry(), model, *program);
+    this->draw(model.geometry(), model, lights, *program);
 }
 
 // Draws a world to the canvas.
