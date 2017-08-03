@@ -190,7 +190,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 {
                     float visibility = 1.0f;
                     if (texture(lightmap0, lightPosition.xy).z < lightPosition.z) {
-                        visibility = 0.0f;
+                        visibility = 0.5f;
                     }
 
                     if (geoTextureId == 0) {
@@ -201,7 +201,14 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                         color = fragmentColor;
                     }
 
-                    color = visibility * color;
+                    color = vec4((visibility * color).rgb, color.a);
+
+                    /*if (visibility == 1.0f) {
+                        color = vec4(1, 0, 0, 1);
+                    } else {
+                        color = vec4(0, 0, 1, 1);
+                    }*/
+
                     fragmentDepth = gl_FragCoord.z;
                 }
             )SHADER"
