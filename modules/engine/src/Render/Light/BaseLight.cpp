@@ -27,6 +27,5 @@ glm::mat4 randar::BaseLight::matrix()
 	);
 
     return biasMatrix * (this->framebuffer.camera().projectionMatrix()
-         * this->framebuffer.camera().viewMatrix()
-         * this->transformMatrix());
+         * this->framebuffer.camera().viewMatrix());
 }

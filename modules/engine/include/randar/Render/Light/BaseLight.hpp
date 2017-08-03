@@ -5,7 +5,7 @@
 
 namespace randar
 {
-    class BaseLight : public GraphicsContextResource, public Transform
+    class BaseLight : public GraphicsContextResource
     {
     protected:
         Framebuffer framebuffer;

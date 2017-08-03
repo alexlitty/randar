@@ -5,9 +5,43 @@ randar::Spotlight::Spotlight(randar::GraphicsContext& context)
 : randar::BaseLight(context)
 {
     this->framebuffer.camera().ortho(-10, 10, -10, 10);
-    this->framebuffer.camera().range(-10, 20);
-    this->framebuffer.camera().position(Vector3(0, 0, 5));
-    this->framebuffer.camera().target(Vector3(0, 0, 0));
+
+    this->range(-10, 20);
+    this->position(Vector3(0, 0, 5));
+    this->target(Vector3(0, 0, 0));
+}
+
+// Sets and retrieves position.
+void randar::Spotlight::position(const Vector3& newPosition)
+{
+    this->framebuffer.camera().position(newPosition);
+}
+
+void randar::Spotlight::move(const Vector3& movement)
+{
+    this->framebuffer.camera().move(movement);
+}
+
+randar::Vector3 randar::Spotlight::position()
+{
+    return this->framebuffer.camera().position();
+}
+
+// Sets and retrieves the target vector.
+void randar::Spotlight::target(const randar::Vector3& newTarget)
+{
+    this->framebuffer.camera().target(newTarget);
+}
+
+randar::Vector3 randar::Spotlight::target()
+{
+    return this->framebuffer.camera().target();
+}
+
+// Sets light range.
+void randar::Spotlight::range(float near, float far)
+{
+    this->framebuffer.camera().range(near, far);
 }
 
 // Generates the lightmap of a world.
