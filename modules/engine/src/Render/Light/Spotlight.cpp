@@ -4,7 +4,11 @@
 randar::Spotlight::Spotlight(randar::GraphicsContext& context)
 : randar::BaseLight(context)
 {
-    this->framebuffer.camera().ortho(-10, 10, -10, 10);
+    this->framebuffer.camera().ortho(-1000, 1000, -1000, 1000);
+    this->framebuffer.camera().viewport.x1 = 0;
+    this->framebuffer.camera().viewport.x2 = 1024;
+    this->framebuffer.camera().viewport.y1 = 0;
+    this->framebuffer.camera().viewport.y2 = 1024;
 
     this->range(-10, 20);
     this->position(Vector3(0, 0, 5));
