@@ -16,18 +16,18 @@ describe.only('Lights', function() {
 
         camera = win.camera();
         camera.projection();
-        camera.position(randar.vector(0, 20, 30));
-        camera.target(randar.vector(0, 0, -20));
-        camera.range(-10, 50);
-        geometryWall = randar.generate.square(100);
+        camera.position(randar.vector(500, 500, -500));
+        camera.target(randar.vector(0, 0, 0));
+        camera.range(0.1, 10000);
+        geometryWall = randar.generate.cuboid(300, 300, 300);
         modelWall = randar.model();
         modelWall.geometry(geometryWall);
-        modelWall.move(randar.vector(0, 0, -50));
+        modelWall.move(randar.vector(0, 0, 0));
 
-        geometryBall = randar.generate.cuboid(200, 5, 1);
+        geometryBall = randar.generate.sphere(300, 20, 20);
         modelBall = randar.model();
         modelBall.geometry(geometryBall);
-        modelBall.move(randar.vector(0, 0, 5));
+        modelBall.move(randar.vector(-46, -500, 500));
 
         world = randar.world();
         world.models.add(modelWall);
@@ -39,12 +39,15 @@ describe.only('Lights', function() {
         let light = ctx.spotlight();
         world.lights.add(light);
 
-        light.generateMap(world);
-        light.map().image().save("/tmp/test.png");
+        light.range(0.01, 10000);
+        light.position(randar.vector(-46, 500, 500));
+        light.target(randar.vector(-46, -500, 500));
 
         win.fps(24);
         for (let i = 0; i < 72; i++) {
-            camera.move(randar.vector(-1, 3, -3));
+            camera.move(randar.vector(0, 0, 10));
+            light.move(randar.vector(0, 0, 10));
+
             win.draw(world);
             win.present();
         }
