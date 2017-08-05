@@ -125,10 +125,9 @@ void randar::Canvas::draw(
     geometry.sync();
 
     // Fill basic shader program uniforms.
-    glm::mat4 mvp = this->camera().projectionMatrix()
-                  * this->camera().viewMatrix()
-                  * transform.transformMatrix();
-    program.uniform("mvp", mvp);
+    program.uniform("projectionMatrix", this->camera().projectionMatrix());
+    program.uniform("viewMatrix", this->camera().viewMatrix());
+    program.uniform("modelMatrix", transform.transformMatrix());
 
     // Fill texture uniforms.
     uint16_t textureIndex = 0;

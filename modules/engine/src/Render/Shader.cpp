@@ -156,15 +156,22 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 out int  geoTextureId;
                 out vec2 uv;
 
-                uniform mat4 mvp;
+                uniform mat4 projectionMatrix;
+                uniform mat4 viewMatrix;
+                uniform mat4 modelMatrix;
+
                 uniform mat4 lightMatrix0;
 
                 void main()
                 {
-                    gl_Position = mvp * vec4(vertexPosition, 1);
-                    lightPosition = lightMatrix0 * vec4(vertexPosition, 1);
-
+                    gl_Position = projectionMatrix
+                                * viewMatrix
+                                * modelMatrix
+                                * vec4(vertexPosition, 1.0);
                     fragmentColor = vertexColor;
+
+                    vec3 fragPosition = vec3(modelMatrix * vec4(vertexPosition, 1.0));
+                    lightPosition = lightMatrix0 * vec4(fragPosition, 1.0);
 
                     geoTextureId = vertexTextureId;
                     uv = vertexUV;
@@ -177,7 +184,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
             R"SHADER(#version 450 core
                 in vec4 lightPosition;
                 in vec4 fragmentColor;
-                flat in int  geoTextureId;
+                flat in int geoTextureId;
                 in vec2 uv;
 
                 out vec4 color;
@@ -189,7 +196,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 void main()
                 {
                     float visibility = 1.0f;
-                    if (texture(lightmap0, lightPosition.xy).z < lightPosition.z) {
+                    if (texture(lightmap0, lightPosition.xy).r < lightPosition.z) {
                         visibility = 0.5f;
                     }
 
