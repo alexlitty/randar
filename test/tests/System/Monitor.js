@@ -5,7 +5,7 @@ describe('Monitor', function() {
         ctx = new randar.GraphicsContext();
     });
 
-    it.only('presents geometry', function() {
+    it('presents geometry', function() {
         this.timeout(10000);
         let geo = randar.generate.sphere(0.5, 16, 16);
 
