@@ -151,7 +151,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 layout(location = 2) in vec3 vertexNormal;
                 layout(location = 3) in int  vertexTextureId;
                 layout(location = 4) in vec2 vertexUV;
-                out vec4 lightPosition;
+                out vec4 lightPosition0;
                 out vec4 fragmentColor;
                 out int  geoTextureId;
                 out vec2 uv;
@@ -171,7 +171,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                     fragmentColor = vertexColor;
 
                     vec3 fragPosition = vec3(modelMatrix * vec4(vertexPosition, 1.0));
-                    lightPosition = lightMatrix0 * vec4(fragPosition, 1.0);
+                    lightPosition0 = lightMatrix0 * vec4(fragPosition, 1.0);
 
                     geoTextureId = vertexTextureId;
                     uv = vertexUV;
@@ -182,7 +182,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
         {
             ShaderType::FRAGMENT,
             R"SHADER(#version 450 core
-                in vec4 lightPosition;
+                in vec4 lightPosition0;
                 in vec4 fragmentColor;
                 flat in int geoTextureId;
                 in vec2 uv;
@@ -193,12 +193,17 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 uniform sampler2D geoTexture0;
                 uniform sampler2D lightmap0;
 
+                float shadowPower(vec4 lightPosition, sampler2D lightmap)
+                {
+                    vec3 projCoords = lightPosition.xyz / lightPosition.w;
+                    float closestDepth = texture(lightmap, projCoords.xy).r;
+                    float currentDepth = projCoords.z;
+                    return currentDepth - 0.05 > closestDepth ? 1.0f : 0.5f;
+                }
+
                 void main()
                 {
-                    float visibility = 1.0f;
-                    if (texture(lightmap0, lightPosition.xy).r < lightPosition.z) {
-                        visibility = 0.5f;
-                    }
+                    float visibility = shadowPower(lightPosition0, lightmap0);
 
                     if (geoTextureId == 0) {
                         color = texture(geoTexture0, uv).rgba;
@@ -209,14 +214,6 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                     }
 
                     color = vec4((visibility * color).rgb, color.a);
-
-                    /*if (visibility == 1.0f) {
-                        color = vec4(1, 0, 0, 1);
-                    } else {
-                        color = vec4(0, 0, 1, 1);
-                    }*/
-
-                    fragmentDepth = gl_FragCoord.z;
                 }
             )SHADER"
         }
