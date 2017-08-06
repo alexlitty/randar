@@ -1,4 +1,4 @@
-describe.only('Lights', function() {
+describe('Lights', function() {
     let ctx;
     let win;
     let camera;
@@ -16,7 +16,7 @@ describe.only('Lights', function() {
 
         camera = win.camera();
         camera.projection();
-        camera.position(randar.vector(500, 500, -500));
+        camera.position(randar.vector(-500, 500, -1000));
         camera.target(randar.vector(0, 0, 0));
         camera.range(0.1, 10000);
         geometryWall = randar.generate.cuboid(300, 300, 300);
@@ -34,19 +34,24 @@ describe.only('Lights', function() {
         world.models.add(modelBall);
     });
 
+    after(function() {
+        win.close();
+    });
+
     it('Spotlight', function() {
         this.timeout(8000);
         let light = ctx.spotlight();
         world.lights.add(light);
 
         light.range(0.01, 10000);
-        light.position(randar.vector(-46, 500, 500));
-        light.target(randar.vector(-46, -500, 500));
+        light.position(randar.vector(0, -400, 2000));
+        //light.target(randar.vector(-46, -500, 500));
+        light.target(randar.vector(0, 0, 0));
 
         win.fps(24);
         for (let i = 0; i < 72; i++) {
-            camera.move(randar.vector(0, 0, 10));
-            light.move(randar.vector(0, 0, 10));
+            camera.move(randar.vector(0, 0, 20));
+            light.move(randar.vector(0, -100, 0));
 
             win.draw(world);
             win.present();

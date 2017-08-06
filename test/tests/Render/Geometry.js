@@ -47,7 +47,7 @@ function testGeoDraw(randar, geo, fb, win) {
     if (win) { win.present(); }
 }
 
-describe('Geometry', function() {
+describe.skip('Geometry', function() {
     let ctx;
     let geo;
 

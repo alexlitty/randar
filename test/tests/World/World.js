@@ -37,6 +37,7 @@ describe('world', function() {
     });
 
     it('draws with models', function() {
+        this.timeout(10000);
         let model = randar.model();
         let geo   = randar.generate.sphere(0.5, 8, 8);
         model.geometry(geo);
