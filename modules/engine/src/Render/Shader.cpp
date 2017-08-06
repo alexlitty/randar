@@ -191,10 +191,15 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 out float fragmentDepth;
 
                 uniform sampler2D geoTexture0;
+                uniform int lightsEnabled;
                 uniform sampler2D lightmap0;
 
                 float shadowPower(vec4 lightPosition, sampler2D lightmap)
                 {
+                    if (lightsEnabled == 0) {
+                        return 1.0f;
+                    }
+
                     vec3 projCoords = lightPosition.xyz / lightPosition.w;
                     float closestDepth = texture(lightmap, projCoords.xy).r;
                     float currentDepth = projCoords.z;

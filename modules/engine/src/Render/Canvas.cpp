@@ -133,11 +133,18 @@ void randar::Canvas::draw(
     uint16_t textureIndex = 0;
 
     if (lights.size() > 0) {
+        // @todo - just using first light for now
+        program.uniform("lightsEnabled", 1);
+
         program.uniform("lightMatrix0", lights[0]->matrix());
 
         lights[0]->map().active(textureIndex);
         program.uniform("lightmap0", textureIndex);
         textureIndex++;
+    }
+
+    else {
+        program.uniform("lightsEnabled", 0);
     }
 
     std::string uniformName;
