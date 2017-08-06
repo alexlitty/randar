@@ -1,4 +1,4 @@
-describe.only('Normal', function() {
+describe('Normal', function() {
     it('calculates normals from vectors', function() {
         let normal = randar.normal(
             randar.vector(0, 0, 0),
