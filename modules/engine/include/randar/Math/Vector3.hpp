@@ -47,6 +47,16 @@ namespace randar
         Vector3& operator *=(const glm::mat4& matrix);
 
         /**
+         * Basic arithmetic methods.
+         *
+         * Exposed for the Node.js wrapper.
+         */
+        Vector3 plus(Vector3 other);
+        Vector3 minus(Vector3 other);
+        Vector3 times(float other);
+        Vector3 dividedBy(float other);
+
+        /**
          * Mathematical assignment operators.
          */
         Vector3& operator +=(const Vector3& other);

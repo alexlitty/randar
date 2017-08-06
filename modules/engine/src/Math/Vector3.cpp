@@ -100,6 +100,27 @@ randar::Vector3 randar::operator *(const glm::mat4& matrix, randar::Vector3 vect
     return vector * matrix;
 }
 
+// Basic arithmetic methods.
+randar::Vector3 randar::Vector3::plus(randar::Vector3 other)
+{
+    return (other += *this);
+}
+
+randar::Vector3 randar::Vector3::minus(randar::Vector3 other)
+{
+    return (other -= *this);
+}
+
+randar::Vector3 randar::Vector3::times(float other)
+{
+    return (*this * other);
+}
+
+randar::Vector3 randar::Vector3::dividedBy(float other)
+{
+    return (*this / other);
+}
+
 // Addition operators.
 randar::Vector3& randar::Vector3::operator +=(const Vector3& other)
 {
