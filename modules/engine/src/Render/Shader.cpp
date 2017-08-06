@@ -151,8 +151,10 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                 layout(location = 2) in vec3 vertexNormal;
                 layout(location = 3) in int  vertexTextureId;
                 layout(location = 4) in vec2 vertexUV;
-                out vec4 lightPosition0;
+                out vec3 fragmentPosition;
+                out vec3 fragmentNormal;
                 out vec4 fragmentColor;
+                out vec4 lightPosition0;
                 out int  geoTextureId;
                 out vec2 uv;
 
@@ -164,17 +166,23 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
 
                 void main()
                 {
-                    gl_Position = projectionMatrix
-                                * viewMatrix
-                                * modelMatrix
-                                * vec4(vertexPosition, 1.0);
+                    // Basic pass-through information.
+                    fragmentPosition = vertexPosition;
+                    fragmentNormal = vertexNormal;
                     fragmentColor = vertexColor;
 
-                    vec3 fragPosition = vec3(modelMatrix * vec4(vertexPosition, 1.0));
-                    lightPosition0 = lightMatrix0 * vec4(fragPosition, 1.0);
-
-                    geoTextureId = vertexTextureId;
+                    // Texture information.
                     uv = vertexUV;
+                    geoTextureId = vertexTextureId;
+
+                    // Model space position.
+                    vec4 modelPosition = vec4(vec3(modelMatrix * vec4(fragmentPosition, 1.0)), 1.0);
+
+                    // Camera space position.
+                    gl_Position = projectionMatrix * viewMatrix * modelPosition;
+
+                    // Light space positions.
+                    lightPosition0 = lightMatrix0 * modelPosition;
                 }
             )SHADER"
         },
@@ -182,17 +190,19 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
         {
             ShaderType::FRAGMENT,
             R"SHADER(#version 450 core
-                in vec4 lightPosition0;
+                in vec3 fragmentPosition;
+                in vec3 fragmentNormal;
                 in vec4 fragmentColor;
-                flat in int geoTextureId;
+
                 in vec2 uv;
+                flat in int geoTextureId;
+                uniform sampler2D geoTexture0;
+
+                uniform int lightsEnabled;
+                in vec4 lightPosition0;
+                uniform sampler2D lightmap0;
 
                 out vec4 color;
-                out float fragmentDepth;
-
-                uniform sampler2D geoTexture0;
-                uniform int lightsEnabled;
-                uniform sampler2D lightmap0;
 
                 float shadowPower(vec4 lightPosition, sampler2D lightmap)
                 {
@@ -208,8 +218,19 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
 
                 void main()
                 {
+                    vec3 pos_dx = dFdx(fragmentPosition);
+                    vec3 pos_dy = dFdy(fragmentPosition);
+                    vec2 uv_dx = dFdx(uv);
+                    vec2 uv_dy = dFdx(uv);
+
+                    // Tangent and bitangent.
+                    vec3 tangent   = uv_dy.y * pos_dx - uv_dx.y * pos_dy;
+                    vec3 bitangent = uv_dx.x * pos_dy - uv_dy.x * pos_dx;
+
+                    // Compute lighting.
                     float visibility = shadowPower(lightPosition0, lightmap0);
 
+                    // Choose fragment color.
                     if (geoTextureId == 0) {
                         color = texture(geoTexture0, uv).rgba;
                     }
@@ -218,6 +239,7 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                         color = fragmentColor;
                     }
 
+                    // Blend lighting.
                     color = vec4((visibility * color).rgb, color.a);
                 }
             )SHADER"
