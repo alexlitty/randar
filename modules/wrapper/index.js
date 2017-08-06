@@ -1,5 +1,8 @@
 const randar = require('../adapter');
 
+// Math helpers.
+require('./normal.js')(randar);
+
 // Conversion helpers.
 require('./toColor')(randar);
 require('./toVector')(randar);
