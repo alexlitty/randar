@@ -5,13 +5,9 @@ describe('Monitor', function() {
         ctx = new randar.GraphicsContext();
     });
 
-    it('presents geometry', function() {
+    it.only('presents geometry', function() {
         this.timeout(10000);
-        let geo = ctx.geometry();
-
-        geo.append(randar.vertex(-3, -3, 0));
-        geo.append(randar.vertex(-3, 3, 0));
-        geo.append(randar.vertex(3, 3, 0));
+        let geo = randar.generate.sphere(0.5, 16, 16);
 
         let monitor = ctx.monitor(geo);
         monitor.window().fps(24);
