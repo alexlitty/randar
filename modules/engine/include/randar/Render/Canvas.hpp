@@ -4,8 +4,7 @@
 #include <set>
 #include <randar/Render/Camera.hpp>
 #include <randar/Render/CanvasWatcher.hpp>
-#include <randar/Render/Model.hpp>
-#include <randar/Render/TextureCollection.hpp>
+#include <randar/Render/DrawState.hpp>
 #include <randar/Utility/Timer.hpp>
 
 namespace randar
@@ -13,9 +12,6 @@ namespace randar
     class Camcorder;
     class Framebuffer;
     class World;
-
-    class BaseLight;
-    typedef std::vector<BaseLight*> LightCollection;
 
     /**
      * An object which can be drawn upon.
@@ -115,6 +111,8 @@ namespace randar
             Transform& transform,
             LightCollection& lights,
             ShaderProgram& program);
+
+        void draw(Geometry& geometry, DrawState& state);
 
         /**
          * Draws a model to the canvas.

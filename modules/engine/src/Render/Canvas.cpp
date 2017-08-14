@@ -114,12 +114,53 @@ void randar::Canvas::draw(
     randar::LightCollection& lights,
     randar::ShaderProgram& program)
 {
-    this->framebuffer().ensureContext();
+    randar::DrawState state;
+    state.textures = &textures;
+    state.transform = &transform;
+    state.lights = &lights;
+    state.program = &program;
+
+    this->draw(geometry, state);
+}
+
+void randar::Canvas::draw(randar::Geometry& geometry, randar::DrawState& state)
+{
+    static randar::Transform defaultTransform = randar::Transform();
+    static randar::Skeleton defaultSkeleton = randar::Skeleton();
+    static randar::TextureCollection defaultTextures = randar::TextureCollection();
+    static randar::LightCollection defaultLights = randar::LightCollection();
 
     // Force the geometry onto the current context.
+    this->framebuffer().ensureContext();
     if (!this->framebuffer().sameContext(geometry)) {
         geometry.initialize(this->framebuffer().context());
     }
+
+    // Set state defaults.
+    if (!state.transform) {
+        state.transform = &defaultTransform;
+    }
+    Transform& transform = *state.transform;
+
+    if (!state.skeleton) {
+        state.skeleton = &defaultSkeleton;
+    }
+    Skeleton& skeleton = *state.skeleton;
+
+    if (!state.textures) {
+        state.textures = &defaultTextures;
+    }
+    TextureCollection& textures = *state.textures;
+
+    if (!state.lights) {
+        state.lights = &defaultLights;
+    }
+    LightCollection& lights = *state.lights;
+
+    if (!state.program) {
+        state.program = &this->framebuffer().context().defaultShaderProgram();
+    }
+    ShaderProgram& program = *state.program;
 
     // Ensure any new geometry data is synced.
     geometry.sync();
