@@ -223,9 +223,16 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                     vec2 uv_dx = dFdx(uv);
                     vec2 uv_dy = dFdx(uv);
 
-                    // Tangent and bitangent.
+                    // Compute tangent and bitangent.
                     vec3 tangent   = uv_dy.y * pos_dx - uv_dx.y * pos_dy;
                     vec3 bitangent = uv_dx.x * pos_dy - uv_dy.x * pos_dx;
+
+                    // Compute tangent space matrix.
+                    vec3 n = normalize(fragmentNormal);
+                    vec3 t = cross(cross(n, tangent), tangent);
+                    vec3 b = cross(bitangent, cross(bitangent, n));
+                         b = cross(cross(t, b), t);
+                    mat3 tangentMatrix = mat3(normalize(t), normalize(b), n);
 
                     // Compute lighting.
                     float visibility = shadowPower(lightPosition0, lightmap0);
