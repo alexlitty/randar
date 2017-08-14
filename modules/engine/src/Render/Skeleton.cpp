@@ -74,7 +74,7 @@ randar::Joint& randar::Skeleton::joint(const std::string& name)
 randar::Joint& randar::Skeleton::joint(uint32_t index)
 {
     if (index >= this->jointNames.size()) {
-        throw new std::runtime_error("Joint does not exist");
+        throw std::runtime_error("Joint does not exist");
     }
 
     return this->joints[index];
@@ -84,7 +84,7 @@ randar::Joint& randar::Skeleton::joint(uint32_t index)
 std::string randar::Skeleton::jointName(uint32_t index) const
 {
     if (index >= this->jointNames.size()) {
-        throw new std::runtime_error("Joint does not exist");
+        throw std::runtime_error("Joint does not exist");
     }
 
     return this->jointNames[index];
@@ -99,7 +99,7 @@ uint32_t randar::Skeleton::jointIndex(const std::string& name) const
         }
     }
 
-    throw new std::runtime_error("Joint does not exist");
+    throw std::runtime_error("Joint does not exist");
 }
 
 // Calculates the matrix of a joint and its parents.
