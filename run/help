@@ -25,7 +25,7 @@ cat << "EOF"
             San Francisco, California
 
 
-      run/help ........ Shows this sappy inspiration.
+      run/help ........ Shows this helpful text.
       run/count ....... Count total lines of code.
       run/install ..... Installs the suite.
       run/uninstall ... Don't do this.
