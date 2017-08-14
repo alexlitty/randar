@@ -1,24 +1,19 @@
 #ifndef RANDAR_RENDER_JOINT_HPP
 #define RANDAR_RENDER_JOINT_HPP
 
-#include <randar/Render/JointPose.hpp>
+#include <randar/Math/Transform.hpp>
 
 namespace randar
 {
-    struct Joint : virtual public JointPose
+    /**
+     * An isolated joint.
+     *
+     * Instantiations, parent connections, and matrix calculations are handled
+     * by skeletons.
+     */
+    struct Joint : public Transform
     {
-        /**
-         * User-friendly name for this joint.
-         */
-        std::string name;
 
-        /**
-         * This joint's parent, in id and pointer forms.
-         */
-        int32_t parentId = -1;
-        Joint *parent = nullptr;
-
-        glm::mat4 getPoseMatrix() const;
     };
 }
 
