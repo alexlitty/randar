@@ -73,7 +73,7 @@ randar::Joint& randar::Skeleton::joint(const std::string& name)
 
 randar::Joint& randar::Skeleton::joint(uint32_t index)
 {
-    if (this->jointNames.size() >= index) {
+    if (index >= this->jointNames.size()) {
         throw new std::runtime_error("Joint does not exist");
     }
 
@@ -83,7 +83,7 @@ randar::Joint& randar::Skeleton::joint(uint32_t index)
 // Retrieves the name of a joint by its index.
 std::string randar::Skeleton::jointName(uint32_t index) const
 {
-    if (this->jointNames.size() >= index) {
+    if (index >= this->jointNames.size()) {
         throw new std::runtime_error("Joint does not exist");
     }
 
