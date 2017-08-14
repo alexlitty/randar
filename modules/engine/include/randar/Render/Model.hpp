@@ -3,6 +3,7 @@
 
 #include <randar/Math/Transform.hpp>
 #include <randar/Render/Geometry.hpp>
+#include <randar/Render/Skeleton.hpp>
 
 namespace randar
 {
