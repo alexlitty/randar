@@ -118,8 +118,17 @@ void randar::Geometry::append(const randar::Vertex& vertex)
 // Appends another geometry to this geometry.
 void randar::Geometry::append(randar::Geometry& other)
 {
+    this->append(other, randar::Transform::Identity);
+}
+
+void randar::Geometry::append(randar::Geometry& other, const randar::Transform& transform)
+{
     for (uint32_t i = 0; i < other.indices.count(); i++) {
-        this->append(other.vertices.get(other.indices.get(i)));
+        randar::Vertex vertex = other.vertices.get(other.indices.get(i));
+        vertex.position.transform(transform.transformMatrix());
+        vertex.normal.transform(transform.transformMatrix());
+
+        this->append(vertex);
     }
 }
 

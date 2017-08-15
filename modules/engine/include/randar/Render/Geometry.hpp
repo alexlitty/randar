@@ -104,6 +104,7 @@ namespace randar
          * Appends another geometry to this geometry.
          */
         void append(Geometry& other);
+        void append(Geometry& other, const Transform& transform);
 
         /**
          * Saves and loads the geometry from disk.
