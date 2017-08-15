@@ -213,7 +213,7 @@ void randar::Canvas::draw(randar::Geometry& geometry, randar::DrawState& state)
     if (skeleton.jointCount()) {
         std::vector<glm::mat4> jointMatrices;
         for (uint32_t i = 0; i < skeleton.jointCount(); i++) {
-            jointMatrices[i] = skeleton.matrix(i);
+            jointMatrices.push_back(skeleton.matrix(i));
         }
 
         program.uniform("jointMatrices", jointMatrices);
