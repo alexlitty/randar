@@ -164,6 +164,8 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
 
                 uniform mat4 lightMatrix0;
 
+                uniform mat4 jointMatrices[32];
+
                 void main()
                 {
                     // Basic pass-through information.
