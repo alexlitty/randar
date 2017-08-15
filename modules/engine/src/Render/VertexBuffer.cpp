@@ -88,7 +88,7 @@ void randar::VertexBuffer::initialize()
 
     ::glEnableVertexAttribArray(3);
     this->textureIdBuffer.bind();
-    ::glVertexAttribPointer(3, 1, GL_SHORT, GL_FALSE, 0, nullptr);
+    ::glVertexAttribIPointer(3, 1, GL_SHORT, 0, nullptr);
 
     ::glEnableVertexAttribArray(4);
     this->textureCoordinateBuffer.bind();
@@ -96,11 +96,11 @@ void randar::VertexBuffer::initialize()
 
     ::glEnableVertexAttribArray(5);
     this->jointIndexBuffer.bind();
-    ::glVertexAttribPointer(5, 4, GL_UNSIGNED_SHORT, GL_FALSE, 0, nullptr);
+    ::glVertexAttribIPointer(5, 4, GL_UNSIGNED_SHORT, 0, nullptr);
 
     ::glEnableVertexAttribArray(6);
     this->jointWeightBuffer.bind();
-    ::glVertexAttribPointer(6, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, nullptr);
+    ::glVertexAttribIPointer(6, 4, GL_UNSIGNED_BYTE, 0, nullptr);
 
     this->ctx->check("Cannot assign vertex attribute pointers");
 }
