@@ -47,25 +47,40 @@ describe('Skeleton', function() {
 
         let camera = win.camera();
         camera.projection();
-        camera.move(randar.vector(10, 10, 10));
-        camera.target(randar.vector(0, 0, 0));
+        camera.move(randar.vector(10, 10, 20));
+        camera.target(randar.vector(0, 5, 0));
 
         let geo = randar.generate.cube({
-            width : 5,
+            width : 1,
             joint : 0
         });
 
         let skeleton = randar.skeleton();
-        skeleton.add("root");
+        skeleton.add('0');
 
-        let joint = skeleton.joint("root");
+        for (let i = 0; i < 10; i++) {
+            let transform = randar.transform();
+            transform.move(randar.vector(0, i + 1, 0));
+
+            geo.append(randar.generate.cube({
+                width : 1,
+                joint : i + 1
+            }), transform);
+
+            skeleton.add((i + 1).toString(), i.toString());
+        }
 
         let drawState = randar.drawState({
             skeleton : skeleton
         });
 
-        for (let i = 0; i < 24; i++) {
-            joint.move(randar.vector(0, -0.5, -0.5));
+        for (let i = 0; i < 72; i++) {
+            for (let j = 0; j < 11; j++) {
+                let joint = skeleton.joint(j.toString());
+                let factor = 0.01 * Math.cos(6 * (i / 48));
+                joint.move(randar.vector(factor * j, 0, 0));
+            }
+
             win.clear();
             win.draw(geo, drawState);
             win.present();
