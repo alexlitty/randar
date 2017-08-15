@@ -1,5 +1,9 @@
+const _ = require('underscore');
+
 module.exports = (randar) => {
-    randar.generate.square = function(width, palette) {
-        return randar.generate.rectangle(width, width, palette);
+    randar.generate.square = function(options) {
+        return randar.generate.rectangle(_.extend(options, {
+            height: options.width
+        }));
     }
 }

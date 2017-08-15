@@ -168,10 +168,18 @@ describe('Geometry', function() {
     });
 
     it('appends other geometry', function() {
-        geo = randar.generate.cuboid(5, 1, 1);
+        geo = randar.generate.cuboid({
+            width  : 5,
+            height : 1,
+            depth  : 1
+        });
         assert.equal(geo.indices.count(), 36);
 
-        geo.append(randar.generate.cuboid(1, 5, 2));
+        geo.append(randar.generate.cuboid({
+            width  : 1,
+            height : 5,
+            depth  : 2
+        }));
         assert.equal(geo.indices.count(), 72);
     });
 

@@ -36,10 +36,15 @@ describe('world', function() {
         assert.equal(pixel.a().toFixed(1), 1.0);
     });
 
-    it('draws with models', function() {
+    it.only('draws with models', function() {
         this.timeout(10000);
         let model = randar.model();
-        let geo   = randar.generate.sphere(0.5, 8, 8);
+        let geo   = randar.generate.sphere({
+            radius           : 0.5,
+            verticalPoints   : 8,
+            horizontalPoints : 8
+        });
+
         model.geometry(geo);
         world.models.add(model);
 

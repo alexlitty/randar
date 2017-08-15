@@ -19,12 +19,23 @@ describe('Lights', function() {
         camera.position(randar.vector(-500, 500, -1000));
         camera.target(randar.vector(0, 0, 0));
         camera.range(0.1, 10000);
-        geometryWall = randar.generate.cuboid(300, 300, 300);
+
+        geometryWall = randar.generate.cuboid({
+            width  : 300,
+            height : 300,
+            depth  : 300
+        });
+
+        geometryBall = randar.generate.sphere({
+            radius           : 300,
+            verticalPoints   : 20,
+            horizontalPoints : 20
+        });
+
         modelWall = randar.model();
         modelWall.geometry(geometryWall);
         modelWall.move(randar.vector(0, 0, 0));
 
-        geometryBall = randar.generate.sphere(300, 20, 20);
         modelBall = randar.model();
         modelBall.geometry(geometryBall);
         modelBall.move(randar.vector(-46, -500, 500));

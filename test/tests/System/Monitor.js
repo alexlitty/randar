@@ -7,7 +7,12 @@ describe('Monitor', function() {
 
     it('presents geometry', function() {
         this.timeout(10000);
-        let geo = randar.generate.sphere(0.5, 16, 16);
+
+        let geo = randar.generate.sphere({
+            radius           : 0.5,
+            verticalPoints   : 16,
+            horizontalPoints : 16
+        });
 
         let monitor = ctx.monitor(geo);
         monitor.window().fps(24);

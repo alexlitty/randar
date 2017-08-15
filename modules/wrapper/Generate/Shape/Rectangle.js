@@ -1,10 +1,10 @@
 module.exports = (randar) => {
-    randar.generate.rectangle = function(width, height, palette) {
-        palette = palette || randar.palette.Default;
+    randar.generate.rectangle = function(options) {
+        let palette = options.palette || randar.palette.Default;
         let geometry = randar.geometry();
 
-        let wr = width / 2;
-        let hr = height / 2;
+        let wr = options.width / 2;
+        let hr = options.height / 2;
 
         let topLeft     = randar.vector(-wr, -hr, 0);
         let topRight    = randar.vector(wr, -hr, 0);

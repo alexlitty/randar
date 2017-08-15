@@ -1,11 +1,12 @@
 module.exports = (randar) => {
-    randar.generate.sphere = function(radius, horizontalPoints, verticalPoints, palette) {
-        palette = palette || randar.palette.Default;
-        if (verticalPoints < 3) {
+    randar.generate.sphere = function(options) {
+        let palette = options.palette || randar.palette.Default;
+
+        if (options.verticalPoints < 3) {
             throw new Error('Invalid number of vertical points');
         }
 
-        if (horizontalPoints < 3) {
+        if (options.horizontalPoints < 3) {
             throw new Error('Invalid number of horizontal points');
         }
 
@@ -13,17 +14,17 @@ module.exports = (randar) => {
 
         let verticalQuat = randar.quaternion(
             randar.vector(0, 0, 1),
-            randar.angle((1 / (verticalPoints-1)) * randar.PI)
+            randar.angle((1 / (options.verticalPoints-1)) * randar.PI)
         );
 
         let horizontalQuat = randar.quaternion(
             randar.vector(0, 1, 0),
-            randar.angle((1 / horizontalPoints) * randar.TWO_PI)
+            randar.angle((1 / options.horizontalPoints) * randar.TWO_PI)
         );
 
         let rows = [];
-        let baseVector = randar.vector(0, radius, 0);
-        for (let i = 0; i < verticalPoints; i++) {
+        let baseVector = randar.vector(0, options.radius, 0);
+        for (let i = 0; i < options.verticalPoints; i++) {
             let row = [];
 
             if (i > 0) {
@@ -31,7 +32,7 @@ module.exports = (randar) => {
             }
 
             let nextVector = baseVector;
-            for (let j = 0; j < horizontalPoints; j++) {
+            for (let j = 0; j < options.horizontalPoints; j++) {
                 nextVector = horizontalQuat.transform(nextVector);
                 row.push(randar.vertex(nextVector));
             }

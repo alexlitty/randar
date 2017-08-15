@@ -37,7 +37,10 @@ describe('Shape', function() {
 
         for (let k = 3; k < 30; k += 5) {
             for (let i = 0; i < 60; i++) {
-                let geo = randar.generate.circle(i, k);
+                let geo = randar.generate.circle({
+                    radius : i,
+                    points : k
+                });
 
                 moveCamera();
                 win.clear();
@@ -52,7 +55,11 @@ describe('Shape', function() {
 
         for (let k = 3; k < 30; k+= 5) {
             for (let i = 0; i < 60; i++) {
-                let geo = randar.generate.cone(i, 90, k);
+                let geo = randar.generate.cone({
+                    radius : i,
+                    height : 90,
+                    faces  : k
+                });
 
                 moveCamera();
                 win.clear();
@@ -66,7 +73,7 @@ describe('Shape', function() {
         this.timeout(10000);
 
         for (let i = 0; i < 180; i++) {
-            let geo = randar.generate.cube(i);
+            let geo = randar.generate.cube({ width: i });
 
             moveCamera();
             win.clear();
@@ -79,7 +86,11 @@ describe('Shape', function() {
         this.timeout(10000);
 
         for (let i = 0; i < 180; i++) {
-            let geo = randar.generate.cuboid(i, i * 0.75, i * 0.5);
+            let geo = randar.generate.cuboid({
+                width  : i,
+                height : i * 0.75,
+                depth  : i * 0.5
+            });
 
             moveCamera();
             win.clear();
@@ -93,7 +104,11 @@ describe('Shape', function() {
 
         for (let k = 3; k <= 48; k *= 2) {
             for (let i = 0; i < 90; i++) {
-                let geo = randar.generate.cylinder(i, 60, k);
+                let geo = randar.generate.cylinder({
+                    radius : i,
+                    height : 60,
+                    faces  : k
+                });
 
                 moveCamera();
                 win.clear();
@@ -107,7 +122,10 @@ describe('Shape', function() {
         this.timeout(10000);
 
         for (let i = 0; i < 90; i++) {
-            let geo = randar.generate.rectangle(i, i * 0.75);
+            let geo = randar.generate.rectangle({
+                width  : i,
+                height : i * 0.75
+            });
 
             moveCamera();
             win.clear();
@@ -120,7 +138,11 @@ describe('Shape', function() {
         this.timeout(10000);
 
         for (let i = 0; i < 60; i++) {
-            let geo = randar.generate.sphere(i, 24, 24);
+            let geo = randar.generate.sphere({
+                radius           : i,
+                horizontalPoints : 24,
+                verticalPoints   : 24
+            });
 
             moveCamera();
             win.clear();
@@ -133,7 +155,7 @@ describe('Shape', function() {
         this.timeout(10000);
 
         for (let i = 0; i < 90; i++) {
-            let geo = randar.generate.square(i);
+            let geo = randar.generate.square({ width : i });
 
             moveCamera();
             win.clear();

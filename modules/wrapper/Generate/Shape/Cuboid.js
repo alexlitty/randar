@@ -1,11 +1,11 @@
 module.exports = (randar) => {
-    randar.generate.cuboid = function(width, height, depth, palette) {
-        palette = palette || randar.palette.Default;
+    randar.generate.cuboid = function(options) {
+        let palette = options.palette || randar.palette.Default;
         let geometry = randar.geometry();
 
-        let wr = width / 2;
-        let hr = height / 2;
-        let dr = depth / 2;
+        let wr = options.width / 2;
+        let hr = options.height / 2;
+        let dr = options.depth / 2;
 
         let vertex = randar.vertex();
 
