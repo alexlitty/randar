@@ -47,12 +47,15 @@ function testGeoDraw(randar, geo, fb, win) {
     if (win) { win.present(); }
 }
 
-describe.skip('Geometry', function() {
+describe('Geometry', function() {
     let ctx;
     let geo;
 
-    beforeEach(function() {
+    before(function() {
         ctx = new randar.GraphicsContext();
+    });
+
+    beforeEach(function() {
         geo = ctx.geometry();
     });
 
@@ -162,6 +165,14 @@ describe.skip('Geometry', function() {
         assert.equal(geo.indices.query(0), 0);
         assert.equal(geo.indices.query(1), 1);
         assert.equal(geo.indices.query(2), 0);
+    });
+
+    it('appends other geometry', function() {
+        geo = randar.generate.cuboid(5, 1, 1);
+        assert.equal(geo.indices.count(), 36);
+
+        geo.append(randar.generate.cuboid(1, 5, 2));
+        assert.equal(geo.indices.count(), 72);
     });
 
     it('draws to off-screen framebuffer', function() {
