@@ -180,23 +180,37 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                     geoTextureId = vertexTextureId;
 
                     // Model space position.
-                    vec4 modelPosition = vec4(vec3(modelMatrix * vec4(fragmentPosition, 1.0)), 1.0);
+                    vec4 modelPosition = vec4(fragmentPosition, 1.0);
 
                     if (vertexJointWeights.x > 0) {
-                        modelPosition = (jointMatrices[vertexJointIndices.x] * modelPosition) * (vertexJointWeights.x / 255);
+                        modelPosition = vec4(
+                            ((jointMatrices[vertexJointIndices.x] * modelPosition) * (vertexJointWeights.x / 255)).xyz,
+                            1.0
+                        );
                     }
 
                     if (vertexJointWeights.y > 0) {
-                        modelPosition = (jointMatrices[vertexJointIndices.y] * modelPosition) * (vertexJointWeights.y / 255);
+                        modelPosition = vec4(
+                            ((jointMatrices[vertexJointIndices.y] * modelPosition) * (vertexJointWeights.y / 255)).xyz,
+                            1.0
+                        );
                     }
 
                     if (vertexJointWeights.z > 0) {
-                        modelPosition = (jointMatrices[vertexJointIndices.z] * modelPosition) * (vertexJointWeights.z / 255);
+                        modelPosition = vec4(
+                            ((jointMatrices[vertexJointIndices.z] * modelPosition) * (vertexJointWeights.z / 255)).xyz,
+                            1.0
+                        );
                     }
 
                     if (vertexJointWeights.w > 0) {
-                        modelPosition = (jointMatrices[vertexJointIndices.w] * modelPosition) * (vertexJointWeights.w / 255);
+                        modelPosition = vec4(
+                            ((jointMatrices[vertexJointIndices.w] * modelPosition) * (vertexJointWeights.w / 255)).xyz,
+                            1.0
+                        );
                     }
+
+                    modelPosition = vec4((modelMatrix * modelPosition).xyz, 1.0);
 
                     // Camera space position.
                     gl_Position = projectionMatrix * viewMatrix * modelPosition;
