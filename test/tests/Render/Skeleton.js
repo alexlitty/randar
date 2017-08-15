@@ -38,7 +38,7 @@ describe('Skeleton', function() {
         assert.throws(() => skeleton.jointIndex('wump'));
     });
 
-    it.only('applies skeletons to geometry', function() {
+    it('applies skeletons to geometry', function() {
         this.timeout(6000);
 
         let ctx = new randar.GraphicsContext();
