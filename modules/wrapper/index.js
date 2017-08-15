@@ -6,6 +6,7 @@ require('./Math/Normal.js')(randar);
 // Render helpers.
 require('./Render/DrawState.js')(randar);
 require('./Render/Lights.js')(randar);
+require('./Render/Textures.js')(randar);
 
 // Conversion helpers.
 require('./toColor')(randar);
