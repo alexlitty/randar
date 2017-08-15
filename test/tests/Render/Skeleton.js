@@ -37,4 +37,40 @@ describe('Skeleton', function() {
         assert.throws(() => skeleton.jointName(2));
         assert.throws(() => skeleton.jointIndex('wump'));
     });
+
+    it.only('applies skeletons to geometry', function() {
+        this.timeout(6000);
+
+        let ctx = new randar.GraphicsContext();
+        let win = ctx.window(800, 600);
+        win.fps(24);
+
+        let camera = win.camera();
+        camera.projection();
+        camera.move(randar.vector(10, 10, 10));
+        camera.target(randar.vector(0, 0, 0));
+
+        let geo = randar.generate.cube({
+            width : 5,
+            joint : 0
+        });
+
+        let skeleton = randar.skeleton();
+        skeleton.add("root");
+
+        let joint = skeleton.joint("root");
+
+        let drawState = randar.drawState({
+            skeleton : skeleton
+        });
+
+        for (let i = 0; i < 24; i++) {
+            joint.move(randar.vector(0, -0.5, -0.5));
+            win.clear();
+            win.draw(geo, drawState);
+            win.present();
+        }
+
+        win.close();
+    });
 });
