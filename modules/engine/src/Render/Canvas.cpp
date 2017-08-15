@@ -209,6 +209,16 @@ void randar::Canvas::draw(randar::Geometry& geometry, randar::DrawState& state)
         textureIndex++;
     }
 
+    // Fill joint uniforms.
+    if (skeleton.jointCount()) {
+        std::vector<glm::mat4> jointMatrices;
+        for (uint32_t i = 0; i < skeleton.jointCount(); i++) {
+            jointMatrices[i] = skeleton.matrix(i);
+        }
+
+        program.uniform("jointMatrices", jointMatrices);
+    }
+
     // Bind required resources for drawing.
     program.use();
     geometry.vertices.bind();
