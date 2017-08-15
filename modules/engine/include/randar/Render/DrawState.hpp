@@ -17,11 +17,16 @@ namespace randar
      */
     struct DrawState
     {
-        Transform* transform = nullptr;
-        Skeleton* skeleton = nullptr;
-        TextureCollection* textures = nullptr;
-        LightCollection* lights = nullptr;
-        ShaderProgram* program = nullptr;
+        Transform* transform;
+        Skeleton* skeleton;
+        TextureCollection* textures;
+        LightCollection* lights;
+        ShaderProgram* program;
+
+        /**
+         * Constructor.
+         */
+        DrawState();
     };
 }
 
