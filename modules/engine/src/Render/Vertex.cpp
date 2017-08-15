@@ -115,6 +115,13 @@ randar::Vertex randar::Vertex::withUV(float u, float v) const
     return vertex;
 }
 
+randar::Vertex randar::Vertex::withJoint(uint16_t jointIndex, uint8_t jointWeight) const
+{
+    randar::Vertex vertex(*this);
+    vertex.jointWeights[jointIndex] = jointWeight;
+    return vertex;
+}
+
 // Vertex comparison operator.
 bool randar::operator ==(const randar::Vertex& a, const randar::Vertex& b)
 {

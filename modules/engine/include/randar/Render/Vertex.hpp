@@ -75,6 +75,8 @@ namespace randar
         Vertex withTextureId(int8_t newTextureId) const;
         Vertex withUV(const randar::Vector2<float>& newUv) const;
         Vertex withUV(float u, float v) const;
+
+        Vertex withJoint(uint16_t jointIndex, uint8_t jointWeight = 255) const;
     };
 
     /**
