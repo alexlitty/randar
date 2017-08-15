@@ -3,6 +3,10 @@ const randar = require('../adapter');
 // Math helpers.
 require('./Math/Normal.js')(randar);
 
+// Render helpers.
+require('./Render/DrawState.js')(randar);
+require('./Render/Lights.js')(randar);
+
 // Conversion helpers.
 require('./toColor')(randar);
 require('./toVector')(randar);
