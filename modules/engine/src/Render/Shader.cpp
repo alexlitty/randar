@@ -146,11 +146,13 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
         {
             ShaderType::VERTEX,
             R"SHADER(#version 450 core
-                layout(location = 0) in vec3 vertexPosition;
-                layout(location = 1) in vec4 vertexColor;
-                layout(location = 2) in vec3 vertexNormal;
-                layout(location = 3) in int  vertexTextureId;
-                layout(location = 4) in vec2 vertexUV;
+                layout(location = 0) in vec3  vertexPosition;
+                layout(location = 1) in vec4  vertexColor;
+                layout(location = 2) in vec3  vertexNormal;
+                layout(location = 3) in int   vertexTextureId;
+                layout(location = 4) in vec2  vertexUV;
+                layout(location = 5) in uvec4 vertexJointIndices;
+                layout(location = 6) in uvec4 vertexJointWeights;
                 out vec3 fragmentPosition;
                 out vec3 fragmentNormal;
                 out vec4 fragmentColor;
