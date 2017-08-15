@@ -1,4 +1,4 @@
-describe('world', function() {
+describe('World', function() {
     let ctx;
     let win;
     let world;
