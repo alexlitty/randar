@@ -1,4 +1,4 @@
-describe.only('Skeleton', function() {
+describe('Skeleton', function() {
     it('retains correct joint data', function() {
         let skeleton = randar.skeleton();
 
