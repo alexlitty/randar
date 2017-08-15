@@ -162,19 +162,12 @@ void randar::ShaderProgram::uniform(const std::string& name, const std::vector<g
     if (this->hasUniform(name)) {
         this->use();
 
-        float* data = new float[matrices.size() * 16];
-        for (uint32_t i = 0; i < matrices.size(); i++) {
-            ::memcpy(&data[i * 16], &matrices[i][0][0], 16);
-        }
-
         ::glUniformMatrix4fv(
             this->uniformLocations[name],
             matrices.size(),
             GL_FALSE,
-            data
+            glm::value_ptr(matrices[0])
         );
-
-        delete[] data;
     }
 }
 
