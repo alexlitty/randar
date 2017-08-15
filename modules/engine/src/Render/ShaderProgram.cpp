@@ -153,6 +153,31 @@ void randar::ShaderProgram::uniform(const std::string& name, const glm::mat4& ma
     }
 }
 
+void randar::ShaderProgram::uniform(const std::string& name, const std::vector<glm::mat4>& matrices)
+{
+    if (!matrices.size()) {
+        return;
+    }
+
+    if (this->hasUniform(name)) {
+        this->use();
+
+        float* data = new float[matrices.size() * 16];
+        for (uint32_t i = 0; i < matrices.size(); i++) {
+            ::memcpy(&data[i * 16], &matrices[i][0][0], 16);
+        }
+
+        ::glUniformMatrix4fv(
+            this->uniformLocations[name],
+            matrices.size(),
+            GL_FALSE,
+            data
+        );
+
+        delete[] data;
+    }
+}
+
 // Sets a uniform to an integer.
 void randar::ShaderProgram::uniform(const std::string& name, int integer)
 {

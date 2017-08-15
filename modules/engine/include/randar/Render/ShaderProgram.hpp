@@ -105,6 +105,7 @@ namespace randar
          * Nothing happens if the uniform is not used by this program.
          */
         void uniform(const std::string& name, const glm::mat4& matrix);
+        void uniform(const std::string& name, const std::vector<glm::mat4>& matrices);
         void uniform(const std::string& name, int integer);
     };
 }
