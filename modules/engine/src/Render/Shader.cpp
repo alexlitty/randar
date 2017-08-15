@@ -182,20 +182,20 @@ std::string randar::Shader::defaultCode(randar::ShaderType type)
                     // Model space position.
                     vec4 modelPosition = vec4(vec3(modelMatrix * vec4(fragmentPosition, 1.0)), 1.0);
 
-                    if (jointWeights.x > 0) {
-                        modelPosition = (jointMatrices[jointIndices.x] * modelPosition) * (jointWeights.x / 255);
+                    if (vertexJointWeights.x > 0) {
+                        modelPosition = (jointMatrices[vertexJointIndices.x] * modelPosition) * (vertexJointWeights.x / 255);
                     }
 
-                    if (jointWeights.y > 0) {
-                        modelPosition = (jointMatrices[jointIndices.y] * modelPosition) * (jointWeights.y / 255);
+                    if (vertexJointWeights.y > 0) {
+                        modelPosition = (jointMatrices[vertexJointIndices.y] * modelPosition) * (vertexJointWeights.y / 255);
                     }
 
-                    if (jointWeights.z > 0) {
-                        modelPosition = (jointMatrices[jointIndices.z] * modelPosition) * (jointWeights.z / 255);
+                    if (vertexJointWeights.z > 0) {
+                        modelPosition = (jointMatrices[vertexJointIndices.z] * modelPosition) * (vertexJointWeights.z / 255);
                     }
 
-                    if (jointWeights.w > 0) {
-                        modelPosition = (jointMatrices[jointIndices.w] * modelPosition) * (jointWeights.w / 255);
+                    if (vertexJointWeights.w > 0) {
+                        modelPosition = (jointMatrices[vertexJointIndices.w] * modelPosition) * (vertexJointWeights.w / 255);
                     }
 
                     // Camera space position.
