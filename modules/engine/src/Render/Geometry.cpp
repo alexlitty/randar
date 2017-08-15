@@ -115,6 +115,14 @@ void randar::Geometry::append(const randar::Vertex& vertex)
     this->indices.append(this->useVertex(vertex));
 }
 
+// Appends another geometry to this geometry.
+void randar::Geometry::append(randar::Geometry& other)
+{
+    for (uint32_t i = 0; i < other.indices.count(); i++) {
+        this->append(other.vertices.get(other.indices.get(i)));
+    }
+}
+
 // Saves and loads the geometry from disk.
 void randar::Geometry::save(const randar::Path& path)
 {

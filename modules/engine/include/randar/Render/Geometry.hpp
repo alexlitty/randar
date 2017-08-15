@@ -101,6 +101,11 @@ namespace randar
         void append(const Vertex& vertex);
 
         /**
+         * Appends another geometry to this geometry.
+         */
+        void append(Geometry& other);
+
+        /**
          * Saves and loads the geometry from disk.
          */
         void save(const randar::Path& filepath);
