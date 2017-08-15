@@ -1,3 +1,5 @@
+const _ = require('underscore');
+
 module.exports = (randar) => {
     randar.generate.cuboid = function(options) {
         let palette = options.palette || randar.palette.Default;
@@ -8,6 +10,9 @@ module.exports = (randar) => {
         let dr = options.depth / 2;
 
         let vertex = randar.vertex();
+        if (_.isNumber(options.joint)) {
+            vertex = vertex.withJoint(options.joint);
+        }
 
         let frontTopLeft     = vertex.withPosition(randar.vector(-wr, -hr, -dr));
         let frontTopRight    = vertex.withPosition(randar.vector(wr, -hr, -dr));

@@ -36,7 +36,7 @@ describe('world', function() {
         assert.equal(pixel.a().toFixed(1), 1.0);
     });
 
-    it.only('draws with models', function() {
+    it('draws with models', function() {
         this.timeout(10000);
         let model = randar.model();
         let geo   = randar.generate.sphere({
