@@ -1,0 +1,16 @@
+#!/bin/bash
+RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
+DEMOS_PATH=${RANDAR_PATH}/demos
+
+# Check if demo exists.
+DEMO_FILE=${DEMOS_PATH}/${1}.js
+if [ ! -f ${DEMO_FILE} ]; then
+    echo;
+    echo 'Available demos:';
+    ls ${DEMOS_PATH} | sed -e 's/\..*$//' | sed -e 's/^/ * /';
+    echo;
+    exit;
+fi
+
+# Run demo and provide an interactive prompt.
+node -i -e "require('${DEMO_FILE}')"
