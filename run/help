@@ -25,13 +25,16 @@ cat << "EOF"
             San Francisco, California
 
 
-      run/help ........ Shows this helpful text.
-      run/count ....... Count total lines of code.
       run/install ..... Installs the suite.
       run/uninstall ... Don't do this.
       run/build ....... Builds all modules.
       run/rebuild ..... Rebuilds all modules.
+
       run/test ........ Runs automated test suite.
+      run/demo ........ Interactively runs a demo.
       run/ui .......... Starts the user interface.
+
+      run/count ....... Count total lines of code.
+      run/help ........ Shows this helpful text.
 
 EOF
