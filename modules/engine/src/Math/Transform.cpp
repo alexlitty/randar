@@ -33,6 +33,11 @@ void randar::Transform::move(const randar::Quaternion& angularMovement)
     );
 }
 
+void randar::Transform::move(const randar::Vector3& axis, const Angle& angle)
+{
+    this->move(randar::Quaternion(axis, angle));
+}
+
 // Retrieves the position.
 randar::Vector3 randar::Transform::position() const
 {

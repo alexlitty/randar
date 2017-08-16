@@ -30,7 +30,7 @@ namespace randar
          */
         void move(const Vector3& movement);
         void move(const Quaternion& angularMovement);
-        void moveAbout(const Vector3& origin, const Vector3& movement);
+        void move(const Vector3& axis, const Angle& angle);
 
         /**
          * Retrieves the position.
