@@ -6,7 +6,8 @@
 randar::Window::Window(
     randar::GraphicsContext& context,
     uint32_t width,
-    uint32_t height
+    uint32_t height,
+    const randar::WindowOptions& options
 )
 : randar::GraphicsContextResource(&context),
   randar::Dimensional2<uint32_t>(width, height)

@@ -5,6 +5,7 @@
 #include <randar/Math/Dimensional2.hpp>
 #include <randar/Render/Canvas.hpp>
 #include <randar/System/GraphicsContextResource.hpp>
+#include <randar/System/WindowOptions.hpp>
 
 namespace randar
 {
@@ -53,7 +54,12 @@ namespace randar
         /**
          * Constructor.
          */
-        Window(GraphicsContext& context, uint32_t width, uint32_t height);
+        Window(
+            GraphicsContext& context,
+            uint32_t width,
+            uint32_t height,
+            const WindowOptions& options = WindowOptions()
+        );
 
         /**
          * Disable assignment.
