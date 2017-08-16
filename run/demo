@@ -7,7 +7,7 @@ DEMO_FILE=${DEMOS_PATH}/${1}.js
 if [ ! -f ${DEMO_FILE} ]; then
     echo;
     echo 'Available demos:';
-    ls ${DEMOS_PATH} | sed -e 's/\..*$//' | sed -e 's/^/ * /';
+    ls ${DEMOS_PATH} | grep -v "readme.md" | sed -e 's/\..*$//' | sed -e 's/^/ * /';
     echo;
     exit;
 fi
