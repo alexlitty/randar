@@ -2,8 +2,10 @@ const _ = require('underscore');
 
 module.exports = (randar) => {
     randar.generate.square = function(options) {
-        return randar.generate.rectangle(_.extend(options, {
-            height: options.width
-        }));
+        if (_.isNumber(options.width)) {
+            options.height = options.width;
+        }
+
+        return randar.generate.rectangle(options);
     }
 }
