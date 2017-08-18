@@ -253,14 +253,19 @@ void randar::Canvas::draw(randar::Model& model, randar::LightCollection& lights)
         return;
     }
 
-    ShaderProgram* program;
-    if (model.hasShaderProgram()) {
-        program = &model.shaderProgram();
-    } else {
-        program = &this->framebuffer().context().defaultShaderProgram();
+    randar::DrawState state;
+    state.transform = &model;
+    state.lights    = &lights;
+
+    if (model.hasSkeleton()) {
+        state.skeleton = &model.skeleton();
     }
 
-    this->draw(model.geometry(), model, lights, *program);
+    if (model.hasShaderProgram()) {
+        state.program = &model.shaderProgram();
+    }
+
+    this->draw(model.geometry(), state);
 }
 
 // Draws a world to the canvas.

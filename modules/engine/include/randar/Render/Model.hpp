@@ -12,6 +12,7 @@ namespace randar
     protected:
         Geometry* geo;
         ShaderProgram* program;
+        Skeleton* skel;
 
     public:
         /**
@@ -43,6 +44,13 @@ namespace randar
         void shaderProgram(ShaderProgram& newProgram);
         ShaderProgram& shaderProgram();
         bool hasShaderProgram() const;
+
+        /**
+         * Sets and retrieves the skeleton applied to the model.
+         */
+        void skeleton(Skeleton& skeleton);
+        Skeleton& skeleton();
+        bool hasSkeleton() const;
     };
 
     /**

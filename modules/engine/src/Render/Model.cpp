@@ -70,6 +70,25 @@ bool randar::Model::hasShaderProgram() const
     return this->program != nullptr;
 }
 
+// Sets and retrieves the skeleton applied to the model.
+void randar::Model::skeleton(randar::Skeleton& skeleton)
+{
+    this->skel = &skeleton;
+}
+
+randar::Skeleton& randar::Model::skeleton()
+{
+    if (!this->hasSkeleton()) {
+        throw std::runtime_error("Model has no skeleton");
+    }
+    return *this->skel;
+}
+
+bool randar::Model::hasSkeleton() const
+{
+    return this->skel != nullptr;
+}
+
 // Node.js helper for intuitive model creation.
 randar::Model randar::model()
 {
