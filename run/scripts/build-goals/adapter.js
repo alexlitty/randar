@@ -51,151 +51,11 @@ function run(command, args, successMessage, done) {
 }
 
 function build(options, done) {
-    var swigContents = '';
-    function addSwigLines(lines) {
-        swigContents += lines.map(line => line + '\n').join('');
-    }
-
-    const swigFilename   = 'adapter.i';
-    const wrapFilename   = 'adapter.cxx';
     const gypFilename    = 'binding.gyp';
     const moduleFilename = 'build/adapter.node';
 
-    const headers = glob.sync(path.join(RANDAR_PATH.ENGINE_INCLUDE, '**', '*.hpp'));
-    const sources = glob.sync(path.join(RANDAR_PATH.ENGINE_SOURCE, '**', '*.cpp'));
-
-    headerContents = headers.reduce((result, filename) => {
-        result[filename] = fs.readFileSync(filename).toString();
-        return result;
-    }, { });
-
-    // Sort headers by dependencies required. If we provide these headers to
-    // swig unsorted it will still create the c++ wrapper, but it can't confirm
-    // all dependencies have been met -- so we'll see a bunch of scary warnings.
-    var availableHeaders = headers.slice();
-    var circularHeaders  = [];
-    var sortedHeaders    = [];
-    while (availableHeaders.length) {
-        var key = availableHeaders.findIndex((header) => {
-            return availableHeaders.every((otherHeader) => {
-                return headerContents[header].indexOf(
-                    otherHeader.replace(RANDAR_PATH.ENGINE_INCLUDE, '')
-                ) == -1;
-            });
-        });
-
-        // If we can't find a header without satisfied dependencies, we've
-        // encountered a circular dependency. Swig may be able to resolve it
-        // anyway, but warn the user just in case.
-        if (key == -1) {
-            key = 0;
-            circularHeaders.push(availableHeaders[key]);
-        }
-        sortedHeaders = sortedHeaders.concat(
-            availableHeaders.splice(key, 1)
-        );
-    }
-
-    if (circularHeaders.length) {
-        console.warn('! Detected circular dependencies in');
-        circularHeaders.forEach((header) => console.warn('! -', header));
-        console.warn('! Build will continue but may fail');
-    }
-
-    // Start our swig file with a declaration of the system architecture. This
-    // is used to provide the correct typemaps for fixed width integer types,
-    // like uint32_t.
-    //
-    // Swig defaults to 32-bit mappings. If this is a 64-bit system, we must
-    // define SWIGWORDSIZE64 to request the 64-bit mappings.
-    if (os.arch() == 'x64') {
-        addSwigLines(['#define SWIGWORDSIZE64 true']);
-    }
-
-    // %naturalvar requests a more intuitive interface with class members.
-    addSwigLines(['%naturalvar;']);
-
-    // Disable implicit generation of default constructors.
-    addSwigLines(['%nodefaultctor;']);
-
-    // Ignore operators that don't translate well to node code. These operators
-    // could be explicitly renamed if we end up needing them.
-    addSwigLines([
-        '=',
-        '+=',
-        '-=',
-        '*=',
-        '/=',
-        '%=',
-        '+',
-        '-',
-        '*',
-        '/',
-        '%',
-        '!',
-        '==',
-        '!=',
-        '<',
-        '<=',
-        '>',
-        '>=',
-        '<<',
-        '>>',
-        ' bool',
-        ' uint8_t',
-        ' uint32_t',
-        ' float',
-        ' std::string',
-        ' std::mutex&',
-        ' GLuint',
-        ' GLuint*',
-        ' GLuint&',
-        ' Model&',
-        ' btVector3',
-        ' btQuaternion',
-        ' btTransform'
-    ].map(x => `%ignore operator${x};`));
-
-    // Include common typemappings.
-    addSwigLines([
-        './exception_handler.i',
-        'complex.i',
-        'carrays.i',
-        'stdint.i',
-
-        'typemaps/implicit.swg',
-
-        'javascript/v8/typemaps.i',
-        'javascript/v8/std_common.i',
-        'javascript/v8/std_string.i',
-        'javascript/v8/std_complex.i',
-
-        'javascript/v8/std_pair.i',
-        'javascript/v8/std_deque.i',
-        './std_map.i',
-        './std_vector.i',
-
-        'javascripttypemaps.swg',
-        'javascriptcode.swg',
-        'javascriptcomplex.swg',
-        'javascriptfragments.swg',
-        'javascripthelpers.swg',
-        'javascriptinit.swg',
-        'javascriptkw.swg',
-        'javascriptprimtypes.swg',
-        'javascriptruntime.swg',
-        'javascriptstrings.swg',
-
-        'arrays_javascript.i',
-        './gl.i'
-    ].map(x => `%include "${x}"`));
-
-    // Define our wrapping module.
-    const includes = sortedHeaders.map(filename => `#include "${filename}"`);
-    addSwigLines(
-        ['%module adapter', '%{'].concat(includes).concat(['%}'])
-        .concat(includes.map(line => line.replace('#', '%')))
-    );
+    const headers = glob.sync(path.join(RANDAR_PATH.ADAPTER_INCLUDE, '**', '*.hpp'));
+    const sources = glob.sync(path.join(RANDAR_PATH.ADAPTER_SOURCE, '**', '*.cpp'));
 
     // Describe the complete compilation of the engine node module.
     const gypBinding = {
@@ -204,14 +64,15 @@ function build(options, done) {
 
             sources: sources.map((filename) => {
                 return filename.replace(
-                    RANDAR_PATH.ENGINE,
-                    path.join('..', 'engine')
-                )
-            }).concat([wrapFilename]),
+                    RANDAR_PATH.ADAPTER,
+                    path.join('..', 'adapter')
+                );
+            }),
 
             include_dirs: [
                 'modules/engine/include',
-                'modules/engine/include/bullet3'
+                'modules/engine/include/bullet3',
+                'modules/adapter/include'
             ].map((dir) => path.normalize(path.join(RANDAR_PATH.ROOT, dir))),
 
             libraries: [
@@ -227,13 +88,7 @@ function build(options, done) {
                 '-lpng'
             ],
 
-            // Disable warnings.
             cflags: [
-                // SWIG uses plenty of deprecated v8 calls on purpose. They're
-                // perfectly fine to use; Ignore them.
-                '-Wno-deprecated-declarations',
-
-                // Force C++11 compilation.
                 '-std=c++11'
             ],
 
@@ -244,23 +99,8 @@ function build(options, done) {
     };
 
     async.series([
-        (next) => publish(swigFilename, swigContents, false, next),
         (next) => publish(
             gypFilename, JSON.stringify(gypBinding, null, '    '), true, next
-        ),
-
-        // Creates a C++ file that wraps our engine within V8-friendly code.
-        (next) => run(
-            'swig',
-            [
-                '-c++',
-                '-javascript',
-                '-node',
-                '-o', wrapFilename,
-                swigFilename
-            ],
-            `Published ${path.join(RANDAR_PATH.ADAPTER, wrapFilename)}`,
-            next
         ),
 
         // Initiate a rebuild if desired.
