@@ -1,1 +1,0 @@
-using GLuint = unsigned int;
