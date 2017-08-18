@@ -69,6 +69,8 @@ namespace randar
          * Useful while writing programmatically generated shapes.
          */
         Vertex withPosition(const randar::Vector3& newPosition) const;
+        Vertex withPosition(float x, float y, float z) const;
+
         Vertex withColor(const randar::Color& newColor) const;
         Vertex withNormal(const randar::Vector3& newNormal) const;
 

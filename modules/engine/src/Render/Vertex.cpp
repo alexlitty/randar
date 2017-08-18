@@ -79,6 +79,11 @@ randar::Vertex randar::Vertex::withPosition(const randar::Vector3& newPosition) 
     return vertex;
 }
 
+randar::Vertex randar::Vertex::withPosition(float x, float y, float z) const
+{
+    return (*this).withPosition(randar::Vector3(x, y, z));
+}
+
 randar::Vertex randar::Vertex::withColor(const randar::Color& newColor) const
 {
     randar::Vertex vertex(*this);
