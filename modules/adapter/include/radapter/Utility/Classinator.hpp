@@ -27,7 +27,7 @@ namespace radapter
             std::vector<napi_property_descriptor> properties = T::properties();
 
             napi_value fn;
-            radapter::checkNapi(env, napi_define_class(
+            radapter::checkNapi("define node constructor", env, napi_define_class(
                 env,
                 T::name.c_str(),
                 Classinator<T, U>::instance,
@@ -62,7 +62,7 @@ namespace radapter
             U* raw = T::instance(env, cbInfo);
 
             napi_ref ref;
-            radapter::checkNapi(env, napi_wrap(
+            radapter::checkNapi("wrap native object", env, napi_wrap(
                 env,
                 cbInfo.self,
                 raw,
