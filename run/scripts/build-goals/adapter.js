@@ -56,7 +56,6 @@ function build(options, done) {
 
     let sources = glob.sync(path.join(RANDAR_PATH.ADAPTER_SOURCE, '**', '*.cpp'));
     sources = sources.concat(glob.sync(path.join(RANDAR_PATH.ENGINE_SOURCE, '**', '*.cpp')));
-    console.log(sources);
 
     // Describe the complete compilation of the engine node module.
     const gypBinding = {
