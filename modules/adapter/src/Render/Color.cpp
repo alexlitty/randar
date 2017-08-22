@@ -7,7 +7,7 @@ std::vector<napi_property_descriptor> radapter::Color::properties()
     return std::vector<napi_property_descriptor>();
 }
 
-randar::Color* radapter::Color::instance(napi_env env, radapter::CallbackInfo& info)
+randar::Color* radapter::Color::instance(radapter::CallbackInfo& info)
 {
     return new randar::Color();
 }

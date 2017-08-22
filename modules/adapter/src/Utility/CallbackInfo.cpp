@@ -2,6 +2,8 @@
 
 radapter::CallbackInfo::CallbackInfo(napi_env env, napi_callback_info info)
 {
+    this->env = env;
+
     // We can't tell how many arguments were passed yet, so we provide an
     // array with a reasonably large size first.
     this->args.resize(RADAPTER_MAX_CALLBACK_ARGC);

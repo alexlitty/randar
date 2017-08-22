@@ -15,6 +15,7 @@ namespace radapter
      */
     struct CallbackInfo
     {
+        napi_env env;
         napi_value self;
         std::vector<napi_value> args;
 
