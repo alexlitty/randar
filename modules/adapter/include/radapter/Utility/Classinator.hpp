@@ -29,7 +29,7 @@ namespace radapter
             napi_value fn;
             radapter::checkNapi("define node constructor", env, napi_define_class(
                 env,
-                T::name.c_str(),
+                T::className.c_str(),
                 Classinator<T, U>::instance,
                 nullptr,
                 properties.size(),

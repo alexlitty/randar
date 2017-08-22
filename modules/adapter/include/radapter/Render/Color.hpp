@@ -8,7 +8,7 @@ namespace radapter
 {
     struct Color
     {
-        static std::string name;
+        static std::string className;
         static std::vector<napi_property_descriptor> properties();
         static randar::Color* instance(napi_env, radapter::CallbackInfo& info);
     };
