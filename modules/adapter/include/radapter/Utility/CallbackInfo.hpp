@@ -17,7 +17,7 @@ namespace radapter
     {
         /**
          * N-API environment hint.
-         *
+         * 
          * This value cannot be cached around, so neither should this struct.
          */
         napi_env env;
