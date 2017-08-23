@@ -5,8 +5,6 @@
 
 namespace radapter
 {
-    typedef napi_value(*callback)(radapter::CallbackInfo&);
-
     struct unwrap
     {
         /**
@@ -15,7 +13,7 @@ namespace radapter
         * Accepts an N-API callback, unwraps argument data, and forwards the call
         * to a provided static function T.
         */
-        template <radapter::callback T>
+        template <radapter::Callback T>
         static napi_value cb(napi_env env, napi_callback_info info)
         {
             CallbackInfo unwrappedInfo(env, info);
