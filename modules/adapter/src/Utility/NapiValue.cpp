@@ -3,6 +3,27 @@
 
 namespace radapter
 {
+    // Empty value retrievers.
+    napi_value napiUndefinedValue(napi_env env)
+    {
+        napi_value result;
+        checkNapi("get napi undefined object", env, napi_get_undefined(
+            env,
+            &result
+        ));
+        return result;
+    }
+
+    napi_value napiNullValue(napi_env env)
+    {
+        napi_value result;
+        checkNapi("get napi null object", env, napi_get_null(
+            env,
+            &result
+        ));
+        return result;
+    }
+
     // Floating point specializations.
     template <> napi_value napiValue(napi_env env, float value)
     {
