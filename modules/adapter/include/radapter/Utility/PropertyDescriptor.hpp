@@ -38,6 +38,23 @@ namespace radapter
             0
         };
     }
+
+    template <radapter::Callback T, radapter::Callback U>
+    napi_property_descriptor getterSetter(const char* name)
+    {
+        return {
+            name,
+            0,
+
+            0,
+            radapter::unwrap::cb<T>,
+            radapter::unwrap::cb<U>,
+            0,
+
+            napi_default,
+            0
+        };
+    }
 }
 
 #endif
