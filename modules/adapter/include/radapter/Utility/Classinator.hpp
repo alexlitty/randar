@@ -59,19 +59,24 @@ namespace radapter
         static napi_value instance(napi_env env, napi_callback_info info)
         {
             radapter::CallbackInfo cbInfo(env, info);
-            U* raw = T::instance(cbInfo);
+            Classinator<T, U>::wrap(env, cbInfo.self, T::instance(cbInfo));
+            return cbInfo.self;
+        }
 
+        /**
+         * Wraps a JavaScript object around a native one.
+         */
+        static void wrap(napi_env env, napi_value jsValue, U* nativeValue)
+        {
             napi_ref ref;
             radapter::checkNapi("wrap native object", env, napi_wrap(
                 env,
-                cbInfo.self,
-                raw,
+                jsValue,
+                nativeValue,
                 Classinator<T, U>::finalize,
-                raw,
+                nativeValue,
                 &ref
             ));
-
-            return cbInfo.self;
         }
     };
 }
