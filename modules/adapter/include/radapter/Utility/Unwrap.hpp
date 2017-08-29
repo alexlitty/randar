@@ -32,7 +32,19 @@ namespace radapter
         static napi_value cb(napi_env env, napi_callback_info info)
         {
             CallbackInfo unwrappedInfo(env, info);
-            return T(unwrappedInfo);
+
+            try {
+                return T(unwrappedInfo);
+            }
+
+            catch (const std::runtime_error& err) {
+                checkNapi("throw napi error", env, napi_throw_error(
+                    env,
+                    nullptr,
+                    err.what()
+                ));
+                return 0;
+            }
         }
     };
 }
