@@ -5,14 +5,48 @@
 
 namespace radapter
 {
+    /**
+     * Base nativeValue template.
+     *
+     * A specialization must be used.
+     */
     template <typename T>
     T nativeValue(napi_env env, napi_value value)
     {
-        throw new std::runtime_error("Not implemented");
+        throw std::runtime_error("Not implemented");
     }
 
+    /**
+     * Boolean specialization.
+     */
+    template <> bool nativeValue(napi_env env, napi_value value);
+
+    /**
+     * Floating point specializations.
+     */
     template <> float nativeValue(napi_env env, napi_value value);
     template <> double nativeValue(napi_env env, napi_value value);
+
+    /**
+     * Integer specializations.
+     *
+     * See napiValue comments.
+     */
+    template <> int8_t nativeValue(napi_env env, napi_value value);
+    template <> int16_t nativeValue(napi_env env, napi_value value);
+    template <> int32_t nativeValue(napi_env env, napi_value value);
+    template <> int64_t nativeValue(napi_env env, napi_value value);
+
+    template <> uint8_t nativeValue(napi_env env, napi_value value);
+    template <> uint16_t nativeValue(napi_env env, napi_value value);
+    template <> uint32_t nativeValue(napi_env env, napi_value value);
+
+    /**
+     * String specializations.
+     *
+     * See napiValue comments.
+     */
+    template <> std::string nativeValue(napi_env env, napi_value value);
 }
 
 #endif
