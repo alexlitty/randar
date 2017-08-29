@@ -1,4 +1,4 @@
 #!/bin/bash
 RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
 
-(cd ${RANDAR_PATH} && ./node_modules/mocha/bin/mocha --recursive $*)
+(cd ${RANDAR_PATH} && ./node_modules/mocha/bin/mocha --napi-modules --recursive $*)
