@@ -30,11 +30,6 @@ namespace radapter
     }
 
     /**
-     * Boolean specialization.
-     */
-    template <> napi_value napiValue(napi_env env, bool value);
-
-    /**
      * Floating point specializations.
      *
      * Floats are converted to doubles.

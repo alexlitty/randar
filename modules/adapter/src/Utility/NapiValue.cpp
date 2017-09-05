@@ -7,7 +7,7 @@ namespace radapter
     napi_value napiUndefinedValue(napi_env env)
     {
         napi_value result;
-        checkNapi("get napi undefined value", env, napi_get_undefined(
+        checkNapi("get napi undefined object", env, napi_get_undefined(
             env,
             &result
         ));
@@ -17,20 +17,8 @@ namespace radapter
     napi_value napiNullValue(napi_env env)
     {
         napi_value result;
-        checkNapi("get napi null value", env, napi_get_null(
+        checkNapi("get napi null object", env, napi_get_null(
             env,
-            &result
-        ));
-        return result;
-    }
-
-    // Boolean specialization.
-    template <> napi_value napiValue(napi_env env, bool value)
-    {
-        napi_value result;
-        checkNapi("get napi boolean", env, napi_get_boolean(
-            env,
-            value,
             &result
         ));
         return result;
