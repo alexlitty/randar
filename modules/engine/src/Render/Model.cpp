@@ -3,7 +3,8 @@
 // Constructors.
 randar::Model::Model()
 : geo(nullptr),
-  program(nullptr)
+  program(nullptr),
+  skel(nullptr)
 {
 
 }
