@@ -1,4 +1,3 @@
-#include <limits>
 #include <radapter/Utility/NativeValue.hpp>
 
 namespace radapter
@@ -51,11 +50,7 @@ namespace radapter
     // Integer specializations.
     template <> int8_t nativeValue(napi_env env, napi_value value)
     {
-        int32_t result = radapter::nativeValue<int32_t>(env, value);
-        if (result > std::numeric_limits<int8_t>::max()) {
-            throw std::domain_error("Expected 8-bit signed integer");
-        }
-        return static_cast<int32_t>(result);
+        return static_cast<int8_t>(radapter::nativeValue<int32_t>(env, value));
     }
 
     template <> int16_t nativeValue(napi_env env, napi_value value)
@@ -101,11 +96,7 @@ namespace radapter
 
     template <> uint8_t nativeValue(napi_env env, napi_value value)
     {
-        uint32_t result = radapter::nativeValue<uint32_t>(env, value);
-        if (result > std::numeric_limits<uint8_t>::max() || result < std::numeric_limits<uint8_t>::min()) {
-            throw std::runtime_error("Expected 8-bit unsigned integer");
-        }
-        return static_cast<uint8_t>(result);
+        return static_cast<uint8_t>(radapter::nativeValue<uint32_t>(env, value));
     }
 
     template <> uint16_t nativeValue(napi_env env, napi_value value)
