@@ -1,6 +1,6 @@
 #include <radapter/Render/Color.hpp>
 
-std::string radapter::Color::className = "Color";
+std::string radapter::Color::name = "Color";
 
 std::vector<napi_property_descriptor> radapter::Color::properties()
 {
