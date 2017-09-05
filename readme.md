@@ -1,7 +1,5 @@
-![Litty Studios](http://i.imgur.com/Dqby9SG.png?1)
-
 # Randar
-This is the film creation suite for animated productions at Litty Studios. It is our golden software -- The very tool we'll be using to create a feature-length film of masterpiece quality.
+This is the 3D film rendering engine used for animated productions at Litty Studios. It is our golden software -- The very tool we'll be using to create a feature-length film of masterpiece quality.
 
 
 To install, simply run:
