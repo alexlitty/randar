@@ -19,7 +19,6 @@ namespace radapter
         /**
          * Channel getters and setters via floats.
          */
-        static napi_value set(CallbackInfo& info);
         static napi_value r(CallbackInfo& info);
         static napi_value g(CallbackInfo& info);
         static napi_value b(CallbackInfo& info);
@@ -28,17 +27,10 @@ namespace radapter
         /**
          * Channel getters and setters via integers.
          */
-        static napi_value setInt(CallbackInfo& info);
         static napi_value rInt(CallbackInfo& info);
         static napi_value gInt(CallbackInfo& info);
         static napi_value bInt(CallbackInfo& info);
         static napi_value aInt(CallbackInfo& info);
-
-        /**
-         * Variance methods.
-         */
-        static napi_value vary(CallbackInfo& info);
-        static napi_value varied(CallbackInfo& info);
     };
 }
 
