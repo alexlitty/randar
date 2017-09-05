@@ -8,21 +8,6 @@ namespace radapter
     struct unwrap
     {
         /**
-         * Native object unwrapper.
-         */
-        template <typename T>
-        static T& object(napi_env env, napi_value value)
-        {
-            void *result = nullptr;
-            checkNapi("unwrap native object", env, napi_unwrap(
-                env,
-                value,
-                &result
-            ));
-            return *reinterpret_cast<T*>(result);
-        }
-
-        /**
         * Callback unwrapper.
         *
         * Accepts an N-API callback, unwraps argument data, and forwards the call
