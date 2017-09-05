@@ -59,7 +59,7 @@ namespace radapter
         static napi_value instance(napi_env env, napi_callback_info info)
         {
             radapter::CallbackInfo cbInfo(env, info);
-            U* raw = T::instance(cbInfo);
+            U* raw = T::instance(env, cbInfo);
 
             napi_ref ref;
             radapter::checkNapi("wrap native object", env, napi_wrap(
