@@ -1,7 +1,7 @@
 const rgb  = ['r', 'g', 'b'];
 const rgba = rgb.concat('a');
 
-describe.only('Color', function() {
+describe('Color', function() {
     describe('construction', function() {
         it('default constructs opaque black', function() {
             const color = randar.color();
@@ -37,21 +37,11 @@ describe.only('Color', function() {
             assert.equal(color.a(), 0.09803921729326248);
         });
 
-        it('constructs string arguments', function() {
-            const color = randar.color(
-                '0.1',
-                '0.2',
-                '0.3',
-                '0.4'
-            );
-
-            assert.equal(color.r().toFixed(1), 0.1);
-            assert.equal(color.g().toFixed(1), 0.2);
-            assert.equal(color.b().toFixed(1), 0.3);
-            assert.equal(color.a().toFixed(1), 0.4);
+        it('refuses string arguments', function() {
+            assert.throws(() => randar.color('0.1', '0.2', '0.3', '0.4'));
         });
 
-        it('constructs one or two numeric arguments', function() {
+        it('refuses one or two numeric arguments', function() {
             assert.throws(() => randar.color(0.75));
             assert.throws(() => randar.color(0.54, 0.29));
         });
