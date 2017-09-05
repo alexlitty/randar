@@ -55,23 +55,6 @@ namespace radapter
             0
         };
     }
-
-    template <radapter::Callback T>
-    napi_property_descriptor methodProperty(const char* name)
-    {
-        return {
-            name,
-            0,
-
-            radapter::unwrap::cb<T>,
-            0,
-            0,
-            0,
-
-            napi_default,
-            0
-        };
-    }
 }
 
 #endif
