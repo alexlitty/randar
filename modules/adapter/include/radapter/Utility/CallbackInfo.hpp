@@ -38,6 +38,21 @@ namespace radapter
          * Constructor.
          */
         CallbackInfo(napi_env env, napi_callback_info info);
+
+        /**
+         * Unwraps "this" into the native object being wrapped.
+         */
+        template <class T>
+        T& unwrap()
+        {
+            void* result;
+            checkNapi("unwrapping Randar object", this->env, napi_unwrap(
+                this->env,
+                this->self,
+                &result
+            ));
+            return *reinterpret_cast<T*>(result);
+        }
     };
 
     typedef napi_value(*Callback)(radapter::CallbackInfo&);
