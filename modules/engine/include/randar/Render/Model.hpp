@@ -9,12 +9,11 @@ namespace randar
 {
     class Model : public Transform
     {
-    protected:
+    public:
         Geometry* geo;
         ShaderProgram* program;
         Skeleton* skel;
 
-    public:
         /**
          * Constructors.
          */
