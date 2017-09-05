@@ -6,15 +6,6 @@
 namespace radapter
 {
     /**
-     * Empty value retrievers.
-     *
-     * Undefined and null are special values which must be retrieved, not
-     * created.
-     */
-    napi_value napiUndefinedValue(napi_env env);
-    napi_value napiNullValue(napi_env env);
-
-    /**
      * Base napiValue template.
      *
      * A specialization must be used.
