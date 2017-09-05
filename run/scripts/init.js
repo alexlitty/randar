@@ -13,16 +13,14 @@ global.url      = require('url');
 var p = { };
 global.RANDAR_PATH = p;
 
-p.ROOT            = path.join('..', '..');
-p.LIB             = path.join(p.ROOT, 'lib');
-p.MODULES         = path.join(p.ROOT, 'modules');
-p.ENGINE          = path.join(p.MODULES, 'engine');
-p.ENGINE_INCLUDE  = path.join(p.ENGINE, 'include', 'randar');
-p.ENGINE_SOURCE   = path.join(p.ENGINE, 'src');
-p.ADAPTER         = path.join(p.MODULES, 'adapter');
-p.ADAPTER_INCLUDE = path.join(p.ADAPTER, 'include', 'randar-adapter');
-p.ADAPTER_SOURCE  = path.join(p.ADAPTER, 'src');
-p.UI              = path.join(p.MODULES, 'ui');
+p.ROOT           = path.join('..', '..');
+p.LIB            = path.join(p.ROOT, 'lib');
+p.MODULES        = path.join(p.ROOT, 'modules');
+p.ENGINE         = path.join(p.MODULES, 'engine');
+p.ENGINE_INCLUDE = path.join(p.ENGINE, 'include', 'randar');
+p.ENGINE_SOURCE  = path.join(p.ENGINE, 'src');
+p.ADAPTER        = path.join(p.MODULES, 'adapter');
+p.UI             = path.join(p.MODULES, 'ui');
 
 for (key in p) {
     p[key] = path.resolve(path.join(__dirname, p[key]));
