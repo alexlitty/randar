@@ -6,7 +6,6 @@
 #include <vector>
 #include <radapter/Utility/CheckNapi.hpp>
 #include <radapter/Utility/NapiValue.hpp>
-#include <radapter/Utility/NativeValue.hpp>
 
 namespace radapter
 {
@@ -54,8 +53,6 @@ namespace radapter
             return *reinterpret_cast<T*>(result);
         }
     };
-
-    typedef napi_value(*Callback)(radapter::CallbackInfo&);
 }
 
 #endif
