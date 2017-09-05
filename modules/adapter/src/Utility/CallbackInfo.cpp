@@ -7,7 +7,7 @@ radapter::CallbackInfo::CallbackInfo(napi_env env, napi_callback_info info)
     this->args.resize(RADAPTER_MAX_CALLBACK_ARGC);
     size_t argc = this->args.size();
 
-    radapter::checkNapi("retrieve callback info", env, napi_get_cb_info(
+    radapter::checkNapi(env, napi_get_cb_info(
         env,
         info,
         &argc,

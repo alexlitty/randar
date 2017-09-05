@@ -6,7 +6,7 @@
 
 namespace radapter
 {
-    void checkNapi(const std::string& action, napi_env, napi_status status);
+    void checkNapi(napi_env, napi_status status);
 }
 
 #endif
