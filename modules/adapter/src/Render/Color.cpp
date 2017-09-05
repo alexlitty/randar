@@ -21,7 +21,7 @@ std::vector<napi_property_descriptor> radapter::Color::properties()
 
     props.push_back(d);
 
-    return props;
+    return std::vector<napi_property_descriptor>();
 }
 
 randar::Color* radapter::Color::instance(radapter::CallbackInfo& info)
@@ -29,9 +29,9 @@ randar::Color* radapter::Color::instance(radapter::CallbackInfo& info)
     return new randar::Color();
 }
 
-napi_value radapter::Color::rGet(napi_env env, napi_callback_info ci)
+napi_value radapter::Color::rGet(napi_env env, napi_callback_info)
 {
-    CallbackInfo info(env, ci);
-    auto color = info.unwrap<randar::Color>();
-    return napiValue(env, color.r());
+    napi_value result;
+    checkNapi("creating double", env, napi_create_double(env, 0.0f, &result));
+    return result;
 }
