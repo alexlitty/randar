@@ -54,28 +54,19 @@ function build(options, done) {
     const gypFilename    = 'binding.gyp';
     const moduleFilename = 'build/adapter.node';
 
-    let sources = glob.sync(path.join(RANDAR_PATH.ADAPTER_SOURCE, '**', '*.cpp'));
-    sources = sources.concat(glob.sync(path.join(RANDAR_PATH.ENGINE_SOURCE, '**', '*.cpp')));
-    console.log(sources);
+    const headers = glob.sync(path.join(RANDAR_PATH.ADAPTER_INCLUDE, '**', '*.hpp'));
+    const sources = glob.sync(path.join(RANDAR_PATH.ADAPTER_SOURCE, '**', '*.cpp'));
 
     // Describe the complete compilation of the engine node module.
     const gypBinding = {
         targets: [{
             target_name: 'adapter',
 
-            // Source paths must be relative to binding.gyp.
             sources: sources.map((filename) => {
-                let result = filename.replace(
+                return filename.replace(
                     RANDAR_PATH.ADAPTER,
                     path.join('..', 'adapter')
                 );
-
-                result = result.replace(
-                    RANDAR_PATH.ENGINE,
-                    path.join('..', 'engine')
-                );
-
-                return result;
             }),
 
             include_dirs: [
