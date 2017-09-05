@@ -4,7 +4,6 @@ const randar = require('../adapter');
 require('./Math/Normal.js')(randar);
 
 // Render helpers.
-require('./Render/Color.js')(randar);
 require('./Render/DrawState.js')(randar);
 require('./Render/Lights.js')(randar);
 require('./Render/Textures.js')(randar);
@@ -41,6 +40,6 @@ require('./Project/Project')(randar);
 require('./Observer/ItemObserver')(randar);
 
 // Seed the simple random engine.
-// randar.seedRandomWithTime();
+randar.seedRandomWithTime();
 
 module.exports = randar;
