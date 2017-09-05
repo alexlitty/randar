@@ -11,8 +11,6 @@ namespace radapter
         static std::string className;
         static std::vector<napi_property_descriptor> properties();
         static randar::Color* instance(radapter::CallbackInfo& info);
-
-        static napi_value rGet(napi_env env, napi_callback_info info);
     };
 }
 
