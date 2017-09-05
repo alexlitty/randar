@@ -14,7 +14,7 @@ function generateBlade(model, width, height, depth) {
 
     let geo = model.geometry();
     for (let i = 0; i < layers; i++) {
-        let vertex = randar.vertex()//.withJoint(0, 255)//.withJoint(0, (i / layers) * 255);
+        let vertex = randar.vertex().withJoint(0, 255)//.withJoint(0, (i / layers) * 255);
         let h = layerHeight * i;
 
         let opt = { };
@@ -24,7 +24,7 @@ function generateBlade(model, width, height, depth) {
         opt.backBottomLeft   = vertex.withPosition(0, h, depth);
         opt.backBottomRight  = vertex.withPosition(width, h, depth);
 
-        vertex = vertex//.withJoint(0, 255)//.withJoint(0, ((i + 1) / layers) * 255);
+        vertex = vertex.withJoint(0, 255)//.withJoint(0, ((i + 1) / layers) * 255);
         h = layerHeight * (i + 1);
 
         opt.frontTopLeft     = vertex.withPosition(0, h, 0);
@@ -35,7 +35,7 @@ function generateBlade(model, width, height, depth) {
         geo.append(randar.generate.cuboid(opt));
     }
 
-   // model.skeleton().add('tip');
+    model.skeleton().add('tip');
     return model;
 }
 
@@ -46,10 +46,10 @@ let models     = [];
 for (let i = 0; i < 1; i++) {
     models.push(randar.model());
     geometries.push(randar.geometry());
-    //skeletons.push(randar.skeleton());
+    skeletons.push(randar.skeleton());
 
-    models[i].geometry(geometries[i]);
-    //models[i].skeleton(skeletons[i]);
+    models[i].geo = geometries[i];
+    models[i].skel = skeletons[i];
 
     generateBlade(models[i], 1, 24, 1);
 }

@@ -144,7 +144,7 @@ void randar::Geometry::load(const randar::Path& path)
 }
 
 // Node.js helper.
-randar::Geometry randar::geometry()
+randar::Geometry* randar::geometry()
 {
-    return randar::Geometry();
+    return new randar::Geometry();
 }

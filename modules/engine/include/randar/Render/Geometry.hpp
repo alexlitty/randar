@@ -116,7 +116,10 @@ namespace randar
     /**
      * Node.js helper.
      */
-    Geometry geometry();
+    #ifdef SWIG
+    %newobject geometry;
+    #endif
+    Geometry* geometry();
 }
 
 #endif
