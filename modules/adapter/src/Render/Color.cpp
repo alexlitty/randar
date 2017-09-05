@@ -11,7 +11,7 @@ std::vector<napi_property_descriptor> radapter::Color::properties()
         0,
 
         0,
-        radapter::unwrap::cb<radapter::Color::rGet>,
+        radapter::Color::rGet,
         0,
         0,
 
@@ -29,7 +29,9 @@ randar::Color* radapter::Color::instance(radapter::CallbackInfo& info)
     return new randar::Color();
 }
 
-napi_value radapter::Color::rGet(radapter::CallbackInfo& info)
+napi_value radapter::Color::rGet(napi_env env, napi_callback_info ci)
 {
-    return napiValue(info.env, info.unwrap<randar::Color>().r());
+    CallbackInfo info(env, ci);
+    auto color = info.unwrap<randar::Color>();
+    return napiValue(env, color.r());
 }
