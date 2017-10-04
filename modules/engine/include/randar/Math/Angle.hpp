@@ -1,6 +1,7 @@
 #ifndef RANDAR_MATH_ANGLE_HPP
 #define RANDAR_MATH_ANGLE_HPP
 
+#include <string>
 #include <randar/Math/Constant.hpp>
 
 namespace randar
@@ -33,6 +34,11 @@ namespace randar
         Angle& operator -=(const Angle& other);
         Angle& operator *=(float other);
         Angle& operator /=(float other);
+
+        /**
+         * Converts to string.
+         */
+        std::string toString() const;
     };
 
     /**
