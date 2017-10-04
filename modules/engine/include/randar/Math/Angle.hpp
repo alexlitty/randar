@@ -53,6 +53,11 @@ namespace randar
      * Node.js helper.
      */
     Angle angle(float radians = 0.0f);
+
+    /**
+     * Shortcut helpers.
+     */
+    Angle radians(float radians = 0.0f);
 }
 
 #endif

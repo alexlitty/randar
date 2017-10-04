@@ -91,3 +91,9 @@ randar::Angle randar::angle(float radians)
 {
     return randar::Angle(radians);
 }
+
+// Shortcut helpers.
+randar::Angle randar::radians(float radians)
+{
+    return randar::Angle(radians);
+}
