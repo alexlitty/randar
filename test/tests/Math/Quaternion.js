@@ -35,4 +35,18 @@ describe('Quaternion', function() {
             );
         });
     });
+
+    it('transforms vectors', function() {
+        let quat = randar.quaternion(randar.vector(0, 1, 0), randar.angle(0.3));
+
+        let result = quat.transform(randar.vector(0, 5, 0));
+        assert.equal(result.x, 0);
+        assert.equal(result.y, 5);
+        assert.equal(result.z, 0);
+
+        result = quat.transform(randar.vector(1, 5, 0));
+        assert.equal(result.x.toFixed(2), '0.96');
+        assert.equal(result.y.toFixed(2), '5.00');
+        assert.equal(result.z.toFixed(2), '0.30');
+    });
 });
