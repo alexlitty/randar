@@ -41,21 +41,25 @@ void randar::Quaternion::set(float ix, float iy, float iz, float iw)
 void randar::Quaternion::set(const Vector3& newAxis, const Angle& newAngle)
 {
     if (!newAxis.getMagnitude()) {
-        throw std::runtime_error("Invalid axis");
+        this->set(0, 0, 0, 0);
+        this->ax.set(0, 0, 0);
     }
 
-    Vector3 normalizedNewAxis = newAxis.normalized();
+    else {
+        Vector3 normalizedNewAxis = newAxis.normalized();
 
-    float halfRads = newAngle.toRadians() / 2.0f;
-    Vector3 transformedAxis = normalizedNewAxis * std::sin(halfRads);
-    this->set(
-        transformedAxis.x,
-        transformedAxis.y,
-        transformedAxis.z,
-        std::cos(halfRads)
-    );
+        float halfRads = newAngle.toRadians() / 2.0f;
+        Vector3 transformedAxis = normalizedNewAxis * std::sin(halfRads);
+        this->set(
+            transformedAxis.x,
+            transformedAxis.y,
+            transformedAxis.z,
+            std::cos(halfRads)
+        );
 
-    this->ax = normalizedNewAxis;
+        this->ax = normalizedNewAxis;
+    }
+
     this->ang = newAngle;
 }
 

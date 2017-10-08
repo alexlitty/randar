@@ -22,9 +22,6 @@ namespace randar
     public:
         /**
          * Default construction.
-         *
-         * Axis will not be defined and must later be provided. Runtime errors
-         * will be thrown if it is required and not available.
          */
         Quaternion();
 
