@@ -2,6 +2,7 @@ const randar = require('../adapter');
 
 // Math helpers.
 require('./Math/Normal.js')(randar);
+require('./Math/Transform.js')(randar);
 
 // Render helpers.
 require('./Render/DrawState.js')(randar);
