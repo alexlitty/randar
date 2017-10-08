@@ -1,5 +1,44 @@
 #include <randar/Math/Transform.hpp>
 
+// Constructors.
+randar::Transform::Transform(
+    const randar::Vector3& initPosition,
+    const randar::Quaternion& initRotation
+)
+: pos(initPosition),
+  rot(initRotation)
+{
+
+}
+
+randar::Transform::Transform(
+    const randar::Vector3& initPosition,
+    const randar::Vector3& initAxis,
+    const randar::Angle& initAngle
+)
+: randar::Transform(initPosition, randar::Quaternion(initAxis, initAngle))
+{
+
+}
+
+randar::Transform::Transform(
+    const randar::Quaternion& initRotation
+)
+: randar::Transform(randar::Vector3(), initRotation)
+{
+
+}
+
+randar::Transform::Transform(
+    const randar::Vector3& initAxis,
+    const randar::Angle& initAngle
+)
+: randar::Transform(randar::Quaternion(initAxis, initAngle))
+{
+
+}
+
+// Destructor.
 randar::Transform::~Transform()
 {
 

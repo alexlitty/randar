@@ -13,6 +13,32 @@ namespace randar
         Quaternion rot;
 
     public:
+        /**
+         * Constructors.
+         */
+        Transform(
+            const randar::Vector3& initPosition = randar::Vector3(),
+            const randar::Quaternion& initRotation = randar::Quaternion()
+        );
+
+        Transform(
+            const randar::Vector3& initPosition,
+            const randar::Vector3& initAxis,
+            const randar::Angle& initAngle = randar::Angle()
+        );
+
+        Transform(
+            const randar::Quaternion& initRotation
+        );
+
+        Transform(
+            const randar::Vector3& initAxis,
+            const randar::Angle& initAngle
+        );
+
+        /**
+         * Destructor.
+         */
         ~Transform();
 
         /**
