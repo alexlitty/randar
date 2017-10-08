@@ -51,8 +51,8 @@ namespace randar
         /**
          * Sets and retrieves the axis of rotation.
          */
-        void rotationAxis(const Vector3& axis);
-        Vector3 rotationAxis() const;
+        void axis(const Vector3& newAxis);
+        Vector3 axis() const;
 
         /**
          * Absolutely sets the angle of rotation.

@@ -62,12 +62,12 @@ randar::Quaternion randar::Transform::rotation() const
 }
 
 // Sets and retrieves the axis of rotation.
-void randar::Transform::rotationAxis(const randar::Vector3& axis)
+void randar::Transform::axis(const randar::Vector3& newAxis)
 {
-    this->rotation().axis(axis);
+    this->rotation().axis(newAxis);
 }
 
-randar::Vector3 randar::Transform::rotationAxis() const
+randar::Vector3 randar::Transform::axis() const
 {
     return this->rotation().axis();
 }
