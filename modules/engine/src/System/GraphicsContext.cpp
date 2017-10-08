@@ -237,8 +237,6 @@ std::string randar::GraphicsContext::version()
 // Makes this context current without considering a window.
 void randar::GraphicsContext::use()
 {
-    this->check("Uncaught GL error");
-
     if (this->isCurrent()) {
         return;
     }
@@ -294,6 +292,7 @@ void randar::GraphicsContext::check(const std::string& message)
         { GL_OUT_OF_MEMORY, "Out of memory" }
     };
 
+    this->use();
     this->status = ::glGetError();
     if (status == GL_NO_ERROR) {
         return;
