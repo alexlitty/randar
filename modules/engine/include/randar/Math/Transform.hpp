@@ -42,6 +42,11 @@ namespace randar
         ~Transform();
 
         /**
+         * Resets the transformation.
+         */
+        void reset();
+
+        /**
          * Sets the transformation.
          */
         void set(

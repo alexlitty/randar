@@ -44,6 +44,12 @@ randar::Transform::~Transform()
 
 }
 
+// Resets the transformation.
+void randar::Transform::reset()
+{
+    this->set(randar::Vector3(), randar::Quaternion());
+}
+
 // Sets the transformation.
 void randar::Transform::set(
     const randar::Vector3& newPosition,
