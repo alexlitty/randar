@@ -42,7 +42,21 @@ namespace randar
         ~Transform();
 
         /**
-         * Sets this transformation from a physical transformation.
+         * Sets the transformation.
+         */
+        void set(
+            const randar::Vector3& newPosition,
+            const randar::Quaternion& newRotation
+        );
+
+        void set(
+            const randar::Vector3& newPosition,
+            const randar::Vector3& newAxis,
+            const randar::Angle& newAngle = randar::Angle()
+        );
+
+        /**
+         * Sets the transformation from a physical transformation.
          */
         void set(const btTransform& transform);
 

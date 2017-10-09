@@ -44,7 +44,26 @@ randar::Transform::~Transform()
 
 }
 
-// Sets this transformation from a physical transformation.
+// Sets the transformation.
+void randar::Transform::set(
+    const randar::Vector3& newPosition,
+    const randar::Quaternion& newRotation
+)
+{
+    this->position(newPosition);
+    this->rotation(newRotation);
+}
+
+void randar::Transform::set(
+    const randar::Vector3& newPosition,
+    const randar::Vector3& newAxis,
+    const randar::Angle& newAngle
+)
+{
+    this->set(newPosition, randar::Quaternion(newAxis, newAngle));
+}
+
+// Sets the transformation from a physical transformation.
 void randar::Transform::set(const btTransform& transform)
 {
     this->position(transform.getOrigin());
