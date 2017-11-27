@@ -88,4 +88,21 @@ describe('Skeleton', function() {
 
         win.close();
     });
+
+    describe('State', function() {
+        it('creates joints', function() {
+            let state = randar.skeleton.state();
+            assert.equal(state.has('foo'), false);
+            state.joint('foo');
+            assert.equal(state.has('foo'), true);
+        });
+
+        it('removes joints', function() {
+            let state = randar.skeleton.state();
+            state.joint('bar');
+            assert.equal(state.has('bar'), true);
+            state.remove('bar');
+            assert.equal(state.has('bar'), false);
+        });
+    });
 });
