@@ -86,6 +86,14 @@ namespace randar
         std::string jointName(uint32_t index) const;
 
         /**
+         * Whether a named joint exists in the skeleton.
+         *
+         * @@@ horribly inefficient because of class structure. use better
+         * data structures.
+         */
+        bool hasJoint(const std::string& name) const;
+
+        /**
          * Retrieves the index of a joint by its name.
          *
          * Throws an error if the joint does not exist.

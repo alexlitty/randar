@@ -12,12 +12,10 @@ namespace randar
      * If a joint on an applied skeleton does not exist in the state, it is
      * unmodified.
      */
-    class SkeletonState
+    struct SkeletonState
     {
-    protected:
         std::unordered_map<std::string, Joint> joints;
 
-    public:
         /**
          * Default constructor.
          */

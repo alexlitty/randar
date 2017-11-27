@@ -90,6 +90,18 @@ std::string randar::Skeleton::jointName(uint32_t index) const
     return this->jointNames[index];
 }
 
+// Whether a named joint exists in the skeleton.
+bool randar::Skeleton::hasJoint(const std::string& name) const
+{
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        if (this->jointNames[i] == name) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Retrieves the index of a joint by its name.
 uint32_t randar::Skeleton::jointIndex(const std::string& name) const
 {
