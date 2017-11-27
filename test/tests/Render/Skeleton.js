@@ -1,4 +1,17 @@
 describe('Skeleton', function() {
+    it('clears joints', function() {
+        let skeleton = randar.skeleton();
+        assert.equal(skeleton.jointCount(), 0);
+
+        skeleton.add('thing');
+        skeleton.add('a');
+        skeleton.add('roo');
+        assert.equal(skeleton.jointCount(), 3);
+
+        skeleton.clear();
+        assert.equal(skeleton.jointCount(), 0);
+    });
+
     it('retains correct joint data', function() {
         let skeleton = randar.skeleton();
 
