@@ -7,6 +7,7 @@ require('./Math/Transform.js')(randar);
 // Render helpers.
 require('./Render/DrawState.js')(randar);
 require('./Render/Lights.js')(randar);
+require('./Render/SkeletonState.js')(randar);
 require('./Render/Textures.js')(randar);
 
 // Conversion helpers.
