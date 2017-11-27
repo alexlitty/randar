@@ -12,7 +12,7 @@ describe('Skeleton', function() {
         assert.equal(skeleton.jointCount(), 0);
     });
 
-    it('resets joints', function() {
+    it('resets joints to identity', function() {
         let skeleton = randar.skeleton();
         let joint = skeleton.add('thing');
         joint.move(randar.vector(5, 6, 7));
@@ -25,6 +25,32 @@ describe('Skeleton', function() {
         assert.equal(joint.position().x, 0);
         assert.equal(joint.position().y, 0);
         assert.equal(joint.position().z, 0);
+    });
+
+    it('resets joints to state', function() {
+        let skeleton = randar.skeleton();
+        skeleton.add('neck').move(randar.vector(1, 2, 3));
+        skeleton.add('tie').move(randar.vector(4, 5, 6));
+
+        assert.equal(skeleton.joint('neck').position().x, 1);
+        assert.equal(skeleton.joint('neck').position().y, 2);
+        assert.equal(skeleton.joint('neck').position().z, 3);
+
+        assert.equal(skeleton.joint('tie').position().x, 4);
+        assert.equal(skeleton.joint('tie').position().y, 5);
+        assert.equal(skeleton.joint('tie').position().z, 6);
+
+        let state = randar.skeleton.state();
+        state.joint('neck').move(randar.vector(10, 20, 30));
+        skeleton.reset(state);
+
+        assert.equal(skeleton.joint('neck').position().x, 10);
+        assert.equal(skeleton.joint('neck').position().y, 20);
+        assert.equal(skeleton.joint('neck').position().z, 30);
+
+        assert.equal(skeleton.joint('tie').position().x, 0);
+        assert.equal(skeleton.joint('tie').position().y, 0);
+        assert.equal(skeleton.joint('tie').position().z, 0);
     });
 
     it('retains correct joint data', function() {

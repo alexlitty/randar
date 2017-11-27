@@ -56,6 +56,14 @@ namespace randar
         void reset();
 
         /**
+         * Resets all joints to a state.
+         *
+         * If a joint isn't in the provided state, it is reset to its default
+         * identity state.
+         */
+        void reset(SkeletonState& st);
+
+        /**
          * Adds a parentless joint to the skeleton, returning the added joint.
          *
          * Throws an error if a joint with the same name already exists.

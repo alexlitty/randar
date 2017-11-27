@@ -43,11 +43,23 @@ void randar::Skeleton::clear()
     this->jointParents.clear();
 }
 
-// Resets all joints on the skeleton.
+// Joint resetting.
 void randar::Skeleton::reset()
 {
     for (Joint& joint : this->joints) {
         joint.reset();
+    }
+}
+
+void randar::Skeleton::reset(SkeletonState& st)
+{
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        if (st.has(this->jointNames[i])) {
+            this->joints[i] = st.joint(this->jointNames[i]);
+        } else {
+            this->joints[i].reset();
+        }
     }
 }
 
