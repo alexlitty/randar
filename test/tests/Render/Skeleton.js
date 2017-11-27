@@ -9,11 +9,23 @@ describe('Skeleton', function() {
         skeleton.add('rightEar', 'head');
 
         assert.equal(skeleton.jointCount(), 5);
+
         assert.equal(skeleton.jointName(0), 'chest');
+        assert.equal(skeleton.hasJoint('chest'), true);
+
         assert.equal(skeleton.jointName(1), 'neck');
+        assert.equal(skeleton.hasJoint('neck'), true);
+
         assert.equal(skeleton.jointName(2), 'head');
+        assert.equal(skeleton.hasJoint('head'), true);
+
         assert.equal(skeleton.jointName(3), 'leftEar');
+        assert.equal(skeleton.hasJoint('leftEar'), true);
+
         assert.equal(skeleton.jointName(4), 'rightEar');
+        assert.equal(skeleton.hasJoint('rightEar'), true);
+
+        assert.equal(skeleton.hasJoint('middleEar'), false);
     });
 
     it('retrieves joints', function() {
