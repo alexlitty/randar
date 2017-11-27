@@ -3,7 +3,7 @@
 
 #include <map>
 #include <vector>
-#include <randar/Render/Joint.hpp>
+#include <randar/Render/SkeletonState.hpp>
 
 namespace randar
 {
@@ -104,6 +104,19 @@ namespace randar
          * Throws an error if the joint does not exist.
          */
         uint32_t jointIndex(const std::string& name) const;
+
+        /**
+         * Applies a state to the skeleton.
+         *
+         * Only mutually available joints are modified. All other joints are
+         * unmodified.
+         */
+        void apply(SkeletonState& st);
+
+        /**
+         * Extracts the skeleton's current state.
+         */
+        SkeletonState state();
 
         /**
          * Calculates the matrix of a joint and its parents.

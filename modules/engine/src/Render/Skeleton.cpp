@@ -122,6 +122,28 @@ uint32_t randar::Skeleton::jointIndex(const std::string& name) const
     throw std::runtime_error("Joint does not exist");
 }
 
+// Applying and extracting states.
+void randar::Skeleton::apply(randar::SkeletonState& st)
+{
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        if (st.has(this->jointNames[i])) {
+            this->joints[i] = st.joint(this->jointNames[i]);
+        }
+    }
+}
+
+randar::SkeletonState randar::Skeleton::state()
+{
+    SkeletonState st;
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        Joint& joint = st.joint(this->jointNames[i]);
+        joint = this->joints[i];
+    }
+    return st;
+}
+
 // Calculates the matrix of a joint and its parents.
 glm::mat4 randar::Skeleton::matrix(const std::string& name)
 {
