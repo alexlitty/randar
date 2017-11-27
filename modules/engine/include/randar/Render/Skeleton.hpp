@@ -51,6 +51,11 @@ namespace randar
         void clear();
 
         /**
+         * Resets all joints to their default identity state.
+         */
+        void reset();
+
+        /**
          * Adds a parentless joint to the skeleton, returning the added joint.
          *
          * Throws an error if a joint with the same name already exists.

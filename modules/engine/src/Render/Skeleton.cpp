@@ -43,6 +43,14 @@ void randar::Skeleton::clear()
     this->jointParents.clear();
 }
 
+// Resets all joints on the skeleton.
+void randar::Skeleton::reset()
+{
+    for (Joint& joint : this->joints) {
+        joint.reset();
+    }
+}
+
 // Adds a parentless joint to the skeleton.
 randar::Joint& randar::Skeleton::add(const std::string& name)
 {

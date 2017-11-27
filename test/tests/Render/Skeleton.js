@@ -12,6 +12,21 @@ describe('Skeleton', function() {
         assert.equal(skeleton.jointCount(), 0);
     });
 
+    it('resets joints', function() {
+        let skeleton = randar.skeleton();
+        let joint = skeleton.add('thing');
+        joint.move(randar.vector(5, 6, 7));
+
+        assert.equal(joint.position().x, 5);
+        assert.equal(joint.position().y, 6);
+        assert.equal(joint.position().z, 7);
+
+        skeleton.reset();
+        assert.equal(joint.position().x, 0);
+        assert.equal(joint.position().y, 0);
+        assert.equal(joint.position().z, 0);
+    });
+
     it('retains correct joint data', function() {
         let skeleton = randar.skeleton();
 
