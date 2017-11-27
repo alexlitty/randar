@@ -19,9 +19,14 @@ namespace randar
 
     public:
         /**
+         * Default constructor.
+         */
+        SkeletonState();
+
+        /**
          * Whether a joint explicitly exists in the state.
          */
-        bool hasJoint(const std::string& name);
+        bool has(const std::string& name);
 
         /**
          * Retrieves a joint in the state.

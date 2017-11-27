@@ -1,6 +1,11 @@
 #include <randar/Render/SkeletonState.hpp>
 
-bool randar::SkeletonState::hasJoint(const std::string& name)
+randar::SkeletonState::SkeletonState()
+{
+
+}
+
+bool randar::SkeletonState::has(const std::string& name)
 {
     return this->joints.count(name);
 }
