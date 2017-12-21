@@ -10,7 +10,7 @@ ENGINE_DEP="g++ libglew-dev libglm-dev libbullet-dev libpng++-dev ffmpeg"
 SWIG_DEP="pkg-config autoconf automake libtool libpcre++-dev bison"
 
 function js {
-    node ${RANDAR_PATH}/run/scripts/${1} || return 1
+    node ${RANDAR_PATH}/bin/scripts/${1} || return 1
     return 0
 }
 
@@ -79,11 +79,11 @@ js utility/check-swig || {
 }
 
 # Perform a first-time build.
-${RANDAR_PATH}/run/build || exit
+${RANDAR_PATH}/bin/build || exit
 
 # :)
 clear
 echo
 echo "         Installed and built successfully."
 echo
-${RANDAR_PATH}/run/help
+${RANDAR_PATH}/bin/help
