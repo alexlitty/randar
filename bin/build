@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
+BUILDS=`find ${RANDAR_PATH}/modules -regex ".*[A-Za-z]+/bin/build"`
+
+for script in ${BUILDS}; do ${script}; done
