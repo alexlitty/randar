@@ -1,3 +1,4 @@
 #!/bin/bash
 ENGINE_PATH=`realpath $0 | xargs dirname | xargs dirname`
-cd ${ENGINE_PATH} && make -j 4
+${ENGINE_PATH}/bin/clean
+${ENGINE_PATH}/bin/build

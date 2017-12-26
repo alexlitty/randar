@@ -19,12 +19,19 @@ C_FLAGS=$(C_FLAGS_$(GOAL)) -g -Wall $(foreach TMP,$(INC_PATHS),-I$(TMP))
 RESULT_Linux64=randar.a
 RESULT=$(BUILD_PATH)/$(GOAL)/$(RESULT_$(GOAL))
 
-.PHONY: all
 all: $(RESULT)
 
 $(RESULT): $(OBJ_FILES)
-	$(CC) $(OBJ_FILES) -o $(RESULT)
+	@mkdir -p $(shell dirname $@)
+	@echo 'archiving : $(RESULT)'
+	@ar rs $(RESULT) $(OBJ_FILES)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp
 	@mkdir -p $(shell dirname $@)
-	$(CC) $(C_FLAGS) -c $< -o $@
+	@echo 'compiling : $<'
+	@$(CC) $(C_FLAGS) -c $< -o $@
+
+.PHONY: clean
+clean:
+	@mkdir -p $(OBJ_PATH) $(BUILD_PATH)
+	@rm -R $(OBJ_PATH) $(BUILD_PATH)
