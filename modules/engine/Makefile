@@ -1,5 +1,5 @@
 BUILD_PATH=build
-INC_PATH=include
+INC_PATHS=include include/bullet3
 OBJ_PATH=obj
 SRC_PATH=src
 
@@ -14,7 +14,7 @@ CC_Linux64=g++
 CC=$(CC_$(GOAL))
 
 C_FLAGS_Linux64=-std=c++11
-C_FLAGS=$(C_FLAGS_$(GOAL)) -g -Wall -I $(INC_PATH)
+C_FLAGS=$(C_FLAGS_$(GOAL)) -g -Wall $(foreach TMP,$(INC_PATHS),-I$(TMP))
 
 RESULT_Linux64=randar.a
 RESULT=$(BUILD_PATH)/$(GOAL)/$(RESULT_$(GOAL))
