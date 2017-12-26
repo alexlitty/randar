@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <vector>
 #include <randar/Render/ShaderType.hpp>
+#include <randar/System/Resource.hpp>
 #include <randar/Utility/Gl.hpp>
 
 namespace randar
@@ -60,7 +61,7 @@ namespace randar
      * associated with this context. To perform rendering in a window, use the
      * default framebuffers exposed by randar Windows.
      */
-    class GraphicsContext
+    class GraphicsContext : virtual public Resource
     {
         /**
          * Display that was used to construct this context.
@@ -230,6 +231,8 @@ namespace randar
          */
         Shader& defaultShader(ShaderType type);
         ShaderProgram& defaultShaderProgram();
+
+        virtual std::string description() override;
 
         /**
          * Allow Randar windows to manipulate the ongoing list of associated
