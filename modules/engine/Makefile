@@ -24,7 +24,7 @@ all: $(RESULT)
 $(RESULT): $(OBJ_FILES)
 	@mkdir -p $(shell dirname $@)
 	@echo 'archiving : $(RESULT)'
-	@ar rs $(RESULT) $(OBJ_FILES)
+	@ar crs $(RESULT) $(OBJ_FILES)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp
 	@mkdir -p $(shell dirname $@)
