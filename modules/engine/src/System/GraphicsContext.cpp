@@ -466,5 +466,5 @@ randar::ShaderProgram& randar::GraphicsContext::defaultShaderProgram()
 
 std::string randar::GraphicsContext::description()
 {
-    return "[GraphicsContext | OpenGL " + this->version() + "]";
+    return "[GraphicsContext | OpenGL: " + this->version() + "]";
 }
