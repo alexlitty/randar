@@ -240,6 +240,11 @@ namespace randar
          */
         friend Window;
     };
+
+    /**
+     * Provides a globally available graphics context.
+     */
+    GraphicsContext& context();
 }
 
 #endif

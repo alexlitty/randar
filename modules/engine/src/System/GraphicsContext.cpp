@@ -468,3 +468,12 @@ std::string randar::GraphicsContext::description()
 {
     return "[GraphicsContext | OpenGL: " + this->version() + "]";
 }
+
+randar::GraphicsContext& randar::context()
+{
+    static randar::GraphicsContext* c = nullptr;
+    if (!c) {
+        c = new randar::GraphicsContext();
+    }
+    return *c;
+}
