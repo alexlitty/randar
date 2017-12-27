@@ -1,4 +1,4 @@
-describe.skip('Lights', function() {
+describe('Lights', function() {
     let ctx;
     let win;
     let camera;
