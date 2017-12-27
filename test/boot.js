@@ -27,6 +27,6 @@ before(function() {
      * seem to provide any additional information here. The release module
      * symbols appear descriptive enough for most problems anyway.
      */
-    //global.SegfaultHandler = require('segfault-handler');
-    //SegfaultHandler.registerHandler(voidFile);
+    global.SegfaultHandler = require('segfault-handler');
+    SegfaultHandler.registerHandler(voidFile);
 });
