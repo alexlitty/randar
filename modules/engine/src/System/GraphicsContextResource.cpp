@@ -96,3 +96,9 @@ void randar::GraphicsContextResource::uninitialize()
 {
 
 }
+
+// Human-friendly description of the resource.
+std::string randar::GraphicsContextResource::description()
+{
+    return "[GraphicsContextResource | Unknown subresource]";
+}
