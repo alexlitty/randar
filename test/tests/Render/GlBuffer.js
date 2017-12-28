@@ -4,22 +4,23 @@ const bufferTypes = {
 }
 
 describe('GlBuffer', function() {
-    let ctx
+    let ctx;
 
-    beforeEach(function() {
-        ctx = new randar.GraphicsContext()
-    })
+    before(function() {
+        ctx = new randar.GraphicsContext();
+    });
 
     for (bufferName in bufferTypes) {
-        let creatorName = bufferName[0].toLowerCase() + bufferName.slice(1)
-        let data        = bufferTypes[bufferName]
-        let buffer
-
-        beforeEach(function() {
-            buffer = ctx[creatorName]()
-        })
 
         describe(bufferName, function() {
+            let buffer;
+            let data;
+
+            beforeEach(function() {
+                buffer = new randar[bufferName](ctx);
+                data = bufferTypes[bufferName];
+            });
+
             it('constructs empty, uninitialized, and unsynced', function() {
                 assert(!buffer.isInitialized())
                 assert(!buffer.isSynced())

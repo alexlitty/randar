@@ -363,20 +363,6 @@ unsigned int randar::GraphicsContext::resourceCount() const
 }
 
 // Resource creators.
-randar::FloatArrayBuffer& randar::GraphicsContext::floatArrayBuffer()
-{
-    randar::FloatArrayBuffer *fab = new FloatArrayBuffer(*this);
-    this->ownedResources.insert(fab);
-    return *fab;
-}
-
-randar::IndexBuffer& randar::GraphicsContext::indexBuffer()
-{
-    randar::IndexBuffer *ib = new IndexBuffer(*this);
-    this->associate(*ib);
-    return *ib;
-}
-
 randar::VertexBuffer& randar::GraphicsContext::vertexBuffer()
 {
     randar::VertexBuffer *vb = new VertexBuffer(*this);
