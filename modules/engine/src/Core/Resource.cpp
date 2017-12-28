@@ -1,5 +1,5 @@
 #include <iostream>
-#include <randar/System/Resource.hpp>
+#include <randar/Core/Resource.hpp>
 
 randar::Resource::~Resource()
 {

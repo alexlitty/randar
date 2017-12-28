@@ -5,8 +5,8 @@
 #include <set>
 #include <stdexcept>
 #include <vector>
+#include <randar/Core/Resource.hpp>
 #include <randar/Render/ShaderType.hpp>
-#include <randar/System/Resource.hpp>
 #include <randar/Utility/Gl.hpp>
 
 namespace randar
