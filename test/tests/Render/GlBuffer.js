@@ -4,12 +4,6 @@ const bufferTypes = {
 }
 
 describe('GlBuffer', function() {
-    let ctx;
-
-    before(function() {
-        ctx = new randar.GraphicsContext();
-    });
-
     for (bufferName in bufferTypes) {
 
         describe(bufferName, function() {
@@ -17,7 +11,7 @@ describe('GlBuffer', function() {
             let data;
 
             beforeEach(function() {
-                buffer = new randar[bufferName](ctx);
+                buffer = new randar[bufferName]();
                 data = bufferTypes[bufferName];
             });
 
