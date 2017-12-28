@@ -2,7 +2,7 @@
 
 // Constructors.
 randar::VertexBuffer::VertexBuffer()
-: randar::GraphicsContextResource(nullptr)
+: randar::VertexBuffer(randar::context())
 {
 
 }
