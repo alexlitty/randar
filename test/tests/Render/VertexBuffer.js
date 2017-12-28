@@ -9,7 +9,7 @@ function assertVertex(vertex, other) {
     assert.equal(vertex.color.a().toFixed(2), other.color.a().toFixed(2));
 }
 
-describe('VertexBuffer', function() {
+describe.only('VertexBuffer', function() {
     let ctx;
     let buffer;
     let vertices;
@@ -24,7 +24,7 @@ describe('VertexBuffer', function() {
 
     beforeEach(function() {
         ctx    = new randar.GraphicsContext();
-        buffer = ctx.vertexBuffer();
+        buffer = new randar.VertexBuffer(ctx);
     });
 
     it('constructs empty and initialized', function() {

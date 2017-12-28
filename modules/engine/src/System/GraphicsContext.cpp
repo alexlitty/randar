@@ -363,13 +363,6 @@ unsigned int randar::GraphicsContext::resourceCount() const
 }
 
 // Resource creators.
-randar::VertexBuffer& randar::GraphicsContext::vertexBuffer()
-{
-    randar::VertexBuffer *vb = new VertexBuffer(*this);
-    this->associate(*vb);
-    return *vb;
-}
-
 randar::Geometry& randar::GraphicsContext::geometry()
 {
     randar::Geometry *geo = new Geometry(*this);

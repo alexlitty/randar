@@ -202,7 +202,6 @@ namespace randar
          * These must be used in the Node.js adapter so we can destruct
          * resources in a predictable manner.
          */
-        VertexBuffer& vertexBuffer();
         Geometry& geometry();
 
         Renderbuffer& renderbuffer(
