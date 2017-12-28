@@ -9,7 +9,7 @@ function assertVertex(vertex, other) {
     assert.equal(vertex.color.a().toFixed(2), other.color.a().toFixed(2));
 }
 
-describe.only('VertexBuffer', function() {
+describe('VertexBuffer', function() {
     let buffer;
     let vertices;
 
