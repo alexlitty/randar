@@ -363,13 +363,6 @@ unsigned int randar::GraphicsContext::resourceCount() const
 }
 
 // Resource creators.
-randar::Geometry& randar::GraphicsContext::geometry()
-{
-    randar::Geometry *geo = new Geometry(*this);
-    this->associate(*geo);
-    return *geo;
-}
-
 randar::Renderbuffer& randar::GraphicsContext::renderbuffer(
     uint32_t width,
     uint32_t height,

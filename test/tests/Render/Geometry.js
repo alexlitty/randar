@@ -56,7 +56,7 @@ describe('Geometry', function() {
     });
 
     beforeEach(function() {
-        geo = ctx.geometry();
+        geo = new randar.Geometry(ctx);
     });
 
     it('reports correct type', function() {
