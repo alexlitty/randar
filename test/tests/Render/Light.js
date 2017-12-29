@@ -49,7 +49,7 @@ describe('Lights', function() {
 
     it('Spotlight', function() {
         this.timeout(8000);
-        let light = randar.context().spotlight();
+        let light = new randar.Spotlight();
         world.lights.add(light);
 
         light.range(0.01, 10000);

@@ -195,14 +195,6 @@ namespace randar
         unsigned int resourceCount() const;
 
         /**
-         * Resource creators.
-         *
-         * These must be used in the Node.js adapter so we can destruct
-         * resources in a predictable manner.
-         */
-        randar::Spotlight& spotlight();
-
-        /**
          * Default resources.
          */
         Shader& defaultShader(ShaderType type);

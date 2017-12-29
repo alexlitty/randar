@@ -9,7 +9,12 @@ namespace randar
     {
     public:
         /**
-         * Constructor.
+         * Default context constructor.
+         */
+        Spotlight();
+
+        /**
+         * Primary constructor.
          */
         Spotlight(GraphicsContext& context);
 
@@ -19,7 +24,6 @@ namespace randar
         void position(const Vector3& newPosition);
         void move(const Vector3& movement);
         Vector3 position();
-
 
         /**
          * Sets and retrieves the target vector.

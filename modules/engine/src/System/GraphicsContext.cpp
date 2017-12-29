@@ -361,14 +361,6 @@ unsigned int randar::GraphicsContext::resourceCount() const
     return this->resources.size();
 }
 
-// Resource creators.
-randar::Spotlight& randar::GraphicsContext::spotlight()
-{
-    randar::Spotlight* s = new randar::Spotlight(*this);
-    this->associate(*s);
-    return *s;
-}
-
 // Default resources.
 randar::Shader& randar::GraphicsContext::defaultShader(randar::ShaderType type)
 {
