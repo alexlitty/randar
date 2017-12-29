@@ -1,10 +1,6 @@
 #include <map>
 #include <randar/System/GraphicsContextResource.hpp>
-#include <randar/Render/Framebuffer.hpp>
-#include <randar/Render/Texture.hpp>
-#include <randar/Render/Geometry.hpp>
 #include <randar/Render/ShaderProgram.hpp>
-#include <randar/Render/Light/Spotlight.hpp>
 #include <randar/System/Window.hpp>
 #include <randar/System/FbConfig.hpp>
 

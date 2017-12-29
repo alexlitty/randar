@@ -12,23 +12,9 @@
 namespace randar
 {
     class GraphicsContextResource;
-
-    template <GLenum T, typename U> class GlBuffer;
-    typedef GlBuffer<GL_ARRAY_BUFFER, float> FloatArrayBuffer;
-    typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer;
-
-    class VertexBuffer;
-    class Geometry;
-
-    class Shader;
     class ShaderProgram;
-
-    class Renderbuffer;
-    class Framebuffer;
-    class Texture;
+    class Shader;
     class Window;
-
-    class Spotlight;
 
     /**
      * A wrapper for OpenGL contexts.
