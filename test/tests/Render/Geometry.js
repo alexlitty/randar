@@ -180,7 +180,7 @@ describe('Geometry', function() {
 
     it('draws to off-screen framebuffer', function() {
         let fb      = new randar.Framebuffer();
-        let texture = randar.context().texture(64, 64);
+        let texture = new randar.Texture(64, 64);
         fb.attach(texture);
 
         testGeoDraw(randar, geo, fb);
@@ -189,7 +189,7 @@ describe('Geometry', function() {
     it('draws to default framebuffer', function() {
         this.timeout(10000);
 
-        let win = randar.context().window(256, 256);
+        let win = new randar.Window(256, 256);
         testGeoDraw(randar, geo, win.framebuffer(), win);
         win.close();
     });
