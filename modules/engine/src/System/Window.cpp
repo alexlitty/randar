@@ -4,6 +4,16 @@
 
 // Constructor.
 randar::Window::Window(
+    uint32_t width,
+    uint32_t height,
+    const randar::WindowOptions& options
+)
+: randar::Window(randar::context(), width, height, options)
+{
+
+}
+
+randar::Window::Window(
     randar::GraphicsContext& context,
     uint32_t width,
     uint32_t height,

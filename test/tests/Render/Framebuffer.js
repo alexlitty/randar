@@ -22,7 +22,7 @@ function assertCleared(readable, expectedColor) {
     }
 }
 
-describe.only('Framebuffer', function() {
+describe('Framebuffer', function() {
     describe('window', function() {
         let ctx;
         
