@@ -47,7 +47,7 @@ function testGeoDraw(randar, geo, fb, win) {
     if (win) { win.present(); }
 }
 
-describe.only('Geometry', function() {
+describe('Geometry', function() {
     let geo;
 
     beforeEach(function() {

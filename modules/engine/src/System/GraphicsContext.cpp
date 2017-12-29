@@ -363,16 +363,6 @@ unsigned int randar::GraphicsContext::resourceCount() const
 }
 
 // Resource creators.
-randar::Renderbuffer& randar::GraphicsContext::renderbuffer(
-    uint32_t width,
-    uint32_t height,
-    const std::string& type)
-{
-    randar::Renderbuffer* rb = new Renderbuffer(*this, width, height, type);
-    this->associate(*rb);
-    return *rb;
-}
-
 randar::Framebuffer& randar::GraphicsContext::framebuffer()
 {
     randar::Framebuffer* fb = new Framebuffer(*this);

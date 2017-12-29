@@ -202,11 +202,6 @@ namespace randar
          * These must be used in the Node.js adapter so we can destruct
          * resources in a predictable manner.
          */
-        Renderbuffer& renderbuffer(
-            uint32_t width,
-            uint32_t height,
-            const std::string& type);
-
         Framebuffer& framebuffer();
 
         randar::Texture& texture(

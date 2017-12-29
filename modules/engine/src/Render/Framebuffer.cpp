@@ -171,7 +171,8 @@ void randar::Framebuffer::attach(randar::Texture& texture)
         ::glDrawBuffers(1, drawBuffers);
         this->ctx->check("Cannot set draw buffers");
 
-        this->depthBuffer = &this->ctx->renderbuffer(
+        this->depthBuffer = new randar::Renderbuffer(
+            *this->ctx,
             this->getWidth(),
             this->getHeight(),
             "depth"
