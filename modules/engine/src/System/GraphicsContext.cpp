@@ -363,16 +363,6 @@ unsigned int randar::GraphicsContext::resourceCount() const
 }
 
 // Resource creators.
-randar::Texture& randar::GraphicsContext::texture(
-    uint32_t width,
-    uint32_t height,
-    const std::string& type)
-{
-    randar::Texture* t = new Texture(*this, width, height, type);
-    this->associate(*t);
-    return *t;
-}
-
 randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
 {
     randar::Window* w = new randar::Window(*this, width, height);

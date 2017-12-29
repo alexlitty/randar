@@ -202,11 +202,6 @@ namespace randar
          * These must be used in the Node.js adapter so we can destruct
          * resources in a predictable manner.
          */
-        randar::Texture& texture(
-            uint32_t width,
-            uint32_t height,
-            const std::string& type = "rgba");
-
         randar::Window& window(uint32_t width, uint32_t height);
 
         randar::Monitor& monitor(randar::Geometry& geometry);

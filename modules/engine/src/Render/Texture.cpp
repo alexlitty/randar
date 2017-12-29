@@ -1,6 +1,15 @@
 #include <randar/Render/Texture.hpp>
 
-// New texture constructor.
+// Constructors.
+randar::Texture::Texture(
+    uint32_t initWidth,
+    uint32_t initHeight,
+    const std::string& initType)
+: randar::Texture(randar::context(), initWidth, initHeight, initType)
+{
+
+}
+
 randar::Texture::Texture(
     randar::GraphicsContext& context,
     uint32_t initWidth,

@@ -37,7 +37,15 @@ namespace randar
         Texture& operator =(const Texture& other) = delete;
 
         /**
-         * New texture constructor.
+         * Default context constructor.
+         */
+        Texture(
+            uint32_t initWidth,
+            uint32_t initHeight,
+            const std::string& initType = "rgba");
+
+        /**
+         * Primary constructor.
          */
         Texture(
             GraphicsContext& context,
