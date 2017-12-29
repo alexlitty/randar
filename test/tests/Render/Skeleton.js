@@ -107,8 +107,7 @@ describe('Skeleton', function() {
     it('applies skeletons to geometry', function() {
         this.timeout(6000);
 
-        let ctx = new randar.GraphicsContext();
-        let win = ctx.window(800, 600);
+        let win = new randar.Window(800, 600);
         win.fps(24);
 
         let camera = win.camera();

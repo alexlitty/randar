@@ -147,8 +147,8 @@ describe('Scene', function() {
     it('draw frames to a canvas', function() {
         this.timeout(30000);
 
-        let ctx    = new randar.GraphicsContext();
-        let win    = ctx.window(800, 600);
+        let ctx    = randar.context();
+        let win    = new randar.Window(ctx, 800, 600);
         let camera = win.camera();
 
         win.fps(24);

@@ -1,12 +1,10 @@
 describe('World', function() {
-    let ctx;
     let win;
     let world;
     let camera;
 
     before(function() {
-        ctx = new randar.GraphicsContext();
-        win = ctx.window(800, 600);
+        win = new randar.Window(800, 600);
         win.fps(24);
 
         camera = win.camera();
@@ -48,9 +46,9 @@ describe('World', function() {
         model.geometry(geo);
         world.models.add(model);
 
+        model.axis(randar.vector(1, 0, 0));
         for (let i = 0; i < 48; i++) {
-            model.rotationAxis(randar.vector(0, 1, 0));
-            model.rotate(randar.angle(400));
+            model.rotate(randar.radians(2.8));
             model.move(randar.vector(0, 0, -0.05));
             win.draw(world);
             win.present();

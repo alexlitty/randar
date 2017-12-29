@@ -1,7 +1,6 @@
 describe('Shape', function() {
     this.timeout(4000);
 
-    let ctx;
     let win;
     let camera;
     let cameraQuat;
@@ -11,8 +10,7 @@ describe('Shape', function() {
     }
 
     before(function() {
-        ctx = new randar.GraphicsContext();
-        win = ctx.window(800, 600);
+        win = new randar.Window(800, 600);
 
         camera = win.camera();
         camera.projection();
