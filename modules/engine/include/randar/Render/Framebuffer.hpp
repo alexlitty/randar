@@ -76,6 +76,13 @@ namespace randar
         Framebuffer& operator=(const Framebuffer& other) = delete;
 
         /**
+         * Constructs an off-screen framebuffer on the default context.
+         *
+         * Delegated to the primary constructor.
+         */
+        Framebuffer();
+
+        /**
          * Constructs an off-screen framebuffer.
          *
          * Useless until a texture is attached.

@@ -22,16 +22,12 @@ function assertCleared(readable, expectedColor) {
     }
 }
 
-describe('Framebuffer', function() {
+describe.only('Framebuffer', function() {
     describe('window', function() {
         let ctx;
         
-        beforeEach(function() {
-            ctx = new randar.GraphicsContext();
-        });
-
-        afterEach(function() {
-            ctx = null;
+        before(function() {
+            ctx = randar.context();
         });
 
         it('constructs with window', function() {
@@ -118,15 +114,13 @@ describe('Framebuffer', function() {
 
     describe('off-screen', function() {
         it('constructs with context', function() {
-            let ctx = new randar.GraphicsContext();
-            let fb  = ctx.framebuffer();
+            let fb = new randar.Framebuffer();
             assert.notEqual(fb.getGlName(), 0);
         });
 
         it('constructs unique gl names', function() {
-            let ctx = new randar.GraphicsContext();
-            let fb1 = ctx.framebuffer();
-            let fb2 = ctx.framebuffer();
+            let fb1 = new randar.Framebuffer();
+            let fb2 = new randar.Framebuffer();
 
             assert.notEqual(fb1.getGlName(), 0);
             assert.notEqual(fb2.getGlName(), 0);
@@ -134,10 +128,9 @@ describe('Framebuffer', function() {
         });
 
         it('attaches rgba texture', function() {
-            let ctx = new randar.GraphicsContext();
-            let fb  = ctx.framebuffer();
+            let fb = new randar.Framebuffer();
 
-            let texture = ctx.texture(64, 64, 'rgba');
+            let texture = randar.context().texture(64, 64, 'rgba');
             fb.attach(texture);
 
             assert.notEqual(fb.getGlName(), 0);
@@ -146,8 +139,7 @@ describe('Framebuffer', function() {
         });
 
         it('writes to rgba texture', function() {
-            let ctx   = new randar.GraphicsContext();
-            let fb    = ctx.framebuffer();
+            let fb    = new randar.Framebuffer();
             let color = new randar.Color(
                 0.250980406999588,
                 0.7490196228027344,
@@ -155,7 +147,7 @@ describe('Framebuffer', function() {
                 0.8705882430076599
             );
 
-            let texture = ctx.texture(128, 128, 'rgba');
+            let texture = randar.context().texture(128, 128, 'rgba');
             fb.attach(texture);
 
             fb.clear(color);

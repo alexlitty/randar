@@ -179,7 +179,7 @@ describe('Geometry', function() {
     });
 
     it('draws to off-screen framebuffer', function() {
-        let fb      = randar.context().framebuffer();
+        let fb      = new randar.Framebuffer();
         let texture = randar.context().texture(64, 64);
         fb.attach(texture);
 
