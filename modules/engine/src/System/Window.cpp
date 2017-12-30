@@ -60,6 +60,7 @@ randar::Window::Window(
 
     this->fb.reset(new Framebuffer(*this));
 
+    // @todo - optimize
     while (!this->isOpen()) {
 
     }
@@ -82,6 +83,10 @@ void randar::Window::close()
 {
     if (this->isInitialized()) {
         this->fb.release();
+
+        if (this->ctx->isCurrent(*this)) {
+            this->ctx->unuse();
+        }
 
         ::glXDestroyWindow(this->ctx->display, this->glxWindow);
         ::XDestroyWindow(this->ctx->display, this->handle);
