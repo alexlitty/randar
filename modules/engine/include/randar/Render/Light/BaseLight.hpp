@@ -19,11 +19,6 @@ namespace randar
         BaseLight& operator=(const BaseLight& other) = delete;
 
         /**
-         * Default context constructor.
-         */
-        BaseLight();
-
-        /**
          * Primary constructor.
          */
         BaseLight(GraphicsContext& context);

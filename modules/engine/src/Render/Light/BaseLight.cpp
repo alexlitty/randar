@@ -1,12 +1,6 @@
 #include <randar/Render/Light/BaseLight.hpp>
 
 // Constructors.
-randar::BaseLight::BaseLight()
-: randar::BaseLight(randar::context())
-{
-
-}
-
 randar::BaseLight::BaseLight(randar::GraphicsContext& context)
 : randar::GraphicsContextResource(&context),
   framebuffer(context),
