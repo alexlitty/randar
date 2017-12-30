@@ -114,6 +114,11 @@ namespace randar
         std::string version();
 
         /**
+         * Makes no context current.
+         */
+        void unuse();
+
+        /**
          * Makes this context current without considering a window.
          *
          * This simply enables off-screen rendering via framebuffers. To enable

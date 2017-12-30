@@ -79,7 +79,7 @@ randar::GraphicsContext::GraphicsContext()
     }
 
     // Unassign any active context.
-    ::glXMakeCurrent(this->display, None, NULL);
+    this->unuse();
 
     // Find a proper framebuffer configuration.
     int fbCount = 0;
@@ -227,6 +227,12 @@ std::string randar::GraphicsContext::version()
     }
 
     return std::string(reinterpret_cast<const char*>(str));
+}
+
+// Makes no context current.
+void randar::GraphicsContext::unuse()
+{
+    ::glXMakeCurrent(this->display, None, nullptr);
 }
 
 // Makes this context current without considering a window.
