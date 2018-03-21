@@ -29,32 +29,38 @@ randar::Quaternion::Quaternion(const btQuaternion& other)
 }
 
 // Absolutely sets the rotation represented by this quaternion.
-void randar::Quaternion::set(float ix, float iy, float iz, float iw, bool updateAxis)
+void randar::Quaternion::set(float ix, float iy, float iz, float iw)
 {
     this->x = ix;
     this->y = iy;
     this->z = iz;
     this->w = iw;
     this->normalize();
-
-    if (updateAxis) {
-        this->ax = this->axis();
-    }
 }
 
 void randar::Quaternion::set(const Vector3& newAxis, const Angle& newAngle)
 {
-    float halfRads = newAngle.toRadians() / 2.0f;
-    Vector3 transformedAxis = newAxis.normalized() * std::sin(halfRads);
-    this->set(
-        transformedAxis.x,
-        transformedAxis.y,
-        transformedAxis.z,
-        std::cos(halfRads),
-        false
-    );
+    if (!newAxis.getMagnitude()) {
+        this->set(0, 0, 0, 0);
+        this->ax.set(0, 0, 0);
+    }
 
-    this->ax = newAxis;
+    else {
+        Vector3 normalizedNewAxis = newAxis.normalized();
+
+        float halfRads = newAngle.toRadians() / 2.0f;
+        Vector3 transformedAxis = normalizedNewAxis * std::sin(halfRads);
+        this->set(
+            transformedAxis.x,
+            transformedAxis.y,
+            transformedAxis.z,
+            std::cos(halfRads)
+        );
+
+        this->ax = normalizedNewAxis;
+    }
+
+    this->ang = newAngle;
 }
 
 void randar::Quaternion::axis(const Vector3& newAxis)
@@ -64,7 +70,7 @@ void randar::Quaternion::axis(const Vector3& newAxis)
 
 void randar::Quaternion::angle(const Angle& newAngle)
 {
-    this->set(this->ax, newAngle);
+    this->set(this->axis(), newAngle);
 }
 
 // Relatively sets the rotation represented by this quaternion.
@@ -76,24 +82,25 @@ void randar::Quaternion::rotate(const Angle& deltaAngle)
 // Gets information about the represented rotation.
 randar::Vector3 randar::Quaternion::axis() const
 {
-    float d = std::sqrt(1 - (this->w * this->w));
-
-    // Arbitrary axis. Any axis produces the same result.
-    if (d == 0.0f) {
-        return Vector3(1.0f, 0.0f, 0.0f);
-    }
-
-    return Vector3(
-        this->x / d,
-        this->y / d,
-        this->z / d
-    ).normalized();
+    return this->ax;
 }
 
 randar::Angle randar::Quaternion::angle() const
 {
-    return 2.0f * std::acos(this->w);
+    return this->ang;
 }
+
+// Calculates the axis and angle from the x, y, z, and w components.
+// @todo - use!
+/*void randar::Quaternion::recompute()
+{
+    float denom = std::sin(this->angle().toRadians() / 2.0f);
+    if (!denom) {
+        this->ax.set(0, 0, 0);
+    }
+    this->ax = Vector3(this->x, this->y, this->z) / denom;
+    this->ang = 2.0f * std::acos(this->w);
+}*/
 
 // Converts this quaternion to a unit quaternion.
 void randar::Quaternion::normalize()

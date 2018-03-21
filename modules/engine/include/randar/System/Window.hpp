@@ -52,6 +52,15 @@ namespace randar
 
     public:
         /**
+         * Constructor, default context.
+         */
+        Window(
+            uint32_t width,
+            uint32_t height,
+            const WindowOptions& options = WindowOptions()
+        );
+
+        /**
          * Constructor.
          */
         Window(

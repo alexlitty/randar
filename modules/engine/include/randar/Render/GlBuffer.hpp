@@ -42,8 +42,7 @@ namespace randar
          * Constructors.
          */
         GlBuffer()
-        : GraphicsContextResource(nullptr),
-          inSync(false)
+        : GlBuffer(randar::context())
         {
 
         }

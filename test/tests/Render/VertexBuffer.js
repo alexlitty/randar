@@ -10,7 +10,6 @@ function assertVertex(vertex, other) {
 }
 
 describe('VertexBuffer', function() {
-    let ctx;
     let buffer;
     let vertices;
 
@@ -23,8 +22,7 @@ describe('VertexBuffer', function() {
     });
 
     beforeEach(function() {
-        ctx    = new randar.GraphicsContext();
-        buffer = ctx.vertexBuffer();
+        buffer = new randar.VertexBuffer();
     });
 
     it('constructs empty and initialized', function() {

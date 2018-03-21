@@ -48,15 +48,10 @@ function testGeoDraw(randar, geo, fb, win) {
 }
 
 describe('Geometry', function() {
-    let ctx;
     let geo;
 
-    before(function() {
-        ctx = new randar.GraphicsContext();
-    });
-
     beforeEach(function() {
-        geo = ctx.geometry();
+        geo = new randar.Geometry();
     });
 
     it('reports correct type', function() {
@@ -184,8 +179,8 @@ describe('Geometry', function() {
     });
 
     it('draws to off-screen framebuffer', function() {
-        let fb      = ctx.framebuffer();
-        let texture = ctx.texture(64, 64);
+        let fb      = new randar.Framebuffer();
+        let texture = new randar.Texture(64, 64);
         fb.attach(texture);
 
         testGeoDraw(randar, geo, fb);
@@ -194,7 +189,7 @@ describe('Geometry', function() {
     it('draws to default framebuffer', function() {
         this.timeout(10000);
 
-        let win = ctx.window(256, 256);
+        let win = new randar.Window(256, 256);
         testGeoDraw(randar, geo, win.framebuffer(), win);
         win.close();
     });

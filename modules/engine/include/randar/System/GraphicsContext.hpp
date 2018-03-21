@@ -5,31 +5,16 @@
 #include <set>
 #include <stdexcept>
 #include <vector>
+#include <randar/Core/Resource.hpp>
 #include <randar/Render/ShaderType.hpp>
 #include <randar/Utility/Gl.hpp>
 
 namespace randar
 {
     class GraphicsContextResource;
-
-    template <GLenum T, typename U> class GlBuffer;
-    typedef GlBuffer<GL_ARRAY_BUFFER, float> FloatArrayBuffer;
-    typedef GlBuffer<GL_ELEMENT_ARRAY_BUFFER, unsigned int> IndexBuffer;
-
-    class VertexBuffer;
-    class Geometry;
-
-    class Shader;
     class ShaderProgram;
-
-    class Renderbuffer;
-    class Framebuffer;
-    class Texture;
+    class Shader;
     class Window;
-
-    class Monitor;
-
-    class Spotlight;
 
     /**
      * A wrapper for OpenGL contexts.
@@ -60,7 +45,7 @@ namespace randar
      * associated with this context. To perform rendering in a window, use the
      * default framebuffers exposed by randar Windows.
      */
-    class GraphicsContext
+    class GraphicsContext : virtual public Resource
     {
         /**
          * Display that was used to construct this context.
@@ -196,40 +181,12 @@ namespace randar
         unsigned int resourceCount() const;
 
         /**
-         * Resource creators.
-         *
-         * These must be used in the Node.js adapter so we can destruct
-         * resources in a predictable manner.
-         */
-        FloatArrayBuffer& floatArrayBuffer();
-        IndexBuffer& indexBuffer();
-
-        VertexBuffer& vertexBuffer();
-        Geometry& geometry();
-
-        Renderbuffer& renderbuffer(
-            uint32_t width,
-            uint32_t height,
-            const std::string& type);
-
-        Framebuffer& framebuffer();
-
-        randar::Texture& texture(
-            uint32_t width,
-            uint32_t height,
-            const std::string& type = "rgba");
-
-        randar::Window& window(uint32_t width, uint32_t height);
-
-        randar::Monitor& monitor(randar::Geometry& geometry);
-
-        randar::Spotlight& spotlight();
-
-        /**
          * Default resources.
          */
         Shader& defaultShader(ShaderType type);
         ShaderProgram& defaultShaderProgram();
+
+        virtual std::string description() override;
 
         /**
          * Allow Randar windows to manipulate the ongoing list of associated
@@ -237,6 +194,11 @@ namespace randar
          */
         friend Window;
     };
+
+    /**
+     * Provides a globally available graphics context.
+     */
+    GraphicsContext& context();
 }
 
 #endif

@@ -1,6 +1,15 @@
 #include <randar/Render/Texture.hpp>
 
-// New texture constructor.
+// Constructors.
+randar::Texture::Texture(
+    uint32_t initWidth,
+    uint32_t initHeight,
+    const std::string& initType)
+: randar::Texture(randar::context(), initWidth, initHeight, initType)
+{
+
+}
+
 randar::Texture::Texture(
     randar::GraphicsContext& context,
     uint32_t initWidth,
@@ -63,6 +72,7 @@ void randar::Texture::uninitialize()
 
     this->ctx->use();
     ::glDeleteTextures(1, &this->glName);
+    this->glName = 0;
 }
 
 // Checks if the texture is initialized.
@@ -74,7 +84,7 @@ bool randar::Texture::isInitialized() const
 // Binds the texture for further operations.
 void randar::Texture::bind()
 {
-    if (this->glName == 0) {
+    if (!this->isInitialized()) {
         throw std::runtime_error("Cannot bind uninitialized texture");
     }
 

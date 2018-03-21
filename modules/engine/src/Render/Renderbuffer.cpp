@@ -1,6 +1,15 @@
 #include <randar/Render/Renderbuffer.hpp>
 
-// Constructor.
+// Constructors.
+randar::Renderbuffer::Renderbuffer(
+    uint32_t initWidth,
+    uint32_t initHeight,
+    const std::string& initBufferType)
+: randar::Renderbuffer(randar::context(), initWidth, initHeight, initBufferType)
+{
+
+}
+
 randar::Renderbuffer::Renderbuffer(
     randar::GraphicsContext& context,
     uint32_t initWidth,

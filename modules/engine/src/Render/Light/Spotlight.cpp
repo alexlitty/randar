@@ -1,6 +1,12 @@
 #include <randar/Render/Light/Spotlight.hpp>
 
-// Constructor.
+// Constructors.
+randar::Spotlight::Spotlight()
+: randar::Spotlight(randar::context())
+{
+
+}
+
 randar::Spotlight::Spotlight(randar::GraphicsContext& context)
 : randar::BaseLight(context)
 {

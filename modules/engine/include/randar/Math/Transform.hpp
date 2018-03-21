@@ -13,10 +13,55 @@ namespace randar
         Quaternion rot;
 
     public:
+        /**
+         * Constructors.
+         */
+        Transform(
+            const randar::Vector3& initPosition = randar::Vector3(),
+            const randar::Quaternion& initRotation = randar::Quaternion()
+        );
+
+        Transform(
+            const randar::Vector3& initPosition,
+            const randar::Vector3& initAxis,
+            const randar::Angle& initAngle = randar::Angle()
+        );
+
+        Transform(
+            const randar::Quaternion& initRotation
+        );
+
+        Transform(
+            const randar::Vector3& initAxis,
+            const randar::Angle& initAngle
+        );
+
+        /**
+         * Destructor.
+         */
         ~Transform();
 
         /**
-         * Sets this transformation from a physical transformation.
+         * Resets the transformation.
+         */
+        void reset();
+
+        /**
+         * Sets the transformation.
+         */
+        void set(
+            const randar::Vector3& newPosition,
+            const randar::Quaternion& newRotation
+        );
+
+        void set(
+            const randar::Vector3& newPosition,
+            const randar::Vector3& newAxis,
+            const randar::Angle& newAngle = randar::Angle()
+        );
+
+        /**
+         * Sets the transformation from a physical transformation.
          */
         void set(const btTransform& transform);
 
@@ -51,8 +96,8 @@ namespace randar
         /**
          * Sets and retrieves the axis of rotation.
          */
-        void rotationAxis(const Vector3& axis);
-        Vector3 rotationAxis() const;
+        void axis(const Vector3& newAxis);
+        Vector3 axis() const;
 
         /**
          * Absolutely sets the angle of rotation.
@@ -101,9 +146,6 @@ namespace randar
          */
         static Transform Identity;
     };
-
-    // Node.js helper.
-    Transform transform();
 }
 
 #endif

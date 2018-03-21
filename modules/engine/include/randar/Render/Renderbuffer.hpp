@@ -31,7 +31,15 @@ namespace randar
         const std::string bufferType;
 
         /**
-         * Constructor.
+         * Default context constructor.
+         */
+        Renderbuffer(
+            uint32_t initWidth,
+            uint32_t initHeight,
+            const std::string& initBufferType = "depth");
+
+        /**
+         * Primary constructor.
          */
         Renderbuffer(
             GraphicsContext& context,

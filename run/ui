@@ -1,5 +1,0 @@
-#!/bin/bash
-RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
-
-${RANDAR_PATH}/run/build ui
-${RANDAR_PATH}/node_modules/.bin/electron ${RANDAR_PATH}/modules/ui

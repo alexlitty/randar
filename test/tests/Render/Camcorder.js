@@ -1,10 +1,8 @@
 describe('Camcorder', function() {
-    let ctx;
     let win;
 
     before(function() {
-        ctx = new randar.GraphicsContext();
-        win = ctx.window(600, 480);
+        win = new randar.Window(600, 480);
     });
 
     after(function() {

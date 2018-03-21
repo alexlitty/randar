@@ -1,11 +1,6 @@
 #include <map>
 #include <randar/System/GraphicsContextResource.hpp>
-#include <randar/Render/Framebuffer.hpp>
-#include <randar/Render/Texture.hpp>
-#include <randar/Render/Geometry.hpp>
 #include <randar/Render/ShaderProgram.hpp>
-#include <randar/Render/Light/Spotlight.hpp>
-#include <randar/System/Monitor.hpp>
 #include <randar/System/Window.hpp>
 #include <randar/System/FbConfig.hpp>
 
@@ -237,8 +232,6 @@ std::string randar::GraphicsContext::version()
 // Makes this context current without considering a window.
 void randar::GraphicsContext::use()
 {
-    this->check("Uncaught GL error");
-
     if (this->isCurrent()) {
         return;
     }
@@ -294,6 +287,7 @@ void randar::GraphicsContext::check(const std::string& message)
         { GL_OUT_OF_MEMORY, "Out of memory" }
     };
 
+    this->use();
     this->status = ::glGetError();
     if (status == GL_NO_ERROR) {
         return;
@@ -363,83 +357,6 @@ unsigned int randar::GraphicsContext::resourceCount() const
     return this->resources.size();
 }
 
-// Resource creators.
-randar::FloatArrayBuffer& randar::GraphicsContext::floatArrayBuffer()
-{
-    randar::FloatArrayBuffer *fab = new FloatArrayBuffer(*this);
-    this->ownedResources.insert(fab);
-    return *fab;
-}
-
-randar::IndexBuffer& randar::GraphicsContext::indexBuffer()
-{
-    randar::IndexBuffer *ib = new IndexBuffer(*this);
-    this->associate(*ib);
-    return *ib;
-}
-
-randar::VertexBuffer& randar::GraphicsContext::vertexBuffer()
-{
-    randar::VertexBuffer *vb = new VertexBuffer(*this);
-    this->associate(*vb);
-    return *vb;
-}
-
-randar::Geometry& randar::GraphicsContext::geometry()
-{
-    randar::Geometry *geo = new Geometry(*this);
-    this->associate(*geo);
-    return *geo;
-}
-
-randar::Renderbuffer& randar::GraphicsContext::renderbuffer(
-    uint32_t width,
-    uint32_t height,
-    const std::string& type)
-{
-    randar::Renderbuffer* rb = new Renderbuffer(*this, width, height, type);
-    this->associate(*rb);
-    return *rb;
-}
-
-randar::Framebuffer& randar::GraphicsContext::framebuffer()
-{
-    randar::Framebuffer* fb = new Framebuffer(*this);
-    this->associate(*fb);
-    return *fb;
-}
-
-randar::Texture& randar::GraphicsContext::texture(
-    uint32_t width,
-    uint32_t height,
-    const std::string& type)
-{
-    randar::Texture* t = new Texture(*this, width, height, type);
-    this->associate(*t);
-    return *t;
-}
-
-randar::Window& randar::GraphicsContext::window(uint32_t width, uint32_t height)
-{
-    randar::Window* w = new randar::Window(*this, width, height);
-    this->associate(*w);
-    return *w;
-}
-
-randar::Monitor& randar::GraphicsContext::monitor(randar::Geometry& geo)
-{
-    randar::Monitor* m = new randar::Monitor(*this, geo);
-    this->associate(*m);
-    return *m;
-}
-
-randar::Spotlight& randar::GraphicsContext::spotlight()
-{
-    randar::Spotlight* s = new randar::Spotlight(*this);
-    this->associate(*s);
-    return *s;
-}
-
 // Default resources.
 randar::Shader& randar::GraphicsContext::defaultShader(randar::ShaderType type)
 {
@@ -463,4 +380,18 @@ randar::ShaderProgram& randar::GraphicsContext::defaultShaderProgram()
     }
 
     return *this->dShaderProgram;
+}
+
+std::string randar::GraphicsContext::description()
+{
+    return "[GraphicsContext | OpenGL: " + this->version() + "]";
+}
+
+randar::GraphicsContext& randar::context()
+{
+    static randar::GraphicsContext* c = nullptr;
+    if (!c) {
+        c = new randar::GraphicsContext();
+    }
+    return *c;
 }

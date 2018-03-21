@@ -3,7 +3,7 @@
 
 #include <map>
 #include <vector>
-#include <randar/Render/Joint.hpp>
+#include <randar/Render/SkeletonState.hpp>
 
 namespace randar
 {
@@ -51,6 +51,19 @@ namespace randar
         void clear();
 
         /**
+         * Resets all joints to their default identity state.
+         */
+        void reset();
+
+        /**
+         * Resets all joints to a state.
+         *
+         * If a joint isn't in the provided state, it is reset to its default
+         * identity state.
+         */
+        void reset(SkeletonState& st);
+
+        /**
          * Adds a parentless joint to the skeleton, returning the added joint.
          *
          * Throws an error if a joint with the same name already exists.
@@ -86,11 +99,32 @@ namespace randar
         std::string jointName(uint32_t index) const;
 
         /**
+         * Whether a named joint exists in the skeleton.
+         *
+         * @@@ horribly inefficient because of class structure. use better
+         * data structures.
+         */
+        bool hasJoint(const std::string& name) const;
+
+        /**
          * Retrieves the index of a joint by its name.
          *
          * Throws an error if the joint does not exist.
          */
         uint32_t jointIndex(const std::string& name) const;
+
+        /**
+         * Applies a state to the skeleton.
+         *
+         * Only mutually available joints are modified. All other joints are
+         * unmodified.
+         */
+        void apply(SkeletonState& st);
+
+        /**
+         * Extracts the skeleton's current state.
+         */
+        SkeletonState state();
 
         /**
          * Calculates the matrix of a joint and its parents.

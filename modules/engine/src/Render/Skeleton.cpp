@@ -43,6 +43,26 @@ void randar::Skeleton::clear()
     this->jointParents.clear();
 }
 
+// Joint resetting.
+void randar::Skeleton::reset()
+{
+    for (Joint& joint : this->joints) {
+        joint.reset();
+    }
+}
+
+void randar::Skeleton::reset(SkeletonState& st)
+{
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        if (st.has(this->jointNames[i])) {
+            this->joints[i] = st.joint(this->jointNames[i]);
+        } else {
+            this->joints[i].reset();
+        }
+    }
+}
+
 // Adds a parentless joint to the skeleton.
 randar::Joint& randar::Skeleton::add(const std::string& name)
 {
@@ -90,6 +110,18 @@ std::string randar::Skeleton::jointName(uint32_t index) const
     return this->jointNames[index];
 }
 
+// Whether a named joint exists in the skeleton.
+bool randar::Skeleton::hasJoint(const std::string& name) const
+{
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        if (this->jointNames[i] == name) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Retrieves the index of a joint by its name.
 uint32_t randar::Skeleton::jointIndex(const std::string& name) const
 {
@@ -100,6 +132,28 @@ uint32_t randar::Skeleton::jointIndex(const std::string& name) const
     }
 
     throw std::runtime_error("Joint does not exist");
+}
+
+// Applying and extracting states.
+void randar::Skeleton::apply(randar::SkeletonState& st)
+{
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        if (st.has(this->jointNames[i])) {
+            this->joints[i] = st.joint(this->jointNames[i]);
+        }
+    }
+}
+
+randar::SkeletonState randar::Skeleton::state()
+{
+    SkeletonState st;
+    int n = this->jointNames.size();
+    for (int i = 0; i < n; i++) {
+        Joint& joint = st.joint(this->jointNames[i]);
+        joint = this->joints[i];
+    }
+    return st;
 }
 
 // Calculates the matrix of a joint and its parents.

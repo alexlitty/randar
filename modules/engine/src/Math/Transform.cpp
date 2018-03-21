@@ -1,11 +1,75 @@
 #include <randar/Math/Transform.hpp>
 
+// Constructors.
+randar::Transform::Transform(
+    const randar::Vector3& initPosition,
+    const randar::Quaternion& initRotation
+)
+: pos(initPosition),
+  rot(initRotation)
+{
+
+}
+
+randar::Transform::Transform(
+    const randar::Vector3& initPosition,
+    const randar::Vector3& initAxis,
+    const randar::Angle& initAngle
+)
+: randar::Transform(initPosition, randar::Quaternion(initAxis, initAngle))
+{
+
+}
+
+randar::Transform::Transform(
+    const randar::Quaternion& initRotation
+)
+: randar::Transform(randar::Vector3(), initRotation)
+{
+
+}
+
+randar::Transform::Transform(
+    const randar::Vector3& initAxis,
+    const randar::Angle& initAngle
+)
+: randar::Transform(randar::Quaternion(initAxis, initAngle))
+{
+
+}
+
+// Destructor.
 randar::Transform::~Transform()
 {
 
 }
 
-// Sets this transformation from a physical transformation.
+// Resets the transformation.
+void randar::Transform::reset()
+{
+    this->set(randar::Vector3(), randar::Quaternion());
+}
+
+// Sets the transformation.
+void randar::Transform::set(
+    const randar::Vector3& newPosition,
+    const randar::Quaternion& newRotation
+)
+{
+    this->position(newPosition);
+    this->rotation(newRotation);
+}
+
+void randar::Transform::set(
+    const randar::Vector3& newPosition,
+    const randar::Vector3& newAxis,
+    const randar::Angle& newAngle
+)
+{
+    this->set(newPosition, randar::Quaternion(newAxis, newAngle));
+}
+
+// Sets the transformation from a physical transformation.
 void randar::Transform::set(const btTransform& transform)
 {
     this->position(transform.getOrigin());
@@ -62,12 +126,12 @@ randar::Quaternion randar::Transform::rotation() const
 }
 
 // Sets and retrieves the axis of rotation.
-void randar::Transform::rotationAxis(const randar::Vector3& axis)
+void randar::Transform::axis(const randar::Vector3& newAxis)
 {
-    this->rotation().axis(axis);
+    this->rotation().axis(newAxis);
 }
 
-randar::Vector3 randar::Transform::rotationAxis() const
+randar::Vector3 randar::Transform::axis() const
 {
     return this->rotation().axis();
 }
@@ -124,9 +188,3 @@ randar::Transform::operator btTransform() const
 
 // An identity transformation.
 randar::Transform randar::Transform::Identity;
-
-// Node.js helper.
-randar::Transform randar::transform()
-{
-    return randar::Transform();
-}

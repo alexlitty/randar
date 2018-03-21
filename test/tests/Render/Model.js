@@ -1,11 +1,9 @@
 describe('Model', function() {
-    let ctx;
     let win;
     let camera;
 
     before(function() {
-        ctx    = new randar.GraphicsContext();
-        win    = ctx.window(400, 400);
+        win    = new randar.Window(400, 400);
         camera = win.camera();
 
         win.fps(24);

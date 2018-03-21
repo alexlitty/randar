@@ -3,7 +3,7 @@
 
 // Constructors.
 randar::Geometry::Geometry()
-: randar::GraphicsContextResource(nullptr)
+: randar::Geometry(randar::context())
 {
 
 }

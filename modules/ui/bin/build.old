@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('../init');
 const less = require('less');
 

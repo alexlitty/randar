@@ -36,7 +36,7 @@ namespace randar
      * directly create resources and contexts in separately tracked v8 values,
      * which will be picked up by garbage collection in unpredictable order.
      */
-    class GraphicsContextResource
+    class GraphicsContextResource : virtual public Resource
     {
         friend GraphicsContext;
 
@@ -144,6 +144,13 @@ namespace randar
          * By default nothing happens.
          */
         virtual void uninitialize();
+
+        /**
+         * Human-friendly description of the resource.
+         *
+         * Should be overriden by children.
+         */
+        virtual std::string description() override;
     };
 }
 

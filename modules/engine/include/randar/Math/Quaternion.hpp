@@ -17,6 +17,7 @@ namespace randar
         float w;
 
         Vector3 ax;
+        Angle ang;
 
     public:
         /**
@@ -32,7 +33,7 @@ namespace randar
         /**
          * Construction from axis and angle.
          */
-        Quaternion(const Vector3& newAxis, const Angle& newAngle);
+        Quaternion(const Vector3& newAxis, const Angle& newAngle = randar::Angle());
 
         /**
          * Construction from physics quaternion.
@@ -42,7 +43,7 @@ namespace randar
         /**
          * Absolutely sets the rotation represented by this quaternion.
          */
-        void set(float ix, float iy, float iz, float iw, bool updateAxis = true);
+        void set(float ix, float iy, float iz, float iw);
         void set(const Vector3& newAxis, const Angle& newAngle);
         void axis(const Vector3& newAxis);
         void angle(const Angle& newAngle);
@@ -93,7 +94,7 @@ namespace randar
      * Node.js helpers.
      */
     Quaternion quaternion();
-    Quaternion quaternion(const Vector3& axis, const Angle& angle);
+    Quaternion quaternion(const Vector3& axis, const Angle& angle = randar::angle());
 }
 
 #endif

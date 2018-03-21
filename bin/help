@@ -25,16 +25,16 @@ cat << "EOF"
             San Francisco, California
 
 
-      run/install ..... Installs the suite.
-      run/uninstall ... Don't do this.
-      run/build ....... Builds all modules.
-      run/rebuild ..... Rebuilds all modules.
+      bin/install ..... Installs the suite.
+      bin/uninstall ... Don't do this.
+      bin/build ....... Builds all modules.
+      bin/rebuild ..... Rebuilds all modules.
 
-      run/test ........ Runs automated test suite.
-      run/demo ........ Interactively runs a demo.
-      run/ui .......... Starts the user interface.
+      bin/test ........ Runs automated test suite.
+      bin/demo ........ Interactively runs a demo.
+      bin/ui .......... Starts the user interface.
 
-      run/count ....... Count total lines of code.
-      run/help ........ Shows this helpful text.
+      bin/count ....... Count total lines of code.
+      bin/help ........ Shows this helpful text.
 
 EOF

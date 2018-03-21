@@ -1,0 +1,4 @@
+#!/bin/bash
+ENGINE_PATH=`realpath $0 | xargs dirname | xargs dirname`
+${ENGINE_PATH}/bin/clean
+${ENGINE_PATH}/bin/build

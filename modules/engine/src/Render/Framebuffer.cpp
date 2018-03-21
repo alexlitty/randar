@@ -2,6 +2,12 @@
 #include <randar/Render/Model.hpp>
 
 // Constructs an off-screen framebuffer.
+randar::Framebuffer::Framebuffer()
+: randar::Framebuffer(randar::context())
+{
+
+}
+
 randar::Framebuffer::Framebuffer(randar::GraphicsContext& context)
 : randar::GraphicsContextResource(&context),
   randar::Canvas(0),
@@ -171,7 +177,8 @@ void randar::Framebuffer::attach(randar::Texture& texture)
         ::glDrawBuffers(1, drawBuffers);
         this->ctx->check("Cannot set draw buffers");
 
-        this->depthBuffer = &this->ctx->renderbuffer(
+        this->depthBuffer = new randar::Renderbuffer(
+            *this->ctx,
             this->getWidth(),
             this->getHeight(),
             "depth"

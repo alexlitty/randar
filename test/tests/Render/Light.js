@@ -1,5 +1,4 @@
 describe('Lights', function() {
-    let ctx;
     let win;
     let camera;
     let world;
@@ -11,8 +10,7 @@ describe('Lights', function() {
     let modelBall;
 
     before(function() {
-        ctx = new randar.GraphicsContext();
-        win = ctx.window(800, 600);
+        win = new randar.Window(800, 600);
 
         camera = win.camera();
         camera.projection();
@@ -51,7 +49,7 @@ describe('Lights', function() {
 
     it('Spotlight', function() {
         this.timeout(8000);
-        let light = ctx.spotlight();
+        let light = new randar.Spotlight();
         world.lights.add(light);
 
         light.range(0.01, 10000);

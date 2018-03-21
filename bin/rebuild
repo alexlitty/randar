@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+RANDAR_PATH=`realpath $0 | xargs dirname | xargs dirname`
+${RANDAR_PATH}/bin/build rebuild

@@ -80,8 +80,20 @@ randar::Angle randar::operator /(randar::Angle lhs, float rhs)
     return lhs /= rhs;
 }
 
+// Converts to string.
+std::string randar::Angle::toString() const
+{
+    return std::to_string(this->toRadians()) + " radians";
+}
+
 // Node.js helper.
 randar::Angle randar::angle(float radians)
+{
+    return randar::Angle(radians);
+}
+
+// Shortcut helpers.
+randar::Angle randar::radians(float radians)
 {
     return randar::Angle(radians);
 }

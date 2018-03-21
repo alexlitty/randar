@@ -4,19 +4,13 @@ function assertDims(texture, width, height) {
 };
 
 describe('Texture', function() {
-    let ctx;
-
-    before(function() {
-        ctx = new randar.GraphicsContext();
-    });
-
     it('constructs rgba by default', function() {
-        const texture = ctx.texture(64, 64);
+        const texture = new randar.Texture(64, 64);
         assert.equal(texture.type, 'rgba');
     });
 
     it('refuses invalid type construction', function() {
-        assert.throws(() => ctx.texture(64, 64, 'invalid'));
+        assert.throws(() => new randar.Texture(64, 64, 'invalid'));
     });
 
     describe('rgba', function() {
@@ -29,7 +23,7 @@ describe('Texture', function() {
 
             for (dim of dims) {
                 assertDims(
-                    ctx.texture(dim.x, dim.y, 'rgba'),
+                    new randar.Texture(dim.x, dim.y, 'rgba'),
                     dim.x,
                     dim.y
                 );
@@ -37,7 +31,7 @@ describe('Texture', function() {
         });
 
         it('refuses construction with invalid dimensions', function() {
-            assert.throws(() => ctx.texture(-32, 32, 'rgba'));
+            assert.throws(() => new randar.Texture(-32, 32, 'rgba'));
         });
 
         it('resizes with correct dimensions', function() {
@@ -48,7 +42,7 @@ describe('Texture', function() {
             ];
 
             for (dim of dims) {
-                let texture = ctx.texture(2, 2, 'rgba');
+                let texture = new randar.Texture(2, 2, 'rgba');
 
                 assert.doesNotThrow(() => texture.resize(dim.x, dim.y));
                 assertDims(texture, dim.x, dim.y);
@@ -56,7 +50,7 @@ describe('Texture', function() {
         });
 
         it('refuses resizing with invalid dimensions', function() {
-            let texture = ctx.texture(32, 32, 'rgba');
+            let texture = new randar.Texture(32, 32, 'rgba');
             assert.throws(() => texture.resize(-32, 32));
         });
     });

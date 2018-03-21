@@ -1,7 +1,16 @@
-require('../init');
+#!/usr/bin/env node
+
+const async  = require('async');
+const fs     = require('fs');
+const glob   = require('glob');
+const mkdirp = require('mkdirp');
+const os     = require('os');
+const path   = require('path');
+const spawn  = require('child_process').spawn;
+const config = require('randar-config');
 
 function publish(filename, contents, sensitive, done) {
-    const filepath = path.normalize(path.join(RANDAR_PATH.ADAPTER, filename));
+    const filepath = path.normalize(path.join(config.paths.adapter, filename));
 
     function write() {
         mkdirp(path.dirname(filepath));
@@ -38,7 +47,7 @@ function publish(filename, contents, sensitive, done) {
 
 function run(command, args, successMessage, done) {
     const program = spawn(command, args, {
-        cwd   : RANDAR_PATH.ADAPTER,
+        cwd   : config.paths.adapter,
         stdio : 'inherit'
     });
 
@@ -61,8 +70,8 @@ function build(options, done) {
     const gypFilename    = 'binding.gyp';
     const moduleFilename = 'build/adapter.node';
 
-    const headers = glob.sync(path.join(RANDAR_PATH.ENGINE_INCLUDE, '**', '*.hpp'));
-    const sources = glob.sync(path.join(RANDAR_PATH.ENGINE_SOURCE, '**', '*.cpp'));
+    const headers = glob.sync(path.join(config.paths.engineInclude, '**', '*.hpp'));
+    const sources = glob.sync(path.join(config.paths.engineSrc, '**', '*.cpp'));
 
     headerContents = headers.reduce((result, filename) => {
         result[filename] = fs.readFileSync(filename).toString();
@@ -79,7 +88,7 @@ function build(options, done) {
         var key = availableHeaders.findIndex((header) => {
             return availableHeaders.every((otherHeader) => {
                 return headerContents[header].indexOf(
-                    otherHeader.replace(RANDAR_PATH.ENGINE_INCLUDE, '')
+                    otherHeader.replace(config.paths.engineInclude, '')
                 ) == -1;
             });
         });
@@ -204,7 +213,7 @@ function build(options, done) {
 
             sources: sources.map((filename) => {
                 return filename.replace(
-                    RANDAR_PATH.ENGINE,
+                    config.paths.engine,
                     path.join('..', 'engine')
                 )
             }).concat([wrapFilename]),
@@ -212,7 +221,7 @@ function build(options, done) {
             include_dirs: [
                 'modules/engine/include',
                 'modules/engine/include/bullet3'
-            ].map((dir) => path.normalize(path.join(RANDAR_PATH.ROOT, dir))),
+            ].map((dir) => path.normalize(path.join(config.paths.root, dir))),
 
             libraries: [
                 '-lstdc++',
@@ -259,7 +268,7 @@ function build(options, done) {
                 '-o', wrapFilename,
                 swigFilename
             ],
-            `Published ${path.join(RANDAR_PATH.ADAPTER, wrapFilename)}`,
+            `Published ${path.join(config.paths.adapter, wrapFilename)}`,
             next
         ),
 
@@ -274,7 +283,7 @@ function build(options, done) {
 
         // Configure compilation if required.
         (next) => {
-            if (fs.existsSync(path.join(RANDAR_PATH.ADAPTER, 'build'))) {
+            if (fs.existsSync(path.join(config.paths.adapter, 'build'))) {
                 next();
             } else {
                 run('node-gyp', ['configure'], 'Ready to compile adapter', next);
@@ -288,12 +297,23 @@ function build(options, done) {
                 'build',
                 '-j', '4'
             ],
-            `Published ${path.join(RANDAR_PATH.ADAPTER, moduleFilename)}`,
+            `Published ${path.join(config.paths.adapter, moduleFilename)}`,
             next
         )
     ], done);
 }
 
-module.exports = {
-    build: build
-};
+let options = { };
+let args = process.argv.slice(2);
+if (args.indexOf('rebuild') > -1) {
+    options.rebuild = true;
+}
+
+build(options, (err) => {
+    if (err) {
+        console.log(err);
+        process.exit(1);
+    } else {
+        process.exit(0);
+    }
+});
