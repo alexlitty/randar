@@ -1,5 +1,5 @@
 # Randar: A Legacy Project
-This is the foundation for an old C++ & OpenGL 3D film rendering engine intended for animated productions at Litty Studios.
+This is the foundation for an old C++ & OpenGL 3D film rendering engine intended for my own animated productions.
 
 The repository is preserved as a learning experience for others and a showcase of some old historical work I'm proud of.
 
@@ -10,7 +10,7 @@ Since the library would serve as the heart of the animation studio, I also found
 
 I eventually learned of similar rendering library efforts that started earlier in the Rust community. While my idea slowly came to some form of stability it wasn't nearly as feature-complete as the more recent developments; I was mostly pursuing Randar development alone and couldn't compete.
 
-I've decided to retire this project as a result but the dream of my own animation studio lives on.
+I've decided to retire this project as a result but the dream of my creating my own animated stories lives on.
 
 All that aside, the most important lessons I learned:
 
