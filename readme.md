@@ -28,8 +28,8 @@ Looking at the Rust community there's a clear and irrefutable power in numbers. 
 # Installation
 You're welcome to give the library a try locally if it works for you. To install, simply run:
 
-    git clone https://github.com/litty-studios/randar-legacy.git
-    cd randar-legacy
+    git clone https://github.com/alexlitty/randar.git
+    cd randar
     ./run/install
 
 Randar was created to be Debian-only. Ubuntu, Linux Mint, and other Debian derivatives may work out-of-the-box. If dependencies are installed manually, Randar should work on most major Linux distributions.
