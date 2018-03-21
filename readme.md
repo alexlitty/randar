@@ -6,7 +6,7 @@ The repository is preserved as a learning experience for others and a showcase o
 # Postmortem
 The initial intent was to make a rendering library I enjoyed using and could deeply configure for oddball graphics work. Other C++ alternatives felt too limiting: They often abstracted too much away in an inconfigurable manner, featured an old C style API that was difficult to wrap modern work around, and were severely lacking in documentation. The professional alternatives were definitely an option but simply too expensive for my desired budget.
 
-Since the library would serve as the heart of the animation studio, I also found it important to keep it open-source or developed in-house to ensure complete control over the software and keep expenses low. The decision seemed clear at the time, leading me to start a deep focus on the library and graphics engineering in general.
+I also found it important to keep it open-source or developed in-house to ensure complete control over the software and keep expenses low. The decision seemed clear at the time, leading me to start a deep focus on the library and graphics engineering in general.
 
 I eventually learned of similar rendering library efforts that started earlier in the Rust community. While my idea slowly came to some form of stability it wasn't nearly as feature-complete as the more recent developments; I was mostly pursuing Randar development alone and couldn't compete.
 
@@ -18,7 +18,7 @@ All that aside, the most important lessons I learned:
 I didn't realize it at the time but my project started to become the very thing I despised: A big conglomerate library of "things" that had some tangible relationship with one another. I think I did a relatively good job keeping it cleaned and organized (as we all do) but the scope still grew out of control.
 
 ## Not the right technology
-Rust is amazing and I wish I stumbled upon it sooner. For the studio's purposes, it's an amazing long-term replacement for C++. If you're my friend you know I won't stop talking about it -- I really think it's silly to make anything in C and C++ today when you have the time and ability to use Rust.
+Rust is amazing and I wish I stumbled upon it sooner. For my purposes, it's an amazing long-term replacement for C++. If you're my friend you know I won't stop talking about it -- I really think it's silly to make anything in C and C++ today when you have the time and ability to use Rust.
 
 Every aspect we need in _modern_ programming is built into Rust and Cargo; I'm most fond of the easy testability, the improved modularity, and the guaranteed memory safety. It's totally the future.
 
