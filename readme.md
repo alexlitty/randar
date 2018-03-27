@@ -3,14 +3,12 @@ This is the foundation for an old C++ & OpenGL 3D film rendering engine idea.
 
 I've moved onto new ambitions within the Rust community. The repository is preserved as a learning experience for others and a showcase of some historical work.
 
-# Installation
-You're welcome to give the library a try locally. To install, simply run:
+## Philosophy
+I think this project had a pretty unique structure. The important engine code is in C++ and SWIG was used to wrap the engine in an Node.js "adapter" module, which was further extended with minor features in a "wrapper" module.
 
-    git clone https://github.com/alexlitty/randar.git
-    cd randar
-    ./run/install
+The idea was to have the low-level performance of C++ in a language that is easy to prototype with. I found it far more satisfying to write all the unit tests and extended toolage in Node.js instead of C++, for example.
 
-Randar was created to be Debian-only. Ubuntu, Linux Mint, and other Debian derivatives may work out-of-the-box. If dependencies are installed manually, Randar should work on most major Linux distributions.
+As an added bonus, we could quickly build interfaces by using the Node.js module in Electron apps!
 
-# License
+## License
 See the `LICENSE` file.
