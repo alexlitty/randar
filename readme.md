@@ -1,7 +1,7 @@
 # Randar: A Legacy Project
-This is the foundation for an old C++ & OpenGL 3D film rendering engine idea.
+This is the foundation for an old C++ & OpenGL 3D film rendering engine idea. A list of final features is available on the [v1.0.0 tag](https://github.com/alexlitty/randar/releases/tag/v1.0.0).
 
-I've moved onto new ambitions within the Rust community. The repository is preserved as a learning experience for others and a showcase of some historical work.
+I've moved onto similar ambitions within the Rust community. The repository is preserved as a learning experience for others and a showcase of some historical work.
 
 ## Philosophy
 I think this project had a pretty unique structure. The important engine code is in C++ and SWIG was used to wrap the engine in an Node.js "adapter" module, which was further extended with minor features in a "wrapper" module.
